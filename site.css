@@ -194,3 +194,46 @@ dialog::backdrop{background:rgba(36,31,69,.6)}
 .open-storage{display:inline-block;background:var(--orange-soft);color:var(--orange-text);font:700 13px Montserrat;padding:8px 18px;border-radius:999px;text-decoration:none;transition:.2s}
 .open-storage:hover{transform:translateY(-2px);background:#fff;box-shadow:0 8px 20px rgba(0,0,0,.25)}
 .foot{align-items:center;flex-wrap:wrap;gap:12px}
+
+/* ---------- hiệu ứng hiện dần ---------- */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease var(--d,0ms),transform .6s ease var(--d,0ms)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+/* ---------- dịch vụ ---------- */
+.services{background:var(--paper)}
+.svc-cols{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:28px}
+.svc-col{background:var(--lav-100);border:2px solid var(--lav-300);border-radius:22px;padding:22px}
+.svc-col>h3{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange-text);margin:0 0 6px}
+.svc{display:flex;gap:14px;padding:16px 0;border-top:2px dashed var(--lav-300)}
+.svc:first-of-type{border-top:0}
+.svc-n{flex:0 0 36px;height:36px;border-radius:50%;background:var(--orange);color:var(--ink);font-weight:800;font-size:13px;display:grid;place-items:center}
+.svc h4{margin:0 0 4px;font-size:17px}
+.svc p{margin:0 0 8px;font-size:14px}
+.svc-tag{display:inline-block;background:var(--lav-200);border:1px solid var(--lav-400);color:var(--purple-deep);font:700 10.5px Montserrat;letter-spacing:.08em;padding:3px 10px;border-radius:999px}
+.svc-link{background:none;border:0;color:var(--purple-deep);font:700 13px Montserrat;cursor:pointer;padding:0 4px;text-decoration:underline;text-decoration-color:var(--orange);text-underline-offset:4px}
+.svc-link:hover{color:var(--orange-deep)}
+.svc-more{margin-top:22px;font-weight:600}
+.svc-more a{color:var(--purple-deep);font-weight:700}
+@media(max-width:820px){.svc-cols{grid-template-columns:1fr}}
+
+/* ---------- khoá học giới thiệu ---------- */
+.course{padding:40px 0 70px}
+.course[hidden]{display:none}
+.course-card{position:relative;display:grid;grid-template-columns:150px 1fr 230px;gap:28px;align-items:center;color:#fff;border-radius:28px;padding:34px;
+  background:radial-gradient(600px 300px at 100% 100%,rgba(255,122,69,.35),transparent),radial-gradient(500px 300px at 0 0,rgba(106,92,255,.45),transparent),var(--ink);box-shadow:0 20px 50px rgba(36,31,69,.35);overflow:hidden}
+.course-card h2{color:#fff;font-size:clamp(22px,3vw,32px);margin-bottom:10px}
+.course-card p{color:var(--lav-200);font-size:14.5px}
+.course-mascot{border-radius:50%;border:4px solid #fff;object-fit:cover;box-shadow:var(--shadow);animation:bob 4s ease-in-out infinite}
+.course-points{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:8px}
+.course-points li{position:relative;padding-left:26px;font-size:14px;color:#fff;font-weight:600}
+.course-points li::before{content:"✓";position:absolute;left:0;top:0;color:var(--orange);font-weight:800}
+.course-cta{background:#fff;color:var(--ink);border-radius:22px;padding:18px;text-align:center;display:grid;gap:10px;justify-items:center}
+.course-cta b{font-size:13px;line-height:1.3}
+.course-cta small{font-size:11px;color:var(--ink-soft)}
+.course-badge{background:var(--orange);color:var(--ink);font:800 12px Montserrat;padding:4px 12px;border-radius:999px}
+.qr{width:150px;height:150px;padding:8px;background:#fff;border:2px solid var(--lav-300);border-radius:14px}
+.qr svg{width:100%;height:100%;display:block}
+.course-cta .btn{width:100%;text-align:center}
+.course-note{grid-column:1/-1;margin:0;font-size:12px!important;color:var(--lav-300)!important;opacity:.9}
+@media(max-width:900px){.course-card{grid-template-columns:1fr;text-align:left;padding:26px}.course-mascot{width:96px;height:96px}.course-cta{width:100%}}

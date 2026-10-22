@@ -3,14 +3,28 @@ const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "
 const safe = (u) => { const v = String(u ?? "").replace(/[\x00-\x1f]/g, "").trim(); return /^(https?:|mailto:|tel:)/i.test(v) || /^[\w./-]+$/.test(v) ? v : ""; };
 
 const I18N = {
-  vi: { nav_story: "Hành trình", nav_menu: "Năng lực", nav_work: "Dự án", nav_certs: "Chứng chỉ", nav_contact: "Liên hệ", cta_talk: "Liên hệ mình", cta_work: "Xem dự án",
+  vi: {
+    nav_services: "Dịch vụ", svc_k: "DỊCH VỤ", svc_h: "Mình có thể đồng hành cùng bạn ở những việc này.", svc_p: "Chọn mảng bạn cần, mình bắt đầu từ bối cảnh của bạn. Mỗi mảng đều có dự án thật để xem.",
+    svc_not: "Chưa thấy đúng nhu cầu?", svc_ask: "Nhắn mình →", svc_view: "Xem dự án →",
+    course_k: "KHOÁ HỌC MÌNH GIỚI THIỆU", course_h: "Biết dùng AI là một chuyện. Biết giao việc cho AI mới ra kết quả.",
+    course_p: "Mình giới thiệu lớp “Teamwork với AI” của KesFlow, nơi mình cũng đang làm cộng tác viên cộng đồng. Bạn học cách chia việc cho một đội AI, có AI kiểm tra, rồi bạn duyệt.",
+    course_scan: "Quét bằng camera điện thoại", course_btn: "Xem khoá học",
+    course_note: "Link giới thiệu: nếu bạn đăng ký qua link này, mình nhận một phần hoa hồng, bạn không phải trả thêm. Điều đó giúp mình duy trì trang này.",
+    nav_story: "Hành trình", nav_menu: "Năng lực", nav_work: "Dự án", nav_certs: "Chứng chỉ", nav_contact: "Liên hệ", cta_talk: "Liên hệ mình", cta_work: "Xem dự án",
     badge_open: "Sẵn sàng cho cơ hội mới", badge_school: "Tân cử nhân UFM 2026", h1a: "Mỗi chiến dịch bắt đầu từ một insight.", h1b: "Để “Ranh Ma” tìm ra.", onmenu: "ĐANG CHẠY",
     story_k: "HÀNH TRÌNH", story_h: "Mỗi vai trò là một chiến dịch.", menu_k: "NĂNG LỰC", menu_h: "Marketing toolkit của mình.", about: "Về mình", goal: "Mục tiêu", skills: "Kỹ năng", tools: "Phần mềm",
     after_h: "Ngoài giờ, AI Agent vẫn chạy chiến dịch.", after_p: "Ngoài chiến dịch, mình xây trợ lý AI và chatbot để việc lặp đi lặp lại tự chạy.", after_cta: "Xem AI Agent",
     work_k: "DỰ ÁN", work_h: "9 thư mục dự án mình đã thực hành.", work_p: "Mọi thứ bên dưới đều là việc thật. Bấm vào thư mục để xem đề bài, cách làm và sản phẩm.",
     certs_k: "HỌC & THỰC HÀNH", certs_h: "Chứng chỉ & khoá đào tạo.", contact_h: "Có bài toán marketing? Cùng mình lên chiến lược.", contact_p: "Cảm ơn đã ghé qua! Mình luôn sẵn sàng trò chuyện về cơ hội hợp tác hoặc công việc Digital Marketing.",
     edu: "Học vấn", phone: "Điện thoại / Zalo", reveal: "Bấm để hiện số", copy: "COPY", copied: "ĐÃ COPY", s1: "Khoá luận tốt nghiệp", s2: "Tăng lưu lượng truy cập", s3: "Mảng thực hành", s4: "Chứng chỉ & khoá học", plan: "Xem kế hoạch đầy đủ trên Canva" },
-  en: { nav_story: "Journey", nav_menu: "Skills", nav_work: "Projects", nav_certs: "Certificates", nav_contact: "Contact", cta_talk: "Get in touch", cta_work: "See my work",
+  en: {
+    nav_services: "Services", svc_k: "SERVICES", svc_h: "Where I can work alongside you.", svc_p: "Pick the area you need and I'll start from your context. Every area has real projects to look at.",
+    svc_not: "Don't see your need?", svc_ask: "Message me →", svc_view: "See projects →",
+    course_k: "A COURSE I RECOMMEND", course_h: "Using AI is one thing. Knowing how to brief it is what gets results.",
+    course_p: "I'm recommending KesFlow's “Teamwork with AI” class, where I also help run the community. You learn to split work across a team of AIs, have one check it, then you approve.",
+    course_scan: "Scan with your phone camera", course_btn: "See the course",
+    course_note: "Referral link: if you sign up through it, I earn a small commission at no extra cost to you. It helps keep this page running.",
+    nav_story: "Journey", nav_menu: "Skills", nav_work: "Projects", nav_certs: "Certificates", nav_contact: "Contact", cta_talk: "Get in touch", cta_work: "See my work",
     badge_open: "Open to new opportunities", badge_school: "UFM graduate 2026", h1a: "Every campaign starts with an insight.", h1b: "Let “Ranh Ma” find it.", onmenu: "NOW RUNNING",
     story_k: "JOURNEY", story_h: "Every role was a campaign.", menu_k: "SKILLS", menu_h: "My marketing toolkit.", about: "About me", goal: "Goal", skills: "Skills", tools: "Software",
     after_h: "Off the clock, AI agents keep the campaigns running.", after_p: "Beyond campaigns, I build AI assistants and chatbots so repetitive work runs itself.", after_cta: "See AI Agent",
@@ -29,6 +43,22 @@ const SOCIALS = [
 ];
 // Logo phần mềm (assets/icons/sw). Mục nào chưa có logo sẽ hiện chữ.
 const SW_LOGOS = { Canva: "canva.svg", CapCut: "capcut.png", Photoshop: "adobephotoshop.svg", Illustrator: "adobeillustrator.svg", SEMrush: "semrush.svg", Ahrefs: "ahrefs.png", "Keyword Tool": "keywordtool.png", Word: "microsoftword.svg", Excel: "microsoftexcel.svg", ChatGPT: "openai.svg", Gemini: "googlegemini.svg", Perplexity: "perplexity.svg", Claude: "claude.svg", NotebookLM: "notebooklm.svg" };
+const SERVICES = [
+  { id: "growth", vi: "Tăng trưởng & hiệu suất", en: "Growth & performance", items: [
+    { key: "seo", vi: ["SEO & Content", "Nghiên cứu từ khoá, viết nội dung chuẩn SEO và tối ưu on-page để website lên top tìm kiếm.", "WEBSITE · SHOP"], en: ["SEO & Content", "Keyword research, SEO-ready content and on-page tuning to climb search results.", "WEBSITES · SHOPS"] },
+    { key: "performance", vi: ["Performance Ads", "Chạy và tối ưu quảng cáo Facebook, TikTok, Google; theo dõi chi phí và chuyển đổi.", "SHOP · THƯƠNG HIỆU MỚI"], en: ["Performance Ads", "Run and optimise Facebook, TikTok and Google ads; track cost and conversions.", "SHOPS · NEW BRANDS"] },
+    { key: "ecommerce", vi: ["E-Commerce", "Quản trị website bán hàng, tối ưu hành trình mua và nội dung sản phẩm.", "SHOP ONLINE"], en: ["E-Commerce", "Manage online stores, tune the buying journey and product content.", "ONLINE SHOPS"] }
+  ] },
+  { id: "create", vi: "Sáng tạo & vận hành", en: "Creative & operations", items: [
+    { key: "design", vi: ["Design & Edit", "Ấn phẩm trên Canva, Photoshop, Illustrator và video ngắn CapCut cho kênh của bạn.", "THƯƠNG HIỆU · KÊNH NỘI DUNG"], en: ["Design & Edit", "Print and social visuals in Canva, Photoshop, Illustrator, plus short CapCut videos.", "BRANDS · CONTENT CHANNELS"] },
+    { key: "aiagent", vi: ["AI Agent & Chatbot", "Trợ lý AI và chatbot Zalo, Discord trả lời tự động, đỡ việc lặp lại mỗi ngày.", "CHĂM SÓC KHÁCH HÀNG · LỚP HỌC"], en: ["AI Agents & Chatbots", "AI assistants and Zalo or Discord chatbots that answer automatically and cut repetitive work.", "CUSTOMER CARE · CLASSES"] },
+    { key: "planning", vi: ["Planning & Account", "Lên proposal, kế hoạch IMC, pitching và đồng hành tới nghiệm thu dự án.", "AGENCY · CHIẾN DỊCH"], en: ["Planning & Account", "Proposals, IMC plans and pitching, through to project sign-off.", "AGENCIES · CAMPAIGNS"] }
+  ] }
+];
+const COURSE_POINTS = {
+  vi: ["6 buổi học online, 2 buổi mỗi tuần (tối thứ 3 và thứ 6)", "Không cần biết code, không cần kinh nghiệm dùng AI", "Có video, tài liệu và trợ giảng đồng hành"],
+  en: ["6 online sessions, 2 a week (Tuesday and Friday evenings)", "No coding and no prior AI experience needed", "Videos, materials and teaching assistants stay with you"]
+};
 let D, lang = "vi";
 try { lang = localStorage.getItem("lm_lang") || "vi"; } catch {}
 const T = (k) => I18N[lang][k] ?? k;
@@ -74,6 +104,7 @@ function render() {
   $("#projects").innerHTML = D.projects.map((pr, i) => `<button class="pcard" data-proj="${i}"><div class="ph${pr.image ? "" : " thumbs"}">${pr.image ? `<img loading="lazy" src="${esc(safe(pr.image))}" alt="">` : pr.videos.slice(0, 3).map((v) => `<img loading="lazy" src="${esc(safe(v.thumb))}" alt="">`).join("")}<span class="num">${String(i + 1).padStart(2, "0")}</span></div><div class="tx"><h3>${esc(L(pr, "title"))}</h3><p>${esc(L(pr, "desc"))}</p></div></button>`).join("");
   $("#certList").innerHTML = D.certificates.map((c, i) => `<button class="ccard" data-cert="${i}"><img loading="lazy" src="${esc(safe(c.images[0]))}" alt=""><div><b>${esc(L(c, "name"))}</b><small>${esc(c.org)}</small></div></button>`).join("");
   requestAnimationFrame(railBtns);
+  renderServices(); renderCourse(); watchStats();
   // Email hiện sẵn + COPY; số điện thoại chỉ hiện khi bấm (không nằm trong HTML/JSON công khai).
   $("#contacts").innerHTML = `
     <li><span class="lbl">Email</span><a href="mailto:${esc(p.email)}">${esc(p.email)}</a><button class="btn" data-copy="${esc(p.email)}">${T("copy")}</button></li>
@@ -85,6 +116,57 @@ function revealPhone(btn) {
   const num = atob(PH);
   const li = btn.parentElement;
   li.innerHTML = `<span class="lbl">${T("phone")}</span><a href="tel:+84${num.replace(/\s/g, "").slice(1)}">${esc(num)}</a><button class="btn" data-copy="${esc(num)}">${T("copy")}</button>`;
+}
+
+function renderServices() {
+  const box = $("#svcCols"); if (!box) return;
+  box.innerHTML = SERVICES.map((g, gi) => `<div class="svc-col reveal" style="--d:${gi * 90}ms"><h3>${esc(g[lang])}</h3>${g.items.map((it, i) => {
+    const t = it[lang];
+    const has = D && D.projects.some((p) => p.key === it.key);
+    return `<article class="svc"><span class="svc-n">${String(i + 1).padStart(2, "0")}</span><div><h4>${esc(t[0])}</h4><p>${esc(t[1])}</p><span class="svc-tag">${esc(t[2])}</span>${has ? ` <button class="svc-link" data-open="${it.key}">${esc(T("svc_view"))}</button>` : ""}</div></article>`;
+  }).join("")}</div>`).join("");
+  observeReveal();
+}
+
+function renderCourse() {
+  const sec = $("#course"), cfg = window.AFFILIATE || {};
+  const url = safe(cfg.url);
+  if (!sec || !/^https?:/i.test(url)) { if (sec) sec.hidden = true; return; }
+  sec.hidden = false;
+  $("#courseBtn").href = url;
+  $("#coursePoints").innerHTML = COURSE_POINTS[lang].map((x) => `<li>${esc(x)}</li>`).join("");
+  const b = $("#courseBadge"); b.hidden = !cfg.discount; b.textContent = cfg.discount || "";
+  const box = $("#qrBox");
+  if (box.dataset.url !== url) {
+    try { const qr = qrcode(0, "M"); qr.addData(url); qr.make(); box.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true }); box.dataset.url = url; } catch { box.textContent = ""; }
+  }
+  observeReveal();
+}
+
+// hiệu ứng hiện dần khi cuộn + đếm số
+let rio;
+function observeReveal() {
+  if (!("IntersectionObserver" in window) || matchMedia("(prefers-reduced-motion: reduce)").matches) { document.querySelectorAll(".reveal").forEach((e) => e.classList.add("in")); return; }
+  rio ||= new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); rio.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px" });
+  document.querySelectorAll(".reveal:not(.in)").forEach((e) => rio.observe(e));
+}
+function countUp(el) {
+  const m = el.textContent.match(/^([^\d]*)(\d+(?:[.,]\d+)?)(.*)$/);
+  if (!m || el.dataset.counted) return;
+  el.dataset.counted = "1";
+  const pre = m[1], num = m[2], post = m[3], target = parseFloat(num.replace(",", ".")), dec = (num.split(/[.,]/)[1] || "").length;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const t0 = performance.now(), dur = 900;
+  (function tick(t) {
+    const k = Math.min(1, (t - t0) / dur), v = target * (1 - Math.pow(1 - k, 3));
+    el.textContent = k < 1 ? pre + v.toFixed(dec) + post : pre + num + post;
+    if (k < 1) requestAnimationFrame(tick);
+  })(t0);
+}
+function watchStats() {
+  if (!("IntersectionObserver" in window)) return;
+  const o = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { countUp(e.target); o.unobserve(e.target); } }), { threshold: 0.6 });
+  document.querySelectorAll(".stat b").forEach((b) => o.observe(b));
 }
 
 let io;

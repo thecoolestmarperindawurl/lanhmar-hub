@@ -14,6 +14,7 @@
   <nav id="navlinks">
     <a href="#story" data-i="nav_story">Hành trình</a>
     <a href="#menu" data-i="nav_menu">Năng lực</a>
+    <a href="#services" data-i="nav_services">Dịch vụ</a>
     <a href="#work" data-i="nav_work">Dự án</a>
     <a href="#certs" data-i="nav_certs">Chứng chỉ</a>
     <a href="#contact" data-i="nav_contact">Liên hệ</a>
@@ -54,7 +55,7 @@
   <div class="wrap story-grid">
     <div class="story-side">
       <p class="kicker">[02] <span data-i="story_k">HÀNH TRÌNH</span></p>
-      <h2 data-i="story_h">Mỗi vai trò là một chiến dịch.</h2>
+      <h2 class="reveal" data-i="story_h">Mỗi vai trò là một chiến dịch.</h2>
       <div class="counter"><b id="chapN">01</b> / <span id="chapT">05</span></div>
       <div class="progress"><i id="prog"></i></div>
     </div>
@@ -65,12 +66,22 @@
 <section id="menu" class="menu">
   <div class="wrap">
     <p class="kicker">[03] <span data-i="menu_k">NĂNG LỰC</span></p>
-    <h2 data-i="menu_h">Marketing toolkit của mình.</h2>
+    <h2 class="reveal" data-i="menu_h">Marketing toolkit của mình.</h2>
     <div class="stats" id="stats"></div>
     <div class="menu-grid">
       <article class="card"><h3 data-i="about">Về mình</h3><p id="bio"></p><h4 data-i="goal">Mục tiêu</h4><p id="goal"></p></article>
       <article class="card"><h3 data-i="skills">Kỹ năng</h3><div class="chips" id="skills"></div><h3 data-i="tools" style="margin-top:22px">Phần mềm</h3><div id="software"></div></article>
     </div>
+  </div>
+</section>
+
+<section id="services" class="services">
+  <div class="wrap">
+    <p class="kicker reveal">[04] <span data-i="svc_k">DỊCH VỤ</span></p>
+    <h2 class="reveal" data-i="svc_h">Mình có thể đồng hành cùng bạn ở những việc này.</h2>
+    <p class="sub reveal" data-i="svc_p">Chọn mảng bạn cần, mình bắt đầu từ bối cảnh của bạn. Mỗi mảng đều có dự án thật để xem.</p>
+    <div class="svc-cols" id="svcCols"></div>
+    <p class="svc-more reveal"><span data-i="svc_not">Chưa thấy đúng nhu cầu?</span> <a href="#contact" data-i="svc_ask">Nhắn mình →</a></p>
   </div>
 </section>
 
@@ -85,8 +96,8 @@
 
 <section id="work" class="work">
   <div class="wrap">
-    <p class="kicker">[04] <span data-i="work_k">DỰ ÁN</span></p>
-    <h2 data-i="work_h">9 thư mục dự án mình đã thực hành.</h2>
+    <p class="kicker">[05] <span data-i="work_k">DỰ ÁN</span></p>
+    <h2 class="reveal" data-i="work_h">9 thư mục dự án mình đã thực hành.</h2>
     <p class="sub" data-i="work_p">Mọi thứ bên dưới đều là việc thật. Bấm vào thư mục để xem đề bài, cách làm và sản phẩm.</p>
     <div class="grid" id="projects"></div>
   </div>
@@ -94,13 +105,35 @@
 
 <section id="certs" class="certs">
   <div class="wrap">
-    <p class="kicker">[05] <span data-i="certs_k">HỌC & THỰC HÀNH</span></p>
-    <h2 data-i="certs_h">Chứng chỉ & khoá đào tạo.</h2>
+    <p class="kicker">[06] <span data-i="certs_k">HỌC & THỰC HÀNH</span></p>
+    <h2 class="reveal" data-i="certs_h">Chứng chỉ & khoá đào tạo.</h2>
     <div class="rail-wrap">
       <button class="rail-btn p" data-rail="-1" aria-label="Prev">‹</button>
       <div class="rail" id="certList" tabindex="0"></div>
       <button class="rail-btn n" data-rail="1" aria-label="Next">›</button>
     </div>
+  </div>
+</section>
+
+<section id="course" class="course" hidden>
+  <div class="wrap">
+    <article class="course-card reveal">
+      <img class="course-mascot" src="assets/img/mascot-idea.jpg" alt="" width="150" height="150">
+      <div class="course-body">
+        <p class="kicker light">[07] <span data-i="course_k">KHOÁ HỌC MÌNH GIỚI THIỆU</span></p>
+        <h2 data-i="course_h">Biết dùng AI là một chuyện. Biết giao việc cho AI mới ra kết quả.</h2>
+        <p data-i="course_p">Mình giới thiệu lớp “Teamwork với AI” của KesFlow, nơi mình cũng đang làm cộng tác viên cộng đồng. Bạn học cách chia việc cho một đội AI, có AI kiểm tra, rồi bạn duyệt.</p>
+        <ul class="course-points" id="coursePoints"></ul>
+      </div>
+      <aside class="course-cta">
+        <span class="course-badge" id="courseBadge" hidden></span>
+        <b id="courseName">Teamwork với AI · KesFlow</b>
+        <div class="qr" id="qrBox" aria-hidden="true"></div>
+        <small data-i="course_scan">Quét bằng camera điện thoại</small>
+        <a class="btn orange" id="courseBtn" href="#" target="_blank" rel="noopener sponsored"><span data-i="course_btn">Xem khoá học</span> →</a>
+      </aside>
+      <p class="course-note" data-i="course_note">Link giới thiệu: nếu bạn đăng ký qua link này, mình nhận một phần hoa hồng, bạn không phải trả thêm. Điều đó giúp mình duy trì trang này.</p>
+    </article>
   </div>
 </section>
 
@@ -126,6 +159,8 @@
   <div id="dlgBody"></div>
 </dialog>
 
+<script src="assets/qrcode.min.js"></script>
+<script src="site-config.js"></script>
 <script src="site.js"></script>
 </body>
 </html>
