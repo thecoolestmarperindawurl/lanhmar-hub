@@ -230,6 +230,58 @@
     "Ranked 2 keywords in Google's Top 10 and 3 keywords in the Top 100.",
     "Directly contributed to a 20% increase in organic traffic in Q4 2025."
    ]
+  },
+  {
+   "title_vi": "Cộng tác viên Operation",
+   "title_en": "Operations Collaborator",
+   "org_vi": "Công ty TNHH SH Road Việt Nam",
+   "org_en": "SH Road Vietnam Co., Ltd.",
+   "period": "06/2026",
+   "logo": "",
+   "workImage": "",
+   "context_vi": "Hỗ trợ vận hành kho cho hoạt động bán hàng trên các sàn thương mại điện tử, từ nhập hàng đến xuất hàng và xử lý hàng hoàn.",
+   "context_en": "Supported warehouse operations for e-commerce sales, from receiving and shipping orders to handling returns.",
+   "tasks_vi": [
+    "Inbound: nhận hàng theo Packing List, kiểm đếm, QC, kiểm tra hạn sử dụng và sắp xếp hàng lên kệ.",
+    "Outbound: pick đúng hàng theo đơn, QC và scan mã, đóng gói, kiểm tra bill; theo dõi đơn cần xử lý trên Shopee, Lazada, Tiki.",
+    "Bàn giao đơn hoàn thành cho đơn vị vận chuyển (3PL) và phối hợp xử lý khi phát sinh vấn đề.",
+    "Xử lý hàng hoàn: nhập lại hệ thống theo tình trạng, kiểm tra hàng lỗi trong 48 giờ để khiếu nại kịp thời.",
+    "Báo cáo quản lý khi thiếu tồn kho và hỗ trợ kiểm kê theo yêu cầu."
+   ],
+   "tasks_en": [
+    "Inbound: received goods against the Packing List, counted, ran QC, checked expiry dates and put items away on shelves.",
+    "Outbound: picked the right items per order, ran QC and scanned codes, packed and checked bills; monitored pending orders on Shopee, Lazada and Tiki.",
+    "Handed completed orders to 3PL carriers and coordinated when issues came up.",
+    "Handled returns: re-entered items into the system by condition and checked defects within 48 hours to file claims on time.",
+    "Reported stock shortages to managers and supported inventory counts on request."
+   ],
+   "achievements_vi": [],
+   "achievements_en": []
+  },
+  {
+   "title_vi": "Cộng tác viên Build Community",
+   "title_en": "Community Building Collaborator",
+   "org_vi": "KesFlow",
+   "org_en": "KesFlow",
+   "period": "10/2026",
+   "logo": "",
+   "workImage": "",
+   "context_vi": "Đồng hành xây dựng cộng đồng “Đi làm với AI”: vận hành lớp học, quản lý nhóm và tổ chức sự kiện cho người học.",
+   "context_en": "Helped build the “Đi làm với AI” (Working with AI) community: running classes, moderating the group and organizing events for learners.",
+   "tasks_vi": [
+    "Vận hành lớp học: chuẩn bị, hỗ trợ học viên và giữ nhịp buổi học.",
+    "Moderator Facebook Group “Đi làm với AI”: duyệt bài, giữ nội dung đúng chủ đề và tương tác với thành viên.",
+    "Lên kế hoạch và tổ chức Workshop “Đi làm với AI” với khoảng 50 người tham dự.",
+    "Xây dựng tuyến nội dung cho cộng đồng, giúp thành viên có lộ trình học và chia sẻ rõ ràng."
+   ],
+   "tasks_en": [
+    "Ran classes: prepared sessions, supported learners and kept each session on schedule.",
+    "Moderated the “Đi làm với AI” Facebook Group: reviewed posts, kept content on topic and engaged with members.",
+    "Planned and organized the “Đi làm với AI” Workshop with around 50 attendees.",
+    "Built the content track for the community so members have a clear path to learn and share."
+   ],
+   "achievements_vi": [],
+   "achievements_en": []
   }
  ],
  "certificates": [
