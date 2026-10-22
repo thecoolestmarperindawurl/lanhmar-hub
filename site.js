@@ -58,7 +58,7 @@ function render() {
   $("#stats").innerHTML = [["9.0/10", T("s1")], ["+20%", T("s2")], [D.projects.length, T("s3")], [D.certificates.length, T("s4")]].map(([n, l]) => `<div class="stat"><b>${n}</b><span>${esc(l)}</span></div>`).join("");
 
   const chapters = [{ no: T("edu"), title: L(edu, "major"), org: L(edu, "school"), period: `${edu.years} · GPA ${edu.gpa}`, logo: "assets/img/mascot-work.jpg", tasks: [], ach: [L(edu, "thesis")] },
-    ...D.experience.map((e) => ({ no: e.period, title: L(e, "title"), org: L(e, "org"), period: e.period, logo: e.logo, initials: e.initials, ctx: L(e, "context"), tasks: e["tasks_" + lang]?.length ? e["tasks_" + lang] : e.tasks_vi, ach: e["achievements_" + lang]?.length ? e["achievements_" + lang] : e.achievements_vi, img: e.workImage }))];
+    ...D.experience.map((e) => ({ no: e["period_" + lang] || e.period, title: L(e, "title"), org: L(e, "org"), period: e["period_" + lang] || e.period, logo: e.logo, initials: e.initials, ctx: L(e, "context"), tasks: e["tasks_" + lang]?.length ? e["tasks_" + lang] : e.tasks_vi, ach: e["achievements_" + lang]?.length ? e["achievements_" + lang] : e.achievements_vi, img: e.workImage }))];
   $("#chapT").textContent = String(chapters.length).padStart(2, "0");
   $("#chapters").innerHTML = chapters.map((c, i) => `<article class="chapter" data-n="${i + 1}">
     <div class="no">${String(i + 1).padStart(2, "0")} / ${esc(c.no)}</div>
