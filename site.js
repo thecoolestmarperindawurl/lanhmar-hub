@@ -19,6 +19,14 @@ const I18N = {
     edu: "Education", phone: "Phone / Zalo", reveal: "Click to show number", copy: "COPY", copied: "COPIED", s1: "Thesis score", s2: "Traffic growth", s3: "Practice areas", s4: "Certificates & courses", plan: "View the full plan on Canva" }
 };
 
+// Mạng xã hội hiển thị ở cột Follow và phần Liên hệ. Thêm tài khoản mới: điền url vào đây.
+const SOCIALS = [
+  { name: "Facebook", icon: "f", key: "facebook_url" },
+  { name: "TikTok", icon: "♪", url: "https://www.tiktok.com/@hynone101" },
+  // { name: "Telegram", icon: "✈", url: "https://t.me/..." },
+  // { name: "GitHub", icon: "GH", url: "https://github.com/..." },
+  // { name: "Behance", icon: "Bē", url: "https://www.behance.net/..." },
+];
 let D, lang = "vi";
 try { lang = localStorage.getItem("lm_lang") || "vi"; } catch {}
 const T = (k) => I18N[lang][k] ?? k;
@@ -38,8 +46,11 @@ function render() {
   renderStatic();
   const p = D.profile, edu = p.education;
   $("#heroLine").textContent = L(p, "heroLine");
-  $("#fbLink").href = safe(p.facebook_url) || "#";
-  $("#mailLink").href = "mailto:" + p.email;
+  const soc = SOCIALS.map((s) => ({ ...s, url: s.url || safe(p[s.key]) })).filter((s) => s.url);
+  soc.push({ name: "Email", icon: "✉", url: "mailto:" + p.email });
+  const sa = (s) => `<a href="${esc(s.url)}" ${s.url.startsWith("http") ? 'target="_blank" rel="noopener"' : ""} aria-label="${esc(s.name)}" title="${esc(s.name)}">${s.icon}</a>`;
+  $("#followList").innerHTML = soc.map(sa).join("");
+  $("#socialsRow").innerHTML = soc.map(sa).join("");
   $("#bio").textContent = L(p, "bio");
   $("#goal").textContent = L(p, "goal");
   $("#skills").innerHTML = p.skills.map((s) => `<span class="chip">${esc(s[lang] || s.vi)}</span>`).join("");
