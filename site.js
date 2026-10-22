@@ -24,8 +24,8 @@ const SOCIALS = [
   { name: "Facebook", icon: "f", key: "facebook_url" },
   { name: "TikTok", icon: "♪", url: "https://www.tiktok.com/@hynone101" },
   { name: "Telegram", icon: "✈", url: "https://t.me/LANHMAR" },
-  // { name: "GitHub", icon: "GH", url: "https://github.com/..." },
-  // { name: "Behance", icon: "Bē", url: "https://www.behance.net/..." },
+  { name: "GitHub", icon: "GH", url: "https://github.com/thecoolestmarperindawurl" },
+  { name: "Behance", icon: "Bē", url: "https://www.behance.net/lanhmarwurl" },
 ];
 let D, lang = "vi";
 try { lang = localStorage.getItem("lm_lang") || "vi"; } catch {}
