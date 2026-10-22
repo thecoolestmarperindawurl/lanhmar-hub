@@ -21,11 +21,11 @@ const I18N = {
 
 // Mạng xã hội hiển thị ở cột Follow và phần Liên hệ. Thêm tài khoản mới: điền url vào đây.
 const SOCIALS = [
-  { name: "Facebook", icon: "f", key: "facebook_url" },
-  { name: "TikTok", icon: "♪", url: "https://www.tiktok.com/@hynone101" },
-  { name: "Telegram", icon: "✈", url: "https://t.me/LANHMAR" },
-  { name: "GitHub", icon: "GH", url: "https://github.com/thecoolestmarperindawurl" },
-  { name: "Behance", icon: "Bē", url: "https://www.behance.net/lanhmarwurl" },
+  { name: "Facebook", icon: "svg:facebook", key: "facebook_url" },
+  { name: "TikTok", icon: "svg:tiktok", url: "https://www.tiktok.com/@hynone101" },
+  { name: "Telegram", icon: "svg:telegram", url: "https://t.me/LANHMAR" },
+  { name: "GitHub", icon: "svg:github", url: "https://github.com/thecoolestmarperindawurl" },
+  { name: "Behance", icon: "svg:behance", url: "https://www.behance.net/lanhmarwurl" },
 ];
 let D, lang = "vi";
 try { lang = localStorage.getItem("lm_lang") || "vi"; } catch {}
@@ -48,7 +48,7 @@ function render() {
   $("#heroLine").textContent = L(p, "heroLine");
   const soc = SOCIALS.map((s) => ({ ...s, url: s.url || safe(p[s.key]) })).filter((s) => s.url);
   soc.push({ name: "Email", icon: "✉", url: "mailto:" + p.email });
-  const sa = (s) => `<a href="${esc(s.url)}" ${s.url.startsWith("http") ? 'target="_blank" rel="noopener"' : ""} aria-label="${esc(s.name)}" title="${esc(s.name)}">${s.icon}</a>`;
+  const sa = (s) => `<a href="${esc(s.url)}" ${s.url.startsWith("http") ? 'target="_blank" rel="noopener"' : ""} aria-label="${esc(s.name)}" title="${esc(s.name)}">${s.icon.startsWith("svg:") ? `<i class="ic" style="--i:url(assets/icons/${s.icon.slice(4)}.svg)"></i>` : s.icon}</a>`;
   $("#followList").innerHTML = soc.map(sa).join("");
   $("#socialsRow").innerHTML = soc.map(sa).join("");
   $("#bio").textContent = L(p, "bio");
