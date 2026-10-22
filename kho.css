@@ -70,3 +70,7 @@ footer .btn{background:transparent;color:#fff;border-color:#fff;padding:6px 14px
 .badge.shared{background:var(--lav-200);color:var(--purple-deep);margin-left:6px}
 label.chk{display:flex;gap:8px;align-items:center;text-transform:none;letter-spacing:0;font-size:14px}
 label.chk input{width:auto}
+#storageBox{display:grid;gap:12px;margin-top:6px}
+#storageBox .sep{margin:6px 0 0}
+#storageBox .btn.storage{display:block;width:100%;text-align:center;box-sizing:border-box}
+#storageBox .hint{text-align:center;line-height:1.5}
