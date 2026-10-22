@@ -15,6 +15,10 @@
   <input id="pass2" type="password" placeholder="Nhập lại mật khẩu" hidden autocomplete="new-password">
   <p id="lockErr" class="err"></p>
   <button class="btn primary" id="unlock">Mở kho</button> <a class="btn" href="index.html">← Về portfolio</a>
+  <div id="storageBox" hidden>
+  <hr class="sep"><a class="btn storage" href="storage.html">Truy cập Data Storage →</a>
+  <p class="hint">Chưa có quyền? Đăng ký ở đó, Lan Anh duyệt xong bạn sẽ xem được phần được chia sẻ.</p>
+  </div>
 </form></section>
 <div id="app" hidden>
 <div class="marquee"><span>★ KHO AI ★ KHO DESIGN ★ KHO EDIT ★ KHO TOOL ★ KHO KNOWLEDGE ★ KHO IDEA ★ KHO AI ★ KHO DESIGN ★ KHO EDIT ★ KHO TOOL ★ KHO KNOWLEDGE ★ KHO IDEA</span></div>
@@ -36,6 +40,7 @@
   <span style="display:flex;gap:8px;flex-wrap:wrap">
     <button class="btn" id="export">Xuất bản mã</button>
     <label class="btn" style="margin:0;text-transform:none;letter-spacing:0;font-size:12px;color:#fff">Nhập bản mã<input id="import" type="file" accept=".json" hidden></label>
+    <button class="btn" id="syncStorage">Đồng bộ Storage</button>
     <button class="btn" id="lockNow">Khoá lại</button>
   </span>
 </div></footer>
@@ -48,10 +53,12 @@
   <label>Loại</label><input name="type" placeholder="Repo, Template, Bài viết, Khoá học…">
   <label>Tag (cách nhau bằng dấu phẩy)</label><input name="tags" placeholder="agent, docs">
   <label>Ghi chú</label><textarea name="note" rows="3"></textarea>
+  <label class="chk"><input type="checkbox" name="shared"> Chia sẻ mục này trong Data Storage</label>
   <div class="row"><button type="button" class="btn" id="cancel">Huỷ</button><button class="btn primary" type="submit">Lưu</button></div>
 </form></dialog>
 </div>
 <script src="kho-data.js"></script>
+<script src="storage-config.js"></script>
 <script src="kho.js"></script>
 </body>
 </html>

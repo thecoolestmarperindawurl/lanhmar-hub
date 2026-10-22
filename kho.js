@@ -85,7 +85,7 @@ function render() {
     .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
   $("#grid").innerHTML = list.length ? list.map((i) => `
     <article class="card">
-      ${i.type ? `<span class="badge">${esc(i.type)}</span>` : ""}
+      ${i.type ? `<span class="badge">${esc(i.type)}</span>` : ""}${i.shared ? `<span class="badge shared">Chia sẻ</span>` : ""}
       <h3>${/^https?:\/\//i.test(i.url) ? `<a href="${esc(i.url)}" target="_blank" rel="noopener noreferrer">${esc(i.title)} ↗</a>` : esc(i.title)}</h3>
       <p>${esc(i.note)}</p>
       <div>${(i.tags || []).map((t) => `<span class="chip" data-t="${esc(t)}">#${esc(t)}</span>`).join(" ")}</div>
@@ -97,7 +97,7 @@ const dlg = $("#dlg"), f = $("#form");
 function openForm(it) {
   f.reset();
   f.id.value = it?.id || ""; f.kho.value = it?.kho || cur; f.title.value = it?.title || "";
-  f.url.value = it?.url || ""; f.type.value = it?.type || ""; f.tags.value = (it?.tags || []).join(", "); f.note.value = it?.note || "";
+  f.url.value = it?.url || ""; f.type.value = it?.type || ""; f.tags.value = (it?.tags || []).join(", "); f.note.value = it?.note || ""; f.shared.checked = !!it?.shared;
   $("#dlgTitle").textContent = it ? "Sửa mục" : "Thêm mục mới";
   dlg.showModal();
 }
@@ -107,7 +107,7 @@ f.addEventListener("submit", async (e) => {
   if (url && !/^https?:\/\//i.test(url)) url = "https://" + url;
   const rec = { id: f.id.value || "u" + Date.now(), kho: f.kho.value, title: f.title.value.trim(), url,
     type: f.type.value.trim(), note: f.note.value.trim(),
-    tags: f.tags.value.split(",").map((t) => t.trim().replace(/^#/, "")).filter(Boolean), date: new Date().toISOString().slice(0, 10) };
+    shared: f.shared.checked, tags: f.tags.value.split(",").map((t) => t.trim().replace(/^#/, "")).filter(Boolean), date: new Date().toISOString().slice(0, 10) };
   const idx = items.findIndex((i) => i.id === rec.id);
   if (idx >= 0) items[idx] = rec; else items.push(rec);
   await seal(); dlg.close(); cur = rec.kho; render();
@@ -127,6 +127,19 @@ document.addEventListener("click", async (e) => {
 });
 $("#q").addEventListener("input", (e) => { q = e.target.value; render(); });
 $("#add").onclick = () => openForm();
+$("#syncStorage").onclick = async () => {
+  const api = (window.STORAGE_API || "").trim();
+  if (!api) { alert("Chưa cấu hình Data Storage (storage-config.js)."); return; }
+  let key = ""; try { key = sessionStorage.getItem("lm-admin") || ""; } catch {}
+  key = prompt("Admin key của Data Storage (chỉ bạn biết):", key); if (!key) return;
+  const shared = items.filter((i) => i.shared).map(({ id, kho, title, url, note, tags, type, date }) => ({ id, kho, title, url, note, tags, type, date }));
+  try {
+    const r = await fetch(api, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ action: "sync", adminKey: key, items: shared }) });
+    const res = await r.json();
+    if (res.ok) { try { sessionStorage.setItem("lm-admin", key); } catch {} alert("Đã đồng bộ " + res.count + " mục lên Data Storage."); }
+    else alert("Không đồng bộ được: sai admin key hoặc lỗi máy chủ.");
+  } catch { alert("Không kết nối được tới Data Storage."); }
+};
 $("#lockNow").onclick = () => location.reload();
 $("#export").onclick = () => {
   const a = document.createElement("a");
@@ -141,4 +154,5 @@ $("#import").onchange = async (e) => {
     location.reload();
   } catch { alert("File kho.enc.json không hợp lệ."); }
 };
+if ((window.STORAGE_API || "").trim()) $("#storageBox").hidden = false; // chỉ hiện nút khi Data Storage đã được kích hoạt
 boot();

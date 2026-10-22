@@ -59,3 +59,14 @@ footer .btn{background:transparent;color:#fff;border-color:#fff;padding:6px 14px
 .lockcard .err{color:var(--orange-text);font-weight:700;min-height:20px;margin:0}
 .lockcard .btn{text-align:center;text-decoration:none}
 [hidden]{display:none!important}
+
+.lockcard.wide{width:min(520px,100%)}
+.lockcard label{font-weight:700;font-size:12px;color:var(--ink);text-transform:uppercase;letter-spacing:.08em;margin-top:6px}
+.lockcard .sep{border:0;border-top:2px dashed var(--lav-300);margin:12px 0 4px;width:100%}
+.lockcard .hint{font-size:13px;margin:0}
+.btn.storage{background:var(--orange-deep);border-color:var(--orange-deep);color:#fff}
+.seg{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
+.codebox{font:800 30px/1.2 Montserrat;letter-spacing:.25em;text-align:center;background:var(--orange-soft);color:var(--orange-text);border-radius:16px;padding:14px;user-select:all}
+.badge.shared{background:var(--lav-200);color:var(--purple-deep);margin-left:6px}
+label.chk{display:flex;gap:8px;align-items:center;text-transform:none;letter-spacing:0;font-size:14px}
+label.chk input{width:auto}

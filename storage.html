@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Data Storage — LANHMAR</title>
+<meta name="robots" content="noindex,nofollow,noarchive">
+<link rel="icon" href="assets/img/logo-lanhmar.png">
+<link rel="stylesheet" href="kho.css">
+</head>
+<body>
+<div class="marquee"><span>★ DATA STORAGE ★ LANHMAR ★ DATA STORAGE ★ LANHMAR ★ DATA STORAGE ★ LANHMAR ★ DATA STORAGE ★ LANHMAR</span></div>
+
+<section id="gate" class="lockbox">
+  <div class="lockcard wide">
+    <div class="kicker">★ Data Storage</div>
+    <h1>Kho <em>chia sẻ</em></h1>
+    <p id="gateMsg">Một phần Kho cá nhân của Lan Anh được chia sẻ cho người đã đăng ký và được duyệt.</p>
+    <div class="seg" role="tablist">
+      <button class="tab on" data-mode="register" type="button">Đăng ký truy cập</button>
+      <button class="tab" data-mode="login" type="button">Tôi đã có mã</button>
+    </div>
+
+    <form id="regForm" autocomplete="off">
+      <label for="rName">Họ tên</label><input id="rName" maxlength="80" required>
+      <label for="rEmail">Email</label><input id="rEmail" type="email" maxlength="120" required>
+      <label for="rNote">Bạn là ai / muốn xem gì? (không bắt buộc)</label><textarea id="rNote" rows="2" maxlength="300"></textarea>
+      <p class="err" id="regErr"></p>
+      <button class="btn primary" type="submit" id="regBtn">Gửi đăng ký</button>
+    </form>
+
+    <div id="regDone" hidden>
+      <p><b>Đã gửi yêu cầu.</b> Đây là mã truy cập của bạn, chỉ hiện <b>một lần</b>. Hãy lưu lại:</p>
+      <div class="codebox" id="codeBox"></div>
+      <p>Khi Lan Anh duyệt, bạn dùng <b>email + mã này</b> ở tab “Tôi đã có mã” để vào xem. Chưa được duyệt thì sẽ chưa vào được.</p>
+    </div>
+
+    <form id="loginForm" autocomplete="off" hidden>
+      <label for="lEmail">Email đã đăng ký</label><input id="lEmail" type="email" maxlength="120" required>
+      <label for="lCode">Mã truy cập</label><input id="lCode" maxlength="20" required>
+      <p class="err" id="loginErr"></p>
+      <button class="btn primary" type="submit" id="loginBtn">Vào xem</button>
+    </form>
+
+    <p style="margin-top:14px"><a class="btn" href="kho.html">← Về Kho cá nhân</a> <a class="btn" href="index.html">Portfolio</a></p>
+  </div>
+</section>
+
+<div id="app" hidden>
+  <header class="hero"><div class="wrap">
+    <div class="kicker">★ Data Storage</div>
+    <h1>Kho <em>chia sẻ</em></h1>
+    <p id="hello"></p>
+    <nav class="tabs" id="tabs"></nav>
+    <p class="desc" id="desc"></p>
+    <div class="bar"><input id="q" type="search" placeholder="Tìm trong kho…"><button class="btn" id="logout">Thoát</button></div>
+    <div class="tags" id="tags"></div>
+  </div></header>
+  <main class="wrap"><section class="grid" id="grid"></section></main>
+</div>
+
+<script src="kho-data.js"></script>
+<script src="storage-config.js"></script>
+<script src="storage.js"></script>
+</body>
+</html>
