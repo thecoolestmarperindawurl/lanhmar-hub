@@ -58,7 +58,7 @@ function render() {
     ${c.img ? `<img class="work-img" loading="lazy" src="${esc(safe(c.img))}" alt="" onerror="this.remove()">` : ""}</article>`).join("");
   observeChapters(chapters.length);
 
-  $("#projects").innerHTML = D.projects.map((pr, i) => `<button class="pcard" data-proj="${i}"><div class="ph"><img loading="lazy" src="${esc(safe(pr.image || pr.videos[0]?.thumb))}" alt=""><span class="num">${String(i + 1).padStart(2, "0")}</span></div><div class="tx"><h3>${esc(L(pr, "title"))}</h3><p>${esc(L(pr, "desc"))}</p></div></button>`).join("");
+  $("#projects").innerHTML = D.projects.map((pr, i) => `<button class="pcard" data-proj="${i}"><div class="ph${pr.image ? "" : " thumbs"}">${pr.image ? `<img loading="lazy" src="${esc(safe(pr.image))}" alt="">` : pr.videos.slice(0, 3).map((v) => `<img loading="lazy" src="${esc(safe(v.thumb))}" alt="">`).join("")}<span class="num">${String(i + 1).padStart(2, "0")}</span></div><div class="tx"><h3>${esc(L(pr, "title"))}</h3><p>${esc(L(pr, "desc"))}</p></div></button>`).join("");
   $("#certList").innerHTML = D.certificates.map((c, i) => `<button class="ccard" data-cert="${i}"><img loading="lazy" src="${esc(safe(c.images[0]))}" alt=""><div><b>${esc(L(c, "name"))}</b><small>${esc(c.org)}</small></div></button>`).join("");
   $("#contacts").innerHTML = [[p.email, "mailto:" + p.email], [p.phoneIntl, "tel:" + p.phoneIntl.replace(/\s/g, "")], ["Facebook", safe(p.facebook_url)]].filter((x) => x[0])
     .map(([t, h]) => `<li><a href="${esc(h)}" target="_blank" rel="noopener">${esc(t)}</a>${h.startsWith("mailto") ? `<button class="btn" data-copy="${esc(t)}">${T("copy")}</button>` : ""}</li>`).join("");
@@ -134,4 +134,12 @@ document.addEventListener("click", (e) => {
   else if (t.dataset.open && D) openProject(D.projects.findIndex((p) => p.key === t.dataset.open));
   else if (t.dataset.copy) { navigator.clipboard?.writeText(t.dataset.copy); t.textContent = T("copied"); setTimeout(() => (t.textContent = T("copy")), 1500); }
 });
+
+// mobile menu
+const burger = $("#burger"), navLinks = $("#navlinks");
+const setMenu = (open) => { navLinks.classList.toggle("open", open); burger.setAttribute("aria-expanded", open); burger.textContent = open ? "✕" : "☰"; };
+burger.addEventListener("click", () => setMenu(!navLinks.classList.contains("open")));
+navLinks.addEventListener("click", (e) => { if (e.target.closest("a")) setMenu(false); });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
+document.addEventListener("click", (e) => { if (!e.target.closest(".pill-nav")) setMenu(false); });
 renderStatic();
