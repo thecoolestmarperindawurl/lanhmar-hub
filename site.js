@@ -4,18 +4,18 @@ const safe = (u) => { const v = String(u ?? "").replace(/[\x00-\x1f]/g, "").trim
 
 const I18N = {
   vi: { nav_story: "Hành trình", nav_menu: "Năng lực", nav_work: "Dự án", nav_certs: "Chứng chỉ", nav_contact: "Liên hệ", cta_talk: "Liên hệ mình", cta_work: "Xem dự án",
-    badge_open: "Sẵn sàng cho cơ hội mới", badge_school: "Tân cử nhân UFM 2026", h1a: "Mỗi bài toán là một cơ hội.", h1b: "Để “Ranh Ma” lo.", onmenu: "HÔM NAY CÓ",
-    story_k: "HÀNH TRÌNH", story_h: "Mỗi vai trò là một nguyên liệu.", menu_k: "NĂNG LỰC", menu_h: "Mình làm được gì — và làm bằng gì.", about: "Về mình", goal: "Mục tiêu", skills: "Kỹ năng", tools: "Phần mềm",
-    after_h: "Hết giờ làm. AI Agent vẫn chạy.", after_p: "Ngoài chiến dịch, mình xây trợ lý AI và chatbot để việc lặp đi lặp lại tự chạy.", after_cta: "Xem AI Agent",
+    badge_open: "Sẵn sàng cho cơ hội mới", badge_school: "Tân cử nhân UFM 2026", h1a: "Mỗi chiến dịch bắt đầu từ một insight.", h1b: "Để “Ranh Ma” tìm ra.", onmenu: "ĐANG CHẠY",
+    story_k: "HÀNH TRÌNH", story_h: "Mỗi vai trò là một chiến dịch.", menu_k: "NĂNG LỰC", menu_h: "Marketing toolkit của mình.", about: "Về mình", goal: "Mục tiêu", skills: "Kỹ năng", tools: "Phần mềm",
+    after_h: "Ngoài giờ, AI Agent vẫn chạy chiến dịch.", after_p: "Ngoài chiến dịch, mình xây trợ lý AI và chatbot để việc lặp đi lặp lại tự chạy.", after_cta: "Xem AI Agent",
     work_k: "DỰ ÁN", work_h: "9 thư mục dự án mình đã thực hành.", work_p: "Mọi thứ bên dưới đều là việc thật. Bấm vào thư mục để xem đề bài, cách làm và sản phẩm.",
-    certs_k: "HỌC & THỰC HÀNH", certs_h: "Chứng chỉ & khoá đào tạo.", contact_h: "Có bài toán marketing? Để mình xử lý.", contact_p: "Cảm ơn đã ghé qua! Mình luôn sẵn sàng trò chuyện về cơ hội hợp tác hoặc công việc Digital Marketing.",
+    certs_k: "HỌC & THỰC HÀNH", certs_h: "Chứng chỉ & khoá đào tạo.", contact_h: "Có bài toán marketing? Cùng mình lên chiến lược.", contact_p: "Cảm ơn đã ghé qua! Mình luôn sẵn sàng trò chuyện về cơ hội hợp tác hoặc công việc Digital Marketing.",
     edu: "Học vấn", phone: "Điện thoại / Zalo", reveal: "Bấm để hiện số", copy: "COPY", copied: "ĐÃ COPY", s1: "Khoá luận tốt nghiệp", s2: "Tăng lưu lượng truy cập", s3: "Mảng thực hành", s4: "Chứng chỉ & khoá học", plan: "Xem kế hoạch đầy đủ trên Canva" },
   en: { nav_story: "Journey", nav_menu: "Skills", nav_work: "Projects", nav_certs: "Certificates", nav_contact: "Contact", cta_talk: "Get in touch", cta_work: "See my work",
-    badge_open: "Open to new opportunities", badge_school: "UFM graduate 2026", h1a: "Every brief is an opportunity.", h1b: "Let “Ranh Ma” handle it.", onmenu: "TODAY'S MENU",
-    story_k: "JOURNEY", story_h: "Every role was an ingredient.", menu_k: "SKILLS", menu_h: "What I can do — and what I do it with.", about: "About me", goal: "Goal", skills: "Skills", tools: "Software",
-    after_h: "Off the clock. The AI agents keep running.", after_p: "Beyond campaigns, I build AI assistants and chatbots so repetitive work runs itself.", after_cta: "See AI Agent",
+    badge_open: "Open to new opportunities", badge_school: "UFM graduate 2026", h1a: "Every campaign starts with an insight.", h1b: "Let “Ranh Ma” find it.", onmenu: "NOW RUNNING",
+    story_k: "JOURNEY", story_h: "Every role was a campaign.", menu_k: "SKILLS", menu_h: "My marketing toolkit.", about: "About me", goal: "Goal", skills: "Skills", tools: "Software",
+    after_h: "Off the clock, AI agents keep the campaigns running.", after_p: "Beyond campaigns, I build AI assistants and chatbots so repetitive work runs itself.", after_cta: "See AI Agent",
     work_k: "PROJECTS", work_h: "9 project folders I've worked on.", work_p: "Everything below is real work. Open a folder to see the brief, approach and output.",
-    certs_k: "LEARNING & PRACTICE", certs_h: "Certificates & courses.", contact_h: "Got a marketing problem? Let me handle it.", contact_p: "Thanks for stopping by! Always happy to chat about collaboration or Digital Marketing opportunities.",
+    certs_k: "LEARNING & PRACTICE", certs_h: "Certificates & courses.", contact_h: "Got a marketing challenge? Let's plan the strategy.", contact_p: "Thanks for stopping by! Always happy to chat about collaboration or Digital Marketing opportunities.",
     edu: "Education", phone: "Phone / Zalo", reveal: "Click to show number", copy: "COPY", copied: "COPIED", s1: "Thesis score", s2: "Traffic growth", s3: "Practice areas", s4: "Certificates & courses", plan: "View the full plan on Canva" }
 };
 
