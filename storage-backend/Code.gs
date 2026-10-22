@@ -14,12 +14,14 @@
  *   TELEGRAM_CHAT_ID    (tuỳ chọn) chat id của bạn để bot nhắn khi có đăng ký mới
  */
 
+// ID của Google Sheet "LANHMAR Storage Access" (lấy từ đường dẫn của Sheet)
+var SHEET_ID = '1znlZQDBYj0aScVwcc21vnI1m2IBYo5_hfdGDahziJPQ';
 var REQ = 'Requests';
 var ITEMS = 'Items';
 var MAX_REQUESTS = 2000;
 
 function sheet_(name, headers) {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = SpreadsheetApp.openById(SHEET_ID);
   var sh = ss.getSheetByName(name);
   if (!sh) {
     sh = ss.insertSheet(name);
@@ -69,6 +71,12 @@ function notify_(text) {
       muteHttpExceptions: true
     });
   } catch (e) {}
+}
+
+// Chạy 1 lần trong trình soạn thảo để cấp quyền Sheet/Telegram và tạo sẵn 2 tab.
+function setup() {
+  sheet_(REQ, ['Time', 'Name', 'Email', 'Note', 'Code', 'Status']);
+  sheet_(ITEMS, ['id', 'kho', 'title', 'url', 'note', 'tags', 'type', 'date']);
 }
 
 function doGet() {
