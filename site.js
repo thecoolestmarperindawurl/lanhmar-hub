@@ -27,6 +27,8 @@ const SOCIALS = [
   { name: "GitHub", icon: "svg:github", url: "https://github.com/thecoolestmarperindawurl" },
   { name: "Behance", icon: "svg:behance", url: "https://www.behance.net/lanhmarwurl" },
 ];
+// Logo phần mềm (assets/icons/sw). Mục nào chưa có logo sẽ hiện chữ.
+const SW_LOGOS = { Canva: "canva.svg", CapCut: "capcut.png", Photoshop: "adobephotoshop.svg", Illustrator: "adobeillustrator.svg", SEMrush: "semrush.svg", Ahrefs: "ahrefs.png", "Keyword Tool": "keywordtool.png", Word: "microsoftword.svg", Excel: "microsoftexcel.svg", ChatGPT: "openai.svg", Gemini: "googlegemini.svg", Perplexity: "perplexity.svg", Claude: "claude.svg", NotebookLM: "notebooklm.svg" };
 let D, lang = "vi";
 try { lang = localStorage.getItem("lm_lang") || "vi"; } catch {}
 const T = (k) => I18N[lang][k] ?? k;
@@ -54,7 +56,7 @@ function render() {
   $("#bio").textContent = L(p, "bio");
   $("#goal").textContent = L(p, "goal");
   $("#skills").innerHTML = p.skills.map((s) => `<span class="chip">${esc(s[lang] || s.vi)}</span>`).join("");
-  $("#software").innerHTML = p.software.map((g) => `<div class="sw"><b>${esc(g["group_" + lang] || g.group_vi)}</b><div class="chips">${g.items.map((i) => `<span class="chip">${esc(i)}</span>`).join("")}</div></div>`).join("");
+  $("#software").innerHTML = p.software.map((g) => `<div class="sw"><b>${esc(g["group_" + lang] || g.group_vi)}</b><div class="logos">${g.items.map((i) => SW_LOGOS[i] ? `<span class="swl" title="${esc(i)}" aria-label="${esc(i)}" tabindex="0"><img src="assets/icons/sw/${SW_LOGOS[i]}" alt="${esc(i)}" loading="lazy"></span>` : `<span class="chip">${esc(i)}</span>`).join("")}</div></div>`).join("");
   $("#stats").innerHTML = [["9.0/10", T("s1")], ["+20%", T("s2")], [D.projects.length, T("s3")], [D.certificates.length, T("s4")]].map(([n, l]) => `<div class="stat"><b>${n}</b><span>${esc(l)}</span></div>`).join("");
 
   const chapters = [{ no: T("edu"), title: L(edu, "major"), org: L(edu, "school"), period: `${edu.years} · GPA ${edu.gpa}`, logo: "assets/img/mascot-work.jpg", tasks: [], ach: [L(edu, "thesis")] },
