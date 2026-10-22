@@ -237,3 +237,5 @@ dialog::backdrop{background:rgba(36,31,69,.6)}
 .course-cta .btn{width:100%;text-align:center}
 .course-note{grid-column:1/-1;margin:0;font-size:12px!important;color:var(--lav-300)!important;opacity:.9}
 @media(max-width:900px){.course-card{grid-template-columns:1fr;text-align:left;padding:26px}.course-mascot{width:96px;height:96px}.course-cta{width:100%}}
+.course-info{margin:12px 0 0!important;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:14px;padding:10px 14px;font-size:13px!important;color:#fff!important}
+.course-note a{color:var(--orange-soft);font-weight:700;white-space:nowrap}

@@ -9,7 +9,8 @@ const I18N = {
     course_k: "KHOÁ HỌC MÌNH GIỚI THIỆU", course_h: "Biết dùng AI là một chuyện. Biết giao việc cho AI mới ra kết quả.",
     course_p: "Mình giới thiệu lớp “Teamwork với AI” của KesFlow, nơi mình cũng đang làm cộng tác viên cộng đồng. Bạn học cách chia việc cho một đội AI, có AI kiểm tra, rồi bạn duyệt.",
     course_scan: "Quét bằng camera điện thoại", course_btn: "Xem khoá học",
-    course_note: "Link giới thiệu: nếu bạn đăng ký qua link này, mình nhận một phần hoa hồng, bạn không phải trả thêm. Điều đó giúp mình duy trì trang này.",
+    course_note: "Khi đăng ký khoá học qua trang này, bạn sẽ được cấp quyền truy cập Storage lưu trữ các tài nguyên mình đã sử dụng, xây dựng và phát triển. Đây là link giới thiệu: mình nhận một phần hoa hồng, bạn không phải trả thêm.",
+    course_storage: "Đăng ký truy cập Storage →",
     nav_story: "Hành trình", nav_menu: "Năng lực", nav_work: "Dự án", nav_certs: "Chứng chỉ", nav_contact: "Liên hệ", cta_talk: "Liên hệ mình", cta_work: "Xem dự án",
     badge_open: "Sẵn sàng cho cơ hội mới", badge_school: "Tân cử nhân UFM 2026", h1a: "Mỗi chiến dịch bắt đầu từ một insight.", h1b: "Để “Ranh Ma” tìm ra.", onmenu: "ĐANG CHẠY",
     story_k: "HÀNH TRÌNH", story_h: "Mỗi vai trò là một chiến dịch.", menu_k: "NĂNG LỰC", menu_h: "Marketing toolkit của mình.", about: "Về mình", goal: "Mục tiêu", skills: "Kỹ năng", tools: "Phần mềm",
@@ -23,7 +24,8 @@ const I18N = {
     course_k: "A COURSE I RECOMMEND", course_h: "Using AI is one thing. Knowing how to brief it is what gets results.",
     course_p: "I'm recommending KesFlow's “Teamwork with AI” class, where I also help run the community. You learn to split work across a team of AIs, have one check it, then you approve.",
     course_scan: "Scan with your phone camera", course_btn: "See the course",
-    course_note: "Referral link: if you sign up through it, I earn a small commission at no extra cost to you. It helps keep this page running.",
+    course_note: "When you sign up for the course through this page, you get access to the Storage that holds the resources I have used, built and developed. This is a referral link: I earn a small commission at no extra cost to you.",
+    course_storage: "Request Storage access →",
     nav_story: "Journey", nav_menu: "Skills", nav_work: "Projects", nav_certs: "Certificates", nav_contact: "Contact", cta_talk: "Get in touch", cta_work: "See my work",
     badge_open: "Open to new opportunities", badge_school: "UFM graduate 2026", h1a: "Every campaign starts with an insight.", h1b: "Let “Ranh Ma” find it.", onmenu: "NOW RUNNING",
     story_k: "JOURNEY", story_h: "Every role was a campaign.", menu_k: "SKILLS", menu_h: "My marketing toolkit.", about: "About me", goal: "Goal", skills: "Skills", tools: "Software",
@@ -128,19 +130,46 @@ function renderServices() {
   observeReveal();
 }
 
+function courseUrl(base, slug) {
+  try { const u = new URL(base); const ref = u.searchParams.get("a"); return "https://kesflow.vn/khoa-hoc/" + slug + (ref ? "?a=" + encodeURIComponent(ref) : ""); } catch { return base; }
+}
+function setCourseLink(url) {
+  $("#courseBtn").href = url;
+  const box = $("#qrBox");
+  if (box.dataset.url === url) return;
+  try { const qr = qrcode(0, "M"); qr.addData(url); qr.make(); box.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true }); box.dataset.url = url; } catch { box.textContent = ""; }
+}
+// Lấy khoá mới nhất của KesFlow (TA06 → TA07…) qua Apps Script để link giới thiệu tự cập nhật; lỗi thì dùng link trong site-config.js
+async function loadCourseInfo(cfg) {
+  const api = (window.STORAGE_API || "").trim();
+  if (!api) return;
+  let info = null;
+  try { const c = JSON.parse(sessionStorage.getItem("lm-course")); if (c && Date.now() - c.t < 6 * 3600e3) info = c.v; } catch {}
+  if (!info) {
+    try {
+      const r = await fetch(api, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ action: "course" }) });
+      const j = await r.json();
+      if (j.ok && /^[a-z0-9-]+$/.test(j.slug || "")) { info = j; try { sessionStorage.setItem("lm-course", JSON.stringify({ t: Date.now(), v: j })); } catch {} }
+    } catch {}
+  }
+  if (!info) return;
+  setCourseLink(courseUrl(cfg.url, info.slug));
+  const nm = String(info.title || "").split("·")[0].trim();
+  if (nm) $("#courseName").textContent = nm + " · KesFlow";
+  const el = $("#courseInfo");
+  if (info.description) { el.textContent = "📅 " + info.description; el.hidden = false; }
+}
+
 function renderCourse() {
   const sec = $("#course"), cfg = window.AFFILIATE || {};
   const url = safe(cfg.url);
   if (!sec || !/^https?:/i.test(url)) { if (sec) sec.hidden = true; return; }
   sec.hidden = false;
-  $("#courseBtn").href = url;
+  setCourseLink(url);
   $("#coursePoints").innerHTML = COURSE_POINTS[lang].map((x) => `<li>${esc(x)}</li>`).join("");
   const b = $("#courseBadge"); b.hidden = !cfg.discount; b.textContent = cfg.discount || "";
-  const box = $("#qrBox");
-  if (box.dataset.url !== url) {
-    try { const qr = qrcode(0, "M"); qr.addData(url); qr.make(); box.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true }); box.dataset.url = url; } catch { box.textContent = ""; }
-  }
   observeReveal();
+  loadCourseInfo({ url });
 }
 
 // hiệu ứng hiện dần khi cuộn + đếm số

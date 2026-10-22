@@ -87,7 +87,38 @@ function doGet() {
   return json_({ ok: true, service: 'lanhmar-storage' });
 }
 
+// Khoá học KesFlow mới nhất: đọc từ trang chủ kesflow.vn để link giới thiệu luôn trỏ đúng khoá (TA06, TA07...).
+function course_() {
+  var cache = CacheService.getScriptCache(), hit = cache.get('course');
+  if (hit) return json_(JSON.parse(hit));
+  try {
+    var home = UrlFetchApp.fetch('https://kesflow.vn/', { muteHttpExceptions: true, followRedirects: true }).getContentText();
+    var re = /\/khoa-hoc\/(teamwork-voi-ai-ta(\d+))/g, m, best = null;
+    while ((m = re.exec(home))) {
+      var n = parseInt(m[2], 10);
+      if (!best || n > best.n) best = { slug: m[1], n: n };
+    }
+    if (!best) return json_({ ok: false });
+    var page = UrlFetchApp.fetch('https://kesflow.vn/khoa-hoc/' + best.slug, { muteHttpExceptions: true, followRedirects: true }).getContentText();
+    function meta(p) {
+      var r = page.match(new RegExp('<meta property="' + p + '" content="([^"]*)"'));
+      return r ? r[1].replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'").slice(0, 300) : '';
+    }
+    var out = { ok: true, slug: best.slug, title: meta('og:title'), description: meta('og:description') };
+    cache.put('course', JSON.stringify(out), 21600);
+    return json_(out);
+  } catch (err) {
+    return json_({ ok: false });
+  }
+}
+
 function doPost(e) {
+  try {
+    var pre = JSON.parse((e && e.postData && e.postData.contents) || '{}');
+    if (pre.action === 'course') return course_();
+  } catch (err0) {
+    return json_({ ok: false, error: 'server' });
+  }
   var lock = LockService.getScriptLock();
   lock.waitLock(20000);
   try {
