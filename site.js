@@ -23,7 +23,7 @@ const I18N = {
 const SOCIALS = [
   { name: "Facebook", icon: "f", key: "facebook_url" },
   { name: "TikTok", icon: "♪", url: "https://www.tiktok.com/@hynone101" },
-  // { name: "Telegram", icon: "✈", url: "https://t.me/..." },
+  { name: "Telegram", icon: "✈", url: "https://t.me/LANHMAR" },
   // { name: "GitHub", icon: "GH", url: "https://github.com/..." },
   // { name: "Behance", icon: "Bē", url: "https://www.behance.net/..." },
 ];
