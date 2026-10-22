@@ -58,11 +58,11 @@ function render() {
   $("#stats").innerHTML = [["9.0/10", T("s1")], ["+20%", T("s2")], [D.projects.length, T("s3")], [D.certificates.length, T("s4")]].map(([n, l]) => `<div class="stat"><b>${n}</b><span>${esc(l)}</span></div>`).join("");
 
   const chapters = [{ no: T("edu"), title: L(edu, "major"), org: L(edu, "school"), period: `${edu.years} · GPA ${edu.gpa}`, logo: "assets/img/mascot-work.jpg", tasks: [], ach: [L(edu, "thesis")] },
-    ...D.experience.map((e) => ({ no: e.period, title: L(e, "title"), org: L(e, "org"), period: e.period, logo: e.logo, ctx: L(e, "context"), tasks: e["tasks_" + lang]?.length ? e["tasks_" + lang] : e.tasks_vi, ach: e["achievements_" + lang]?.length ? e["achievements_" + lang] : e.achievements_vi, img: e.workImage }))];
+    ...D.experience.map((e) => ({ no: e.period, title: L(e, "title"), org: L(e, "org"), period: e.period, logo: e.logo, initials: e.initials, ctx: L(e, "context"), tasks: e["tasks_" + lang]?.length ? e["tasks_" + lang] : e.tasks_vi, ach: e["achievements_" + lang]?.length ? e["achievements_" + lang] : e.achievements_vi, img: e.workImage }))];
   $("#chapT").textContent = String(chapters.length).padStart(2, "0");
   $("#chapters").innerHTML = chapters.map((c, i) => `<article class="chapter" data-n="${i + 1}">
     <div class="no">${String(i + 1).padStart(2, "0")} / ${esc(c.no)}</div>
-    <div class="head">${c.logo ? `<img src="${esc(safe(c.logo))}" alt="" onerror="this.remove()">` : ""}<div><h3>${esc(c.title)}</h3><div class="org">${esc(c.org)}${c.period && c.period !== c.no ? " · " + esc(c.period) : ""}</div></div></div>
+    <div class="head">${c.logo ? `<img src="${esc(safe(c.logo))}" alt="" onerror="this.remove()">` : c.initials ? `<span class="ini">${esc(c.initials)}</span>` : ""}<div><h3>${esc(c.title)}</h3><div class="org">${esc(c.org)}${c.period && c.period !== c.no ? " · " + esc(c.period) : ""}</div></div></div>
     ${c.ctx ? `<p>${esc(c.ctx)}</p>` : ""}
     ${c.tasks?.length ? `<ul>${c.tasks.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
     ${(c.ach || []).map((a) => `<div class="ach">★ ${esc(a)}</div>`).join("")}
