@@ -9,14 +9,14 @@ const I18N = {
     after_h: "Hết giờ làm. AI Agent vẫn chạy.", after_p: "Ngoài chiến dịch, mình xây trợ lý AI và chatbot để việc lặp đi lặp lại tự chạy.", after_cta: "Xem AI Agent",
     work_k: "DỰ ÁN", work_h: "9 thư mục dự án mình đã thực hành.", work_p: "Mọi thứ bên dưới đều là việc thật. Bấm vào thư mục để xem đề bài, cách làm và sản phẩm.",
     certs_k: "HỌC & THỰC HÀNH", certs_h: "Chứng chỉ & khoá đào tạo.", contact_h: "Có bài toán marketing? Để mình xử lý.", contact_p: "Cảm ơn đã ghé qua! Mình luôn sẵn sàng trò chuyện về cơ hội hợp tác hoặc công việc Digital Marketing.",
-    edu: "Học vấn", copy: "COPY", copied: "ĐÃ COPY", s1: "Khoá luận tốt nghiệp", s2: "Tăng lưu lượng truy cập", s3: "Mảng thực hành", s4: "Chứng chỉ & khoá học", plan: "Xem kế hoạch đầy đủ trên Canva" },
+    edu: "Học vấn", phone: "Điện thoại / Zalo", reveal: "Bấm để hiện số", copy: "COPY", copied: "ĐÃ COPY", s1: "Khoá luận tốt nghiệp", s2: "Tăng lưu lượng truy cập", s3: "Mảng thực hành", s4: "Chứng chỉ & khoá học", plan: "Xem kế hoạch đầy đủ trên Canva" },
   en: { nav_story: "Journey", nav_menu: "Skills", nav_work: "Projects", nav_certs: "Certificates", nav_contact: "Contact", cta_talk: "Get in touch", cta_work: "See my work",
     badge_open: "Open to new opportunities", badge_school: "UFM graduate 2026", h1a: "Every brief is an opportunity.", h1b: "Let “Ranh Ma” handle it.", onmenu: "TODAY'S MENU",
     story_k: "JOURNEY", story_h: "Every role was an ingredient.", menu_k: "SKILLS", menu_h: "What I can do — and what I do it with.", about: "About me", goal: "Goal", skills: "Skills", tools: "Software",
     after_h: "Off the clock. The AI agents keep running.", after_p: "Beyond campaigns, I build AI assistants and chatbots so repetitive work runs itself.", after_cta: "See AI Agent",
     work_k: "PROJECTS", work_h: "9 project folders I've worked on.", work_p: "Everything below is real work. Open a folder to see the brief, approach and output.",
     certs_k: "LEARNING & PRACTICE", certs_h: "Certificates & courses.", contact_h: "Got a marketing problem? Let me handle it.", contact_p: "Thanks for stopping by! Always happy to chat about collaboration or Digital Marketing opportunities.",
-    edu: "Education", copy: "COPY", copied: "COPIED", s1: "Thesis score", s2: "Traffic growth", s3: "Practice areas", s4: "Certificates & courses", plan: "View the full plan on Canva" }
+    edu: "Education", phone: "Phone / Zalo", reveal: "Click to show number", copy: "COPY", copied: "COPIED", s1: "Thesis score", s2: "Traffic growth", s3: "Practice areas", s4: "Certificates & courses", plan: "View the full plan on Canva" }
 };
 
 let D, lang = "vi";
@@ -60,8 +60,18 @@ function render() {
 
   $("#projects").innerHTML = D.projects.map((pr, i) => `<button class="pcard" data-proj="${i}"><div class="ph${pr.image ? "" : " thumbs"}">${pr.image ? `<img loading="lazy" src="${esc(safe(pr.image))}" alt="">` : pr.videos.slice(0, 3).map((v) => `<img loading="lazy" src="${esc(safe(v.thumb))}" alt="">`).join("")}<span class="num">${String(i + 1).padStart(2, "0")}</span></div><div class="tx"><h3>${esc(L(pr, "title"))}</h3><p>${esc(L(pr, "desc"))}</p></div></button>`).join("");
   $("#certList").innerHTML = D.certificates.map((c, i) => `<button class="ccard" data-cert="${i}"><img loading="lazy" src="${esc(safe(c.images[0]))}" alt=""><div><b>${esc(L(c, "name"))}</b><small>${esc(c.org)}</small></div></button>`).join("");
-  $("#contacts").innerHTML = [[p.email, "mailto:" + p.email], [p.phoneIntl, "tel:" + p.phoneIntl.replace(/\s/g, "")], ["Facebook", safe(p.facebook_url)]].filter((x) => x[0])
-    .map(([t, h]) => `<li><a href="${esc(h)}" target="_blank" rel="noopener">${esc(t)}</a>${h.startsWith("mailto") ? `<button class="btn" data-copy="${esc(t)}">${T("copy")}</button>` : ""}</li>`).join("");
+  // Email hiện sẵn + COPY; số điện thoại chỉ hiện khi bấm (không nằm trong HTML/JSON công khai).
+  const fb = safe(p.facebook_url);
+  $("#contacts").innerHTML = `
+    <li><span class="lbl">Email</span><a href="mailto:${esc(p.email)}">${esc(p.email)}</a><button class="btn" data-copy="${esc(p.email)}">${T("copy")}</button></li>
+    <li><span class="lbl">${T("phone")}</span><button class="reveal" data-phone>${T("reveal")}</button></li>
+    ${fb ? `<li><span class="lbl">Facebook</span><a href="${esc(fb)}" target="_blank" rel="noopener">facebook.com/shokun.lav ↗</a></li>` : ""}`;
+}
+const PH = "MDM4NCAwMTcgMTk1"; // chuỗi mã hoá nhẹ, chỉ giải mã khi người xem bấm
+function revealPhone(btn) {
+  const num = atob(PH);
+  const li = btn.parentElement;
+  li.innerHTML = `<span class="lbl">${T("phone")}</span><a href="tel:+84${num.replace(/\s/g, "").slice(1)}">${esc(num)}</a><button class="btn" data-copy="${esc(num)}">${T("copy")}</button>`;
 }
 
 let io;
@@ -129,6 +139,7 @@ dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });
 document.addEventListener("click", (e) => {
   const t = e.target.closest("button,a"); if (!t) return;
   if (t.dataset.lang) { lang = t.dataset.lang; try { localStorage.setItem("lm_lang", lang); } catch {} D && render(); }
+  else if ("phone" in t.dataset) revealPhone(t);
   else if (t.dataset.proj) openProject(+t.dataset.proj);
   else if (t.dataset.cert) openCert(+t.dataset.cert);
   else if (t.dataset.open && D) openProject(D.projects.findIndex((p) => p.key === t.dataset.open));
