@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kho cá nhân</title>
+<meta name="robots" content="noindex,nofollow,noarchive">
+<link rel="stylesheet" href="kho.css">
+</head>
+<body>
+<section id="lock" class="lockbox"><form id="lockForm" class="lockcard" autocomplete="off">
+  <div class="kicker">★ Kho cá nhân</div><h1>Khu <em>riêng</em> tư</h1>
+  <p id="lockMsg"></p>
+  <input id="pass" type="password" placeholder="Mật khẩu" required autocomplete="current-password">
+  <input id="pass2" type="password" placeholder="Nhập lại mật khẩu" hidden autocomplete="new-password">
+  <p id="lockErr" class="err"></p>
+  <button class="btn primary" id="unlock">Mở kho</button> <a class="btn" href="index.html">← Về portfolio</a>
+</form></section>
+<div id="app" hidden>
+<div class="marquee"><span>★ KHO AI ★ KHO DESIGN ★ KHO EDIT ★ KHO TOOL ★ KHO KNOWLEDGE ★ KHO IDEA ★ KHO AI ★ KHO DESIGN ★ KHO EDIT ★ KHO TOOL ★ KHO KNOWLEDGE ★ KHO IDEA</span></div>
+<header class="hero"><div class="wrap">
+  <div class="kicker">★ Kho cá nhân</div>
+  <h1>Kho <em>tool</em> của mình</h1>
+  <p>Nơi gom AI, thiết kế, dựng video, repo hay và kiến thức khoá học — cập nhật liên tục.</p>
+  <nav class="tabs" id="tabs"></nav>
+  <p class="desc" id="desc"></p>
+  <div class="bar">
+    <input id="q" type="search" placeholder="Tìm trong kho…">
+    <button class="btn primary" id="add">+ Thêm</button>
+  </div>
+  <div class="tags" id="tags"></div>
+</div></header>
+<main class="wrap"><section class="grid" id="grid"></section></main>
+<footer><div class="wrap" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between">
+  <span>★ Dữ liệu được mã hoá trong trình duyệt — nhớ Xuất bản mã để sao lưu.</span>
+  <span style="display:flex;gap:8px;flex-wrap:wrap">
+    <button class="btn" id="export">Xuất bản mã</button>
+    <label class="btn" style="margin:0;text-transform:none;letter-spacing:0;font-size:12px;color:#fff">Nhập bản mã<input id="import" type="file" accept=".json" hidden></label>
+    <button class="btn" id="lockNow">Khoá lại</button>
+  </span>
+</div></footer>
+<dialog id="dlg"><form id="form" method="dialog">
+  <h2 id="dlgTitle">Thêm mục mới</h2>
+  <input type="hidden" name="id">
+  <label>Kho</label><select name="kho" id="kho"></select>
+  <label>Tiêu đề *</label><input name="title" required>
+  <label>Link</label><input name="url" placeholder="https://…">
+  <label>Loại</label><input name="type" placeholder="Repo, Template, Bài viết, Khoá học…">
+  <label>Tag (cách nhau bằng dấu phẩy)</label><input name="tags" placeholder="agent, docs">
+  <label>Ghi chú</label><textarea name="note" rows="3"></textarea>
+  <div class="row"><button type="button" class="btn" id="cancel">Huỷ</button><button class="btn primary" type="submit">Lưu</button></div>
+</form></dialog>
+</div>
+<script src="kho-data.js"></script>
+<script src="kho.js"></script>
+</body>
+</html>
