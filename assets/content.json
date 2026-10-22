@@ -374,6 +374,38 @@
    "slideCaptions_en": [
     "Completed the Bootcamp Data Analysis with Python course, issued by COLE - Digital Skills For Everyone in Ha Noi, on August 19, 2026"
    ]
+  },
+  {
+   "name_vi": "Khoá đào tạo Fullstack Marketing",
+   "name_en": "Fullstack Marketing Training Program",
+   "org": "JOBVUI",
+   "project_vi": "Thời gian đào tạo: 03/06/2026 - 26/09/2026. Cấp ngày 10/10/2026.",
+   "project_en": "Training period: 03/06/2026 - 26/09/2026. Issued 10/10/2026.",
+   "images": [
+    "assets/img/cert-jobvui-fullstack-marketing.jpg"
+   ],
+   "slideCaptions_vi": [
+    "Thời gian đào tạo: 03/06/2026 - 26/09/2026. Cấp ngày 10/10/2026."
+   ],
+   "slideCaptions_en": [
+    "Training period: 03/06/2026 - 26/09/2026. Issued 10/10/2026."
+   ]
+  },
+  {
+   "name_vi": "Chứng nhận hoàn thành khoá học 30 ngày học và thực hành Excel",
+   "name_en": "Certificate of completion: 30 Days of Excel Learning & Practice",
+   "org": "NGHỀ EXCEL",
+   "project_vi": "Ngày hoàn thành: 18/09/2026.",
+   "project_en": "Completed: 18/09/2026.",
+   "images": [
+    "assets/img/cert-ngheexcel-30ngay.jpg"
+   ],
+   "slideCaptions_vi": [
+    "Ngày hoàn thành: 18/09/2026."
+   ],
+   "slideCaptions_en": [
+    "Completed: 18/09/2026."
+   ]
   }
  ],
  "projects": [
