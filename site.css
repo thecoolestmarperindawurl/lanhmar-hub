@@ -185,3 +185,4 @@ dialog::backdrop{background:rgba(36,31,69,.6)}
 .rail .ccard img{object-position:top}
 .chapter .head .ini{width:48px;height:48px;border-radius:12px;border:2px solid var(--lav-300);background:var(--lav-200);color:var(--purple-deep);font-weight:800;display:grid;place-items:center;flex:0 0 auto}
 .chapter .head img{flex:0 0 auto;object-fit:contain;padding:2px}
+.chapter .head img{width:auto;height:48px;max-width:132px;border-radius:10px;background:#fff}

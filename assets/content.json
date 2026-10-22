@@ -237,7 +237,7 @@
    "org_vi": "Công ty TNHH SH Road Việt Nam",
    "org_en": "SH Road Vietnam Co., Ltd.",
    "period": "06/2026 - nay",
-   "logo": "",
+   "logo": "assets/img/logo-shroad.png",
    "workImage": "",
    "context_vi": "Hỗ trợ vận hành kho cho hoạt động bán hàng trên các sàn thương mại điện tử, từ nhập hàng đến xuất hàng và xử lý hàng hoàn.",
    "context_en": "Supporting warehouse operations for e-commerce sales, from receiving and shipping orders to handling returns.",
@@ -257,7 +257,6 @@
    ],
    "achievements_vi": [],
    "achievements_en": [],
-   "initials": "SH",
    "period_vi": "06/2026 - nay",
    "period_en": "06/2026 - Present"
   },
