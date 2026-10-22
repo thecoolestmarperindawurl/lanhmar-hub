@@ -72,11 +72,10 @@ function render() {
   $("#projects").innerHTML = D.projects.map((pr, i) => `<button class="pcard" data-proj="${i}"><div class="ph${pr.image ? "" : " thumbs"}">${pr.image ? `<img loading="lazy" src="${esc(safe(pr.image))}" alt="">` : pr.videos.slice(0, 3).map((v) => `<img loading="lazy" src="${esc(safe(v.thumb))}" alt="">`).join("")}<span class="num">${String(i + 1).padStart(2, "0")}</span></div><div class="tx"><h3>${esc(L(pr, "title"))}</h3><p>${esc(L(pr, "desc"))}</p></div></button>`).join("");
   $("#certList").innerHTML = D.certificates.map((c, i) => `<button class="ccard" data-cert="${i}"><img loading="lazy" src="${esc(safe(c.images[0]))}" alt=""><div><b>${esc(L(c, "name"))}</b><small>${esc(c.org)}</small></div></button>`).join("");
   // Email hiện sẵn + COPY; số điện thoại chỉ hiện khi bấm (không nằm trong HTML/JSON công khai).
-  const fb = safe(p.facebook_url);
   $("#contacts").innerHTML = `
     <li><span class="lbl">Email</span><a href="mailto:${esc(p.email)}">${esc(p.email)}</a><button class="btn" data-copy="${esc(p.email)}">${T("copy")}</button></li>
     <li><span class="lbl">${T("phone")}</span><button class="reveal" data-phone>${T("reveal")}</button></li>
-    ${fb ? `<li><span class="lbl">Facebook</span><a href="${esc(fb)}" target="_blank" rel="noopener">facebook.com/shokun.lav ↗</a></li>` : ""}`;
+    <li><span class="lbl">LinkedIn</span><a href="https://www.linkedin.com/lanhmar" target="_blank" rel="noopener">linkedin.com/lanhmar ↗</a></li>`;
 }
 const PH = "MDM4NCAwMTcgMTk1"; // chuỗi mã hoá nhẹ, chỉ giải mã khi người xem bấm
 function revealPhone(btn) {
