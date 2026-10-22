@@ -71,6 +71,7 @@ function render() {
 
   $("#projects").innerHTML = D.projects.map((pr, i) => `<button class="pcard" data-proj="${i}"><div class="ph${pr.image ? "" : " thumbs"}">${pr.image ? `<img loading="lazy" src="${esc(safe(pr.image))}" alt="">` : pr.videos.slice(0, 3).map((v) => `<img loading="lazy" src="${esc(safe(v.thumb))}" alt="">`).join("")}<span class="num">${String(i + 1).padStart(2, "0")}</span></div><div class="tx"><h3>${esc(L(pr, "title"))}</h3><p>${esc(L(pr, "desc"))}</p></div></button>`).join("");
   $("#certList").innerHTML = D.certificates.map((c, i) => `<button class="ccard" data-cert="${i}"><img loading="lazy" src="${esc(safe(c.images[0]))}" alt=""><div><b>${esc(L(c, "name"))}</b><small>${esc(c.org)}</small></div></button>`).join("");
+  requestAnimationFrame(railBtns);
   // Email hiện sẵn + COPY; số điện thoại chỉ hiện khi bấm (không nằm trong HTML/JSON công khai).
   $("#contacts").innerHTML = `
     <li><span class="lbl">Email</span><a href="mailto:${esc(p.email)}">${esc(p.email)}</a><button class="btn" data-copy="${esc(p.email)}">${T("copy")}</button></li>
@@ -100,6 +101,26 @@ function observeChapters(total) {
 const ROT = ["SEO", "PERFORMANCE", "DESIGN & EDIT", "AI AGENT", "E-COMMERCE"];
 let ri = 0;
 setInterval(() => { ri = (ri + 1) % ROT.length; $("#rotator").textContent = ROT[ri]; }, 2200);
+
+// certificate rail: nút ‹ › + kéo chuột / vuốt tay
+const rail = $("#certList");
+const railBtns = () => {
+  const max = rail.scrollWidth - rail.clientWidth - 2;
+  document.querySelector(".rail-btn.p").disabled = rail.scrollLeft <= 2;
+  document.querySelector(".rail-btn.n").disabled = rail.scrollLeft >= max;
+};
+rail.addEventListener("scroll", () => requestAnimationFrame(railBtns));
+window.addEventListener("resize", railBtns);
+let dragX = null, moved = false;
+rail.addEventListener("pointerdown", (e) => { if (e.pointerType === "mouse") { dragX = e.clientX; moved = false; } });
+window.addEventListener("pointermove", (e) => {
+  if (dragX === null) return;
+  const dx = e.clientX - dragX;
+  if (Math.abs(dx) > 4) { moved = true; rail.classList.add("drag"); }
+  if (moved) { rail.scrollLeft -= dx; dragX = e.clientX; }
+});
+window.addEventListener("pointerup", () => { dragX = null; setTimeout(() => rail.classList.remove("drag"), 0); });
+rail.addEventListener("click", (e) => { if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; } }, true);
 
 // dialog + carousel
 const dlg = $("#dlg"), body = $("#dlgBody");
@@ -150,6 +171,7 @@ document.addEventListener("click", (e) => {
   const t = e.target.closest("button,a"); if (!t) return;
   if (t.dataset.lang) { lang = t.dataset.lang; try { localStorage.setItem("lm_lang", lang); } catch {} D && render(); }
   else if ("phone" in t.dataset) revealPhone(t);
+  else if (t.dataset.rail) rail.scrollBy({ left: t.dataset.rail * rail.clientWidth * 0.8, behavior: "smooth" });
   else if (t.dataset.proj) openProject(+t.dataset.proj);
   else if (t.dataset.cert) openCert(+t.dataset.cert);
   else if (t.dataset.open && D) openProject(D.projects.findIndex((p) => p.key === t.dataset.open));
