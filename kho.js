@@ -42,16 +42,21 @@ async function boot() {
   if (!vault) {
     try { const r = await fetch("kho.enc.json", { cache: "no-store" }); if (r.ok) vault = await r.json(); } catch {}
   }
-  const first = !vault;
+  // Chỉ chủ trang mới tạo được kho: người lạ vào không thấy form tạo kho (cần mở kho.html#setup).
+  const setup = location.hash === "#setup";
+  const first = !vault && setup;
+  const none = !vault && !setup;
   $("#lockMsg").textContent = first
-    ? "Lần đầu: tạo mật khẩu cho kho. Mật khẩu không thể khôi phục — hãy ghi nhớ."
-    : "Kho riêng tư. Nhập mật khẩu để mở.";
+    ? "Thiết lập lần đầu: tạo mật khẩu cho kho. Mật khẩu không thể khôi phục — hãy ghi nhớ."
+    : none ? "Kho riêng tư. Chỉ chủ trang truy cập được." : "Kho riêng tư. Nhập mật khẩu để mở.";
   $("#pass2").hidden = !first;
   $("#unlock").textContent = first ? "Tạo kho" : "Mở kho";
+  $("#importWrap").hidden = !first;
   $("#lockForm").onsubmit = async (e) => {
     e.preventDefault();
     const p = $("#pass").value, err = $("#lockErr");
     err.textContent = "";
+    if (none) { err.textContent = "Không mở được kho."; return; }
     try {
       if (first) {
         if (p.length < 10) { err.textContent = "Mật khẩu tối thiểu 10 ký tự."; return; }
@@ -155,4 +160,12 @@ $("#import").onchange = async (e) => {
   } catch { alert("File kho.enc.json không hợp lệ."); }
 };
 if ((window.STORAGE_API || "").trim()) $("#storageBox").hidden = false; // chỉ hiện nút khi Data Storage đã được kích hoạt
+$("#importLock").onchange = async (e) => {
+  try {
+    const v = JSON.parse(await e.target.files[0].text());
+    if (!v.salt || !v.iv || !v.ct) throw 0;
+    localStorage.setItem(KEY, JSON.stringify(v));
+    location.hash = ""; location.reload();
+  } catch { alert("File kho.enc.json không hợp lệ."); }
+};
 boot();

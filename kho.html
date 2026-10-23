@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Kho cá nhân</title>
 <meta name="robots" content="noindex,nofollow,noarchive">
-<link rel="stylesheet" href="kho.css?v=20261023c">
+<link rel="stylesheet" href="kho.css?v=20261023d">
 </head>
 <body>
 <section id="lock" class="lockbox"><form id="lockForm" class="lockcard" autocomplete="off">
@@ -14,7 +14,8 @@
   <input id="pass" type="password" placeholder="Mật khẩu" required autocomplete="current-password">
   <input id="pass2" type="password" placeholder="Nhập lại mật khẩu" hidden autocomplete="new-password">
   <p id="lockErr" class="err"></p>
-  <button class="btn primary" id="unlock">Mở kho</button> <a class="btn" href="index.html">← Về portfolio</a>
+  <button class="btn primary" id="unlock">Mở kho</button>
+  <label id="importWrap" class="btn" hidden>Nhập bản mã đã có<input id="importLock" type="file" accept=".json" hidden></label> <a class="btn" href="index.html">← Về portfolio</a>
   <div id="storageBox" hidden>
   <hr class="sep"><a class="btn storage" href="storage.html">Truy cập Data Storage →</a>
   <p class="hint">Chưa có quyền? Đăng ký ở đó, Lan Anh duyệt xong bạn sẽ xem được phần được chia sẻ.</p>
@@ -59,8 +60,8 @@
   <div class="row"><button type="button" class="btn" id="cancel">Huỷ</button><button class="btn primary" type="submit">Lưu</button></div>
 </form></dialog>
 </div>
-<script src="kho-data.js?v=20261023c"></script>
-<script src="storage-config.js?v=20261023c"></script>
-<script src="kho.js?v=20261023c"></script>
+<script src="kho-data.js?v=20261023d"></script>
+<script src="storage-config.js?v=20261023d"></script>
+<script src="kho.js?v=20261023d"></script>
 </body>
 </html>
