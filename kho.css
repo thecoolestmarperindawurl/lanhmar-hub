@@ -74,3 +74,6 @@ label.chk input{width:auto}
 #storageBox .sep{margin:6px 0 0}
 #storageBox .btn.storage{display:block;width:100%;text-align:center;box-sizing:border-box}
 #storageBox .hint{text-align:center;line-height:1.5}
+a.btn{text-decoration:none}
+.btn.back{margin-bottom:16px;padding:8px 16px;font-size:13px}
+a.btn{display:inline-block}
