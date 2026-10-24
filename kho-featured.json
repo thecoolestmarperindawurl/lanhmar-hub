@@ -760,6 +760,50 @@
         "label": "Giáo án đầy đủ: Dựng trợ lý 24/365"
       },
       "group": "agent"
+    },
+    {
+      "id": "guide-ai-buy",
+      "kho": "ai",
+      "group": "buy",
+      "guide": true,
+      "title": "Nơi mua AI: 2 nguồn mua tài khoản",
+      "type": "Nguồn mua",
+      "date": "2026-10-24",
+      "tags": [
+        "mua ai",
+        "tài khoản"
+      ],
+      "thumb": "assets/res/guide-ai-buy.jpg",
+      "note": "2 nguồn để mua tài khoản các công cụ AI: bot Telegram và nhóm Zalo.",
+      "sections": [
+        {
+          "k": "h",
+          "t": "2 nguồn"
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "Nguồn 1: Telegram @taikhoantenhat_bot",
+              "tag": "Telegram",
+              "d": "Mua qua bot trên Telegram.",
+              "u": "https://t.me/taikhoantenhat_bot",
+              "lb": "Mở Telegram"
+            },
+            {
+              "t": "Nguồn 2: Nhóm Zalo",
+              "tag": "Zalo",
+              "d": "Tham gia nhóm Zalo để xem và mua.",
+              "u": "https://zalo.me/g/gkiuyg950",
+              "lb": "Vào nhóm Zalo"
+            }
+          ]
+        },
+        {
+          "k": "callout",
+          "t": "Lưu ý: đây là bên bán thứ ba, không phải nhà cung cấp chính thức. Nên mua gói nhỏ để thử trước, không gửi mật khẩu các tài khoản quan trọng của bạn, và đổi mật khẩu sau khi nhận tài khoản."
+        }
+      ]
     }
   ]
 }

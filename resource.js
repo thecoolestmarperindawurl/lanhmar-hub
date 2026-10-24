@@ -162,14 +162,14 @@ window.Res = (() => {
 
   /* ---------- bài lý thuyết / bản đồ kiến thức (guide) ---------- */
   function guideSection(x) {
-    const lnk = (u) => (okUrl(u) ? ` <a class="g-link" href="${esc(okUrl(u))}" target="_blank" rel="noopener">Mở trang gốc ↗</a>` : "");
+    const lnk = (u, lb) => (okUrl(u) ? ` <a class="g-link" href="${esc(okUrl(u))}" target="_blank" rel="noopener">${esc(lb || "Mở trang gốc")} ↗</a>` : "");
     switch (x.k) {
       case "h": return `<h4>${esc(x.t)}</h4>`;
       case "p": return `<p>${esc(x.t)}</p>`;
       case "callout": return `<p class="g-callout">${esc(x.t)}</p>`;
       case "list": return `<ul class="g-list">${x.items.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>`;
       case "steps": return `<ol class="res-outline">${x.items.map((o) => `<li><b>${esc(o.t)}</b><span>${esc(o.d)}</span></li>`).join("")}</ol>`;
-      case "cards": return `<div class="g-cards">${x.items.map((c) => `<div class="g-card"><b>${esc(c.t)}</b>${c.tag ? `<span class="badge">${esc(c.tag)}</span>` : ""}<p>${esc(c.d)}${lnk(c.u)}</p></div>`).join("")}</div>`;
+      case "cards": return `<div class="g-cards">${x.items.map((c) => `<div class="g-card"><b>${esc(c.t)}</b>${c.tag ? `<span class="badge">${esc(c.tag)}</span>` : ""}<p>${esc(c.d)}${lnk(c.u, c.lb)}</p></div>`).join("")}</div>`;
       case "table": return `<div class="g-tbl"><table><thead><tr>${x.head.map((h) => `<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${x.rows.map((r) => `<tr>${r.map((c, k) => (k ? `<td>${esc(c)}</td>` : `<th scope="row">${esc(c)}</th>`)).join("")}</tr>`).join("")}</tbody></table></div>`;
       case "links": return `<ul class="rank-src">${x.items.map((l) => `<li><a href="${esc(okUrl(l.u))}" target="_blank" rel="noopener">${esc(l.t)} ↗</a></li>`).join("")}</ul>`;
       default: return "";

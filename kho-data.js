@@ -1,7 +1,7 @@
 // Dữ liệu mẫu — sửa trực tiếp file này hoặc thêm bằng nút "+ Thêm" trên web (lưu trong trình duyệt, có Xuất/Nhập JSON).
 window.KHO = [
   { id: "ai", name: "Kho AI", icon: "✦", desc: "Tài khoản, skill cho AI Agent, bài cập nhật tính năng",
-    groups: [{ id: "news", name: "AI News", icon: "📰" }, { id: "agent", name: "AI Agent", icon: "🤖" }, { id: "other", name: "Khác", icon: "📁" }] },
+    groups: [{ id: "news", name: "AI News", icon: "📰" }, { id: "agent", name: "AI Agent", icon: "🤖" }, { id: "buy", name: "Nơi mua AI", icon: "🛒" }, { id: "other", name: "Khác", icon: "📁" }] },
   { id: "design", name: "Kho Design", icon: "◐", desc: "Tài nguyên cho Adobe, Canva, Figma..." },
   { id: "edit", name: "Kho Edit", icon: "▶", desc: "Tài nguyên cho CapCut, Premiere, After Effects..." },
   { id: "tool", name: "Kho Tool", icon: "⚙", desc: "Repo GitHub và công cụ hữu ích" },
