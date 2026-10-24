@@ -5,6 +5,7 @@ const API = (window.STORAGE_API || "").trim();
 const SAVE = "lm-storage-login";
 
 let items = [], featured = [], cur = "ai", q = "", tag = "";
+let grp = "";
 
 async function call(payload) {
   if (!API) throw new Error("no_api");
@@ -80,18 +81,21 @@ function render() {
   const list = inKho.filter((i) => !tag || (i.tags || []).includes(tag))
     .filter((i) => !n || [i.title, i.note, i.type, (i.tags || []).join(" ")].join(" ").toLowerCase().includes(n))
     .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
-  $("#grid").innerHTML = list.length ? list.map((i) => i.featured ? Res.card(i) : `
+  const cardOf = (i) => i.featured ? Res.card(i) : `
     <article class="card">
       ${i.type ? `<span class="badge">${esc(i.type)}</span>` : ""}
       <h3>${/^https?:\/\//i.test(i.url) ? `<a href="${esc(i.url)}" target="_blank" rel="noopener noreferrer">${esc(i.title)} ↗</a>` : esc(i.title)}</h3>
       <p>${esc(i.note)}</p>
       <div>${(i.tags || []).map((t) => `<span class="chip" data-t="${esc(t)}">#${esc(t)}</span>`).join(" ")}</div>
       <div class="meta"><span>${esc(i.date)}</span></div>
-    </article>`).join("") : `<div class="empty">Chưa có mục nào được chia sẻ trong kho này.</div>`;
+    </article>`;
+  $("#groups").innerHTML = Res.groupPills(cur, inKho, grp);
+  $("#grid").innerHTML = Res.group(list, cur, grp, cardOf) || `<div class="empty">Chưa có mục nào được chia sẻ trong kho này.</div>`;
 }
 document.addEventListener("click", (e) => {
   const t = e.target;
-  if (t.dataset?.k) { cur = t.dataset.k; tag = ""; render(); }
+  if (t.dataset?.g !== undefined && t.classList?.contains("gpill")) { grp = t.dataset.g; render(); }
+  else if (t.dataset?.k) { cur = t.dataset.k; tag = ""; grp = ""; render(); }
   else if (t.dataset?.t !== undefined && !$("#app").hidden) { tag = tag === t.dataset.t ? "" : t.dataset.t; render(); }
 });
 $("#q").addEventListener("input", (e) => { q = e.target.value; render(); });

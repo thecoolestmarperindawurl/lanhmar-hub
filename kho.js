@@ -11,6 +11,7 @@ let vault = null;      // {v, salt, iv, ct} đang lưu
 let cryptoKey = null;  // khoá trong bộ nhớ sau khi mở
 let items = [], featured = [];
 let cur = "ai", q = "", tag = "";
+let grp = "";
 
 async function deriveKey(pass, salt) {
   const base = await crypto.subtle.importKey("raw", enc.encode(pass), "PBKDF2", false, ["deriveKey"]);
@@ -88,20 +89,27 @@ function render() {
     .filter((i) => !tag || (i.tags || []).includes(tag))
     .filter((i) => !needle || [i.title, i.note, i.type, (i.tags || []).join(" ")].join(" ").toLowerCase().includes(needle))
     .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
-  $("#grid").innerHTML = list.length ? list.map((i) => i.featured ? Res.card(i) : `
+  const cardOf = (i) => i.featured ? Res.card(i) : `
     <article class="card">
       ${i.type ? `<span class="badge">${esc(i.type)}</span>` : ""}${i.shared ? `<span class="badge shared">Chia sẻ</span>` : ""}
       <h3>${/^https?:\/\//i.test(i.url) ? `<a href="${esc(i.url)}" target="_blank" rel="noopener noreferrer">${esc(i.title)} ↗</a>` : esc(i.title)}</h3>
       <p>${esc(i.note)}</p>
       <div>${(i.tags || []).map((t) => `<span class="chip" data-t="${esc(t)}">#${esc(t)}</span>`).join(" ")}</div>
       <div class="meta"><span>${esc(i.date)}</span><span class="acts"><button data-edit="${i.id}">Sửa</button><button data-del="${i.id}">Xoá</button></span></div>
-    </article>`).join("") : `<div class="empty">Chưa có mục nào. Bấm “+ Thêm” để bắt đầu.</div>`;
+    </article>`;
+  $("#groups").innerHTML = Res.groupPills(cur, inKho, grp);
+  $("#grid").innerHTML = Res.group(list, cur, grp, cardOf) || `<div class="empty">Chưa có mục nào. Bấm “+ Thêm” để bắt đầu.</div>`;
 }
 
 const dlg = $("#dlg"), f = $("#form");
+function fillGroups(sel) {
+  const html = Res.groupSelectHtml(f.kho.value, sel);
+  f.group.innerHTML = html;
+  f.group.closest("label, .grp-row").hidden = !html;
+}
 function openForm(it) {
   f.reset();
-  f.id.value = it?.id || ""; f.kho.value = it?.kho || cur; f.title.value = it?.title || "";
+  f.id.value = it?.id || ""; f.kho.value = it?.kho || cur; fillGroups(it?.group); f.title.value = it?.title || "";
   f.url.value = it?.url || ""; f.type.value = it?.type || ""; f.tags.value = (it?.tags || []).join(", "); f.note.value = it?.note || ""; f.shared.checked = !!it?.shared;
   $("#dlgTitle").textContent = it ? "Sửa mục" : "Thêm mục mới";
   dlg.showModal();
@@ -110,7 +118,7 @@ f.addEventListener("submit", async (e) => {
   e.preventDefault();
   let url = f.url.value.trim();
   if (url && !/^https?:\/\//i.test(url)) url = "https://" + url;
-  const rec = { id: f.id.value || "u" + Date.now(), kho: f.kho.value, title: f.title.value.trim(), url,
+  const rec = { id: f.id.value || "u" + Date.now(), kho: f.kho.value, group: f.group.value || "", title: f.title.value.trim(), url,
     type: f.type.value.trim(), note: f.note.value.trim(),
     shared: f.shared.checked, tags: f.tags.value.split(",").map((t) => t.trim().replace(/^#/, "")).filter(Boolean), date: new Date().toISOString().slice(0, 10) };
   const idx = items.findIndex((i) => i.id === rec.id);
@@ -124,10 +132,12 @@ async function start() {
   $("#kho").innerHTML = KHO.map((k) => `<option value="${k.id}">${k.name}</option>`).join("");
   render();
 }
+f.kho.addEventListener("change", () => fillGroups());
 $("#cancel").onclick = () => dlg.close();
 document.addEventListener("click", async (e) => {
   const t = e.target;
-  if (t.dataset.k) { cur = t.dataset.k; tag = ""; render(); }
+  if (t.dataset.g !== undefined && t.classList.contains("gpill")) { grp = t.dataset.g; render(); }
+  else if (t.dataset.k) { cur = t.dataset.k; tag = ""; grp = ""; render(); }
   else if (t.dataset.t !== undefined) { tag = tag === t.dataset.t ? "" : t.dataset.t; render(); }
   else if (t.dataset.edit) openForm(items.find((i) => i.id === t.dataset.edit));
   else if (t.dataset.del && confirm("Xoá mục này?")) { items = items.filter((i) => i.id !== t.dataset.del); await seal(); render(); }

@@ -183,7 +183,29 @@ window.Res = (() => {
       ${file ? `<div class="res-cta"><div><b>${esc(file.label || "Mở tài liệu")}</b><small>${esc(abs.replace(/^https?:\/\//, ""))}</small></div><a class="btn orange-btn" href="${esc(abs)}" target="_blank" rel="noopener">Mở tài liệu ↗</a></div>` : ""}`);
   }
 
+
+  /* ---------- mục con của kho (ví dụ Kho AI: AI News / AI Agent / Khác) ---------- */
+  const khoGroups = (kho) => ((window.KHO || []).find((k) => k.id === kho) || {}).groups || null;
+  const groupOf = (i, groups) => (groups.some((g) => g.id === i.group) ? i.group : groups[groups.length - 1].id);
+  function groupPills(kho, arr, grp) {
+    const gs = khoGroups(kho); if (!gs) return "";
+    const cnt = (id) => arr.filter((i) => groupOf(i, gs) === id).length;
+    return `<button class="gpill ${grp === "" ? "on" : ""}" data-g="" type="button">Tất cả <small>${arr.length}</small></button>` +
+      gs.map((g) => `<button class="gpill ${grp === g.id ? "on" : ""}" data-g="${esc(g.id)}" type="button">${g.icon || ""} ${esc(g.name)} <small>${cnt(g.id)}</small></button>`).join("");
+  }
+  // Gom thẻ theo mục con; kho không có mục con thì trả về danh sách phẳng. Trả "" nếu không có thẻ nào.
+  function group(list, kho, grp, cardOf) {
+    if (!list.length) return "";
+    const gs = khoGroups(kho);
+    if (!gs) return list.map(cardOf).join("");
+    return gs.filter((g) => !grp || g.id === grp).map((g) => {
+      const part = list.filter((i) => groupOf(i, gs) === g.id);
+      return part.length ? `<h3 class="grp-h">${g.icon || ""} ${esc(g.name)} <small>${part.length}</small></h3>` + part.map(cardOf).join("") : "";
+    }).join("");
+  }
+  const groupSelectHtml = (kho, cur) => { const gs = khoGroups(kho); return gs ? gs.map((g) => `<option value="${esc(g.id)}" ${g.id === cur ? "selected" : ""}>${esc(g.name)}</option>`).join("") : ""; };
+
   document.addEventListener("click", (e) => { const c = e.target.closest("[data-res]"); if (c) open(c.dataset.res); });
   document.addEventListener("keydown", (e) => { if ((e.key === "Enter" || e.key === " ") && e.target.dataset?.res) { e.preventDefault(); open(e.target.dataset.res); } });
-  return { load, all, card, open, visible, loadFeeds };
+  return { load, all, card, open, visible, loadFeeds, groupPills, group, groupOf, khoGroups, groupSelectHtml };
 })();

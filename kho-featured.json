@@ -15,7 +15,8 @@
         "docs"
       ],
       "note": "Tóm tắt các bản phát hành mới của Claude Code, tự cập nhật.",
-      "thumb": "assets/res/feed-claude-code.jpg"
+      "thumb": "assets/res/feed-claude-code.jpg",
+      "group": "news"
     },
     {
       "id": "feed-ai-news",
@@ -80,7 +81,8 @@
       ],
       "hide": [
         "https://www.anthropic.com/news"
-      ]
+      ],
+      "group": "news"
     },
     {
       "id": "feed-ai-ranking",
@@ -183,7 +185,8 @@
           "t": "Blockonomi: AI revenue statistics 2026",
           "u": "https://blockonomi.com/ai-revenue-statistics-2026-how-much-money-are-openai-anthropic-and-google-making/"
         }
-      ]
+      ],
+      "group": "news"
     },
     {
       "id": "res-tro-ly-24-365",
@@ -289,7 +292,8 @@
       "file": {
         "url": "docs/tro-ly-24-365.html",
         "label": "Giáo án đầy đủ: Dựng trợ lý 24/365"
-      }
+      },
+      "group": "agent"
     }
   ]
 }
