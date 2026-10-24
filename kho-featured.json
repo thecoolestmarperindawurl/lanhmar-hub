@@ -1317,33 +1317,180 @@
       "kho": "design",
       "guide": true,
       "date": "2026-10-24",
-      "title": "Brand Kit MYSE trên Canva",
+      "title": "Brand Kit LANHMAR: màu, font, logo",
       "type": "Brand Kit",
       "badge": "Canva",
       "tags": [
         "canva",
         "brand kit",
+        "lanhmar",
         "thương hiệu"
       ],
       "thumb": "assets/res/design-brandkit-myse.jpg",
-      "note": "Bộ nhận diện thương hiệu MYSE trên Canva: màu, font, logo dùng chung để mọi thiết kế đồng bộ.",
+      "note": "Bộ nhận diện LANHMAR: bảng màu tím và cam, font Montserrat, quy tắc bo góc, đổ bóng, tương phản chữ. Dùng để mọi thiết kế đồng bộ.",
       "cta": {
-        "title": "Brand Kit MYSE trên Canva",
+        "title": "Brand Kit LANHMAR trên Canva",
         "url": "https://www.canva.com/brand/kAHLDi2TJGU",
         "btn": "Mở Brand Kit trên Canva"
       },
       "sections": [
         {
           "k": "callout",
-          "t": "Link Canva chỉ mở được khi tài khoản của bạn được cấp quyền vào Brand Kit này. Nếu thấy yêu cầu quyền truy cập, hãy liên hệ Lan Anh."
+          "t": "Link Canva chỉ mở được khi tài khoản của bạn được cấp quyền vào Brand Kit. Nếu thấy yêu cầu quyền truy cập, hãy liên hệ Lan Anh. Bảng màu và quy tắc bên dưới lấy từ website lanhmar.id.vn nên bạn dùng được ngay mà không cần Canva."
         },
         {
           "k": "h",
-          "t": "Brand Kit là gì"
+          "t": "Bảng màu"
+        },
+        {
+          "k": "swatches",
+          "items": [
+            {
+              "n": "Tím đậm",
+              "c": "#2D2FEF",
+              "d": "Màu chủ đạo: tiêu đề, nút chính, footer"
+            },
+            {
+              "n": "Tím vừa",
+              "c": "#6A5CFF",
+              "d": "Dải chạy, viền ảnh chân dung, đường timeline"
+            },
+            {
+              "n": "Cam",
+              "c": "#FF7A45",
+              "d": "Màu nhấn: chữ nhấn, chấm số. Không làm nền lớn"
+            },
+            {
+              "n": "Cam nhạt",
+              "c": "#FFD8C2",
+              "d": "Nền badge, gạch chân"
+            },
+            {
+              "n": "Cam chữ",
+              "c": "#A6380D",
+              "d": "Chữ cam trên nền sáng hoặc cam nhạt"
+            },
+            {
+              "n": "Cam đậm",
+              "c": "#C24418",
+              "d": "Nền cam có chữ trắng (hover)"
+            },
+            {
+              "n": "Mực",
+              "c": "#241F45",
+              "d": "Chữ chính và nền thẻ tối"
+            },
+            {
+              "n": "Mực nhạt",
+              "c": "#55507A",
+              "d": "Chữ đoạn văn"
+            },
+            {
+              "n": "Lavender 100",
+              "c": "#F3F1FD",
+              "d": "Nền trang"
+            },
+            {
+              "n": "Lavender 200",
+              "c": "#E7E2FB",
+              "d": "Nền phần xen kẽ, tag"
+            },
+            {
+              "n": "Lavender 300",
+              "c": "#D6CEF7",
+              "d": "Viền thẻ, đường kẻ"
+            },
+            {
+              "n": "Giấy",
+              "c": "#FFFDF9",
+              "d": "Nền khối giấy xé"
+            }
+          ]
         },
         {
           "k": "p",
-          "t": "Brand Kit là nơi lưu bộ nhận diện thương hiệu trong Canva: bảng màu, font chữ, logo và hình ảnh thương hiệu. Khi thiết kế bằng đúng Brand Kit, mọi poster, post, slide đều đồng bộ màu và chữ, không phải chọn lại từng lần."
+          "t": "Tỷ lệ gợi ý: nền lavender khoảng 60%, tím 25%, cam 10%, mực 5%. Cam luôn là điểm nhấn."
+        },
+        {
+          "k": "h",
+          "t": "Chữ"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Font duy nhất cho tiêu đề và nội dung: Montserrat (Google Fonts), dự phòng system-ui.",
+            "Tiêu đề màu tím đậm; đoạn văn màu mực nhạt, dòng cách 1.65.",
+            "Nhãn nhỏ: chữ HOA, giãn chữ rộng, đậm, màu cam chữ.",
+            "Chữ nhấn trong tiêu đề: màu cam, nghiêng, gạch chân cam nhạt.",
+            "Chữ viết tay nét marker trên banner nằm trong ảnh nên chưa có tên font; dùng lại ảnh gốc, không tự dựng lại."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Hình dạng và phong cách"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Nút, tag, badge bo tròn hoàn toàn; thẻ bo khoảng 22px.",
+            "Đổ bóng ngả tím nhẹ, không dùng bóng đen.",
+            "Viền thẻ 2px màu lavender 300; ảnh chân dung viền đứt nét tím vừa.",
+            "Nút chính nền tím đậm chữ trắng; nút phụ viền tím nền trắng.",
+            "Dấu ★ làm phân cách đặc trưng (LAN ANH ★ PORTFOLIO ★ LANHMAR)."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cặp màu đủ tương phản"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Chữ / nền",
+            "Tỷ lệ",
+            "Dùng được?"
+          ],
+          "rows": [
+            [
+              "Trắng / tím đậm #2D2FEF",
+              "7.6",
+              "Có, thoải mái"
+            ],
+            [
+              "Trắng / tím vừa #6A5CFF",
+              "4.6",
+              "Có (vừa đủ)"
+            ],
+            [
+              "Trắng / cam đậm #C24418",
+              "5.1",
+              "Có"
+            ],
+            [
+              "Cam chữ #A6380D / cam nhạt #FFD8C2",
+              "5.0",
+              "Có"
+            ],
+            [
+              "Cam #FF7A45 / mực #241F45",
+              "6.0",
+              "Có, cam trên nền tối"
+            ],
+            [
+              "Trắng / cam #FF7A45",
+              "2.6",
+              "Không, chữ khó đọc"
+            ],
+            [
+              "Trắng / tím nhạt #8F84FF",
+              "3.0",
+              "Không, chữ khó đọc"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Quy tắc: chữ trắng chỉ đặt trên tím đậm, tím vừa, cam đậm hoặc mực. Chữ cam trên nền sáng dùng cam chữ #A6380D."
         },
         {
           "k": "h",
@@ -1354,32 +1501,26 @@
           "items": [
             {
               "t": "Mở Brand Kit",
-              "d": "Bấm nút bên dưới để xem màu, font, logo của MYSE."
+              "d": "Bấm nút bên dưới để xem bộ nhận diện trong Canva."
             },
             {
-              "t": "Áp dụng khi thiết kế",
-              "d": "Trong trình chỉnh sửa, mở tab Thương hiệu (Brand) ở thanh bên trái và chọn Brand Kit MYSE để lấy màu, font, logo."
+              "t": "Áp dụng",
+              "d": "Trong trình chỉnh sửa, mở tab Thương hiệu (Brand) ở thanh bên trái và chọn Brand Kit để lấy màu, font, logo."
             },
             {
-              "t": "Đổi nhanh sang đúng thương hiệu",
-              "d": "Với thiết kế có sẵn, dùng Magic Switch hoặc đổi từng màu/font theo Brand Kit để đưa về đúng nhận diện (tính năng tuỳ gói Canva của bạn)."
+              "t": "Nhập tay khi cần",
+              "d": "Nếu chưa được cấp quyền, nhập mã màu ở bảng trên và chọn font Montserrat."
             },
             {
-              "t": "Giữ đồng bộ",
-              "d": "Khi Brand Kit được cập nhật, mở lại để lấy màu/font mới cho thiết kế tiếp theo."
+              "t": "Đối chiếu",
+              "d": "Trước khi giao: đúng màu, đúng font, có ★ hoặc yếu tố nhận diện chưa, chữ đủ tương phản chưa."
             }
           ]
         },
         {
-          "k": "h",
-          "t": "Lưu ý"
-        },
-        {
           "k": "list",
           "items": [
-            "Một số tính năng Brand Kit (nhiều bộ, khoá thương hiệu, font tải lên) chỉ có ở gói Canva trả phí.",
-            "Chỉ dùng đúng màu, font, logo trong Brand Kit; đừng chỉnh méo, đổi màu logo hay thêm hiệu ứng.",
-            "Không chia sẻ logo, file thương hiệu cho người ngoài khi chưa được phép."
+            "Còn thiếu: file logo vector, quy tắc dùng logo (khoảng trống, cỡ tối thiểu, nền cấm dùng), tên font chữ viết tay trên banner."
           ]
         }
       ]

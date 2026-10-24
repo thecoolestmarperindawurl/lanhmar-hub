@@ -167,6 +167,7 @@ window.Res = (() => {
       case "h": return `<h4>${esc(x.t)}</h4>`;
       case "p": return `<p>${esc(x.t)}</p>`;
       case "callout": return `<p class="g-callout">${esc(x.t)}</p>`;
+      case "swatches": return `<div class="g-sw">${x.items.map((c) => `<div class="g-sw-i"><i style="background:${esc(/^#[0-9a-f]{3,8}$/i.test(c.c) ? c.c : "#ccc")}"></i><b>${esc(c.n)}</b><code>${esc(c.c)}</code><small>${esc(c.d)}</small></div>`).join("")}</div>`;
       case "list": return `<ul class="g-list">${x.items.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>`;
       case "steps": return `<ol class="res-outline">${x.items.map((o) => `<li><b>${esc(o.t)}</b><span>${esc(o.d)}</span></li>`).join("")}</ol>`;
       case "cards": return `<div class="g-cards">${x.items.map((c) => `<div class="g-card"><b>${esc(c.t)}</b>${c.tag ? `<span class="badge">${esc(c.tag)}</span>` : ""}<p>${esc(c.d)}${lnk(c.u, c.lb)}</p></div>`).join("")}</div>`;
