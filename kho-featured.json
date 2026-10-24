@@ -18,20 +18,172 @@
       "thumb": "assets/res/feed-claude-code.jpg"
     },
     {
-      "id": "feed-anthropic-news",
+      "id": "feed-ai-news",
       "kho": "ai",
-      "feed": "news",
-      "title": "Anthropic News: tin mới về Claude",
+      "feed": "ainews",
+      "title": "Tin AI toàn ngành: ChatGPT, Gemini, Grok, Copilot…",
       "type": "Cập nhật trực tiếp",
-      "url": "https://www.anthropic.com/news",
+      "url": "https://news.google.com/search?q=AI",
       "date": "2026-10-24",
       "tags": [
+        "tin tức",
         "cập nhật",
-        "claude",
-        "tin tức"
+        "chatgpt",
+        "gemini",
+        "grok",
+        "copilot",
+        "claude"
       ],
-      "note": "Tin và thông báo mới từ Anthropic, tóm tắt tiếng Việt.",
-      "thumb": "assets/res/feed-anthropic-news.jpg"
+      "note": "Tin mới của 10 hãng AI, tóm tắt tiếng Việt, tự cập nhật.",
+      "thumb": "assets/res/feed-ai-news.jpg",
+      "companies": [
+        {
+          "id": "anthropic",
+          "name": "Anthropic · Claude"
+        },
+        {
+          "id": "openai",
+          "name": "OpenAI · ChatGPT"
+        },
+        {
+          "id": "google",
+          "name": "Google · Gemini"
+        },
+        {
+          "id": "xai",
+          "name": "xAI · Grok"
+        },
+        {
+          "id": "microsoft",
+          "name": "Microsoft · Copilot"
+        },
+        {
+          "id": "meta",
+          "name": "Meta AI"
+        },
+        {
+          "id": "deepseek",
+          "name": "DeepSeek"
+        },
+        {
+          "id": "mistral",
+          "name": "Mistral AI"
+        },
+        {
+          "id": "nvidia",
+          "name": "NVIDIA"
+        },
+        {
+          "id": "perplexity",
+          "name": "Perplexity"
+        }
+      ],
+      "hide": [
+        "https://www.anthropic.com/news"
+      ]
+    },
+    {
+      "id": "feed-ai-ranking",
+      "kho": "ai",
+      "feed": "ranking",
+      "title": "Công ty AI có vốn hoá và tăng trưởng nhanh nhất",
+      "type": "Bảng xếp hạng",
+      "url": "https://eqvista.com/top-ai-startups-by-valuation/",
+      "date": "2026-10-24",
+      "tags": [
+        "xếp hạng",
+        "định giá",
+        "tăng trưởng"
+      ],
+      "note": "Top định giá/vốn hoá và top tăng trưởng doanh thu, số liệu tham khảo cập nhật 24/10/2026.",
+      "thumb": "assets/res/feed-ai-ranking.jpg",
+      "asof": "24/10/2026",
+      "valuation": [
+        {
+          "n": "NVIDIA",
+          "k": "Đại chúng",
+          "v": "≈ 5,1–5,5 nghìn tỷ USD",
+          "d": "Vốn hoá thị trường, hạ tầng chip AI. Một bảng xếp hạng ngày 11/10/2026 ghi 5,5 nghìn tỷ USD."
+        },
+        {
+          "n": "Anthropic",
+          "k": "Tư nhân",
+          "v": "965 tỷ USD",
+          "d": "Định giá sau vòng Series H trị giá 65 tỷ USD, công bố tháng 5/2026."
+        },
+        {
+          "n": "OpenAI",
+          "k": "Tư nhân",
+          "v": "852 tỷ USD",
+          "d": "Định giá vòng đã chốt tháng 3/2026. Có thông tin đang thảo luận vòng mới ở mức từ 1,2 nghìn tỷ USD, chưa hoàn tất."
+        },
+        {
+          "n": "xAI",
+          "k": "Tư nhân",
+          "v": "≈ 230–250 tỷ USD",
+          "d": "Các nguồn ghi mức khác nhau; hoạt động AI ngày càng gắn với hệ sinh thái SpaceX."
+        },
+        {
+          "n": "Databricks",
+          "k": "Tư nhân",
+          "v": "≈ 134 tỷ USD",
+          "d": "Nền tảng dữ liệu và AI doanh nghiệp."
+        }
+      ],
+      "growth": [
+        {
+          "n": "Anthropic",
+          "v": "1 → 65 tỷ USD run-rate",
+          "d": "Doanh thu quy năm: khoảng 1 tỷ (12/2024), 9 tỷ (cuối 2025), 47 tỷ (5/2026), 65 tỷ (7/2026)."
+        },
+        {
+          "n": "OpenAI",
+          "v": "> 40 tỷ USD run-rate",
+          "d": "Vượt 40 tỷ ngày 13/8/2026, gần gấp đôi cuối 2025; tăng tương đối chậm hơn Anthropic."
+        },
+        {
+          "n": "Cursor (Anysphere)",
+          "v": "2 → 6 tỷ USD ARR (dự báo)",
+          "d": "Vượt 2 tỷ ARR tháng 3/2026, dự báo 6 tỷ cuối năm; một nguồn khác ghi khoảng 4 tỷ vào 6/2026."
+        },
+        {
+          "n": "Databricks",
+          "v": "≈ 5,4 tỷ USD run-rate",
+          "d": "Mức doanh thu quy năm ghi nhận khoảng tháng 2/2026."
+        },
+        {
+          "n": "Mercor",
+          "v": "> 2 tỷ USD doanh thu quy năm",
+          "d": "Vượt mốc này vào tháng 6/2026."
+        }
+      ],
+      "note2": "Số liệu tổng hợp từ các trang thứ cấp nên có thể chênh lệch giữa nguồn. Định giá công ty tư nhân là mức của vòng gọi vốn gần nhất. Hãy đối chiếu với thông báo gốc của công ty hoặc báo tài chính trước khi dùng.",
+      "sources": [
+        {
+          "t": "Eqvista: Top AI startups by valuation",
+          "u": "https://eqvista.com/top-ai-startups-by-valuation/"
+        },
+        {
+          "t": "Prompt20: AI companies leaderboard",
+          "u": "https://data.prompt20.com/leaderboard/companies"
+        },
+        {
+          "t": "ValueAdd VC: Highest-valued private AI companies",
+          "u": "https://valueaddvc.com/blog/highest-valued-private-ai-companies-2026"
+        },
+        {
+          "t": "EVTV: 10 fastest growing AI companies in 2026",
+          "u": "https://evtv.online/en/ai/10-fastest-growing-ai-companies-in-2026-ranked-by-revenue-valuation-and-funding-growth/"
+        },
+        {
+          "t": "Clinkbill: Fastest growing AI companies by ARR",
+          "u": "https://clinkbill.com/blog/fastest-growing-ai-companies-arr"
+        },
+        {
+          "t": "Blockonomi: AI revenue statistics 2026",
+          "u": "https://blockonomi.com/ai-revenue-statistics-2026-how-much-money-are-openai-anthropic-and-google-making/"
+        }
+      ]
     },
     {
       "id": "res-tro-ly-24-365",

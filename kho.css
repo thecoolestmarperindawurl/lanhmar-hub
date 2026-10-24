@@ -137,3 +137,19 @@ dialog.res-dlg{padding:0;width:min(780px,94vw);max-height:92vh;overflow:auto;bor
 .res-pad{margin:16px 26px}
 .res-toast{position:fixed;right:18px;bottom:18px;z-index:60;max-width:min(360px,calc(100vw - 36px));background:var(--ink);color:#fff;border-left:5px solid var(--orange);border-radius:14px;padding:12px 16px;font-weight:600;font-size:14px;box-shadow:0 12px 30px rgba(36,31,69,.4);opacity:0;transform:translateY(16px);transition:.35s;pointer-events:none}
 .res-toast.on{opacity:1;transform:none}
+
+/* ---------- tin AI toàn ngành + xếp hạng ---------- */
+.ai-chips{display:flex;gap:6px;flex-wrap:wrap;margin:12px 26px 0}
+.ai-chips .chip{cursor:pointer;font-size:12px}
+.ai-chips .chip.on{background:var(--purple-deep);color:#fff;border-color:var(--purple-deep)}
+.dotnew{display:inline-block;background:var(--orange);color:var(--ink);border-radius:999px;padding:0 6px;font-size:10px;margin-left:4px}
+.news-src{font-size:11px;font-weight:700;color:var(--ink-soft);background:var(--lav-200);border-radius:999px;padding:2px 8px}
+table.rank-t{width:calc(100% - 52px);margin:0 26px 6px;border-collapse:collapse;font-size:14px}
+.rank-t td{padding:10px 8px;border-bottom:1px dashed var(--lav-300);vertical-align:top}
+.rank-t .rk{width:34px;font-weight:800;color:var(--orange-text);font-size:16px}
+.rank-t .num{text-align:right;font-weight:800;color:var(--purple-deep);white-space:nowrap}
+.rank-t small{display:block;font-size:12.5px;color:var(--ink-soft);margin-top:2px;line-height:1.45}
+.rank-note{background:var(--orange-soft);color:var(--orange-text);border-radius:14px;padding:10px 14px;font-size:13px;font-weight:600}
+.rank-src{margin:0 26px;padding-left:18px;font-size:13px}
+.rank-src a{color:var(--purple-deep)}
+@media(max-width:560px){.rank-t .num{white-space:normal}}

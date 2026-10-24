@@ -109,6 +109,11 @@ function isoDate_(s) {
     var mon = 'JanFebMarAprMayJunJulAugSepOctNovDec'.indexOf(mm[1].charAt(0).toUpperCase() + mm[1].slice(1, 3).toLowerCase());
     if (mon >= 0) return mm[3] + '-' + ('0' + (mon / 3 + 1)).slice(-2) + '-' + ('0' + mm[2]).slice(-2);
   }
+  var rr = s.match(/(\d{1,2}) ([A-Za-z]{3})[a-z]* (\d{4})/); // "24 Oct 2026" (RSS)
+  if (rr) {
+    var mo = 'JanFebMarAprMayJunJulAugSepOctNovDec'.indexOf(rr[2].charAt(0).toUpperCase() + rr[2].slice(1, 3).toLowerCase());
+    if (mo >= 0) return rr[3] + '-' + ('0' + (mo / 3 + 1)).slice(-2) + '-' + ('0' + rr[1]).slice(-2);
+  }
   var d = new Date(s);
   return isNaN(d) ? '' : Utilities.formatDate(d, 'UTC', 'yyyy-MM-dd');
 }
@@ -164,6 +169,64 @@ function news_() {
   return json_(out);
 }
 
+/* ---------- Tin AI toàn ngành, theo từng hãng ---------- */
+var AI_SOURCES = {
+  anthropic: { anthropic: true },
+  openai: { rss: 'https://openai.com/news/rss.xml' },
+  google: { rss: 'https://blog.google/products/gemini/rss/' },
+  xai: { gnews: 'Grok xAI' },
+  microsoft: { gnews: 'Microsoft Copilot' },
+  meta: { rss: 'https://about.fb.com/news/tag/ai/feed/' },
+  deepseek: { gnews: 'DeepSeek AI' },
+  mistral: { rss: 'https://mistral.ai/rss.xml' },
+  nvidia: { rss: 'https://blogs.nvidia.com/feed/' },
+  perplexity: { gnews: 'Perplexity AI' }
+};
+
+function stripTags_(s) {
+  return decode_(String(s || '').replace(/<!\[CDATA\[|\]\]>/g, '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' '));
+}
+
+function tag_(block, name) {
+  var m = block.match(new RegExp('<' + name + '[^>]*>([\\s\\S]*?)</' + name + '>'));
+  return m ? m[1] : '';
+}
+
+function rssItems_(xml, n) {
+  var items = String(xml).match(/<item[\s>][\s\S]*?<\/item>/g) || [];
+  return items.slice(0, n).map(function (b) {
+    return { title: stripTags_(tag_(b, 'title')), link: stripTags_(tag_(b, 'link')), date: isoDate_(stripTags_(tag_(b, 'pubDate')).replace(/^[A-Za-z]{3}, /, '').replace(/ \d\d:\d\d:\d\d.*$/, '')), desc: stripTags_(tag_(b, 'description')).slice(0, 260), source: stripTags_(tag_(b, 'source')) };
+  });
+}
+
+function aiNews_(id) {
+  var src = AI_SOURCES[id];
+  if (!src) return json_({ ok: false, error: 'bad_company' });
+  var cache = CacheService.getScriptCache(), key = 'ai:' + id, hit = cache.get(key);
+  if (hit) return json_(JSON.parse(hit));
+  var items = [];
+  try {
+    if (src.anthropic) {
+      items = anthropicNews_().slice(0, 6);
+    } else {
+      var url = src.rss || 'https://news.google.com/rss/search?q=' + encodeURIComponent(src.gnews + ' when:14d') + '&hl=en-US&gl=US&ceid=US:en';
+      var xml = UrlFetchApp.fetch(url, { muteHttpExceptions: true, followRedirects: true, headers: { 'User-Agent': 'Mozilla/5.0' } }).getContentText();
+      rssItems_(xml, 6).forEach(function (it) {
+        var title = it.title, s = it.desc;
+        if (src.gnews) { // Google News: tiêu đề dạng "Tiêu đề - Nguồn"
+          var cut = title.lastIndexOf(' - ');
+          if (cut > 20) { if (!it.source) it.source = title.slice(cut + 3); title = title.slice(0, cut); }
+          s = it.source ? 'Nguồn: ' + it.source : '';
+        }
+        items.push({ d: it.date, u: it.link, te: title, se: src.gnews ? '' : s, t: tr_(title), s: src.gnews ? s : tr_(s), src: it.source || '' });
+      });
+    }
+  } catch (e) {}
+  var out = { ok: items.length > 0, c: id, updated: new Date().toISOString(), items: items };
+  if (items.length) { var j = JSON.stringify(out); if (j.length < 90000) cache.put(key, j, 1800); }
+  return json_(out);
+}
+
 // Khoá học KesFlow mới nhất: đọc từ trang chủ kesflow.vn để link giới thiệu luôn trỏ đúng khoá (TA06, TA07...).
 function course_() {
   var cache = CacheService.getScriptCache(), hit = cache.get('course');
@@ -194,6 +257,7 @@ function doPost(e) {
     var pre = JSON.parse((e && e.postData && e.postData.contents) || '{}');
     if (pre.action === 'course') return course_();
     if (pre.action === 'news') return news_();
+    if (pre.action === 'ainews') return aiNews_(String(pre.c || ''));
   } catch (err0) {
     return json_({ ok: false, error: 'server' });
   }
