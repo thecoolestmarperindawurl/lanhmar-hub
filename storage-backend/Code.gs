@@ -2,10 +2,12 @@
  * LANHMAR Data Storage — backend (Google Apps Script + 1 Google Sheet).
  *
  * Tab Requests: Thời gian | Họ tên | Email | Lời nhắn | Mã truy cập | Trạng thái | Ngày duyệt | Ghi chú của tôi
+ *                | Nội dung CK (công thức) | Donate | Số tiền (đ) | Ngày nhận | Gợi ý (công thức)
  * Tab Items:    id | kho | title | url | note | tags | type | date   (web ghi đè khi bấm "Đồng bộ Storage")
  * Tab Dashboard: số liệu nhanh + danh sách đang chờ duyệt
  *
- * Duyệt người xem: đổi cột Trạng thái (Requests) từ Pending sang Approved.
+ * Duyệt người xem: đối chiếu khoản donate (Nội dung CK = "LM <mã>") với sao kê ngân hàng, chọn Donate = Đã nhận,
+ * nhập số tiền, rồi đổi cột Trạng thái từ Pending sang Approved.
  * Thu quyền: Revoked. Từ chối: Rejected.
  *
  * Script Properties cần đặt (Project Settings → Script properties):
@@ -22,7 +24,10 @@ var SHEET_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/edit';
 var REQ = 'Requests';
 var ITEMS = 'Items';
 var MAX_REQUESTS = 2000;
-var REQ_HEADERS = ['Thời gian', 'Họ tên', 'Email', 'Lời nhắn của người xin', 'Mã truy cập', 'Trạng thái', 'Ngày duyệt', 'Ghi chú của tôi'];
+var REQ_HEADERS = ['Thời gian', 'Họ tên', 'Email', 'Lời nhắn của người xin', 'Mã truy cập', 'Trạng thái', 'Ngày duyệt', 'Ghi chú của tôi',
+  'Nội dung CK (để đối chiếu)', 'Donate', 'Số tiền (đ)', 'Ngày nhận', 'Gợi ý'];
+var DONATE_OPTS = ['Chưa nhận', 'Đã nhận', 'Miễn (khoá KesFlow)', 'Miễn (khác)'];
+var CK_PREFIX = 'LM';
 var ITEM_HEADERS = ['id', 'kho', 'title', 'url', 'note', 'tags', 'type', 'date'];
 
 function sheet_(name, headers) {
@@ -296,8 +301,9 @@ function register_(b) {
   for (var k = 1; k < rows.length; k++) if (String(rows[k][2]) !== '') next = k + 2;
   sh.getRange(next, 1, 1, 6).setValues([[new Date(), safeCell_(name), email, safeCell_(note), code, 'Pending']]);
   notify_('🔔 Yêu cầu truy cập Data Storage mới\nTên: ' + name + '\nEmail: ' + email + (note ? '\nLời nhắn: ' + note : '') +
+          '\nNội dung CK cần tìm trong sao kê: ' + CK_PREFIX + ' ' + code +
           '\n\n👉 Duyệt ngay: ' + SHEET_URL + '#gid=' + sh.getSheetId() +
-          '\nĐổi cột Trạng thái thành Approved để cấp quyền.');
+          '\nĐã nhận donate → chọn Donate = Đã nhận (cột J), rồi đổi Trạng thái thành Approved.');
   return json_({ ok: true, existing: false, code: code, status: 'Pending' });
 }
 
@@ -417,6 +423,31 @@ function formatRequests_(sh) {
     rules('Revoked', C.red, C.redText), rules('Rejected', C.grey, C.greyText)));
   var f = sh.getFilter(); if (f) f.remove();
   sh.getRange(1, 1, MAXR, cols).createFilter();
+  // --- cột theo dõi donate (I..M) ---
+  sh.getRange(2, 9, n, 1).setFormula('=IF($E2="","","' + CK_PREFIX + ' "&$E2)')
+    .setFontFamily('Roboto Mono').setFontWeight('bold').setFontColor('#A6380D').setHorizontalAlignment('center');
+  var dn = sh.getRange(2, 10, n, 1);
+  dn.setDataValidation(SpreadsheetApp.newDataValidation().requireValueInList(DONATE_OPTS, true).setAllowInvalid(false)
+    .setHelpText('Chưa nhận · Đã nhận (có tiền trong sao kê) · Miễn (khoá KesFlow hoặc lý do khác)').build())
+    .setHorizontalAlignment('center').setFontWeight('bold');
+  sh.getRange(2, 11, n, 1).setNumberFormat('#,##0').setHorizontalAlignment('right');
+  sh.getRange(2, 12, n, 1).setNumberFormat('dd/MM/yyyy').setHorizontalAlignment('center');
+  sh.getRange(2, 13, n, 1).setFormula('=IF($C2="","",IF($F2="Approved","✔ Đã duyệt",IF($F2<>"Pending","",IF(OR($J2="Đã nhận",LEFT($J2,3)="Miễn"),"👉 CÓ THỂ DUYỆT","⏳ Chờ donate"))))')
+    .setFontWeight('bold').setHorizontalAlignment('center');
+  [220, 150, 120, 120, 170].forEach(function (w, i) { sh.setColumnWidth(i + 9, w); });
+  sh.getRange(1, 9, 1, 5).setBackground(C.orange);
+  var rules2 = sh.getConditionalFormatRules();
+  rules2.push(
+    SpreadsheetApp.newConditionalFormatRule().whenFormulaSatisfied('=$M2="👉 CÓ THỂ DUYỆT"')
+      .setBackground('#B7E4C7').setFontColor(C.greenText).setBold(true).setRanges([sh.getRange(2, 13, n, 1)]).build(),
+    SpreadsheetApp.newConditionalFormatRule().whenFormulaSatisfied('=$M2="⏳ Chờ donate"')
+      .setFontColor(C.yellowText).setRanges([sh.getRange(2, 13, n, 1)]).build(),
+    SpreadsheetApp.newConditionalFormatRule().whenFormulaSatisfied('=AND($F2="Approved",OR($J2="",$J2="Chưa nhận"))')
+      .setBackground('#FFC9C9').setFontColor(C.redText).setBold(true).setRanges([dn]).build());
+  sh.setConditionalFormatRules(rules2);
+  sh.getRange(1, 9).setNote('Người đóng góp phải ghi đúng nội dung này khi chuyển khoản. Tìm nội dung này trong sao kê TPBank để biết ai đã chuyển. (Tự điền từ cột Mã truy cập.)');
+  sh.getRange(1, 10).setNote('Sau khi thấy tiền trong sao kê: chọn "Đã nhận". Khoá KesFlow hoặc trường hợp đặc biệt: chọn "Miễn".');
+  sh.getRange(1, 13).setNote('Tự tính: 👉 CÓ THỂ DUYỆT = đã nhận donate/được miễn nhưng chưa Approved.');
   sh.getRange(1, 6).setNote('Đổi sang Approved để cấp quyền xem. Revoked = thu quyền ngay lần tải sau.');
   sh.getRange(1, 5).setNote('Người xin dùng mã này cùng email để vào xem. Mã chỉ hiện 1 lần cho họ.');
 }
@@ -468,7 +499,7 @@ function buildDashboard_(sh, req) {
   sh.getRange('B2:K2').merge().setValue('★ LANHMAR · Data Storage').setFontSize(20).setFontWeight('bold')
     .setFontColor('#FFFFFF').setBackground(C.purple).setVerticalAlignment('middle').setHorizontalAlignment('left');
   sh.setRowHeight(2, 52);
-  sh.getRange('B3:K3').merge().setValue('Theo dõi yêu cầu truy cập: duyệt ở tab Requests, đổi cột "Trạng thái".')
+  sh.getRange('B3:K3').merge().setValue('Theo dõi yêu cầu truy cập và donate: đối chiếu sao kê, ghi Donate, rồi duyệt ở tab Requests.')
     .setFontColor(C.greyText).setFontSize(10).setBackground(C.purpleSoft).setVerticalAlignment('middle');
   sh.setRowHeight(3, 28);
 
@@ -479,21 +510,40 @@ function buildDashboard_(sh, req) {
   kpi_(sh, 5, 10, 'MỤC CHIA SẺ', '=COUNTA(Items!A2:A)', C.orangeSoft, '#A6380D');
   sh.setRowHeight(5, 26); sh.setRowHeight(6, 30); sh.setRowHeight(7, 30);
 
-  sh.getRange('B9:K9').merge().setValue('⏳ ĐANG CHỜ DUYỆT (mới nhất ở trên)').setFontWeight('bold')
-    .setFontColor(C.yellowText).setBackground(C.yellow).setVerticalAlignment('middle');
-  sh.setRowHeight(9, 30);
-  sh.getRange('B10:F10').setValues([['Họ tên', 'Email', 'Lời nhắn', 'Mã', 'Thời gian']]).setFontWeight('bold').setFontColor(C.greyText)
-    .setBorder(false, false, true, false, false, false, '#CFCADF', SpreadsheetApp.BorderStyle.SOLID);
-  sh.getRange('B11').setFormula('=IFERROR(QUERY(Requests!A2:H,"select B,C,D,E,A where F=\'Pending\' order by A desc limit 12",0),"Không có yêu cầu nào đang chờ ✔")');
-  sh.getRange('B11:F22').setFontSize(10).setVerticalAlignment('middle');
-  sh.getRange('E11:E22').setFontFamily('Roboto Mono').setFontWeight('bold');
-  sh.getRange('F11:F22').setNumberFormat('dd/MM HH:mm');
+  // --- khối donate ---
+  kpi_(sh, 9, 2, 'ĐÃ NHẬN DONATE', '=COUNTIF(Requests!J2:J,"Đã nhận")', C.green, C.greenText);
+  kpi_(sh, 9, 4, 'TỔNG TIỀN (đ)', '=SUM(Requests!K2:K)', C.green, C.greenText);
+  kpi_(sh, 9, 6, 'SẴN SÀNG DUYỆT', '=COUNTIF(Requests!M2:M,"👉 CÓ THỂ DUYỆT")', C.orangeSoft, '#A6380D');
+  kpi_(sh, 9, 8, 'CHỜ DONATE', '=COUNTIF(Requests!M2:M,"⏳ Chờ donate")', C.yellow, C.yellowText);
+  kpi_(sh, 9, 10, 'DUYỆT NHƯNG CHƯA GHI DONATE', '=COUNTIFS(Requests!F2:F,"Approved",Requests!J2:J,"")+COUNTIFS(Requests!F2:F,"Approved",Requests!J2:J,"Chưa nhận")', C.red, C.redText);
+  sh.getRange('D10:E11').setNumberFormat('#,##0').setFontSize(22);
+  sh.setRowHeight(9, 26); sh.setRowHeight(10, 30); sh.setRowHeight(11, 30);
 
-  sh.getRange('B24:K29').merge().setValue(
-    'CÁCH DÙNG NHANH\n1. Có yêu cầu mới → bot Telegram nhắn kèm link Sheet.\n2. Mở tab Requests, chọn ô Trạng thái của người đó → Approved (cho xem) hoặc Rejected (từ chối).\n3. Muốn thu quyền → đổi thành Revoked, họ mất quyền ngay lần tải sau.\n4. Mục chia sẻ lấy từ Kho cá nhân: tích "Chia sẻ" rồi bấm "Đồng bộ Storage".')
+  sh.getRange('B13:K13').merge().setValue('👉 SẴN SÀNG DUYỆT: đã nhận donate / được miễn, chưa Approved').setFontWeight('bold')
+    .setFontColor(C.greenText).setBackground(C.green).setVerticalAlignment('middle');
+  sh.setRowHeight(13, 30);
+  sh.getRange('B14:G14').setValues([['Họ tên', 'Email', 'Mã', 'Nội dung CK', 'Số tiền (đ)', 'Donate']]).setFontWeight('bold').setFontColor(C.greyText)
+    .setBorder(false, false, true, false, false, false, '#CFCADF', SpreadsheetApp.BorderStyle.SOLID);
+  sh.getRange('B15').setFormula('=IFERROR(QUERY(Requests!A2:M,"select B,C,E,I,K,J where F=\'Pending\' and (J=\'Đã nhận\' or J starts with \'Miễn\') order by A desc limit 12",0),"Chưa có ai sẵn sàng duyệt")');
+  sh.getRange('B15:G26').setFontSize(10).setVerticalAlignment('middle');
+  sh.getRange('D15:E26').setFontFamily('Roboto Mono').setFontWeight('bold');
+  sh.getRange('F15:F26').setNumberFormat('#,##0');
+
+  sh.getRange('B28:K28').merge().setValue('⏳ ĐANG CHỜ DONATE (mới nhất ở trên)').setFontWeight('bold')
+    .setFontColor(C.yellowText).setBackground(C.yellow).setVerticalAlignment('middle');
+  sh.setRowHeight(28, 30);
+  sh.getRange('B29:G29').setValues([['Họ tên', 'Email', 'Lời nhắn', 'Mã', 'Nội dung CK', 'Thời gian']]).setFontWeight('bold').setFontColor(C.greyText)
+    .setBorder(false, false, true, false, false, false, '#CFCADF', SpreadsheetApp.BorderStyle.SOLID);
+  sh.getRange('B30').setFormula('=IFERROR(QUERY(Requests!A2:M,"select B,C,D,E,I,A where F=\'Pending\' and not (J=\'Đã nhận\' or J starts with \'Miễn\') order by A desc limit 12",0),"Không có yêu cầu nào đang chờ ✔")');
+  sh.getRange('B30:G41').setFontSize(10).setVerticalAlignment('middle');
+  sh.getRange('E30:F41').setFontFamily('Roboto Mono').setFontWeight('bold');
+  sh.getRange('G30:G41').setNumberFormat('dd/MM HH:mm');
+
+  sh.getRange('B43:K49').merge().setValue(
+    'CÁCH DUYỆT CHÍNH XÁC (theo donate)\n1. Có yêu cầu mới → bot Telegram nhắn tên, email và "Nội dung CK" (dạng LM + mã).\n2. Mở sao kê TPBank, tìm đúng nội dung đó. Có tiền → vào tab Requests, cột Donate chọn "Đã nhận", nhập Số tiền và Ngày nhận.\n3. Cột Gợi ý chuyển thành "👉 CÓ THỂ DUYỆT" → đổi Trạng thái thành Approved. Khoá KesFlow / trường hợp đặc biệt: Donate = "Miễn".\n4. Không thấy tiền → để Pending. Muốn thu quyền → Revoked. Từ chối → Rejected.\n5. Ô đỏ "DUYỆT NHƯNG CHƯA GHI DONATE" nhắc bạn bổ sung nếu lỡ duyệt trước.')
     .setWrapStrategy(SpreadsheetApp.WrapStrategy.WRAP).setVerticalAlignment('top').setFontSize(10)
     .setFontColor(C.ink).setBackground('#FAF8FF')
     .setBorder(true, true, true, true, false, false, C.purpleSoft, SpreadsheetApp.BorderStyle.SOLID_MEDIUM);
-  sh.getRange('B31').setFormula('=HYPERLINK("#gid=' + req.getSheetId() + '","→ Mở danh sách yêu cầu (Requests)")')
+  sh.getRange('B51').setFormula('=HYPERLINK("#gid=' + req.getSheetId() + '","→ Mở danh sách yêu cầu (Requests)")')
     .setFontWeight('bold').setFontColor(C.purple);
 }

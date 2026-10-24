@@ -42,3 +42,8 @@ Mở file `storage-config.js`, dán URL vào `window.STORAGE_API = "...";`, lưu
 - Chỉ những mục bạn tích “Chia sẻ” và đồng bộ mới nằm trong Sheet. Phần còn lại của Kho cá nhân vẫn mã hoá trong trình duyệt của bạn.
 - Người đã được duyệt có thể sao chép nội dung họ xem. Thu quyền không xoá được những gì họ đã chép.
 - Mỗi lần bạn sửa code `Code.gs`, phải **Triển khai → Quản lý triển khai → Sửa → Phiên bản mới** thì thay đổi mới có hiệu lực.
+
+## Theo dõi donate (Version 7)
+
+Tab Requests có thêm 5 cột bên phải: **Nội dung CK** (tự điền `LM <mã>`), **Donate** (Chưa nhận / Đã nhận / Miễn), **Số tiền (đ)**, **Ngày nhận**, **Gợi ý** (tự tính: "CÓ THỂ DUYỆT" khi đã nhận donate hoặc được miễn mà chưa Approved).
+Quy trình: tìm nội dung CK trong sao kê, chọn Donate = Đã nhận, nhập số tiền, rồi đổi Trạng thái thành Approved. Dashboard có khối "Sẵn sàng duyệt", "Đang chờ donate", tổng tiền và cảnh báo "Duyệt nhưng chưa ghi donate".
