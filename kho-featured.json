@@ -774,7 +774,7 @@
         "tài khoản"
       ],
       "thumb": "assets/res/guide-ai-buy.jpg",
-      "note": "2 nguồn để mua tài khoản các công cụ AI: bot Telegram và nhóm Zalo.",
+      "note": "2 nguồn mua tài khoản AI (Telegram bot, nhóm Zalo) và ghi chú: Claude nên mua chính chủ bằng thẻ VISA.",
       "sections": [
         {
           "k": "h",
@@ -800,8 +800,24 @@
           ]
         },
         {
+          "k": "h",
+          "t": "Riêng Claude: nên mua chính chủ"
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "Claude Pro (chính chủ)",
+              "tag": "~555k/tháng",
+              "d": "Nên mua trực tiếp từ Anthropic bằng cách thêm thẻ VISA (Techcombank) vào tài khoản. Giá Claude Pro khoảng 555.000đ/tháng (ghi chú của Lan Anh, giá có thể thay đổi theo tỷ giá và thuế, xem lại ở trang gốc).",
+              "u": "https://claude.ai/upgrade",
+              "lb": "Mở trang nâng cấp"
+            }
+          ]
+        },
+        {
           "k": "callout",
-          "t": "Lưu ý: đây là bên bán thứ ba, không phải nhà cung cấp chính thức. Nên mua gói nhỏ để thử trước, không gửi mật khẩu các tài khoản quan trọng của bạn, và đổi mật khẩu sau khi nhận tài khoản."
+          "t": "Lưu ý với các nguồn bên thứ ba: đây không phải nhà cung cấp chính thức. Nên mua gói nhỏ để thử trước, không gửi mật khẩu các tài khoản quan trọng của bạn, và đổi mật khẩu sau khi nhận tài khoản. Với Claude, ưu tiên mua chính chủ như trên."
         }
       ]
     }
