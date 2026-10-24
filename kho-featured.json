@@ -1892,9 +1892,9 @@
           "k": "cards",
           "items": [
             {
-              "t": "Thư mục Ebook 1 (thư mục mẹ)",
+              "t": "Ebook (thư mục mẹ)",
               "tag": "Drive",
-              "d": "Chứa 2 folder ebook con bên dưới.",
+              "d": "Thư mục ebook chính, chứa 2 folder con bên dưới.",
               "u": "https://drive.google.com/drive/folders/1E_ZIW2wYFb8E4clii3BoGq6UcsyOVjd4",
               "lb": "Mở thư mục"
             },
