@@ -1311,6 +1311,78 @@
           ]
         }
       ]
+    },
+    {
+      "id": "design-brandkit-myse",
+      "kho": "design",
+      "guide": true,
+      "date": "2026-10-24",
+      "title": "Brand Kit MYSE trên Canva",
+      "type": "Brand Kit",
+      "badge": "Canva",
+      "tags": [
+        "canva",
+        "brand kit",
+        "thương hiệu"
+      ],
+      "thumb": "assets/res/design-brandkit-myse.jpg",
+      "note": "Bộ nhận diện thương hiệu MYSE trên Canva: màu, font, logo dùng chung để mọi thiết kế đồng bộ.",
+      "cta": {
+        "title": "Brand Kit MYSE trên Canva",
+        "url": "https://www.canva.com/brand/kAHLDi2TJGU",
+        "btn": "Mở Brand Kit trên Canva"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Link Canva chỉ mở được khi tài khoản của bạn được cấp quyền vào Brand Kit này. Nếu thấy yêu cầu quyền truy cập, hãy liên hệ Lan Anh."
+        },
+        {
+          "k": "h",
+          "t": "Brand Kit là gì"
+        },
+        {
+          "k": "p",
+          "t": "Brand Kit là nơi lưu bộ nhận diện thương hiệu trong Canva: bảng màu, font chữ, logo và hình ảnh thương hiệu. Khi thiết kế bằng đúng Brand Kit, mọi poster, post, slide đều đồng bộ màu và chữ, không phải chọn lại từng lần."
+        },
+        {
+          "k": "h",
+          "t": "Cách dùng trong Canva"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Mở Brand Kit",
+              "d": "Bấm nút bên dưới để xem màu, font, logo của MYSE."
+            },
+            {
+              "t": "Áp dụng khi thiết kế",
+              "d": "Trong trình chỉnh sửa, mở tab Thương hiệu (Brand) ở thanh bên trái và chọn Brand Kit MYSE để lấy màu, font, logo."
+            },
+            {
+              "t": "Đổi nhanh sang đúng thương hiệu",
+              "d": "Với thiết kế có sẵn, dùng Magic Switch hoặc đổi từng màu/font theo Brand Kit để đưa về đúng nhận diện (tính năng tuỳ gói Canva của bạn)."
+            },
+            {
+              "t": "Giữ đồng bộ",
+              "d": "Khi Brand Kit được cập nhật, mở lại để lấy màu/font mới cho thiết kế tiếp theo."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Lưu ý"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Một số tính năng Brand Kit (nhiều bộ, khoá thương hiệu, font tải lên) chỉ có ở gói Canva trả phí.",
+            "Chỉ dùng đúng màu, font, logo trong Brand Kit; đừng chỉnh méo, đổi màu logo hay thêm hiệu ứng.",
+            "Không chia sẻ logo, file thương hiệu cho người ngoài khi chưa được phép."
+          ]
+        }
+      ]
     }
   ]
 }
