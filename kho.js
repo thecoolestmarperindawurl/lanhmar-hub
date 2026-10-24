@@ -73,13 +73,13 @@ async function boot() {
 /* ---------- giao diện kho ---------- */
 function renderTabs() {
   $("#tabs").innerHTML = KHO.map((k) =>
-    `<button class="tab ${k.id === cur ? "on" : ""}" data-k="${k.id}">${k.icon} ${k.name}<small>${items.filter((i) => i.kho === k.id).length + featured.filter((i) => i.kho === k.id).length}</small></button>`).join("");
+    `<button class="tab ${k.id === cur ? "on" : ""}" data-k="${k.id}">${k.icon} ${k.name}<small>${Res.visible(items).filter((i) => i.kho === k.id).length + featured.filter((i) => i.kho === k.id).length}</small></button>`).join("");
 }
 function render() {
   const k = KHO.find((x) => x.id === cur);
   renderTabs();
   $("#desc").textContent = k.desc;
-  const inKho = items.filter((i) => i.kho === cur).concat(featured.filter((i) => i.kho === cur));
+  const inKho = Res.visible(items).filter((i) => i.kho === cur).concat(featured.filter((i) => i.kho === cur));
   const tags = [...new Set(inKho.flatMap((i) => i.tags || []))].sort();
   if (tag && !tags.includes(tag)) tag = "";
   $("#tags").innerHTML = tags.map((t) => `<span class="chip ${t === tag ? "on" : ""}" data-t="${esc(t)}">#${esc(t)}</span>`).join("");
@@ -120,6 +120,7 @@ f.addEventListener("submit", async (e) => {
 
 async function start() {
   featured = await Res.load();
+  Res.loadFeeds().then(() => render());
   $("#kho").innerHTML = KHO.map((k) => `<option value="${k.id}">${k.name}</option>`).join("");
   render();
 }

@@ -1,12 +1,50 @@
 {
   "items": [
     {
+      "id": "feed-claude-code",
+      "kho": "ai",
+      "feed": "claude",
+      "title": "Claude Code: bản cập nhật mới nhất",
+      "type": "Cập nhật trực tiếp",
+      "url": "https://docs.claude.com/en/docs/claude-code",
+      "date": "2026-10-24",
+      "tags": [
+        "claude",
+        "agent",
+        "cập nhật",
+        "docs"
+      ],
+      "note": "Tóm tắt các bản phát hành mới của Claude Code, tự cập nhật.",
+      "thumb": "assets/res/feed-claude-code.jpg"
+    },
+    {
+      "id": "feed-anthropic-news",
+      "kho": "ai",
+      "feed": "news",
+      "title": "Anthropic News: tin mới về Claude",
+      "type": "Cập nhật trực tiếp",
+      "url": "https://www.anthropic.com/news",
+      "date": "2026-10-24",
+      "tags": [
+        "cập nhật",
+        "claude",
+        "tin tức"
+      ],
+      "note": "Tin và thông báo mới từ Anthropic, tóm tắt tiếng Việt.",
+      "thumb": "assets/res/feed-anthropic-news.jpg"
+    },
+    {
       "id": "res-tro-ly-24-365",
       "kho": "ai",
       "title": "Dựng trợ lý 24/365 cho người đi làm",
       "type": "Hướng dẫn + Case study",
       "date": "2026-10-24",
-      "tags": ["ai agent", "zalo", "telegram", "notion"],
+      "tags": [
+        "ai agent",
+        "zalo",
+        "telegram",
+        "notion"
+      ],
       "note": "7 bước dựng một con bot tự chạy cho những việc lặp lại mỗi ngày, kèm case study bot Zalo mình đã dựng thật.",
       "thumb": "assets/res/tro-ly-24-365/thumb.jpg",
       "cover": "assets/res/tro-ly-24-365/cover.jpg",
@@ -15,31 +53,91 @@
         "Mình kèm case study bot Zalo và Telegram (Nomad Lanhmar) đã dựng để chứng minh dùng được thật, cùng 10 prompt để bạn tự làm theo. Không cần biết lập trình."
       ],
       "facts": [
-        ["Dạng tài liệu", "Giáo án dạng trang web (HTML)"],
-        ["Kênh", "Zalo, Telegram"],
-        ["Công cụ", "Notion, Google Drive, NotebookLM, Claude"],
-        ["Yêu cầu", "Không cần biết lập trình"]
+        [
+          "Dạng tài liệu",
+          "Giáo án dạng trang web (HTML)"
+        ],
+        [
+          "Kênh",
+          "Zalo, Telegram"
+        ],
+        [
+          "Công cụ",
+          "Notion, Google Drive, NotebookLM, Claude"
+        ],
+        [
+          "Yêu cầu",
+          "Không cần biết lập trình"
+        ]
       ],
       "outline": [
-        { "t": "Vì sao cần trợ lý", "d": "Một ngày đi làm bị cắt vụn bởi tin nhắn hỏi lại, lịch và việc trôi, chi tiêu quên ghi, tài liệu rải rác." },
-        { "t": "4 năng lực ghép lại", "d": "Nghe, Hiểu, Nhớ, Làm: đủ 4 khối thì mới là trợ lý thật sự." },
-        { "t": "Lộ trình 7 bước", "d": "Chọn việc, chọn kênh, bộ não, dữ liệu, chế độ, chạy 24/365, vận hành." },
-        { "t": "Case study bot Nomad Lanhmar", "d": "Nhắc lịch, nhắn \"cà phê 45k\" là ghi sổ, đọc biên bản họp thành task, tra Drive trả lời có nguồn." },
-        { "t": "Chi phí và bài học", "d": "Bao nhiêu tiền một tháng và 6 lần bot vấp mình học được gì." },
-        { "t": "Checklist và 10 prompt", "d": "Danh sách kiểm tra trước khi chạy thật và bộ prompt để bạn tự dựng." }
+        {
+          "t": "Vì sao cần trợ lý",
+          "d": "Một ngày đi làm bị cắt vụn bởi tin nhắn hỏi lại, lịch và việc trôi, chi tiêu quên ghi, tài liệu rải rác."
+        },
+        {
+          "t": "4 năng lực ghép lại",
+          "d": "Nghe, Hiểu, Nhớ, Làm: đủ 4 khối thì mới là trợ lý thật sự."
+        },
+        {
+          "t": "Lộ trình 7 bước",
+          "d": "Chọn việc, chọn kênh, bộ não, dữ liệu, chế độ, chạy 24/365, vận hành."
+        },
+        {
+          "t": "Case study bot Nomad Lanhmar",
+          "d": "Nhắc lịch, nhắn \"cà phê 45k\" là ghi sổ, đọc biên bản họp thành task, tra Drive trả lời có nguồn."
+        },
+        {
+          "t": "Chi phí và bài học",
+          "d": "Bao nhiêu tiền một tháng và 6 lần bot vấp mình học được gì."
+        },
+        {
+          "t": "Checklist và 10 prompt",
+          "d": "Danh sách kiểm tra trước khi chạy thật và bộ prompt để bạn tự dựng."
+        }
       ],
       "gallery": [
-        { "src": "assets/res/tro-ly-24-365/demo-01.jpg", "cap": "Hồ sơ bot Nomad Lanhmar trên Zalo" },
-        { "src": "assets/res/tro-ly-24-365/demo-02.jpg", "cap": "Thẻ trạng thái bot trên Telegram" },
-        { "src": "assets/res/tro-ly-24-365/demo-03.jpg", "cap": "Bàn phím điều khiển trên Telegram" },
-        { "src": "assets/res/tro-ly-24-365/demo-04.jpg", "cap": "Bot đọc biên bản họp và lưu 11 task" },
-        { "src": "assets/res/tro-ly-24-365/demo-05.jpg", "cap": "Tin chào buổi sáng và xếp task vào lịch" },
-        { "src": "assets/res/tro-ly-24-365/demo-06.jpg", "cap": "Trang FinanceOS trong Notion" },
-        { "src": "assets/res/tro-ly-24-365/demo-07.jpg", "cap": "Tin kiến thức hôm nay" },
-        { "src": "assets/res/tro-ly-24-365/demo-08.jpg", "cap": "Bảng lệnh /help trên Zalo" },
-        { "src": "assets/res/tro-ly-24-365/demo-09.jpg", "cap": "Yêu cầu sửa bot qua Claude trên điện thoại" }
+        {
+          "src": "assets/res/tro-ly-24-365/demo-01.jpg",
+          "cap": "Hồ sơ bot Nomad Lanhmar trên Zalo"
+        },
+        {
+          "src": "assets/res/tro-ly-24-365/demo-02.jpg",
+          "cap": "Thẻ trạng thái bot trên Telegram"
+        },
+        {
+          "src": "assets/res/tro-ly-24-365/demo-03.jpg",
+          "cap": "Bàn phím điều khiển trên Telegram"
+        },
+        {
+          "src": "assets/res/tro-ly-24-365/demo-04.jpg",
+          "cap": "Bot đọc biên bản họp và lưu 11 task"
+        },
+        {
+          "src": "assets/res/tro-ly-24-365/demo-05.jpg",
+          "cap": "Tin chào buổi sáng và xếp task vào lịch"
+        },
+        {
+          "src": "assets/res/tro-ly-24-365/demo-06.jpg",
+          "cap": "Trang FinanceOS trong Notion"
+        },
+        {
+          "src": "assets/res/tro-ly-24-365/demo-07.jpg",
+          "cap": "Tin kiến thức hôm nay"
+        },
+        {
+          "src": "assets/res/tro-ly-24-365/demo-08.jpg",
+          "cap": "Bảng lệnh /help trên Zalo"
+        },
+        {
+          "src": "assets/res/tro-ly-24-365/demo-09.jpg",
+          "cap": "Yêu cầu sửa bot qua Claude trên điện thoại"
+        }
       ],
-      "file": { "url": "docs/tro-ly-24-365.html", "label": "Giáo án đầy đủ: Dựng trợ lý 24/365" }
+      "file": {
+        "url": "docs/tro-ly-24-365.html",
+        "label": "Giáo án đầy đủ: Dựng trợ lý 24/365"
+      }
     }
   ]
 }

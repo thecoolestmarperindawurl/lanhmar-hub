@@ -87,6 +87,83 @@ function doGet() {
   return json_({ ok: true, service: 'lanhmar-storage' });
 }
 
+/* ================== TIN CẬP NHẬT TRỰC TIẾP (Claude Code + Anthropic News) ================== */
+// Lấy tin mới, tóm tắt sơ lược (đoạn mô tả có sẵn của bài) và dịch sang tiếng Việt. Cache 30 phút để nhanh và nhẹ.
+function tr_(text) {
+  text = String(text || '').trim();
+  if (!text) return '';
+  var cache = CacheService.getScriptCache();
+  var key = 'tr:' + Utilities.base64EncodeWebSafe(Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, text)).slice(0, 24);
+  var hit = cache.get(key);
+  if (hit) return hit;
+  var out = text;
+  try { out = LanguageApp.translate(text, 'en', 'vi'); } catch (e) {}
+  try { cache.put(key, out, 21600); } catch (e2) {}
+  return out;
+}
+
+function isoDate_(s) {
+  s = String(s || '').trim();
+  var mm = s.match(/^([A-Za-z]{3})[a-z]* (\d{1,2}), (\d{4})$/);
+  if (mm) { // "Oct 22, 2026": đọc thẳng, tránh lệch múi giờ
+    var mon = 'JanFebMarAprMayJunJulAugSepOctNovDec'.indexOf(mm[1].charAt(0).toUpperCase() + mm[1].slice(1, 3).toLowerCase());
+    if (mon >= 0) return mm[3] + '-' + ('0' + (mon / 3 + 1)).slice(-2) + '-' + ('0' + mm[2]).slice(-2);
+  }
+  var d = new Date(s);
+  return isNaN(d) ? '' : Utilities.formatDate(d, 'UTC', 'yyyy-MM-dd');
+}
+
+function decode_(s) {
+  return String(s || '').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#x27;|&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&nbsp;/g, ' ').trim();
+}
+
+function anthropicNews_() {
+  var html = UrlFetchApp.fetch('https://www.anthropic.com/news', { muteHttpExceptions: true, followRedirects: true, headers: { 'User-Agent': 'Mozilla/5.0' } }).getContentText();
+  var re = /<time[^>]*>([^<]+)<\/time>[\s\S]{0,4000}?<a[^>]*href="(\/[^"]+)"[^>]*><h([23])[^>]*>([^<]+)<\/h\3>/g, m, seen = {}, out = [];
+  while ((m = re.exec(html))) {
+    var path = m[2];
+    if (seen[path]) continue;
+    seen[path] = 1;
+    var tail = html.substr(m.index + m[0].length, 900), sm = tail.match(/<p[^>]*>([^<]{30,})<\/p>/);
+    out.push({ d: isoDate_(m[1]), u: 'https://www.anthropic.com' + path, te: decode_(m[4]), se: sm ? decode_(sm[1]) : '' });
+  }
+  out.sort(function (a, b) { return b.d < a.d ? -1 : b.d > a.d ? 1 : 0; });
+  out = out.slice(0, 12);
+  out.forEach(function (x) { x.t = tr_(x.te); x.s = tr_(x.se); });
+  return out;
+}
+
+function claudeCode_() {
+  var md = UrlFetchApp.fetch('https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md', { muteHttpExceptions: true }).getContentText().slice(0, 30000);
+  var parts = md.split(/\n## /).slice(1, 7), dates = {};
+  try {
+    var rel = JSON.parse(UrlFetchApp.fetch('https://api.github.com/repos/anthropics/claude-code/releases?per_page=8', { muteHttpExceptions: true, headers: { 'User-Agent': 'lanhmar-storage' } }).getContentText());
+    rel.forEach(function (r) { dates[String(r.tag_name).replace(/^v/, '')] = isoDate_(r.published_at); });
+  } catch (e) {}
+  return parts.map(function (p) {
+    var lines = p.split('\n'), v = lines[0].trim(), pts = [];
+    lines.slice(1).forEach(function (l) {
+      if (pts.length < 4 && /^-\s+/.test(l)) pts.push(decode_(l.replace(/^-\s+/, '').replace(/`/g, '')).slice(0, 220));
+    });
+    return { v: v, d: dates[v] || '', u: 'https://github.com/anthropics/claude-code/releases/tag/v' + v, pte: pts, pt: pts.map(tr_) };
+  });
+}
+
+function news_() {
+  var cache = CacheService.getScriptCache(), hit = cache.get('news');
+  if (hit) return json_(JSON.parse(hit));
+  var out = { ok: true, updated: new Date().toISOString(), news: [], claude: [] };
+  try { out.news = anthropicNews_(); } catch (e1) {}
+  try { out.claude = claudeCode_(); } catch (e2) {}
+  if (!out.news.length && !out.claude.length) {
+    var last = cache.get('news_last');
+    return json_(last ? JSON.parse(last) : { ok: false });
+  }
+  var s = JSON.stringify(out);
+  if (s.length < 90000) { cache.put('news', s, 1800); cache.put('news_last', s, 21600); }
+  return json_(out);
+}
+
 // Khoá học KesFlow mới nhất: đọc từ trang chủ kesflow.vn để link giới thiệu luôn trỏ đúng khoá (TA06, TA07...).
 function course_() {
   var cache = CacheService.getScriptCache(), hit = cache.get('course');
@@ -116,6 +193,7 @@ function doPost(e) {
   try {
     var pre = JSON.parse((e && e.postData && e.postData.contents) || '{}');
     if (pre.action === 'course') return course_();
+    if (pre.action === 'news') return news_();
   } catch (err0) {
     return json_({ ok: false, error: 'server' });
   }

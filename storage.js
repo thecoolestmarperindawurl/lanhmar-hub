@@ -59,6 +59,7 @@ async function enter(email, code, err, remember) {
     if (remember) { try { localStorage.setItem(SAVE, JSON.stringify({ email, code })); } catch {} }
     items = res.items || [];
     featured = await Res.load();
+    Res.loadFeeds().then(() => render());
     $("#hello").textContent = "Xin chào " + (res.name || "bạn") + " — bạn đã được duyệt xem.";
     $("#gate").hidden = true; $("#app").hidden = false;
     render();
@@ -69,9 +70,9 @@ async function enter(email, code, err, remember) {
 /* ---------- danh sách (chỉ xem) ---------- */
 function render() {
   const k = KHO.find((x) => x.id === cur) || KHO[0];
-  $("#tabs").innerHTML = KHO.map((x) => `<button class="tab ${x.id === cur ? "on" : ""}" data-k="${x.id}">${x.icon} ${x.name}<small>${items.filter((i) => i.kho === x.id).length + featured.filter((i) => i.kho === x.id).length}</small></button>`).join("");
+  $("#tabs").innerHTML = KHO.map((x) => `<button class="tab ${x.id === cur ? "on" : ""}" data-k="${x.id}">${x.icon} ${x.name}<small>${Res.visible(items).filter((i) => i.kho === x.id).length + featured.filter((i) => i.kho === x.id).length}</small></button>`).join("");
   $("#desc").textContent = k.desc;
-  const inKho = items.filter((i) => i.kho === cur).concat(featured.filter((i) => i.kho === cur));
+  const inKho = Res.visible(items).filter((i) => i.kho === cur).concat(featured.filter((i) => i.kho === cur));
   const tags = [...new Set(inKho.flatMap((i) => i.tags || []))].sort();
   if (tag && !tags.includes(tag)) tag = "";
   $("#tags").innerHTML = tags.map((t) => `<span class="chip ${t === tag ? "on" : ""}" data-t="${esc(t)}">#${esc(t)}</span>`).join("");
