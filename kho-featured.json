@@ -1878,26 +1878,53 @@
         "google drive"
       ],
       "thumb": "assets/res/knowledge-ebook.jpg",
-      "note": "Hai thư mục ebook lưu trên Google Drive. Bấm mở từng thư mục để chọn sách.",
+      "note": "Hai thư mục ebook trên Google Drive, thư mục 1 có 2 folder con. Bấm mở từng thư mục để chọn sách.",
       "sections": [
         {
           "k": "callout",
-          "t": "Hai thư mục này nằm trên Google Drive. Nếu Drive báo “Cần quyền truy cập”, hãy đăng nhập đúng tài khoản Google đã được chia sẻ hoặc xin quyền từ chủ thư mục."
+          "t": "Các thư mục nằm trên Google Drive. Nếu Drive báo “Cần quyền truy cập”, hãy đăng nhập đúng tài khoản Google đã được chia sẻ hoặc xin quyền từ chủ thư mục."
+        },
+        {
+          "k": "h",
+          "t": "Thư mục 1 (có 2 folder con)"
         },
         {
           "k": "cards",
           "items": [
             {
-              "t": "Thư mục Ebook 1",
+              "t": "Thư mục Ebook 1 (thư mục mẹ)",
               "tag": "Drive",
-              "d": "Thư mục ebook thứ nhất (chưa có tên hiển thị, đổi tên khi bạn đặt tên xong).",
+              "d": "Chứa 2 folder ebook con bên dưới.",
               "u": "https://drive.google.com/drive/folders/1E_ZIW2wYFb8E4clii3BoGq6UcsyOVjd4",
               "lb": "Mở thư mục"
             },
             {
+              "t": "Folder con 1 (chưa có tên)",
+              "tag": "Drive",
+              "d": "Ebook con thứ nhất của thư mục 1.",
+              "u": "https://drive.google.com/drive/folders/1IgdZfQz3Oh_edzLwrxc7FuPypU87OM2f",
+              "lb": "Mở thư mục"
+            },
+            {
+              "t": "PMAX - PST - Sample Test",
+              "tag": "Drive",
+              "d": "Ebook con thứ hai của thư mục 1.",
+              "u": "https://drive.google.com/drive/folders/1RAZYSHZgqrHPM65MDsZX3EjBO9dyOWUh",
+              "lb": "Mở thư mục"
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Thư mục 2"
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
               "t": "IMC BOOKS",
               "tag": "Drive",
-              "d": "Thư mục sách IMC (tên lấy từ Google Drive).",
+              "d": "Thư mục sách IMC.",
               "u": "https://drive.google.com/drive/folders/1Nv3tCy7I-iDEL1jF09mwnMaYAVCYoH4X",
               "lb": "Mở thư mục"
             }
@@ -1905,7 +1932,7 @@
         },
         {
           "k": "p",
-          "t": "Muốn thêm thư mục ebook khác, nhắn mình link Drive để thêm vào đây."
+          "t": "Muốn thêm thư mục ebook khác, gửi link Drive để thêm vào đây."
         }
       ]
     }
