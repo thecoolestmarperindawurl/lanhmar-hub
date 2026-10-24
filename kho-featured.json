@@ -2033,7 +2033,7 @@
       "kho": "design",
       "guide": true,
       "date": "2026-10-24",
-      "title": "Bộ font Sinh Lê SƯU TẦM",
+      "title": "Font sưu tầm",
       "type": "Bộ font",
       "badge": "Font",
       "tags": [
@@ -2046,10 +2046,10 @@
         "gilroy",
         "montserrat"
       ],
-      "thumb": "assets/res/design-brandkit-myse.jpg",
+      "thumb": "assets/res/design-font.jpg",
       "note": "Bộ font sưu tầm trên Google Drive (thư mục “File cài font”), có bảng demo typo và danh sách các họ font.",
       "cta": {
-        "title": "Bộ font Sinh Lê SƯU TẦM · Google Drive",
+        "title": "Font sưu tầm · Google Drive",
         "url": "https://drive.google.com/drive/folders/1ddOklUd7EjX9Vy82T37AWb5ezAWvFnZc",
         "btn": "Mở thư mục font"
       },
