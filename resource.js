@@ -109,7 +109,7 @@ window.Res = (() => {
     }
     return `<article class="card res-card" data-res="${esc(i.id)}" tabindex="0" role="button" aria-label="${esc(i.title)}">
       <img class="res-thumb" src="${esc(okUrl(i.thumb))}" alt="" loading="lazy">
-      <div class="res-info"><span class="badge">${esc(i.type || "Tài nguyên")}</span><span class="badge shared">Nổi bật</span>
+      <div class="res-info"><span class="badge">${esc(i.type || "Tài nguyên")}</span><span class="badge shared">${i.guide ? "Đọc trước" : "Nổi bật"}</span>
         <h3>${esc(i.title)}</h3><p>${esc(i.note)}</p>
         <div class="meta"><span>${esc(i.date)}</span><span class="res-more">Xem chi tiết →</span></div></div>
     </article>`;
@@ -160,12 +160,36 @@ window.Res = (() => {
       <h4>Nguồn tham khảo</h4><ul class="rank-src">${i.sources.map((s) => `<li><a href="${esc(okUrl(s.u))}" target="_blank" rel="noopener">${esc(s.t)} ↗</a></li>`).join("")}</ul></div>`);
   }
 
+  /* ---------- bài lý thuyết / bản đồ kiến thức (guide) ---------- */
+  function guideSection(x) {
+    const lnk = (u) => (okUrl(u) ? ` <a class="g-link" href="${esc(okUrl(u))}" target="_blank" rel="noopener">Mở trang gốc ↗</a>` : "");
+    switch (x.k) {
+      case "h": return `<h4>${esc(x.t)}</h4>`;
+      case "p": return `<p>${esc(x.t)}</p>`;
+      case "callout": return `<p class="g-callout">${esc(x.t)}</p>`;
+      case "list": return `<ul class="g-list">${x.items.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>`;
+      case "steps": return `<ol class="res-outline">${x.items.map((o) => `<li><b>${esc(o.t)}</b><span>${esc(o.d)}</span></li>`).join("")}</ol>`;
+      case "cards": return `<div class="g-cards">${x.items.map((c) => `<div class="g-card"><b>${esc(c.t)}</b>${c.tag ? `<span class="badge">${esc(c.tag)}</span>` : ""}<p>${esc(c.d)}${lnk(c.u)}</p></div>`).join("")}</div>`;
+      case "table": return `<div class="g-tbl"><table><thead><tr>${x.head.map((h) => `<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${x.rows.map((r) => `<tr>${r.map((c, k) => (k ? `<td>${esc(c)}</td>` : `<th scope="row">${esc(c)}</th>`)).join("")}</tr>`).join("")}</tbody></table></div>`;
+      case "links": return `<ul class="rank-src">${x.items.map((l) => `<li><a href="${esc(okUrl(l.u))}" target="_blank" rel="noopener">${esc(l.t)} ↗</a></li>`).join("")}</ul>`;
+      default: return "";
+    }
+  }
+  function openGuide(i, dlg) {
+    const nx = i.next && list.find((x) => x.id === i.next.id);
+    show(dlg, `<button class="x" id="resX" aria-label="Đóng">×</button><div class="res-body g-body">
+      <div class="res-head"><span class="badge">${esc(i.type || "Lý thuyết")}</span><h2>${esc(i.title)}</h2><p class="news-meta">${esc(i.note || "")}</p></div>
+      ${(i.sections || []).map(guideSection).join("")}</div>` +
+      (nx ? `<div class="res-cta"><div><b>${esc(i.next.label)}</b></div><button class="btn orange-btn" type="button" data-res="${esc(nx.id)}">Mở tiếp →</button></div>` : ""));
+  }
+
   function open(id) {
     const i = list.find((x) => x.id === id); if (!i) return;
     const dlg = document.getElementById("resDlg"); if (!dlg) return;
     if (i.feed === "claude") return openClaude(i, dlg);
     if (i.feed === "ainews") return openAi(i, dlg);
     if (i.feed === "ranking") return openRanking(i, dlg);
+    if (i.guide) return openGuide(i, dlg);
     const file = i.file && okUrl(i.file.url) ? i.file : null;
     const abs = file ? new URL(file.url, location.href).href : "";
     show(dlg, `

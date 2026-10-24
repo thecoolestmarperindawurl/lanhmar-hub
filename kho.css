@@ -164,3 +164,19 @@ table.rank-t{width:calc(100% - 52px);margin:0 26px 6px;border-collapse:collapse;
 .grp-h{grid-column:1/-1;margin:14px 0 -2px;font-size:18px;color:var(--ink);display:flex;align-items:center;gap:8px}
 .grp-h small{font-size:12px;background:var(--lav-200);color:var(--purple-deep);border-radius:999px;padding:2px 10px}
 .grp-h:first-child{margin-top:4px}
+
+/* ---------- bài lý thuyết (guide) ---------- */
+.g-body>h4,.g-body>p,.g-body>.g-list,.g-body>.g-cards,.g-body>.g-tbl,.g-body>.res-outline,.g-body>.rank-src{margin-left:26px;margin-right:26px}
+.g-body>h4{margin-top:24px}
+.g-callout{background:var(--orange-soft);color:var(--orange-text);border-radius:16px;padding:12px 16px;font-weight:600}
+.g-list{padding-left:20px;margin-top:0;margin-bottom:10px}.g-list li{margin:6px 0}
+.g-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-bottom:10px}
+.g-card{background:var(--lav-100);border:1px solid var(--lav-300);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:6px}
+.g-card b{color:var(--purple-deep);font-size:15px}.g-card p{margin:0;font-size:13.5px}
+.g-link{font-weight:700;color:var(--purple-deep);white-space:nowrap}
+.g-tbl{overflow-x:auto;border:1px solid var(--lav-300);border-radius:16px;margin-bottom:10px}
+.g-tbl table{border-collapse:collapse;width:100%;min-width:560px;font-size:13.5px}
+.g-tbl th,.g-tbl td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--lav-300)}
+.g-tbl thead th{background:var(--purple-deep);color:#fff;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.g-tbl tbody th{color:var(--ink);background:var(--lav-100);white-space:nowrap}
+.g-tbl tbody tr:last-child th,.g-tbl tbody tr:last-child td{border-bottom:0}

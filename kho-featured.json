@@ -189,6 +189,404 @@
       "group": "news"
     },
     {
+      "id": "guide-ai-agent-theory",
+      "kho": "ai",
+      "group": "agent",
+      "guide": true,
+      "title": "AI Agent là gì? Bản chất và khác biệt với chatbot AI",
+      "type": "Lý thuyết",
+      "date": "2026-10-24",
+      "tags": [
+        "ai agent",
+        "lý thuyết",
+        "chatbot"
+      ],
+      "thumb": "assets/res/guide-agent-theory.jpg",
+      "note": "Hiểu đúng agent là gì, khác ChatGPT, Claude, Gemini dạng hỏi–đáp ở đâu và gồm những thành phần nào.",
+      "next": {
+        "id": "guide-ai-agent-ecosystem",
+        "label": "Đọc tiếp: Hệ sinh thái AI Agent (OpenClaw, Hermes, MCP…)"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Một câu để nhớ: chatbot trả lời câu hỏi. Agent nhận mục tiêu, tự chia các bước, dùng công cụ để làm và báo lại kết quả."
+        },
+        {
+          "k": "h",
+          "t": "Bản chất của AI Agent"
+        },
+        {
+          "k": "p",
+          "t": "AI Agent là hệ thống dùng một mô hình ngôn ngữ lớn (LLM) làm “bộ não”, nhưng được bao quanh bởi những thứ giúp nó hành động được: công cụ, bộ nhớ, quy trình và quyền hạn. Thay vì dừng ở một câu trả lời, agent chạy theo vòng lặp cho tới khi xong việc, hoặc dừng lại hỏi bạn khi cần quyết định."
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Nhận mục tiêu",
+              "d": "Bạn giao một việc, không cần ra từng lệnh nhỏ."
+            },
+            {
+              "t": "Lập kế hoạch",
+              "d": "Agent chia việc thành các bước."
+            },
+            {
+              "t": "Dùng công cụ",
+              "d": "Tìm web, đọc file, gọi API, chạy lệnh, điều khiển ứng dụng."
+            },
+            {
+              "t": "Quan sát kết quả",
+              "d": "Đọc lại những gì công cụ trả về, kiểm tra có đúng ý không."
+            },
+            {
+              "t": "Điều chỉnh và lặp lại",
+              "d": "Làm tiếp hoặc sửa hướng cho tới khi đạt mục tiêu."
+            },
+            {
+              "t": "Báo cáo, xin duyệt",
+              "d": "Gửi kết quả, hỏi lại ở bước quan trọng hoặc không đảo ngược được."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Chatbot AI và AI Agent khác nhau ở đâu"
+        },
+        {
+          "k": "p",
+          "t": "ChatGPT, Claude, Gemini… khi bạn dùng trong khung chat hỏi–đáp thì là chatbot AI. Cùng một mô hình có thể đóng vai agent khi được cấp công cụ, bộ nhớ và quyền hành động. Nghĩa là khác biệt nằm ở cách hệ thống được xây quanh mô hình, không chỉ ở riêng mô hình."
+        },
+        {
+          "k": "table",
+          "head": [
+            "Tiêu chí",
+            "Chatbot AI (hỏi–đáp)",
+            "AI Agent"
+          ],
+          "rows": [
+            [
+              "Mục tiêu",
+              "Trả lời câu hỏi, viết, giải thích",
+              "Hoàn thành một nhiệm vụ nhiều bước (đọc biên bản họp, tạo task, đặt lịch…)"
+            ],
+            [
+              "Cách chạy",
+              "Một lượt: bạn hỏi, nó đáp",
+              "Vòng lặp: lập kế hoạch, làm, kiểm tra, làm tiếp"
+            ],
+            [
+              "Công cụ",
+              "Ít hoặc không, chủ yếu là chữ",
+              "Gọi API, duyệt web, đọc/ghi file, chạy code, điều khiển ứng dụng"
+            ],
+            [
+              "Bộ nhớ",
+              "Trong cuộc trò chuyện hiện tại",
+              "Bền qua nhiều ngày: ghi chú, kho tài liệu, sổ sách"
+            ],
+            [
+              "Tính chủ động",
+              "Chờ bạn nhắn",
+              "Có thể chạy theo lịch hoặc khi có sự kiện, rồi báo bạn"
+            ],
+            [
+              "Tác động ra ngoài",
+              "Đề xuất, bạn tự làm",
+              "Tự thực hiện hành động thật (gửi mail, ghi sổ, sửa file) trong phạm vi được cấp"
+            ],
+            [
+              "Rủi ro",
+              "Thấp: sai thì bạn thấy ngay",
+              "Cao hơn: sai có thể gây hậu quả thật, cần phân quyền và duyệt"
+            ],
+            [
+              "Bạn cần giỏi",
+              "Đặt câu hỏi tốt",
+              "Giao việc rõ, đặt ranh giới, kiểm tra kết quả"
+            ]
+          ]
+        },
+        {
+          "k": "callout",
+          "t": "Ranh giới đang mờ dần: ChatGPT, Claude, Gemini đều có chế độ agent (công cụ, duyệt web, chạy code…). Hãy tự hỏi ba câu: (1) Nó có tự lên kế hoạch nhiều bước không? (2) Nó có dùng công cụ để tác động ra ngoài không? (3) Nó có nhớ và chạy tiếp khi bạn không có mặt không? Càng nhiều câu “có” thì càng là agent."
+        },
+        {
+          "k": "h",
+          "t": "Ví dụ so sánh nhanh"
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "Với chatbot",
+              "tag": "Hỏi–đáp",
+              "d": "Bạn dán biên bản họp vào khung chat và nhờ tóm tắt. Nó trả về bản tóm tắt, bạn tự tạo task và đặt lịch."
+            },
+            {
+              "t": "Với agent",
+              "tag": "Làm giúp",
+              "d": "Bạn gửi file biên bản. Agent đọc, rút ra các việc cần làm, tạo task, xếp vào lịch, nhắn người liên quan và báo lại cho bạn."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "6 thành phần của một AI Agent"
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "Bộ não (LLM)",
+              "tag": "Hiểu và lập luận",
+              "d": "Mô hình ngôn ngữ đọc ý định, chia việc, quyết định bước tiếp theo."
+            },
+            {
+              "t": "Công cụ (tools)",
+              "tag": "Tay chân",
+              "d": "API, trình duyệt, file, lệnh, ứng dụng. Chuẩn MCP giúp nối công cụ dễ hơn."
+            },
+            {
+              "t": "Bộ nhớ",
+              "tag": "Nhớ",
+              "d": "Ngữ cảnh và dữ liệu của bạn: ghi chú, tài liệu, lịch sử, để không phải giải thích lại."
+            },
+            {
+              "t": "Kỹ năng (skills)",
+              "tag": "Cách làm",
+              "d": "Quy trình bạn đã đóng gói thành hướng dẫn để agent làm lại đúng cách."
+            },
+            {
+              "t": "Môi trường chạy",
+              "tag": "Bộ khung",
+              "d": "Phần mềm giữ vòng lặp, quyền hạn, lịch chạy, giới hạn chi phí và nhật ký."
+            },
+            {
+              "t": "Kênh giao tiếp",
+              "tag": "Cổng vào",
+              "d": "Nơi bạn giao việc và nhận kết quả: Zalo, Telegram, Slack, email…"
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Các mức tự chủ"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Mức 1: Quy trình cố định",
+              "d": "Các bước do bạn thiết kế sẵn, AI làm một vài bước (tóm tắt, phân loại). Dễ kiểm soát nhất."
+            },
+            {
+              "t": "Mức 2: Agent có người duyệt",
+              "d": "Agent tự lên kế hoạch và làm, bạn duyệt ở bước quan trọng."
+            },
+            {
+              "t": "Mức 3: Agent tự chủ",
+              "d": "Chạy dài, tự quyết nhiều bước, bạn chỉ xem kết quả và cảnh báo. Cần phân quyền và giám sát chặt."
+            }
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Người mới nên bắt đầu ở mức 1 và 2, rồi mở rộng quyền dần khi đã tin kết quả."
+        },
+        {
+          "k": "h",
+          "t": "Rủi ro cần biết trước khi cho agent làm việc"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Quyền quá rộng: agent làm được nhiều thì sai cũng gây hại nhiều. Cấp quyền tối thiểu.",
+            "Lệnh độc hại ẩn trong nội dung agent đọc (email, trang web, file): còn gọi là prompt injection. Đừng để agent tự làm theo mọi thứ nó đọc.",
+            "Tốn tiền ngoài ý muốn: vòng lặp chạy mãi hoặc gọi mô hình quá nhiều. Đặt giới hạn ngân sách.",
+            "Sai mà không ai biết: cần nhật ký để xem lại agent đã làm gì.",
+            "Lộ khoá và dữ liệu: không đưa mật khẩu, khoá API thật vào nơi agent hoặc người khác đọc được."
+          ]
+        },
+        {
+          "k": "callout",
+          "t": "Nguyên tắc vàng: quyền tối thiểu, duyệt mọi hành động không đảo ngược được, đặt trần chi phí, bật nhật ký, tách khoá bí mật khỏi dữ liệu agent đọc."
+        }
+      ]
+    },
+    {
+      "id": "guide-ai-agent-ecosystem",
+      "kho": "ai",
+      "group": "agent",
+      "guide": true,
+      "title": "Hệ sinh thái AI Agent: OpenClaw, Hermes, MCP, Skills…",
+      "type": "Bản đồ kiến thức",
+      "date": "2026-10-24",
+      "tags": [
+        "ai agent",
+        "openclaw",
+        "hermes",
+        "mcp",
+        "skills"
+      ],
+      "thumb": "assets/res/guide-agent-ecosystem.jpg",
+      "note": "Các dự án và chuẩn thường gặp quanh AI Agent: mỗi thứ là gì, dùng khi nào, cần lưu ý gì.",
+      "next": {
+        "id": "res-tro-ly-24-365",
+        "label": "Đọc tiếp: Dựng trợ lý 24/365 (thực hành)"
+      },
+      "sections": [
+        {
+          "k": "p",
+          "t": "Phần này giúp bạn nhận ra các tên gọi khi đọc tài liệu về AI Agent trước khi đi sâu. Lĩnh vực đổi rất nhanh, thông tin cập nhật 24/10/2026, hãy mở trang gốc để xem bản mới nhất."
+        },
+        {
+          "k": "h",
+          "t": "Agent cá nhân, tự chạy trên máy hoặc máy chủ của bạn"
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "OpenClaw",
+              "tag": "Mã nguồn mở · MIT",
+              "d": "Agent cá nhân chạy nền trên máy bạn, nhận lệnh qua WhatsApp, Telegram, Slack…; có thể chạy lệnh, quản lý file, điều khiển trình duyệt, tự động hoá việc. Tên cũ: Clawdbot, Moltbot; tác giả Peter Steinberger. Lưu ý: quyền rất rộng nên hãy chạy trên môi trường tách riêng và cấp quyền thận trọng.",
+              "u": "https://en.wikipedia.org/wiki/OpenClaw"
+            },
+            {
+              "t": "Hermes Agent (Nous Research)",
+              "tag": "Mã nguồn mở · MIT",
+              "d": "Agent tự lưu trữ, chạy như tiến trình nền: có bộ nhớ bền, tự viết skill từ các việc lặp lại, nhiều cổng chat (Telegram, Discord, Slack, WhatsApp…), chạy theo lịch, đổi mô hình tuỳ ý. Ra mắt khoảng tháng 2/2026. Bạn vẫn trả chi phí mô hình và máy chủ.",
+              "u": "https://hermes-agent.nousresearch.com/"
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Agent lập trình"
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "Claude Code",
+              "tag": "Terminal",
+              "d": "Agent đọc, sửa code và chạy lệnh trong thư mục dự án; hỗ trợ skills, hooks, MCP và subagent. Cùng nhóm với các công cụ như OpenAI Codex và Gemini CLI.",
+              "u": "https://docs.claude.com/en/docs/claude-code"
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Chuẩn và khối xây dựng"
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "MCP (Model Context Protocol)",
+              "tag": "Chuẩn kết nối",
+              "d": "Chuẩn mở để nối agent với công cụ và dữ liệu, ví dụ như “cổng USB” cho AI. Anthropic công bố cuối 2024, nay nhiều hãng hỗ trợ.",
+              "u": "https://modelcontextprotocol.io"
+            },
+            {
+              "t": "Agent Skills",
+              "tag": "Đóng gói cách làm",
+              "d": "Gói hướng dẫn kèm script để agent làm lại một việc đúng cách. Là tiêu chuẩn mở, vừa được quyên tặng cho Agentic AI Foundation (tin ngày 22/10/2026 ở mục AI News).",
+              "u": "https://www.anthropic.com/news/donating-agent-skills-to-the-agentic-ai-foundation"
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Tự động hoá có AI, ít hoặc không cần code"
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "n8n, Make, Zapier",
+              "tag": "Workflow",
+              "d": "Nối ứng dụng bằng quy trình kéo thả và chèn các bước AI. Phù hợp mức “quy trình cố định”, dễ kiểm soát, hợp người mới.",
+              "u": "https://n8n.io"
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Framework cho lập trình viên"
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "LangGraph",
+              "tag": "Framework",
+              "d": "Xây agent dạng đồ thị trạng thái, kiểm soát luồng và bộ nhớ.",
+              "u": "https://www.langchain.com/langgraph"
+            },
+            {
+              "t": "CrewAI",
+              "tag": "Đa agent",
+              "d": "Tổ chức nhiều agent theo vai trò làm việc cùng nhau.",
+              "u": "https://www.crewai.com"
+            },
+            {
+              "t": "AutoGen",
+              "tag": "Đa agent",
+              "d": "Framework của Microsoft để các agent trao đổi và phối hợp.",
+              "u": "https://microsoft.github.io/autogen/"
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Chọn gì khi mới bắt đầu"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Chưa biết code, muốn thử trước: dùng workflow (n8n, Zapier) hoặc chế độ có công cụ trong ChatGPT, Claude, Gemini.",
+            "Muốn một trợ lý riêng chạy 24/365: đọc tài liệu “Dựng trợ lý 24/365”, rồi thử OpenClaw hoặc Hermes trên máy riêng với dữ liệu thử, chưa dùng dữ liệu thật.",
+            "Biết lập trình: Claude Code hoặc Codex kết hợp MCP và Skills, hoặc framework như LangGraph."
+          ]
+        },
+        {
+          "k": "callout",
+          "t": "Với các agent mã nguồn mở có quyền rộng như OpenClaw hay Hermes: chạy trên máy hoặc máy chủ riêng, đừng đặt chung với dữ liệu quan trọng, cấp quyền tối thiểu và đọc kỹ cảnh báo bảo mật của dự án trước khi dùng."
+        },
+        {
+          "k": "h",
+          "t": "Nguồn tham khảo"
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "OpenClaw (Wikipedia)",
+              "u": "https://en.wikipedia.org/wiki/OpenClaw"
+            },
+            {
+              "t": "Taskade: Lịch sử OpenClaw, Clawdbot, Moltbot",
+              "u": "https://www.taskade.com/blog/moltbook-clawdbot-openclaw-history"
+            },
+            {
+              "t": "Hermes Agent: trang chính thức",
+              "u": "https://hermes-agent.nousresearch.com/"
+            },
+            {
+              "t": "Hermes Agent trên GitHub",
+              "u": "https://github.com/nousresearch/hermes-agent"
+            },
+            {
+              "t": "Width.ai: Hermes AI Agent là gì",
+              "u": "https://www.width.ai/post/what-is-hermes-ai-agent"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "res-tro-ly-24-365",
       "kho": "ai",
       "title": "Dựng trợ lý 24/365 cho người đi làm",
