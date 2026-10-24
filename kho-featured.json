@@ -2039,10 +2039,15 @@
       "tags": [
         "font",
         "typography",
-        "google drive"
+        "google drive",
+        "helvetica",
+        "futura",
+        "gotham",
+        "gilroy",
+        "montserrat"
       ],
       "thumb": "assets/res/design-brandkit-myse.jpg",
-      "note": "Thư mục bộ font sưu tầm trên Google Drive, dùng cho thiết kế (Photoshop, Illustrator, Canva…).",
+      "note": "Bộ font sưu tầm trên Google Drive (thư mục “File cài font”), có bảng demo typo và danh sách các họ font.",
       "cta": {
         "title": "Bộ font Sinh Lê SƯU TẦM · Google Drive",
         "url": "https://drive.google.com/drive/folders/1ddOklUd7EjX9Vy82T37AWb5ezAWvFnZc",
@@ -2051,7 +2056,134 @@
       "sections": [
         {
           "k": "callout",
-          "t": "Mở thư mục trên Drive, tải font về máy rồi cài. Bảng demo typo (chữ mẫu từng font) sẽ thêm vào đây khi có danh sách tên font."
+          "t": "Mở thư mục trên Drive, tải font về máy rồi cài. Bên dưới là bảng demo typo và danh sách các họ font có trong thư mục “File cài font”."
+        },
+        {
+          "k": "h",
+          "t": "Demo typo (xem thử bằng font có trên Google Fonts)"
+        },
+        {
+          "k": "fontdemo",
+          "items": [
+            {
+              "n": "Montserrat · 800 · font chính của LANHMAR",
+              "fam": "Montserrat",
+              "w": 800,
+              "s": "Lan Anh – Thiết kế thương hiệu: ăn, ở, ưu, đẹp 0123456789"
+            },
+            {
+              "n": "Montserrat · 400",
+              "fam": "Montserrat",
+              "w": 400,
+              "s": "Lan Anh – Thiết kế thương hiệu: ăn, ở, ưu, đẹp 0123456789"
+            },
+            {
+              "n": "Montserrat · 300",
+              "fam": "Montserrat",
+              "w": 300,
+              "s": "Lan Anh – Thiết kế thương hiệu: ăn, ở, ưu, đẹp 0123456789"
+            },
+            {
+              "n": "Work Sans · 600",
+              "fam": "Work Sans",
+              "w": 600,
+              "s": "Lan Anh – Thiết kế thương hiệu: ăn, ở, ưu, đẹp 0123456789"
+            },
+            {
+              "n": "Work Sans · 400",
+              "fam": "Work Sans",
+              "w": 400,
+              "s": "Lan Anh – Thiết kế thương hiệu: ăn, ở, ưu, đẹp 0123456789"
+            },
+            {
+              "n": "Bebas Neue · chữ HOA",
+              "fam": "Bebas Neue",
+              "w": 400,
+              "s": "BRAND COMPETENCY FRAMEWORK 0123456789",
+              "d": "Bebas Neue chủ yếu dùng chữ in hoa; kiểm tra kỹ dấu tiếng Việt trước khi dùng."
+            }
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Chỉ demo được các font có sẵn trên Google Fonts. Các font còn lại (Helvetica, Futura, Gotham, Gilroy, iCiel, SVN, DFVN…) là font cài riêng, chưa hiện được trên web. Hãy cài vào máy và gõ thử trong Photoshop, Illustrator hoặc Canva."
+        },
+        {
+          "k": "h",
+          "t": "Các họ font trong thư mục"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Họ font",
+            "Các kiểu thấy trong thư mục"
+          ],
+          "rows": [
+            [
+              "Helvetica",
+              "Helvetica (Regular, Oblique, Bold, BoldOblique, Light, LightOblique), Helvetica BB Regular, .HelveticaLight (+Oblique)"
+            ],
+            [
+              "Helvetica Neue",
+              "Ultra Light, Light, Regular, Medium, Bold (có bản Italic), Condensed Black"
+            ],
+            [
+              "Futura",
+              "Futura Std (Medium, Bold, ExtraBold, Extra Bold Condensed), FuturaMD, SFU Futura (Book, Bold, ExtraBold, Heavy, Oblique), UTM Futura Extra, VNF-Futura Regular"
+            ],
+            [
+              "Gotham",
+              "SVN-Gotham: Thin, XLight, Light, Book, Regular, Bold, Black, Ultra (đều có Italic)"
+            ],
+            [
+              "Gilroy",
+              "SVN-Gilroy: Thin, XLight, Light, Regular, Medium, SemiBold, Bold, XBold, Heavy, Black (đều có Italic)"
+            ],
+            [
+              "Montserrat",
+              "Thin, ExtraLight, UltraLight, Light, Regular, Medium, SemiBold, Bold, ExtraBold, Black (có Italic), dạng .ttf và .otf"
+            ],
+            [
+              "Google Sans",
+              "Regular, Medium, Bold (có Italic)"
+            ],
+            [
+              "Work Sans",
+              "Variable font (Regular và Italic)"
+            ],
+            [
+              "Bebas Neue",
+              "Thin, Light, Book, Regular, Bold, dạng .otf và .ttf"
+            ],
+            [
+              "VNM Sans",
+              "Display Regular, Display Bold, Std"
+            ],
+            [
+              "Andes Rounded / Linotte / Smoothy",
+              "Andes Rounded (Light, Regular, Bold, ExtraBold); Linotte (Light, Regular, SemiBold, Bold, Heavy); Smoothy Sans, Smoothy Cursive"
+            ],
+            [
+              "DFVN (Việt hoá)",
+              "Abygaer, Berfilem, Big Bang, Catchy Mager, Chloe (Regular, Bold), Elyaris, Kamerun, Simple Serenity Script, Caligna"
+            ],
+            [
+              "iCiel",
+              "Altus (Extra, Serif), Brush Up, Cadena, Grandma, Koni Black, TALUHLA, BC Cubano, BC Downtown, BeCool, Begum, Ludema, Pequena, Soup of Justice, SupaMegaFantastic (Caps, Regular, Thin)"
+            ],
+            [
+              "SVN (viết tay / trang trí)",
+              "Ameyallinda Signature, Astronout, Athena (và Signature), Brunette, Marujo (và Fino), SAF, Snell Roundhand Script, A Love Of Thunder, Taken by Vultures, We Youth, Ziclets"
+            ],
+            [
+              "Khác",
+              "Argo Old, Baliho Script, BHN C4, Cucho, Fz Georgia Ballpark (Script, Serif), FZ-PHOTOGRAPH, Hipsteria, INDEPENDENCE, Nabila, NVN Funky Signature, SP3 Traveling Typewriter, UTM Yen Tu"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Danh sách ghi theo ảnh chụp thư mục Drive, có thể sót một hai file ở chỗ cuộn. Nhiều font có cả hai bản .ttf và .otf: chỉ cần cài một bản."
         },
         {
           "k": "h",
@@ -2085,8 +2217,8 @@
         {
           "k": "list",
           "items": [
-            "Font sưu tầm có thể có giấy phép khác nhau. Dùng cho sản phẩm thương mại thì cần kiểm tra giấy phép từng font.",
-            "Font tiếng Việt: gõ thử đủ dấu (ă, â, ê, ô, ơ, ư, đ và các dấu thanh) trước khi dùng cho thiết kế.",
+            "Font sưu tầm có thể có giấy phép khác nhau (Helvetica, Futura, Gotham… là font thương mại). Dùng cho sản phẩm thương mại thì cần kiểm tra giấy phép từng font.",
+            "Font Việt hoá (SVN, UTM, DFVN, iCiel…) thường hỗ trợ đủ dấu, nhưng vẫn nên gõ thử các dấu ă, â, ê, ô, ơ, ư, đ và dấu thanh trước khi dùng.",
             "Font trong thiết kế của LANHMAR vẫn là Montserrat. Font sưu tầm dùng cho nhấn nhá, không thay font chính của thương hiệu."
           ]
         }

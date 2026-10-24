@@ -169,6 +169,10 @@ window.Res = (() => {
       case "callout": return `<p class="g-callout">${esc(x.t)}</p>`;
       case "swatches": return `<div class="g-sw">${x.items.map((c) => `<div class="g-sw-i"><i style="background:${esc(/^#[0-9a-f]{3,8}$/i.test(c.c) ? c.c : "#ccc")}"></i><b>${esc(c.n)}</b><code>${esc(c.c)}</code><small>${esc(c.d)}</small></div>`).join("")}</div>`;
       case "code": return `<div class="g-code">${x.cap ? `<small>${esc(x.cap)}</small>` : ""}<pre><code>${esc(x.t)}</code></pre><button type="button" class="g-copy" data-copy>Copy</button></div>`;
+      case "fontdemo": {
+        if (!document.getElementById("fd-fonts")) { const l = document.createElement("link"); l.id = "fd-fonts"; l.rel = "stylesheet"; l.href = "https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Work+Sans:wght@300;400;600;800&family=Bebas+Neue&display=swap"; document.head.appendChild(l); }
+        return `<div class="g-fd">${x.items.map((f) => `<div class="g-fd-i"><small>${esc(f.n)}</small><div class="g-fd-s" style="font-family:'${esc(/^[A-Za-z ]+$/.test(f.fam) ? f.fam : "Montserrat")}',sans-serif;font-weight:${esc(/^\d{3}$/.test(String(f.w)) ? f.w : 400)}">${esc(f.s)}</div>${f.d ? `<p>${esc(f.d)}</p>` : ""}</div>`).join("")}</div>`;
+      }
       case "list": return `<ul class="g-list">${x.items.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>`;
       case "steps": return `<ol class="res-outline">${x.items.map((o) => `<li><b>${esc(o.t)}</b><span>${esc(o.d)}</span></li>`).join("")}</ol>`;
       case "cards": return `<div class="g-cards">${x.items.map((c) => `<div class="g-card"><b>${esc(c.t)}</b>${c.tag ? `<span class="badge">${esc(c.tag)}</span>` : ""}<p>${esc(c.d)}${lnk(c.u, c.lb)}</p></div>`).join("")}</div>`;
