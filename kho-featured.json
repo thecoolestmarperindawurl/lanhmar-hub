@@ -1878,7 +1878,7 @@
         "google drive"
       ],
       "thumb": "assets/res/knowledge-ebook.jpg",
-      "note": "Hai thư mục ebook trên Google Drive, thư mục 1 có 2 folder con. Bấm mở từng thư mục để chọn sách.",
+      "note": "Ebook và các thư mục ebook trên Google Drive. Bấm mở để chọn sách.",
       "sections": [
         {
           "k": "callout",
@@ -1886,29 +1886,29 @@
         },
         {
           "k": "h",
-          "t": "Thư mục 1 (có 2 folder con)"
+          "t": "Nhóm 1: ebook và 2 folder con"
         },
         {
           "k": "cards",
           "items": [
             {
-              "t": "Ebook (thư mục mẹ)",
-              "tag": "Drive",
-              "d": "Thư mục ebook chính, chứa 2 folder con bên dưới.",
-              "u": "https://drive.google.com/drive/folders/1E_ZIW2wYFb8E4clii3BoGq6UcsyOVjd4",
-              "lb": "Mở thư mục"
+              "t": "Ebook (chưa có tên)",
+              "tag": "File",
+              "d": "Ebook thứ nhất của nhóm 1.",
+              "u": "https://drive.google.com/file/d/1GoU5H9TNWybPn6QbqiYI-TksxLywR8Qi/view",
+              "lb": "Mở ebook"
             },
             {
               "t": "Series \"Storytelling with Data\"",
               "tag": "Drive",
-              "d": "Ebook con thứ nhất của thư mục 1.",
+              "d": "Folder ebook con thứ nhất.",
               "u": "https://drive.google.com/drive/folders/1IgdZfQz3Oh_edzLwrxc7FuPypU87OM2f",
               "lb": "Mở thư mục"
             },
             {
               "t": "PMAX - PST - Sample Test",
               "tag": "Drive",
-              "d": "Ebook con thứ hai của thư mục 1.",
+              "d": "Folder ebook con thứ hai.",
               "u": "https://drive.google.com/drive/folders/1RAZYSHZgqrHPM65MDsZX3EjBO9dyOWUh",
               "lb": "Mở thư mục"
             }
