@@ -47,3 +47,47 @@ Mở file `storage-config.js`, dán URL vào `window.STORAGE_API = "...";`, lưu
 
 Tab Requests có thêm 5 cột bên phải: **Nội dung CK** (tự điền `LM <mã>`), **Donate** (Chưa nhận / Đã nhận / Miễn), **Số tiền (đ)**, **Ngày nhận**, **Gợi ý** (tự tính: "CÓ THỂ DUYỆT" khi đã nhận donate hoặc được miễn mà chưa Approved).
 Quy trình: tìm nội dung CK trong sao kê, chọn Donate = Đã nhận, nhập số tiền, rồi đổi Trạng thái thành Approved. Dashboard có khối "Sẵn sàng duyệt", "Đang chờ donate", tổng tiền và cảnh báo "Duyệt nhưng chưa ghi donate".
+
+## 6. Mở Kho cá nhân trên mọi thiết bị bằng Google (chỉ chủ kho)
+
+Kho vẫn mã hoá bằng mật khẩu ngay trong trình duyệt. Máy chủ chỉ giữ **bản mã** (không có mật khẩu, không đọc được nội dung). Chỉ mail chủ kho đăng nhập Google mới lấy/ghi được bản mã đó. Người lạ vẫn không tạo được kho (cần `kho.html#setup`).
+
+### 6.1 Tạo OAuth Client ID (miễn phí, khoảng 5 phút)
+1. Vào https://console.cloud.google.com, đăng nhập bằng `anhduong.talkandshare@gmail.com`.
+2. Góc trên trái chọn **Select a project → New Project**, đặt tên `LANHMAR Kho`, bấm **Create**, rồi chọn project đó.
+3. Menu **APIs & Services → OAuth consent screen** (hoặc **Google Auth Platform**):
+   - User type: **External**. App name: `LANHMAR Kho`. User support email và Developer contact: mail của bạn.
+   - Mục **Audience / Test users**: thêm `anhduong.talkandshare@gmail.com`. (Để ở chế độ Testing là đủ, chỉ mình bạn dùng.)
+   - Lưu.
+4. **APIs & Services → Credentials → Create credentials → OAuth client ID**:
+   - Application type: **Web application**. Name: `LANHMAR Kho web`.
+   - **Authorized JavaScript origins** → Add URI: `https://lanhmar.id.vn`
+   - Không cần điền Redirect URI. Bấm **Create**.
+5. Sao chép **Client ID** (dạng `1234567890-abc...apps.googleusercontent.com`). Client ID là mã công khai, gửi cho Claude được. **Không** gửi Client secret (không cần dùng).
+
+### 6.2 Cập nhật Apps Script
+1. Mở Apps Script của dự án **LANHMAR Storage API**. Xoá hết code cũ, dán toàn bộ `Code.gs` mới (thư mục này), bấm **Lưu**.
+2. **Cài đặt dự án (bánh răng) → Thuộc tính tập lệnh**, thêm 2 dòng:
+
+| Tên | Giá trị |
+|---|---|
+| `OWNER_EMAIL` | `anhduong.talkandshare@gmail.com` |
+| `GOOGLE_CLIENT_ID` | Client ID ở bước 6.1 |
+
+3. Cấp quyền mới: chạy hàm `setup` một lần trong trình soạn thảo. Khi Google hỏi quyền (gọi dịch vụ ngoài `UrlFetchApp`), bấm cho phép.
+4. **Triển khai → Quản lý triển khai → biểu tượng bút chì (Sửa) → Phiên bản: Phiên bản mới → Triển khai.** Giữ nguyên URL `/exec` hiện tại. Không tạo triển khai mới, vì URL sẽ đổi.
+
+### 6.3 Nối vào website
+Gửi Client ID cho Claude, hoặc tự mở `storage-config.js` và điền `window.GOOGLE_CLIENT_ID = "…apps.googleusercontent.com";`, lưu rồi đẩy lên GitHub.
+
+### 6.4 Dùng hằng ngày
+- **Lần đầu, trên máy đang có kho:** mở `kho.html`, bấm **Đăng nhập Google** (mail chủ kho), nhập mật khẩu để mở kho. Kho tự lưu lên đám mây (dòng trạng thái báo "Đã đồng bộ lên đám mây ✓").
+- **Thiết bị mới:** mở `kho.html`, bấm **Đăng nhập Google**, hệ thống tải bản mã về, rồi nhập mật khẩu để mở.
+- **Mỗi lần sửa/thêm/xoá:** tự lưu lên đám mây nếu phiên Google còn hạn (khoảng 1 giờ). Hết hạn thì bấm **Đồng bộ đám mây** ở chân trang để đăng nhập lại.
+- **Xung đột:** nếu kho đã được sửa ở thiết bị khác, web hỏi giữa dùng bản đám mây hoặc ghi đè bằng bản trên máy. Hãy đọc kỹ trước khi chọn.
+- **Dự phòng:** nút **Nhập bản sao lưu (kho.enc.json)** ở màn hình khoá. Vẫn nên bấm **Xuất bản mã** định kỳ để tự giữ một bản.
+
+### Lưu ý bảo mật
+- Mất mật khẩu kho thì không khôi phục được, kể cả khi bản mã còn trên đám mây.
+- Bản mã nằm trong tab ẩn **Vault** của Sheet "LANHMAR Storage Access". Không sửa tay tab này. Ai có quyền sửa Sheet có thể xoá/ghi đè bản mã (không đọc được nội dung).
+- Máy chủ kiểm tra token Google với Google (`tokeninfo`), đúng Client ID, mail đã xác minh và đúng `OWNER_EMAIL`. Không có mật khẩu, token hay khoá nào nằm trong file code.

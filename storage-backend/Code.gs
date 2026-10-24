@@ -12,6 +12,8 @@
  *
  * Script Properties cần đặt (Project Settings → Script properties):
  *   ADMIN_KEY           chuỗi bí mật dài, ngẫu nhiên, dùng khi bấm "Đồng bộ Storage"
+ *   OWNER_EMAIL         mail Google của chủ kho (chỉ mail này lấy/ghi được kho mã hoá)
+ *   GOOGLE_CLIENT_ID    OAuth Web client ID (đúng giá trị trong storage-config.js)
  *   TELEGRAM_BOT_TOKEN  (tuỳ chọn) token bot từ @BotFather
  *   TELEGRAM_CHAT_ID    (tuỳ chọn) chat id của bạn
  *
@@ -28,6 +30,9 @@ var REQ_HEADERS = ['Thời gian', 'Họ tên', 'Email', 'Lời nhắn của ngư
   'Nội dung CK (để đối chiếu)', 'Donate', 'Số tiền (đ)', 'Ngày nhận', 'Gợi ý'];
 var DONATE_OPTS = ['Chưa nhận', 'Đã nhận', 'Miễn (khoá KesFlow)', 'Miễn (khác)'];
 var CK_PREFIX = 'LM';
+var VAULT = 'Vault';
+var VAULT_CHUNK = 40000;       // ô Sheet tối đa 50.000 ký tự
+var VAULT_MAX = 1500000;       // giới hạn kích thước bản mã
 var ITEM_HEADERS = ['id', 'kho', 'title', 'url', 'note', 'tags', 'type', 'date'];
 
 function sheet_(name, headers) {
@@ -274,6 +279,8 @@ function doPost(e) {
       case 'register': return register_(body);
       case 'access': return access_(body);
       case 'sync': return sync_(body);
+      case 'vault_get': return vaultGet_(body);
+      case 'vault_put': return vaultPut_(body);
       default: return json_({ ok: false, error: 'bad_action' });
     }
   } catch (err) {
@@ -351,6 +358,73 @@ function sync_(b) {
   return json_({ ok: true, count: data.length });
 }
 
+/* ================== KHO MÃ HOÁ ĐỒNG BỘ (đăng nhập Google) ==================
+ * Máy chủ chỉ giữ bản mã (salt, iv, ct) đã mã hoá ở trình duyệt, không bao giờ thấy mật khẩu hay nội dung.
+ * Chỉ OWNER_EMAIL, đã đăng nhập Google (ID token hợp lệ cho đúng GOOGLE_CLIENT_ID), mới lấy/ghi được.
+ * Tab Vault (ẩn): A1 = {"rev":n,"chunks":k,"at":"ISO"}, A2.. = bản mã JSON cắt thành các đoạn. */
+
+function verifyOwner_(idToken) {
+  var p = PropertiesService.getScriptProperties();
+  var owner = String(p.getProperty('OWNER_EMAIL') || '').trim().toLowerCase();
+  var cid = String(p.getProperty('GOOGLE_CLIENT_ID') || '').trim();
+  idToken = String(idToken || '');
+  if (!owner || !cid || idToken.length < 100 || idToken.length > 4000) return false;
+  try {
+    var r = UrlFetchApp.fetch('https://oauth2.googleapis.com/tokeninfo?id_token=' + encodeURIComponent(idToken), { muteHttpExceptions: true });
+    if (r.getResponseCode() !== 200) return false;
+    var t = JSON.parse(r.getContentText());
+    var iss = String(t.iss || '');
+    return same_(String(t.aud || ''), cid) &&
+      (iss === 'accounts.google.com' || iss === 'https://accounts.google.com') &&
+      String(t.email_verified) === 'true' &&
+      String(t.email || '').toLowerCase() === owner &&
+      Number(t.exp) * 1000 > Date.now();
+  } catch (e) {
+    return false;
+  }
+}
+
+function vaultMeta_(sh) {
+  var v = sh.getRange(1, 1).getValue();
+  try { var m = JSON.parse(String(v)); if (m && m.chunks >= 0) return m; } catch (e) {}
+  return { rev: 0, chunks: 0 };
+}
+
+function vaultGet_(b) {
+  if (!verifyOwner_(b.idToken)) return json_({ ok: false, error: 'denied' });
+  var sh = SpreadsheetApp.openById(SHEET_ID).getSheetByName(VAULT);
+  if (!sh) return json_({ ok: true, rev: 0, vault: null });
+  var m = vaultMeta_(sh);
+  if (!m.rev || !m.chunks) return json_({ ok: true, rev: 0, vault: null });
+  var parts = sh.getRange(2, 1, m.chunks, 1).getValues().map(function (r) { return String(r[0]); });
+  try {
+    return json_({ ok: true, rev: m.rev, at: m.at, vault: JSON.parse(parts.join('')) });
+  } catch (e) {
+    return json_({ ok: false, error: 'corrupt' });
+  }
+}
+
+function vaultPut_(b) {
+  if (!verifyOwner_(b.idToken)) return json_({ ok: false, error: 'denied' });
+  var v = b.vault;
+  if (!v || typeof v.salt !== 'string' || typeof v.iv !== 'string' || typeof v.ct !== 'string') return json_({ ok: false, error: 'invalid' });
+  var text = JSON.stringify({ v: 1, salt: v.salt, iv: v.iv, ct: v.ct });
+  if (text.length > VAULT_MAX) return json_({ ok: false, error: 'too_big' });
+  var ss = SpreadsheetApp.openById(SHEET_ID);
+  var sh = ss.getSheetByName(VAULT);
+  if (!sh) { sh = ss.insertSheet(VAULT); sh.hideSheet(); }
+  var cur = vaultMeta_(sh);
+  if (Number(b.baseRev) !== Number(cur.rev)) return json_({ ok: false, error: 'conflict', rev: cur.rev });
+  var chunks = [];
+  for (var i = 0; i < text.length; i += VAULT_CHUNK) chunks.push([text.substr(i, VAULT_CHUNK)]);
+  var oldLast = sh.getLastRow();
+  if (oldLast > 1) sh.getRange(2, 1, oldLast - 1, 1).clearContent();
+  sh.getRange(2, 1, chunks.length, 1).setNumberFormat('@').setValues(chunks);
+  var rev = (cur.rev || 0) + 1;
+  sh.getRange(1, 1).setNumberFormat('@').setValue(JSON.stringify({ rev: rev, chunks: chunks.length, at: new Date().toISOString() }));
+  return json_({ ok: true, rev: rev });
+}
+
 /* ================== GIAO DIỆN SHEET (template theo dõi) ================== */
 var C = {
   purple: '#2D2FEF', purpleSoft: '#E7E2FB', ink: '#241F45', orange: '#FF7A45', orangeSoft: '#FFD8C2',
@@ -366,7 +440,7 @@ function formatSheets() {
   // Dọn trang tính trống mặc định (Sheet1 / Trang tính1)
   ss.getSheets().forEach(function (sh) {
     var n = sh.getName();
-    if (n !== REQ && n !== ITEMS && n !== 'Dashboard' && sh.getLastRow() <= 1 && ss.getSheets().length > 3) ss.deleteSheet(sh);
+    if (n !== REQ && n !== ITEMS && n !== VAULT && n !== 'Dashboard' && sh.getLastRow() <= 1 && ss.getSheets().length > 3) ss.deleteSheet(sh);
   });
   formatRequests_(req);
   formatItems_(items);
