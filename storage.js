@@ -4,7 +4,7 @@ const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "
 const API = (window.STORAGE_API || "").trim();
 const SAVE = "lm-storage-login";
 
-let items = [], cur = "ai", q = "", tag = "";
+let items = [], featured = [], cur = "ai", q = "", tag = "";
 
 async function call(payload) {
   if (!API) throw new Error("no_api");
@@ -58,6 +58,7 @@ async function enter(email, code, err, remember) {
     if (!res.approved) { err.textContent = "Yêu cầu của bạn chưa được duyệt (" + res.status + "). Quay lại sau nhé."; return false; }
     if (remember) { try { localStorage.setItem(SAVE, JSON.stringify({ email, code })); } catch {} }
     items = res.items || [];
+    featured = await Res.load();
     $("#hello").textContent = "Xin chào " + (res.name || "bạn") + " — bạn đã được duyệt xem.";
     $("#gate").hidden = true; $("#app").hidden = false;
     render();
@@ -68,9 +69,9 @@ async function enter(email, code, err, remember) {
 /* ---------- danh sách (chỉ xem) ---------- */
 function render() {
   const k = KHO.find((x) => x.id === cur) || KHO[0];
-  $("#tabs").innerHTML = KHO.map((x) => `<button class="tab ${x.id === cur ? "on" : ""}" data-k="${x.id}">${x.icon} ${x.name}<small>${items.filter((i) => i.kho === x.id).length}</small></button>`).join("");
+  $("#tabs").innerHTML = KHO.map((x) => `<button class="tab ${x.id === cur ? "on" : ""}" data-k="${x.id}">${x.icon} ${x.name}<small>${items.filter((i) => i.kho === x.id).length + featured.filter((i) => i.kho === x.id).length}</small></button>`).join("");
   $("#desc").textContent = k.desc;
-  const inKho = items.filter((i) => i.kho === cur);
+  const inKho = items.filter((i) => i.kho === cur).concat(featured.filter((i) => i.kho === cur));
   const tags = [...new Set(inKho.flatMap((i) => i.tags || []))].sort();
   if (tag && !tags.includes(tag)) tag = "";
   $("#tags").innerHTML = tags.map((t) => `<span class="chip ${t === tag ? "on" : ""}" data-t="${esc(t)}">#${esc(t)}</span>`).join("");
@@ -78,7 +79,7 @@ function render() {
   const list = inKho.filter((i) => !tag || (i.tags || []).includes(tag))
     .filter((i) => !n || [i.title, i.note, i.type, (i.tags || []).join(" ")].join(" ").toLowerCase().includes(n))
     .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
-  $("#grid").innerHTML = list.length ? list.map((i) => `
+  $("#grid").innerHTML = list.length ? list.map((i) => i.featured ? Res.card(i) : `
     <article class="card">
       ${i.type ? `<span class="badge">${esc(i.type)}</span>` : ""}
       <h3>${/^https?:\/\//i.test(i.url) ? `<a href="${esc(i.url)}" target="_blank" rel="noopener noreferrer">${esc(i.title)} ↗</a>` : esc(i.title)}</h3>

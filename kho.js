@@ -9,7 +9,7 @@ const enc = new TextEncoder(), dec = new TextDecoder();
 
 let vault = null;      // {v, salt, iv, ct} đang lưu
 let cryptoKey = null;  // khoá trong bộ nhớ sau khi mở
-let items = [];
+let items = [], featured = [];
 let cur = "ai", q = "", tag = "";
 
 async function deriveKey(pass, salt) {
@@ -73,13 +73,13 @@ async function boot() {
 /* ---------- giao diện kho ---------- */
 function renderTabs() {
   $("#tabs").innerHTML = KHO.map((k) =>
-    `<button class="tab ${k.id === cur ? "on" : ""}" data-k="${k.id}">${k.icon} ${k.name}<small>${items.filter((i) => i.kho === k.id).length}</small></button>`).join("");
+    `<button class="tab ${k.id === cur ? "on" : ""}" data-k="${k.id}">${k.icon} ${k.name}<small>${items.filter((i) => i.kho === k.id).length + featured.filter((i) => i.kho === k.id).length}</small></button>`).join("");
 }
 function render() {
   const k = KHO.find((x) => x.id === cur);
   renderTabs();
   $("#desc").textContent = k.desc;
-  const inKho = items.filter((i) => i.kho === cur);
+  const inKho = items.filter((i) => i.kho === cur).concat(featured.filter((i) => i.kho === cur));
   const tags = [...new Set(inKho.flatMap((i) => i.tags || []))].sort();
   if (tag && !tags.includes(tag)) tag = "";
   $("#tags").innerHTML = tags.map((t) => `<span class="chip ${t === tag ? "on" : ""}" data-t="${esc(t)}">#${esc(t)}</span>`).join("");
@@ -88,7 +88,7 @@ function render() {
     .filter((i) => !tag || (i.tags || []).includes(tag))
     .filter((i) => !needle || [i.title, i.note, i.type, (i.tags || []).join(" ")].join(" ").toLowerCase().includes(needle))
     .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
-  $("#grid").innerHTML = list.length ? list.map((i) => `
+  $("#grid").innerHTML = list.length ? list.map((i) => i.featured ? Res.card(i) : `
     <article class="card">
       ${i.type ? `<span class="badge">${esc(i.type)}</span>` : ""}${i.shared ? `<span class="badge shared">Chia sẻ</span>` : ""}
       <h3>${/^https?:\/\//i.test(i.url) ? `<a href="${esc(i.url)}" target="_blank" rel="noopener noreferrer">${esc(i.title)} ↗</a>` : esc(i.title)}</h3>
@@ -118,7 +118,8 @@ f.addEventListener("submit", async (e) => {
   await seal(); dlg.close(); cur = rec.kho; render();
 });
 
-function start() {
+async function start() {
+  featured = await Res.load();
   $("#kho").innerHTML = KHO.map((k) => `<option value="${k.id}">${k.name}</option>`).join("");
   render();
 }
