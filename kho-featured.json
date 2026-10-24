@@ -820,6 +820,307 @@
           "t": "Lưu ý với các nguồn bên thứ ba: đây không phải nhà cung cấp chính thức. Nên mua gói nhỏ để thử trước, không gửi mật khẩu các tài khoản quan trọng của bạn, và đổi mật khẩu sau khi nhận tài khoản. Với Claude, ưu tiên mua chính chủ như trên."
         }
       ]
+    },
+    {
+      "kho": "tool",
+      "guide": true,
+      "date": "2026-10-24",
+      "id": "tool-zca-js",
+      "title": "zca-js: thư viện Zalo API cho JavaScript",
+      "type": "Repo GitHub",
+      "badge": "Repo",
+      "tags": [
+        "zalo",
+        "github",
+        "javascript",
+        "api"
+      ],
+      "thumb": "assets/res/tool-zca-js.jpg",
+      "note": "Thư viện Node.js/Bun không chính thức để điều khiển tài khoản Zalo cá nhân bằng code: nhận và gửi tin nhắn, đăng nhập QR. Dành cho người biết lập trình.",
+      "cta": {
+        "title": "RFS-ADRENO/zca-js",
+        "url": "https://github.com/RFS-ADRENO/zca-js",
+        "btn": "Mở repo GitHub"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Không chính thức: dự án tự giả lập trình duyệt để nói chuyện với Zalo Web. README cảnh báo tài khoản có thể bị khoá hoặc cấm và tác giả không chịu trách nhiệm. Chỉ thử trên tài khoản phụ, không dùng tài khoản quan trọng."
+        },
+        {
+          "k": "h",
+          "t": "Là gì"
+        },
+        {
+          "k": "p",
+          "t": "zca-js là thư viện JavaScript/TypeScript (cài qua npm hoặc Bun, giấy phép MIT) cho phép chương trình của bạn đăng nhập một tài khoản Zalo cá nhân rồi lắng nghe và gửi tin nhắn, giống như bạn đang dùng Zalo Web. Phù hợp để làm bot cá nhân, thông báo tự động hoặc tích hợp Zalo vào quy trình của bạn."
+        },
+        {
+          "k": "h",
+          "t": "Tính năng chính"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Đăng nhập bằng mã QR (loginQR), không cần nhập mật khẩu vào code.",
+            "Lắng nghe tin nhắn cá nhân và nhóm bằng listener.",
+            "Gửi tin nhắn, trả lời tin nhắn, tìm và gửi sticker.",
+            "Gửi ảnh từ đường dẫn file: từ bản v2 bạn tự cung cấp hàm đọc metadata ảnh (ví dụ dùng thư viện sharp)."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cách dùng nhanh"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Cài đặt",
+              "d": "Trong dự án Node.js chạy: npm install zca-js (hoặc bun add zca-js)."
+            },
+            {
+              "t": "Đăng nhập",
+              "d": "Tạo new Zalo() rồi gọi loginQR(), quét mã QR bằng Zalo trên điện thoại."
+            },
+            {
+              "t": "Lắng nghe",
+              "d": "Dùng api.listener.on(\"message\", …) để nhận tin, rồi api.listener.start()."
+            },
+            {
+              "t": "Trả lời",
+              "d": "Xử lý nội dung và gọi hàm gửi tin. README có sẵn ví dụ bot echo để chạy thử."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Dùng đúng mục đích"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Hợp với: bot trả lời tự động cho tài khoản của chính bạn, nhắc việc, chuyển thông báo hệ thống vào Zalo, học và thử nghiệm.",
+            "Không dùng cho: spam, gửi tin hàng loạt cho người lạ, thu thập dữ liệu người khác. Vừa vi phạm điều khoản Zalo, vừa dễ bị khoá tài khoản.",
+            "Mỗi tài khoản chỉ chạy được một listener web cùng lúc; mở Zalo Web trên trình duyệt sẽ làm listener dừng.",
+            "Dự án đang phát triển nhiều (hàng trăm commit, nhiều issue mở): có thể đổi cách dùng giữa các bản, hãy đọc README mới nhất."
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Số liệu khi tra cứu ngày 24/10/2026: khoảng 688 sao, giấy phép MIT."
+        }
+      ]
+    },
+    {
+      "kho": "tool",
+      "guide": true,
+      "date": "2026-10-24",
+      "id": "tool-zalo-multi-accounts",
+      "title": "Zalo Switcher: nhiều tài khoản Zalo trên một máy",
+      "type": "Repo GitHub",
+      "badge": "Repo",
+      "tags": [
+        "zalo",
+        "github",
+        "macos",
+        "windows"
+      ],
+      "thumb": "assets/res/tool-zalo-switcher.jpg",
+      "note": "Ứng dụng mở nhiều tài khoản Zalo cùng lúc trên một máy tính (macOS và Windows), mỗi tài khoản một cửa sổ riêng, không cần đăng xuất hay quét QR lại.",
+      "cta": {
+        "title": "ducngfi/zalo-multi-accounts",
+        "url": "https://github.com/ducngfi/zalo-multi-accounts",
+        "btn": "Mở repo GitHub"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Không chính thức, không liên quan Zalo hay VNG. Ứng dụng đổi tên thư mục chứa tin nhắn, ảnh, file Zalo của bạn: hãy sao lưu dữ liệu Zalo trước khi dùng. Dùng với rủi ro tự chịu, tác giả không chịu trách nhiệm nếu mất dữ liệu."
+        },
+        {
+          "k": "h",
+          "t": "Là gì"
+        },
+        {
+          "k": "p",
+          "t": "Zalo Switcher (giấy phép MIT, README tiếng Việt) giúp bạn giữ nhiều tài khoản Zalo trên cùng một máy và mở cùng lúc, mỗi tài khoản có thư mục dữ liệu riêng và cửa sổ Zalo riêng. Hợp với người quản lý nhiều tài khoản (cá nhân, công việc, fanpage…) mà không muốn đăng xuất liên tục."
+        },
+        {
+          "k": "h",
+          "t": "Tính năng chính"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Mỗi tài khoản một thư mục dữ liệu riêng; mở, chuyển tới, đóng từng tài khoản, hoặc “Mở tất cả / Đóng tất cả”.",
+            "Đặt một tài khoản làm Zalo chính (đổi tên thư mục, không sao chép dữ liệu).",
+            "Sao lưu ra ổ ngoài và khôi phục thành tài khoản mới; đổi tên; chuyển tài khoản đã đóng vào thùng rác.",
+            "Cảnh báo dung lượng thấp (mặc định 5 GB), tự chạy khi đăng nhập máy, giao diện sáng/tối, chế độ demo (--demo) với tài khoản giả để làm quen.",
+            "Có công cụ dòng lệnh zalo-profiles (status, add, open, close, main, backup, restore)."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cài đặt nhanh"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "macOS",
+              "d": "Tải file Zalo-Switcher-…-macOS.zip ở mục Releases, kéo vào Applications. Vì ứng dụng chưa được Apple công chứng nên lần đầu phải cho phép mở trong Cài đặt hệ thống > Quyền riêng tư và bảo mật (Open Anyway)."
+            },
+            {
+              "t": "Windows",
+              "d": "Chạy ZaloSwitcher-Setup-<phiên bản>.exe (không cần quyền admin) hoặc giải nén zip rồi chạy ZaloSwitcher.exe. SmartScreen có thể cảnh báo vì file chưa ký: chọn More info > Run anyway nếu bạn tin nguồn."
+            },
+            {
+              "t": "Lưu tài khoản hiện tại",
+              "d": "Lưu tài khoản Zalo đang đăng nhập làm Zalo chính (nếu chưa đăng nhập thì tài khoản đầu tiên thêm vào sẽ là tài khoản chính)."
+            },
+            {
+              "t": "Thêm tài khoản",
+              "d": "Bấm Thêm tài khoản, đặt tên, đăng nhập Zalo trong cửa sổ mới, rồi dùng Mở trên từng tài khoản."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Giới hạn cần biết"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Zalo vẫn chỉ cho một phiên mỗi loại (điện thoại, máy tính, web) trên mỗi tài khoản; tool này không đổi quy định đó.",
+            "Chỉ tài khoản đang mở mới nhận tin nhắn và thông báo.",
+            "Gọi thoại, video chỉ ổn định ở một cửa sổ tại một thời điểm.",
+            "Mỗi cửa sổ tốn RAM như một Zalo riêng và mỗi tài khoản chiếm vài GB ổ đĩa.",
+            "Phụ thuộc cách Zalo lưu dữ liệu nên bản Zalo cập nhật có thể làm tool hỏng: đọc README trước khi cập nhật Zalo."
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Dự án còn mới (khoảng 18 sao, vài chục commit, theo README thử nghiệm ngày 20-21/10/2026, phiên bản 1.2.0). Hãy đọc kỹ README và tải file từ trang Releases của chính repo."
+        }
+      ]
+    },
+    {
+      "kho": "tool",
+      "guide": true,
+      "date": "2026-10-24",
+      "id": "tool-social-aio",
+      "title": "Social AIO: tiện ích Chrome quản lý mạng xã hội",
+      "type": "Tiện ích Chrome",
+      "badge": "Extension",
+      "tags": [
+        "chrome",
+        "extension",
+        "mạng xã hội",
+        "facebook"
+      ],
+      "thumb": "assets/res/tool-social-aio.jpg",
+      "note": "Hộp công cụ trong Chrome: tải ảnh/video, xuất bình luận, dọn bài viết và danh sách bạn bè hàng loạt, chặn báo đã xem, khoá trang bằng mật khẩu.",
+      "cta": {
+        "title": "Social AIO trên Chrome Web Store",
+        "url": "https://chromewebstore.google.com/detail/ncncagnhhigemlgiflfgdhcdpipadmmm",
+        "btn": "Mở trên Chrome Web Store"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Tiện ích tác động lên tài khoản mạng xã hội đang đăng nhập của bạn. Thao tác hàng loạt (xoá bài, bỏ kết bạn, bỏ theo dõi…) khó hoàn tác và có thể trái điều khoản nền tảng. Thử với ít mục trước, tự kiểm tra danh sách quyền khi cài đặt."
+        },
+        {
+          "k": "h",
+          "t": "Là gì"
+        },
+        {
+          "k": "p",
+          "t": "Social AIO (trước đây tên FB AIO, nhóm Tools trên Chrome Web Store, bản 2.1, cập nhật 31/7/2026) là hộp công cụ gom nhiều tác vụ quản lý mạng xã hội vào một tiện ích. Theo trang cửa hàng, khoảng 30.000 người dùng và đánh giá 5.0 từ khoảng 2,8 nghìn lượt. Nhà phát triển ghi rõ không liên kết với nền tảng mạng xã hội nào."
+        },
+        {
+          "k": "h",
+          "t": "Tính năng chính (theo trang cửa hàng)"
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "Lưu và xuất",
+              "tag": "Dữ liệu",
+              "d": "Tải ảnh, video; xuất bình luận và lượt cảm xúc của bài viết; lưu media từ Instagram, Threads, TikTok; xuất danh sách kênh YouTube đã đăng ký."
+            },
+            {
+              "t": "Quản lý bài viết",
+              "tag": "Hàng loạt",
+              "d": "Đổi quyền riêng tư, xoá hoặc lưu trữ nhiều bài cùng lúc, có tìm kiếm và bộ lọc."
+            },
+            {
+              "t": "Tin nhắn",
+              "tag": "Hội thoại",
+              "d": "Xem lại cuộc trò chuyện, tìm tin nhắn đầu tiên, tải đoạn chat về."
+            },
+            {
+              "t": "Kết nối",
+              "tag": "Bạn bè",
+              "d": "Theo dõi thay đổi danh sách bạn bè, xếp hạng mức tương tác, bỏ kết bạn, bỏ theo dõi, bỏ thích hàng loạt."
+            },
+            {
+              "t": "Riêng tư",
+              "tag": "Bảo vệ",
+              "d": "Chặn báo đã xem story và đã đọc tin nhắn, xoá tham số theo dõi khỏi link, khoá một số trang bằng mật khẩu lưu trong máy."
+            },
+            {
+              "t": "Dọn bảng tin",
+              "tag": "Tiện ích",
+              "d": "Ẩn các khối bảng tin, tạm dừng tự làm mới, thống kê thời gian dùng từng website, thêm điều khiển video trên Facebook."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cách dùng"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Cài đặt",
+              "d": "Mở trang tiện ích trên Chrome Web Store, bấm Add to Chrome và đọc quyền được yêu cầu."
+            },
+            {
+              "t": "Đăng nhập mạng xã hội như bình thường",
+              "d": "Tiện ích làm việc trên các trang bạn đang mở, nên cần đăng nhập sẵn tài khoản muốn thao tác."
+            },
+            {
+              "t": "Thử trước",
+              "d": "Chạy thử tác vụ trên vài mục (một bài, vài người) để xem kết quả rồi mới làm hàng loạt."
+            },
+            {
+              "t": "Cần hỗ trợ",
+              "d": "Trang cửa hàng dẫn tới trang hỗ trợ của nhà phát triển (fbaio.org) và GitHub issues."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Dùng đúng mục đích"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Hợp với: sao lưu nội dung của chính bạn, dọn dẹp tài khoản cá nhân, tăng riêng tư, theo dõi mình đã dành bao nhiêu thời gian.",
+            "Cẩn trọng: thao tác hàng loạt trên tài khoản dùng cho công việc, quảng cáo hoặc fanpage. Làm quá nhanh có thể kích hoạt cơ chế chống bot của nền tảng.",
+            "Không dùng để tải hoặc đăng lại nội dung của người khác khi chưa được phép.",
+            "Tiện ích có quyền đọc các trang mạng xã hội bạn mở: chỉ cài từ cửa hàng chính thức, theo dõi cập nhật và gỡ nếu không còn dùng."
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Mô tả và cam kết riêng tư ở trên là lời của nhà phát triển trên trang cửa hàng, chưa được kiểm chứng độc lập."
+        }
+      ]
     }
   ]
 }

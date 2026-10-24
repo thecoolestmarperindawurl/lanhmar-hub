@@ -109,7 +109,7 @@ window.Res = (() => {
     }
     return `<article class="card res-card" data-res="${esc(i.id)}" tabindex="0" role="button" aria-label="${esc(i.title)}">
       <img class="res-thumb" src="${esc(okUrl(i.thumb))}" alt="" loading="lazy">
-      <div class="res-info"><span class="badge">${esc(i.type || "Tài nguyên")}</span><span class="badge shared">${i.guide ? "Đọc trước" : "Nổi bật"}</span>
+      <div class="res-info"><span class="badge">${esc(i.type || "Tài nguyên")}</span><span class="badge shared">${i.guide ? esc(i.badge || "Đọc trước") : "Nổi bật"}</span>
         <h3>${esc(i.title)}</h3><p>${esc(i.note)}</p>
         <div class="meta"><span>${esc(i.date)}</span><span class="res-more">Xem chi tiết →</span></div></div>
     </article>`;
@@ -180,6 +180,7 @@ window.Res = (() => {
     show(dlg, `<button class="x" id="resX" aria-label="Đóng">×</button><div class="res-body g-body">
       <div class="res-head"><span class="badge">${esc(i.type || "Lý thuyết")}</span><h2>${esc(i.title)}</h2><p class="news-meta">${esc(i.note || "")}</p></div>
       ${(i.sections || []).map(guideSection).join("")}</div>` +
+      (i.cta ? `<div class="res-cta"><div><b>${esc(i.cta.title)}</b><small>${esc(String(i.cta.url).replace(/^https?:\/\//, ""))}</small></div><a class="btn orange-btn" href="${esc(okUrl(i.cta.url))}" target="_blank" rel="noopener">${esc(i.cta.btn || "Mở trang gốc")} ↗</a></div>` : "") +
       (nx ? `<div class="res-cta"><div><b>${esc(i.next.label)}</b></div><button class="btn orange-btn" type="button" data-res="${esc(nx.id)}">Mở tiếp →</button></div>` : ""));
   }
 
