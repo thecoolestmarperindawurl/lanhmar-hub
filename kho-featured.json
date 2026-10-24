@@ -1121,6 +1121,196 @@
           "t": "Mô tả và cam kết riêng tư ở trên là lời của nhà phát triển trên trang cửa hàng, chưa được kiểm chứng độc lập."
         }
       ]
+    },
+    {
+      "id": "tool-chatcode",
+      "kho": "tool",
+      "guide": true,
+      "date": "2026-10-24",
+      "title": "ChatCode: nối ChatGPT, Claude… với dự án trên máy bạn",
+      "type": "Ứng dụng Windows",
+      "badge": "App",
+      "tags": [
+        "chatcode",
+        "mcp",
+        "lập trình",
+        "windows"
+      ],
+      "thumb": "assets/res/tool-chatcode.jpg",
+      "note": "App của OzinTech giúp trợ lý AI trên web (ChatGPT, Claude, Mistral, Grok) đọc, sửa code và chạy thử trong thư mục dự án của bạn mà không cần copy/paste. Có bản Free.",
+      "cta": {
+        "title": "ChatCode · OzinTech",
+        "url": "https://chatcode.ozintech.com/?lang=vi",
+        "btn": "Mở trang ChatCode"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "App cho phép AI trên web đọc và có thể sửa file trong thư mục bạn cấp quyền. Luôn bắt đầu với quyền chỉ đọc, đừng thêm cả ổ đĩa, và không chia sẻ đường dẫn kết nối của bạn."
+        },
+        {
+          "k": "h",
+          "t": "Là gì"
+        },
+        {
+          "k": "p",
+          "t": "ChatCode là ứng dụng của OzinTech, nối trợ lý AI bạn đang dùng với dự án phần mềm trên máy tính. Thay vì dán code vào khung chat, AI sẽ tự đọc kho code, tìm đúng đoạn liên quan, sửa file và chạy kiểm thử trong những thư mục bạn cho phép. Hợp với người làm dự án nhỏ, người muốn dùng AI hỗ trợ code mà chưa quen công cụ dòng lệnh."
+        },
+        {
+          "k": "h",
+          "t": "Tính năng chính (theo trang chủ)"
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "Project Brain",
+              "tag": "Hiểu dự án",
+              "d": "Lập bản đồ file, hàm, import và quan hệ giữa chúng, chỉ gửi cho AI phần ngữ cảnh liên quan."
+            },
+            {
+              "t": "Truy vết lỗi",
+              "tag": "Gỡ lỗi",
+              "d": "Tìm các file và chuỗi phụ thuộc liên quan tới một lỗi, chỉ ra file, hàm hoặc vị trí cần sửa."
+            },
+            {
+              "t": "Chế độ Free Debug",
+              "tag": "Miễn phí",
+              "d": "Phân tích dự án bằng khung chat AI miễn phí qua copy/dán, không cần gói AI trả phí."
+            },
+            {
+              "t": "Nhiều dự án",
+              "tag": "Song song",
+              "d": "Mỗi dự án có ngữ cảnh riêng, làm nhiều dự án cùng lúc."
+            },
+            {
+              "t": "Điều khiển từ xa",
+              "tag": "Điện thoại",
+              "d": "Dùng điện thoại làm “bảng điều khiển” cho máy tính đang chứa dự án."
+            },
+            {
+              "t": "Đo lượng dữ liệu",
+              "tag": "Minh bạch",
+              "d": "Hiển thị lượng dữ liệu ChatCode gửi cho AI, token ước tính và chi phí API tương đương (khi đủ dữ liệu)."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cài đặt và bắt đầu"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Tải bản cài",
+              "d": "Tải ChatCode Free cho Windows từ trang tải xuống chính thức. Trình cài đặt kiểm tra kích thước, mã băm SHA-256 và chữ ký của gói trước khi chạy. Chọn tiếng Việt hoặc English."
+            },
+            {
+              "t": "Mở app",
+              "d": "Xác nhận ChatCode đang chạy ở trang Work. Người dùng Free dùng được ngay, không cần license."
+            },
+            {
+              "t": "Thêm workspace",
+              "d": "Vào Workspaces, thêm workspace, chọn thư mục gốc của dự án, đặt tên và đặt quyền. Mỗi workspace gắn với một thư mục."
+            },
+            {
+              "t": "Nối với AI",
+              "d": "Ở Work > Connect AI Chat chọn Copy connection link (đường dẫn MCP), rồi thêm vào nền tảng AI theo bảng bên dưới."
+            },
+            {
+              "t": "Chạy thử",
+              "d": "Nhờ AI liệt kê workspace hoặc giải thích một vấn đề và kiểm tra nó chưa thay đổi gì, rồi mới nhờ sửa."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Nối vào nền tảng AI nào"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Nền tảng",
+            "Cách thêm (theo hướng dẫn của app)"
+          ],
+          "rows": [
+            [
+              "ChatGPT",
+              "Bật Developer mode trong Settings, vào Plugins/Apps > Browse > + > custom app, dán URL rồi tạo."
+            ],
+            [
+              "Claude",
+              "Settings > Connectors > Add custom connector, dán Remote MCP URL."
+            ],
+            [
+              "Mistral (Vibe)",
+              "Intelligence > Connectors > + Add Connector > Custom Connector, dán URL máy chủ MCP."
+            ],
+            [
+              "Grok",
+              "grok.com/connectors > New Connector > Custom, dán URL. URL có thể đổi sau khi khởi động lại."
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Tên menu và quyền theo gói của mỗi nền tảng hay thay đổi; nếu không khớp màn hình, xem bảng tương thích trong hướng dẫn của app."
+        },
+        {
+          "k": "h",
+          "t": "Dùng đúng mục đích và an toàn"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Phân quyền theo từng workspace: đọc, sửa file, tạo/xoá/đổi tên, chạy tác vụ, ghi Git cục bộ. Bắt đầu chỉ đọc, chỉ bật ghi khi cần.",
+            "App chặn các vùng nhạy cảm như file .env, thư mục SSH, khoá riêng, thông tin đăng nhập và bỏ qua thư mục build/cache. Dù vậy đừng đưa dữ liệu bí mật vào workspace.",
+            "Đừng thêm cả ổ đĩa: sẽ chậm và kéo theo file không liên quan. Tách thư mục mã nguồn với thư mục kết quả.",
+            "Bật quyền ghi Git không có nghĩa là tự push. Lệnh SSH có rủi ro, cần quyền riêng.",
+            "Không sửa hay chia sẻ đường dẫn kết nối: ai có link có thể truy cập workspace của bạn.",
+            "Nên dùng file văn bản và code UTF-8; PDF, DOCX, XLSX chưa đọc ổn định, hãy chuyển sang văn bản trước.",
+            "Dặn AI chẩn đoán trước, chỉ sửa hoặc chạy lệnh sau khi bạn đồng ý."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Giá và nền tảng"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Free (0đ): có Project Brain và các tính năng liên quan, có giới hạn sử dụng trong giai đoạn Beta; không tính phí theo token, không cần API credit. Gói trả phí sẽ công bố sau.",
+            "Giới hạn của nền tảng AI bạn dùng (hạn mức, fair use, mô hình) vẫn áp dụng.",
+            "Windows có sẵn; macOS ghi là “sắp có”."
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Chưa thấy trên trang: app có mã nguồn mở không, giấy phép, chi tiết chính sách riêng tư (có trang Privacy riêng), cách lưu trữ và mã hoá dữ liệu. Hãy đọc điều khoản và chính sách riêng tư trước khi dùng với dự án quan trọng. Thông tin tổng hợp từ trang chủ và hướng dẫn ngày 24/10/2026, bản Beta có thể đổi."
+        },
+        {
+          "k": "h",
+          "t": "Liên kết"
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "Trang chủ ChatCode",
+              "u": "https://chatcode.ozintech.com/?lang=vi"
+            },
+            {
+              "t": "Hướng dẫn A–Z",
+              "u": "https://chatcode.ozintech.com/guide"
+            },
+            {
+              "t": "Cộng đồng Zalo",
+              "u": "https://zalo.me/g/jljsngmq2lqawhs9zkfh"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
