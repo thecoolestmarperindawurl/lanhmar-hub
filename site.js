@@ -299,3 +299,12 @@ navLinks.addEventListener("click", (e) => { if (e.target.closest("a")) setMenu(f
 document.addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
 document.addEventListener("click", (e) => { if (!e.target.closest(".pill-nav")) setMenu(false); });
 renderStatic();
+
+/* Open Storage (người lạ): hiện QR donate trước, rồi đăng ký để được duyệt */
+(() => {
+  const a = $("#openStorage"), dd = $("#donDlg");
+  if (!a || !dd) return;
+  a.addEventListener("click", (e) => { e.preventDefault(); $("#donBox").innerHTML = window.donateHtml(); dd.showModal(); });
+  $("#donX").onclick = () => dd.close();
+  dd.addEventListener("click", (e) => { if (e.target === dd) dd.close(); });
+})();

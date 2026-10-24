@@ -18,13 +18,15 @@ function setMode(m) {
   document.querySelectorAll(".seg .tab").forEach((b) => b.classList.toggle("on", b.dataset.mode === m));
   $("#regForm").hidden = m !== "register" || !$("#regDone").hidden;
   $("#loginForm").hidden = m !== "login";
+  const dh = $("#donHere"); if (dh) { dh.hidden = m !== "register" || !$("#regDone").hidden; if (!dh.innerHTML) dh.innerHTML = window.donateHtml({ here: true }); }
   if (m === "login") $("#regDone").hidden = true;
 }
 document.querySelector(".seg").addEventListener("click", (e) => { const b = e.target.closest("[data-mode]"); if (b) { $("#regDone").hidden = true; setMode(b.dataset.mode); } });
 
+setMode("register");
 if (!API) {
   $("#gateMsg").textContent = "Data Storage chưa được kích hoạt. Quay lại sau nhé.";
-  $("#regForm").hidden = true; document.querySelector(".seg").hidden = true;
+  $("#regForm").hidden = true; $("#donHere").hidden = true; document.querySelector(".seg").hidden = true;
 }
 
 $("#regForm").addEventListener("submit", async (e) => {
@@ -37,7 +39,8 @@ $("#regForm").addEventListener("submit", async (e) => {
     else if (res.existing) err.textContent = "Email này đã đăng ký rồi (trạng thái: " + res.status + "). Hãy dùng tab “Tôi đã có mã”.";
     else {
       $("#codeBox").textContent = res.code;
-      $("#regForm").hidden = true; $("#regDone").hidden = false;
+      $("#donDone").innerHTML = '<p><b>Bước tiếp theo:</b> ủng hộ Lan Anh để được duyệt. Quét mã QR (nội dung chuyển khoản đã gắn mã của bạn):</p>' + window.donateHtml({ code: res.code });
+      $("#regForm").hidden = true; $("#regDone").hidden = false; $("#donHere").hidden = true;
       $("#lEmail").value = $("#rEmail").value; $("#lCode").value = res.code;
     }
   } catch { err.textContent = "Không gửi được, thử lại sau."; }
@@ -48,6 +51,7 @@ $("#loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const btn = $("#loginBtn"), err = $("#loginErr");
   err.textContent = ""; btn.disabled = true;
+  $("#donPend").hidden = true;
   await enter($("#lEmail").value, $("#lCode").value, err, true);
   btn.disabled = false;
 });
@@ -56,7 +60,11 @@ async function enter(email, code, err, remember) {
   try {
     const res = await call({ action: "access", email, code });
     if (!res.ok) { err.textContent = "Sai email hoặc mã."; return false; }
-    if (!res.approved) { err.textContent = "Yêu cầu của bạn chưa được duyệt (" + res.status + "). Quay lại sau nhé."; return false; }
+    if (!res.approved) {
+      err.textContent = "Yêu cầu của bạn chưa được duyệt (" + res.status + "). Quay lại sau nhé.";
+      const dp = $("#donPend"); if (dp && remember) { dp.hidden = false; dp.innerHTML = "<p>Nếu bạn chưa ủng hộ, quét mã QR bên dưới (nội dung đã gắn mã của bạn). Đã chuyển rồi thì chờ Lan Anh duyệt nhé.</p>" + window.donateHtml({ code }); }
+      return false;
+    }
     if (remember) { try { localStorage.setItem(SAVE, JSON.stringify({ email, code })); } catch {} }
     items = res.items || [];
     featured = await Res.load();

@@ -6,7 +6,8 @@
 <title>Data Storage — LANHMAR</title>
 <meta name="robots" content="noindex,nofollow,noarchive">
 <link rel="icon" href="assets/img/logo-lanhmar.png">
-<link rel="stylesheet" href="kho.css?v=20261024k">
+<link rel="stylesheet" href="kho.css?v=20261024l">
+<link rel="stylesheet" href="donate.css?v=20261024l">
 </head>
 <body>
 <div class="marquee"><span>★ DATA STORAGE ★ LANHMAR ★ DATA STORAGE ★ LANHMAR ★ DATA STORAGE ★ LANHMAR ★ DATA STORAGE ★ LANHMAR</span></div>
@@ -21,10 +22,12 @@
       <button class="tab" data-mode="login" type="button">Tôi đã có mã</button>
     </div>
 
+    <div id="donHere" class="don-here"></div>
+
     <form id="regForm" autocomplete="off">
       <label for="rName">Họ tên</label><input id="rName" maxlength="80" required>
       <label for="rEmail">Email</label><input id="rEmail" type="email" maxlength="120" required>
-      <label for="rNote">Email bạn dùng đăng ký khoá học KesFlow (nếu có), hoặc bạn muốn xem gì?</label><textarea id="rNote" rows="2" maxlength="300"></textarea>
+      <label for="rNote">Nội dung chuyển khoản / email khoá học KesFlow (nếu có), hoặc bạn muốn xem gì?</label><textarea id="rNote" rows="2" maxlength="300"></textarea>
       <p class="err" id="regErr"></p>
       <button class="btn primary" type="submit" id="regBtn">Gửi đăng ký</button>
     </form>
@@ -32,6 +35,7 @@
     <div id="regDone" hidden>
       <p><b>Đã gửi yêu cầu.</b> Đây là mã truy cập của bạn, chỉ hiện <b>một lần</b>. Hãy lưu lại:</p>
       <div class="codebox" id="codeBox"></div>
+      <div id="donDone"></div>
       <p>Khi Lan Anh duyệt, bạn dùng <b>email + mã này</b> ở tab “Tôi đã có mã” để vào xem. Chưa được duyệt thì sẽ chưa vào được.</p>
     </div>
 
@@ -39,6 +43,7 @@
       <label for="lEmail">Email đã đăng ký</label><input id="lEmail" type="email" maxlength="120" required>
       <label for="lCode">Mã truy cập</label><input id="lCode" maxlength="20" required>
       <p class="err" id="loginErr"></p>
+      <div id="donPend" hidden></div>
       <button class="btn primary" type="submit" id="loginBtn">Vào xem</button>
     </form>
 
@@ -62,9 +67,11 @@
 </div>
 
 <dialog id="resDlg" class="res-dlg"></dialog>
-<script src="kho-data.js?v=20261024k"></script>
-<script src="resource.js?v=20261024k"></script>
-<script src="storage-config.js?v=20261024k"></script>
-<script src="storage.js?v=20261024k"></script>
+<script src="site-config.js?v=20261024l"></script>
+<script src="donate.js?v=20261024l"></script>
+<script src="kho-data.js?v=20261024l"></script>
+<script src="resource.js?v=20261024l"></script>
+<script src="storage-config.js?v=20261024l"></script>
+<script src="storage.js?v=20261024l"></script>
 </body>
 </html>
