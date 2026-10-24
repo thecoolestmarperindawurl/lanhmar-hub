@@ -1862,6 +1862,52 @@
           ]
         }
       ]
+    },
+    {
+      "id": "knowledge-ebook",
+      "kho": "knowledge",
+      "group": "ebook",
+      "guide": true,
+      "date": "2026-10-24",
+      "title": "Kho Ebook: thư mục sách trên Google Drive",
+      "type": "Kho Ebook",
+      "badge": "Ebook",
+      "tags": [
+        "ebook",
+        "sách",
+        "google drive"
+      ],
+      "thumb": "assets/res/knowledge-ebook.jpg",
+      "note": "Hai thư mục ebook lưu trên Google Drive. Bấm mở từng thư mục để chọn sách.",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Hai thư mục này nằm trên Google Drive. Nếu Drive báo “Cần quyền truy cập”, hãy đăng nhập đúng tài khoản Google đã được chia sẻ hoặc xin quyền từ chủ thư mục."
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "Thư mục Ebook 1",
+              "tag": "Drive",
+              "d": "Thư mục ebook thứ nhất (chưa có tên hiển thị, đổi tên khi bạn đặt tên xong).",
+              "u": "https://drive.google.com/drive/folders/1E_ZIW2wYFb8E4clii3BoGq6UcsyOVjd4",
+              "lb": "Mở thư mục"
+            },
+            {
+              "t": "IMC BOOKS",
+              "tag": "Drive",
+              "d": "Thư mục sách IMC (tên lấy từ Google Drive).",
+              "u": "https://drive.google.com/drive/folders/1Nv3tCy7I-iDEL1jF09mwnMaYAVCYoH4X",
+              "lb": "Mở thư mục"
+            }
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Muốn thêm thư mục ebook khác, nhắn mình link Drive để thêm vào đây."
+        }
+      ]
     }
   ]
 }
