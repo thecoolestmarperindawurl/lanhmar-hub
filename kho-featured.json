@@ -2027,6 +2027,70 @@
           "t": "Xếp theo ngày hoàn thành, từ cũ đến mới (riêng Canva chưa có ngày trong dữ liệu). Khoá sắp học vẫn ghi ở mục “Khoá học sắp học” trong kho riêng."
         }
       ]
+    },
+    {
+      "id": "design-font-sinhle",
+      "kho": "design",
+      "guide": true,
+      "date": "2026-10-24",
+      "title": "Bộ font Sinh Lê SƯU TẦM",
+      "type": "Bộ font",
+      "badge": "Font",
+      "tags": [
+        "font",
+        "typography",
+        "google drive"
+      ],
+      "thumb": "assets/res/design-brandkit-myse.jpg",
+      "note": "Thư mục bộ font sưu tầm trên Google Drive, dùng cho thiết kế (Photoshop, Illustrator, Canva…).",
+      "cta": {
+        "title": "Bộ font Sinh Lê SƯU TẦM · Google Drive",
+        "url": "https://drive.google.com/drive/folders/1ddOklUd7EjX9Vy82T37AWb5ezAWvFnZc",
+        "btn": "Mở thư mục font"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Mở thư mục trên Drive, tải font về máy rồi cài. Bảng demo typo (chữ mẫu từng font) sẽ thêm vào đây khi có danh sách tên font."
+        },
+        {
+          "k": "h",
+          "t": "Cài font vào máy"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Tải và giải nén",
+              "d": "Tải thư mục (hoặc từng file) từ Drive về, giải nén nếu là file .zip."
+            },
+            {
+              "t": "Cài trên Windows",
+              "d": "Chọn các file .ttf / .otf, bấm chuột phải và chọn Install (Cài đặt)."
+            },
+            {
+              "t": "Cài trên macOS",
+              "d": "Bấm đúp file font, chọn Install Font trong Font Book."
+            },
+            {
+              "t": "Khởi động lại ứng dụng thiết kế",
+              "d": "Photoshop, Illustrator… cần mở lại để nhận font mới."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Lưu ý khi dùng"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Font sưu tầm có thể có giấy phép khác nhau. Dùng cho sản phẩm thương mại thì cần kiểm tra giấy phép từng font.",
+            "Font tiếng Việt: gõ thử đủ dấu (ă, â, ê, ô, ơ, ư, đ và các dấu thanh) trước khi dùng cho thiết kế.",
+            "Font trong thiết kế của LANHMAR vẫn là Montserrat. Font sưu tầm dùng cho nhấn nhá, không thay font chính của thương hiệu."
+          ]
+        }
+      ]
     }
   ]
 }
