@@ -1524,6 +1524,344 @@
           ]
         }
       ]
+    },
+    {
+      "id": "tool-phone-laptop-devmode",
+      "kho": "tool",
+      "guide": true,
+      "date": "2026-10-24",
+      "title": "Nối điện thoại với laptop bằng Developer Mode (Android + iOS)",
+      "type": "Mẹo / Hướng dẫn",
+      "badge": "Mẹo",
+      "tags": [
+        "android",
+        "ios",
+        "adb",
+        "scrcpy",
+        "developer mode"
+      ],
+      "thumb": "assets/res/tool-phone-laptop.jpg",
+      "note": "Bật Tuỳ chọn nhà phát triển, cài adb, kết nối cáp và không dây, điều khiển màn hình bằng scrcpy; iPhone: Developer Mode, Xcode, Safari Web Inspector, libimobiledevice. Có đủ lệnh.",
+      "cta": {
+        "title": "Android Debug Bridge · developer.android.com",
+        "url": "https://developer.android.com/tools/adb",
+        "btn": "Mở tài liệu adb"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Android làm được gần như mọi thứ qua adb (cài app, copy file, xem màn hình, gõ lệnh). iPhone bị Apple khoá chặt hơn: chủ yếu xem log, ghi/chiếu màn hình và debug web. Bài này chia rõ từng hệ."
+        },
+        {
+          "k": "p",
+          "t": "Chỉ bật Developer Mode / USB debugging trên máy của bạn và chỉ tin tưởng laptop của chính bạn. Quyền này cho laptop điều khiển sâu điện thoại; không dùng máy tính công cộng."
+        },
+        {
+          "k": "h",
+          "t": "PHẦN 1 · ANDROID"
+        },
+        {
+          "k": "h",
+          "t": "Bước 1: Bật Tuỳ chọn nhà phát triển"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Mở Cài đặt → Giới thiệu điện thoại",
+              "d": "Samsung: Giới thiệu điện thoại → Thông tin phần mềm. Một số máy: Cài đặt → Về điện thoại."
+            },
+            {
+              "t": "Bấm 7 lần vào “Số bản dựng” (Build number)",
+              "d": "Máy hiện thông báo “Bạn đã là nhà phát triển”. Nhập mã PIN/mật khẩu nếu được hỏi."
+            },
+            {
+              "t": "Mở Tuỳ chọn nhà phát triển",
+              "d": "Thường ở Cài đặt → Hệ thống → Tuỳ chọn nhà phát triển (Samsung: cuối trang Cài đặt chính)."
+            },
+            {
+              "t": "Bật “Gỡ lỗi USB” (USB debugging)",
+              "d": "Xiaomi/Redmi: bật thêm “Cài đặt qua USB” và “Gỡ lỗi USB (Cài đặt bảo mật)” nếu muốn điều khiển bằng chuột."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Bước 2: Cài adb trên laptop"
+        },
+        {
+          "k": "p",
+          "t": "adb nằm trong bộ SDK Platform-Tools của Google, miễn phí."
+        },
+        {
+          "k": "code",
+          "t": "# Windows: tải zip tại developer.android.com/tools/releases/platform-tools, giải nén,\n# mở PowerShell trong thư mục đó rồi gõ  .\\adb version\n\n# macOS\nbrew install --cask android-platform-tools\n\n# Ubuntu / Debian\nsudo apt install adb\n\n# Kiểm tra\nadb version",
+          "cap": "Cài adb"
+        },
+        {
+          "k": "h",
+          "t": "Bước 3: Cắm cáp và cho phép"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Cắm cáp USB có truyền dữ liệu",
+              "d": "Cáp chỉ sạc sẽ không nhận. Nếu điện thoại hỏi chế độ USB, chọn “Truyền tệp”."
+            },
+            {
+              "t": "Bấm “Cho phép gỡ lỗi USB” trên điện thoại",
+              "d": "Tick “Luôn cho phép từ máy tính này” rồi bấm Cho phép."
+            },
+            {
+              "t": "Kiểm tra trên laptop",
+              "d": "Gõ adb devices. Dòng trạng thái là device nghĩa là thành công."
+            }
+          ]
+        },
+        {
+          "k": "code",
+          "t": "adb devices -l",
+          "cap": "Danh sách thiết bị"
+        },
+        {
+          "k": "list",
+          "items": [
+            "unauthorized: chưa bấm Cho phép trên điện thoại. Rút cáp, cắm lại, hoặc chạy adb kill-server rồi adb devices.",
+            "Không thấy thiết bị: đổi cáp/cổng, kiểm tra đã bật Gỡ lỗi USB. Windows có thể cần driver USB của hãng (Samsung, Xiaomi…).",
+            "Linux báo “no permissions”: cần cấu hình udev rule cho hãng máy, hoặc chạy lại adb bằng quyền phù hợp."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Bước 4: Các lệnh adb hay dùng"
+        },
+        {
+          "k": "code",
+          "t": "# Cài / gỡ app\nadb install app.apk\nadb install -r app.apk          # cài đè, giữ dữ liệu\nadb uninstall com.ten.goi\n\n# Copy file\nadb push file.txt /sdcard/Download/\nadb pull /sdcard/DCIM/Camera/ ./anh\n\n# Chụp màn hình\nadb shell screencap -p /sdcard/s.png\nadb pull /sdcard/s.png\n\n# Quay màn hình (mặc định tối đa 3 phút, Ctrl+C để dừng)\nadb shell screenrecord /sdcard/demo.mp4\nadb pull /sdcard/demo.mp4\n\n# Mở shell trên điện thoại / xem log\nadb shell\nadb logcat\n\n# Danh sách app đã cài\nadb shell pm list packages\n\n# Gõ và bấm từ xa\nadb shell input text hello\nadb shell input tap 540 1200\nadb shell input keyevent 4      # 4=Back, 3=Home, 26=Nguồn\n\n# Khởi động lại\nadb reboot\n\n# Khi adb bị treo\nadb kill-server\nadb start-server",
+          "cap": "Lệnh thường dùng"
+        },
+        {
+          "k": "h",
+          "t": "Bước 5: Kết nối không dây (Android 11 trở lên)"
+        },
+        {
+          "k": "p",
+          "t": "Cả điện thoại và laptop phải cùng mạng Wi-Fi. Chỉ cần ghép cặp một lần cho mỗi laptop."
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Bật Gỡ lỗi không dây",
+              "d": "Tuỳ chọn nhà phát triển → Gỡ lỗi không dây → bật."
+            },
+            {
+              "t": "Ghép cặp",
+              "d": "Bấm “Ghép nối thiết bị bằng mã ghép nối”. Điện thoại hiện IP:cổng ghép nối và mã 6 số."
+            },
+            {
+              "t": "Chạy lệnh ghép cặp trên laptop",
+              "d": "Gõ adb pair IP:CỔNG-GHÉP-NỐI rồi nhập mã 6 số."
+            },
+            {
+              "t": "Kết nối",
+              "d": "Ở màn hình chính của Gỡ lỗi không dây có IP:cổng khác (cổng kết nối). Gõ adb connect IP:CỔNG-KẾT-NỐI. Cổng này có thể đổi mỗi lần bật lại."
+            }
+          ]
+        },
+        {
+          "k": "code",
+          "t": "adb pair 192.168.1.20:37099\n# nhập mã 6 số khi được hỏi\nadb connect 192.168.1.20:41555\nadb devices\n\n# Ngắt\nadb disconnect",
+          "cap": "Ví dụ (thay bằng IP và cổng trên máy bạn)"
+        },
+        {
+          "k": "p",
+          "t": "Android 10 trở xuống: cắm cáp một lần, gõ adb tcpip 5555, rút cáp, rồi adb connect IP-điện-thoại:5555."
+        },
+        {
+          "k": "h",
+          "t": "Bước 6: Xem và điều khiển màn hình điện thoại trên laptop (scrcpy)"
+        },
+        {
+          "k": "p",
+          "t": "scrcpy là công cụ mã nguồn mở, không cần cài app lên điện thoại, dùng chính kết nối adb ở trên (cáp hoặc không dây). Có thể dùng chuột và bàn phím để điều khiển."
+        },
+        {
+          "k": "code",
+          "t": "# Windows (nếu có winget) hoặc tải bản zip ở trang GitHub (đã kèm adb)\nwinget install --exact Genymobile.scrcpy\n\n# macOS\nbrew install scrcpy\n\n# Ubuntu / Debian\nsudo apt install scrcpy\n\n# Chạy (điện thoại đã bật Gỡ lỗi USB và đang kết nối)\nscrcpy\n\n# Tuỳ chọn hay dùng\nscrcpy --turn-screen-off --stay-awake     # tắt màn hình điện thoại, không cho ngủ\nscrcpy --max-size 1024                    # giảm độ phân giải cho mượt\nscrcpy --record demo.mp4                  # vừa xem vừa quay\nscrcpy -s SERIAL                          # chọn máy khi có nhiều máy",
+          "cap": "Cài và chạy scrcpy"
+        },
+        {
+          "k": "p",
+          "t": "Tuỳ phiên bản scrcpy và hệ điều hành, tên lệnh cài đặt hoặc tuỳ chọn có thể khác. Xem README của scrcpy trên GitHub để có lệnh mới nhất."
+        },
+        {
+          "k": "h",
+          "t": "Tắt khi không dùng"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Tắt Gỡ lỗi USB và Gỡ lỗi không dây khi xong việc.",
+            "Tuỳ chọn nhà phát triển → “Thu hồi quyền gỡ lỗi USB” để xoá các laptop đã tin tưởng."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "PHẦN 2 · iPHONE (iOS)"
+        },
+        {
+          "k": "callout",
+          "t": "Điều cần biết trước: iPhone không có adb. Apple không cho laptop điều khiển màn hình từ xa như Android. Những gì làm được: xem log, ghi/chiếu màn hình, debug web trong Safari, cài app dev bằng Xcode (Mac)."
+        },
+        {
+          "k": "h",
+          "t": "Bước 1: Tin cậy máy tính"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Cắm iPhone vào laptop bằng cáp",
+              "d": "Dùng cáp Lightning/USB-C có truyền dữ liệu."
+            },
+            {
+              "t": "Bấm “Tin cậy” trên iPhone",
+              "d": "Nhập mật mã khi được hỏi. Trên Windows, cài thêm ứng dụng Apple Devices (hoặc iTunes) để có driver, máy mới nhận."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Bước 2: Bật Chế độ nhà phát triển (iOS 16 trở lên)"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Mở Cài đặt → Quyền riêng tư & Bảo mật",
+              "d": "Kéo xuống cuối, tìm “Chế độ nhà phát triển” (Developer Mode)."
+            },
+            {
+              "t": "Bật công tắc",
+              "d": "iPhone sẽ yêu cầu khởi động lại."
+            },
+            {
+              "t": "Xác nhận sau khi khởi động lại",
+              "d": "Mở khoá máy, bấm “Bật” và nhập mật mã."
+            }
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Mục Chế độ nhà phát triển có thể chưa xuất hiện cho tới khi iPhone đã được kết nối với Xcode trên Mac hoặc đã cài một app bản dev. Đây là hành vi của iOS, không phải lỗi máy bạn."
+        },
+        {
+          "k": "h",
+          "t": "Bước 3A: Nếu có Mac"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Xem thiết bị trong Xcode",
+              "d": "Mở Xcode → Window → Devices and Simulators. Tick “Connect via network” để kết nối không dây sau khi đã ghép bằng cáp."
+            },
+            {
+              "t": "Chiếu và quay màn hình",
+              "d": "Mở QuickTime Player → File → New Movie Recording, bấm mũi tên cạnh nút ghi và chọn iPhone làm nguồn."
+            },
+            {
+              "t": "Debug trang web trên iPhone",
+              "d": "iPhone: Cài đặt → Safari → Nâng cao → bật Web Inspector (iOS mới có thể nằm ở Cài đặt → Ứng dụng → Safari). Mac: Safari → Cài đặt → Nâng cao → bật “Hiển thị tính năng cho nhà phát triển”. Mở trang trên iPhone, rồi vào menu Phát triển (Develop) trên Mac, chọn tên iPhone và trang cần kiểm tra."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Bước 3B: Nếu dùng Windows hoặc Linux"
+        },
+        {
+          "k": "p",
+          "t": "Bộ công cụ mã nguồn mở libimobiledevice cho phép đọc thông tin và log. Một số lệnh (như chụp màn hình) phụ thuộc phiên bản iOS: iOS 17 trở lên cần công cụ khác, ví dụ pymobiledevice3."
+        },
+        {
+          "k": "code",
+          "t": "# macOS (Homebrew)\nbrew install libimobiledevice\n\n# Ubuntu / Debian\nsudo apt install libimobiledevice-utils usbmuxd\n\n# Ghép cặp và kiểm tra\nidevicepair pair\nidevice_id -l                 # danh sách UDID\nideviceinfo                   # thông tin máy\nidevicesyslog                 # xem log trực tiếp\nidevicescreenshot shot.png    # có thể không chạy trên iOS 17+",
+          "cap": "libimobiledevice"
+        },
+        {
+          "k": "code",
+          "t": "# iOS 17+: pymobiledevice3 (cần Python)\npip install pymobiledevice3\npymobiledevice3 usbmux list\npymobiledevice3 syslog live",
+          "cap": "pymobiledevice3 (cần kiểm tra theo phiên bản iOS)"
+        },
+        {
+          "k": "p",
+          "t": "Một số lệnh của pymobiledevice3 trên iOS 17+ cần chạy kèm “tunnel” và quyền quản trị. Xem tài liệu của dự án trên GitHub để biết cú pháp theo phiên bản bạn đang dùng."
+        },
+        {
+          "k": "h",
+          "t": "Chiếu màn hình iPhone lên laptop không cần cáp"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Mac: dùng Trung tâm điều khiển trên iPhone → Phản chiếu màn hình, hoặc QuickTime bằng cáp như trên.",
+            "Windows: Windows không có sẵn nhận AirPlay. Cần ứng dụng nhận AirPlay của bên thứ ba. Hãy tự kiểm tra độ tin cậy và giá trước khi dùng.",
+            "Bài này chưa kiểm chứng riêng từng ứng dụng bên thứ ba."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Lưu ý bảo mật cho cả hai hệ"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Tắt Chế độ nhà phát triển (iPhone) hoặc Gỡ lỗi USB (Android) khi không dùng.",
+            "Không cắm vào trạm sạc công cộng khi đang bật gỡ lỗi. Nếu hộp thoại “Tin cậy / Cho phép” hiện bất ngờ, hãy bấm Không tin cậy / Từ chối.",
+            "Không chạy lệnh adb hoặc pip lạ chép từ nguồn không rõ. Nhiều lệnh có thể xoá dữ liệu."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Nguồn đã đối chiếu"
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "Android: Android Debug Bridge (developer.android.com)",
+              "u": "https://developer.android.com/tools/adb"
+            },
+            {
+              "t": "Android: Platform-Tools (adb) tải về",
+              "u": "https://developer.android.com/tools/releases/platform-tools"
+            },
+            {
+              "t": "scrcpy (Genymobile) trên GitHub",
+              "u": "https://github.com/Genymobile/scrcpy"
+            },
+            {
+              "t": "Apple: bật Web Inspector (WebKit)",
+              "u": "https://webkit.org/web-inspector/enabling-web-inspector/"
+            },
+            {
+              "t": "Expo: bật Developer Mode trên iOS",
+              "u": "https://docs.expo.dev/guides/ios-developer-mode/"
+            },
+            {
+              "t": "libimobiledevice",
+              "u": "https://libimobiledevice.org/"
+            },
+            {
+              "t": "pymobiledevice3 trên GitHub",
+              "u": "https://github.com/doronz88/pymobiledevice3"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
