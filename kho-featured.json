@@ -419,7 +419,7 @@
       "kho": "ai",
       "group": "agent",
       "guide": true,
-      "title": "Hệ sinh thái AI Agent: OpenClaw, Hermes, MCP, Skills…",
+      "title": "Hệ sinh thái AI Agent: Codex, Antigravity, Cursor, Copilot, OpenClaw, Hermes…",
       "type": "Bản đồ kiến thức",
       "date": "2026-10-24",
       "tags": [
@@ -427,10 +427,15 @@
         "openclaw",
         "hermes",
         "mcp",
-        "skills"
+        "skills",
+        "codex",
+        "cursor",
+        "copilot",
+        "antigravity",
+        "claude code"
       ],
       "thumb": "assets/res/guide-agent-ecosystem.jpg",
-      "note": "Các dự án và chuẩn thường gặp quanh AI Agent: mỗi thứ là gì, dùng khi nào, cần lưu ý gì.",
+      "note": "Các agent phổ biến: Claude Code, Codex, Antigravity, Cursor, Copilot, OpenClaw, Hermes… cùng MCP, Skills, framework.",
       "next": {
         "id": "res-tro-ly-24-365",
         "label": "Đọc tiếp: Dựng trợ lý 24/365 (thực hành)"
@@ -470,9 +475,51 @@
           "items": [
             {
               "t": "Claude Code",
-              "tag": "Terminal",
-              "d": "Agent đọc, sửa code và chạy lệnh trong thư mục dự án; hỗ trợ skills, hooks, MCP và subagent. Cùng nhóm với các công cụ như OpenAI Codex và Gemini CLI.",
+              "tag": "Terminal · Anthropic",
+              "d": "Agent đọc, sửa code và chạy lệnh trong thư mục dự án; hỗ trợ skills, hooks, MCP và subagent. Có cả bản trong IDE và app desktop.",
               "u": "https://docs.claude.com/en/docs/claude-code"
+            },
+            {
+              "t": "OpenAI Codex",
+              "tag": "Terminal · IDE · Cloud · OpenAI",
+              "d": "Agent lập trình của OpenAI: chạy bằng CLI, trong IDE hoặc giao việc cho bản chạy trên đám mây để làm song song nhiều tác vụ rồi xem lại kết quả.",
+              "u": "https://openai.com/codex/"
+            },
+            {
+              "t": "Google Antigravity",
+              "tag": "IDE agent-first · Google",
+              "d": "Môi trường lập trình do Google ra mắt cuối 2025, đặt agent làm trung tâm: agent tự lên kế hoạch, viết code, chạy trình duyệt để kiểm tra và để lại “artifacts” (kế hoạch, ảnh chụp, bản ghi) cho bạn duyệt. Dùng mô hình Gemini và một số mô hình khác.",
+              "u": "https://antigravity.google/"
+            },
+            {
+              "t": "Cursor",
+              "tag": "IDE · Anysphere",
+              "d": "Trình soạn code dựa trên VS Code, tích hợp sâu AI: chat, sửa nhiều file cùng lúc, chế độ Agent tự chạy lệnh và sửa lỗi, có thêm agent chạy nền trên đám mây. Chọn được nhiều mô hình.",
+              "u": "https://cursor.com/"
+            },
+            {
+              "t": "GitHub Copilot",
+              "tag": "IDE · GitHub · Microsoft",
+              "d": "Bắt đầu từ gợi ý code, nay có Agent mode trong VS Code và coding agent nhận issue trên GitHub, tự tạo nhánh, viết code và mở pull request cho bạn duyệt. Hợp nhất nếu team đã dùng GitHub.",
+              "u": "https://github.com/features/copilot"
+            },
+            {
+              "t": "Gemini CLI",
+              "tag": "Terminal · Google",
+              "d": "Agent dòng lệnh mã nguồn mở của Google, cùng nhóm với Claude Code và Codex CLI.",
+              "u": "https://github.com/google-gemini/gemini-cli"
+            },
+            {
+              "t": "Windsurf",
+              "tag": "IDE",
+              "d": "IDE có agent (Cascade) hiểu cả dự án, cạnh tranh trực tiếp với Cursor.",
+              "u": "https://windsurf.com/"
+            },
+            {
+              "t": "Devin",
+              "tag": "Kỹ sư AI · Cognition",
+              "d": "Agent tự chủ giao việc như giao cho một kỹ sư: tự nhận task, viết code, chạy thử và gửi kết quả.",
+              "u": "https://devin.ai/"
             }
           ]
         },
@@ -494,6 +541,27 @@
               "tag": "Đóng gói cách làm",
               "d": "Gói hướng dẫn kèm script để agent làm lại một việc đúng cách. Là tiêu chuẩn mở, vừa được quyên tặng cho Agentic AI Foundation (tin ngày 22/10/2026 ở mục AI News).",
               "u": "https://www.anthropic.com/news/donating-agent-skills-to-the-agentic-ai-foundation"
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Agent đa dụng (không cần biết code)"
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "ChatGPT Agent, Claude, Gemini (chế độ agent)",
+              "tag": "Chatbot nâng cấp",
+              "d": "Bật công cụ, duyệt web, chạy code, đọc file ngay trong ứng dụng quen thuộc để làm việc nhiều bước. Điểm vào dễ nhất để thử.",
+              "u": ""
+            },
+            {
+              "t": "Manus",
+              "tag": "Agent đa dụng",
+              "d": "Agent chạy trên đám mây, nhận mục tiêu rồi tự nghiên cứu, làm báo cáo, dựng trang web và gửi kết quả.",
+              "u": "https://manus.im/"
             }
           ]
         },
@@ -548,7 +616,7 @@
           "items": [
             "Chưa biết code, muốn thử trước: dùng workflow (n8n, Zapier) hoặc chế độ có công cụ trong ChatGPT, Claude, Gemini.",
             "Muốn một trợ lý riêng chạy 24/365: đọc tài liệu “Dựng trợ lý 24/365”, rồi thử OpenClaw hoặc Hermes trên máy riêng với dữ liệu thử, chưa dùng dữ liệu thật.",
-            "Biết lập trình: Claude Code hoặc Codex kết hợp MCP và Skills, hoặc framework như LangGraph."
+            "Biết lập trình: Claude Code, Codex, Cursor, Copilot hoặc Antigravity (kết hợp MCP và Skills), hoặc framework như LangGraph. Nên thử 1 công cụ trong 1 tuần rồi mới đổi."
           ]
         },
         {
