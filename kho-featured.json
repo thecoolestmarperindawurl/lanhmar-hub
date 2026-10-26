@@ -2309,17 +2309,17 @@
         },
         {
           "k": "h",
-          "t": "Tài liệu video của khoá"
+          "t": "Recap và tài liệu video của khoá"
         },
         {
           "k": "cards",
           "items": [
             {
-              "t": "Tài liệu video khoá Fullstack Marketing",
+              "t": "Recap khoá Fullstack Marketing",
               "tag": "Drive",
-              "d": "Thư mục Google Drive chứa các tài liệu video của khoá. Nếu Drive báo “Cần quyền truy cập”, hãy đăng nhập đúng tài khoản đã được chia sẻ.",
+              "d": "Thư mục Google Drive chứa recap và tài liệu video của khoá. Nếu Drive báo “Cần quyền truy cập”, hãy đăng nhập đúng tài khoản đã được chia sẻ.",
               "u": "https://drive.google.com/drive/folders/18WR66chAkFywWaYiMGgJLd6OBYxNCJBD",
-              "lb": "Mở thư mục"
+              "lb": "Mở recap"
             }
           ]
         },
