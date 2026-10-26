@@ -186,7 +186,8 @@ window.Res = (() => {
     show(dlg, `<button class="x" id="resX" aria-label="Đóng">×</button><div class="res-body g-body">
       <div class="res-head"><span class="badge">${esc(i.type || "Lý thuyết")}</span><h2>${esc(i.title)}</h2><p class="news-meta">${esc(i.note || "")}</p></div>
       ${(i.sections || []).map(guideSection).join("")}</div>` +
-      (i.cta ? `<div class="res-cta"><div><b>${esc(i.cta.title)}</b><small>${esc(String(i.cta.url).replace(/^https?:\/\//, ""))}</small></div><a class="btn orange-btn" href="${esc(okUrl(i.cta.url))}" target="_blank" rel="noopener">${esc(i.cta.btn || "Mở trang gốc")} ↗</a></div>` : "") +
+      (Array.isArray(i.ctas) && i.ctas.length ? `<div class="res-cta"><div><b>${esc(i.ctasTitle || i.title)}</b></div><div class="res-cta-btns">${i.ctas.map((c) => `<a class="btn orange-btn" href="${esc(okUrl(c.url))}" target="_blank" rel="noopener">${esc(c.btn)} ↗</a>`).join("")}</div></div>`
+        : i.cta ? `<div class="res-cta"><div><b>${esc(i.cta.title)}</b><small>${esc(String(i.cta.url).replace(/^https?:\/\//, ""))}</small></div><a class="btn orange-btn" href="${esc(okUrl(i.cta.url))}" target="_blank" rel="noopener">${esc(i.cta.btn || "Mở trang gốc")} ↗</a></div>` : "") +
       (nx ? `<div class="res-cta"><div><b>${esc(i.next.label)}</b></div><button class="btn orange-btn" type="button" data-res="${esc(nx.id)}">Mở tiếp →</button></div>` : ""));
   }
 

@@ -2243,11 +2243,6 @@
       ],
       "thumb": "assets/res/knowledge-courses.jpg",
       "note": "5 module, 31 bài, khoảng 75 giờ: tư duy nền tảng, Facebook, TikTok, Google, thương hiệu cá nhân. Đã hoàn thành 31/31.",
-      "cta": {
-        "title": "Khoá Fullstack Marketing 2026 · LMS JOBVUI",
-        "url": "https://vuonuomkhupho.com/learn/8",
-        "btn": "Mở khoá học (cần đăng nhập)"
-      },
       "sections": [
         {
           "k": "callout",
@@ -2554,6 +2549,17 @@
         {
           "k": "p",
           "t": "Link khoá học cần đăng nhập tài khoản LMS của bạn mới xem được video và tài nguyên."
+        }
+      ],
+      "ctasTitle": "Tài nguyên khoá Fullstack Marketing",
+      "ctas": [
+        {
+          "btn": "Video khoá học",
+          "url": "https://drive.google.com/drive/folders/18WR66chAkFywWaYiMGgJLd6OBYxNCJBD"
+        },
+        {
+          "btn": "Recap khoá học",
+          "url": "https://app.notion.com/p/V-N-M-X-JOBVUI-FULLSTACK-MARKETING-352c45034bd48005b422c1e916d74e75"
         }
       ]
     }
