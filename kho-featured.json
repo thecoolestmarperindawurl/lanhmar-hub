@@ -2000,7 +2000,7 @@
               "Fullstack Marketing",
               "JOBVUI",
               "Học 03/06–26/09/2026; cấp 10/10/2026",
-              "Chương trình đào tạo marketing tổng hợp"
+              "5 module, 31 bài: tư duy nền tảng, AI Agent, Facebook, TikTok, Google, thương hiệu cá nhân (xem thẻ riêng)"
             ],
             [
               "Bootcamp Data Analysis with Python",
@@ -2221,6 +2221,268 @@
             "Font Việt hoá (SVN, UTM, DFVN, iCiel…) thường hỗ trợ đủ dấu, nhưng vẫn nên gõ thử các dấu ă, â, ê, ô, ơ, ư, đ và dấu thanh trước khi dùng.",
             "Font trong thiết kế của LANHMAR vẫn là Montserrat. Font sưu tầm dùng cho nhấn nhá, không thay font chính của thương hiệu."
           ]
+        }
+      ]
+    },
+    {
+      "id": "knowledge-fullstack-marketing",
+      "kho": "knowledge",
+      "group": "course",
+      "guide": true,
+      "date": "2026-10-26",
+      "title": "Fullstack Marketing 2026 (JOBVUI): cấu trúc 5 module",
+      "type": "Khoá học",
+      "badge": "Đã học",
+      "tags": [
+        "fullstack marketing",
+        "jobvui",
+        "facebook ads",
+        "tiktok ads",
+        "google ads",
+        "ai agent"
+      ],
+      "thumb": "assets/res/knowledge-courses.jpg",
+      "note": "5 module, 31 bài, khoảng 75 giờ: tư duy nền tảng, Facebook, TikTok, Google, thương hiệu cá nhân. Đã hoàn thành 31/31.",
+      "cta": {
+        "title": "Khoá Fullstack Marketing 2026 · LMS JOBVUI",
+        "url": "https://vuonuomkhupho.com/learn/8",
+        "btn": "Mở khoá học (cần đăng nhập)"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Khoá Fullstack Marketing 2026 của JOBVUI (vận hành trên LMS của Vườn Ươm Khu Phố). Cập nhật 8/2026, 31 bài học chia thành 5 module. Tiến độ của bạn: hoàn thành 31/31 bài."
+        },
+        {
+          "k": "h",
+          "t": "Bạn sẽ học được gì"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Bức tranh tổng thể Marcom, thấu hiểu sản phẩm và khách hàng.",
+            "Facebook Ads cơ bản và tối ưu nội dung Fanpage (branding, storytelling, seeding).",
+            "Xây kênh TikTok bán hàng và chạy TikTok Ads.",
+            "Triển khai chiến dịch Google Ads chuyển đổi.",
+            "Ứng dụng AI Agent vào công việc marketing thực tế (3 buổi).",
+            "Thiết kế ảnh bằng Canva, dựng video bằng CapCut.",
+            "Xây thương hiệu cá nhân, viết CV và Portfolio Marketing.",
+            "Tư duy phản biện và giao tiếp thuyết phục trong môi trường công việc."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Thông tin chung"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Mục",
+            "Chi tiết"
+          ],
+          "rows": [
+            [
+              "Đơn vị",
+              "JOBVUI (nền tảng LMS do Vườn Ươm Khu Phố vận hành)"
+            ],
+            [
+              "Cấu trúc",
+              "5 module, 31 bài học (29 buổi và 1 workshop, kèm 1 video tài liệu)"
+            ],
+            [
+              "Tổng thời lượng",
+              "khoảng 75 giờ 53 phút (cộng từ thời lượng 5 module)"
+            ],
+            [
+              "Điểm khác biệt (theo trang khoá học)",
+              "14 giảng viên, 3 buổi AI Agent, thực hành Canva, CapCut, Facebook Ads, TikTok Ads, Google Ads, có recording và trợ giảng"
+            ],
+            [
+              "Chứng nhận",
+              "Cấp khi hoàn thành từ 80% bài tập (theo mô tả khoá). Chứng chỉ của bạn cấp 10/10/2026"
+            ],
+            [
+              "Yêu cầu",
+              "Laptop, Internet ổn định, tài khoản Facebook và TikTok cá nhân để thực hành"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Nội dung 5 module"
+        },
+        {
+          "k": "h",
+          "t": "MODULE 1 · Tư duy nền tảng (8 bài · 20 giờ 31 phút)"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Buổi 1 · Khai giảng",
+              "d": "2:07:51"
+            },
+            {
+              "t": "Buổi 2 · Tư duy Growth cho Sự nghiệp và cho Doanh nghiệp",
+              "d": "2:10:33"
+            },
+            {
+              "t": "Buổi 3 · Bức tranh tổng thể về Marcom",
+              "d": "2:34:32"
+            },
+            {
+              "t": "Buổi 4 · Thấu hiểu sản phẩm",
+              "d": "2:56:53"
+            },
+            {
+              "t": "Buổi 5 · Thấu hiểu khách hàng",
+              "d": "2:46:30"
+            },
+            {
+              "t": "Buổi 6 · Xây AI Agent để làm việc hiệu quả, thông minh (P1)",
+              "d": "2:41:35"
+            },
+            {
+              "t": "Buổi 7 · Xây AI Agent (P2)",
+              "d": "2:31:51"
+            },
+            {
+              "t": "Buổi 8 · Xây AI Agent (P3)",
+              "d": "2:41:17"
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "MODULE 2 · Thực thi và tối ưu hoá trên Facebook (11 bài · 25 giờ 43 phút)"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Buổi 9 · Xây tuyến nội dung Branding cho Fanpage (P1)",
+              "d": "2:27:39"
+            },
+            {
+              "t": "Buổi 10 · Triển khai content Branding cho Fanpage (P2)",
+              "d": "2:23:49"
+            },
+            {
+              "t": "Buổi 11 · Viết content kể chuyện Storytelling (P1)",
+              "d": "2:25:04"
+            },
+            {
+              "t": "Buổi 12 · Viết content kể chuyện Storytelling (P2)",
+              "d": "2:55:04"
+            },
+            {
+              "t": "Buổi 13 · Seeding đa nền tảng",
+              "d": "2:37:29"
+            },
+            {
+              "t": "Buổi 14 · Tư duy thiết kế ảnh bằng Canva (P1)",
+              "d": "2:22:01"
+            },
+            {
+              "t": "Buổi 15 · Tư duy thiết kế ảnh bằng Canva (P2)",
+              "d": "2:38:24"
+            },
+            {
+              "t": "Buổi 16 · Triển khai Facebook Ads (P1, cơ bản)",
+              "d": "2:11:06"
+            },
+            {
+              "t": "Buổi 17 · Triển khai Facebook Ads (P2, cơ bản)",
+              "d": "2:34:36"
+            },
+            {
+              "t": "Hướng dẫn lập Fanpage (tài liệu buổi 17)",
+              "d": "0:35:19"
+            },
+            {
+              "t": "Buổi 18 · Triển khai Facebook Ads (P3, cơ bản)",
+              "d": "2:32:52"
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "MODULE 3 · Thực thi và tối ưu hoá trên TikTok (7 bài · 16 giờ 33 phút)"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Buổi 19 · Xây kênh TikTok bán hàng hiệu quả (P1)",
+              "d": "2:17:37"
+            },
+            {
+              "t": "Buổi 20 · Xây kênh TikTok bán hàng hiệu quả (P2)",
+              "d": "2:35:17"
+            },
+            {
+              "t": "Buổi 21 · Xây kênh TikTok bán hàng hiệu quả (P3)",
+              "d": "3:00:30"
+            },
+            {
+              "t": "Buổi 22 · CapCut cơ bản (P1)",
+              "d": "2:20:38"
+            },
+            {
+              "t": "Buổi 23 · CapCut cơ bản (P2)",
+              "d": "2:07:40"
+            },
+            {
+              "t": "Buổi 24 · TikTok Ads cơ bản (P1)",
+              "d": "1:51:06"
+            },
+            {
+              "t": "Buổi 25 · TikTok Ads cơ bản (P2)",
+              "d": "2:20:42"
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "MODULE 4 · Thực thi và tối ưu hoá trên Google (2 bài · 5 giờ 1 phút)"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Buổi 26 · Thực thi quảng cáo Google Ads (P1)",
+              "d": "2:17:05"
+            },
+            {
+              "t": "Buổi 27 · Thực thi quảng cáo Google Ads (P2)",
+              "d": "2:44:33"
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "MODULE 5 · Thương hiệu cá nhân và Kết nối việc làm (3 bài · 8 giờ 5 phút)"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Buổi 28 · Xây Thương hiệu cá nhân để tìm việc hiệu quả",
+              "d": "3:16:52"
+            },
+            {
+              "t": "Buổi 29 · Tư duy phản biện, giao tiếp hiệu quả",
+              "d": "2:12:32"
+            },
+            {
+              "t": "Workshop · Xây dựng Portfolio, CV và Kết nối việc làm",
+              "d": "2:35:37"
+            }
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Link khoá học cần đăng nhập tài khoản LMS của bạn mới xem được video và tài nguyên."
         }
       ]
     }
