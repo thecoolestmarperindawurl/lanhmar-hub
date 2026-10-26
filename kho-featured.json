@@ -2304,22 +2304,22 @@
         },
         {
           "k": "h",
-          "t": "Recap và tài liệu video của khoá"
+          "t": "Video, tài liệu và recap của khoá"
         },
         {
           "k": "cards",
           "items": [
             {
-              "t": "Trang recap trên Notion",
+              "t": "Recap toàn bộ khoá (Notion)",
               "tag": "Notion",
-              "d": "Trang tổng hợp lộ trình VƯỜN ƯƠM X JOBVUI | FULLSTACK MARKETING, mỗi module có một thư mục Drive. Cần quyền truy cập trang Notion.",
+              "d": "Toàn bộ recap của khoá nằm trong trang Notion này, theo lộ trình VƯỜN ƯƠM X JOBVUI | FULLSTACK MARKETING. Cần quyền truy cập trang Notion.",
               "u": "https://app.notion.com/p/V-N-M-X-JOBVUI-FULLSTACK-MARKETING-352c45034bd48005b422c1e916d74e75",
-              "lb": "Mở trang Notion"
+              "lb": "Mở recap"
             },
             {
-              "t": "Thư mục recap tổng",
+              "t": "Video và tài liệu của khoá",
               "tag": "Drive",
-              "d": "Thư mục Google Drive chứa recap và tài liệu video của cả khoá.",
+              "d": "Thư mục Google Drive chứa video và tài liệu của cả khoá.",
               "u": "https://drive.google.com/drive/folders/18WR66chAkFywWaYiMGgJLd6OBYxNCJBD",
               "lb": "Mở thư mục"
             }
@@ -2327,7 +2327,7 @@
         },
         {
           "k": "h",
-          "t": "Recap theo module (Google Drive)"
+          "t": "Video và tài liệu theo module (Google Drive)"
         },
         {
           "k": "cards",
@@ -2554,7 +2554,7 @@
       "ctasTitle": "Tài nguyên khoá Fullstack Marketing",
       "ctas": [
         {
-          "btn": "Video khoá học",
+          "btn": "Video và tài liệu",
           "url": "https://drive.google.com/drive/folders/18WR66chAkFywWaYiMGgJLd6OBYxNCJBD"
         },
         {
