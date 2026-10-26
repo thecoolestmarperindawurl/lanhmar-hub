@@ -2315,13 +2315,68 @@
           "k": "cards",
           "items": [
             {
-              "t": "Recap khoá Fullstack Marketing",
+              "t": "Trang recap trên Notion",
+              "tag": "Notion",
+              "d": "Trang tổng hợp lộ trình VƯỜN ƯƠM X JOBVUI | FULLSTACK MARKETING, mỗi module có một thư mục Drive. Cần quyền truy cập trang Notion.",
+              "u": "https://app.notion.com/p/V-N-M-X-JOBVUI-FULLSTACK-MARKETING-352c45034bd48005b422c1e916d74e75",
+              "lb": "Mở trang Notion"
+            },
+            {
+              "t": "Thư mục recap tổng",
               "tag": "Drive",
-              "d": "Thư mục Google Drive chứa recap và tài liệu video của khoá. Nếu Drive báo “Cần quyền truy cập”, hãy đăng nhập đúng tài khoản đã được chia sẻ.",
+              "d": "Thư mục Google Drive chứa recap và tài liệu video của cả khoá.",
               "u": "https://drive.google.com/drive/folders/18WR66chAkFywWaYiMGgJLd6OBYxNCJBD",
-              "lb": "Mở recap"
+              "lb": "Mở thư mục"
             }
           ]
+        },
+        {
+          "k": "h",
+          "t": "Recap theo module (Google Drive)"
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "Module 1 · Tư duy nền tảng",
+              "tag": "Drive",
+              "d": "Bức tranh tổng thể Marcom, thấu hiểu sản phẩm và khách hàng, tư duy Growth Hack, ứng dụng AI Agent vào công việc. 8 buổi.",
+              "u": "https://drive.google.com/drive/folders/14dabKbMT0l4D6yKPC34dLY9GrutLNk-3",
+              "lb": "Mở thư mục"
+            },
+            {
+              "t": "Module 2 · Facebook Execution",
+              "tag": "Drive",
+              "d": "Xây kênh Fanpage, triển khai Facebook Ads, seeding đa nền tảng, thiết kế ảnh bằng Canva. 10 buổi.",
+              "u": "https://drive.google.com/drive/folders/1jXf-WbIvOyrN0TWvSYX8Qs1hm30kpRkz",
+              "lb": "Mở thư mục"
+            },
+            {
+              "t": "Module 3 · TikTok Execution",
+              "tag": "Drive",
+              "d": "Xây kênh TikTok bán hàng, TikTok Ads, chỉnh sửa video với CapCut. 7 buổi.",
+              "u": "https://drive.google.com/drive/folders/1kscQUP8ZHKOQRO-0kLSwN0VOCjPB_5LQ",
+              "lb": "Mở thư mục"
+            },
+            {
+              "t": "Module 4 · Google Execution",
+              "tag": "Drive",
+              "d": "Triển khai chiến dịch Google Ads hiệu quả. 2 buổi.",
+              "u": "https://drive.google.com/drive/folders/1wgQUjD-5R_voXf7wYlJFhZCsbwxtm9jG",
+              "lb": "Mở thư mục"
+            },
+            {
+              "t": "Module 5 · Workshop Portfolio và CV",
+              "tag": "Drive",
+              "d": "Xây thương hiệu cá nhân để tìm việc, tư duy phản biện, giao tiếp thuyết phục (2 buổi), cùng workshop Portfolio và CV Marketing.",
+              "u": "https://drive.google.com/drive/folders/1ULjWz-riCEJpYfE1uJFRr6vmmXjld3ec",
+              "lb": "Mở thư mục"
+            }
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Nếu Drive báo “Cần quyền truy cập”, hãy đăng nhập đúng tài khoản đã được chia sẻ."
         },
         {
           "k": "h",
