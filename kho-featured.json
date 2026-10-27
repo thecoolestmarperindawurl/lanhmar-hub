@@ -3774,6 +3774,157 @@
           "t": "Lần kiểm tra trước thư mục UGC làm Affiliate còn trống. Các thư mục khác chưa kiểm tra nội dung."
         }
       ]
+    },
+    {
+      "id": "web-tuhocbusinesscase",
+      "kho": "knowledge",
+      "group": "web",
+      "guide": true,
+      "date": "2026-10-27",
+      "title": "Tự học Business Case (tuhocbusinesscase.org)",
+      "type": "Web tự học",
+      "badge": "⭐ Web nổi bật",
+      "tags": [
+        "business case",
+        "case interview",
+        "web tự học",
+        "miễn phí",
+        "issue tree",
+        "mece",
+        "unit economics"
+      ],
+      "thumb": "assets/res/web-tuhocbusinesscase.jpg",
+      "note": "Web học Business Case bằng tiếng Việt: 783+ bài học và case study tương tác, miễn phí vĩnh viễn, học theo lộ trình từ Issue Tree, MECE, Unit Economics tới Case Interview, tích XP để mở khoá chứng chỉ.",
+      "cta": {
+        "title": "Tự học Business Case · tuhocbusinesscase.org",
+        "url": "https://tuhocbusinesscase.org/",
+        "btn": "Vào học miễn phí"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "⭐ Web nổi bật: Tự học Business Case. Học giải business case bằng tiếng Việt, hơn 783 bài học và case study tương tác, miễn phí vĩnh viễn. Học theo lộ trình, tích XP để mở khoá chứng chỉ năng lực."
+        },
+        {
+          "k": "h",
+          "t": "Thông tin web"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Mục",
+            "Chi tiết"
+          ],
+          "rows": [
+            [
+              "Tên web",
+              "Tự học Business Case"
+            ],
+            [
+              "Địa chỉ",
+              "tuhocbusinesscase.org"
+            ],
+            [
+              "Ngôn ngữ",
+              "Tiếng Việt"
+            ],
+            [
+              "Chi phí",
+              "Miễn phí vĩnh viễn (theo trang giới thiệu của web)"
+            ],
+            [
+              "Nội dung",
+              "Hơn 783 bài học và case study tương tác"
+            ],
+            [
+              "Cách học",
+              "Theo lộ trình, tích điểm XP, mở khoá chứng chỉ năng lực"
+            ],
+            [
+              "Quy mô cộng đồng",
+              "Khoảng 4.509 người học, gần 40.000 lượt hoàn thành bài (số do web tự công bố, có thể thay đổi)"
+            ],
+            [
+              "Phù hợp với (gợi ý của mình)",
+              "Sinh viên và người đi làm muốn luyện tư duy giải case, chuẩn bị thi case và phỏng vấn case interview"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Lộ trình học theo web"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Issue Tree",
+              "d": "Cây vấn đề: chia nhỏ một vấn đề lớn thành các nhánh nhỏ dễ phân tích."
+            },
+            {
+              "t": "MECE",
+              "d": "Chia nhánh không trùng lặp và không bỏ sót, để phân tích đủ mà không lặp."
+            },
+            {
+              "t": "Unit Economics",
+              "d": "Kinh tế đơn vị: xem mỗi đơn vị (khách hàng, đơn hàng, sản phẩm) lời hay lỗ bao nhiêu."
+            },
+            {
+              "t": "Case Interview chuyên sâu",
+              "d": "Luyện giải case theo kiểu phỏng vấn tư vấn và các cuộc thi case."
+            }
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Phần giải thích ngắn bên cạnh mỗi bước là kiến thức chung của mình, không phải nội dung chép từ web."
+        },
+        {
+          "k": "h",
+          "t": "Cách học gợi ý với Kho"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Học theo thứ tự lộ trình, mỗi ngày một vài bài, ghi lại case khó vào kho riêng.",
+            "Kết hợp với khoá Case Mastery trong nhóm Khoá chờ học (Tomorrow Marketers) để luyện thêm.",
+            "Tập vẽ Issue Tree trước khi xem đáp án, rồi so sánh với lời giải."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Nguồn học Business Case khác (kết quả tìm kiếm, chưa kiểm tra sâu)"
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "Ebook Business Case 101: chinh phục 4 cuộc thi giải case lớn nhất cho sinh viên (Tomorrow Marketers)",
+              "u": "https://ebook.tomorrowmarketers.org/business-case-101"
+            },
+            {
+              "t": "Case Mastery: chiến thắng Business Case Competition (Tomorrow Marketers)",
+              "u": "https://www.tomorrowmarketers.org/case-mastery-course"
+            },
+            {
+              "t": "Học và luyện Business Case bằng cách nào, ở đâu? (Chương Khởi Điểm)",
+              "u": "https://chuongkhoidiem.com/hoc-va-luyen-business-case-bang-cach-nao/"
+            },
+            {
+              "t": "Business Problem Solving Foundations (The Trainee Club)",
+              "u": "https://www.thetraineeclub.com/khoa-hoc-va-san-pham/business-problem-solving-foundations"
+            },
+            {
+              "t": "Solving the Case (Vietnam Management Consulting, đã đóng đăng ký lúc tìm kiếm)",
+              "u": "https://www.vietnammanagementconsulting.com/courses/solving-the-case/"
+            }
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Thông tin về web lấy từ phần giới thiệu của chính trang (qua kết quả tìm kiếm ngày 27/10/2026), vì mình chưa mở trực tiếp được web. Số liệu có thể đã thay đổi, hãy vào web để xem bản mới nhất."
+        }
+      ]
     }
   ]
 }
