@@ -3511,6 +3511,269 @@
           "t": "Tên buổi 6 chưa có trong thư mục recap nên chưa ghi. Recap buổi 6 và 7 sẽ bổ sung khi có."
         }
       ]
+    },
+    {
+      "id": "queue-tomorrow-marketers",
+      "kho": "knowledge",
+      "group": "queue",
+      "guide": true,
+      "date": "2026-10-27",
+      "title": "Tomorrow Marketers: 9 khoá chờ học",
+      "type": "Khoá chờ học",
+      "badge": "Chưa học",
+      "tags": [
+        "tomorrow marketers",
+        "chờ học"
+      ],
+      "thumb": "assets/res/queue-tomorrow-marketers.jpg",
+      "note": "9 khoá đã setup trên Notion, chưa xếp lịch học. Bấm tên khoá để mở thư mục Drive.",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Các khoá đã được setup để học và ghi chú trên Notion, trạng thái “Not started”. Danh sách theo thứ tự trên Notion để bạn học lần lượt."
+        },
+        {
+          "k": "h",
+          "t": "Danh sách 9 khoá (Google Drive)"
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "1. Marketing Foundation",
+              "u": "https://drive.google.com/drive/folders/17abjxUJr4-uNp8zxmGcoYE_ISN7NtSIb"
+            },
+            {
+              "t": "2. Brand Development",
+              "u": "https://drive.google.com/drive/folders/12BuAxF4kGdJl6nCpIhfucTeL4frwv4Ey"
+            },
+            {
+              "t": "3. Data System",
+              "u": "https://drive.google.com/drive/folders/1Iz-gXcc6bIn_3u83YDAHkI2LiENgvoIP"
+            },
+            {
+              "t": "4. Advanced Analytics with Python",
+              "u": "https://drive.google.com/drive/folders/1pAGFFTyfIwkXYNbt5QYaZLHB227yfj0G"
+            },
+            {
+              "t": "5. Data Analysis for Decision Making",
+              "u": "https://drive.google.com/drive/folders/1D8sgkOaHypFXwys1l6lG_BdoWuz2ry8u"
+            },
+            {
+              "t": "6. Digital Foundation",
+              "u": "https://drive.google.com/drive/folders/1xayKcVAMIqwPHOCD0c-0RXHnPFZgEx0o"
+            },
+            {
+              "t": "7. Digital Performance",
+              "u": "https://drive.google.com/drive/folders/1NEVxxVf0IXSxijSaskL3pOT_FE8DvMr3"
+            },
+            {
+              "t": "8. Case Mastery",
+              "u": "https://drive.google.com/drive/folders/1cWTiTGh9RtRbrc2nAoVtbNbPH3Gw41C9"
+            },
+            {
+              "t": "9. Master Critical Thinking và Interview",
+              "u": "https://drive.google.com/drive/folders/1M1lmmf2Tt-y0h4vrjh04wTDGfL5Szgqr"
+            }
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Chưa kiểm tra nội dung từng thư mục (đủ video hay chưa). Giảng viên chưa ghi trên Notion. Khi bạn học xong, nhắn mình để chuyển sang nhóm Academy kèm bảng buổi học và banner riêng."
+        }
+      ]
+    },
+    {
+      "id": "queue-brandcamp",
+      "kho": "knowledge",
+      "group": "queue",
+      "guide": true,
+      "date": "2026-10-27",
+      "title": "BrandCamp: 12 khoá chờ học",
+      "type": "Khoá chờ học",
+      "badge": "Chưa học",
+      "tags": [
+        "brandcamp",
+        "brand marketing",
+        "chờ học"
+      ],
+      "thumb": "assets/res/queue-brandcamp.jpg",
+      "note": "12 khoá về Brand Marketing đã setup trên Notion, chưa xếp lịch học. Bấm tên khoá để mở thư mục Drive.",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Các khoá thuộc BrandCamp đã được setup để học và ghi chú trên Notion, trạng thái “Not started”."
+        },
+        {
+          "k": "h",
+          "t": "Danh sách 12 khoá (Google Drive)"
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "1. Marketing Fundamentals: nhiệm vụ của Brand Marketing",
+              "u": "https://drive.google.com/drive/folders/1SqD-9wMij3abehvhf5Yo9E_9nYVlH7Cy"
+            },
+            {
+              "t": "2. Brand Planning: chiến lược và hoạch định",
+              "u": "https://drive.google.com/drive/folders/1Wcby-jHbN0WZNIZGzGtFC6lFWqzjBpzH"
+            },
+            {
+              "t": "3. Brand Communication: quảng cáo và truyền thông",
+              "u": "https://drive.google.com/drive/folders/12zN2eNOuVNQYBp7eQNFbKnEShGzJ6jRs"
+            },
+            {
+              "t": "4. Brand Activation: kích hoạt thương hiệu (Mr. Nguyễn Quang Hiệp)",
+              "u": "https://drive.google.com/drive/folders/1QzABl8oKIJQ8XYLONfab4qPUIWqJob7R"
+            },
+            {
+              "t": "5. Brand Innovation: cải tiến sản phẩm (Mr. Nguyễn Quang Hiệp)",
+              "u": "https://drive.google.com/drive/folders/1M8n8Mvv8y3s1d1hI00m5Wto7b_f4hIKn"
+            },
+            {
+              "t": "6. Consumer Understanding: nhận diện đúng và thấu hiểu người dùng",
+              "u": "https://drive.google.com/drive/folders/1TyChkb64UGXM56SZworD9xq0MoszCkHp"
+            },
+            {
+              "t": "7. Creative và Advertising: sáng tạo và quảng cáo",
+              "u": "https://drive.google.com/drive/folders/1ypGZsVAnjbgW8FlSeCHBX57sbN6tIutM"
+            },
+            {
+              "t": "8. Digital Marketing: tăng tốc marketing trong thời đại digital",
+              "u": "https://drive.google.com/drive/folders/13nTlW_i8hPct2EeQHVFiEgHKcbrTIgbl"
+            },
+            {
+              "t": "9. Tracking và Measurement: theo dõi và đo lường",
+              "u": "https://drive.google.com/drive/folders/1ABqv_tHTMUkW_rG0q96gD7_Hnr08eX6x"
+            },
+            {
+              "t": "10. Trade Marketing",
+              "u": "https://drive.google.com/drive/folders/17sTYo8KW7ynTstQGTfn3_ZBF9Y6ReEB5"
+            },
+            {
+              "t": "11. Hospitality, Retail và F&B Business",
+              "u": "https://drive.google.com/drive/folders/1vgjPN4kj_CEYIYLKJoc9a__ZE4OZw7OX"
+            },
+            {
+              "t": "12. Professional Skills",
+              "u": "https://drive.google.com/drive/folders/1srKqXbNW_DgBjo2C0a7NMNiB6tJRAsIw"
+            }
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Chưa kiểm tra nội dung từng thư mục. Giảng viên chỉ ghi cho Brand Activation và Brand Innovation (Mr. Nguyễn Quang Hiệp)."
+        }
+      ]
+    },
+    {
+      "id": "queue-other-academies",
+      "kho": "knowledge",
+      "group": "queue",
+      "guide": true,
+      "date": "2026-10-27",
+      "title": "Các Academy khác: khoá chờ học",
+      "type": "Khoá chờ học",
+      "badge": "Chưa học",
+      "tags": [
+        "chờ học",
+        "pmax",
+        "excel",
+        "content"
+      ],
+      "thumb": "assets/res/queue-other-academies.jpg",
+      "note": "Khoá của PMAX, AIM, No More Lies, Gigan, Kind Content, Nghề Excel, Hợp tác xã Chị Em và một số khoá lẻ khác, chờ xếp lịch học.",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Các khoá đã setup trên Notion, trạng thái “Not started”. Mỗi mục là một khoá, bấm để mở thư mục Drive."
+        },
+        {
+          "k": "h",
+          "t": "Data và công cụ"
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "Nghề Excel: Excel x Dashboard (Mr. Lã Văn Toàn)",
+              "u": "https://drive.google.com/drive/folders/1SKf1ZiN4VxxJS-_SKukIGmxlieYv7V_2"
+            },
+            {
+              "t": "Power BI (chưa ghi Academy)",
+              "u": "https://drive.google.com/drive/folders/1hK6teIctIdWubLFItKMmNTvxYsSGvjSg"
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Performance và nghiên cứu"
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "PMAX Academy: Digital Performance Management",
+              "u": "https://drive.google.com/drive/folders/1yivBN4EpxLZfDNRzFTtIIEWtmjtJUUeH"
+            },
+            {
+              "t": "AIM Academy: Market Research uy tín dành cho marketer (link theo Notion, trang bên thứ ba)",
+              "u": "https://khoahocre.com/khoa-hoc/khoa-hoc-aim-academy-market-research-uy-tin-danh-cho-marketer/bai-hoc/buoi-1-research-101/"
+            },
+            {
+              "t": "Gigan Training Center: Performance Content, tối ưu nội dung quảng cáo (Ms. Hảo Nguyễn)",
+              "u": "https://drive.google.com/drive/folders/11t81LpnlBNyPl41QrfxNBDbLHlpvNx5G"
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Content và sáng tạo"
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "Content Marketing: No Viral No Money (Mr. Nguyễn Đức Dương)",
+              "u": "https://drive.google.com/drive/folders/1nZMB9C_NH64Gvfp-fXfiDq-K-kdYARom"
+            },
+            {
+              "t": "Kind Content: Nền tảng Content Marketing cho người mới bắt đầu",
+              "u": "https://drive.google.com/drive/folders/1PuKOrnBq3FSQpCTD_4vOuCPhkTva19Vv"
+            },
+            {
+              "t": "Content chất lượng nhất (Mr. Phùng Thái Học)",
+              "u": "https://drive.google.com/drive/folders/1i31I2QcfOEP1k5u-B1W2LechJVhIGSy5"
+            },
+            {
+              "t": "No More Lies: Creative Fundamentals",
+              "u": "https://drive.google.com/drive/folders/1YseuPMgKlvBpgWlP-JTM1PndJybSMQYU"
+            },
+            {
+              "t": "No More Lies: Marketing Case và Contest Preparation",
+              "u": "https://drive.google.com/drive/folders/12yhUhxxq9-Pl5lnhQEblk1GNBK0C3j02"
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Hợp tác xã Chị Em"
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "UGC làm Affiliate (nhiều giảng viên: Ms. Lê Mỡ, Mr. Phan Anh, Ms. Hoàng Chi, KOC Khoa Thích Đi, khách mời quản trị MCN)",
+              "u": "https://drive.google.com/drive/folders/10liTjjnOiedFVXHBKX07t9pY8ZgbVTge"
+            }
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Lần kiểm tra trước thư mục UGC làm Affiliate còn trống. Các thư mục khác chưa kiểm tra nội dung."
+        }
+      ]
     }
   ]
 }
