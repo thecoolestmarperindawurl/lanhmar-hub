@@ -2791,6 +2791,53 @@
           "t": "Recap của khoá sẽ bổ sung khi có. "
         }
       ]
+    },
+    {
+      "id": "knowledge-marketing-project-k22",
+      "kho": "knowledge",
+      "group": "mkproject",
+      "guide": true,
+      "date": "2026-10-27",
+      "title": "Marketing Project: các môn chuyên ngành Marketing Management K22 (UFM)",
+      "type": "Marketing Project",
+      "badge": "Project",
+      "tags": [
+        "marketing project",
+        "ufm",
+        "marketing management",
+        "k22"
+      ],
+      "thumb": "assets/res/knowledge-marketing-project.jpg",
+      "note": "Kho dự án các môn học chuyên ngành Marketing Management, khoá K22 (2022 - 2026) tại UFM, lưu trên Google Drive.",
+      "ctas": [
+        {
+          "btn": "Mở thư mục Marketing Project",
+          "url": "https://drive.google.com/drive/folders/1gcrVxe75oPg2An8LAdWPxTVWBYAoygan"
+        }
+      ],
+      "ctasTitle": "Marketing Project · K22 (UFM)",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Kho Marketing Project gồm các dự án, bài tập lớn của các môn chuyên ngành Marketing Management, khoá K22 (2022 - 2026) tại UFM."
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "Thư mục Marketing Project K22",
+              "tag": "Drive",
+              "d": "Thư mục Google Drive chứa dự án các môn chuyên ngành Marketing Management K22 (2022 - 2026), UFM. Nếu Drive báo “Cần quyền truy cập”, hãy đăng nhập đúng tài khoản được chia sẻ.",
+              "u": "https://drive.google.com/drive/folders/1gcrVxe75oPg2An8LAdWPxTVWBYAoygan",
+              "lb": "Mở thư mục"
+            }
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Danh sách từng môn và từng dự án sẽ được bổ sung khi bạn gửi tên môn hoặc ảnh chụp thư mục."
+        }
+      ]
     }
   ]
 }
