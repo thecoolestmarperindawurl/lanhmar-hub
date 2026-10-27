@@ -467,6 +467,14 @@ function telegramSend_(text) {
 
 function threadOf_(vid) { return 'T' + String(vid).slice(0, 8).toUpperCase(); }
 
+// Lấy tab Chat; lần đầu tạo thì định dạng theo template chung của Storage.
+function chatSheet_() {
+  var ss = SpreadsheetApp.openById(SHEET_ID), had = !!ss.getSheetByName(CHAT);
+  var sh = sheet_(CHAT, CHAT_HEADERS);
+  if (!had) { try { formatChat_(sh); } catch (e) {} }
+  return sh;
+}
+
 function chatSend_(b) {
   var vid = String(b.vid || '').replace(/[^A-Za-z0-9]/g, '').slice(0, 40);
   if (vid.length < 16) return json_({ ok: false, error: 'invalid' });
@@ -481,7 +489,7 @@ function chatSend_(b) {
   var thread = threadOf_(vid);
   var mid = telegramSend_('💬 Tin nhắn mới trong Kho\nMã hội thoại: ' + thread + '\nTên: ' + name + (contact ? '\nLiên hệ: ' + contact : '') +
     (page ? '\nTrang: ' + page : '') + '\n\n' + text + '\n\n👉 Trả lời: bấm Reply vào tin này (hoặc gõ /r ' + thread + ' nội dung).');
-  var sh = sheet_(CHAT, CHAT_HEADERS);
+  var sh = chatSheet_();
   sh.appendRow([new Date(), thread, safeCell_(name), safeCell_(contact), 'Khách', safeCell_(text), mid, page]);
   return json_({ ok: true, thread: thread, tg: !!mid });
 }
@@ -509,7 +517,7 @@ function pollTelegram() {
   var r = UrlFetchApp.fetch('https://api.telegram.org/bot' + token + '/getUpdates?timeout=0&offset=' + off, { muteHttpExceptions: true });
   var j; try { j = JSON.parse(r.getContentText()); } catch (e) { return; }
   if (!j.ok || !j.result || !j.result.length) return;
-  var sh = sheet_(CHAT, CHAT_HEADERS);
+  var sh = chatSheet_();
   j.result.forEach(function (u) {
     off = u.update_id + 1;
     var m = u.message;
@@ -545,7 +553,7 @@ var C = {
 function formatSheets() {
   var ss = SpreadsheetApp.openById(SHEET_ID);
   ss.setSpreadsheetLocale('en_US'); // công thức dùng dấu phẩy, định dạng ngày/số nhất quán
-  var req = sheet_(REQ, REQ_HEADERS), items = sheet_(ITEMS, ITEM_HEADERS);
+  var req = sheet_(REQ, REQ_HEADERS), items = sheet_(ITEMS, ITEM_HEADERS), chat = sheet_(CHAT, CHAT_HEADERS);
   var dash = ss.getSheetByName('Dashboard') || ss.insertSheet('Dashboard');
   // Dọn trang tính trống mặc định (Sheet1 / Trang tính1)
   ss.getSheets().forEach(function (sh) {
@@ -554,10 +562,18 @@ function formatSheets() {
   });
   formatRequests_(req);
   formatItems_(items);
+  formatChat_(chat);
+  // Tab nào khác được thêm vào Storage về sau (không phải tab hệ thống) cũng được áp template chung
+  ss.getSheets().forEach(function (sh) {
+    var n = sh.getName();
+    if (n === REQ || n === ITEMS || n === CHAT || n === VAULT || n === 'Dashboard') return;
+    try { formatAny_(sh); } catch (e) {}
+  });
   buildDashboard_(dash, req);
   ss.setActiveSheet(dash); ss.moveActiveSheet(1);
   ss.setActiveSheet(req); ss.moveActiveSheet(2);
   ss.setActiveSheet(items); ss.moveActiveSheet(3);
+  ss.setActiveSheet(chat); ss.moveActiveSheet(4);
   ss.setActiveSheet(dash);
   SpreadsheetApp.flush();
 }
@@ -661,6 +677,56 @@ function formatItems_(sh) {
   var f = sh.getFilter(); if (f) f.remove();
   sh.getRange(1, 1, MAXR, cols).createFilter();
   sh.getRange(1, 1).setNote('Tab này do web ghi khi bấm "Đồng bộ Storage" trong Kho cá nhân. Sửa tay sẽ bị ghi đè ở lần đồng bộ sau.');
+}
+
+function formatChat_(sh) {
+  var MAXR = 2000, cols = CHAT_HEADERS.length;
+  sh.setTabColor(C.greenText);
+  header_(sh, CHAT_HEADERS, C.greenText);
+  ensureRows_(sh, MAXR);
+  var n = MAXR - 1;
+  sh.getRange(2, 1, n, cols).setVerticalAlignment('middle').setFontSize(10)
+    .setBorder(false, false, true, false, false, false, '#CFE8D8', SpreadsheetApp.BorderStyle.SOLID);
+  sh.getRange(2, 1, n, 1).setNumberFormat('dd/MM/yyyy HH:mm');
+  sh.getRange(2, 2, n, 1).setFontFamily('Roboto Mono').setHorizontalAlignment('center').setFontWeight('bold');
+  sh.getRange(2, 4, n, 1).setWrapStrategy(SpreadsheetApp.WrapStrategy.WRAP);
+  sh.getRange(2, 6, n, 1).setWrapStrategy(SpreadsheetApp.WrapStrategy.WRAP);
+  sh.getRange(2, 7, n, 1).setFontFamily('Roboto Mono').setFontColor(C.greyText);
+  var who = sh.getRange(2, 5, n, 1);
+  who.setDataValidation(SpreadsheetApp.newDataValidation().requireValueInList(['Khách', 'Admin'], true).setAllowInvalid(false)
+    .setHelpText('Khách = tin khách gửi · Admin = câu trả lời của bạn (lấy từ Telegram)').build())
+    .setHorizontalAlignment('center').setFontWeight('bold');
+  var rowRange = sh.getRange(2, 1, n, cols);
+  sh.setConditionalFormatRules([
+    SpreadsheetApp.newConditionalFormatRule().whenFormulaSatisfied('=$E2="Khách"').setBackground(C.purpleSoft).setFontColor(C.purple).setBold(true).setRanges([who]).build(),
+    SpreadsheetApp.newConditionalFormatRule().whenFormulaSatisfied('=$E2="Admin"').setBackground(C.green).setFontColor(C.greenText).setBold(true).setRanges([who]).build(),
+    SpreadsheetApp.newConditionalFormatRule().whenFormulaSatisfied('=$E2="Admin"').setBackground('#F1FAF5').setRanges([rowRange]).build()
+  ]);
+  [150, 120, 150, 180, 90, 420, 130, 90].forEach(function (w, i) { sh.setColumnWidth(i + 1, w); });
+  var f = sh.getFilter(); if (f) f.remove();
+  sh.getRange(1, 1, MAXR, cols).createFilter();
+  sh.getRange(1, 2).setNote('Mã hội thoại (T + 8 ký tự). Trả lời trong Telegram bằng Reply, hoặc gõ /r <mã> nội dung.');
+  sh.getRange(1, 1).setNote('Tab này do web ghi khi khách gửi tin trong khung chat. Câu trả lời của bạn được thêm tự động từ Telegram.');
+}
+
+// Template chung cho mọi tab khác trong Storage (tab hệ thống như Vault bị bỏ qua).
+function formatAny_(sh) {
+  if (sh.isSheetHidden() || sh.getLastRow() < 1) return;
+  var cols = Math.max(1, sh.getLastColumn());
+  var heads = sh.getRange(1, 1, 1, cols).getValues()[0];
+  sh.setTabColor(C.greyText);
+  header_(sh, heads, C.greyText);
+  var rows = Math.max(sh.getMaxRows() - 1, 1);
+  sh.getRange(2, 1, rows, cols).setVerticalAlignment('middle').setFontSize(10)
+    .setBorder(false, false, true, false, false, false, '#E0DCF5', SpreadsheetApp.BorderStyle.SOLID);
+  for (var c = 1; c <= cols; c++) if (sh.getColumnWidth(c) < 120) sh.setColumnWidth(c, 150);
+  var f = sh.getFilter(); if (f) f.remove();
+  sh.getRange(1, 1, Math.max(sh.getMaxRows(), 2), cols).createFilter();
+}
+
+// Menu trong Google Sheet: định dạng lại mọi tab theo template khi có tab mới.
+function onOpen() {
+  try { SpreadsheetApp.getUi().createMenu('LANHMAR').addItem('Định dạng lại tất cả tab', 'formatSheets').addToUi(); } catch (e) {}
 }
 
 function kpi_(sh, row, col, label, formula, bg, fg) {

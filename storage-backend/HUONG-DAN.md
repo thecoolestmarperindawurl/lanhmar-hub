@@ -119,3 +119,10 @@ Khung chat 💬 hiện ở góc phải của `kho.html` (cả màn hình khoá) 
 - Mã khách là chuỗi ngẫu nhiên lưu trong trình duyệt của khách, người khác không đọc được hội thoại của họ.
 - Không dán token vào file code hay vào chat. Tin khách gửi nằm trong tab **Chat** (đừng chia sẻ Sheet cho người khác).
 - Khung chat là kênh công khai: ai mở `kho.html` cũng gửi được tin, kể cả khi chưa mở khoá kho.
+
+## 9. Template chung cho các tab của Storage
+
+- Tab **Chat** dùng cùng kiểu với Requests và Items: tiêu đề màu (xanh lá cho Chat), cố định hàng đầu, bộ lọc, đường kẻ, cột **Chiều** có danh sách chọn (Khách / Admin) và tô màu, ngày giờ định dạng `dd/MM/yyyy HH:mm`.
+- Khi bạn **thêm một tab mới** vào Sheet Storage (ví dụ "Báo cáo"), mở menu **LANHMAR → Định dạng lại tất cả tab** (hoặc chạy hàm `setup`). Tab mới tự nhận tiêu đề màu xám tím, cố định hàng đầu, bộ lọc và đường kẻ giống các tab còn lại. Tab ẩn **Vault** không bị đụng tới.
+- Thứ tự tab cố định: Dashboard, Requests, Items, Chat, rồi các tab khác.
+- Lần đầu khách gửi tin trong chat, tab Chat tự được tạo và định dạng sẵn.
