@@ -101,15 +101,24 @@ function doGet() {
 
 /* ================== TIN CẬP NHẬT TRỰC TIẾP (Claude Code + Anthropic News) ================== */
 // Lấy tin mới, tóm tắt sơ lược (đoạn mô tả có sẵn của bài) và dịch sang tiếng Việt. Cache 30 phút để nhanh và nhẹ.
+// Tên sản phẩm/công ty không được dịch (vd. "Gemini" bị dịch thành cung "Song Tử", "Copilot" thành "phi công phụ").
+var KEEP_TERMS = ['Gemini', 'Claude', 'ChatGPT', 'GPT', 'OpenAI', 'Anthropic', 'Google', 'DeepMind', 'Grok', 'xAI', 'Copilot', 'Microsoft',
+  'Llama', 'Meta', 'Mistral', 'DeepSeek', 'Perplexity', 'NVIDIA', 'Opus', 'Sonnet', 'Haiku', 'Codex', 'Sora', 'Veo', 'Imagen',
+  'Nano Banana', 'Gems', 'NotebookLM', 'AI Mode', 'AI Overviews', 'Pixel', 'Workspace', 'Azure', 'Bing', 'Kimi', 'Qwen', 'Cursor', 'Windsurf'];
+var KEEP_RE = new RegExp('\\b(' + KEEP_TERMS.map(function (t) { return t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }).join('|') + ')\\b', 'g');
+
 function tr_(text) {
   text = String(text || '').trim();
   if (!text) return '';
   var cache = CacheService.getScriptCache();
-  var key = 'tr:' + Utilities.base64EncodeWebSafe(Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, text)).slice(0, 24);
+  var key = 'tr2:' + Utilities.base64EncodeWebSafe(Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, text)).slice(0, 24);
   var hit = cache.get(key);
   if (hit) return hit;
   var out = text;
-  try { out = LanguageApp.translate(text, 'en', 'vi'); } catch (e) {}
+  try {
+    var html = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(KEEP_RE, '<span class="notranslate">$1</span>');
+    out = stripTags_(LanguageApp.translate(html, 'en', 'vi', { contentType: 'html' }));
+  } catch (e) {}
   try { cache.put(key, out, 21600); } catch (e2) {}
   return out;
 }
