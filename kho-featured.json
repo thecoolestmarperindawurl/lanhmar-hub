@@ -3417,6 +3417,100 @@
           "t": "Mỗi cấp còn có bảng quản lý học tập và hướng dẫn bài tập về nhà (BTVN). Trên Notion khoá này còn ghi “In progress”, nhưng trên Drive đã đủ video. Recap của khoá sẽ bổ sung khi có."
         }
       ]
+    },
+    {
+      "id": "seongon-project-management",
+      "kho": "knowledge",
+      "group": "seongon",
+      "guide": true,
+      "date": "2026-10-27",
+      "title": "Project Management: lớp Quản lý dự án cơ bản",
+      "type": "Khoá học",
+      "badge": "Đủ video",
+      "tags": [
+        "seongon academy",
+        "project management",
+        "quản lý dự án",
+        "khoá học",
+        "đủ video"
+      ],
+      "thumb": "assets/res/seongon-project-management.jpg",
+      "note": "SEONGON Academy · 7 buổi (có 1 workshop), đủ video record và có sẵn recap PDF buổi 1 đến 5.",
+      "ctas": [
+        {
+          "btn": "Video và tài liệu",
+          "url": "https://drive.google.com/drive/folders/1zgKsbdj4ohCo2JTdUKYS5NbM6RVnZWvK"
+        },
+        {
+          "btn": "Recap (PDF)",
+          "url": "https://drive.google.com/drive/folders/10OS1QAeY3LMDaGPnjzDOiYmUIkbdbvwh"
+        }
+      ],
+      "ctasTitle": "Project Management · SEONGON Academy",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Khoá thuộc SEONGON Academy (lớp Quản lý dự án cơ bản, khai giảng 07/08/2026). Đã kiểm tra thư mục trên Google Drive ngày 27/10/2026: 7 buổi, mỗi buổi đều có file RECORD (video)."
+        },
+        {
+          "k": "h",
+          "t": "Các buổi học"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Buổi",
+            "Nội dung (theo tên file recap)"
+          ],
+          "rows": [
+            [
+              "Buổi 1",
+              "Nhập môn quản lý dự án và cách xác định phạm vi dự án"
+            ],
+            [
+              "Buổi 2",
+              "Làm việc với các bên liên quan trong dự án"
+            ],
+            [
+              "Buổi 3",
+              "Lập kế hoạch và kiểm soát lịch trình dự án"
+            ],
+            [
+              "Buổi 4",
+              "Quản lý chi phí trong dự án"
+            ],
+            [
+              "Buổi 5",
+              "Quản lý chất lượng"
+            ],
+            [
+              "Buổi 6",
+              "(Thư mục chưa ghi tên buổi)"
+            ],
+            [
+              "Buổi 7",
+              "Workshop"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Trong thư mục khoá"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Mỗi buổi có thư mục riêng gồm video RECORD, file chat Zoom và template bài tập.",
+            "Thư mục [RECAP] KHOÁ PROJECT MANAGEMENT: recap PDF của buổi 1 đến 5.",
+            "Thư mục BONUS: tài liệu tham khảo “Nguồn lực dự án”.",
+            "File học viên của lớp và file bài tập về nhà."
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Tên buổi 6 chưa có trong thư mục recap nên chưa ghi. Recap buổi 6 và 7 sẽ bổ sung khi có."
+        }
+      ]
     }
   ]
 }
