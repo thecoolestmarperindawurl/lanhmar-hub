@@ -3300,6 +3300,123 @@
           "t": " Recap của khoá sẽ bổ sung khi có."
         }
       ]
+    },
+    {
+      "id": "seongon-google-ads",
+      "kho": "knowledge",
+      "group": "seongon",
+      "guide": true,
+      "date": "2026-10-27",
+      "title": "Google Ads (Cơ bản và Chuyên sâu)",
+      "type": "Khoá học",
+      "badge": "Đủ video",
+      "tags": [
+        "seongon academy",
+        "google ads",
+        "khoá học",
+        "đủ video"
+      ],
+      "thumb": "assets/res/seongon-google-ads.jpg",
+      "note": "SEONGON Academy · 2 cấp (Cơ bản 5 buổi, Chuyên sâu 5 buổi) và 1 webinar về quảng cáo trong AI Search, đủ video record.",
+      "ctas": [
+        {
+          "btn": "Google Ads cơ bản",
+          "url": "https://drive.google.com/drive/folders/1faI4BYjOmvml0ILOHmwgFdHLkSmM1gkE"
+        },
+        {
+          "btn": "Ads chuyên sâu",
+          "url": "https://drive.google.com/drive/folders/1Aj_A4TpXSl8jwrjbwEb9PYU93OMc_AVd"
+        },
+        {
+          "btn": "Webinar AI Search",
+          "url": "https://drive.google.com/drive/folders/14uANX6IgKMQaEttmq8CXvCPmxdC_Ofe6"
+        }
+      ],
+      "ctasTitle": "Google Ads · SEONGON Academy",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Khoá thuộc SEONGON Academy. Đã kiểm tra thư mục trên Google Drive ngày 27/10/2026: cả hai cấp đều đủ 5 buổi, mỗi buổi có file video. Giảng viên trên Notion: Ms. Nguyễn Kim Thuý, Ms. Nguyễn Ngọc Hương (chưa rõ ai dạy cấp nào)."
+        },
+        {
+          "k": "h",
+          "t": "Cấp Cơ bản (thư mục BASEMENT)"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Buổi",
+            "Nội dung"
+          ],
+          "rows": [
+            [
+              "Buổi 1",
+              "Lý thuyết gốc về Google Ads"
+            ],
+            [
+              "Buổi 2",
+              "Nghiên cứu từ khoá Google Ads"
+            ],
+            [
+              "Buổi 3",
+              "Viết mẫu quảng cáo và chọn chiến lược giá thầu"
+            ],
+            [
+              "Buổi 4",
+              "Đo lường quảng cáo Google và thực hành setup"
+            ],
+            [
+              "Buổi 5",
+              "Tối ưu quảng cáo và tổng kết"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cấp Chuyên sâu (thư mục ADVANCED)"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Buổi",
+            "Nội dung"
+          ],
+          "rows": [
+            [
+              "Buổi 1",
+              "Lý thuyết gốc về Google Ads: hiểu đúng, làm đúng"
+            ],
+            [
+              "Buổi 2",
+              "Google Ads 2.0: làm chủ AIO và AI Mode trong kỷ nguyên AI"
+            ],
+            [
+              "Buổi 3",
+              "Google Ads Mastery: làm chủ chiến dịch tìm kiếm (Pro)"
+            ],
+            [
+              "Buổi 4",
+              "Full Funnel AI Ads: bùng nổ chuyển đổi với Performance Max"
+            ],
+            [
+              "Buổi 5",
+              "Advanced Tracking và Measurement: hệ thống đo lường nâng cao"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Webinar"
+        },
+        {
+          "k": "p",
+          "t": "“Ads in AI Search: đón đầu xu thế quảng cáo trên AI Overviews và AI Mode” (26/03/2026): có video record và slide."
+        },
+        {
+          "k": "p",
+          "t": "Mỗi cấp còn có bảng quản lý học tập và hướng dẫn bài tập về nhà (BTVN). Trên Notion khoá này còn ghi “In progress”, nhưng trên Drive đã đủ video. Recap của khoá sẽ bổ sung khi có."
+        }
+      ]
     }
   ]
 }
