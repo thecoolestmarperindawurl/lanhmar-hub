@@ -2716,7 +2716,7 @@
         "k22"
       ],
       "thumb": "assets/res/knowledge-marketing-project.jpg",
-      "note": "Kho dự án các môn học chuyên ngành Marketing Management, khoá K22 (2022 - 2026) tại UFM, lưu trên Google Drive.",
+      "note": "Mục lục 22 thư mục môn học và dự án chuyên ngành Marketing Management K22 (2022 - 2026) tại UFM, kèm link từng folder.",
       "ctas": [
         {
           "btn": "Mở thư mục Marketing Project",
@@ -2727,23 +2727,108 @@
       "sections": [
         {
           "k": "callout",
-          "t": "Kho Marketing Project gồm các dự án, bài tập lớn của các môn chuyên ngành Marketing Management, khoá K22 (2022 - 2026) tại UFM."
+          "t": "Kho Marketing Project gồm 22 thư mục môn học và dự án chuyên ngành Marketing Management, khoá K22 (2022 - 2026) tại UFM. Bấm tên môn để mở folder trên Google Drive."
         },
         {
-          "k": "cards",
+          "k": "h",
+          "t": "Mục lục 22 thư mục"
+        },
+        {
+          "k": "links",
           "items": [
             {
-              "t": "Thư mục Marketing Project K22",
-              "tag": "Drive",
-              "d": "Thư mục Google Drive chứa dự án các môn chuyên ngành Marketing Management K22 (2022 - 2026), UFM. Nếu Drive báo “Cần quyền truy cập”, hãy đăng nhập đúng tài khoản được chia sẻ.",
-              "u": "https://drive.google.com/drive/folders/1gcrVxe75oPg2An8LAdWPxTVWBYAoygan",
-              "lb": "Mở thư mục"
+              "t": "1. ĐẠO ĐỨC MARKETING",
+              "u": "https://drive.google.com/drive/folders/1dBVSkw2c1uWqo0fpGRFQHfWeg0JzV8GN"
+            },
+            {
+              "t": "2. NGHIÊN CỨU MARKETING",
+              "u": "https://drive.google.com/drive/folders/1Umw54wbfBg0_FHtz-GZ9sQxaRICNSJHB"
+            },
+            {
+              "t": "3. HÀNH VI NGƯỜI TIÊU DÙNG",
+              "u": "https://drive.google.com/drive/folders/1Nn3rauXbECnuS86eVuNWLLBqExlB00Ne"
+            },
+            {
+              "t": "4. MARKETING DỊCH VỤ",
+              "u": "https://drive.google.com/drive/folders/1ZAAfFcsMIdT8ZRBL2ozP4BGVEuCu3nVS"
+            },
+            {
+              "t": "5. QUẢN TRỊ MARKETING",
+              "u": "https://drive.google.com/drive/folders/1A5LFWTRXVpoLgpaOq5I_McjUDeg8iid-"
+            },
+            {
+              "t": "6. MARKETING QUỐC TẾ",
+              "u": "https://drive.google.com/drive/folders/1xeK9Zq7iQEUCSnEiyosvb-elzLdAS2Pt"
+            },
+            {
+              "t": "7. MARKETING CHIẾN LƯỢC",
+              "u": "https://drive.google.com/drive/folders/1Ih0SKSb0_uC1pnIgtgj9Zo3Ul13pCu0G"
+            },
+            {
+              "t": "8. THNN1",
+              "u": "https://drive.google.com/drive/folders/1C-u28wBtcC03mY3JlKJ2-vleXDCS96VB"
+            },
+            {
+              "t": "9. QUẢN TRỊ SẢN PHẨM",
+              "u": "https://drive.google.com/drive/folders/1MrrT5DvLe92qNxRShriidfDi8AB3EOAa"
+            },
+            {
+              "t": "10. QUẢN TRỊ CHIÊU THỊ",
+              "u": "https://drive.google.com/drive/folders/1r28vkjj3fCR3oOY6V2DWc9Ed0dZ4ibRq"
+            },
+            {
+              "t": "11. ĐO LƯỜNG TRONG MARKETING",
+              "u": "https://drive.google.com/drive/folders/1qU2KBQH2DRsmX0rb6KcgF1qqIgUsPikt"
+            },
+            {
+              "t": "12. MARKETING KHÁCH HÀNG TỔ CHỨC",
+              "u": "https://drive.google.com/drive/folders/12sTinPtTYV1yjgSp4NE2YE9_eGz05utF"
+            },
+            {
+              "t": "13. OUTSOURCES",
+              "u": "https://drive.google.com/drive/folders/1B1tIsAXc8WxYqdJo-XWFONGqMMk9PrzE"
+            },
+            {
+              "t": "14. QUẢN TRỊ KÊNH PHÂN PHỐI",
+              "u": "https://drive.google.com/drive/folders/1t_kbOkMWB-F4Fl_--Lqwzxre98vR0Ucz"
+            },
+            {
+              "t": "15. MARKETING XÃ HỘI",
+              "u": "https://drive.google.com/drive/folders/1LwneASbUQXSCtP1_zqgXJGBP7PKkuUdw"
+            },
+            {
+              "t": "16. KHỞI NGHIỆP & ĐỔI MỚI",
+              "u": "https://drive.google.com/drive/folders/1lWHOBbJud9d9HJhy78-yI3qUPHQWiQaD"
+            },
+            {
+              "t": "17. XÂY DỰNG KẾ HOẠCH MARKETING",
+              "u": "https://drive.google.com/drive/folders/1tAXIIKUYvEmRj_N4vZoYwTe4Qi_6I8Sb"
+            },
+            {
+              "t": "18. THNN2",
+              "u": "https://drive.google.com/drive/folders/1M4PIE3MXGMvXRmsAy06agnNZyPgBe6tH"
+            },
+            {
+              "t": "19. QUẢN TRỊ GIÁ",
+              "u": "https://drive.google.com/drive/folders/1XYIApok4Vw-177gExn1xulgEOC0p5Q9f"
+            },
+            {
+              "t": "20. MARKETING TRẢI NGHIỆM",
+              "u": "https://drive.google.com/drive/folders/1wRZLA_GcRl1OVa4VwPjbN2MrIt1viY23"
+            },
+            {
+              "t": "21. TRADE MARKETING",
+              "u": "https://drive.google.com/drive/folders/1FYBWR8VufrKXGtLf-gDh4qTNEoyTwnYm"
+            },
+            {
+              "t": "22. KLTN",
+              "u": "https://drive.google.com/drive/folders/1zLYNb7kS7bp7ZTYAq7TPnRHJnJ26jI0q"
             }
           ]
         },
         {
           "k": "p",
-          "t": "Danh sách từng môn và từng dự án sẽ được bổ sung khi bạn gửi tên môn hoặc ảnh chụp thư mục."
+          "t": "Thứ tự theo ngày tạo thư mục trên Drive, từ cũ đến mới (gần đúng thứ tự học). Tên môn giữ nguyên như tên thư mục. THNN1, THNN2 và KLTN là tên viết tắt của thư mục, chưa ghi rõ tên đầy đủ. Nếu Drive báo “Cần quyền truy cập”, hãy đăng nhập đúng tài khoản được chia sẻ."
         }
       ]
     }
