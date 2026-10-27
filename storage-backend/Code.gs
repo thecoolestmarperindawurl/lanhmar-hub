@@ -196,7 +196,10 @@ var AI_SOURCES = {
 };
 
 function stripTags_(s) {
-  return decode_(String(s || '').replace(/<!\[CDATA\[|\]\]>/g, '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' '));
+  var t = String(s || '').replace(/<!\[CDATA\[|\]\]>/g, '');
+  // Mô tả RSS có thể chứa thẻ HTML đã bị mã hoá (&lt;img ...&gt;): bỏ thẻ, giải mã, rồi bỏ thẻ lần nữa
+  for (var k = 0; k < 2; k++) t = decode_(t.replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ');
+  return t;
 }
 
 function tag_(block, name) {

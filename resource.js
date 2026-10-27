@@ -5,6 +5,8 @@
    Dùng chung cho Kho cá nhân (kho.js) và Data Storage (storage.js). */
 window.Res = (() => {
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  // Văn bản thuần: bỏ thẻ HTML còn sót (kể cả thẻ bị mã hoá trong mô tả RSS) và giải mã ký tự đặc biệt
+  const plain = (s) => { let t = String(s ?? ""); for (let k = 0; k < 2; k++) t = new DOMParser().parseFromString(t, "text/html").body.textContent || ""; return t.replace(/\s+/g, " ").trim(); };
   const okUrl = (u) => (/^(https?:\/\/|docs\/|assets\/)[^\s"'<>]*$/i.test(String(u || "")) ? u : "");
   const fmtDate = (d) => (/^\d{4}-\d{2}-\d{2}$/.test(d || "") ? d.split("-").reverse().join("/") : d || "");
   const API = () => (window.STORAGE_API || "").trim();
@@ -128,7 +130,7 @@ window.Res = (() => {
       loaded.sort((a, b) => (b.d || "").localeCompare(a.d || ""));
       return `<article class="card res-card feed-card" data-res="${esc(i.id)}" tabindex="0" role="button" aria-label="${esc(i.title)}">
         <img class="res-thumb" src="${esc(okUrl(i.thumb))}" alt="" loading="lazy"><div class="res-info">${liveBadges(i, aiNew())}<h3>${esc(i.title)}</h3>
-        ${loaded.length ? `<ul class="feed-mini">${loaded.slice(0, 3).map((x) => `<li><b>${esc(compName(i, x.id).split(" ·")[0])}</b> ${esc(x.t || x.te)}</li>`).join("")}</ul>` : `<p>${API() ? "Đang tải tin mới…" : esc(i.note || "")}</p>`}
+        ${loaded.length ? `<ul class="feed-mini">${loaded.slice(0, 3).map((x) => `<li><b>${esc(compName(i, x.id).split(" ·")[0])}</b> ${esc(plain(x.t || x.te))}</li>`).join("")}</ul>` : `<p>${API() ? "Đang tải tin mới…" : esc(i.note || "")}</p>`}
         <div class="meta"><span>Theo dõi ${(i.companies || []).length} hãng AI</span><span class="res-more">Xem tất cả →</span></div></div></article>`;
     }
     if (i.feed === "ranking") {
@@ -170,7 +172,7 @@ window.Res = (() => {
     const v = ai[id];
     if (!v) return `<p class="res-pad">${API() ? "Chưa tải được tin của hãng này, thử lại sau ít phút." : "Chưa kích hoạt nguồn tin."}</p>`;
     return v.items.map((x) => `<article class="news-item"><div class="news-top"><span class="news-date">${esc(fmtDate(x.d))}</span>${x.src ? `<span class="news-src">${esc(x.src)}</span>` : ""}</div>
-      <h3>${esc(x.t || x.te)}</h3>${x.s ? `<p>${esc(x.s)}</p>` : ""}${x.te && x.t !== x.te ? `<small>Gốc: ${esc(x.te)}</small>` : ""}<a href="${esc(okUrl(x.u))}" target="_blank" rel="noopener">Đọc bài gốc ↗</a></article>`).join("");
+      <h3>${esc(plain(x.t || x.te))}</h3>${plain(x.s) ? `<p>${esc(plain(x.s))}</p>` : ""}${x.te && x.t !== x.te ? `<small>Gốc: ${esc(plain(x.te))}</small>` : ""}<a href="${esc(okUrl(x.u))}" target="_blank" rel="noopener">Đọc bài gốc ↗</a></article>`).join("");
   }
   async function openAi(i, dlg, id) {
     id = id || (i.companies[0] || {}).id;
