@@ -97,3 +97,25 @@ Gửi Client ID cho Claude, hoặc tự mở `storage-config.js` và điền `wi
 - **Trên web:** khi đang mở Kho (hoặc trang Data Storage), tin AI News và Claude Code tự làm mới mỗi 5 phút, và làm mới ngay khi bạn quay lại tab sau hơn 2 phút hoặc khi mạng kết nối lại. Cửa sổ tin đang mở cập nhật tại chỗ, không nhảy về đầu. Có nút **↻ Làm mới** để làm mới ngay.
 - **Máy chủ:** Apps Script giữ cache tin 5 phút (trước đây 30 phút). Muốn áp dụng, dán lại `Code.gs` mới rồi **Triển khai → Quản lý triển khai → Sửa → Phiên bản mới**. Chưa làm bước này thì web vẫn làm mới, nhưng tin có thể trễ tới 30 phút.
 - **Giới hạn:** đây là cập nhật gần thời gian thực (độ trễ tối đa khoảng 5 đến 10 phút), không phải đẩy tức thời. Tin phụ thuộc nguồn RSS và Google News của từng hãng. Nếu một nguồn lỗi, web giữ tin cũ thay vì hiện trống.
+
+## 8. Chat "Hỏi Lan Anh" (tin nhắn tới bot Telegram)
+
+Khung chat 💬 hiện ở góc phải của `kho.html` (cả màn hình khoá) và `storage.html`. Khách gõ câu hỏi, tin được lưu ở tab **Chat** của Sheet và gửi tới bot Telegram của bạn. Bạn trả lời ngay trong Telegram, câu trả lời hiện lại trong khung chat của khách.
+
+### Cách cài (làm một lần)
+1. Dán `Code.gs` mới vào Apps Script, lưu. Đảm bảo đã có 2 Script property `TELEGRAM_BOT_TOKEN` và `TELEGRAM_CHAT_ID` (mục 2). Nếu token cũ từng bị lộ, tạo token mới ở @BotFather rồi cập nhật vào Script property.
+2. Chạy hàm **`installChatTrigger`** một lần trong trình soạn code, cấp quyền khi Google hỏi (quyền tạo trigger). Hàm này bật trigger chạy `pollTelegram` mỗi phút để đọc câu trả lời của bạn.
+3. **Triển khai → Quản lý triển khai → Sửa → Phiên bản mới.** Giữ nguyên URL.
+4. Nhớ nhắn bot một câu để nó gửi được cho bạn (nếu chưa).
+
+### Cách trả lời khách
+- Trong Telegram, bấm **Reply** vào đúng tin "💬 Tin nhắn mới trong Kho" của bot rồi gõ câu trả lời.
+- Hoặc gõ: `/r <Mã hội thoại> nội dung` (mã dạng `T1A2B3C4D` có trong tin của bot).
+- Câu trả lời xuất hiện trong khung chat của khách sau tối đa khoảng 1 đến 2 phút (trigger chạy mỗi phút, khung chat tải lại mỗi 15 giây khi đang mở).
+
+### Bảo mật và chống spam
+- Chỉ tin nhắn từ đúng `TELEGRAM_CHAT_ID` của bạn mới được ghi thành câu trả lời.
+- Mỗi khách tối đa 5 tin trong 10 phút, toàn hệ thống tối đa 60 tin mỗi giờ. Có ô bẫy bot ẩn. Tin tối đa 1000 ký tự.
+- Mã khách là chuỗi ngẫu nhiên lưu trong trình duyệt của khách, người khác không đọc được hội thoại của họ.
+- Không dán token vào file code hay vào chat. Tin khách gửi nằm trong tab **Chat** (đừng chia sẻ Sheet cho người khác).
+- Khung chat là kênh công khai: ai mở `kho.html` cũng gửi được tin, kể cả khi chưa mở khoá kho.

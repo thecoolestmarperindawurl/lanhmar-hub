@@ -14,7 +14,7 @@
  *   ADMIN_KEY           chuỗi bí mật dài, ngẫu nhiên, dùng khi bấm "Đồng bộ Storage"
  *   OWNER_EMAIL         mail Google của chủ kho (chỉ mail này lấy/ghi được kho mã hoá)
  *   GOOGLE_CLIENT_ID    OAuth Web client ID (đúng giá trị trong storage-config.js)
- *   TELEGRAM_BOT_TOKEN  (tuỳ chọn) token bot từ @BotFather
+ *   TELEGRAM_BOT_TOKEN  (cần cho Chat) token bot từ @BotFather
  *   TELEGRAM_CHAT_ID    (tuỳ chọn) chat id của bạn
  *
  * Chạy hàm setup() (hoặc formatSheets()) để tạo và định dạng lại toàn bộ Sheet.
@@ -33,6 +33,8 @@ var CK_PREFIX = 'LM';
 var VAULT = 'Vault';
 var VAULT_CHUNK = 40000;       // ô Sheet tối đa 50.000 ký tự
 var VAULT_MAX = 1500000;       // giới hạn kích thước bản mã
+var CHAT = 'Chat';
+var CHAT_HEADERS = ['Thời gian', 'Mã hội thoại', 'Khách', 'Liên hệ', 'Chiều', 'Nội dung', 'Mã tin Telegram', 'Trang'];
 var ITEM_HEADERS = ['id', 'kho', 'title', 'url', 'note', 'tags', 'type', 'date'];
 
 function sheet_(name, headers) {
@@ -266,6 +268,7 @@ function doPost(e) {
   try {
     var pre = JSON.parse((e && e.postData && e.postData.contents) || '{}');
     if (pre.action === 'course') return course_();
+    if (pre.action === 'chat_get') return chatGet_(pre);
     if (pre.action === 'news') return news_();
     if (pre.action === 'ainews') return aiNews_(String(pre.c || ''));
   } catch (err0) {
@@ -281,6 +284,7 @@ function doPost(e) {
       case 'sync': return sync_(body);
       case 'vault_get': return vaultGet_(body);
       case 'vault_put': return vaultPut_(body);
+      case 'chat_send': return chatSend_(body);
       default: return json_({ ok: false, error: 'bad_action' });
     }
   } catch (err) {
@@ -425,6 +429,95 @@ function vaultPut_(b) {
   return json_({ ok: true, rev: rev });
 }
 
+/* ================== CHAT: tin nhắn của khách gửi tới Telegram của chủ ==================
+ * Khách gõ tin trong widget "Hỏi Lan Anh" → lưu tab Chat + gửi bot Telegram kèm "Mã hội thoại".
+ * Chủ trả lời bằng cách "Trả lời (Reply)" đúng tin của bot trong Telegram, hoặc gõ: /r <mã> <nội dung>.
+ * Hàm pollTelegram (chạy mỗi phút bằng trigger, tạo bằng installChatTrigger) đọc câu trả lời và đưa vào tab Chat,
+ * widget của khách tự hiện câu trả lời. Chỉ nhận tin trả lời từ đúng TELEGRAM_CHAT_ID của chủ. */
+
+function telegramSend_(text) {
+  var p = PropertiesService.getScriptProperties();
+  var token = p.getProperty('TELEGRAM_BOT_TOKEN'), chat = p.getProperty('TELEGRAM_CHAT_ID');
+  if (!token || !chat) return '';
+  try {
+    var r = UrlFetchApp.fetch('https://api.telegram.org/bot' + token + '/sendMessage', {
+      method: 'post', payload: { chat_id: chat, text: text, disable_web_page_preview: 'true' }, muteHttpExceptions: true
+    });
+    var j = JSON.parse(r.getContentText());
+    return j.ok && j.result ? String(j.result.message_id) : '';
+  } catch (e) { return ''; }
+}
+
+function threadOf_(vid) { return 'T' + String(vid).slice(0, 8).toUpperCase(); }
+
+function chatSend_(b) {
+  var vid = String(b.vid || '').replace(/[^A-Za-z0-9]/g, '').slice(0, 40);
+  if (vid.length < 16) return json_({ ok: false, error: 'invalid' });
+  if (b.website) return json_({ ok: true }); // bẫy bot: ô ẩn phải để trống
+  var text = clean_(b.text, 1000);
+  if (!text) return json_({ ok: false, error: 'invalid' });
+  var name = clean_(b.name, 60) || 'Khách', contact = clean_(b.contact, 120), page = clean_(b.page, 20);
+  var cache = CacheService.getScriptCache(), kv = 'chat:v:' + vid, kg = 'chat:g';
+  var nv = Number(cache.get(kv) || 0), ng = Number(cache.get(kg) || 0);
+  if (nv >= 5 || ng >= 60) return json_({ ok: false, error: 'rate' }); // tối đa 5 tin/10 phút mỗi khách, 60 tin/giờ toàn hệ thống
+  cache.put(kv, String(nv + 1), 600); cache.put(kg, String(ng + 1), 3600);
+  var thread = threadOf_(vid);
+  var mid = telegramSend_('💬 Tin nhắn mới trong Kho\nMã hội thoại: ' + thread + '\nTên: ' + name + (contact ? '\nLiên hệ: ' + contact : '') +
+    (page ? '\nTrang: ' + page : '') + '\n\n' + text + '\n\n👉 Trả lời: bấm Reply vào tin này (hoặc gõ /r ' + thread + ' nội dung).');
+  var sh = sheet_(CHAT, CHAT_HEADERS);
+  sh.appendRow([new Date(), thread, safeCell_(name), safeCell_(contact), 'Khách', safeCell_(text), mid, page]);
+  return json_({ ok: true, thread: thread, tg: !!mid });
+}
+
+function chatGet_(b) {
+  var vid = String(b.vid || '').replace(/[^A-Za-z0-9]/g, '').slice(0, 40);
+  if (vid.length < 16) return json_({ ok: false, error: 'invalid' });
+  var thread = threadOf_(vid);
+  var sh = SpreadsheetApp.openById(SHEET_ID).getSheetByName(CHAT);
+  if (!sh) return json_({ ok: true, msgs: [] });
+  var rows = sh.getDataRange().getValues(), out = [];
+  for (var i = 1; i < rows.length; i++) {
+    if (String(rows[i][1]) !== thread) continue;
+    out.push({ w: rows[i][4] === 'Admin' ? 'a' : 'k', t: String(rows[i][5]).slice(0, 1000), d: rows[i][0] instanceof Date ? rows[i][0].toISOString() : '' });
+  }
+  return json_({ ok: true, msgs: out.slice(-60) });
+}
+
+// Chạy mỗi phút (trigger): đọc câu trả lời của chủ trong Telegram và ghi vào tab Chat.
+function pollTelegram() {
+  var p = PropertiesService.getScriptProperties();
+  var token = p.getProperty('TELEGRAM_BOT_TOKEN'), chat = p.getProperty('TELEGRAM_CHAT_ID');
+  if (!token || !chat) return;
+  var off = Number(p.getProperty('TG_OFFSET') || 0);
+  var r = UrlFetchApp.fetch('https://api.telegram.org/bot' + token + '/getUpdates?timeout=0&offset=' + off, { muteHttpExceptions: true });
+  var j; try { j = JSON.parse(r.getContentText()); } catch (e) { return; }
+  if (!j.ok || !j.result || !j.result.length) return;
+  var sh = sheet_(CHAT, CHAT_HEADERS);
+  j.result.forEach(function (u) {
+    off = u.update_id + 1;
+    var m = u.message;
+    if (!m || !m.chat || String(m.chat.id) !== String(chat) || !m.text) return; // chỉ nhận từ chủ
+    var thread = '', text = m.text;
+    if (m.reply_to_message && m.reply_to_message.text) {
+      var mm = m.reply_to_message.text.match(/Mã hội thoại:\s*(T[A-Z0-9]+)/);
+      if (mm) thread = mm[1];
+    }
+    if (!thread) {
+      var rc = text.match(/^\/r\s+(T[A-Za-z0-9]+)\s+([\s\S]+)/);
+      if (rc) { thread = rc[1].toUpperCase(); text = rc[2]; }
+    }
+    if (!thread) return;
+    sh.appendRow([new Date(), thread, 'Lan Anh', '', 'Admin', safeCell_(clean_(text, 1000)), String(m.message_id), '']);
+  });
+  p.setProperty('TG_OFFSET', String(off));
+}
+
+// Chạy 1 lần để bật trigger đọc trả lời mỗi phút.
+function installChatTrigger() {
+  ScriptApp.getProjectTriggers().forEach(function (t) { if (t.getHandlerFunction() === 'pollTelegram') ScriptApp.deleteTrigger(t); });
+  ScriptApp.newTrigger('pollTelegram').timeBased().everyMinutes(1).create();
+}
+
 /* ================== GIAO DIỆN SHEET (template theo dõi) ================== */
 var C = {
   purple: '#2D2FEF', purpleSoft: '#E7E2FB', ink: '#241F45', orange: '#FF7A45', orangeSoft: '#FFD8C2',
@@ -440,7 +533,7 @@ function formatSheets() {
   // Dọn trang tính trống mặc định (Sheet1 / Trang tính1)
   ss.getSheets().forEach(function (sh) {
     var n = sh.getName();
-    if (n !== REQ && n !== ITEMS && n !== VAULT && n !== 'Dashboard' && sh.getLastRow() <= 1 && ss.getSheets().length > 3) ss.deleteSheet(sh);
+    if (n !== REQ && n !== ITEMS && n !== VAULT && n !== CHAT && n !== 'Dashboard' && sh.getLastRow() <= 1 && ss.getSheets().length > 3) ss.deleteSheet(sh);
   });
   formatRequests_(req);
   formatItems_(items);
