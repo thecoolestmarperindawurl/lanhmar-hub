@@ -111,13 +111,18 @@ function tr_(text) {
   text = String(text || '').trim();
   if (!text) return '';
   var cache = CacheService.getScriptCache();
-  var key = 'tr2:' + Utilities.base64EncodeWebSafe(Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, text)).slice(0, 24);
+  var key = 'tr3:' + Utilities.base64EncodeWebSafe(Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, text)).slice(0, 24);
   var hit = cache.get(key);
   if (hit) return hit;
   var out = text;
   try {
-    var html = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(KEEP_RE, '<span class="notranslate">$1</span>');
-    out = stripTags_(LanguageApp.translate(html, 'en', 'vi', { contentType: 'html' }));
+    // Che tên sản phẩm bằng mã vô nghĩa (Qzx0q...) để máy dịch không hiểu nhầm (Gemini = cung hoàng đạo), dịch xong thì trả lại tên gốc
+    var toks = [];
+    var masked = text.replace(KEEP_RE, function (m) { var i = toks.indexOf(m); if (i < 0) i = toks.push(m) - 1; return 'Qzx' + i + 'q'; });
+    var vi = LanguageApp.translate(masked, 'en', 'vi');
+    vi = vi.replace(/Qzx\s*(\d+)\s*q/gi, function (_, i) { return toks[Number(i)] || ''; });
+    out = /Qzx\d/i.test(vi) ? stripTags_(LanguageApp.translate(text, 'en', 'vi')) : vi; // mã bị biến dạng thì dịch thường
+    out = out.replace(/\bcung\s+(Gemini)\b/gi, '$1');
   } catch (e) {}
   try { cache.put(key, out, 21600); } catch (e2) {}
   return out;

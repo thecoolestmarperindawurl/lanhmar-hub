@@ -8,7 +8,7 @@ window.Res = (() => {
   // Văn bản thuần: bỏ thẻ HTML còn sót (kể cả thẻ bị mã hoá trong mô tả RSS) và giải mã ký tự đặc biệt
   const plain = (s) => { let t = String(s ?? ""); for (let k = 0; k < 2; k++) t = new DOMParser().parseFromString(t, "text/html").body.textContent || ""; return t.replace(/\s+/g, " ").trim(); };
   // Sửa lỗi dịch máy đã biết: "Gemini" bị dịch thành cung "Song Tử" (máy chủ mới đã chặn, đây là lớp phòng thêm cho tin cũ trong cache)
-  const vi = (s) => plain(s).replace(/cung\s+Song\s+Tử/gi, "Gemini").replace(/Song\s+Tử/g, "Gemini");
+  const vi = (s) => plain(s).replace(/cung\s+Song\s+Tử/gi, "Gemini").replace(/Song\s+Tử/g, "Gemini").replace(/\bcung\s+Gemini\b/gi, "Gemini");
   const okUrl = (u) => (/^(https?:\/\/|docs\/|assets\/)[^\s"'<>]*$/i.test(String(u || "")) ? u : "");
   const fmtDate = (d) => (/^\d{4}-\d{2}-\d{2}$/.test(d || "") ? d.split("-").reverse().join("/") : d || "");
   const API = () => (window.STORAGE_API || "").trim();
