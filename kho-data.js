@@ -6,7 +6,7 @@ window.KHO = [
   { id: "edit", name: "Kho Edit", icon: "▶", desc: "Tài nguyên cho CapCut, Premiere, After Effects..." },
   { id: "tool", name: "Kho Tool", icon: "⚙", desc: "Repo GitHub và công cụ hữu ích" },
   { id: "knowledge", name: "Kho Knowledge", icon: "✎", desc: "Kiến thức khoá học đã học / sắp học, kho ebook",
-    groups: [{ id: "ebook", name: "Kho Ebook", icon: "📚" }, { id: "course", name: "Khoá học & ghi chú", icon: "✎" }] },
+    groups: [{ id: "ebook", name: "Kho Ebook", icon: "📚" }, { id: "vuonuom", name: "Vườn Ươm Khu Phố", icon: "🌱" }, { id: "course", name: "Khoá học & ghi chú", icon: "✎" }] },
   { id: "idea", name: "Kho Idea", icon: "★", desc: "Ý tưởng content, sản phẩm, dự án muốn thử" }
 ];
 
