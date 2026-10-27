@@ -11,7 +11,8 @@ let vault = null;      // {v, salt, iv, ct} đang lưu
 let cryptoKey = null;  // khoá trong bộ nhớ sau khi mở
 let items = [], featured = [];
 let cur = "ai", q = "", tag = "";
-let grp = "";
+let grp = "", tagsOpen = false;
+const TAG_LIMIT = 8;
 
 async function deriveKey(pass, salt) {
   const base = await crypto.subtle.importKey("raw", enc.encode(pass), "PBKDF2", false, ["deriveKey"]);
@@ -165,9 +166,16 @@ function render() {
   renderTabs();
   $("#desc").textContent = k.desc;
   const inKho = Res.visible(items).filter((i) => i.kho === cur).concat(featured.filter((i) => i.kho === cur));
-  const tags = [...new Set(inKho.flatMap((i) => i.tags || []))].sort();
+  window.__khoCur = cur;
+  // Thanh lọc tag gọn: chỉ hiện các tag dùng nhiều nhất, còn lại thu vào nút "+N thẻ"
+  const freq = {};
+  inKho.forEach((i) => (i.tags || []).forEach((t) => (freq[t] = (freq[t] || 0) + 1)));
+  const tags = Object.keys(freq).sort((a, b) => freq[b] - freq[a] || a.localeCompare(b));
   if (tag && !tags.includes(tag)) tag = "";
-  $("#tags").innerHTML = tags.map((t) => `<span class="chip ${t === tag ? "on" : ""}" data-t="${esc(t)}">#${esc(t)}</span>`).join("");
+  let shown = tagsOpen ? tags : tags.slice(0, TAG_LIMIT);
+  if (tag && !shown.includes(tag)) shown = [tag, ...shown.slice(0, TAG_LIMIT - 1)];
+  $("#tags").innerHTML = shown.map((t) => `<span class="chip ${t === tag ? "on" : ""}" data-t="${esc(t)}">#${esc(t)}</span>`).join("") +
+    (tags.length > TAG_LIMIT ? `<button class="chip more" type="button" data-more>${tagsOpen ? "Thu gọn ▴" : "+" + (tags.length - TAG_LIMIT) + " thẻ ▾"}</button>` : "");
   const needle = q.trim().toLowerCase();
   const list = inKho
     .filter((i) => !tag || (i.tags || []).includes(tag))
@@ -178,10 +186,11 @@ function render() {
       ${i.type ? `<span class="badge">${esc(i.type)}</span>` : ""}${i.shared ? `<span class="badge shared">Chia sẻ</span>` : ""}
       <h3>${/^https?:\/\//i.test(i.url) ? `<a href="${esc(i.url)}" target="_blank" rel="noopener noreferrer">${esc(i.title)} ↗</a>` : esc(i.title)}</h3>
       <p>${esc(i.note)}</p>
-      <div>${(i.tags || []).map((t) => `<span class="chip" data-t="${esc(t)}">#${esc(t)}</span>`).join(" ")}</div>
+      <div class="card-tags">${(i.tags || []).slice(0, 3).map((t) => `<span class="chip" data-t="${esc(t)}">#${esc(t)}</span>`).join(" ")}${(i.tags || []).length > 3 ? `<span class="chip dim">+${i.tags.length - 3}</span>` : ""}</div>
       <div class="meta"><span>${esc(i.date)}</span><span class="acts"><button data-edit="${i.id}">Sửa</button><button data-del="${i.id}">Xoá</button></span></div>
     </article>`;
   $("#groups").innerHTML = Res.groupPills(cur, inKho, grp);
+  requestAnimationFrame(() => document.querySelectorAll(".tab.on,.gpill.on").forEach((b) => { const c = b.parentElement; if (c && c.scrollWidth > c.clientWidth) c.scrollTo({ left: b.offsetLeft - c.clientWidth / 2 + b.offsetWidth / 2, behavior: "smooth" }); }));
   $("#grid").innerHTML = Res.group(list, cur, grp, cardOf) || `<div class="empty">Chưa có mục nào. Bấm “+ Thêm” để bắt đầu.</div>`;
 }
 
@@ -222,7 +231,8 @@ $("#cancel").onclick = () => dlg.close();
 document.addEventListener("click", async (e) => {
   const t = e.target;
   if (t.dataset.g !== undefined && t.classList.contains("gpill")) { grp = t.dataset.g; render(); }
-  else if (t.dataset.k) { cur = t.dataset.k; tag = ""; grp = ""; render(); }
+  else if (t.dataset.more !== undefined) { tagsOpen = !tagsOpen; render(); }
+  else if (t.dataset.k) { cur = t.dataset.k; tag = ""; grp = ""; tagsOpen = false; render(); }
   else if (t.dataset.t !== undefined) { tag = tag === t.dataset.t ? "" : t.dataset.t; render(); }
   else if (t.dataset.edit) openForm(items.find((i) => i.id === t.dataset.edit));
   else if (t.dataset.del && confirm("Xoá mục này?")) { items = items.filter((i) => i.id !== t.dataset.del); await seal(); render(); }

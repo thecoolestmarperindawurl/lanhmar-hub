@@ -11,7 +11,6 @@
       "tags": [
         "claude",
         "agent",
-        "cập nhật",
         "docs"
       ],
       "note": "Tóm tắt các bản phát hành mới của Claude Code, tự cập nhật.",
@@ -28,12 +27,9 @@
       "date": "2026-10-24",
       "tags": [
         "tin tức",
-        "cập nhật",
         "chatgpt",
         "gemini",
-        "grok",
-        "copilot",
-        "claude"
+        "grok"
       ],
       "note": "Tin mới của 10 hãng AI, tóm tắt tiếng Việt, tự cập nhật.",
       "thumb": "assets/res/feed-ai-news.jpg",
@@ -198,7 +194,6 @@
       "date": "2026-10-24",
       "tags": [
         "ai agent",
-        "lý thuyết",
         "chatbot"
       ],
       "thumb": "assets/res/guide-agent-theory.jpg",
@@ -426,13 +421,7 @@
         "ai agent",
         "openclaw",
         "hermes",
-        "mcp",
-        "skills",
-        "codex",
-        "cursor",
-        "copilot",
-        "antigravity",
-        "claude code"
+        "mcp"
       ],
       "thumb": "assets/res/guide-agent-ecosystem.jpg",
       "note": "Các agent phổ biến: Claude Code, Codex, Antigravity, Cursor, Copilot, OpenClaw, Hermes… cùng MCP, Skills, framework.",
@@ -1537,8 +1526,7 @@
         "android",
         "ios",
         "adb",
-        "scrcpy",
-        "developer mode"
+        "scrcpy"
       ],
       "thumb": "assets/res/tool-phone-laptop.jpg",
       "note": "Bật Tuỳ chọn nhà phát triển, cài adb, kết nối cáp và không dây, điều khiển màn hình bằng scrcpy; iPhone: Developer Mode, Xcode, Safari Web Inspector, libimobiledevice. Có đủ lệnh.",
@@ -1874,8 +1862,7 @@
       "badge": "Ebook",
       "tags": [
         "ebook",
-        "sách",
-        "google drive"
+        "sách"
       ],
       "thumb": "assets/res/knowledge-ebook.jpg",
       "note": "Ebook và các thư mục ebook trên Google Drive. Bấm mở để chọn sách.",
@@ -1947,12 +1934,8 @@
       "tags": [
         "font",
         "typography",
-        "google drive",
         "helvetica",
-        "futura",
-        "gotham",
-        "gilroy",
-        "montserrat"
+        "futura"
       ],
       "thumb": "assets/res/design-font.jpg",
       "note": "Bộ font sưu tầm trên Google Drive (thư mục “File cài font”), có bảng demo typo và danh sách các họ font.",
@@ -2143,11 +2126,9 @@
       "badge": "Đã học",
       "tags": [
         "fullstack marketing",
-        "jobvui",
         "facebook ads",
         "tiktok ads",
-        "google ads",
-        "ai agent"
+        "google ads"
       ],
       "thumb": "assets/res/vuonuom-fullstack.jpg",
       "note": "5 module, 31 bài, khoảng 75 giờ: tư duy nền tảng, Facebook, TikTok, Google, thương hiệu cá nhân. Đã hoàn thành 31/31.",
@@ -2480,11 +2461,7 @@
       "title": "Facebook Ads",
       "type": "Khoá học",
       "badge": "Đã đủ tài liệu",
-      "tags": [
-        "vườn ươm khu phố",
-        "jobvui",
-        "khoá học"
-      ],
+      "tags": [],
       "thumb": "assets/res/vuonuom-facebook-ads.jpg",
       "note": "Vườn Ươm Khu Phố by JOBVUI · GV Mr. Lê Quốc Hưng · 8 mục buổi học, đã có video record và tài liệu.",
       "ctas": [
@@ -2568,11 +2545,7 @@
       "title": "TikTok Ads",
       "type": "Khoá học",
       "badge": "Đã đủ tài liệu",
-      "tags": [
-        "vườn ươm khu phố",
-        "jobvui",
-        "khoá học"
-      ],
+      "tags": [],
       "thumb": "assets/res/vuonuom-tiktok-ads.jpg",
       "note": "Vườn Ươm Khu Phố by JOBVUI · GV Mr. Trần Ngô Đình Tấn · 4 mục buổi học, đã có video record và tài liệu.",
       "ctas": [
@@ -2636,11 +2609,7 @@
       "title": "Vận hành sàn Ecommerce",
       "type": "Khoá học",
       "badge": "Đã đủ tài liệu",
-      "tags": [
-        "vườn ươm khu phố",
-        "jobvui",
-        "khoá học"
-      ],
+      "tags": [],
       "thumb": "assets/res/vuonuom-ecommerce.jpg",
       "note": "Vườn Ươm Khu Phố by JOBVUI · GV Mr. Trần Ngô Đình Tấn · 5 mục buổi học, đã có video record và tài liệu.",
       "ctas": [
@@ -2841,11 +2810,7 @@
       "title": "Luyện giọng nói (K1)",
       "type": "Khoá học",
       "badge": "Đủ video",
-      "tags": [
-        "vườn ươm khu phố by jobvui",
-        "khoá học",
-        "đủ video"
-      ],
+      "tags": [],
       "thumb": "assets/res/vuk-luyen-giong.jpg",
       "note": "Vườn Ươm Khu Phố by JOBVUI · GV MC Thái Bình · 5 buổi, đã kiểm tra trên Drive: mỗi buổi đều có file video.",
       "ctas": [
@@ -2908,11 +2873,7 @@
       "title": "Thiết kế ảnh với Canva (K3)",
       "type": "Khoá học",
       "badge": "Đủ video",
-      "tags": [
-        "vườn ươm khu phố by jobvui",
-        "khoá học",
-        "đủ video"
-      ],
+      "tags": [],
       "thumb": "assets/res/vuk-canva.jpg",
       "note": "Vườn Ươm Khu Phố by JOBVUI · GV Mr. Sinh Lê · 5 buổi, đã kiểm tra trên Drive: mỗi buổi đều có file video.",
       "ctas": [
@@ -2975,11 +2936,7 @@
       "title": "Agent Boss: AI Agent cho marketer",
       "type": "Khoá học",
       "badge": "Đủ video",
-      "tags": [
-        "agent boss x kesflow x vườn ươm khu phố",
-        "khoá học",
-        "đủ video"
-      ],
+      "tags": [],
       "thumb": "assets/res/vuk-agent-boss.jpg",
       "note": "Agent Boss x KesFlow x Vườn Ươm Khu Phố · GV Mr. Hưng Kescy · 4 buổi, đã kiểm tra trên Drive: mỗi buổi đều có file video.",
       "ctas": [
@@ -3038,11 +2995,7 @@
       "title": "KesFlow: Đồng nghiệp AI (TA03)",
       "type": "Khoá học",
       "badge": "Đủ video",
-      "tags": [
-        "vườn ươm khu phố x kesflow",
-        "khoá học",
-        "đủ video"
-      ],
+      "tags": [],
       "thumb": "assets/res/vuk-kesflow.jpg",
       "note": "Vườn Ươm Khu Phố x KesFlow · 6 buổi, đã kiểm tra trên Drive: mỗi buổi đều có file video.",
       "ctas": [
@@ -3109,11 +3062,7 @@
       "title": "Dựng video với CapCut (K2)",
       "type": "Khoá học",
       "badge": "Đủ video",
-      "tags": [
-        "hợp tác xã chị em by jobvui",
-        "khoá học",
-        "đủ video"
-      ],
+      "tags": [],
       "thumb": "assets/res/htx-capcut.jpg",
       "note": "Hợp tác xã Chị Em by JOBVUI · GV Mr. Phan Anh · 4 buổi, đã kiểm tra trên Drive: mỗi buổi đều có file video.",
       "ctas": [
@@ -3172,11 +3121,7 @@
       "title": "SEO Website",
       "type": "Khoá học",
       "badge": "Đủ video",
-      "tags": [
-        "seongon academy",
-        "khoá học",
-        "đủ video"
-      ],
+      "tags": [],
       "thumb": "assets/res/seongon-seo-website.jpg",
       "note": "SEONGON Academy · GV Ms. Dương Thị Hương · 7 buổi, đã kiểm tra trên Drive: mỗi buổi đều có file video.",
       "ctas": [
@@ -3247,11 +3192,7 @@
       "title": "Content SEO AI MAX",
       "type": "Khoá học",
       "badge": "Đủ video",
-      "tags": [
-        "seongon academy",
-        "khoá học",
-        "đủ video"
-      ],
+      "tags": [],
       "thumb": "assets/res/seongon-content-seo-ai.jpg",
       "note": "SEONGON Academy · GV Ms. Nguyễn Thị Vân, Ms. Trần Thị Bích Hạnh · 4 buổi, đã kiểm tra trên Drive: mỗi buổi đều có file video.",
       "ctas": [
@@ -3311,10 +3252,7 @@
       "type": "Khoá học",
       "badge": "Đủ video",
       "tags": [
-        "seongon academy",
-        "google ads",
-        "khoá học",
-        "đủ video"
+        "google ads"
       ],
       "thumb": "assets/res/seongon-google-ads.jpg",
       "note": "SEONGON Academy · 2 cấp (Cơ bản 5 buổi, Chuyên sâu 5 buổi) và 1 webinar về quảng cáo trong AI Search, đủ video record.",
@@ -3428,11 +3366,8 @@
       "type": "Khoá học",
       "badge": "Đủ video",
       "tags": [
-        "seongon academy",
         "project management",
-        "quản lý dự án",
-        "khoá học",
-        "đủ video"
+        "quản lý dự án"
       ],
       "thumb": "assets/res/seongon-project-management.jpg",
       "note": "SEONGON Academy · 7 buổi (có 1 workshop), đủ video record và có sẵn recap PDF buổi 1 đến 5.",
@@ -3521,10 +3456,7 @@
       "title": "Tomorrow Marketers: 9 khoá chờ học",
       "type": "Khoá chờ học",
       "badge": "Chưa học",
-      "tags": [
-        "tomorrow marketers",
-        "chờ học"
-      ],
+      "tags": [],
       "thumb": "assets/res/queue-tomorrow-marketers.jpg",
       "note": "9 khoá đã setup trên Notion, chưa xếp lịch học. Bấm tên khoá để mở thư mục Drive.",
       "sections": [
@@ -3593,9 +3525,7 @@
       "type": "Khoá chờ học",
       "badge": "Chưa học",
       "tags": [
-        "brandcamp",
-        "brand marketing",
-        "chờ học"
+        "brand marketing"
       ],
       "thumb": "assets/res/queue-brandcamp.jpg",
       "note": "12 khoá về Brand Marketing đã setup trên Notion, chưa xếp lịch học. Bấm tên khoá để mở thư mục Drive.",
@@ -3677,7 +3607,6 @@
       "type": "Khoá chờ học",
       "badge": "Chưa học",
       "tags": [
-        "chờ học",
         "pmax",
         "excel",
         "content"
@@ -3787,11 +3716,8 @@
       "tags": [
         "business case",
         "case interview",
-        "web tự học",
         "miễn phí",
-        "issue tree",
-        "mece",
-        "unit economics"
+        "issue tree"
       ],
       "thumb": "assets/res/web-tuhocbusinesscase.jpg",
       "note": "Web học Business Case bằng tiếng Việt: 783+ bài học và case study tương tác, miễn phí vĩnh viễn, học theo lộ trình từ Issue Tree, MECE, Unit Economics tới Case Interview, tích XP để mở khoá chứng chỉ.",

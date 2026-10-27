@@ -142,7 +142,7 @@ window.Res = (() => {
     }
     return `<article class="card res-card" data-res="${esc(i.id)}" tabindex="0" role="button" aria-label="${esc(i.title)}">
       <img class="res-thumb" src="${esc(okUrl(i.thumb))}" alt="" loading="lazy">
-      <div class="res-info"><span class="badge">${esc(i.type || "Tài nguyên")}</span><span class="badge shared">${i.guide ? esc(i.badge || "Đọc trước") : "Nổi bật"}</span>
+      <div class="res-info"><div class="res-badges">${(() => { const a = i.type || "Tài nguyên", b = i.guide ? i.badge || "Đọc trước" : "Nổi bật", la = a.toLowerCase(), lb = b.toLowerCase(), same = la.includes(lb) || lb.includes(la); return `<span class="badge">${esc(a)}</span>` + (same ? "" : `<span class="badge shared">${esc(b)}</span>`); })()}</div>
         <h3>${esc(i.title)}</h3><p>${esc(i.note)}</p>
         <div class="meta"><span>${esc(i.date)}</span><span class="res-more">Xem chi tiết →</span></div></div>
     </article>`;
@@ -256,6 +256,12 @@ window.Res = (() => {
   const khoGroups = (kho) => ((window.KHO || []).find((k) => k.id === kho) || {}).groups || null;
   const strictKho = (k) => !!((window.KHO || []).find((x) => x.id === k) || {}).strictGroups; // kho này không gom mục chưa phân nhóm vào nhóm cuối
   const groupOf = (i, groups) => (groups.some((g) => g.id === i.group) ? i.group : strictKho(i.kho) ? "" : groups[groups.length - 1].id);
+  const collapsed = new Set(); // nhóm đã thu gọn (kho:nhóm)
+  function toggleGroup(h) {
+    const body = h.nextElementSibling; if (!body || !body.classList.contains("grp-body")) return;
+    const key = (window.__khoCur || "") + ":" + h.dataset.gtoggle, open = body.hidden;
+    body.hidden = !open; h.setAttribute("aria-expanded", String(open)); if (open) collapsed.delete(key); else collapsed.add(key);
+  }
   function groupPills(kho, arr, grp) {
     const gs = khoGroups(kho); if (!gs) return "";
     const cnt = (id) => arr.filter((i) => groupOf(i, gs) === id).length;
@@ -270,17 +276,19 @@ window.Res = (() => {
     const loose = !grp && strictKho(kho) ? list.filter((i) => groupOf(i, gs) === "").map(cardOf).join("") : "";
     return gs.filter((g) => !grp || g.id === grp).map((g) => {
       const part = list.filter((i) => groupOf(i, gs) === g.id);
-      return part.length ? `<h3 class="grp-h">${g.icon || ""} ${esc(g.name)} <small>${part.length}</small></h3>` + part.map(cardOf).join("") : "";
+      const shut = collapsed.has(kho + ":" + g.id) && !grp; // đang xem riêng một nhóm thì luôn mở
+      return part.length ? `<h3 class="grp-h" data-gtoggle="${esc(g.id)}" role="button" tabindex="0" aria-expanded="${!shut}">${g.icon || ""} ${esc(g.name)} <small>${part.length}</small><i class="grp-arrow" aria-hidden="true"></i></h3><div class="grp-body" ${shut ? "hidden" : ""}>` + part.map(cardOf).join("") + "</div>" : "";
     }).join("") + loose;
   }
   const groupSelectHtml = (kho, cur) => { const gs = khoGroups(kho); return gs ? gs.map((g) => `<option value="${esc(g.id)}" ${g.id === cur ? "selected" : ""}>${esc(g.name)}</option>`).join("") : ""; };
 
   document.addEventListener("click", (e) => {
+    const gh = e.target.closest("[data-gtoggle]"); if (gh) { toggleGroup(gh); return; }
     const rf = e.target.closest("[data-refresh]");
     if (rf) { rf.disabled = true; rf.textContent = "Đang làm mới…"; refresh(true).catch(() => {}); return; }
     const cp = e.target.closest("[data-copy]");
     if (cp) { const t = cp.parentNode.querySelector("code").textContent; (navigator.clipboard?.writeText(t) || Promise.reject()).then(() => { cp.textContent = "Đã copy ✓"; setTimeout(() => (cp.textContent = "Copy"), 1500); }, () => { cp.textContent = "Bôi đen để copy"; }); return; }
     const c = e.target.closest("[data-res]"); if (c) open(c.dataset.res); });
-  document.addEventListener("keydown", (e) => { if ((e.key === "Enter" || e.key === " ") && e.target.dataset?.res) { e.preventDefault(); open(e.target.dataset.res); } });
+  document.addEventListener("keydown", (e) => { if ((e.key === "Enter" || e.key === " ") && e.target.dataset?.gtoggle) { e.preventDefault(); toggleGroup(e.target); return; } if ((e.key === "Enter" || e.key === " ") && e.target.dataset?.res) { e.preventDefault(); open(e.target.dataset.res); } });
   return { load, all, card, open, visible, loadFeeds, refresh, startAutoRefresh, groupPills, group, groupOf, khoGroups, groupSelectHtml };
 })();

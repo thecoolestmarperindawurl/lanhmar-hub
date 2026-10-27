@@ -247,3 +247,29 @@ table.rank-t{width:calc(100% - 52px);margin:0 26px 6px;border-collapse:collapse;
 .chat-form input,.chat-form textarea{font:14px Montserrat,system-ui,sans-serif;border:2px solid var(--lav-300,#D6CEF7);border-radius:12px;padding:8px 10px;resize:vertical}
 .chat-trap{position:absolute!important;left:-9999px;opacity:0;height:0;width:0}
 .chat-err{margin:0;min-height:0;color:var(--orange-text,#b4410a);font-size:12px;font-weight:700}
+
+/* ---------- Gọn gàng hơn: tag, thẻ, nhóm ---------- */
+.chip.more{background:#fff;border-style:dashed;color:var(--purple-deep)}
+.chip.dim{background:transparent;border-color:transparent;color:#7a7596;cursor:default}
+.tags{margin-bottom:14px}
+.card-tags{display:flex;gap:6px;flex-wrap:wrap}
+.card .meta{margin-top:auto}
+.res-badges{display:flex;gap:6px;flex-wrap:wrap;align-items:center}.res-badges .badge{margin:0}
+.res-info p{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;margin:0}
+.card>p{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden}
+.grp-body{display:contents}
+.grp-h{cursor:pointer;user-select:none;display:flex;align-items:center;gap:8px}
+.grp-h:hover{color:var(--purple-deep)}
+.grp-arrow{margin-left:auto;width:10px;height:10px;border-right:3px solid currentColor;border-bottom:3px solid currentColor;transform:rotate(45deg);transition:transform .2s;opacity:.55}
+.grp-h[aria-expanded="false"] .grp-arrow{transform:rotate(-45deg)}
+.grp-h:focus-visible{outline:3px solid var(--purple-mid);outline-offset:2px;border-radius:8px}
+@media(max-width:700px){
+  .tabs,.groups{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-left:-4px;margin-right:-4px;padding:4px 4px 8px}
+  .tabs::-webkit-scrollbar,.groups::-webkit-scrollbar{display:none}
+  .tab,.gpill{flex:none;scroll-snap-align:center;white-space:nowrap}
+  .tab{padding:9px 14px;font-size:13px}.gpill{padding:6px 12px;font-size:12px}
+  .res-card{padding:14px;gap:12px}
+  .res-info p{-webkit-line-clamp:2;font-size:13px;line-height:1.5}
+  .res-thumb{width:104px;height:58px}.res-card{grid-template-columns:104px 1fr}
+  .res-info h3{font-size:15px;line-height:1.3}
+}
