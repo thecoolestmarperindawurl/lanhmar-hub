@@ -34,6 +34,7 @@ var VAULT = 'Vault';
 var VAULT_CHUNK = 40000;       // ô Sheet tối đa 50.000 ký tự
 var VAULT_MAX = 1500000;       // giới hạn kích thước bản mã
 var CHAT = 'Chat';
+var GUIDE = 'Hướng dẫn';
 var CHAT_HEADERS = ['Thời gian', 'Mã hội thoại', 'Khách', 'Liên hệ', 'Chiều', 'Nội dung', 'Mã tin Telegram', 'Trang'];
 var ITEM_HEADERS = ['id', 'kho', 'title', 'url', 'note', 'tags', 'type', 'date'];
 
@@ -558,7 +559,7 @@ function formatSheets() {
   // Dọn trang tính trống mặc định (Sheet1 / Trang tính1)
   ss.getSheets().forEach(function (sh) {
     var n = sh.getName();
-    if (n !== REQ && n !== ITEMS && n !== VAULT && n !== CHAT && n !== 'Dashboard' && sh.getLastRow() <= 1 && ss.getSheets().length > 3) ss.deleteSheet(sh);
+    if (n !== REQ && n !== ITEMS && n !== VAULT && n !== CHAT && n !== GUIDE && n !== 'Dashboard' && sh.getLastRow() <= 1 && ss.getSheets().length > 3) ss.deleteSheet(sh);
   });
   formatRequests_(req);
   formatItems_(items);
@@ -566,14 +567,17 @@ function formatSheets() {
   // Tab nào khác được thêm vào Storage về sau (không phải tab hệ thống) cũng được áp template chung
   ss.getSheets().forEach(function (sh) {
     var n = sh.getName();
-    if (n === REQ || n === ITEMS || n === CHAT || n === VAULT || n === 'Dashboard') return;
+    if (n === REQ || n === ITEMS || n === CHAT || n === VAULT || n === GUIDE || n === 'Dashboard') return;
     try { formatAny_(sh); } catch (e) {}
   });
   buildDashboard_(dash, req);
+  var guide = ss.getSheetByName(GUIDE) || ss.insertSheet(GUIDE);
+  buildGuide_(guide, { dash: dash, req: req, items: items, chat: chat });
   ss.setActiveSheet(dash); ss.moveActiveSheet(1);
-  ss.setActiveSheet(req); ss.moveActiveSheet(2);
-  ss.setActiveSheet(items); ss.moveActiveSheet(3);
-  ss.setActiveSheet(chat); ss.moveActiveSheet(4);
+  ss.setActiveSheet(guide); ss.moveActiveSheet(2);
+  ss.setActiveSheet(req); ss.moveActiveSheet(3);
+  ss.setActiveSheet(items); ss.moveActiveSheet(4);
+  ss.setActiveSheet(chat); ss.moveActiveSheet(5);
   ss.setActiveSheet(dash);
   SpreadsheetApp.flush();
 }
@@ -727,6 +731,98 @@ function formatAny_(sh) {
 // Menu trong Google Sheet: định dạng lại mọi tab theo template khi có tab mới.
 function onOpen() {
   try { SpreadsheetApp.getUi().createMenu('LANHMAR').addItem('Định dạng lại tất cả tab', 'formatSheets').addToUi(); } catch (e) {}
+}
+
+/* ================== TAB HƯỚNG DẪN ==================
+ * Nội dung do code tạo; chạy lại setup hoặc menu LANHMAR → Định dạng lại tất cả tab sẽ làm mới tab này.
+ * Ghi chú riêng của bạn hãy để ở tab khác (tab mới sẽ tự được định dạng), đừng sửa tay tab này. */
+function guideRows_(t) {
+  // 'S' = tiêu đề mục, 'R' = dòng: [loại, mục, nội dung, việc cần làm / lưu ý, (công thức liên kết tuỳ chọn ở cột D)]
+  return [
+    ['S', '1. CÁC TAB TRONG FILE NÀY'],
+    ['R', 'Dashboard', 'Số liệu nhanh: tổng yêu cầu, chờ duyệt, đã duyệt, donate; danh sách "sẵn sàng duyệt" và "đang chờ donate".', 'Chỉ xem. Tự cập nhật.', '=HYPERLINK("#gid=' + t.dash.getSheetId() + '","→ Mở Dashboard")'],
+    ['R', 'Hướng dẫn', 'Tab này: cách dùng file và cách thao tác để đồng bộ đúng với website.', 'Chỉ đọc. Không sửa tay.'],
+    ['R', 'Requests', 'Người đăng ký xem Data Storage trên web (họ tên, email, mã truy cập, trạng thái) và theo dõi donate.', 'Bạn sửa: Trạng thái, Ghi chú, Donate, Số tiền, Ngày nhận.', '=HYPERLINK("#gid=' + t.req.getSheetId() + '","→ Mở Requests")'],
+    ['R', 'Items', 'Các mục bạn tích "Chia sẻ" trong Kho cá nhân. Web ghi vào đây khi bấm "Đồng bộ Storage".', 'Không sửa tay: lần đồng bộ sau sẽ ghi đè.', '=HYPERLINK("#gid=' + t.items.getSheetId() + '","→ Mở Items")'],
+    ['R', 'Chat', 'Tin khách gửi từ khung chat trên web (Khách) và câu trả lời của bạn lấy từ Telegram (Admin).', 'Xem lịch sử. Trả lời trong Telegram, không gõ vào đây.', '=HYPERLINK("#gid=' + t.chat.getSheetId() + '","→ Mở Chat")'],
+    ['R', 'Vault (ẩn)', 'Bản sao đã mã hoá của Kho cá nhân để mở kho trên mọi thiết bị bằng đăng nhập Google.', 'Không mở, không sửa, không xoá. Mất tab này = mất bản đồng bộ trên đám mây.'],
+
+    ['S', '2. QUY TRÌNH HẰNG NGÀY'],
+    ['R', 'Duyệt người xem', '1) Có người đăng ký: bot Telegram báo tên, email và "Nội dung CK" (LM + mã).\n2) Đối chiếu sao kê ngân hàng, thấy tiền thì vào Requests: cột Donate = "Đã nhận", điền Số tiền và Ngày nhận.\n3) Cột Gợi ý hiện "CÓ THỂ DUYỆT" thì đổi Trạng thái thành Approved.', 'Người xem vào Data Storage bằng email + mã. Thu quyền: Revoked. Từ chối: Rejected. Khoá KesFlow hoặc trường hợp đặc biệt: Donate = Miễn.'],
+    ['R', 'Chia sẻ mục từ Kho', 'Trong Kho cá nhân: thêm/sửa mục, tích "Chia sẻ mục này trong Data Storage", rồi bấm "Đồng bộ Storage" ở chân trang và nhập ADMIN_KEY.', 'Tab Items cập nhật ngay. Bỏ tích rồi đồng bộ lại để gỡ mục khỏi Storage.'],
+    ['R', 'Trả lời chat', 'Khách gửi tin trong khung chat 💬. Bot LanhMar Contact Bot nhắn bạn kèm "Mã hội thoại".\nTrả lời: bấm Reply vào đúng tin của bot, hoặc gõ /r <mã> nội dung.', 'Câu trả lời hiện trên web sau khoảng 1 đến 2 phút. Tab Chat ghi cả hai chiều.'],
+    ['R', 'Tin AI News', 'Tự lấy tin 10 hãng AI và bản phát hành Claude Code, dịch sang tiếng Việt, cache 5 phút.', 'Trên web bấm "Làm mới" nếu cần ngay.'],
+
+    ['S', '3. ĐỒNG BỘ VỚI WEBSITE: LÀM ĐÚNG ĐỂ KHÔNG HỎNG'],
+    ['R', 'KHÔNG đổi tên tab', 'Web tìm tab theo tên: Requests, Items, Chat, Vault, Dashboard, Hướng dẫn.', 'Đổi tên = web mất kết nối với tab đó.'],
+    ['R', 'KHÔNG đổi hàng tiêu đề', 'Giữ nguyên hàng 1 và thứ tự cột. Không chèn, xoá hoặc đổi chỗ cột.', 'Cần thêm cột: nhờ Claude sửa code trước, rồi mới thêm.'],
+    ['R', 'Cột được sửa tay', 'Requests: Trạng thái (F), Ghi chú của tôi (H), Donate (J), Số tiền (K), Ngày nhận (L).', 'Các cột còn lại (nhất là Mã truy cập, Nội dung CK, Gợi ý) do hệ thống điền và tính, đừng ghi đè.'],
+    ['R', 'Thêm tab mới', 'Bạn có thể thêm tab ghi chú/báo cáo riêng.', 'Sau đó vào menu LANHMAR → Định dạng lại tất cả tab: tab mới tự nhận cùng kiểu (tiêu đề màu, cố định hàng đầu, bộ lọc).'],
+    ['R', 'Khi sửa hoặc nâng cấp code', '1) Apps Script (mở từ Sheet): dán Code.gs mới → Lưu.\n2) Chạy hàm setup khi cần định dạng lại tab.\n3) Triển khai → Quản lý triển khai → bút chì trên triển khai đang dùng → Phiên bản: Phiên bản mới → Triển khai.', 'KHÔNG chọn "Triển khai mới": URL /exec sẽ đổi và web mất kết nối. Nếu lỡ đổi URL, cập nhật storage-config.js trên GitHub.'],
+
+    ['S', '4. THIẾT LẬP (SCRIPT PROPERTIES)'],
+    ['R', 'Nơi đặt', 'Apps Script → Cài đặt dự án → Thuộc tính tập lệnh.', 'Không ghi giá trị bí mật vào Sheet này.'],
+    ['R', 'ADMIN_KEY', 'Khoá dùng khi bấm "Đồng bộ Storage".', 'Chuỗi dài, khó đoán. Đổi nếu nghi bị lộ.'],
+    ['R', 'OWNER_EMAIL, GOOGLE_CLIENT_ID', 'Mail chủ kho và OAuth Client ID cho đăng nhập Google mở kho.', 'Chỉ mail chủ kho mới lấy được bản mã trong Vault.'],
+    ['R', 'TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID', 'Token của LanhMar Contact Bot và mã chat của bạn, dùng cho thông báo và chat.', 'Lộ token: vào @BotFather → Revoke current token, rồi cập nhật lại.'],
+    ['R', 'Trigger pollTelegram', 'Chạy mỗi phút để đọc câu trả lời chat của bạn từ Telegram.', 'Mất trigger thì chạy lại hàm installChatTrigger một lần.'],
+
+    ['S', '5. SỰ CỐ THƯỜNG GẶP'],
+    ['R', 'Web báo không kết nối được', 'Kiểm tra URL /exec trong storage-config.js còn đúng triển khai đang dùng, và mở URL đó phải thấy {"ok":true,...}.', 'Triển khai: Thực thi dưới tên "Tôi", Ai có quyền truy cập "Bất kỳ ai".'],
+    ['R', 'Telegram không báo tin mới', 'Kiểm tra TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID và bạn đã nhắn bot một câu chưa.', 'Chạy thử hàm setup để cấp lại quyền nếu Google yêu cầu.'],
+    ['R', 'Trả lời chat không hiện trên web', 'Dùng Reply đúng tin của bot (không gõ tin mới). Kiểm tra trigger pollTelegram có trong danh sách Trình kích hoạt.', 'Chờ 1 đến 2 phút.'],
+    ['R', 'Tab nhìn lộn xộn', 'Menu LANHMAR → Định dạng lại tất cả tab (hoặc chạy hàm setup).', 'Không xoá dữ liệu.'],
+    ['R', 'Quên mật khẩu kho', 'Mật khẩu không khôi phục được vì kho mã hoá ngay trên trình duyệt.', 'Luôn cất bản sao lưu kho.enc.json (nút "Xuất bản mã" trong Kho).'],
+
+    ['S', '6. BẢO MẬT'],
+    ['R', 'Chia sẻ file', 'Không chia sẻ Sheet này cho người khác: có email người đăng ký, tin chat và bản mã kho.', 'Cần người khác xem: tạo bản sao chỉ gồm tab cần thiết.'],
+    ['R', 'Link công khai', 'Link Drive trong Kho nằm trong mã nguồn công khai trên GitHub.', 'Kiểm tra thư mục khoá trả phí chỉ chia sẻ cho đúng người.'],
+
+    ['S', '7. LIÊN KẾT'],
+    ['R', 'Kho cá nhân', 'Trang chính của Kho, đăng nhập Google rồi nhập mật khẩu.', 'Chỉ chủ kho.', '=HYPERLINK("https://lanhmar.id.vn/kho.html","→ lanhmar.id.vn/kho.html")'],
+    ['R', 'Data Storage', 'Trang cho người được duyệt xem phần chia sẻ.', 'Công khai, cần email + mã.', '=HYPERLINK("https://lanhmar.id.vn/storage.html","→ lanhmar.id.vn/storage.html")'],
+    ['R', 'Mã nguồn', 'Toàn bộ code web và Code.gs nằm trên GitHub.', 'Repo lanhmar-hub.', '=HYPERLINK("https://github.com/thecoolestmarperindawurl/lanhmar-hub","→ github.com/thecoolestmarperindawurl/lanhmar-hub")']
+  ];
+}
+
+function buildGuide_(sh, t) {
+  sh.getRange(1, 1, sh.getMaxRows(), sh.getMaxColumns()).breakApart();
+  sh.clear();
+  sh.clearConditionalFormatRules();
+  var f0 = sh.getFilter(); if (f0) f0.remove();
+  sh.setTabColor(C.yellowText);
+  sh.setHiddenGridlines(true);
+  sh.setColumnWidth(1, 24); sh.setColumnWidth(2, 230); sh.setColumnWidth(3, 640); sh.setColumnWidth(4, 330);
+  sh.getRange('B2:D2').merge().setValue('★ LANHMAR · Hướng dẫn sử dụng file Storage').setFontSize(20).setFontWeight('bold')
+    .setFontColor('#FFFFFF').setBackground(C.purple).setVerticalAlignment('middle').setHorizontalAlignment('left');
+  sh.setRowHeight(2, 52);
+  sh.getRange('B3:D3').merge().setValue('Xem lại khi quên: tab nào làm gì, thao tác nào để Sheet đồng bộ đúng với website, và cách xử lý sự cố. Tab này do code tạo, chạy lại setup sẽ làm mới.')
+    .setFontColor(C.greyText).setFontSize(10).setBackground(C.purpleSoft).setVerticalAlignment('middle').setWrapStrategy(SpreadsheetApp.WrapStrategy.WRAP);
+  sh.setRowHeight(3, 32);
+  var rows = guideRows_(t), r = 5;
+  rows.forEach(function (x) {
+    if (x[0] === 'S') {
+      sh.getRange(r, 2, 1, 3).merge().setValue(x[1]).setFontWeight('bold').setFontSize(11).setFontColor('#FFFFFF')
+        .setBackground(C.ink).setVerticalAlignment('middle');
+      sh.setRowHeight(r, 30);
+      r += 1;
+      return;
+    }
+    sh.getRange(r, 2, 1, 3).setValues([[x[1], x[2], x[3]]]);
+    if (x[4]) sh.getRange(r, 4).setFormula(x[4]).setFontColor(C.purple).setFontWeight('bold');
+    sh.getRange(r, 2).setFontWeight('bold').setFontColor(C.purple);
+    sh.getRange(r, 4).setFontColor(x[4] ? C.purple : C.greyText);
+    r += 1;
+  });
+  var last = r - 1;
+  sh.getRange(5, 2, last - 4, 3).setWrapStrategy(SpreadsheetApp.WrapStrategy.WRAP).setVerticalAlignment('top').setFontSize(10)
+    .setBorder(false, false, true, false, false, false, '#E0DCF5', SpreadsheetApp.BorderStyle.SOLID);
+  // Dòng thường nền nhạt xen kẽ để dễ đọc; dòng tiêu đề mục giữ nền đậm
+  for (var i = 5; i <= last; i++) {
+    var isHeader = rows[i - 5][0] === 'S';
+    if (!isHeader) { sh.getRange(i, 2, 1, 3).setBackground(i % 2 ? '#FAF8FF' : '#FFFFFF'); sh.setRowHeight(i, Math.max(34, 18 * Math.ceil(String(rows[i - 5][2]).length / 95) + 8)); }
+  }
+  sh.setFrozenRows(3);
 }
 
 function kpi_(sh, row, col, label, formula, bg, fg) {

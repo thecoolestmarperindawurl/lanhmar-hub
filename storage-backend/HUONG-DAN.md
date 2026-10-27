@@ -126,3 +126,9 @@ Khung chat 💬 hiện ở góc phải của `kho.html` (cả màn hình khoá) 
 - Khi bạn **thêm một tab mới** vào Sheet Storage (ví dụ "Báo cáo"), mở menu **LANHMAR → Định dạng lại tất cả tab** (hoặc chạy hàm `setup`). Tab mới tự nhận tiêu đề màu xám tím, cố định hàng đầu, bộ lọc và đường kẻ giống các tab còn lại. Tab ẩn **Vault** không bị đụng tới.
 - Thứ tự tab cố định: Dashboard, Requests, Items, Chat, rồi các tab khác.
 - Lần đầu khách gửi tin trong chat, tab Chat tự được tạo và định dạng sẵn.
+
+## 10. Tab "Hướng dẫn" trong Sheet
+
+Sheet Storage có thêm tab **Hướng dẫn** (đứng sau Dashboard) để bạn xem lại khi quên: tab nào làm gì, quy trình duyệt người xem, chia sẻ mục, trả lời chat, những điều **không được làm** để Sheet vẫn đồng bộ với website (không đổi tên tab, không đổi hàng tiêu đề và thứ tự cột, chỉ sửa các cột cho phép), cách sửa code và triển khai đúng (sửa triển khai cũ, không tạo mới), các Script property cần có, xử lý sự cố và bảo mật. Có liên kết nhanh tới các tab, Kho, Data Storage và GitHub.
+
+Tab này do code tạo: chạy hàm `setup` hoặc menu **LANHMAR → Định dạng lại tất cả tab** sẽ làm mới nội dung theo bản code mới nhất. Ghi chú riêng của bạn nên để ở tab khác.
