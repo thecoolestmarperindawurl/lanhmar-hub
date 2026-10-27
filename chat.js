@@ -12,7 +12,24 @@
   let seenAdmin = Number(LS("lm-chat-seen") || 0), openState = false, timer = null, lastSend = 0;
 
   const el = (t, c, txt) => { const e = document.createElement(t); if (c) e.className = c; if (txt != null) e.textContent = txt; return e; };
-  const btn = el("button", "chat-fab", "💬 Hỏi Lan Anh"); btn.type = "button"; btn.setAttribute("aria-label", "Mở khung chat");
+  // Sticker hỏi đáp: bong bóng chat có mặt cười, huy hiệu "?" và các ngôi sao lấp lánh (SVG tự vẽ, màu LANHMAR)
+  const STICKER = `<svg class="chat-svg" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+    <ellipse class="chat-shadow" cx="60" cy="112" rx="26" ry="5"/>
+    <g class="chat-body">
+      <path d="M22 32Q22 14 40 14H80Q98 14 98 32V62Q98 80 80 80H64L46 100L48 80H40Q22 80 22 62Z" fill="#fff" stroke="#fff" stroke-width="12" stroke-linejoin="round"/>
+      <path d="M22 32Q22 14 40 14H80Q98 14 98 32V62Q98 80 80 80H64L46 100L48 80H40Q22 80 22 62Z" fill="#2D2FEF" stroke="#241F45" stroke-width="4" stroke-linejoin="round"/>
+      <g class="chat-eyes"><ellipse class="chat-eye" cx="46" cy="44" rx="7" ry="9" fill="#fff"/><ellipse class="chat-eye" cx="74" cy="44" rx="7" ry="9" fill="#fff"/><circle cx="47" cy="46" r="3.6" fill="#241F45"/><circle cx="75" cy="46" r="3.6" fill="#241F45"/></g>
+      <path d="M48 60Q60 72 72 60" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="37" cy="58" r="4" fill="#FF7A45" opacity=".85"/><circle cx="83" cy="58" r="4" fill="#FF7A45" opacity=".85"/>
+    </g>
+    <g class="chat-q"><circle cx="98" cy="20" r="16" fill="#FF7A45" stroke="#241F45" stroke-width="3.5"/><text x="98" y="28" text-anchor="middle" font-family="Montserrat,Arial,sans-serif" font-weight="800" font-size="22" fill="#fff">?</text></g>
+    <path class="chat-star s1" d="M12 24l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="#FFD8C2" stroke="#241F45" stroke-width="2"/>
+    <path class="chat-star s2" d="M108 70l2.5 5.5 5.5 2.5-5.5 2.5-2.5 5.5-2.5-5.5-5.5-2.5 5.5-2.5z" fill="#FF7A45" stroke="#241F45" stroke-width="2"/>
+    <path class="chat-star s3" d="M22 96l2 4.5 4.5 2-4.5 2-2 4.5-2-4.5-4.5-2 4.5-2z" fill="#fff" stroke="#241F45" stroke-width="2"/>
+  </svg>`;
+  const btn = el("button", "chat-fab"); btn.type = "button"; btn.setAttribute("aria-label", "Hỏi Lan Anh: mở khung chat"); btn.title = "Hỏi Lan Anh";
+  btn.innerHTML = STICKER;
+  const tip = el("span", "chat-tip"); tip.setAttribute("aria-hidden", "true"); btn.appendChild(tip);
   const badge = el("b", "chat-dot"); badge.hidden = true; btn.appendChild(badge);
   const box = el("section", "chat-box"); box.hidden = true; box.setAttribute("aria-label", "Chat với Lan Anh");
   const head = el("div", "chat-head"); head.appendChild(el("b", "", "💬 Hỏi Lan Anh"));
@@ -50,7 +67,11 @@
     if (on) { seenAdmin = adminCount(); LS("lm-chat-seen", String(seenAdmin)); render(); pull(); setTimeout(() => text.focus(), 50); }
     schedule();
   }
-  btn.onclick = () => toggle(true); x.onclick = () => toggle(false);
+  btn.onclick = () => { btn.classList.add("pop"); tip.classList.remove("on"); setTimeout(() => btn.classList.remove("pop"), 400); toggle(true); }; x.onclick = () => toggle(false);
+  // Lời chào nhấp nháy định kỳ để thu hút (chỉ khi khung đóng và tab đang xem)
+  const HELLO = ["Hỏi mình nhé! 💬", "Có thắc mắc gì không? ✨", "Mình trả lời liền! 🚀", "Bí khoá học nào? Hỏi đi 👋"]; let hi = 0;
+  const hello = () => { if (openState || document.visibilityState !== "visible" || !badge.hidden) return; tip.textContent = HELLO[hi++ % HELLO.length]; tip.classList.add("on"); setTimeout(() => tip.classList.remove("on"), 4200); };
+  setTimeout(() => { hello(); setInterval(hello, 14000); }, 3500);
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && openState) toggle(false); });
   form.onsubmit = async (e) => {
     e.preventDefault(); err.textContent = "";
