@@ -728,9 +728,94 @@ function formatAny_(sh) {
   sh.getRange(1, 1, Math.max(sh.getMaxRows(), 2), cols).createFilter();
 }
 
-// Menu trong Google Sheet: định dạng lại mọi tab theo template khi có tab mới.
+/* ================== THÔNG BÁO KHI MỞ SHEET ==================
+ * Mở Sheet là hiện bảng "Thông báo LANHMAR": số yêu cầu truy cập đang chờ, số tin chat cần giải đáp, v.v.
+ * Dùng simple trigger onOpen (chỉ đọc Sheet đang mở), nên không cần thêm quyền. Menu LANHMAR → Xem thông báo để xem lại. */
+
+// Tính số liệu thông báo từ dữ liệu 2 tab (hàm thuần, dễ kiểm tra).
+function noticeCalc_(reqRows, chatRows, itemsCount) {
+  var out = { pending: 0, ready: 0, waiting: 0, approvedNoDonate: 0, total: 0, pendingList: [], threads: 0, msgs: 0, chatList: [], items: itemsCount || 0 };
+  for (var i = 1; i < reqRows.length; i++) {
+    var r = reqRows[i];
+    if (!String(r[2] || '').trim()) continue;
+    out.total++;
+    var st = String(r[5] || ''), dn = String(r[9] || '');
+    var paid = dn === 'Đã nhận' || dn.indexOf('Miễn') === 0;
+    if (st === 'Pending') {
+      out.pending++;
+      if (paid) out.ready++; else out.waiting++;
+      if (out.pendingList.length < 5) out.pendingList.push({ name: String(r[1] || ''), email: String(r[2] || ''), paid: paid });
+    } else if (st === 'Approved' && (dn === '' || dn === 'Chưa nhận')) out.approvedNoDonate++;
+  }
+  // Theo từng cuộc chat: cuộc nào có tin cuối là của khách thì cần giải đáp; đếm tin khách gửi sau câu trả lời cuối của chủ
+  var last = {}, order = [], lastAdmin = {}, unanswered = {};
+  for (var j = 1; j < chatRows.length; j++) {
+    var c = chatRows[j], th = String(c[1] || '');
+    if (!th) continue;
+    if (!last[th]) { order.push(th); unanswered[th] = 0; }
+    var who = String(c[4] || '');
+    last[th] = { who: who, name: String(c[2] || 'Khách'), text: String(c[5] || '') };
+    if (who === 'Admin') unanswered[th] = 0; else unanswered[th]++;
+  }
+  order.forEach(function (th) {
+    if (last[th].who === 'Khách') {
+      out.threads++;
+      out.msgs += unanswered[th];
+      out.chatList.push({ thread: th, name: last[th].name, text: last[th].text.slice(0, 70) });
+    }
+  });
+  out.chatList = out.chatList.slice(-5).reverse();
+  return out;
+}
+
+function noticeEsc_(t) {
+  return String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function noticeHtml_(n) {
+  function card(num, label, bg, fg, detail) {
+    return '<div style="display:flex;gap:12px;align-items:flex-start;background:' + bg + ';border-radius:14px;padding:12px 14px;margin:8px 0">' +
+      '<div style="font:800 28px/1 Arial;color:' + fg + ';min-width:38px;text-align:center">' + num + '</div>' +
+      '<div style="flex:1"><div style="font:700 14px Arial;color:' + fg + '">' + label + '</div>' + (detail ? '<div style="font:12px/1.5 Arial;color:#241F45;margin-top:4px">' + detail + '</div>' : '') + '</div></div>';
+  }
+  var parts = [];
+  if (n.pending) {
+    var det = n.pendingList.map(function (p) { return '• ' + noticeEsc_(p.name) + ' (' + noticeEsc_(p.email) + ')' + (p.paid ? ' <b style="color:#17633A">đã có donate, duyệt được</b>' : ' <i>chờ donate</i>'); }).join('<br>');
+    parts.push(card(n.pending, 'yêu cầu truy cập web đang chờ duyệt' + (n.ready ? ' · ' + n.ready + ' sẵn sàng duyệt' : ''), '#FFF4CC', '#7A5B00', det + '<br>Mở tab <b>Requests</b>, đổi Trạng thái thành Approved.'));
+  }
+  if (n.threads) {
+    var d2 = n.chatList.map(function (c) { return '• <b>' + noticeEsc_(c.name) + '</b>: ' + noticeEsc_(c.text); }).join('<br>');
+    parts.push(card(n.threads, 'cuộc chat cần giải đáp' + (n.msgs > n.threads ? ' (' + n.msgs + ' tin chưa trả lời)' : ''), '#E7E2FB', '#2D2FEF', d2 + '<br>Trả lời trong Telegram bằng Reply (hoặc <b>/r mã nội dung</b>).'));
+  }
+  if (n.approvedNoDonate) parts.push(card(n.approvedNoDonate, 'người đã duyệt nhưng chưa ghi donate', '#FBDADA', '#8E1B1B', 'Vào Requests, cột Donate chọn "Đã nhận" hoặc "Miễn".'));
+  if (!parts.length) return '';
+  var foot = '<div style="font:12px Arial;color:#55507A;margin-top:10px;border-top:1px dashed #D6CEF7;padding-top:8px">Tổng ' + n.total + ' yêu cầu · ' + n.items + ' mục đang chia sẻ. Mở lại bảng này: menu <b>LANHMAR → Xem thông báo</b>.</div>';
+  return '<div style="font-family:Arial,sans-serif;padding:4px 2px"><div style="font:800 18px Arial;color:#2D2FEF;margin-bottom:2px">★ LANHMAR · Cần xử lý</div>' + parts.join('') + foot +
+    '<div style="text-align:right;margin-top:10px"><button onclick="google.script.host.close()" style="background:#FF7A45;color:#241F45;border:2px solid #241F45;border-radius:999px;padding:8px 20px;font:700 13px Arial;cursor:pointer">Đã xem</button></div></div>';
+}
+
+function showNotices_() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var req = ss.getSheetByName(REQ), chat = ss.getSheetByName(CHAT), items = ss.getSheetByName(ITEMS);
+  var reqRows = req ? req.getDataRange().getValues() : [[]];
+  var chatRows = chat ? chat.getDataRange().getValues() : [[]];
+  var itemsCount = 0;
+  if (items && items.getLastRow() > 1) items.getRange(2, 1, items.getLastRow() - 1, 1).getValues().forEach(function (r) { if (r[0]) itemsCount++; });
+  var n = noticeCalc_(reqRows, chatRows, itemsCount);
+  var html = noticeHtml_(n);
+  if (!html) { ss.toast('Không có việc cần xử lý ✔ (' + n.total + ' yêu cầu, ' + n.items + ' mục chia sẻ)', 'LANHMAR', 6); return; }
+  var blocks = (n.pending ? 1 : 0) + (n.threads ? 1 : 0) + (n.approvedNoDonate ? 1 : 0);
+  SpreadsheetApp.getUi().showModelessDialog(HtmlService.createHtmlOutput(html).setWidth(480).setHeight(Math.min(560, 150 + 120 * blocks)), 'Thông báo LANHMAR');
+}
+
+function showNotices() { showNotices_(); }
+
+// Chạy tự động khi mở Sheet: tạo menu LANHMAR và hiện bảng thông báo.
 function onOpen() {
-  try { SpreadsheetApp.getUi().createMenu('LANHMAR').addItem('Định dạng lại tất cả tab', 'formatSheets').addToUi(); } catch (e) {}
+  try {
+    SpreadsheetApp.getUi().createMenu('LANHMAR').addItem('Xem thông báo', 'showNotices').addItem('Định dạng lại tất cả tab', 'formatSheets').addToUi();
+  } catch (e) {}
+  try { showNotices_(); } catch (e2) {}
 }
 
 /* ================== TAB HƯỚNG DẪN ==================
@@ -751,6 +836,7 @@ function guideRows_(t) {
     ['R', 'Duyệt người xem', '1) Có người đăng ký: bot Telegram báo tên, email và "Nội dung CK" (LM + mã).\n2) Đối chiếu sao kê ngân hàng, thấy tiền thì vào Requests: cột Donate = "Đã nhận", điền Số tiền và Ngày nhận.\n3) Cột Gợi ý hiện "CÓ THỂ DUYỆT" thì đổi Trạng thái thành Approved.', 'Người xem vào Data Storage bằng email + mã. Thu quyền: Revoked. Từ chối: Rejected. Khoá KesFlow hoặc trường hợp đặc biệt: Donate = Miễn.'],
     ['R', 'Chia sẻ mục từ Kho', 'Trong Kho cá nhân: thêm/sửa mục, tích "Chia sẻ mục này trong Data Storage", rồi bấm "Đồng bộ Storage" ở chân trang và nhập ADMIN_KEY.', 'Tab Items cập nhật ngay. Bỏ tích rồi đồng bộ lại để gỡ mục khỏi Storage.'],
     ['R', 'Trả lời chat', 'Khách gửi tin trong khung chat 💬. Bot LanhMar Contact Bot nhắn bạn kèm "Mã hội thoại".\nTrả lời: bấm Reply vào đúng tin của bot, hoặc gõ /r <mã> nội dung.', 'Câu trả lời hiện trên web sau khoảng 1 đến 2 phút. Tab Chat ghi cả hai chiều.'],
+    ['R', 'Bảng thông báo khi mở Sheet', 'Mở Sheet là hiện bảng "Cần xử lý": số yêu cầu truy cập đang chờ duyệt, số cuộc chat chưa giải đáp, số người đã duyệt nhưng chưa ghi donate. Không có việc gì thì hiện thông báo nhỏ "Không có việc cần xử lý".', 'Xem lại: menu LANHMAR → Xem thông báo. Bảng chỉ đọc dữ liệu, không thay đổi gì.'],
     ['R', 'Tin AI News', 'Tự lấy tin 10 hãng AI và bản phát hành Claude Code, dịch sang tiếng Việt, cache 5 phút.', 'Trên web bấm "Làm mới" nếu cần ngay.'],
 
     ['S', '3. ĐỒNG BỘ VỚI WEBSITE: LÀM ĐÚNG ĐỂ KHÔNG HỎNG'],

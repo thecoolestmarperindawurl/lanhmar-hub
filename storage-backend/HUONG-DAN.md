@@ -132,3 +132,12 @@ Khung chat 💬 hiện ở góc phải của `kho.html` (cả màn hình khoá) 
 Sheet Storage có thêm tab **Hướng dẫn** (đứng sau Dashboard) để bạn xem lại khi quên: tab nào làm gì, quy trình duyệt người xem, chia sẻ mục, trả lời chat, những điều **không được làm** để Sheet vẫn đồng bộ với website (không đổi tên tab, không đổi hàng tiêu đề và thứ tự cột, chỉ sửa các cột cho phép), cách sửa code và triển khai đúng (sửa triển khai cũ, không tạo mới), các Script property cần có, xử lý sự cố và bảo mật. Có liên kết nhanh tới các tab, Kho, Data Storage và GitHub.
 
 Tab này do code tạo: chạy hàm `setup` hoặc menu **LANHMAR → Định dạng lại tất cả tab** sẽ làm mới nội dung theo bản code mới nhất. Ghi chú riêng của bạn nên để ở tab khác.
+
+## 11. Bảng thông báo khi mở Sheet
+
+Mỗi lần mở Google Sheet Storage, bảng **"Cần xử lý"** tự hiện (cửa sổ nhỏ, bấm **Đã xem** để đóng) với:
+- số yêu cầu truy cập web đang chờ duyệt (kèm tên, email, ai đã có donate và duyệt được),
+- số cuộc chat cần giải đáp và số tin chưa trả lời (kèm nội dung rút gọn),
+- số người đã duyệt nhưng chưa ghi donate.
+
+Nếu không có việc gì, chỉ hiện thông báo nhỏ "Không có việc cần xử lý ✔". Xem lại bảng bất cứ lúc nào: menu **LANHMAR → Xem thông báo**. Bảng chỉ đọc dữ liệu, không sửa gì, và không cần thêm quyền. Sau khi dán `Code.gs` mới, tải lại Sheet (F5) để bảng hiện.
