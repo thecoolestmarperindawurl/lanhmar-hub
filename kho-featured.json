@@ -3851,6 +3851,236 @@
           "t": "Thông tin về web lấy từ phần giới thiệu của chính trang (qua kết quả tìm kiếm ngày 27/10/2026), vì mình chưa mở trực tiếp được web. Số liệu có thể đã thay đổi, hãy vào web để xem bản mới nhất."
         }
       ]
+    },
+    {
+      "id": "tool-facebook-cli",
+      "kho": "tool",
+      "guide": true,
+      "date": "2026-10-27",
+      "title": "facebook-cli (fb): Facebook và Messenger cho AI agent",
+      "type": "Repo GitHub",
+      "badge": "Repo",
+      "tags": [
+        "facebook",
+        "messenger",
+        "cli",
+        "rust"
+      ],
+      "thumb": "assets/res/tool-facebook-cli.jpg",
+      "note": "CLI Rust một file điều khiển Chrome đã đăng nhập Facebook của bạn: đọc feed, hồ sơ, bạn bè, tìm kiếm; đọc và gửi tin Messenger; đăng bài, bình luận, react, xoá. Đầu ra gọn cho AI agent. Giấy phép MIT.",
+      "cta": {
+        "title": "hieu-lee/facebook-cli",
+        "url": "https://github.com/hieu-lee/facebook-cli",
+        "btn": "Mở repo GitHub"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "fb là công cụ dòng lệnh để AI agent (và bạn) dùng Facebook và Messenger. Nó điều khiển một Chrome chạy ngầm, đã đăng nhập sẵn tài khoản của bạn, và trả dữ liệu dạng dòng văn bản gọn để tiết kiệm token."
+        },
+        {
+          "k": "h",
+          "t": "Thông tin repo"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Mục",
+            "Chi tiết"
+          ],
+          "rows": [
+            [
+              "Tác giả",
+              "hieu-lee"
+            ],
+            [
+              "Địa chỉ",
+              "github.com/hieu-lee/facebook-cli"
+            ],
+            [
+              "Tên lệnh",
+              "fb"
+            ],
+            [
+              "Ngôn ngữ",
+              "Rust (phần điều khiển trang viết bằng JavaScript)"
+            ],
+            [
+              "Phiên bản",
+              "0.1.5 (theo Cargo.toml lúc mình đọc, commit mới nhất 26/10/2026)"
+            ],
+            [
+              "Giấy phép",
+              "MIT (kèm thông báo Apache 2.0 cho một phần xử lý phím macOS)"
+            ],
+            [
+              "Hệ điều hành",
+              "Linux, macOS, Windows (gốc hoặc WSL2)"
+            ],
+            [
+              "Yêu cầu",
+              "Cài Google Chrome và đã đăng nhập Facebook trong Chrome thường dùng"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Điểm nổi bật"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Một tiến trình nền giữ kết nối Chrome, mỗi lệnh chạy trong một tab riêng nên chạy song song được (fb batch).",
+            "Chrome chạy ngầm, không hiện cửa sổ, không cướp focus. Phiên đăng nhập được sao chép một lần vào hồ sơ Chrome riêng của fb.",
+            "Đầu ra tối giản: dòng cách nhau bằng tab, không tiêu đề, mã tham chiếu 5 ký tự (p3k9a, c8x2f…) dùng lại được ở mọi lệnh.",
+            "fb help chỉ khoảng 450 token, hợp cho AI agent đọc nhanh.",
+            "Nhận diện nút đăng, đối tượng, xoá bằng nhãn tiếng Anh, tiếng Việt và tiếng Pháp."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cài đặt (3 bước)"
+        },
+        {
+          "k": "code",
+          "cap": "Linux, macOS, WSL",
+          "t": "curl -fsSL https://raw.githubusercontent.com/hieu-lee/facebook-cli/main/install.sh | sh"
+        },
+        {
+          "k": "code",
+          "cap": "Windows (PowerShell)",
+          "t": "irm https://raw.githubusercontent.com/hieu-lee/facebook-cli/main/install.ps1 | iex"
+        },
+        {
+          "k": "code",
+          "cap": "Đăng nhập một lần rồi dùng thử",
+          "t": "fb login        # sao chép phiên Facebook từ Chrome thường dùng, bấm Allow một lần\nfb feed -n 3\nfb help"
+        },
+        {
+          "k": "p",
+          "t": "Mẹo của mình: trước khi chạy lệnh cài đặt dạng curl | sh, hãy mở file install.sh trên GitHub đọc qua một lượt."
+        },
+        {
+          "k": "h",
+          "t": "Các lệnh chính"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Nhóm",
+            "Lệnh",
+            "Việc làm"
+          ],
+          "rows": [
+            [
+              "Đọc",
+              "fb feed, posts, view, profile, friends, search, notifs",
+              "Xem bảng tin, bài của một người hoặc trang, bình luận, hồ sơ, bạn bè, tìm kiếm, thông báo"
+            ],
+            [
+              "Messenger",
+              "fb chats, read, send, unsend, unlock",
+              "Danh sách chat, đọc tin, gửi tin và tệp (tới 25MB), thu hồi tin, mở khoá chat mã hoá đầu cuối bằng PIN"
+            ],
+            [
+              "Hành động",
+              "fb post, comment, react, delete",
+              "Đăng bài (kèm ảnh, chọn đối tượng), bình luận, react, xoá bài của chính bạn (vào Thùng rác)"
+            ],
+            [
+              "Khác",
+              "fb batch, login, status, stop, quit, eval, shot, ax",
+              "Chạy nhiều lệnh song song, quản lý phiên, chạy JS, chụp màn hình, xem cây truy cập"
+            ],
+            [
+              "Trang bất kỳ",
+              "fb page TÊN open, snapshot, click, fill, key, shot",
+              "Thao tác tuỳ ý trên một trang có tên (cài đặt, quản trị nhóm…) mà không cần đổ cả DOM"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Biến cấu hình"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Biến",
+            "Ý nghĩa"
+          ],
+          "rows": [
+            [
+              "FB_TIMEOUT",
+              "Số giây tối đa mỗi lệnh (mặc định 150)"
+            ],
+            [
+              "FB_TABS",
+              "Số tab lệnh chạy cùng lúc (mặc định 10, trang có tên tối đa 6)"
+            ],
+            [
+              "FB_IDLE",
+              "Tự thoát sau số giây rảnh (mặc định 900) và đóng Chrome"
+            ],
+            [
+              "FB_PROFILE / FB_STATE",
+              "Thư mục hồ sơ Chrome và thư mục trạng thái (mặc định trong ~/.cache/fb)"
+            ],
+            [
+              "FB_CDP",
+              "Dùng một Chrome bạn tự mở với cổng gỡ lỗi thay cho Chrome ngầm"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Lưu ý quan trọng trước khi dùng"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Điều khoản của Facebook hạn chế truy cập tự động. Chỉ dùng cho tài khoản của chính bạn, với tần suất như người thật, và chấp nhận rủi ro bị hạn chế tài khoản. Đây là nhận định của chính README repo.",
+            "Cookie đăng nhập nằm trong hồ sơ ~/.cache/fb (hoặc %LOCALAPPDATA%\\fb trên Windows). Ai đọc được thư mục này có thể dùng phiên của bạn, hãy coi như mật khẩu.",
+            "Chrome ngầm được điều khiển qua giao thức DevTools trên cổng 127.0.0.1 ngẫu nhiên, không có xác thực. Chỉ dùng trên máy cá nhân, không dùng trên máy dùng chung.",
+            "Lệnh đăng bài, bình luận, gửi tin, xoá là hành động thật trên tài khoản. Với AI agent, nên cho thử ở chế độ chỉ đọc trước và yêu cầu xác nhận trước khi đăng hoặc gửi.",
+            "Giao diện Facebook đổi bất cứ lúc nào nên công cụ có thể cần cập nhật. Repo ghi rõ không hứa mọi tính năng đều được kiểm thử.",
+            "Chat mã hoá đầu cuối cần PIN Messenger: truyền qua biến FB_PIN hoặc stdin, không đưa vào đối số lệnh."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Ý tưởng dùng trong Kho"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Nhờ AI agent đọc và tóm tắt tin nhắn, thông báo, bài viết trong nhóm marketing quan tâm.",
+            "Soạn nháp bài đăng bằng AI rồi dùng fb post ... --to me để đăng thử ở chế độ chỉ mình tôi trước khi công khai.",
+            "Ghép với các khoá AI Agent (Agent Boss, KesFlow) trong Kho để làm trợ lý quản lý fanpage."
+          ]
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "Repo GitHub hieu-lee/facebook-cli",
+              "u": "https://github.com/hieu-lee/facebook-cli"
+            },
+            {
+              "t": "Trang cài đặt (install.sh)",
+              "u": "https://github.com/hieu-lee/facebook-cli/blob/main/install.sh"
+            },
+            {
+              "t": "Tài liệu lỗi và cam kết (tests/FAILURES.md)",
+              "u": "https://github.com/hieu-lee/facebook-cli/blob/main/tests/FAILURES.md"
+            }
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Thông tin lấy từ README, LICENSE và Cargo.toml của repo (đọc ngày 27/10/2026). Mình chưa chạy thử công cụ này. Số sao, số lượt tải và lịch sử phát hành chưa kiểm tra."
+        }
+      ]
     }
   ]
 }
