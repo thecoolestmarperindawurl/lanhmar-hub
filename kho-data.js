@@ -5,8 +5,8 @@ window.KHO = [
   { id: "design", name: "Kho Design", icon: "◐", desc: "Tài nguyên cho Adobe, Canva, Figma..." },
   { id: "edit", name: "Kho Edit", icon: "▶", desc: "Tài nguyên cho CapCut, Premiere, After Effects..." },
   { id: "tool", name: "Kho Tool", icon: "⚙", desc: "Repo GitHub và công cụ hữu ích" },
-  { id: "knowledge", name: "Kho Knowledge", icon: "✎", desc: "Kiến thức khoá học đã học / sắp học, kho ebook",
-    groups: [{ id: "ebook", name: "Kho Ebook", icon: "📚" }, { id: "vuonuom", name: "Vườn Ươm Khu Phố", icon: "🌱" }, { id: "mkproject", name: "Marketing Project", icon: "🎓" }, { id: "course", name: "Khoá học & ghi chú", icon: "✎" }] },
+  { id: "knowledge", name: "Kho Knowledge", icon: "✎", desc: "Kho ebook, khoá học theo Academy, Marketing Project",
+    groups: [{ id: "ebook", name: "Kho Ebook", icon: "📚" }, { id: "vuonuom", name: "Vườn Ươm Khu Phố", icon: "🌱" }, { id: "mkproject", name: "Marketing Project", icon: "🎓" }], strictGroups: true },
   { id: "idea", name: "Kho Idea", icon: "★", desc: "Ý tưởng content, sản phẩm, dự án muốn thử" }
 ];
 
@@ -19,7 +19,5 @@ window.ITEMS = [
   { id: "s6", kho: "edit", title: "CapCut – hiệu ứng & template", url: "https://www.capcut.com", note: "Gom template trend, âm thanh, preset màu.", tags: ["capcut", "template"], type: "Template", date: "2026-10-22" },
   { id: "s7", kho: "edit", title: "Premiere Pro – phím tắt", url: "https://helpx.adobe.com/premiere-pro/using/keyboard-shortcuts.html", note: "Bảng phím tắt tăng tốc dựng.", tags: ["premiere", "phím tắt"], type: "Tài liệu", date: "2026-10-22" },
   { id: "s8", kho: "tool", title: "awesome (GitHub topic)", url: "https://github.com/topics/awesome", note: "Danh sách tuyển chọn repo hay theo chủ đề.", tags: ["github", "danh sách"], type: "Repo", date: "2026-10-22" },
-  { id: "s9", kho: "knowledge", title: "Khoá học đang học – (tên khoá)", url: "", note: "Ghi tiến độ, bài học chính, việc cần áp dụng.", tags: ["đang học"], type: "Khoá học", date: "2026-10-22" },
-  { id: "s10", kho: "knowledge", title: "Khoá học sắp học – (tên khoá)", url: "", note: "Lý do muốn học, deadline dự kiến.", tags: ["sắp học"], type: "Khoá học", date: "2026-10-22" },
   { id: "s11", kho: "idea", title: "Ý tưởng mẫu – (đặt tên ý tưởng)", url: "", note: "Ghi nhanh ý tưởng, bước đầu tiên và trạng thái (mới / đang thử / xong).", tags: ["mới"], type: "Ý tưởng", date: "2026-10-22" }
 ];

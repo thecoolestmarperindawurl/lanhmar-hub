@@ -1,6 +1,6 @@
 # Quy trình lưu khoá học vào Kho Knowledge
 
-Mỗi khoá học là một thẻ trong `kho-featured.json` (nhóm `course` của Kho Knowledge) với cấu trúc: tổng quan, “Bạn sẽ học được gì”, các phần/module, từng bài kèm thời lượng.
+Mỗi khoá học là một thẻ trong `kho-featured.json` (nhóm Academy của Kho Knowledge, mặc định `vuonuom`, đổi bằng `--group`) với cấu trúc: tổng quan, “Bạn sẽ học được gì”, các phần/module, từng bài kèm thời lượng.
 
 ## Cách nhanh: từ trang LMS
 1. Mở khoá học trên LMS đã đăng nhập, cuộn tới mục **Nội dung khoá học** cho trang tải đủ, rồi **Lưu trang (Ctrl+S → Webpage, HTML only/Complete)**.
@@ -18,7 +18,7 @@ Nếu script báo “Không tìm thấy phần/bài nào”, trang dựng bằng
 ```json
 {
   "id": "knowledge-ten-khoa-hoc",
-  "kho": "knowledge", "group": "course", "guide": true,
+  "kho": "knowledge", "group": "vuonuom", "guide": true,
   "date": "YYYY-MM-DD",
   "title": "Tên khoá (đơn vị)", "type": "Khoá học", "badge": "Đã học",
   "tags": ["khoá học"],
@@ -39,4 +39,3 @@ Các kiểu mục dùng được: `callout`, `h`, `p`, `list`, `steps`, `table`,
 ## Lưu ý
 - Chỉ ghi dữ liệu có trong trang. Tổng thời lượng tự cộng thì phải ghi chú là tự tính.
 - Không đưa email, mật khẩu, token, đường dẫn video riêng tư vào file.
-- Thêm một dòng cho khoá đó vào bảng “Khoá học đã học” (id `knowledge-courses-done`).

@@ -9,6 +9,7 @@ Script chỉ lấy tên khoá, mục "Bạn sẽ học được gì", các phầ
 """
 import argparse, html, json, re, sys, unicodedata
 
+GROUP = "vuonuom"
 DUR = re.compile(r"^\d{1,2}:\d{2}(:\d{2})?$")
 LESSON = re.compile(r"^(\d+)\.\s+(.*)$")
 PART = re.compile(r"^Phần\s+\d+\s*:?$")
@@ -48,7 +49,8 @@ def parse(lines):
                 cur["lessons"].append((m.group(2), lines[k + 1]))
     return title, learn, updated, total, parts
 
-def build(path, url, org, status):
+def build(path, url, org, status, group="vuonuom"):
+    global GROUP; GROUP = group
     title, learn, updated, total, parts = parse(read_lines(path))
     if not parts: sys.exit("Không tìm thấy phần/bài nào: file có thể thiếu nội dung (trang dựng bằng JavaScript). Hãy lưu lại sau khi trang tải xong.")
     n = sum(len(p["lessons"]) for p in parts)
@@ -59,7 +61,7 @@ def build(path, url, org, status):
     for p in parts:
         sec.append({"k": "h", "t": p["t"] + (f" ({p['sub']})" if p["sub"] else "")})
         sec.append({"k": "steps", "items": [{"t": a, "d": d} for a, d in p["lessons"]]})
-    item = {"id": "knowledge-" + slug(title), "kho": "knowledge", "group": "course", "guide": True,
+    item = {"id": "knowledge-" + slug(title), "kho": "knowledge", "group": GROUP, "guide": True,
             "date": __import__("datetime").date.today().isoformat(), "title": title, "type": "Khoá học",
             "badge": status or "Khoá học", "tags": ["khoá học"] + ([slug(org)] if org else []),
             "thumb": "assets/res/knowledge-courses.jpg",
@@ -70,10 +72,10 @@ def build(path, url, org, status):
 if __name__ == "__main__":
     a = argparse.ArgumentParser()
     a.add_argument("html"); a.add_argument("--url", default=""); a.add_argument("--org", default="")
-    a.add_argument("--status", default="Đã học"); a.add_argument("--add", action="store_true")
+    a.add_argument("--status", default="Đã học"); a.add_argument("--group", default="vuonuom"); a.add_argument("--add", action="store_true")
     a.add_argument("--featured", default="kho-featured.json")
     o = a.parse_args()
-    item = build(o.html, o.url, o.org, o.status)
+    item = build(o.html, o.url, o.org, o.status, o.group)
     if not o.add:
         print(json.dumps(item, ensure_ascii=False, indent=2)); sys.exit()
     d = json.load(open(o.featured, encoding="utf-8"))

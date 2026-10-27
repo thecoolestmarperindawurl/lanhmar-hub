@@ -218,7 +218,8 @@ window.Res = (() => {
 
   /* ---------- mục con của kho (ví dụ Kho AI: AI News / AI Agent / Khác) ---------- */
   const khoGroups = (kho) => ((window.KHO || []).find((k) => k.id === kho) || {}).groups || null;
-  const groupOf = (i, groups) => (groups.some((g) => g.id === i.group) ? i.group : groups[groups.length - 1].id);
+  const strictKho = (k) => !!((window.KHO || []).find((x) => x.id === k) || {}).strictGroups; // kho này không gom mục chưa phân nhóm vào nhóm cuối
+  const groupOf = (i, groups) => (groups.some((g) => g.id === i.group) ? i.group : strictKho(i.kho) ? "" : groups[groups.length - 1].id);
   function groupPills(kho, arr, grp) {
     const gs = khoGroups(kho); if (!gs) return "";
     const cnt = (id) => arr.filter((i) => groupOf(i, gs) === id).length;
@@ -230,10 +231,11 @@ window.Res = (() => {
     if (!list.length) return "";
     const gs = khoGroups(kho);
     if (!gs) return list.map(cardOf).join("");
+    const loose = !grp && strictKho(kho) ? list.filter((i) => groupOf(i, gs) === "").map(cardOf).join("") : "";
     return gs.filter((g) => !grp || g.id === grp).map((g) => {
       const part = list.filter((i) => groupOf(i, gs) === g.id);
       return part.length ? `<h3 class="grp-h">${g.icon || ""} ${esc(g.name)} <small>${part.length}</small></h3>` + part.map(cardOf).join("") : "";
-    }).join("");
+    }).join("") + loose;
   }
   const groupSelectHtml = (kho, cur) => { const gs = khoGroups(kho); return gs ? gs.map((g) => `<option value="${esc(g.id)}" ${g.id === cur ? "selected" : ""}>${esc(g.name)}</option>`).join("") : ""; };
 
