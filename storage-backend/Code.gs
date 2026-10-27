@@ -175,7 +175,7 @@ function news_() {
     return json_(last ? JSON.parse(last) : { ok: false });
   }
   var s = JSON.stringify(out);
-  if (s.length < 90000) { cache.put('news', s, 1800); cache.put('news_last', s, 21600); }
+  if (s.length < 90000) { cache.put('news', s, 300); cache.put('news_last', s, 21600); }
   return json_(out);
 }
 
@@ -233,7 +233,7 @@ function aiNews_(id) {
     }
   } catch (e) {}
   var out = { ok: items.length > 0, c: id, updated: new Date().toISOString(), items: items };
-  if (items.length) { var j = JSON.stringify(out); if (j.length < 90000) cache.put(key, j, 1800); }
+  if (items.length) { var j = JSON.stringify(out); if (j.length < 90000) cache.put(key, j, 300); }
   return json_(out);
 }
 

@@ -204,3 +204,4 @@ table.rank-t{width:calc(100% - 52px);margin:0 26px 6px;border-collapse:collapse;
 .g-fd-s{font-size:26px;line-height:1.3;color:var(--purple-deep);margin:4px 0;word-break:break-word}
 .g-fd-i p{margin:0;font-size:12px}
 .res-cta-btns{display:flex;gap:10px;flex-wrap:wrap}.res-cta-btns .orange-btn{text-decoration:none;text-align:center}
+.news-refresh{margin-left:8px;padding:4px 12px;font-size:12px}.news-refresh[disabled]{opacity:.6}

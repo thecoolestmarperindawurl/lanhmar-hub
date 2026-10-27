@@ -1,7 +1,7 @@
 /* Tài nguyên nổi bật (kho-featured.json):
    - Thẻ tài liệu: thumbnail nhỏ, bấm mở cửa sổ giới thiệu + demo + link file ở cuối.
    - Thẻ LIVE: "claude" (bản phát hành Claude Code), "ainews" (tin 10 hãng AI, lọc theo hãng), "ranking" (xếp hạng công ty AI).
-   Tin lấy qua Apps Script (cache 30 phút), tóm tắt tiếng Việt, báo "mới" + thông báo nổi.
+   Tin lấy qua Apps Script (cache máy chủ 5 phút, web tự làm mới mỗi 5 phút khi đang mở), tóm tắt tiếng Việt, báo "mới" + thông báo nổi.
    Dùng chung cho Kho cá nhân (kho.js) và Data Storage (storage.js). */
 window.Res = (() => {
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -9,6 +9,8 @@ window.Res = (() => {
   const fmtDate = (d) => (/^\d{4}-\d{2}-\d{2}$/.test(d || "") ? d.split("-").reverse().join("/") : d || "");
   const API = () => (window.STORAGE_API || "").trim();
   let list = [], feeds = null;
+  const TTL = 2 * 60e3;   // cache trình duyệt
+  let live = null, keepScroll = null, notified = 0, lastRefresh = Date.now();
   const ai = {}; // id hãng -> { items, updated }
 
   async function load() {
@@ -29,15 +31,18 @@ window.Res = (() => {
     const r = await fetch(API(), { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(body) });
     return r.json();
   }
-  async function loadAi(id) {
+  async function loadAi(id, force) {
+    const prev = ai[id];
+    if (force) { delete ai[id]; try { sessionStorage.removeItem("lm-ai-" + id); } catch {} }
     if (ai[id]) return ai[id];
-    try { const c = JSON.parse(sessionStorage.getItem("lm-ai-" + id)); if (c && Date.now() - c.t < 10 * 60e3) return (ai[id] = c.v); } catch {}
+    try { const c = JSON.parse(sessionStorage.getItem("lm-ai-" + id)); if (c && Date.now() - c.t < TTL) return (ai[id] = c.v); } catch {}
     if (!API()) return null;
     try {
       const j = await post({ action: "ainews", c: id });
       if (j.ok) { ai[id] = j; try { sessionStorage.setItem("lm-ai-" + id, JSON.stringify({ t: Date.now(), v: j })); } catch {} baseline("ai-" + id, j.items); return j; }
     } catch {}
-    return null;
+    if (prev) ai[id] = prev; // làm mới lỗi thì giữ tin cũ
+    return prev || null;
   }
 
   /* ---------- mốc "đã xem" + tin mới ---------- */
@@ -57,27 +62,51 @@ window.Res = (() => {
     clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("on"), 7000);
   }
 
-  async function loadFeeds() {
+  async function loadFeeds(force) {
     if (!API() || !list.some((i) => i.feed)) return null;
+    const prevFeeds = feeds;
+    if (force) { feeds = null; try { sessionStorage.removeItem("lm-news"); } catch {} }
     const tasks = [];
     if (list.some((i) => i.feed === "claude")) {
       tasks.push((async () => {
-        try { const c = JSON.parse(sessionStorage.getItem("lm-news")); if (c && Date.now() - c.t < 10 * 60e3) feeds = c.v; } catch {}
+        try { const c = JSON.parse(sessionStorage.getItem("lm-news")); if (c && Date.now() - c.t < TTL) feeds = c.v; } catch {}
         if (!feeds) { try { const j = await post({ action: "news" }); if (j.ok) { feeds = j; try { sessionStorage.setItem("lm-news", JSON.stringify({ t: Date.now(), v: j })); } catch {} } } catch {} }
         if (feeds) baseline("claude", feeds.claude);
       })());
     }
     const an = list.find((i) => i.feed === "ainews");
-    if (an) (an.companies || []).slice(0, 3).forEach((c) => tasks.push(loadAi(c.id))); // nạp trước 3 hãng đầu để thẻ có tin xem trước
+    if (an) { const ids = new Set((an.companies || []).slice(0, 3).map((c) => c.id)); Object.keys(ai).forEach((k) => ids.add(k)); ids.forEach((id) => tasks.push(loadAi(id, force))); } // nạp trước 3 hãng đầu; làm mới thì nạp lại cả các hãng đã xem
     await Promise.all(tasks);
+    if (!feeds && prevFeeds) feeds = prevFeeds; // làm mới lỗi thì giữ tin cũ
     const nc = claudeNew(), nn = aiNew();
-    if ((nc || nn) && !sessionStorage.getItem("lm-news-toast")) {
-      try { sessionStorage.setItem("lm-news-toast", "1"); } catch {}
+    if (nc + nn > notified) {
+      notified = nc + nn;
       const parts = []; if (nc) parts.push(nc + " bản Claude Code"); if (nn) parts.push(nn + " tin AI");
       toast("🔔 Có cập nhật mới: " + parts.join(" · "));
     }
     return feeds;
   }
+
+  /* ---------- tự làm mới ---------- */
+  const reopenLive = () => {
+    const dlg = document.getElementById("resDlg");
+    if (!live || !dlg || !dlg.open) return;
+    keepScroll = dlg.scrollTop;
+    const i = list.find((x) => x.id === live.id); if (!i) return;
+    if (live.type === "claude") openClaude(i, dlg); else openAi(i, dlg, live.c);
+  };
+  async function refresh(force = true) {
+    lastRefresh = Date.now();
+    await loadFeeds(force);
+    reopenLive();
+  }
+  function startAutoRefresh(onChange) {
+    const run = async () => { try { await refresh(true); } catch {} if (onChange) onChange(); };
+    setInterval(() => { if (document.visibilityState === "visible") run(); }, 5 * 60e3);
+    document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && Date.now() - lastRefresh > 2 * 60e3) run(); });
+    window.addEventListener("online", run);
+  }
+  const refreshBtn = '<button class="btn news-refresh" type="button" data-refresh>↻ Làm mới</button>';
 
   const updatedText = (iso) => { if (!iso) return ""; const d = new Date(iso); return isNaN(d) ? "" : d.toLocaleString("vi-VN", { hour: "2-digit", minute: "2-digit", day: "2-digit", month: "2-digit" }); };
   const OFFICIAL = { anthropic: "https://www.anthropic.com/news", openai: "https://openai.com/news", google: "https://blog.google/products/gemini/", meta: "https://about.fb.com/news/", mistral: "https://mistral.ai/news", nvidia: "https://blogs.nvidia.com/" };
@@ -121,18 +150,20 @@ window.Res = (() => {
     dlg.querySelector("#resX").onclick = () => dlg.close();
     if (!dlg.dataset.wired) { dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); }); dlg.dataset.wired = "1"; }
     if (!dlg.open) dlg.showModal();
-    dlg.scrollTo({ top: 0, behavior: "instant" });
+    dlg.scrollTo({ top: keepScroll == null ? 0 : keepScroll, behavior: "instant" }); keepScroll = null;
+    if (!dlg.dataset.liveWired) { dlg.addEventListener("close", () => { live = null; }); dlg.dataset.liveWired = "1"; }
   }
   const cta = (title, url) => `<div class="res-cta"><div><b>${esc(title)}</b><small>${esc(String(url).replace(/^https?:\/\//, ""))}</small></div><a class="btn orange-btn" href="${esc(okUrl(url))}" target="_blank" rel="noopener">Mở trang gốc ↗</a></div>`;
   const head = (i, extra) => `<button class="x" id="resX" aria-label="Đóng">×</button><div class="res-body"><div class="res-head"><span class="badge live"><i></i>LIVE</span><h2>${esc(i.title)}</h2>${extra || ""}</div>`;
 
   function openClaude(i, dlg) {
+    live = { type: "claude", id: i.id };
     const arr = (feeds && feeds.claude) || [];
     const body = !arr.length ? `<p class="res-pad">${feeds ? "Chưa có tin." : "Chưa tải được tin lúc này, thử lại sau ít phút."}</p>`
       : arr.map((x) => `<article class="news-item"><div class="news-top"><span class="news-ver">v${esc(x.v)}</span><span class="news-date">${esc(fmtDate(x.d))}</span></div>
           <ul>${(x.pt && x.pt.length ? x.pt : x.pte || []).map((p) => `<li>${esc(p)}</li>`).join("")}</ul><a href="${esc(okUrl(x.u))}" target="_blank" rel="noopener">Xem bản phát hành ↗</a></article>`).join("");
     if (feeds) markSeen("claude", feeds.claude);
-    show(dlg, head(i, `<p class="news-meta">${feeds ? "Cập nhật lúc " + esc(updatedText(feeds.updated)) + " · " : ""}tự làm mới mỗi 30 phút. Tóm tắt dịch tự động, có thể chưa chuẩn: bấm bài gốc để đọc đầy đủ.</p>`) + `<div class="news-list">${body}</div></div>` + cta(i.title, i.url));
+    show(dlg, head(i, `<p class="news-meta">${feeds ? "Cập nhật lúc " + esc(updatedText(feeds.updated)) + " · " : ""}tự làm mới mỗi 5 phút khi đang mở. Tóm tắt dịch tự động, có thể chưa chuẩn: bấm bài gốc để đọc đầy đủ. ${refreshBtn}</p>`) + `<div class="news-list">${body}</div></div>` + cta(i.title, i.url));
   }
 
   function aiList(an, id) {
@@ -143,8 +174,9 @@ window.Res = (() => {
   }
   async function openAi(i, dlg, id) {
     id = id || (i.companies[0] || {}).id;
+    live = { type: "ai", id: i.id, c: id };
     const chips = `<div class="ai-chips" role="tablist">${i.companies.map((c) => { const n = ai[c.id] ? countNew("ai-" + c.id, ai[c.id].items) : 0; return `<button class="chip ${c.id === id ? "on" : ""}" data-aic="${esc(c.id)}" type="button">${esc(c.name)}${n ? ` <b class="dotnew">${n}</b>` : ""}</button>`; }).join("")}</div>`;
-    const render = () => show(dlg, head(i, `<p class="news-meta">Tin mới từ ${i.companies.length} hãng AI, tự làm mới mỗi 30 phút. Tóm tắt dịch tự động, có thể chưa chuẩn: bấm bài gốc để đọc đầy đủ.</p>`) + chips + `<div class="news-list" id="aiList">${ai[id] ? aiList(i, id) : '<p class="res-pad">Đang tải tin…</p>'}</div></div>` + cta(compName(i, id), OFFICIAL[id] || "https://news.google.com/search?q=" + encodeURIComponent(compName(i, id).replace(" · ", " "))));
+    const render = () => show(dlg, head(i, `<p class="news-meta">Tin mới từ ${i.companies.length} hãng AI${ai[id] && ai[id].updated ? ", cập nhật lúc " + esc(updatedText(ai[id].updated)) : ""}, tự làm mới mỗi 5 phút khi đang mở. Tóm tắt dịch tự động, có thể chưa chuẩn: bấm bài gốc để đọc đầy đủ. ${refreshBtn}</p>`) + chips + `<div class="news-list" id="aiList">${ai[id] ? aiList(i, id) : '<p class="res-pad">Đang tải tin…</p>'}</div></div>` + cta(compName(i, id), OFFICIAL[id] || "https://news.google.com/search?q=" + encodeURIComponent(compName(i, id).replace(" · ", " "))));
     render();
     dlg.querySelectorAll("[data-aic]").forEach((b) => (b.onclick = () => openAi(i, dlg, b.dataset.aic)));
     if (!ai[id]) { const v = await loadAi(id); if (dlg.open) { if (v) { markSeen("ai-" + id, v.items); } openAi(i, dlg, id); } }
@@ -240,9 +272,11 @@ window.Res = (() => {
   const groupSelectHtml = (kho, cur) => { const gs = khoGroups(kho); return gs ? gs.map((g) => `<option value="${esc(g.id)}" ${g.id === cur ? "selected" : ""}>${esc(g.name)}</option>`).join("") : ""; };
 
   document.addEventListener("click", (e) => {
+    const rf = e.target.closest("[data-refresh]");
+    if (rf) { rf.disabled = true; rf.textContent = "Đang làm mới…"; refresh(true).catch(() => {}); return; }
     const cp = e.target.closest("[data-copy]");
     if (cp) { const t = cp.parentNode.querySelector("code").textContent; (navigator.clipboard?.writeText(t) || Promise.reject()).then(() => { cp.textContent = "Đã copy ✓"; setTimeout(() => (cp.textContent = "Copy"), 1500); }, () => { cp.textContent = "Bôi đen để copy"; }); return; }
     const c = e.target.closest("[data-res]"); if (c) open(c.dataset.res); });
   document.addEventListener("keydown", (e) => { if ((e.key === "Enter" || e.key === " ") && e.target.dataset?.res) { e.preventDefault(); open(e.target.dataset.res); } });
-  return { load, all, card, open, visible, loadFeeds, groupPills, group, groupOf, khoGroups, groupSelectHtml };
+  return { load, all, card, open, visible, loadFeeds, refresh, startAutoRefresh, groupPills, group, groupOf, khoGroups, groupSelectHtml };
 })();

@@ -212,7 +212,7 @@ f.addEventListener("submit", async (e) => {
 
 async function start() {
   featured = await Res.load();
-  Res.loadFeeds().then(() => render());
+  Res.loadFeeds().then(() => { render(); Res.startAutoRefresh(render); });
   $("#kho").innerHTML = KHO.map((k) => `<option value="${k.id}">${k.name}</option>`).join("");
   render();
   pushCloud();

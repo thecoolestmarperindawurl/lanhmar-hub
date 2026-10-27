@@ -91,3 +91,9 @@ Gửi Client ID cho Claude, hoặc tự mở `storage-config.js` và điền `wi
 - Mất mật khẩu kho thì không khôi phục được, kể cả khi bản mã còn trên đám mây.
 - Bản mã nằm trong tab ẩn **Vault** của Sheet "LANHMAR Storage Access". Không sửa tay tab này. Ai có quyền sửa Sheet có thể xoá/ghi đè bản mã (không đọc được nội dung).
 - Máy chủ kiểm tra token Google với Google (`tokeninfo`), đúng Client ID, mail đã xác minh và đúng `OWNER_EMAIL`. Không có mật khẩu, token hay khoá nào nằm trong file code.
+
+## 7. Tin AI News luôn mới (làm mới tự động)
+
+- **Trên web:** khi đang mở Kho (hoặc trang Data Storage), tin AI News và Claude Code tự làm mới mỗi 5 phút, và làm mới ngay khi bạn quay lại tab sau hơn 2 phút hoặc khi mạng kết nối lại. Cửa sổ tin đang mở cập nhật tại chỗ, không nhảy về đầu. Có nút **↻ Làm mới** để làm mới ngay.
+- **Máy chủ:** Apps Script giữ cache tin 5 phút (trước đây 30 phút). Muốn áp dụng, dán lại `Code.gs` mới rồi **Triển khai → Quản lý triển khai → Sửa → Phiên bản mới**. Chưa làm bước này thì web vẫn làm mới, nhưng tin có thể trễ tới 30 phút.
+- **Giới hạn:** đây là cập nhật gần thời gian thực (độ trễ tối đa khoảng 5 đến 10 phút), không phải đẩy tức thời. Tin phụ thuộc nguồn RSS và Google News của từng hãng. Nếu một nguồn lỗi, web giữ tin cũ thay vì hiện trống.

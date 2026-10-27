@@ -68,7 +68,7 @@ async function enter(email, code, err, remember) {
     if (remember) { try { localStorage.setItem(SAVE, JSON.stringify({ email, code })); } catch {} }
     items = res.items || [];
     featured = await Res.load();
-    Res.loadFeeds().then(() => render());
+    Res.loadFeeds().then(() => { render(); Res.startAutoRefresh(render); });
     $("#hello").textContent = "Xin chào " + (res.name || "bạn") + " — bạn đã được duyệt xem.";
     $("#gate").hidden = true; $("#app").hidden = false;
     render();
