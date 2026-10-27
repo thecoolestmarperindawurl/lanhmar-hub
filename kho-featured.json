@@ -2241,7 +2241,7 @@
         "google ads",
         "ai agent"
       ],
-      "thumb": "assets/res/knowledge-courses.jpg",
+      "thumb": "assets/res/vuonuom-fullstack.jpg",
       "note": "5 module, 31 bài, khoảng 75 giờ: tư duy nền tảng, Facebook, TikTok, Google, thương hiệu cá nhân. Đã hoàn thành 31/31.",
       "sections": [
         {
@@ -2564,93 +2564,6 @@
       ]
     },
     {
-      "id": "academy-vuonuom-khu-pho",
-      "kho": "knowledge",
-      "group": "vuonuom",
-      "guide": true,
-      "date": "2026-10-27",
-      "title": "Vườn Ươm Khu Phố by JOBVUI: danh mục khoá",
-      "type": "Academy",
-      "badge": "Academy",
-      "tags": [
-        "vườn ươm khu phố",
-        "jobvui",
-        "academy"
-      ],
-      "thumb": "assets/res/knowledge-courses.jpg",
-      "note": "Danh mục các khoá thuộc Vườn Ươm Khu Phố và khoá nào đã được lưu video, tài liệu trong Kho.",
-      "ctas": [
-        {
-          "btn": "Thư mục các khoá (Drive)",
-          "url": "https://drive.google.com/drive/folders/1WZfjPJlN7BzA4xQ-jQ0gvEIA7bEp16yG"
-        }
-      ],
-      "ctasTitle": "Vườn Ươm Khu Phố",
-      "sections": [
-        {
-          "k": "callout",
-          "t": "Chỉ lưu các khoá đã có đủ video record và tài liệu. Khoá chưa đủ sẽ được thêm khi hoàn tất. Trạng thái lấy từ bảng khoá học trên Notion."
-        },
-        {
-          "k": "table",
-          "head": [
-            "Khoá",
-            "Giảng viên",
-            "Trạng thái trên Notion",
-            "Trong Kho"
-          ],
-          "rows": [
-            [
-              "Facebook Ads",
-              "Mr. Lê Quốc Hưng",
-              "Done",
-              "Đã lưu"
-            ],
-            [
-              "TikTok Ads",
-              "Mr. Trần Ngô Đình Tấn",
-              "Done",
-              "Đã lưu"
-            ],
-            [
-              "Vận hành sàn Ecommerce",
-              "Mr. Trần Ngô Đình Tấn",
-              "Done",
-              "Đã lưu"
-            ],
-            [
-              "Fullstack Marketing",
-              "Nhiều giảng viên",
-              "Not started (có thể chưa cập nhật)",
-              "Đã lưu, theo xác nhận của bạn là đã có video và tài liệu đủ"
-            ],
-            [
-              "Design by Canva",
-              "Mr. Sinh Lê",
-              "In progress",
-              "Chưa lưu (chưa đủ)"
-            ],
-            [
-              "Luyện giọng",
-              "MC Thái Bình",
-              "Not started",
-              "Chưa lưu"
-            ],
-            [
-              "AI Agent (Agent Boss x KesFlow x Vườn Ươm Khu Phố)",
-              "Mr. Hưng Kescy",
-              "Not started",
-              "Chưa lưu"
-            ]
-          ]
-        },
-        {
-          "k": "p",
-          "t": "Các khoá thuộc Academy khác (SEONGON, Tomorrow Marketers, BrandCamp, Hợp tác xã Chị Em…) sẽ được phân vào nhóm riêng khi bạn muốn lưu."
-        }
-      ]
-    },
-    {
       "id": "vuonuom-facebook-ads",
       "kho": "knowledge",
       "group": "vuonuom",
@@ -2664,7 +2577,7 @@
         "jobvui",
         "khoá học"
       ],
-      "thumb": "assets/res/knowledge-courses.jpg",
+      "thumb": "assets/res/vuonuom-facebook-ads.jpg",
       "note": "Vườn Ươm Khu Phố by JOBVUI · GV Mr. Lê Quốc Hưng · 8 mục buổi học, đã có video record và tài liệu.",
       "ctas": [
         {
@@ -2752,7 +2665,7 @@
         "jobvui",
         "khoá học"
       ],
-      "thumb": "assets/res/knowledge-courses.jpg",
+      "thumb": "assets/res/vuonuom-tiktok-ads.jpg",
       "note": "Vườn Ươm Khu Phố by JOBVUI · GV Mr. Trần Ngô Đình Tấn · 4 mục buổi học, đã có video record và tài liệu.",
       "ctas": [
         {
@@ -2820,7 +2733,7 @@
         "jobvui",
         "khoá học"
       ],
-      "thumb": "assets/res/knowledge-courses.jpg",
+      "thumb": "assets/res/vuonuom-ecommerce.jpg",
       "note": "Vườn Ươm Khu Phố by JOBVUI · GV Mr. Trần Ngô Đình Tấn · 5 mục buổi học, đã có video record và tài liệu.",
       "ctas": [
         {
