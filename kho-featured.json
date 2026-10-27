@@ -2831,6 +2831,475 @@
           "t": "Thứ tự theo ngày tạo thư mục trên Drive, từ cũ đến mới (gần đúng thứ tự học). Tên môn giữ nguyên như tên thư mục. THNN1, THNN2 và KLTN là tên viết tắt của thư mục, chưa ghi rõ tên đầy đủ. Nếu Drive báo “Cần quyền truy cập”, hãy đăng nhập đúng tài khoản được chia sẻ."
         }
       ]
+    },
+    {
+      "id": "vukp-luyen-giong",
+      "kho": "knowledge",
+      "group": "vuonuom",
+      "guide": true,
+      "date": "2026-10-27",
+      "title": "Luyện giọng nói (K1)",
+      "type": "Khoá học",
+      "badge": "Đủ video",
+      "tags": [
+        "vườn ươm khu phố by jobvui",
+        "khoá học",
+        "đủ video"
+      ],
+      "thumb": "assets/res/vuk-luyen-giong.jpg",
+      "note": "Vườn Ươm Khu Phố by JOBVUI · GV MC Thái Bình · 5 buổi, đã kiểm tra trên Drive: mỗi buổi đều có file video.",
+      "ctas": [
+        {
+          "btn": "Video và tài liệu",
+          "url": "https://drive.google.com/drive/folders/1H3uo2ClKcmGUoqkE2-7k3Tr5-7RYGTuS"
+        }
+      ],
+      "ctasTitle": "Luyện giọng nói (K1)",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Khoá thuộc Vườn Ươm Khu Phố by JOBVUI. Đã kiểm tra thư mục trên Google Drive ngày 27/10/2026: 5 buổi, mỗi buổi đều có file video. Giảng viên: MC Thái Bình."
+        },
+        {
+          "k": "h",
+          "t": "Các buổi học"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Buổi",
+            "Nội dung"
+          ],
+          "rows": [
+            [
+              "Buổi 1",
+              "Kỹ thuật điều phối hơi thở"
+            ],
+            [
+              "Buổi 2",
+              "Phát âm tròn vành rõ chữ"
+            ],
+            [
+              "Buổi 3",
+              "Kỹ thuật ngắt nghỉ, lấy hơi đúng"
+            ],
+            [
+              "Buổi 4",
+              "Kỹ thuật nhấn nhá"
+            ],
+            [
+              "Buổi 5",
+              "Nghệ thuật biểu cảm: truyền tải cảm xúc qua giọng nói"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Thư mục còn có bảng câu hỏi học viên và thư mục bài tập về nhà (BTVN). Recap của khoá sẽ bổ sung khi có."
+        }
+      ]
+    },
+    {
+      "id": "vukp-thiet-ke-canva",
+      "kho": "knowledge",
+      "group": "vuonuom",
+      "guide": true,
+      "date": "2026-10-27",
+      "title": "Thiết kế ảnh với Canva (K3)",
+      "type": "Khoá học",
+      "badge": "Đủ video",
+      "tags": [
+        "vườn ươm khu phố by jobvui",
+        "khoá học",
+        "đủ video"
+      ],
+      "thumb": "assets/res/vuk-canva.jpg",
+      "note": "Vườn Ươm Khu Phố by JOBVUI · GV Mr. Sinh Lê · 5 buổi, đã kiểm tra trên Drive: mỗi buổi đều có file video.",
+      "ctas": [
+        {
+          "btn": "Video và tài liệu",
+          "url": "https://drive.google.com/drive/folders/1lTiB9cAYD6VWtIhMZpmcAD6e7QNptQXR"
+        }
+      ],
+      "ctasTitle": "Thiết kế ảnh với Canva (K3)",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Khoá thuộc Vườn Ươm Khu Phố by JOBVUI. Đã kiểm tra thư mục trên Google Drive ngày 27/10/2026: 5 buổi, mỗi buổi đều có file video. Giảng viên: Mr. Sinh Lê."
+        },
+        {
+          "k": "h",
+          "t": "Các buổi học"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Buổi",
+            "Nội dung"
+          ],
+          "rows": [
+            [
+              "Buổi 1",
+              "Tư duy thiết kế và khơi cảm hứng với AI"
+            ],
+            [
+              "Buổi 2",
+              "Màu sắc và chữ"
+            ],
+            [
+              "Buổi 3",
+              "Bố cục (Layout) và hình ảnh"
+            ],
+            [
+              "Buổi 4",
+              "Quy trình thiết kế thực tế và Magic Studio"
+            ],
+            [
+              "Buổi 5",
+              "Nâng cấp thiết kế, đóng gói sản phẩm và tổng kết"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Thư mục còn có bảng câu hỏi học viên, thư mục BTVN và thư mục Canva Academy for SMEs. Trên Notion khoá này còn ghi “In progress”, nhưng trên Drive đã đủ 5 buổi đến buổi tổng kết. Recap của khoá sẽ bổ sung khi có."
+        }
+      ]
+    },
+    {
+      "id": "vukp-agent-boss",
+      "kho": "knowledge",
+      "group": "vuonuom",
+      "guide": true,
+      "date": "2026-10-27",
+      "title": "Agent Boss: AI Agent cho marketer",
+      "type": "Khoá học",
+      "badge": "Đủ video",
+      "tags": [
+        "agent boss x kesflow x vườn ươm khu phố",
+        "khoá học",
+        "đủ video"
+      ],
+      "thumb": "assets/res/vuk-agent-boss.jpg",
+      "note": "Agent Boss x KesFlow x Vườn Ươm Khu Phố · GV Mr. Hưng Kescy · 4 buổi, đã kiểm tra trên Drive: mỗi buổi đều có file video.",
+      "ctas": [
+        {
+          "btn": "Video và tài liệu",
+          "url": "https://drive.google.com/drive/folders/1xg-jSmApmVK5f-z94uxWDnWNurJ56vJh"
+        }
+      ],
+      "ctasTitle": "Agent Boss: AI Agent cho marketer",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Khoá thuộc Agent Boss x KesFlow x Vườn Ươm Khu Phố. Đã kiểm tra thư mục trên Google Drive ngày 27/10/2026: 4 buổi, mỗi buổi đều có file video. Giảng viên: Mr. Hưng Kescy."
+        },
+        {
+          "k": "h",
+          "t": "Các buổi học"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Buổi",
+            "Nội dung"
+          ],
+          "rows": [
+            [
+              "Buổi 1",
+              "AI can, you know? Cách AI Agent giúp ích cho marketer mà bạn chưa biết"
+            ],
+            [
+              "Buổi 2",
+              "Design landing page bán hàng trong 60 phút"
+            ],
+            [
+              "Buổi 3",
+              "Xây dựng hệ thống sản xuất content tự động"
+            ],
+            [
+              "Buổi 4",
+              "Xây dựng AI Agent: setup và tối ưu quảng cáo"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": " Recap của khoá sẽ bổ sung khi có."
+        }
+      ]
+    },
+    {
+      "id": "vukp-kesflow-ai",
+      "kho": "knowledge",
+      "group": "vuonuom",
+      "guide": true,
+      "date": "2026-10-27",
+      "title": "KesFlow: Đồng nghiệp AI (TA03)",
+      "type": "Khoá học",
+      "badge": "Đủ video",
+      "tags": [
+        "vườn ươm khu phố x kesflow",
+        "khoá học",
+        "đủ video"
+      ],
+      "thumb": "assets/res/vuk-kesflow.jpg",
+      "note": "Vườn Ươm Khu Phố x KesFlow · 6 buổi, đã kiểm tra trên Drive: mỗi buổi đều có file video.",
+      "ctas": [
+        {
+          "btn": "Video và tài liệu",
+          "url": "https://drive.google.com/drive/folders/1_Z08u_bIIR-9fJ2Y0xRouXDOwFoGNKAE"
+        }
+      ],
+      "ctasTitle": "KesFlow: Đồng nghiệp AI (TA03)",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Khoá thuộc Vườn Ươm Khu Phố x KesFlow. Đã kiểm tra thư mục trên Google Drive ngày 27/10/2026: 6 buổi, mỗi buổi đều có file video."
+        },
+        {
+          "k": "h",
+          "t": "Các buổi học"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Buổi",
+            "Nội dung"
+          ],
+          "rows": [
+            [
+              "Buổi 1",
+              "Đồng nghiệp AI đầu tiên của bạn (Đồng nghiệp biết việc)"
+            ],
+            [
+              "Buổi 2",
+              "Đóng gói quy trình"
+            ],
+            [
+              "Buổi 3",
+              "Đội ngũ nhân sự AI"
+            ],
+            [
+              "Buổi 4",
+              "Kho tri thức doanh nghiệp"
+            ],
+            [
+              "Buổi 5",
+              "Trang web của bạn"
+            ],
+            [
+              "Buổi 6",
+              "Chọn đúng việc đáng làm"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Thư mục còn có phần INTERVIEW (chưa kiểm tra nội dung). Mã “TA03” lấy từ tên file video. Recap của khoá sẽ bổ sung khi có."
+        }
+      ]
+    },
+    {
+      "id": "htx-capcut-k2",
+      "kho": "knowledge",
+      "group": "htxchiem",
+      "guide": true,
+      "date": "2026-10-27",
+      "title": "Dựng video với CapCut (K2)",
+      "type": "Khoá học",
+      "badge": "Đủ video",
+      "tags": [
+        "hợp tác xã chị em by jobvui",
+        "khoá học",
+        "đủ video"
+      ],
+      "thumb": "assets/res/htx-capcut.jpg",
+      "note": "Hợp tác xã Chị Em by JOBVUI · GV Mr. Phan Anh · 4 buổi, đã kiểm tra trên Drive: mỗi buổi đều có file video.",
+      "ctas": [
+        {
+          "btn": "Video và tài liệu",
+          "url": "https://drive.google.com/drive/folders/1vgrTzDeD5vm8GsMcST-ft5ygkgyqtY5l"
+        }
+      ],
+      "ctasTitle": "Dựng video với CapCut (K2)",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Khoá thuộc Hợp tác xã Chị Em by JOBVUI. Đã kiểm tra thư mục trên Google Drive ngày 27/10/2026: 4 buổi, mỗi buổi đều có file video. Giảng viên: Mr. Phan Anh."
+        },
+        {
+          "k": "h",
+          "t": "Các buổi học"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Buổi",
+            "Nội dung"
+          ],
+          "rows": [
+            [
+              "Buổi 1",
+              "Tư duy và tổng quan về dựng video"
+            ],
+            [
+              "Buổi 2",
+              "Kỹ năng quay video cơ bản"
+            ],
+            [
+              "Buổi 3",
+              "Quy trình dựng video cơ bản"
+            ],
+            [
+              "Buổi 4",
+              "Các tính năng nâng cao, Q&A"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Mỗi buổi có thư mục riêng gồm RECORD (video) và SLIDE (PDF). Thư mục còn có bảng tổng hợp thông tin khoá và thư mục BTVN. Recap của khoá sẽ bổ sung khi có."
+        }
+      ]
+    },
+    {
+      "id": "seongon-seo-website",
+      "kho": "knowledge",
+      "group": "seongon",
+      "guide": true,
+      "date": "2026-10-27",
+      "title": "SEO Website",
+      "type": "Khoá học",
+      "badge": "Đủ video",
+      "tags": [
+        "seongon academy",
+        "khoá học",
+        "đủ video"
+      ],
+      "thumb": "assets/res/seongon-seo-website.jpg",
+      "note": "SEONGON Academy · GV Ms. Dương Thị Hương · 7 buổi, đã kiểm tra trên Drive: mỗi buổi đều có file video.",
+      "ctas": [
+        {
+          "btn": "Video và tài liệu",
+          "url": "https://drive.google.com/drive/folders/1HcaPinbdjuajcZj7qJ2O-uWRzQHIRzOQ"
+        }
+      ],
+      "ctasTitle": "SEO Website",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Khoá thuộc SEONGON Academy. Đã kiểm tra thư mục trên Google Drive ngày 27/10/2026: 7 buổi, mỗi buổi đều có file video. Giảng viên: Ms. Dương Thị Hương."
+        },
+        {
+          "k": "h",
+          "t": "Các buổi học"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Buổi",
+            "Nội dung"
+          ],
+          "rows": [
+            [
+              "Buổi 1",
+              "Tổng quan về SEO"
+            ],
+            [
+              "Buổi 2",
+              "Nghiên cứu từ khoá SEO"
+            ],
+            [
+              "Buổi 3",
+              "Cấu trúc Website"
+            ],
+            [
+              "Buổi 4",
+              "Tối ưu Onpage theo checklist chuẩn"
+            ],
+            [
+              "Buổi 5",
+              "Lên outline và viết content chuẩn SEO"
+            ],
+            [
+              "Buổi 6",
+              "Đăng bài và Offpage: kiểm soát ranking"
+            ],
+            [
+              "Buổi 7",
+              "Tự động hoá đăng bài SEO"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": " Recap của khoá sẽ bổ sung khi có."
+        }
+      ]
+    },
+    {
+      "id": "seongon-content-seo-ai",
+      "kho": "knowledge",
+      "group": "seongon",
+      "guide": true,
+      "date": "2026-10-27",
+      "title": "Content SEO AI MAX",
+      "type": "Khoá học",
+      "badge": "Đủ video",
+      "tags": [
+        "seongon academy",
+        "khoá học",
+        "đủ video"
+      ],
+      "thumb": "assets/res/seongon-content-seo-ai.jpg",
+      "note": "SEONGON Academy · GV Ms. Nguyễn Thị Vân, Ms. Trần Thị Bích Hạnh · 4 buổi, đã kiểm tra trên Drive: mỗi buổi đều có file video.",
+      "ctas": [
+        {
+          "btn": "Video và tài liệu",
+          "url": "https://drive.google.com/drive/folders/1ObGP9w9q381i-hF8kjvLuR7sQlM6pVE_"
+        }
+      ],
+      "ctasTitle": "Content SEO AI MAX",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Khoá thuộc SEONGON Academy. Đã kiểm tra thư mục trên Google Drive ngày 27/10/2026: 4 buổi, mỗi buổi đều có file video. Giảng viên: Ms. Nguyễn Thị Vân, Ms. Trần Thị Bích Hạnh."
+        },
+        {
+          "k": "h",
+          "t": "Các buổi học"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Buổi",
+            "Nội dung"
+          ],
+          "rows": [
+            [
+              "Buổi 1",
+              "Tổng quan Content SEO"
+            ],
+            [
+              "Buổi 2",
+              "Lập dàn ý SEO chuẩn AEO (2 video: Part 1 và Part 2)"
+            ],
+            [
+              "Buổi 3",
+              "Viết bài chuẩn SEO và tối ưu AEO"
+            ],
+            [
+              "Buổi 4",
+              "Ứng dụng AI trong triển khai Content SEO"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": " Recap của khoá sẽ bổ sung khi có."
+        }
+      ]
     }
   ]
 }
