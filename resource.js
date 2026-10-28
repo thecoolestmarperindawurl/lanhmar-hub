@@ -269,6 +269,11 @@ window.Res = (() => {
       gs.map((g) => `<button class="gpill ${grp === g.id ? "on" : ""}" data-g="${esc(g.id)}" type="button">${g.icon || ""} ${esc(g.name)} <small>${cnt(g.id)}</small></button>`).join("");
   }
   // Gom thẻ theo mục con; kho không có mục con thì trả về danh sách phẳng. Trả "" nếu không có thẻ nào.
+  const introHtml = (g) => {
+    const n = g.intro; if (!n) return "";
+    const rows = (n.rows || []).map((r) => `<tr><td>${esc(r[0])}</td><td><b>${esc(r[1])}</b></td></tr>`).join("");
+    return `<aside class="grp-intro"><p>${esc(n.text)}</p>${rows ? `<table><thead><tr><th>Tình huống</th><th>Dùng skill</th></tr></thead><tbody>${rows}</tbody></table>` : ""}${n.note ? `<p class="grp-intro-note">${esc(n.note)}</p>` : ""}${n.url ? `<a class="grp-intro-link" href="${esc(n.url)}" target="_blank" rel="noopener">${esc(n.btn || "Mở")}</a>` : ""}</aside>`;
+  };
   function group(list, kho, grp, cardOf) {
     if (!list.length) return "";
     const gs = khoGroups(kho);
@@ -277,7 +282,7 @@ window.Res = (() => {
     return gs.filter((g) => !grp || g.id === grp).map((g) => {
       const part = list.filter((i) => groupOf(i, gs) === g.id);
       const shut = collapsed.has(kho + ":" + g.id) && !grp; // đang xem riêng một nhóm thì luôn mở
-      return part.length ? `<h3 class="grp-h" data-gtoggle="${esc(g.id)}" role="button" tabindex="0" aria-expanded="${!shut}">${g.icon || ""} ${esc(g.name)} <small>${part.length}</small><i class="grp-arrow" aria-hidden="true"></i></h3><div class="grp-body" ${shut ? "hidden" : ""}>` + part.map(cardOf).join("") + "</div>" : "";
+      return part.length ? `<h3 class="grp-h" data-gtoggle="${esc(g.id)}" role="button" tabindex="0" aria-expanded="${!shut}">${g.icon || ""} ${esc(g.name)} <small>${part.length}</small><i class="grp-arrow" aria-hidden="true"></i></h3><div class="grp-body" ${shut ? "hidden" : ""}>` + introHtml(g) + part.map(cardOf).join("") + "</div>" : "";
     }).join("") + loose;
   }
   const groupSelectHtml = (kho, cur) => { const gs = khoGroups(kho); return gs ? gs.map((g) => `<option value="${esc(g.id)}" ${g.id === cur ? "selected" : ""}>${esc(g.name)}</option>`).join("") : ""; };
