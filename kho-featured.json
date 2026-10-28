@@ -6304,43 +6304,155 @@
       "kho": "edit",
       "guide": true,
       "date": "2026-10-28",
-      "title": "Editor Nghiệp Dư: trang web hỗ trợ editor",
-      "type": "Trang web",
-      "badge": "Web",
+      "title": "Editor Nghiệp Dư: plugin cho editor Việt Nam",
+      "type": "Plugin",
+      "badge": "Plugin",
       "tags": [
-        "editor",
-        "video"
+        "premiere pro",
+        "plugin",
+        "after effects"
       ],
       "thumb": "assets/res/edit-editornghiepdu.jpg",
-      "note": "Trang web hỗ trợ người dựng video (editor). Mô tả chi tiết đang chờ bổ sung.",
-      "cta": {
-        "title": "editornghiepdu.vn",
-        "url": "https://editornghiepdu.vn/",
-        "btn": "Mở trang web"
-      },
+      "note": "Cửa hàng plugin và ứng dụng quản lý cho editor: CR Composer, CR CUT V2, CR SHOOT cho Premiere Pro (một số có After Effects), trả bằng ví CUTO.",
       "sections": [
         {
           "k": "callout",
-          "t": "Trang web hỗ trợ editor, bạn đưa vào kho Edit để dùng khi dựng video."
-        },
-        {
-          "k": "p",
-          "t": "Mình chưa đọc được nội dung trang này (môi trường chạy không truy cập được tên miền), nên chưa ghi tính năng, giá hay cách dùng để tránh viết sai."
+          "t": "Thông tin dưới đây lấy từ bản lưu trang chủ bạn gửi (ứng dụng phiên bản 2.0.65, 104 MB). Giá, phiên bản và danh sách plugin có thể đã đổi, hãy xem lại trên trang gốc trước khi mua."
         },
         {
           "k": "h",
-          "t": "Cần bổ sung"
+          "t": "Trang này là gì"
+        },
+        {
+          "k": "p",
+          "t": "Editor Nghiệp Dư là hệ sinh thái plugin dành cho editor Việt Nam, tập trung vào Premiere Pro (cửa hàng có ghi thêm DaVinci Resolve). Bạn mua và quản lý plugin qua cửa hàng và một ứng dụng desktop, thanh toán bằng ví CUTO."
+        },
+        {
+          "k": "h",
+          "t": "Plugin nổi bật"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Plugin",
+            "Phần mềm",
+            "Công dụng",
+            "Giá (CUTO)"
+          ],
+          "rows": [
+            [
+              "CR Composer (v1.3.132)",
+              "Premiere Pro, After Effects",
+              "Quản lý asset và preset: tìm, tải và chèn asset chỉ bằng một cú nhấp",
+              "199"
+            ],
+            [
+              "CR CUT V2 (v1.1.217)",
+              "Premiere Pro",
+              "Cắt timeline và phụ đề trong một lần bấm",
+              "150"
+            ],
+            [
+              "CR SHOOT (v1.0.5)",
+              "Premiere Pro",
+              "Trang không ghi mô tả",
+              "0"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Phiên bản trong bảng là số hiển thị trên trang lúc lưu. Trang chưa ghi mô tả cho CR SHOOT nên mình để trống, bạn mở trang plugin để xem."
+        },
+        {
+          "k": "h",
+          "t": "Ứng dụng quản lý (Windows)"
         },
         {
           "k": "list",
           "items": [
-            "Trang cung cấp gì: công cụ, tài nguyên, khoá học hay mẫu dựng.",
-            "Dùng cho phần mềm nào (CapCut, Premiere, After Effects…).",
-            "Miễn phí hay trả phí, có cần đăng ký không.",
-            "Cách bạn dùng trang này khi làm việc."
+            "Ứng dụng desktop để cập nhật và quản lý các plugin đã mua từ một nơi, đồng bộ plugin và quản lý workflow.",
+            "Trang chủ chỉ ghi nút tải cho Windows (phiên bản 2.0.65, 104 MB). Trang không nói về macOS.",
+            "Tải tại trang Tải ứng dụng của Editor Nghiệp Dư: editornghiepdu.vn/tai-ve."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cách dùng gợi ý"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Tạo tài khoản và đăng nhập",
+              "d": "Dùng nút Đăng nhập trên trang."
+            },
+            {
+              "t": "Cài ứng dụng",
+              "d": "Tải bản Windows từ trang Tải ứng dụng."
+            },
+            {
+              "t": "Chọn plugin trong cửa hàng",
+              "d": "Lọc theo Premiere Pro hoặc DaVinci Resolve, xem trang chi tiết từng plugin."
+            },
+            {
+              "t": "Nạp ví CUTO và mua",
+              "d": "Cách nạp ví, đơn hàng, license và thiết bị xem ở mục Câu hỏi thường gặp."
+            },
+            {
+              "t": "Cài và cập nhật",
+              "d": "Làm theo mục Hướng dẫn: kích hoạt, cài đặt và cập nhật plugin trong vài bước."
+            }
+          ]
+        },
+        {
+          "k": "callout",
+          "t": "Mục Cài đặt plugin trên trang chủ chỉ giới thiệu ở mức tiêu đề. Chi tiết các bước nằm ở trang Hướng dẫn, mình chưa đọc được nên bạn xem tại đó."
+        },
+        {
+          "k": "h",
+          "t": "Hỗ trợ và cộng đồng"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Cộng đồng Editor Nghiệp Dư trên Facebook (nút bên dưới) và trang Facebook editornghiepdu.",
+            "Hỗ trợ trực tiếp qua trang Liên hệ hoặc email support@editornghiepdu.vn.",
+            "Trang Câu hỏi thường gặp giải đáp về ví CUTO, đơn hàng, license và thiết bị."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Khi nào nên dùng"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Dựng bằng Premiere Pro và muốn cắt timeline, phụ đề nhanh hơn (CR CUT V2).",
+            "Cần kho asset và preset chèn thẳng vào dự án (CR Composer).",
+            "Muốn quản lý và cập nhật plugin từ một ứng dụng thay vì cài tay từng cái."
           ]
         }
-      ]
+      ],
+      "ctas": [
+        {
+          "btn": "Mở trang chủ",
+          "url": "https://editornghiepdu.vn/"
+        },
+        {
+          "btn": "Cửa hàng plugin",
+          "url": "https://editornghiepdu.vn/store"
+        },
+        {
+          "btn": "Hướng dẫn",
+          "url": "https://editornghiepdu.vn/huong-dan"
+        },
+        {
+          "btn": "Cộng đồng Facebook",
+          "url": "https://www.facebook.com/groups/1122559666202072"
+        }
+      ],
+      "ctasTitle": "editornghiepdu.vn"
     }
   ]
 }
