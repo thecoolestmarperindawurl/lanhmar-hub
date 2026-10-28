@@ -6452,7 +6452,8 @@
           "url": "https://www.facebook.com/groups/1122559666202072"
         }
       ],
-      "ctasTitle": "editornghiepdu.vn"
+      "ctasTitle": "editornghiepdu.vn",
+      "group": "dung"
     },
     {
       "id": "edit-tai-nguyen-drive",
@@ -6558,7 +6559,8 @@
           "k": "callout",
           "t": "Ghi chú: trong thư mục gốc còn một thư mục bản cài đặt Adobe crack. Mình không đưa vào kho và không khuyến khích dùng, vì phần mềm crack vi phạm bản quyền và hay kèm mã độc. Bạn nên dùng bản Adobe có bản quyền."
         }
-      ]
+      ],
+      "group": "dung"
     },
     {
       "id": "edit-nguon-tai-nguyen",
@@ -7001,6 +7003,220 @@
         {
           "k": "callout",
           "t": "Danh sách này là kết quả tìm kiếm trên web tại thời điểm viết (28/10/2026). Các bài tổng hợp đôi chỗ không thống nhất với nhau và có thể đã cũ, nên đó là lý do cột giấy phép luôn kèm lời nhắc kiểm tra trang gốc. Nội dung này không phải tư vấn pháp lý."
+        }
+      ],
+      "group": "dung"
+    },
+    {
+      "id": "edit-quay-co-ban",
+      "kho": "edit",
+      "group": "quay",
+      "guide": true,
+      "date": "2026-10-28",
+      "title": "Cơ bản khi quay: cỡ cảnh, góc máy, ánh sáng, thiết bị",
+      "type": "Hướng dẫn",
+      "badge": "Quay",
+      "tags": [
+        "quay",
+        "góc máy",
+        "ánh sáng",
+        "gimbal"
+      ],
+      "thumb": "assets/res/edit-quay-co-ban.jpg",
+      "note": "Cỡ cảnh, góc máy, quy tắc một phần ba, ánh sáng 3 điểm và hắt sáng, thiết bị cơ bản và checklist trước khi quay.",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Nguồn: các tài liệu hướng dẫn quay video của trường đại học và bài tổng hợp trên web (xem cuối thẻ). Một tài liệu là bản checklist năm 2008 nên mình chỉ lấy nguyên tắc, không lấy tên thiết bị cũ. Phần lớn bài tiếng Việt tìm được chỉ nói về gimbal và micro, còn góc máy và ánh sáng lấy từ tài liệu tiếng Anh."
+        },
+        {
+          "k": "h",
+          "t": "1. Cỡ cảnh và góc máy"
+        },
+        {
+          "k": "p",
+          "t": "Quay đủ các cỡ cảnh: cảnh rộng cho thông tin, cảnh gần để tạo cảm xúc. Quay thêm B-roll và cảnh cắt (cutaway) để có cái chèn khi dựng, nhất là với phỏng vấn."
+        },
+        {
+          "k": "table",
+          "head": [
+            "Cỡ cảnh",
+            "Góc máy"
+          ],
+          "rows": [
+            [
+              "Wide (rộng)",
+              "Eye-level (ngang mắt)"
+            ],
+            [
+              "Medium (trung)",
+              "Low (thấp, nhìn lên)"
+            ],
+            [
+              "Close-up (cận)",
+              "High (cao, nhìn xuống)"
+            ],
+            [
+              "Extreme close-up (rất cận)",
+              "Hip-level, ground-level (ngang hông, sát đất)"
+            ],
+            [
+              "Over-the-shoulder (qua vai), POV",
+              "Dutch (nghiêng), bird's-eye (từ trên xuống)"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "2. Bố cục: quy tắc một phần ba"
+        },
+        {
+          "k": "p",
+          "t": "Chia khung hình bằng 2 đường ngang và 2 đường dọc, đặt chủ thể trên đường hoặc điểm giao. Đây là gợi ý, không phải luật cứng, phá khi cảnh cần. Nhiều máy có lưới hiển thị sẵn để áp dụng cho dễ."
+        },
+        {
+          "k": "h",
+          "t": "3. Ánh sáng: 3 điểm sáng và hắt sáng"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Đèn",
+            "Đặt ở đâu",
+            "Tác dụng"
+          ],
+          "rows": [
+            [
+              "Key (chính)",
+              "Khoảng 45 độ phía trước chủ thể",
+              "Nguồn sáng chính"
+            ],
+            [
+              "Fill (phụ)",
+              "Phía đối diện key, cường độ khoảng một nửa key",
+              "Làm mềm bóng đổ"
+            ],
+            [
+              "Back (ngược)",
+              "Phía sau chủ thể",
+              "Tách chủ thể khỏi nền"
+            ]
+          ]
+        },
+        {
+          "k": "list",
+          "items": [
+            "Chưa có đèn fill thì dùng tấm hắt sáng (reflector) hoặc tấm bìa trắng thay thế, theo checklist.",
+            "Tránh ánh sáng mạnh ngay sau lưng chủ thể vì dễ bị tối hoặc thành bóng đen.",
+            "Cân bằng trắng (white balance) đặt theo nguồn sáng như ánh sáng ban ngày hay đèn tungsten."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "4. Thiết bị cơ bản"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Thiết bị",
+            "Ghi chú"
+          ],
+          "rows": [
+            [
+              "Chân máy (tripod)",
+              "Dùng bất cứ khi nào có thể, cầm tay khó giữ vững hơn cảm giác"
+            ],
+            [
+              "Bộ đèn cơ bản hoặc tấm hắt sáng",
+              "Bộ ánh sáng tối thiểu theo các checklist"
+            ],
+            [
+              "Micro ngoài",
+              "Kiểm tra mức âm trước khi quay. Micro định hướng thu rõ tiếng phía trước, giảm ồn xung quanh. Quay ngoài trời nên dùng chắn gió"
+            ],
+            [
+              "Gimbal (điện thoại)",
+              "Chống rung bằng động cơ và cảm biến, hỗ trợ cú máy khó như POV, xoay 360 độ. Kiểm tra tương thích với điện thoại và xác định mục đích quay trước khi mua"
+            ],
+            [
+              "Pin sạc đầy, kịch bản hoặc shot list",
+              "Chuẩn bị trước khi đến hiện trường"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "5. Trước khi bấm quay"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Khảo sát địa điểm",
+              "d": "Xem ánh sáng và tiếng ồn."
+            },
+            {
+              "t": "Chuẩn bị kịch bản hoặc shot list",
+              "d": "Liệt kê cỡ cảnh và góc cần quay."
+            },
+            {
+              "t": "Kiểm tra pin, thẻ nhớ, âm thanh",
+              "d": "Thử mức âm thanh trước khi quay."
+            },
+            {
+              "t": "Đặt cân bằng trắng và bật lưới",
+              "d": "Khớp nguồn sáng, bật lưới một phần ba."
+            },
+            {
+              "t": "Quay thêm B-roll và 20 giây tiếng phòng (room tone)",
+              "d": "Tiếng phòng giúp dựng âm thanh sạch hơn."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Chưa có trong thẻ"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Cấu hình máy ảnh cụ thể (khẩu độ, ISO, tốc độ màn trập, fps).",
+            "So sánh hay giá các thiết bị cụ thể (đèn, gimbal, micro).",
+            "Cách quay riêng cho điện thoại, ánh sáng tự nhiên."
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Bạn gửi thêm tài liệu hoặc nói muốn mở rộng phần nào, mình sẽ tìm và bổ sung."
+        },
+        {
+          "k": "h",
+          "t": "Nguồn tham khảo"
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "Camera Composition (Saskoer)",
+              "u": "https://www.saskoer.ca/videoproduction/chapter/camera-composition/"
+            },
+            {
+              "t": "Video Production Basics (UVM)",
+              "u": "https://epscor.w3.uvm.edu/pdf/media_tool_kit/Video_Production_Basics.pdf"
+            },
+            {
+              "t": "Video Creation 101 (York University)",
+              "u": "https://www.library.yorku.ca/ds/wp-content/uploads/2023/03/Video-Creation-101_S.pdf"
+            },
+            {
+              "t": "Hướng dẫn sử dụng gimbal (FPT Shop)",
+              "u": "https://fptshop.com.vn/tin-tuc/danh-gia/cach-su-dung-gimbal-163910"
+            },
+            {
+              "t": "Gimbal có cần thiết khi quay video không (FPT Shop)",
+              "u": "https://fptshop.com.vn/tin-tuc/for-gamers/gimbal-co-can-thiet-khi-quay-video-khong-210729"
+            }
+          ]
         }
       ]
     }
