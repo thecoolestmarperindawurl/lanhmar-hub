@@ -3026,23 +3026,23 @@
       "group": "vuonuom",
       "guide": true,
       "date": "2026-10-27",
-      "title": "Agent Boss: AI Agent cho marketer",
-      "type": "Khoá học",
+      "title": "Agent Boss: Workshop AI Agent cho Marketer",
+      "type": "Workshop",
       "badge": "Đủ video",
       "tags": [],
       "thumb": "assets/res/vuk-agent-boss.jpg",
-      "note": "Agent Boss x KesFlow x Vườn Ươm Khu Phố · GV Mr. Hưng Kescy · 4 buổi, đã kiểm tra trên Drive: mỗi buổi đều có file video.",
+      "note": "Workshop Agent Boss x KesFlow x Vườn Ươm Khu Phố · GV Mr. Hưng Kescy · 4 buổi, đã kiểm tra trên Drive: mỗi buổi đều có file video.",
       "ctas": [
         {
           "btn": "Video và tài liệu",
           "url": "https://drive.google.com/drive/folders/1xg-jSmApmVK5f-z94uxWDnWNurJ56vJh"
         }
       ],
-      "ctasTitle": "Agent Boss: AI Agent cho marketer",
+      "ctasTitle": "Agent Boss: Workshop AI Agent cho Marketer",
       "sections": [
         {
           "k": "callout",
-          "t": "Khoá thuộc Agent Boss x KesFlow x Vườn Ươm Khu Phố. Đã kiểm tra thư mục trên Google Drive ngày 27/10/2026: 4 buổi, mỗi buổi đều có file video. Giảng viên: Mr. Hưng Kescy."
+          "t": "Workshop thuộc Agent Boss x KesFlow x Vườn Ươm Khu Phố. Đã kiểm tra thư mục trên Google Drive ngày 27/10/2026: 4 buổi, mỗi buổi đều có file video. Giảng viên: Mr. Hưng Kescy."
         },
         {
           "k": "h",
@@ -3080,28 +3080,32 @@
       ]
     },
     {
-      "id": "vukp-kesflow-ai",
+      "id": "vukp-kesflow-k1",
       "kho": "knowledge",
       "group": "vuonuom",
       "guide": true,
-      "date": "2026-10-27",
-      "title": "VUKP x KESFLOW (TA03)",
+      "date": "2026-10-28",
+      "title": "VUKP x KESFLOW: Xây trợ lý cá nhân AI Agent (K1)",
       "type": "Khoá học",
       "badge": "Đủ video",
       "tags": [],
-      "thumb": "assets/res/vuk-kesflow.jpg",
-      "note": "Vườn Ươm Khu Phố x KesFlow · 6 buổi, đã kiểm tra trên Drive: mỗi buổi đều có file video.",
+      "thumb": "assets/res/vukp-kesflow-k1.jpg",
+      "note": "Vườn Ươm Khu Phố x KesFlow · GV Hưng Kescy · 7 buổi, đã kiểm tra trên Drive: mỗi buổi đều có file record.",
       "ctas": [
         {
           "btn": "Video và tài liệu",
-          "url": "https://drive.google.com/drive/folders/1_Z08u_bIIR-9fJ2Y0xRouXDOwFoGNKAE"
+          "url": "https://drive.google.com/drive/folders/18eDZCOA5MQC4HKYPrN4q-IVJz_ssPGXS"
+        },
+        {
+          "btn": "Recap toàn khoá",
+          "url": "https://drive.google.com/drive/folders/1tzx7Gw6gTeU9kInclXFrzOqskdFaUwhx"
         }
       ],
-      "ctasTitle": "VUKP x KESFLOW (TA03)",
+      "ctasTitle": "VUKP x KESFLOW: Xây trợ lý cá nhân AI Agent (K1)",
       "sections": [
         {
           "k": "callout",
-          "t": "Khoá thuộc Vườn Ươm Khu Phố x KesFlow. Đã kiểm tra thư mục trên Google Drive ngày 27/10/2026: 6 buổi, mỗi buổi đều có file video."
+          "t": "Khoá 7 buổi thuộc Vườn Ươm Khu Phố x KesFlow, giảng viên Hưng Kescy. Đã kiểm tra thư mục Google Drive ngày 28/10/2026: cả 7 buổi đều có file record. Khoá này khác khoá TA03 (khoá KesFlow riêng, không gộp vào đây)."
         },
         {
           "k": "h",
@@ -3111,38 +3115,79 @@
           "k": "table",
           "head": [
             "Buổi",
-            "Nội dung"
+            "Nội dung",
+            "Tài liệu trên Drive"
           ],
           "rows": [
             [
               "Buổi 1",
-              "Đồng nghiệp AI đầu tiên của bạn (Đồng nghiệp biết việc)"
+              "Mindset, Memory và Toolset (theo phần nhắc lại trong slide buổi 4)",
+              "Record"
             ],
             [
               "Buổi 2",
-              "Đóng gói quy trình"
+              "Skillset: đóng gói quy trình thành Skill",
+              "Record, slide"
             ],
             [
               "Buổi 3",
-              "Đội ngũ nhân sự AI"
+              "Cowork: đội ngũ nhân sự AI, AI làm việc ngay trên máy tính, gọi Subagents",
+              "Record, slide"
             ],
             [
               "Buổi 4",
-              "Kho tri thức doanh nghiệp"
+              "Knowledge Base: kho tri thức doanh nghiệp, NotebookLM và Deep Research",
+              "Record, slide, video làm quen NotebookLM, chat Zoom"
             ],
             [
               "Buổi 5",
-              "Trang web của bạn"
+              "Chưa rõ tên buổi (trên Drive có kèm skill kf-cl-design-init)",
+              "Record, file kf-cl-design-init.zip"
             ],
             [
               "Buổi 6",
-              "Chọn đúng việc đáng làm"
+              "Chưa rõ tên buổi",
+              "Record, chat Zoom"
+            ],
+            [
+              "Buổi 7",
+              "Chưa rõ tên buổi",
+              "Record"
             ]
           ]
         },
         {
           "k": "p",
-          "t": "Thư mục còn có phần INTERVIEW (chưa kiểm tra nội dung). Mã “TA03” lấy từ tên file video. Recap của khoá sẽ bổ sung khi có."
+          "t": "Tên buổi 1 đến 4 lấy từ slide và phần nhắc lại trong slide. Buổi 5, 6, 7 mình chưa đọc được nội dung nên chưa ghi tên. Slide các buổi ghi tổng 6 buổi, còn trên Drive có 7 thư mục, theo bạn là 7 buổi."
+        },
+        {
+          "k": "h",
+          "t": "Các thư mục khác trong khoá"
+        },
+        {
+          "k": "list",
+          "items": [
+            "RECAP TOÀN KHOÁ: có thư mục này, mình chưa thấy file bên trong.",
+            "DASHBOARD, FEEDBACK + AUTOMAIL SETUP, QUÀ TẶNG TỐT NGHIỆP: có trên Drive, chưa kiểm tra nội dung.",
+            "Lối tắt QUẢN LÝ THÔNG TIN | Khoá Xây trợ lý cá nhân AI Agent K1 cho thấy tên khoá trên hệ thống là 'Xây trợ lý cá nhân AI Agent K1'."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Những gì khoá dạy (theo slide các buổi đã đọc)"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Ba mảnh ghép của một đồng nghiệp AI: Mindset (Instruction và Memory), Toolset (Connector, MCP), Skillset (Skills).",
+            "Buổi 2: skill là công thức nấu ăn, còn tools là dụng cụ. Một skill là một thư mục có SKILL.md làm điểm vào, references và scripts khi cần.",
+            "Buổi 3: Claude Cowork làm việc trực tiếp trên file thật trên máy, và chạy nhiều agent song song bằng Subagents. Ba lỗi hay gặp khi đóng gói skill: thiếu tiêu chí hoàn thành, viết trùng, lẫn tài liệu cho người vào skill.",
+            "Buổi 4: ba cách AI tra cứu thông tin (dữ liệu huấn luyện, tìm web, Deep Research) và dùng NotebookLM làm kho tri thức thường trực."
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Recap của khoá sẽ bổ sung khi có."
         }
       ]
     },
