@@ -7346,6 +7346,497 @@
           ]
         }
       ]
+    },
+    {
+      "id": "design-adobe-tools",
+      "kho": "design",
+      "guide": true,
+      "date": "2026-10-28",
+      "title": "Adobe cho Design: công cụ nào, khi nào, nền tảng nào",
+      "type": "Hướng dẫn",
+      "badge": "Adobe",
+      "tags": [
+        "adobe",
+        "photoshop",
+        "illustrator",
+        "express"
+      ],
+      "thumb": "assets/res/design-adobe.jpg",
+      "note": "Photoshop, Illustrator, InDesign, Lightroom, Express, Firefly: dùng để làm gì, tình huống nào, nền tảng nào.",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Cách đọc: phần mô tả chức năng lấy từ các bài tổng hợp trên web (xem nguồn cuối thẻ). Chỗ nào mình ghi 'kiến thức chung' là mình biết nhưng chưa kiểm tra được nguồn lần này. Mục 'gợi ý của mình' là ý kiến, không phải thông tin chính thức. Giá và gói Creative Cloud các nguồn ghi khác nhau, hãy xem adobe.com trước khi mua."
+        },
+        {
+          "k": "h",
+          "t": "Các công cụ Adobe cho Design"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Công cụ",
+            "Là gì",
+            "Dùng khi",
+            "Nền tảng"
+          ],
+          "rows": [
+            [
+              "Photoshop",
+              "Chỉnh sửa và ghép ảnh (raster)",
+              "Chỉnh ảnh, ghép ảnh, làm key visual, mockup, xoá nền",
+              "Máy tính. Có bản iPad (thiết kế cho cảm ứng và Apple Pencil). Bản điện thoại và web: chưa xác nhận trong lần tìm này"
+            ],
+            [
+              "Illustrator",
+              "Đồ hoạ vector",
+              "Logo, icon, minh hoạ, hình cần phóng to không vỡ",
+              "Máy tính. Có bản iPad"
+            ],
+            [
+              "InDesign",
+              "Dàn trang nhiều trang",
+              "Brochure, catalogue, ebook, tạp chí, PDF tương tác",
+              "Máy tính (kiến thức chung)"
+            ],
+            [
+              "Lightroom",
+              "Sắp xếp và chỉnh ảnh",
+              "Chỉnh màu hàng loạt ảnh chụp. Bản cloud lưu trên đám mây, Lightroom Classic lưu ổ cứng",
+              "Cloud: nhiều thiết bị. Classic: máy tính"
+            ],
+            [
+              "Adobe Express",
+              "Thiết kế theo mẫu, nhanh",
+              "Post mạng xã hội, banner, flyer, video ngắn cho Reels, TikTok, Shorts",
+              "Web và di động. Nền tảng đa thiết bị duy nhất trong lần tìm này"
+            ],
+            [
+              "Firefly",
+              "AI tạo ảnh, video, âm thanh",
+              "Ra ý tưởng nhanh, tạo hình nền, mở rộng ảnh",
+              "Web và tích hợp trong ứng dụng. Mô hình huấn luyện trên nội dung có giấy phép như Adobe Stock và nội dung công khai"
+            ],
+            [
+              "Adobe Fonts",
+              "Thư viện font tích hợp Creative Cloud",
+              "Chọn font cho thiết kế. Hơn 1.500 font phổ biến (như Helvetica, Times New Roman, Gotham) được đưa vào thư viện",
+              "Qua Creative Cloud. Kiểm tra hỗ trợ tiếng Việt trước khi dùng"
+            ],
+            [
+              "Animate, Character Animator",
+              "Hoạt hình 2D, hoạt hình nhân vật theo webcam",
+              "Banner động, nhân vật minh hoạ chuyển động",
+              "Máy tính (kiến thức chung)"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Tình huống và mục tiêu"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Tình huống",
+            "Mục tiêu",
+            "Nên dùng",
+            "Vì sao"
+          ],
+          "rows": [
+            [
+              "Cần đăng post trong ngày, không có designer",
+              "Ra bài nhanh, đồng bộ phong cách",
+              "Adobe Express",
+              "Dùng mẫu có sẵn, làm trên web hoặc điện thoại"
+            ],
+            [
+              "Làm bộ nhận diện, logo",
+              "Hình sắc nét ở mọi kích thước",
+              "Illustrator",
+              "Vector không vỡ khi phóng to"
+            ],
+            [
+              "Làm key visual quảng cáo, banner chiến dịch",
+              "Ghép ảnh, xử lý ánh sáng và màu",
+              "Photoshop",
+              "Mạnh ở ghép, retouch, hiệu ứng"
+            ],
+            [
+              "Làm ebook, brochure, catalogue nhiều trang",
+              "Dàn trang chuyên nghiệp, xuất PDF",
+              "InDesign",
+              "Dựng cho tài liệu nhiều trang"
+            ],
+            [
+              "Chỉnh 100 ảnh chụp sản phẩm cùng một tông",
+              "Đồng bộ màu, xử lý hàng loạt",
+              "Lightroom",
+              "Áp preset cho nhiều ảnh cùng lúc"
+            ],
+            [
+              "Cần ý tưởng hình hoặc ảnh nền nhanh",
+              "Rút ngắn thời gian tìm tư liệu",
+              "Firefly",
+              "Tạo ảnh từ mô tả, kiểm tra điều khoản dùng thương mại"
+            ],
+            [
+              "Chỉ có iPad",
+              "Vẽ, chỉnh ảnh, vector khi di chuyển",
+              "Photoshop iPad, Illustrator iPad",
+              "Có bản riêng cho iPad"
+            ],
+            [
+              "Chỉ có điện thoại",
+              "Làm nhanh một thiết kế",
+              "Adobe Express",
+              "Có bản di động"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Gợi ý của mình: chọn theo nền tảng bạn có"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Bạn có",
+            "Nên bắt đầu với",
+            "Khi nào mở rộng"
+          ],
+          "rows": [
+            [
+              "Chỉ điện thoại",
+              "Express",
+              "Cần ghép ảnh hoặc logo thì chuyển lên máy tính"
+            ],
+            [
+              "iPad",
+              "Photoshop iPad, Illustrator iPad",
+              "Cần dàn trang nhiều trang thì dùng InDesign trên máy tính"
+            ],
+            [
+              "Laptop Windows hoặc Mac",
+              "Photoshop và Illustrator, thêm Express cho post gấp",
+              "Có ebook, catalogue thì thêm InDesign"
+            ],
+            [
+              "Ngân sách hạn chế",
+              "Express (có thể dùng bản miễn phí, chưa kiểm giới hạn) và học một app cốt lõi",
+              "Mua một app đơn lẻ thay vì cả gói nếu chỉ dùng một app (các nguồn ghi giá khác nhau)"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Với marketer: bộ tối thiểu hợp lý là Photoshop cho hình chiến dịch và Illustrator cho logo, cộng Express khi cần bài gấp. Thêm InDesign khi có tài liệu nhiều trang. Đây là gợi ý của mình, chưa phải khuyến nghị chính thức."
+        },
+        {
+          "k": "h",
+          "t": "Gói và giá (cần tự kiểm tra)"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Creative Cloud Pro gồm hơn 20 ứng dụng. Bộ Substance 3D tính riêng, cần gói đăng ký khác (theo bài tổng hợp).",
+            "Các nguồn ghi tên gói và giá khác nhau (có nguồn ghi Pro 69,99 USD mỗi tháng, nguồn khác ghi Standard 59,99 hoặc 54,99 và Pro 89,99). Mình không chốt số nào.",
+            "Một nguồn cho biết gói Standard không gồm ứng dụng web, di động, iPad và chỉ có 25 điểm Firefly mỗi tháng, còn Pro có 4.000 điểm. Đây là nguồn thứ cấp, hãy so với trang gói của Adobe.",
+            "Các gói theo năm có phí huỷ sớm. Một nguồn nhắc thoả thuận với FTC hồi 3/2026 nhưng mình chưa xác nhận từ nguồn chính thức."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Nguồn"
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "Adobe: gói Creative Cloud All Apps (trợ giúp)",
+              "u": "https://helpx.adobe.com/creative-cloud/help/faq-creative-cloud-all-apps-plan.html"
+            },
+            {
+              "t": "Creative Cloud Pro (Adobe)",
+              "u": "https://www.adobe.com/creative-cloud/pro.html"
+            },
+            {
+              "t": "Danh sách phần mềm Adobe (Creative Bloq)",
+              "u": "https://www.creativebloq.com/features/adobe-software-list"
+            },
+            {
+              "t": "Hướng dẫn ứng dụng Creative Cloud (School of Motion)",
+              "u": "https://schoolofmotion.com/blog/the-ultimate-guide-to-adobe-creative-cloud-apps"
+            },
+            {
+              "t": "Ứng dụng Adobe di động (Adobe FAQ)",
+              "u": "https://helpx.adobe.com/creative-cloud/faq/mobileapps.html"
+            },
+            {
+              "t": "Premiere Rush ngừng hỗ trợ (Adobe)",
+              "u": "https://helpx.adobe.com/premiere-rush/premiere-rush-discontinuation.html"
+            },
+            {
+              "t": "Generative Extend trong Premiere Pro (TV Technology)",
+              "u": "https://tvtechnology.com/news/nab-show-adobe-launches-generative-extend-ai-for-premiere-pro"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "edit-adobe-tools",
+      "kho": "edit",
+      "group": "dung",
+      "guide": true,
+      "date": "2026-10-28",
+      "title": "Adobe cho Edit: công cụ nào, khi nào, nền tảng nào",
+      "type": "Hướng dẫn",
+      "badge": "Adobe",
+      "tags": [
+        "adobe",
+        "premiere",
+        "after effects",
+        "audition"
+      ],
+      "thumb": "assets/res/edit-adobe.jpg",
+      "note": "Premiere Pro, After Effects, Audition, Media Encoder, Frame.io: dùng để làm gì, tình huống nào, nền tảng nào.",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Cách đọc: phần mô tả chức năng lấy từ các bài tổng hợp trên web (xem nguồn cuối thẻ). Chỗ nào mình ghi 'kiến thức chung' là mình biết nhưng chưa kiểm tra được nguồn lần này. Mục 'gợi ý của mình' là ý kiến, không phải thông tin chính thức. Giá và gói Creative Cloud các nguồn ghi khác nhau, hãy xem adobe.com trước khi mua."
+        },
+        {
+          "k": "h",
+          "t": "Các công cụ Adobe cho Edit"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Công cụ",
+            "Là gì",
+            "Dùng khi",
+            "Nền tảng"
+          ],
+          "rows": [
+            [
+              "Premiere Pro",
+              "Phần mềm dựng video phi tuyến",
+              "Dựng video từ YouTube tới phim: cắt ghép, phụ đề, âm thanh, chỉnh màu",
+              "Máy tính. Có bản Premiere trên iPhone (miễn phí). Dự án có thể gửi sang bản máy tính"
+            ],
+            [
+              "After Effects",
+              "Hiệu ứng và đồ hoạ chuyển động",
+              "Motion graphics, tiêu đề động, VFX, intro",
+              "Máy tính (kiến thức chung, chưa kiểm trong lần tìm này)"
+            ],
+            [
+              "Audition",
+              "Chỉnh sửa âm thanh",
+              "Làm sạch tiếng ồn, mix, hoàn thiện âm thanh cho video",
+              "Máy tính (kiến thức chung)"
+            ],
+            [
+              "Media Encoder",
+              "Xuất và chuyển mã video",
+              "Xuất hàng loạt, chạy nền, đổi định dạng. Đi kèm Premiere và After Effects",
+              "Máy tính (kiến thức chung)"
+            ],
+            [
+              "Frame.io (V4)",
+              "Nền tảng review và quản lý file",
+              "Gửi bản dựng cho khách xem, góp ý trên khung hình, lưu trữ chia sẻ",
+              "Web"
+            ],
+            [
+              "Premiere trên điện thoại",
+              "Dựng video trên di động",
+              "Dựng nhanh khi chưa ở máy tính, dự án gửi sang bản máy tính",
+              "iPhone. Adobe FAQ nêu cả Android, một nguồn khác ghi Android đang phát triển, hãy kiểm tra trên cửa hàng ứng dụng"
+            ],
+            [
+              "Adobe Express",
+              "Làm video ngắn theo mẫu",
+              "Video ngắn cho Reels, TikTok, Shorts",
+              "Web và di động"
+            ],
+            [
+              "Firefly",
+              "AI tạo ảnh, video, âm thanh",
+              "Tạo ảnh, video bổ trợ, âm thanh",
+              "Web và tích hợp trong ứng dụng"
+            ]
+          ]
+        },
+        {
+          "k": "callout",
+          "t": "Premiere Rush đã ngừng: Adobe gỡ khỏi cửa hàng từ tháng 9/2025 và cho dùng tới 30/9/2026 trên máy đã cài, nay đã qua mốc này. Adobe nêu Premiere trên di động và Premiere trên máy tính là thay thế."
+        },
+        {
+          "k": "h",
+          "t": "Tính năng AI trong Premiere Pro (theo thông cáo của Adobe)"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Generative Extend: kéo dài clip và âm thanh bằng Firefly Video Model, hỗ trợ 4K và video dọc. Dùng khi clip hay quá ngắn một chút. Phát hành chính thức tháng 4/2025.",
+            "Media Intelligence: tìm clip trong lượng lớn footage bằng mô tả.",
+            "Caption Translation: dịch phụ đề sang 27 ngôn ngữ (có tiếng Việt hay không thì mình chưa kiểm)."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Tình huống và mục tiêu"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Tình huống",
+            "Mục tiêu",
+            "Nên dùng",
+            "Vì sao"
+          ],
+          "rows": [
+            [
+              "Dựng video quảng cáo, vlog, phỏng vấn",
+              "Cắt ghép, phụ đề, mix âm, xuất bản",
+              "Premiere Pro",
+              "Là công cụ dựng chính"
+            ],
+            [
+              "Cần tiêu đề chuyển động, intro, hiệu ứng",
+              "Đồ hoạ chuyển động",
+              "After Effects",
+              "Chuyên về motion graphics và VFX"
+            ],
+            [
+              "Tiếng quay bị ồn, cần mix",
+              "Âm thanh sạch, cân bằng",
+              "Audition",
+              "Chuyên sửa và mix âm thanh"
+            ],
+            [
+              "Phải xuất nhiều bản (dọc, ngang, nhiều chuẩn)",
+              "Xuất hàng loạt, không chặn lúc dựng",
+              "Media Encoder",
+              "Hàng đợi xuất chạy nền"
+            ],
+            [
+              "Gửi khách duyệt và góp ý",
+              "Một chỗ để review",
+              "Frame.io",
+              "Góp ý trên khung hình, lưu trữ chia sẻ"
+            ],
+            [
+              "Dựng gấp khi chỉ có điện thoại",
+              "Ra bản đầu nhanh",
+              "Premiere trên iPhone",
+              "Gửi tiếp sang máy tính để hoàn thiện"
+            ],
+            [
+              "Video ngắn cho Reels, TikTok từ mẫu",
+              "Ra nhanh, đồng bộ phong cách",
+              "Adobe Express",
+              "Mẫu có sẵn, dùng trên web và di động"
+            ],
+            [
+              "Clip quay hơi ngắn, thiếu vài giây",
+              "Kéo dài cảnh",
+              "Generative Extend trong Premiere Pro",
+              "Tạo thêm khung hình và âm thanh"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Gợi ý của mình: chọn theo nền tảng bạn có"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Bạn có",
+            "Nên bắt đầu với",
+            "Khi nào mở rộng"
+          ],
+          "rows": [
+            [
+              "Chỉ điện thoại",
+              "Premiere trên iPhone hoặc CapCut (đã có trong kho)",
+              "Cần chỉnh sâu thì chuyển dự án sang Premiere Pro"
+            ],
+            [
+              "Laptop Windows hoặc Mac",
+              "Premiere Pro",
+              "Thêm After Effects khi cần đồ hoạ chuyển động, Audition khi âm thanh phức tạp"
+            ],
+            [
+              "Làm việc nhóm hoặc có khách duyệt",
+              "Premiere Pro kèm Frame.io",
+              "Dùng Media Encoder khi cần xuất nhiều bản"
+            ],
+            [
+              "Video ngắn, đăng nhanh",
+              "Adobe Express hoặc CapCut",
+              "Cần chất lượng và kiểm soát cao thì dùng Premiere Pro"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Quy trình gợi ý cho video marketing: quay, dựng thô trong Premiere Pro, làm tiêu đề trong After Effects hoặc ngay trong Premiere, chỉnh âm bằng Audition nếu cần, xuất qua Media Encoder, gửi khách duyệt qua Frame.io. Đây là gợi ý, tuỳ quy mô dự án có thể bỏ bớt bước."
+        },
+        {
+          "k": "h",
+          "t": "Gói và giá (cần tự kiểm tra)"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Creative Cloud Pro gồm hơn 20 ứng dụng. Bộ Substance 3D tính riêng, cần gói đăng ký khác (theo bài tổng hợp).",
+            "Các nguồn ghi tên gói và giá khác nhau (có nguồn ghi Pro 69,99 USD mỗi tháng, nguồn khác ghi Standard 59,99 hoặc 54,99 và Pro 89,99). Mình không chốt số nào.",
+            "Một nguồn cho biết gói Standard không gồm ứng dụng web, di động, iPad và chỉ có 25 điểm Firefly mỗi tháng, còn Pro có 4.000 điểm. Đây là nguồn thứ cấp, hãy so với trang gói của Adobe.",
+            "Các gói theo năm có phí huỷ sớm. Một nguồn nhắc thoả thuận với FTC hồi 3/2026 nhưng mình chưa xác nhận từ nguồn chính thức."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Nguồn"
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "Adobe: gói Creative Cloud All Apps (trợ giúp)",
+              "u": "https://helpx.adobe.com/creative-cloud/help/faq-creative-cloud-all-apps-plan.html"
+            },
+            {
+              "t": "Creative Cloud Pro (Adobe)",
+              "u": "https://www.adobe.com/creative-cloud/pro.html"
+            },
+            {
+              "t": "Danh sách phần mềm Adobe (Creative Bloq)",
+              "u": "https://www.creativebloq.com/features/adobe-software-list"
+            },
+            {
+              "t": "Hướng dẫn ứng dụng Creative Cloud (School of Motion)",
+              "u": "https://schoolofmotion.com/blog/the-ultimate-guide-to-adobe-creative-cloud-apps"
+            },
+            {
+              "t": "Ứng dụng Adobe di động (Adobe FAQ)",
+              "u": "https://helpx.adobe.com/creative-cloud/faq/mobileapps.html"
+            },
+            {
+              "t": "Premiere Rush ngừng hỗ trợ (Adobe)",
+              "u": "https://helpx.adobe.com/premiere-rush/premiere-rush-discontinuation.html"
+            },
+            {
+              "t": "Generative Extend trong Premiere Pro (TV Technology)",
+              "u": "https://tvtechnology.com/news/nab-show-adobe-launches-generative-extend-ai-for-premiere-pro"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
