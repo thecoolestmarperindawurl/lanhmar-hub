@@ -6298,6 +6298,49 @@
           ]
         }
       ]
+    },
+    {
+      "id": "edit-editornghiepdu",
+      "kho": "edit",
+      "guide": true,
+      "date": "2026-10-28",
+      "title": "Editor Nghiệp Dư: trang web hỗ trợ editor",
+      "type": "Trang web",
+      "badge": "Web",
+      "tags": [
+        "editor",
+        "video"
+      ],
+      "thumb": "assets/res/edit-editornghiepdu.jpg",
+      "note": "Trang web hỗ trợ người dựng video (editor). Mô tả chi tiết đang chờ bổ sung.",
+      "cta": {
+        "title": "editornghiepdu.vn",
+        "url": "https://editornghiepdu.vn/",
+        "btn": "Mở trang web"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Trang web hỗ trợ editor, bạn đưa vào kho Edit để dùng khi dựng video."
+        },
+        {
+          "k": "p",
+          "t": "Mình chưa đọc được nội dung trang này (môi trường chạy không truy cập được tên miền), nên chưa ghi tính năng, giá hay cách dùng để tránh viết sai."
+        },
+        {
+          "k": "h",
+          "t": "Cần bổ sung"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Trang cung cấp gì: công cụ, tài nguyên, khoá học hay mẫu dựng.",
+            "Dùng cho phần mềm nào (CapCut, Premiere, After Effects…).",
+            "Miễn phí hay trả phí, có cần đăng ký không.",
+            "Cách bạn dùng trang này khi làm việc."
+          ]
+        }
+      ]
     }
   ]
 }
