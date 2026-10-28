@@ -6559,6 +6559,450 @@
           "t": "Ghi chú: trong thư mục gốc còn một thư mục bản cài đặt Adobe crack. Mình không đưa vào kho và không khuyến khích dùng, vì phần mềm crack vi phạm bản quyền và hay kèm mã độc. Bạn nên dùng bản Adobe có bản quyền."
         }
       ]
+    },
+    {
+      "id": "edit-nguon-tai-nguyen",
+      "kho": "edit",
+      "guide": true,
+      "date": "2026-10-28",
+      "title": "Nguồn sound, meme, hiệu ứng editor hay dùng",
+      "type": "Tổng hợp",
+      "badge": "Research",
+      "tags": [
+        "sound effect",
+        "meme",
+        "overlay",
+        "LUT"
+      ],
+      "thumb": "assets/res/edit-nguon-tai-nguyen.jpg",
+      "note": "Danh sách nguồn sound effect, nhạc, meme, video overlay, LUT và preset kèm lưu ý giấy phép, tổng hợp từ web ngày 28/10/2026.",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Cách đọc: cột giấy phép lấy từ các bài tổng hợp trên web và trang trợ giúp của YouTube. Mình không mở được trang điều khoản gốc của các trang này (môi trường chặn), nên đây là điểm xuất phát chứ không phải xác nhận pháp lý. Trước khi đăng video thương mại, đọc điều khoản trên chính trang tải."
+        },
+        {
+          "k": "h",
+          "t": "1. Sound effect và nhạc nền (miễn phí)"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Nguồn",
+            "Có gì",
+            "Giấy phép theo nguồn tổng hợp"
+          ],
+          "rows": [
+            [
+              "YouTube Audio Library",
+              "Nhạc và sound effect, lọc theo thể loại, độ dài",
+              "Nằm trong YouTube Studio. Có bộ lọc 'cần ghi nguồn' (Creative Commons) và 'không cần ghi nguồn'. Theo trang trợ giúp YouTube, bản tải từ đây không bị Content ID khiếu nại và dùng kiếm tiền được trong Chương trình Đối tác YouTube. Một bài tổng hợp nói giấy phép chắc chắn cho YouTube, dùng nền tảng khác thì chưa rõ"
+            ],
+            [
+              "Pixabay (Music, Sound Effects)",
+              "Nhạc, sound effect",
+              "Miễn phí dùng thương mại, không cần ghi nguồn. Không được bán lại riêng từng bản, clip có thương hiệu hoặc logo nhận diện được thì không dùng thương mại"
+            ],
+            [
+              "Mixkit",
+              "Sound effect, nhạc, video",
+              "Tải không cần đăng ký, không cần ghi nguồn theo bài tổng hợp. Phần video có hai loại giấy phép khác nhau, xem từng clip"
+            ],
+            [
+              "Freesound",
+              "Kho lớn, nhiều âm thanh đặc thù và thu thực tế",
+              "Giấy phép khác nhau theo từng clip, từ CC0 tới CC BY-NC (cấm thương mại). Phải xem từng clip, chất lượng không đồng đều"
+            ],
+            [
+              "Uppbeat",
+              "Nhạc và sound effect",
+              "Gói miễn phí cần ghi nguồn nghệ sĩ. Whitelist kênh YouTube chỉ có ở gói trả phí"
+            ],
+            [
+              "ZapSplat",
+              "Danh mục sound effect rộng",
+              "Mình chưa kiểm điều khoản, xem trên trang"
+            ],
+            [
+              "Incompetech, Bensound",
+              "Nhạc nền",
+              "Theo bài tổng hợp cần ghi nguồn"
+            ]
+          ]
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "YouTube Audio Library: hướng dẫn chính thức",
+              "u": "https://support.google.com/youtube/answer/3376882"
+            },
+            {
+              "t": "Pixabay Sound Effects",
+              "u": "https://pixabay.com/sound-effects/"
+            },
+            {
+              "t": "Pixabay Music",
+              "u": "https://pixabay.com/music/"
+            },
+            {
+              "t": "Mixkit Sound Effects",
+              "u": "https://mixkit.co/free-sound-effects/"
+            },
+            {
+              "t": "Freesound",
+              "u": "https://freesound.org/"
+            },
+            {
+              "t": "Uppbeat",
+              "u": "https://uppbeat.io/"
+            },
+            {
+              "t": "ZapSplat",
+              "u": "https://www.zapsplat.com/"
+            },
+            {
+              "t": "Incompetech",
+              "u": "https://incompetech.com/"
+            },
+            {
+              "t": "Bensound",
+              "u": "https://www.bensound.com/"
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "2. Meme và sound meme"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Nguồn",
+            "Có gì",
+            "Ghi chú"
+          ],
+          "rows": [
+            [
+              "Myinstants",
+              "Soundboard, nút phát và tải nhanh câu thoại, tiếng cười meme",
+              "Tìm đúng một âm thanh meme nổi tiếng. Mình chưa kiểm điều khoản"
+            ],
+            [
+              "SoundboardGuy",
+              "Chuyên âm thanh meme, cập nhật theo trend",
+              "Theo bài tổng hợp. Mình chưa kiểm điều khoản"
+            ],
+            [
+              "Chosic",
+              "Nhạc và âm thanh meme miễn phí bản quyền",
+              "Theo bài tổng hợp, xem điều khoản từng file"
+            ],
+            [
+              "Videvo",
+              "Video stock miễn phí kèm sound effect",
+              "Một bài tổng hợp ghi có cả bản royalty-free lẫn public domain, nên kiểm tra từng file"
+            ],
+            [
+              "Pixelmint (Gumroad)",
+              "Gói khoảng 500 file WAV hoặc MP3",
+              "Theo trang bán: dùng cá nhân và thương mại, không được bán lại hay phân phối lại. Ghi thanh toán một lần, kiểm tra giá trước khi mua"
+            ],
+            [
+              "Thư viện âm thanh có sẵn trong CapCut",
+              "Hiệu ứng âm thanh tích hợp",
+              "Dùng trước khi tải ngoài, theo hướng dẫn của CapCut"
+            ]
+          ]
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "Myinstants",
+              "u": "https://www.myinstants.com/"
+            },
+            {
+              "t": "SoundboardGuy",
+              "u": "https://soundboardguy.com/"
+            },
+            {
+              "t": "Chosic",
+              "u": "https://www.chosic.com/"
+            },
+            {
+              "t": "Videvo",
+              "u": "https://www.videvo.net/"
+            },
+            {
+              "t": "Pixelmint (Gumroad)",
+              "u": "https://pixelmintstudio.gumroad.com/l/topcreatorsound"
+            }
+          ]
+        },
+        {
+          "k": "callout",
+          "t": "Rủi ro lớn nhất với meme: đoạn cắt từ phim, chương trình hoặc bài hát có bản quyền. Các bài tổng hợp cảnh báo video kiếm tiền có thể bị tắt tiếng hoặc khiếu nại. Fair use (dùng hợp lý) chỉ xét theo từng trường hợp, mục đích bình luận, phê bình, châm biếm, giáo dục thường có lợi hơn, nhưng không đảm bảo. Với video quảng cáo cho khách, ưu tiên nguồn có giấy phép rõ."
+        },
+        {
+          "k": "h",
+          "t": "3. Video stock và overlay"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Nguồn",
+            "Hay dùng cho",
+            "Giấy phép theo nguồn tổng hợp"
+          ],
+          "rows": [
+            [
+              "Pexels",
+              "Video stock, film burn, VHS, grunge",
+              "Dùng thương mại, không cần ghi nguồn"
+            ],
+            [
+              "Pixabay",
+              "Bokeh, lấp lánh, confetti, mưa",
+              "Giấy phép Pixabay rất thoáng, cần đăng ký để tải độ phân giải cao"
+            ],
+            [
+              "Mixkit",
+              "Overlay khói, tuyết, light leak",
+              "Không cần tài khoản, giấy phép chia làm hai loại, xem từng clip"
+            ],
+            [
+              "Coverr",
+              "Video stock, overlay",
+              "Bài tổng hợp mô tả gần CC0, nhưng các nguồn không thống nhất, nên kiểm tra"
+            ],
+            [
+              "FootageCrate",
+              "Overlay hiệu ứng",
+              "Không cần ghi nguồn theo bài tổng hợp, cần tài khoản"
+            ],
+            [
+              "Videezy",
+              "Video stock",
+              "Loại giấy phép thay đổi theo file"
+            ],
+            [
+              "Vecteezy, Free Stock Footage Archive",
+              "Video stock",
+              "Cần ghi nguồn, Vecteezy chỉ cho một phần thương mại"
+            ]
+          ]
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "Pexels Videos",
+              "u": "https://www.pexels.com/videos/"
+            },
+            {
+              "t": "Pixabay Videos",
+              "u": "https://pixabay.com/videos/"
+            },
+            {
+              "t": "Mixkit Video",
+              "u": "https://mixkit.co/free-stock-video/"
+            },
+            {
+              "t": "Coverr",
+              "u": "https://coverr.co/"
+            },
+            {
+              "t": "FootageCrate",
+              "u": "https://footagecrate.com/"
+            },
+            {
+              "t": "Videezy",
+              "u": "https://www.videezy.com/"
+            }
+          ]
+        },
+        {
+          "k": "callout",
+          "t": "Dù giấy phép của trang cho phép thương mại, footage có người nhận diện được, thương hiệu hay tài sản riêng vẫn có thể cần giấy phép riêng (model release, property release)."
+        },
+        {
+          "k": "h",
+          "t": "4. LUT, preset, transition, template"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Nguồn",
+            "Có gì",
+            "Ghi chú"
+          ],
+          "rows": [
+            [
+              "Motion Array (gói miễn phí)",
+              "Preset, template, LUT, SFX cho Premiere, Final Cut, DaVinci, CapCut, Filmora, HitFilm",
+              "Tương thích tuỳ từng asset"
+            ],
+            [
+              "AEJuice",
+              "Gói LUT, script, transition miễn phí cho Premiere Pro và DaVinci Resolve",
+              "Trang ghi dùng được cho cả sản phẩm thương mại và cá nhân"
+            ],
+            [
+              "PremiumBeat blog, ProductionCrate",
+              "Preset, LUT, template tặng",
+              "Theo bài tổng hợp"
+            ],
+            [
+              "Các gói của creator trên Gumroad",
+              "LUT, transition, sound",
+              "Trạng thái đổi liên tục (có gói từng miễn phí nay thu phí khoảng 1,99 USD). Giấy phép của người bán đơn lẻ có thể không rõ, kiểm tra điều khoản thương mại"
+            ],
+            [
+              "Epidemic Sound",
+              "Nhạc và sound effect, kèm bảo vệ pháp lý khi kiếm tiền",
+              "Gói đăng ký trả phí. Mình chưa kiểm giá"
+            ],
+            [
+              "Envato Elements, Artlist, Storyblocks",
+              "Thư viện template, nhạc, footage",
+              "Mình chưa kiểm giá và điều khoản, xem trên trang"
+            ]
+          ]
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "Motion Array",
+              "u": "https://motionarray.com/"
+            },
+            {
+              "t": "AEJuice",
+              "u": "https://aejuice.com/"
+            },
+            {
+              "t": "ProductionCrate",
+              "u": "https://www.productioncrate.com/"
+            },
+            {
+              "t": "PremiumBeat Blog",
+              "u": "https://www.premiumbeat.com/blog/"
+            },
+            {
+              "t": "Epidemic Sound",
+              "u": "https://www.epidemicsound.com/"
+            },
+            {
+              "t": "Envato Elements",
+              "u": "https://elements.envato.com/"
+            },
+            {
+              "t": "Artlist",
+              "u": "https://artlist.io/"
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "5. Nơi tìm hình meme và GIF"
+        },
+        {
+          "k": "p",
+          "t": "Know Your Meme, Imgflip, Tenor, Giphy là những nơi editor hay tìm hình và GIF meme. Mình chưa kiểm điều khoản của các trang này và các kết quả tìm kiếm không nêu rõ, nên chưa kết luận được có dùng thương mại được hay không. Meme thường dựa trên ảnh, phim của người khác nên rủi ro bản quyền tồn tại."
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "Know Your Meme",
+              "u": "https://knowyourmeme.com/"
+            },
+            {
+              "t": "Imgflip",
+              "u": "https://imgflip.com/"
+            },
+            {
+              "t": "Tenor",
+              "u": "https://tenor.com/"
+            },
+            {
+              "t": "Giphy",
+              "u": "https://giphy.com/"
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Quy trình dùng tài nguyên an toàn"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Xác định nơi đăng",
+              "d": "Giấy phép cho YouTube có thể không áp dụng cho nền tảng khác."
+            },
+            {
+              "t": "Xác định mục đích",
+              "d": "Cá nhân, kiếm tiền hay quảng cáo cho khách. Mục đích càng thương mại, giấy phép càng cần chặt."
+            },
+            {
+              "t": "Đọc giấy phép đúng clip",
+              "d": "Freesound và Mixkit video đổi giấy phép theo từng file."
+            },
+            {
+              "t": "Lưu bằng chứng",
+              "d": "Chụp trang giấy phép, ghi link và ngày tải. Nguồn cần ghi nguồn thì ghi đúng mẫu vào mô tả."
+            },
+            {
+              "t": "Tránh clip trích từ phim, chương trình, bài hát",
+              "d": "Nếu bắt buộc dùng, cân nhắc fair use theo từng ca và hỏi luật sư với dự án thương mại."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Nguồn mình dựa vào"
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "Trang trợ giúp YouTube: Audio Library",
+              "u": "https://support.google.com/youtube/answer/3376882"
+            },
+            {
+              "t": "12 Best Free Royalty-Free Music Sites (Swarmify)",
+              "u": "https://swarmify.com/blog/free-music-for-your-videos-the-importance-and-where-to-find/"
+            },
+            {
+              "t": "18 Free Sound Effects Sites (Wyzowl)",
+              "u": "https://wyzowl.com/free-sound-effects-sites/"
+            },
+            {
+              "t": "6 Best Free Sound Effects Websites (Uppbeat)",
+              "u": "https://uppbeat.io/blog/sound-effects/free-sound-effects-websites"
+            },
+            {
+              "t": "Free Video Overlay Websites (Swarmify)",
+              "u": "https://swarmify.com/blog/free-video-overlay-websites/"
+            },
+            {
+              "t": "Best Free Video Editing Presets (Miracamp)",
+              "u": "https://www.miracamp.com/learn/video-editing/free-presets"
+            },
+            {
+              "t": "Meme Sound Effects Download (VoxBooster)",
+              "u": "https://voxbooster.com/blog/meme-sound-effects-download"
+            }
+          ]
+        },
+        {
+          "k": "callout",
+          "t": "Danh sách này là kết quả tìm kiếm trên web tại thời điểm viết (28/10/2026). Các bài tổng hợp đôi chỗ không thống nhất với nhau và có thể đã cũ, nên đó là lý do cột giấy phép luôn kèm lời nhắc kiểm tra trang gốc. Nội dung này không phải tư vấn pháp lý."
+        }
+      ]
     }
   ]
 }
