@@ -4081,6 +4081,1084 @@
           "t": "Thông tin lấy từ README, LICENSE và Cargo.toml của repo (đọc ngày 27/10/2026). Mình chưa chạy thử công cụ này. Số sao, số lượt tải và lịch sử phát hành chưa kiểm tra."
         }
       ]
+    },
+    {
+      "id": "skill-hub",
+      "kho": "ai",
+      "group": "skill",
+      "guide": true,
+      "title": "Skill Hub: bộ 8 skill cho Claude",
+      "type": "Tổng quan",
+      "badge": "8 skill",
+      "tags": [
+        "skill",
+        "claude",
+        "quy trình"
+      ],
+      "thumb": "assets/res/skill-hub.jpg",
+      "date": "2026-10-28",
+      "note": "Bộ skill dùng để tư duy, lập kế hoạch, rút kinh nghiệm và tạo skill mới. Chọn đúng skill theo tình huống bên dưới.",
+      "ctas": [
+        {
+          "btn": "Mở thư mục Skill-Hub",
+          "url": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
+        }
+      ],
+      "ctasTitle": "Toàn bộ file",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Skill là một gói hướng dẫn để Claude làm một loại việc theo đúng quy trình mỗi lần. Gõ lệnh hoặc nói câu kích hoạt, Claude sẽ nạp quy trình đó rồi làm."
+        },
+        {
+          "k": "h",
+          "t": "Chọn skill theo tình huống"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Bạn đang ở tình huống",
+            "Dùng skill",
+            "Kết quả"
+          ],
+          "rows": [
+            [
+              "Đề bài còn mơ hồ, chưa rõ cần giải quyết gì",
+              "brainstorm",
+              "Brief 6 mục, chưa có giải pháp"
+            ],
+            [
+              "Đã có brief, cần kế hoạch có căn cứ và có thể kiểm chứng",
+              "kf-plan",
+              "File kế hoạch kèm sổ giả định"
+            ],
+            [
+              "Cần kế hoạch hành động nhanh cho mục tiêu bất kỳ",
+              "plan",
+              "Thư mục plan chia phase, có thể red-team"
+            ],
+            [
+              "Vừa xong một việc, muốn giữ lại bài học",
+              "reflect",
+              "Bản nhìn lại 5 phần, đề xuất cập nhật bền"
+            ],
+            [
+              "Muốn hiểu một khái niệm thật đơn giản",
+              "eli5",
+              "Trang HTML nhiều hình, ít chữ"
+            ],
+            [
+              "Muốn hiểu bản thân từ nhiều nguồn dữ liệu",
+              "self-explorer",
+              "Báo cáo 10 mục có dẫn chứng"
+            ],
+            [
+              "Muốn tự tạo một skill mới",
+              "kes-create-skill",
+              "Skill đúng chuẩn, có báo cáo chấm điểm"
+            ],
+            [
+              "Khởi tạo bộ thiết kế theo chuẩn KesFlow",
+              "kf-cl-design-init",
+              "Chưa đọc được nội dung, xem thẻ riêng"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Chuỗi dùng gợi ý"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "brainstorm",
+              "d": "Làm rõ bài toán, ra brief."
+            },
+            {
+              "t": "kf-plan",
+              "d": "Biến brief thành kế hoạch có kiểm chứng."
+            },
+            {
+              "t": "Thực hiện",
+              "d": "Làm theo kế hoạch."
+            },
+            {
+              "t": "reflect",
+              "d": "Nhìn lại, chốt bài học và cập nhật skill hoặc quy tắc."
+            }
+          ]
+        },
+        {
+          "k": "callout",
+          "t": "Lưu ý: bản tóm tắt của hai skill kes-create-skill và kf-cl-design-init chưa đầy đủ vì nội dung nằm trong file nén chưa đọc hết. Các thẻ còn lại được viết từ nội dung SKILL.md của từng skill."
+        }
+      ]
+    },
+    {
+      "id": "skill-brainstorm",
+      "kho": "ai",
+      "group": "skill",
+      "guide": true,
+      "title": "brainstorm: làm rõ đề bài trước khi làm",
+      "type": "Skill",
+      "badge": "Tư duy",
+      "tags": [
+        "brainstorm",
+        "brief",
+        "phỏng vấn"
+      ],
+      "thumb": "assets/res/skill-brainstorm.jpg",
+      "note": "Phỏng vấn từng câu để đóng khung bài toán thành brief 6 mục, cố ý không đưa giải pháp. Tác giả: Hưng Kescy.",
+      "date": "2026-10-28",
+      "ctas": [
+        {
+          "btn": "Tải brainstorm.zip",
+          "url": "https://drive.google.com/file/d/1mZNHZI6X-6uKpzPPoCjznuMSxX2TWNuE/view?usp=drivesdk"
+        },
+        {
+          "btn": "Thư mục Skill-Hub",
+          "url": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
+        }
+      ],
+      "ctasTitle": "Tải skill",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Dùng khi đề bài còn thiếu rõ ràng và bạn chưa muốn nhảy vào làm. Kích hoạt bằng: brainstorm, thảo luận, làm rõ đề bài."
+        },
+        {
+          "k": "h",
+          "t": "Skill làm gì"
+        },
+        {
+          "k": "p",
+          "t": "Claude phỏng vấn bạn từng câu một về bất kỳ loại việc nào (vận hành, kinh doanh, nội dung, code), đóng khung thành brief 6 mục rồi để một subagent độc lập rà soát lỗ hổng cho tới khi không còn gì phải hỏi."
+        },
+        {
+          "k": "h",
+          "t": "3 nguyên tắc bất biến"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Chỉ nói về vấn đề, không đưa giải pháp.",
+            "Mỗi lượt chỉ hỏi một câu, kèm đáp án Claude khuyến nghị để bạn gật hoặc sửa.",
+            "Không âm thầm tự điền chỗ trống thay bạn."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cách dùng từng bước"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Đóng khung",
+              "d": "Nêu đề bài bằng một hai câu."
+            },
+            {
+              "t": "Nạp ngữ cảnh",
+              "d": "Claude đọc tài liệu, thư mục liên quan trước khi hỏi."
+            },
+            {
+              "t": "Phỏng vấn",
+              "d": "Trả lời từng câu. Câu nào chưa biết, nói thẳng."
+            },
+            {
+              "t": "Dừng ở mức rõ khoảng 95%",
+              "d": "Claude báo khi đủ."
+            },
+            {
+              "t": "Rà soát khoảng trống",
+              "d": "Subagent đọc brief và hỏi thêm, lặp lại tới khi trả về NO GAPS."
+            },
+            {
+              "t": "Xác nhận",
+              "d": "Bạn trả lời rõ là đồng ý mới chốt."
+            },
+            {
+              "t": "Lưu file",
+              "d": "Brief được ghi vào docs/briefs/{YYYY-MM-DD}-{slug}.md."
+            }
+          ]
+        },
+        {
+          "k": "code",
+          "t": "/brainstorm Mình muốn tăng đăng ký cho khoá học nhưng chưa rõ nên tập trung vào đâu",
+          "cap": "Ví dụ kích hoạt"
+        },
+        {
+          "k": "h",
+          "t": "Brief gồm 6 mục"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Mục",
+            "Nội dung"
+          ],
+          "rows": [
+            [
+              "Mục tiêu",
+              "Muốn đạt được điều gì"
+            ],
+            [
+              "Hiện trạng",
+              "Đang có gì, đang chạy thế nào"
+            ],
+            [
+              "Vấn đề",
+              "Điều gì đang cản trở"
+            ],
+            [
+              "Mong muốn",
+              "Kết quả ra sao thì coi là ổn"
+            ],
+            [
+              "Constraints",
+              "Giới hạn thời gian, ngân sách, công cụ"
+            ],
+            [
+              "Non-goals",
+              "Ít nhất 3 điều cố ý không làm"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Kết quả đạt được khi dùng skill"
+        },
+        {
+          "k": "callout",
+          "t": "Kết quả dưới đây là sản phẩm đầu ra mà chính skill quy định (theo file SKILL.md), không phải số liệu đo lường từ dự án thực tế. Khi bạn dùng và có kết quả thật, hãy ghi lại để bổ sung vào đây."
+        },
+        {
+          "k": "list",
+          "items": [
+            "Có một file brief làm điểm xuất phát duy nhất cho bước lập kế hoạch.",
+            "Bài toán được viết bằng vấn đề, không lẫn giải pháp, nên không bị khoá sớm vào một hướng.",
+            "Các giả định và chỗ chưa rõ bị lộ ra trước khi tốn công thực hiện.",
+            "Phạm vi rõ nhờ mục Non-goals."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cài đặt chung"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Tải file về từ nút Drive bên dưới.",
+            "Claude Code: giải nén thư mục skill vào ~/.claude/skills/ (dùng cho mọi dự án) hoặc .claude/skills/ trong dự án. Mỗi skill là một thư mục chứa SKILL.md.",
+            "Claude trên web hoặc app: vào Cài đặt, mục Skills (Capabilities), tải file zip hoặc .skill lên rồi bật.",
+            "Mở phiên mới và gõ lệnh hoặc câu kích hoạt của skill."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "skill-kf-plan",
+      "kho": "ai",
+      "group": "skill",
+      "guide": true,
+      "title": "kf-plan: lên kế hoạch có kiểm chứng",
+      "type": "Skill",
+      "badge": "Kế hoạch",
+      "tags": [
+        "kế hoạch",
+        "giả định",
+        "review"
+      ],
+      "thumb": "assets/res/skill-kf-plan.jpg",
+      "note": "Biến brief thành kế hoạch qua cây vấn đề, ưu tiên, giả định và vòng review độc lập. Phiên bản 1.0.1, tác giả Hưng Kescy.",
+      "date": "2026-10-28",
+      "ctas": [
+        {
+          "btn": "Tải kf-plan.zip",
+          "url": "https://drive.google.com/file/d/1OEPD02C_jznGSsjdkQF7pndK6oyhTqpN/view?usp=drivesdk"
+        },
+        {
+          "btn": "Thư mục Skill-Hub",
+          "url": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
+        }
+      ],
+      "ctasTitle": "Tải skill",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Dùng sau brainstorm, khi đã có đề bài rõ. Kích hoạt bằng: lên kế hoạch, plan giúp tôi, cập nhật plan. Skill chỉ lập kế hoạch, không thực hiện."
+        },
+        {
+          "k": "h",
+          "t": "Nguyên tắc"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Hỏi theo nhóm quyết định, mỗi nhóm kèm khuyến nghị.",
+            "Bạn nói 'tuỳ bạn' không có nghĩa Claude được tự bịa dữ kiện.",
+            "Ưu tiên bằng chứng hơn trí nhớ.",
+            "Chức năng giao diện cũng là giả định cần kiểm chứng.",
+            "Đủ dùng quan trọng hơn dài."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "8 bước"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Tiếp nhận và định tuyến",
+              "d": "Đọc brief hoặc đề bài đã đóng khung."
+            },
+            {
+              "t": "Phân loại",
+              "d": "Điều đã biết, điều phân tích được, điều bắt buộc phải thăm dò."
+            },
+            {
+              "t": "Cây vấn đề",
+              "d": "Chia bài toán thành các nhánh."
+            },
+            {
+              "t": "Ưu tiên",
+              "d": "Ma trận 2x2: tác động và mức kiểm soát được."
+            },
+            {
+              "t": "Phương án và sổ giả định",
+              "d": "Mỗi giả định có trạng thái VERIFIED hoặc TO-TEST."
+            },
+            {
+              "t": "Kế hoạch công việc",
+              "d": "Có bản thăm dò riêng cho phần must-probe."
+            },
+            {
+              "t": "Cổng review",
+              "d": "Subagent mới đọc, soi khả năng thực thi và tình huống thất bại, lặp tới khi SUFFICIENT, tối đa 3 vòng."
+            },
+            {
+              "t": "Xác nhận và chốt",
+              "d": "Bạn đồng ý rõ ràng mới lưu."
+            }
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Chế độ Re-plan: khi tình hình đổi, cập nhật kế hoạch cũ và ghi nhật ký thay đổi theo ngày."
+        },
+        {
+          "k": "code",
+          "t": "/kf-plan docs/briefs/2026-10-28-tang-dang-ky.md",
+          "cap": "Ví dụ kích hoạt"
+        },
+        {
+          "k": "p",
+          "t": "Đầu ra: docs/plans/{YYYY-MM-DD}-{slug}.md, dựng từ mẫu assets/plan-template.md."
+        },
+        {
+          "k": "h",
+          "t": "Kết quả đạt được khi dùng skill"
+        },
+        {
+          "k": "callout",
+          "t": "Kết quả dưới đây là sản phẩm đầu ra mà chính skill quy định (theo file SKILL.md), không phải số liệu đo lường từ dự án thực tế. Khi bạn dùng và có kết quả thật, hãy ghi lại để bổ sung vào đây."
+        },
+        {
+          "k": "list",
+          "items": [
+            "Một file kế hoạch có thể giao cho người khác làm theo.",
+            "Sổ giả định cho biết điều nào đã kiểm chứng, điều nào còn phải thử.",
+            "Kế hoạch đã qua review độc lập và soi tình huống thất bại trước khi bắt tay làm.",
+            "Việc chưa chắc được xếp vào bản thăm dò thay vì giả vờ chắc chắn."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cài đặt chung"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Tải file về từ nút Drive bên dưới.",
+            "Claude Code: giải nén thư mục skill vào ~/.claude/skills/ (dùng cho mọi dự án) hoặc .claude/skills/ trong dự án. Mỗi skill là một thư mục chứa SKILL.md.",
+            "Claude trên web hoặc app: vào Cài đặt, mục Skills (Capabilities), tải file zip hoặc .skill lên rồi bật.",
+            "Mở phiên mới và gõ lệnh hoặc câu kích hoạt của skill."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "skill-plan",
+      "kho": "ai",
+      "group": "skill",
+      "guide": true,
+      "title": "plan: lập kế hoạch hành động cho mọi dự án",
+      "type": "Skill",
+      "badge": "Kế hoạch",
+      "tags": [
+        "kế hoạch",
+        "roadmap",
+        "phase"
+      ],
+      "thumb": "assets/res/skill-plan.jpg",
+      "note": "Skill kế hoạch tổng quát: quét kế hoạch cũ, nghiên cứu, chia phase, red team và tạo task.",
+      "date": "2026-10-28",
+      "ctas": [
+        {
+          "btn": "Tải plan.skill",
+          "url": "https://drive.google.com/file/d/1DvZINNKSRqROsWdi-67zPmVjYbNxKERF/view?usp=drivesdk"
+        },
+        {
+          "btn": "Thư mục Skill-Hub",
+          "url": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
+        }
+      ],
+      "ctasTitle": "Tải skill",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Dùng khi cần kế hoạch nhanh cho kinh doanh, cá nhân, sự kiện, học tập, sự nghiệp. Kích hoạt bằng: plan, roadmap, break this down. Skill chỉ lập kế hoạch, không thực hiện."
+        },
+        {
+          "k": "h",
+          "t": "Cách chạy"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Quét kế hoạch cũ",
+              "d": "Đọc plan.md trong ./plans/ và nối phụ thuộc blockedBy, blocks với kế hoạch liên quan."
+            },
+            {
+              "t": "Thử thách phạm vi",
+              "d": "Hỏi lại xem mục tiêu có quá rộng không (bỏ qua với mục tiêu rất nhỏ)."
+            },
+            {
+              "t": "Chọn chế độ",
+              "d": "Tự nhận diện độ phức tạp hoặc chỉ định bằng cờ."
+            },
+            {
+              "t": "Nghiên cứu và thu thập ngữ cảnh",
+              "d": "Tìm tài liệu, hỏi bạn hiện trạng."
+            },
+            {
+              "t": "Viết kế hoạch",
+              "d": "Tạo ./plans/{YYYYMMDD}-{HHmm}-{slug}/plan.md cùng file từng phase."
+            },
+            {
+              "t": "Red team và xác thực",
+              "d": "Soi phản biện, hỏi các câu then chốt (chế độ hard, two)."
+            },
+            {
+              "t": "Tạo task",
+              "d": "Mỗi phase thành một task. Dưới 3 phase thì bỏ qua."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Các chế độ"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Cờ",
+            "Chế độ",
+            "Nghiên cứu",
+            "Red team"
+          ],
+          "rows": [
+            [
+              "--auto",
+              "Tự nhận diện (mặc định)",
+              "Theo chế độ",
+              "Theo chế độ"
+            ],
+            [
+              "--fast",
+              "Nhanh",
+              "Bỏ qua",
+              "Bỏ qua"
+            ],
+            [
+              "--hard",
+              "Kỹ",
+              "Sâu",
+              "Có"
+            ],
+            [
+              "--two",
+              "Hai phương án",
+              "Song song",
+              "Sau khi chọn"
+            ],
+            [
+              "--no-tasks",
+              "Không tạo task",
+              "",
+              ""
+            ]
+          ]
+        },
+        {
+          "k": "code",
+          "t": "/plan Ra mắt khoá học online quý 1 --hard\n/plan archive      # tóm tắt và lưu trữ kế hoạch đã xong\n/plan red-team     # phản biện kế hoạch\n/plan validate     # phỏng vấn các câu then chốt",
+          "cap": "Ví dụ lệnh"
+        },
+        {
+          "k": "callout",
+          "t": "Sau khi tạo xong, skill luôn nhắc: Run /clear rồi bắt đầu thực hiện từ đường dẫn plan.md. Làm theo để phiên mới không mất ngữ cảnh."
+        },
+        {
+          "k": "h",
+          "t": "Kết quả đạt được khi dùng skill"
+        },
+        {
+          "k": "callout",
+          "t": "Kết quả dưới đây là sản phẩm đầu ra mà chính skill quy định (theo file SKILL.md), không phải số liệu đo lường từ dự án thực tế. Khi bạn dùng và có kết quả thật, hãy ghi lại để bổ sung vào đây."
+        },
+        {
+          "k": "list",
+          "items": [
+            "Thư mục kế hoạch có plan.md và từng phase, dùng được qua nhiều phiên làm việc.",
+            "Các kế hoạch liên quan biết phụ thuộc lẫn nhau, tránh làm chồng chéo.",
+            "Có danh sách task bám theo phase.",
+            "Có thể thêm phản biện red team để lộ rủi ro trước khi làm."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cài đặt chung"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Tải file về từ nút Drive bên dưới.",
+            "Claude Code: giải nén thư mục skill vào ~/.claude/skills/ (dùng cho mọi dự án) hoặc .claude/skills/ trong dự án. Mỗi skill là một thư mục chứa SKILL.md.",
+            "Claude trên web hoặc app: vào Cài đặt, mục Skills (Capabilities), tải file zip hoặc .skill lên rồi bật.",
+            "Mở phiên mới và gõ lệnh hoặc câu kích hoạt của skill."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "skill-reflect",
+      "kho": "ai",
+      "group": "skill",
+      "guide": true,
+      "title": "reflect: rút kinh nghiệm cuối phiên",
+      "type": "Skill",
+      "badge": "Học hỏi",
+      "tags": [
+        "reflect",
+        "bài học",
+        "retrospective"
+      ],
+      "thumb": "assets/res/skill-reflect.jpg",
+      "note": "Nhìn lại một phiên làm việc theo 5 phần và đề xuất cập nhật bền (skill, bộ nhớ, quy tắc). Do KesFlow phát triển.",
+      "date": "2026-10-28",
+      "ctas": [
+        {
+          "btn": "Tải reflect.zip",
+          "url": "https://drive.google.com/file/d/15OdWXZ7h8d-UDgDyPzIoR2H-wwjgmvYg/view?usp=drivesdk"
+        },
+        {
+          "btn": "Thư mục Skill-Hub",
+          "url": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
+        }
+      ],
+      "ctasTitle": "Tải skill",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Dùng cuối phiên, sau một việc làm tốt hoặc tệ rõ rệt. Kích hoạt bằng: /reflect, rút kinh nghiệm, nhìn lại, tổng kết hội thoại."
+        },
+        {
+          "k": "h",
+          "t": "Bản nhìn lại gồm 5 phần"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Phần",
+            "Nội dung"
+          ],
+          "rows": [
+            [
+              "1. Đã xảy ra gì",
+              "Tóm tắt phiên làm việc"
+            ],
+            [
+              "2. Điều làm tốt",
+              "Giữ lại, lặp lại"
+            ],
+            [
+              "3. Điều chưa tốt",
+              "Nêu thẳng nguyên nhân"
+            ],
+            [
+              "4. Cách cải thiện",
+              "Viết dạng: khi gặp X thì làm Y"
+            ],
+            [
+              "5. Cập nhật bền",
+              "Đề xuất: Skill, Memory, Rule hoặc Nothing"
+            ]
+          ]
+        },
+        {
+          "k": "callout",
+          "t": "Skill chỉ đề xuất. Không sửa skill, bộ nhớ hay quy tắc nào nếu bạn chưa duyệt."
+        },
+        {
+          "k": "h",
+          "t": "Cách dùng"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Gõ lệnh",
+              "d": "/reflect ở cuối phiên."
+            },
+            {
+              "t": "Đọc bản nhìn lại",
+              "d": "Có thể hiện ngay trong chat hoặc lưu thành file trong docs/journals hoặc reflections."
+            },
+            {
+              "t": "Duyệt đề xuất",
+              "d": "Chọn mục nào đáng giữ thành quy tắc, bỏ mục không cần."
+            },
+            {
+              "t": "Áp dụng",
+              "d": "Sau khi bạn đồng ý, mới cập nhật."
+            }
+          ]
+        },
+        {
+          "k": "code",
+          "t": "/reflect",
+          "cap": "Ví dụ kích hoạt"
+        },
+        {
+          "k": "h",
+          "t": "Kết quả đạt được khi dùng skill"
+        },
+        {
+          "k": "callout",
+          "t": "Kết quả dưới đây là sản phẩm đầu ra mà chính skill quy định (theo file SKILL.md), không phải số liệu đo lường từ dự án thực tế. Khi bạn dùng và có kết quả thật, hãy ghi lại để bổ sung vào đây."
+        },
+        {
+          "k": "list",
+          "items": [
+            "Bài học không biến mất khi đóng phiên, mà có chỗ để lưu.",
+            "Mỗi cải thiện có dạng hành động cụ thể (khi X thì Y).",
+            "Bạn kiểm soát việc gì được ghi nhớ lâu dài."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cài đặt chung"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Tải file về từ nút Drive bên dưới.",
+            "Claude Code: giải nén thư mục skill vào ~/.claude/skills/ (dùng cho mọi dự án) hoặc .claude/skills/ trong dự án. Mỗi skill là một thư mục chứa SKILL.md.",
+            "Claude trên web hoặc app: vào Cài đặt, mục Skills (Capabilities), tải file zip hoặc .skill lên rồi bật.",
+            "Mở phiên mới và gõ lệnh hoặc câu kích hoạt của skill."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "skill-eli5",
+      "kho": "ai",
+      "group": "skill",
+      "guide": true,
+      "title": "eli5: giải thích như cho bé 5 tuổi",
+      "type": "Skill",
+      "badge": "Giải thích",
+      "tags": [
+        "eli5",
+        "giải thích",
+        "HTML"
+      ],
+      "thumb": "assets/res/skill-eli5.jpg",
+      "note": "Gõ /eli5 kèm chủ đề, nhận một trang HTML nhiều hình lớn, ít chữ để hiểu nhanh.",
+      "date": "2026-10-28",
+      "ctas": [
+        {
+          "btn": "Tải eli5skill.zip",
+          "url": "https://drive.google.com/file/d/100z7-cqmz1E1H19d3vjmVWWY-xjFvhBq/view?usp=drivesdk"
+        },
+        {
+          "btn": "Thư mục Skill-Hub",
+          "url": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
+        }
+      ],
+      "ctasTitle": "Tải skill",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Dùng khi gặp khái niệm khó và muốn hiểu ở mức đơn giản nhất, hoặc cần giải thích cho người ngoài ngành."
+        },
+        {
+          "k": "h",
+          "t": "Cách dùng"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Gõ lệnh",
+              "d": "/eli5 kèm chủ đề."
+            },
+            {
+              "t": "Nhận trang HTML",
+              "d": "Hình lớn, ít chữ, câu ngắn."
+            },
+            {
+              "t": "Mở và đọc",
+              "d": "Hỏi tiếp nếu muốn đi sâu một phần."
+            }
+          ]
+        },
+        {
+          "k": "code",
+          "t": "/eli5 AI Agent là gì\n/eli5 SEO hoạt động thế nào",
+          "cap": "Ví dụ"
+        },
+        {
+          "k": "h",
+          "t": "Kết quả đạt được khi dùng skill"
+        },
+        {
+          "k": "callout",
+          "t": "Kết quả dưới đây là sản phẩm đầu ra mà chính skill quy định (theo file SKILL.md), không phải số liệu đo lường từ dự án thực tế. Khi bạn dùng và có kết quả thật, hãy ghi lại để bổ sung vào đây."
+        },
+        {
+          "k": "list",
+          "items": [
+            "Một trang HTML dễ đọc, dùng được để gửi cho người khác.",
+            "Khái niệm khó được rút gọn thành hình và vài câu."
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Ghi chú: file zip của skill này rất nhỏ (khoảng 345 byte), nên mô tả ở đây dựa trên nội dung SKILL.md ngắn đã đọc."
+        },
+        {
+          "k": "h",
+          "t": "Cài đặt chung"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Tải file về từ nút Drive bên dưới.",
+            "Claude Code: giải nén thư mục skill vào ~/.claude/skills/ (dùng cho mọi dự án) hoặc .claude/skills/ trong dự án. Mỗi skill là một thư mục chứa SKILL.md.",
+            "Claude trên web hoặc app: vào Cài đặt, mục Skills (Capabilities), tải file zip hoặc .skill lên rồi bật.",
+            "Mở phiên mới và gõ lệnh hoặc câu kích hoạt của skill."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "skill-self-explorer",
+      "kho": "ai",
+      "group": "skill",
+      "guide": true,
+      "title": "self-explorer: khám phá bản thân từ 3 góc",
+      "type": "Skill",
+      "badge": "Bản thân",
+      "tags": [
+        "bản thân",
+        "tử vi",
+        "MBTI",
+        "essay"
+      ],
+      "thumb": "assets/res/skill-self-explorer.jpg",
+      "note": "Đối chiếu lá số, trắc nghiệm tính cách và trải nghiệm sống để ra báo cáo bản thân có dẫn chứng.",
+      "date": "2026-10-28",
+      "ctas": [
+        {
+          "btn": "Tải self-explorer.zip",
+          "url": "https://drive.google.com/file/d/1vvzhW9ZrlryGnKe6mDhp-Vd4Kcev-Co7/view?usp=drivesdk"
+        },
+        {
+          "btn": "Thư mục Skill-Hub",
+          "url": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
+        }
+      ],
+      "ctasTitle": "Tải skill",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Dùng khi muốn rõ bản thân, mục đích, giá trị, hoặc hoà giải mâu thuẫn giữa trắc nghiệm và trải nghiệm. Nên chạy trên Claude Opus. Skill đóng vai tấm gương đặt câu hỏi, không phải nhà trị liệu hay coach."
+        },
+        {
+          "k": "h",
+          "t": "3 góc nhìn"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Góc",
+            "Nguồn",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "A: số mệnh",
+              "Lá số, thần số học",
+              "Tử Vi, chiêm tinh, numerology"
+            ],
+            [
+              "B: tự báo cáo",
+              "Trắc nghiệm",
+              "MBTI, DISC, Enneagram"
+            ],
+            [
+              "C: trải nghiệm",
+              "Bài viết của bạn",
+              "Essay 500 đến 2000 từ"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Khi các góc mâu thuẫn, ưu tiên C hơn A hơn B (trải nghiệm thực hơn lá số, lá số hơn bài test)."
+        },
+        {
+          "k": "h",
+          "t": "3 giai đoạn"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Thu thập",
+              "d": "Thông tin cơ bản, dữ liệu ba góc, một bài essay. Claude tạo file ghi chú phiên làm việc."
+            },
+            {
+              "t": "Đối chiếu",
+              "d": "Rút đặc điểm, tìm điểm trùng và điểm lệch. Hỏi từng câu một, khoảng 10 đến 12 lượt, giải quyết mâu thuẫn mức Critical và High trước."
+            },
+            {
+              "t": "Báo cáo",
+              "d": "Báo cáo 10 mục, có câu hỏi gợi suy ngẫm ở mục cuối và lời kết để tự dùng."
+            }
+          ]
+        },
+        {
+          "k": "callout",
+          "t": "Lưu ý: chiêm tinh, tử vi chỉ là lăng kính để suy ngẫm, không phải dự đoán. Gặp dấu hiệu căng thẳng nặng, nên gặp chuyên gia tâm lý."
+        },
+        {
+          "k": "code",
+          "t": "Mình muốn khám phá bản thân bằng self-explorer",
+          "cap": "Câu kích hoạt"
+        },
+        {
+          "k": "h",
+          "t": "Kết quả đạt được khi dùng skill"
+        },
+        {
+          "k": "callout",
+          "t": "Kết quả dưới đây là sản phẩm đầu ra mà chính skill quy định (theo file SKILL.md), không phải số liệu đo lường từ dự án thực tế. Khi bạn dùng và có kết quả thật, hãy ghi lại để bổ sung vào đây."
+        },
+        {
+          "k": "list",
+          "items": [
+            "Báo cáo 10 mục dẫn lại chính lời bạn nói.",
+            "Chỉ ra điểm các góc nhìn đồng thuận và điểm mâu thuẫn.",
+            "Có câu hỏi gợi suy ngẫm thay cho lời khuyên áp đặt.",
+            "Kế hoạch hành động chỉ có khi bạn yêu cầu thêm."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cài đặt chung"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Tải file về từ nút Drive bên dưới.",
+            "Claude Code: giải nén thư mục skill vào ~/.claude/skills/ (dùng cho mọi dự án) hoặc .claude/skills/ trong dự án. Mỗi skill là một thư mục chứa SKILL.md.",
+            "Claude trên web hoặc app: vào Cài đặt, mục Skills (Capabilities), tải file zip hoặc .skill lên rồi bật.",
+            "Mở phiên mới và gõ lệnh hoặc câu kích hoạt của skill."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "skill-create-skill",
+      "kho": "ai",
+      "group": "skill",
+      "guide": true,
+      "title": "kes-create-skill: tạo skill đúng chuẩn",
+      "type": "Skill",
+      "badge": "Tạo skill",
+      "tags": [
+        "tạo skill",
+        "chuẩn",
+        "chấm điểm"
+      ],
+      "thumb": "assets/res/skill-create-skill.jpg",
+      "note": "Bộ công cụ KesFlow phiên bản 1.1.0 để phỏng vấn, soạn và chấm điểm một skill mới. Bản tóm tắt chưa đầy đủ.",
+      "date": "2026-10-28",
+      "ctas": [
+        {
+          "btn": "Tải kes-create-skill-v1.1.0.zip",
+          "url": "https://drive.google.com/file/d/1nHAtuUvdHe4e32yckPN87The4Oe3z62y/view?usp=drivesdk"
+        },
+        {
+          "btn": "Thư mục Skill-Hub",
+          "url": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
+        }
+      ],
+      "ctasTitle": "Tải skill",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Mục này chỉ dựa trên danh sách file trong gói zip và tên file. Nội dung chi tiết nằm trong file nén chưa được đọc, nên chưa ghi lệnh hay quy trình cụ thể để tránh viết sai."
+        },
+        {
+          "k": "h",
+          "t": "Gói gồm những gì (theo cấu trúc file)"
+        },
+        {
+          "k": "table",
+          "head": [
+            "File",
+            "Có thể hiểu là"
+          ],
+          "rows": [
+            [
+              "README-VI.md",
+              "Hướng dẫn tiếng Việt"
+            ],
+            [
+              "SKILL.md",
+              "Quy trình chính của skill"
+            ],
+            [
+              "references/interview.md",
+              "Cách phỏng vấn để lấy yêu cầu"
+            ],
+            [
+              "references/levels.md",
+              "Các cấp độ skill"
+            ],
+            [
+              "references/standard.md",
+              "Tiêu chuẩn của một skill tốt"
+            ],
+            [
+              "references/review-checklist.md",
+              "Danh sách kiểm tra khi review"
+            ],
+            [
+              "assets/l1, l2, l3-skill-template.md",
+              "Mẫu skill cho 3 cấp L1, L2, L3"
+            ],
+            [
+              "assets/skill-brief-template.md",
+              "Mẫu brief cho skill"
+            ],
+            [
+              "assets/grade-report-template.md",
+              "Mẫu báo cáo chấm điểm"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Việc cần làm tiếp"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Mở file README-VI.md trong zip để chép phần hướng dẫn đầy đủ vào thẻ này.",
+            "Bổ sung ví dụ lệnh kích hoạt và kết quả thực tế sau khi bạn dùng thử."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cài đặt chung"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Tải file về từ nút Drive bên dưới.",
+            "Claude Code: giải nén thư mục skill vào ~/.claude/skills/ (dùng cho mọi dự án) hoặc .claude/skills/ trong dự án. Mỗi skill là một thư mục chứa SKILL.md.",
+            "Claude trên web hoặc app: vào Cài đặt, mục Skills (Capabilities), tải file zip hoặc .skill lên rồi bật.",
+            "Mở phiên mới và gõ lệnh hoặc câu kích hoạt của skill."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "skill-design-init",
+      "kho": "ai",
+      "group": "skill",
+      "guide": true,
+      "title": "kf-cl-design-init: khởi tạo thiết kế",
+      "type": "Skill",
+      "badge": "Thiết kế",
+      "tags": [
+        "thiết kế",
+        "KesFlow",
+        "cần bổ sung"
+      ],
+      "thumb": "assets/res/skill-design-init.jpg",
+      "note": "Gói 166 KB của KesFlow. Nội dung chưa đọc được, thẻ này giữ chỗ và liên kết tải.",
+      "date": "2026-10-28",
+      "ctas": [
+        {
+          "btn": "Tải kf-cl-design-init.zip",
+          "url": "https://drive.google.com/file/d/12u6AkuKATK6C6FXYiH5jjZ5k6ASonDH5/view?usp=drivesdk"
+        },
+        {
+          "btn": "Thư mục Skill-Hub",
+          "url": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
+        }
+      ],
+      "ctasTitle": "Tải skill",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Chưa có hướng dẫn chi tiết cho skill này vì chưa đọc được nội dung gói. Chỉ biết tên là kf-cl-design-init và dung lượng 166 KB. Tên gợi ý liên quan tới khởi tạo thiết kế, nhưng đó là suy đoán, chưa kiểm chứng."
+        },
+        {
+          "k": "h",
+          "t": "Cách bổ sung"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Giải nén zip và mở SKILL.md để xem mô tả, lệnh kích hoạt.",
+            "Gửi mô tả ngắn hoặc nội dung SKILL.md, thẻ sẽ được viết đầy đủ gồm hướng dẫn và kết quả."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cài đặt chung"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Tải file về từ nút Drive bên dưới.",
+            "Claude Code: giải nén thư mục skill vào ~/.claude/skills/ (dùng cho mọi dự án) hoặc .claude/skills/ trong dự án. Mỗi skill là một thư mục chứa SKILL.md.",
+            "Claude trên web hoặc app: vào Cài đặt, mục Skills (Capabilities), tải file zip hoặc .skill lên rồi bật.",
+            "Mở phiên mới và gõ lệnh hoặc câu kích hoạt của skill."
+          ]
+        }
+      ]
     }
   ]
 }
