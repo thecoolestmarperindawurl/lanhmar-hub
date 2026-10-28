@@ -7219,6 +7219,133 @@
           ]
         }
       ]
+    },
+    {
+      "id": "edit-dji-dlogm-rec709",
+      "kho": "edit",
+      "group": "dung",
+      "guide": true,
+      "date": "2026-10-28",
+      "title": "DJI Osmo Pocket 3: LUT D-Log M sang Rec.709",
+      "type": "LUT",
+      "badge": "DJI",
+      "tags": [
+        "dji",
+        "lut",
+        "d-log m",
+        "chỉnh màu"
+      ],
+      "thumb": "assets/res/edit-dji-dlogm-rec709.jpg",
+      "note": "LUT của DJI chuyển footage D-Log M của Osmo Pocket 3 sang Rec.709 để chỉnh màu khi dựng. Mô tả dựa trên tên trang và nguồn phụ.",
+      "cta": {
+        "title": "DJI · D-Log M sang Rec.709 (Osmo Pocket 3)",
+        "url": "https://www.dji.com/global/downloads/softwares/osmo-pocket-3-dlog-to-rec709",
+        "btn": "Mở trang tải của DJI"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Mình không mở được trang tải của DJI (tên miền bị chặn), nên chưa xem được tên file, phiên bản hay hướng dẫn trên trang đó. Dưới đây dựa vào tên trang (D-Log M sang Rec.709 cho Osmo Pocket 3) và các bài tìm được trên web. Các bước cụ thể là từ nguồn phụ, hãy so với trang DJI."
+        },
+        {
+          "k": "h",
+          "t": "Tải này dùng để làm gì"
+        },
+        {
+          "k": "p",
+          "t": "Osmo Pocket 3 có thể quay ở chế độ D-Log M, hình phẳng, màu nhạt để giữ nhiều chi tiết sáng tối cho việc chỉnh màu. Footage đó cần chuyển sang chuẩn màu thông thường để xem. File trên trang DJI là LUT chuyển D-Log M sang Rec.709, tức bộ màu để xem trên màn hình thường. Dựa trên tên trang, đây là file dùng ở bước dựng sau khi đã quay."
+        },
+        {
+          "k": "h",
+          "t": "Thuộc mục nào trong Kho Edit"
+        },
+        {
+          "k": "p",
+          "t": "Đặt ở nhóm Dựng vì file được dùng trong phần mềm dựng. Điều kiện là bạn đã quay ở chế độ D-Log M. Nếu quay ở chế độ màu thường thì không cần LUT này."
+        },
+        {
+          "k": "h",
+          "t": "Cách dùng (theo nguồn phụ, chưa kiểm tra trên trang DJI)"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Phần mềm",
+            "Các bước"
+          ],
+          "rows": [
+            [
+              "DaVinci Resolve",
+              "Theo hướng dẫn LUT của DJI (bản 2018 viết cho Resolve 15 và máy cũ): chép file vào thư mục LUT của Color Management, trong thư mục con DJI, rồi chọn Update Lists (chỉ cần làm một lần). Sau đó trên trang Color, áp LUT từ menu LUT của clip. Ctrl+D (Windows) hoặc Command+D (Mac) để bật tắt so sánh trước sau"
+            ],
+            [
+              "Premiere Pro",
+              "Một bài hướng dẫn bên thứ ba: nạp LUT ở Lumetri Color, mục Basic Correction, ô Input LUT, rồi chỉnh thêm bằng curves và color wheels. Đây là nguồn phụ, đường dẫn menu chưa được xác nhận"
+            ]
+          ]
+        },
+        {
+          "k": "list",
+          "items": [
+            "Cách làm hay gặp ở Resolve: đặt LUT DJI ở node cuối, các node chỉnh màu khác phía trước.",
+            "Một bài ghi Premiere Pro đôi khi lỗi với file DJI, nên thử clip ngắn trước khi dựng cả dự án."
+          ]
+        },
+        {
+          "k": "callout",
+          "t": "Một hãng bán LUT lập luận LUT Rec.709 của DJI ép footage vào Rec.709, nên có thể mất độ tương phản và cháy vùng sáng. Đó là lời quảng cáo của bên bán, chưa phải kiểm chứng độc lập. Muốn chỉnh màu sâu hơn bạn có thể thử LUT khác hoặc chỉnh tay."
+        },
+        {
+          "k": "h",
+          "t": "Việc cần làm trước khi dùng"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Tải từ trang DJI",
+              "d": "Bấm nút bên dưới và tìm file D-Log M sang Rec.709 cho Osmo Pocket 3. Xem phiên bản và hướng dẫn kèm theo."
+            },
+            {
+              "t": "Quay thử một clip D-Log M",
+              "d": "Kiểm tra hình phẳng như mong đợi trước khi quay chính."
+            },
+            {
+              "t": "Áp LUT trong phần mềm dựng",
+              "d": "Dùng clip thử để chắc màu, độ sáng và vùng sáng không cháy."
+            },
+            {
+              "t": "Chỉnh thêm nếu cần",
+              "d": "Tăng giảm cường độ, chỉnh cân bằng trắng, độ sáng."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Nguồn mình dựa vào"
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "Trang tải LUT của DJI (link bạn gửi)",
+              "u": "https://www.dji.com/global/downloads/softwares/osmo-pocket-3-dlog-to-rec709"
+            },
+            {
+              "t": "Hướng dẫn LUT D-Log M (Lensrentals, PDF)",
+              "u": "https://www.Lensrentals.com/product-assets/9f7a528b-12a5-43d2-9e65-47acc158480e/DLOGMLutGuide.pdf"
+            },
+            {
+              "t": "BaseLUTs cho Osmo Pocket 3 (Gamut.io)",
+              "u": "https://gamut.io/camera/osmo-pocket-3/"
+            },
+            {
+              "t": "Thảo luận Resolve với D-Log M (Mavic Pilots)",
+              "u": "https://mavicpilots.com/threads/editing-d-logm-video-with-davinci-resolve.150363/post-1687976"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
