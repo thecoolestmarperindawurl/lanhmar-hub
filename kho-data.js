@@ -2,9 +2,10 @@
 window.KHO = [
   { id: "ai", name: "Kho AI", icon: "✦", desc: "Tài khoản, skill cho AI Agent, bài cập nhật tính năng",
     groups: [{ id: "news", name: "AI News", icon: "📰" }, { id: "agent", name: "AI Agent", icon: "🤖" }, { id: "buy", name: "Nơi mua AI", icon: "🛒" }, { id: "skill", name: "Skill", icon: "🧩", intro: { text: "Skill là gói hướng dẫn giúp Claude làm một loại việc đúng quy trình mỗi lần: gõ lệnh hoặc nói câu kích hoạt, Claude nạp quy trình rồi làm. Dưới đây là 8 skill, xếp theo thứ tự nên dùng: làm rõ đề bài, lập kế hoạch, thực hiện, rút kinh nghiệm. Bấm vào từng thẻ để xem cách dùng và kết quả.", rows: [["Đề bài còn mơ hồ", "brainstorm"], ["Đã có brief, cần kế hoạch có kiểm chứng", "kf-plan"], ["Cần kế hoạch hành động nhanh", "plan"], ["Vừa xong việc, muốn giữ bài học", "reflect"], ["Muốn hiểu khái niệm thật đơn giản", "eli5"], ["Muốn hiểu bản thân từ nhiều nguồn", "self-explorer"], ["Muốn tự tạo skill mới", "kes-create-skill"], ["Chuẩn bị DESIGN.md, PRODUCT.md cho Claude Design", "kf-cl-design-init"]], url: "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C", btn: "Mở thư mục Skill-Hub trên Drive" } }, { id: "other", name: "Khác", icon: "📁" }] },
-  { id: "design", name: "Kho Design", icon: "◐", desc: "Tài nguyên cho Adobe, Canva, Figma..." },
+  { id: "design", name: "Kho Design", icon: "◐", desc: "Tài nguyên cho Adobe, Canva, Figma...",
+    groups: [{ id: "adobe", name: "Hướng dẫn công cụ Adobe", icon: "🅰️" }, { id: "tainguyen", name: "Tài nguyên", icon: "🗂️" }] },
   { id: "edit", name: "Kho Edit", icon: "▶", desc: "Tài nguyên cho CapCut, Premiere, After Effects...",
-    groups: [{ id: "quay", name: "Quay", icon: "🎥" }, { id: "dung", name: "Dựng", icon: "✂️" }] },
+    groups: [{ id: "quay", name: "Quay", icon: "🎥" }, { id: "dung", name: "Dựng", icon: "✂️" }, { id: "adobe", name: "Hướng dẫn công cụ Adobe", icon: "🅰️" }], strictGroups: true },
   { id: "tool", name: "Kho Tool", icon: "⚙", desc: "Repo GitHub và công cụ hữu ích" },
   { id: "knowledge", name: "Kho Knowledge", icon: "✎", desc: "Kho ebook, khoá học theo Academy, Marketing Project",
     groups: [{ id: "web", name: "Web tự học", icon: "🌐" }, { id: "ebook", name: "Kho Ebook", icon: "📚" }, { id: "vuonuom", name: "Vườn Ươm Khu Phố", icon: "🌱" }, { id: "htxchiem", name: "Hợp tác xã Chị Em", icon: "🤝" }, { id: "seongon", name: "SEONGON Academy", icon: "🔎" }, { id: "queue", name: "Khoá chờ học", icon: "📥" }, { id: "mkproject", name: "Marketing Project", icon: "🎓" }], strictGroups: true },

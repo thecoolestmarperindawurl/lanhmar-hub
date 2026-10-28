@@ -1512,7 +1512,8 @@
             "Còn thiếu: file logo vector, quy tắc dùng logo (khoảng trống, cỡ tối thiểu, nền cấm dùng), tên font chữ viết tay trên banner."
           ]
         }
-      ]
+      ],
+      "group": "tainguyen"
     },
     {
       "id": "tool-phone-laptop-devmode",
@@ -2113,7 +2114,8 @@
             "Font trong thiết kế của LANHMAR vẫn là Montserrat. Font sưu tầm dùng cho nhấn nhá, không thay font chính của thương hiệu."
           ]
         }
-      ]
+      ],
+      "group": "tainguyen"
     },
     {
       "id": "knowledge-fullstack-marketing",
@@ -7582,12 +7584,13 @@
             }
           ]
         }
-      ]
+      ],
+      "group": "adobe"
     },
     {
       "id": "edit-adobe-tools",
       "kho": "edit",
-      "group": "dung",
+      "group": "adobe",
       "guide": true,
       "date": "2026-10-28",
       "title": "Adobe cho Edit: công cụ nào, khi nào, nền tảng nào",
