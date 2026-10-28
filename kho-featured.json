@@ -2930,6 +2930,97 @@
       ]
     },
     {
+      "id": "vukp-thiet-ke-photoshop",
+      "kho": "knowledge",
+      "group": "vuonuom",
+      "guide": true,
+      "date": "2026-10-28",
+      "title": "Thiết kế ảnh cơ bản với Photoshop (K1)",
+      "type": "Khoá học",
+      "badge": "Đủ video",
+      "tags": [],
+      "thumb": "assets/res/vukp-photoshop.jpg",
+      "note": "Vườn Ươm Khu Phố · GV Nguyễn Minh Ngọc · 5 buổi, đã kiểm tra trên Drive: mỗi buổi đều có file record.",
+      "ctas": [
+        {
+          "btn": "Video và tài liệu",
+          "url": "https://drive.google.com/drive/folders/1KaGtOZWWtrz0po_pcERKqCBoyoREuBPF"
+        },
+        {
+          "btn": "Bài giảng",
+          "url": "https://drive.google.com/drive/folders/1zImVrkAythmCRqkYBE7Wn1k7lOg4TP0U"
+        },
+        {
+          "btn": "Bài tập về nhà",
+          "url": "https://drive.google.com/drive/folders/1Pk6_R6ONTYafEExFwz9JRFIYmsOpn8Cq"
+        }
+      ],
+      "ctasTitle": "Thiết kế ảnh cơ bản với Photoshop (K1)",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Khoá thuộc Vườn Ươm Khu Phố. Giảng viên: Nguyễn Minh Ngọc (theo slide buổi 1). Đã kiểm tra thư mục trên Google Drive ngày 28/10/2026: 5 buổi, mỗi buổi đều có file record."
+        },
+        {
+          "k": "h",
+          "t": "Các buổi học"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Buổi",
+            "Nội dung (theo slide buổi 1)",
+            "Tài liệu trên Drive"
+          ],
+          "rows": [
+            [
+              "Buổi 1",
+              "Tại sao chúng ta cần tạo ra một thiết kế",
+              "Record, slide (PDF)"
+            ],
+            [
+              "Buổi 2",
+              "Hiểu về bố cục: Focal Point, Alignment, Visual Hierarchy",
+              "Record, chat Zoom"
+            ],
+            [
+              "Buổi 3",
+              "Hiểu về sử dụng màu sắc: vòng tròn màu, ý nghĩa màu, các cách phối màu",
+              "Record"
+            ],
+            [
+              "Buổi 4",
+              "Typography: các loại font, cảm xúc đi kèm, cách kết hợp font cơ bản",
+              "Record"
+            ],
+            [
+              "Buổi 5",
+              "Tổng hợp: Design Audit, nhận diện vấn đề và nhận xét chính xác",
+              "Record"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Mục tiêu khoá học (theo slide)"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Tư duy rõ ràng, rành mạch hơn trước khi thiết kế.",
+            "Biết cơ bản cách sắp xếp các thứ trong một thiết kế (bố cục).",
+            "Biết cơ bản cách sử dụng chữ (typography) và màu sắc.",
+            "Biết cơ bản cách đánh giá và nhận xét thiết kế.",
+            "Phần lớn thời lượng học cách nhìn nhận, đánh giá thiết kế (cả thiết kế do AI và do người làm), một phần học các công cụ chỉnh sửa cơ bản trong Photoshop."
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Thư mục BTVN (bài tập về nhà) đã có các thư mục cho các buổi 1, 2, 3, 4 và có thể còn buổi 5, mình chưa kiểm tra hết nội dung. Drive còn có một lối tắt tên 'Quản lý thông tin | Khoá Thiết Kế Cơ Bản (PS) K1'. Tên buổi và tên khoá lấy từ slide buổi 1, chưa đối chiếu với Notion. Recap của khoá sẽ bổ sung khi có."
+        }
+      ]
+    },
+    {
       "id": "vukp-agent-boss",
       "kho": "knowledge",
       "group": "vuonuom",
@@ -2994,7 +3085,7 @@
       "group": "vuonuom",
       "guide": true,
       "date": "2026-10-27",
-      "title": "KesFlow: Đồng nghiệp AI (TA03)",
+      "title": "VUKP x KESFLOW (TA03)",
       "type": "Khoá học",
       "badge": "Đủ video",
       "tags": [],
@@ -3006,7 +3097,7 @@
           "url": "https://drive.google.com/drive/folders/1_Z08u_bIIR-9fJ2Y0xRouXDOwFoGNKAE"
         }
       ],
-      "ctasTitle": "KesFlow: Đồng nghiệp AI (TA03)",
+      "ctasTitle": "VUKP x KESFLOW (TA03)",
       "sections": [
         {
           "k": "callout",
