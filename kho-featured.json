@@ -4896,7 +4896,7 @@
         "trigger test"
       ],
       "thumb": "assets/res/skill-create-skill.jpg",
-      "note": "Phỏng vấn thành brief, dựng skill theo cấp L1/L2/L3, review độc lập và test trigger. Phiên bản 1.1.0, tác giả KesFlow - Hưng Kescy.",
+      "note": "Phỏng vấn thành brief, dựng skill theo cấp L1/L2/L3 với khung và tiêu chí hoàn thành riêng, review độc lập và test trigger. Phiên bản 1.1.0, tác giả KesFlow - Hưng Kescy.",
       "date": "2026-10-28",
       "ctas": [
         {
@@ -5001,28 +5001,137 @@
           "head": [
             "Cấp",
             "Là gì",
-            "Ví dụ",
-            "Ngân sách dòng (mục tiêu)"
+            "Chọn khi",
+            "Chạy mặc định",
+            "Dòng (mục tiêu / tối đa)"
+          ],
+          "rows": [
+            [
+              "L1 Hướng dẫn công cụ",
+              "Dạy agent dùng đúng một công cụ hoặc API, gần như toàn tham chiếu, ít hoặc không có bước",
+              "Việc là dùng đúng một công cụ, không phải chạy một công việc nhiều bước",
+              "Model tự gọi",
+              "150 / 400"
+            ],
+            [
+              "L2 Quy trình",
+              "Các bước làm một việc đầu đến cuối, có đầu ra kiểm được và một cổng review",
+              "Một việc chạy từ đầu tới cuối có kết quả kiểm tra được, đa số skill ở đây",
+              "Có tác dụng phụ hoặc nhạy thời điểm thì người dùng gọi, còn lại model tự gọi",
+              "200 / 500"
+            ],
+            [
+              "L3 Router",
+              "Cửa vào cho một mảng, chỉ có bảng định tuyến và luật chung, không tự làm việc",
+              "Từ 2 skill anh em trở lên cùng một mảng cần một cửa chung",
+              "Model tự gọi",
+              "80 / 150"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Cấp độ chỉ đo một thứ: một skill điều phối bao nhiêu việc. Nó không quyết định cách chia nhỏ tài liệu hay cách gọi skill. Chốt cấp độ ngay trong brief vì nó quyết định mẫu, checklist và tiêu chí hoàn thành cho cả vòng đời."
+        },
+        {
+          "k": "h",
+          "t": "Khung của từng cấp"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Cấp",
+            "Khung nội dung",
+            "Tiêu chí hoàn thành chính"
           ],
           "rows": [
             [
               "L1",
-              "Hướng dẫn một công cụ hoặc API",
-              "Skill dạy dùng một CLI",
-              "150"
+              "Phạm vi công cụ trong một dòng; bảng thao tác chính kèm định dạng tham số; các lỗi hay gặp dạng sai và đúng; quy tắc kiểm tra sau thao tác; cảnh báo lệch (công cụ thật thắng skill); các thao tác phá huỷ không bao giờ tự chạy. Có thêm mục Cài đặt nếu công cụ cần đăng nhập, bí mật không bao giờ nằm trong skill.",
+              "Mọi thao tác và tham số phải có trong tài liệu thật của công cụ; mỗi lỗi hay gặp có cặp sai và đúng; nêu rõ sự kiện nào buộc cập nhật skill; mini quy trình nhúng tối đa khoảng 5 bước, dài hơn thì tách thành L2."
             ],
             [
               "L2",
-              "Quy trình làm một việc đầu đến cuối, có đầu ra kiểm được",
-              "Đa số skill",
-              "200"
+              "Phần mở đầu ngắn (tuỳ chọn); đầu vào bắt buộc; các bước, mỗi bước có một tiêu chí hoàn thành kiểm được; cổng review độc lập khi đầu ra quan trọng; đầu ra kèm một dòng Done-when. Đầu ra là tài liệu thì dùng mẫu trong assets.",
+              "Mục Đầu vào luôn đứng đầu và có cách hỏi khi thiếu; mỗi bước có tiêu chí hoàn thành; mỗi bước có thể lỗi đều nêu lối thoát (thử lại có điều kiện, phương án dự phòng hoặc dừng lại hỏi); tạo tài liệu mà không có mẫu trong assets là trượt; dãy lệnh cố định không viết thành văn xuôi."
             ],
             [
               "L3",
-              "Router cho nhiều skill anh em, chỉ chứa bảng định tuyến",
-              "Muốn X thì gọi skill Y",
-              "80"
+              "Bản đồ mảng trong một đoạn; tối đa 5 luật bắt buộc, mỗi luật chặn một loại lỗi; bảng định tuyến 'muốn X thì skill Y' gồm cả ý định tưởng chừng nhỏ, cộng các ý định na ná thuộc nơi khác; chính sách khi có thay đổi.",
+              "Mọi skill anh em đều nằm trong bảng; mọi đích định tuyến đều tồn tại; không có nội dung thực thi trong thân; thêm, đổi tên, bỏ hoặc đổi phạm vi skill thì cập nhật bảng ngay trong cùng đợt."
             ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Với L2 có nhiều nhánh: nhánh nhỏ viết một dòng trong bước, nhánh lớn tách thành một file tham chiếu riêng cho mỗi biến thể, lớn hơn nữa thì tách skill. Từ 2 điểm quyết định trở lên thì vẽ sơ đồ mermaid chỉ hình dạng luồng phía trên phần Steps. Sản phẩm của skill nói ngôn ngữ của người dùng, từ đầu đến cuối."
+        },
+        {
+          "k": "h",
+          "t": "Quy tắc hệ thống"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Phụ thuộc một chiều: L3 trỏ tới L2, L2 trỏ tới L1, cấp thấp không bao giờ trỏ lên.",
+            "Chỉ viết lệnh, tham số, cờ hay tên trường khi chúng xuất hiện nguyên văn trong tài liệu nguồn hoặc đã chạy thật khi soạn. Suy đoán nghe hợp lý là nguyên nhân hàng đầu làm hỏng hướng dẫn công cụ.",
+            "Thân skill viết bằng tiếng Anh ngắn gọn. Chuỗi tiếng Việt chỉ giữ nguyên khi máy khớp đúng chuỗi đó, khách hàng đọc hoặc nghe, là ví dụ dạy viết bằng tiếng đó, hoặc là câu người dùng gõ để kích hoạt.",
+            "Dùng từ đơn giản mà người mới vào nghề đã biết. Thuật ngữ chỉ giữ khi skill tự định nghĩa và dùng lại như từ dẫn dắt; thuật ngữ người đọc phải tra mà không được định nghĩa trong file là một lỗi review.",
+            "Đặt tên: L1 là danh từ của công cụ, L2 là cụm động từ đứng đầu (viết plan-content, không viết content-planning), L3 là danh từ của mảng.",
+            "Tác giả: mỗi skill có metadata.author dạng 'tên bạn · built with kes-create-skill · KesFlow', trừ khi bạn chọn dòng tác giả khác.",
+            "Skill chỉ có kiến thức thuần (lý thuyết, tiêu chuẩn) không phải một cấp, mà là tài liệu tham chiếu để mọi cấp trích dẫn."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Skill của hãng công cụ"
+        },
+        {
+          "k": "p",
+          "t": "Skill do hãng công cụ phát hành chỉ đọc, cập nhật bằng cách nhập lại bản mới, không sửa tại chỗ. Tuỳ biến của bạn đặt ở nơi vừa đủ: vài luật thì để trong CLAUDE.md, nhiều hơn thì làm một skill đồng hành nhỏ chỉ chứa phần khác biệt và kích hoạt bằng cùng từ khoá. Không chép nội dung của hãng vào skill đồng hành vì sẽ lệch khi bản gốc cập nhật. Khi mâu thuẫn: skill đồng hành thắng skill hãng, công cụ thật thắng cả hai."
+        },
+        {
+          "k": "h",
+          "t": "Quản lý phiên bản"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Loại thay đổi",
+            "Tăng",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "Sửa lỗi không đổi bước, nhánh hay giao kèo",
+              "PATCH",
+              "Lỗi chính tả, sửa câu chữ"
+            ],
+            [
+              "Thêm mới, vẫn tương thích ngược",
+              "MINOR",
+              "Thêm bước, nhánh, tài liệu, mẫu hoặc cụm trigger"
+            ],
+            [
+              "Thay đổi làm hỏng cách dùng cũ",
+              "MAJOR",
+              "Đổi tên, bỏ hoặc sửa lại bước, đổi định dạng sản phẩm, tái cấu trúc"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Mỗi đợt phát hành tăng một lần ở mức cao nhất đã chạm, kèm một dòng changelog có ngày ngay dưới frontmatter, dạng X.Y.Z (YYYY-MM-DD) — nội dung thay đổi. Phiên bản đầu tiên là 1.0.0."
+        },
+        {
+          "k": "h",
+          "t": "Khi nào tách skill"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Một L2 tách thành nhiều L2 cộng một L3 khi xuất hiện từ 2 cụm trigger tách biệt, hoặc thân vượt trần dòng dù đã chia tài liệu đúng cách.",
+            "Một L1 chỉ nhúng mini quy trình tối đa khoảng 5 bước, dài hơn thì thành L2."
           ]
         },
         {
@@ -5183,7 +5292,7 @@
         "PRODUCT.md"
       ],
       "thumb": "assets/res/skill-design-init.jpg",
-      "note": "Phỏng vấn để tạo bộ hồ sơ DESIGN.md, PRODUCT.md và UPLOAD.md đưa lên Claude Design. Phiên bản 1.0.0, tác giả Hưng Kescy.",
+      "note": "Phỏng vấn để tạo bộ hồ sơ DESIGN.md, PRODUCT.md và UPLOAD.md đưa lên Claude Design, có bộ câu hỏi cho giai đoạn 1. Phiên bản 1.0.0, tác giả Hưng Kescy.",
       "date": "2026-10-28",
       "ctas": [
         {
@@ -5306,6 +5415,67 @@
         },
         {
           "k": "h",
+          "t": "Giai đoạn 1: câu hỏi phỏng vấn PRODUCT.md"
+        },
+        {
+          "k": "p",
+          "t": "Phỏng vấn bằng tiếng Việt, mỗi lần một cụm câu hỏi và đợi trả lời mới sang cụm tiếp theo. Không hỏi dồn tất cả, cũng không hỏi nhỏ giọt từng câu trơ trọi. Mỗi câu kèm đáp án đề xuất và lý do, vì sửa một đoán sai nhanh hơn điền vào chỗ trống."
+        },
+        {
+          "k": "table",
+          "head": [
+            "Cụm",
+            "Câu hỏi"
+          ],
+          "rows": [
+            [
+              "1. Danh tính và Register",
+              "Tên sản phẩm hoặc dự án (chưa có thì gợi ý 2 đến 3 tên để dùng tạm). Một câu tagline: sản phẩm là gì, cho ai. 1 đến 2 câu sản phẩm làm gì, giải quyết chuyện gì. Register: brand (thiết kế chính là sản phẩm, như landing, portfolio, chiến dịch, cho phép biểu cảm mạnh) hay product (thiết kế phục vụ sản phẩm, như dashboard, app, ưu tiên rõ ràng, hiệu quả, nhất quán)."
+            ],
+            [
+              "2. Người dùng và mục đích",
+              "Ai dùng, mô tả một người thật với vai trò và ngữ cảnh, đừng nói chung chung. Họ cần làm được gì khi mở sản phẩm. Thành công trông thế nào, một dấu hiệu cụ thể chứ không phải 'hài lòng'."
+            ],
+            [
+              "3. Tính cách và ranh giới",
+              "3 từ mô tả tính cách brand, tránh 'đẹp' hay 'chuyên nghiệp' vì quá chung. 2 đến 3 sản phẩm hoặc site muốn có cảm giác giống, và vì sao từng cái. Tuyệt đối không được giống gì (tên cụ thể). Yêu cầu tiếp cận đặc biệt, mặc định WCAG AA, như người lớn tuổi, chữ to, mù màu, giảm chuyển động."
+            ]
+          ]
+        },
+        {
+          "k": "list",
+          "items": [
+            "Register chỉ ghi một giá trị là brand hoặc product, không có văn xuôi. Giá trị này cũng quyết định bộ màn hình mẫu ở giai đoạn 2.",
+            "Cụm 2: skill đề xuất một đáp án hợp lý dựa trên cụm 1 làm giả thuyết để học viên sửa.",
+            "Các điều tuyệt đối không được giống (anti-reference) rất quan trọng, vì chúng xuất hiện nguyên văn ở mục Don'ts của DESIGN.md.",
+            "Những chỗ cách diễn đạt quan trọng thì trích nguyên văn lời học viên trong dấu ngoặc kép.",
+            "Không nói về màu, font, bo góc ở giai đoạn này, đó là việc của giai đoạn 2."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Rút nguyên tắc thiết kế"
+        },
+        {
+          "k": "p",
+          "t": "Skill không hỏi thẳng mà tự rút 3 đến 5 nguyên tắc chiến lược từ các câu trả lời, ví dụ 'tốc độ đọc quan trọng hơn hiệu ứng' cho sản phẩm của người đi làm bận rộn. Đó là chiến lược chứ không phải luật hình ảnh (không có mã hex hay font). Skill nêu ra để học viên xác nhận."
+        },
+        {
+          "k": "h",
+          "t": "Cổng đủ thông tin và các đường xử lý khi thiếu"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Trước khi viết: mọi mục của mẫu đã điền hoặc ghi N/A kèm lý do. Còn thiếu thì quay lại cụm đó hỏi tiếp, không bịa. Rồi tạo PRODUCT.md ở thư mục gốc từ mẫu và để nhãn [DRAFT] tới khi học viên xác nhận.",
+            "Bắt buộc có ít nhất một câu trả lời thật của học viên, không tự tổng hợp từ đề bài.",
+            "Học viên chỉ nói tính từ về tính cách: hỏi một lần 'nếu brand là một người bạn gặp, họ nói năng, ăn mặc thế nào?', sau đó ghi [cần bổ sung] và đi tiếp.",
+            "Không có điều tuyệt đối không được giống: hỏi thêm một lần 'kiểu thiết kế nào làm bạn thấy sai với brand này?'. Vẫn không có thì ghi N/A và ghi chú rằng mục Don'ts sẽ rút từ các nguyên tắc.",
+            "File đã tồn tại: hỏi muốn làm mới file nào, không ghi đè khi chưa hỏi."
+          ]
+        },
+        {
+          "k": "h",
           "t": "Đầu ra"
         },
         {
@@ -5379,7 +5549,7 @@
         },
         {
           "k": "h",
-          "t": "Các file trong gói (theo SKILL.md)"
+          "t": "Các file trong gói (theo SKILL.md, đã đọc references/phase1-product.md)"
         },
         {
           "k": "table",
