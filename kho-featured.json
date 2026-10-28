@@ -4887,16 +4887,16 @@
       "kho": "ai",
       "group": "skill",
       "guide": true,
-      "title": "kes-create-skill: tạo skill đúng chuẩn",
+      "title": "kes-create-skill: tạo, sửa, review skill đúng chuẩn",
       "type": "Skill",
       "badge": "Tạo skill",
       "tags": [
         "tạo skill",
-        "chuẩn",
-        "chấm điểm"
+        "review",
+        "trigger test"
       ],
       "thumb": "assets/res/skill-create-skill.jpg",
-      "note": "Bộ công cụ KesFlow phiên bản 1.1.0 để phỏng vấn, soạn và chấm điểm một skill mới. Bản tóm tắt chưa đầy đủ.",
+      "note": "Phỏng vấn thành brief, dựng skill theo cấp L1/L2/L3, review độc lập và test trigger. Phiên bản 1.1.0, tác giả KesFlow - Hưng Kescy.",
       "date": "2026-10-28",
       "ctas": [
         {
@@ -4912,66 +4912,246 @@
       "sections": [
         {
           "k": "callout",
-          "t": "Mục này chỉ dựa trên danh sách file trong gói zip và tên file. Nội dung chi tiết nằm trong file nén chưa được đọc, nên chưa ghi lệnh hay quy trình cụ thể để tránh viết sai."
+          "t": "Dùng khi muốn tạo, viết, sửa, nén hoặc review một skill của Claude Code, hoặc khi skill không chịu kích hoạt. Kích hoạt bằng: tạo skill, viết skill, sửa skill, cập nhật skill, review skill, nén skill, tối ưu skill, make this a skill."
         },
         {
           "k": "h",
-          "t": "Gói gồm những gì (theo cấu trúc file)"
+          "t": "Mục tiêu: hành vi dự đoán được"
+        },
+        {
+          "k": "p",
+          "t": "Agent AI có tính ngẫu nhiên: cùng câu hỏi, mỗi lần có thể ra khác nhau. Skill không ép ra cùng một kết quả, mà ép đi theo đúng một quy trình mỗi lần. Chữ nghĩa có thể đổi, cách làm thì không. Mọi kỹ thuật trong bộ này phục vụ mục tiêu đó."
+        },
+        {
+          "k": "callout",
+          "t": "Không dùng để: chạy một skill đã cài, viết SOP hoặc tài liệu cho người đọc, hay dựng workflow tự động hoá."
+        },
+        {
+          "k": "h",
+          "t": "Ba nhánh khi chạy"
         },
         {
           "k": "table",
           "head": [
-            "File",
-            "Có thể hiểu là"
+            "Bạn nói",
+            "Nhánh",
+            "Đường đi"
           ],
           "rows": [
             [
-              "README-VI.md",
-              "Hướng dẫn tiếng Việt"
+              "Tạo skill cho tôi…",
+              "Create",
+              "Phỏng vấn, brief, chốt cấp độ, dựng từ mẫu, review, test trigger, chạy thử, đóng gói 1.0.0"
             ],
             [
-              "SKILL.md",
-              "Quy trình chính của skill"
+              "Sửa hoặc nén skill này…",
+              "Update",
+              "Đọc hết bản gốc, lưu bản chụp, chốt ý định, sửa, review kèm sổ claims, tăng version"
             ],
             [
-              "references/interview.md",
-              "Cách phỏng vấn để lấy yêu cầu"
-            ],
-            [
-              "references/levels.md",
-              "Các cấp độ skill"
-            ],
-            [
-              "references/standard.md",
-              "Tiêu chuẩn của một skill tốt"
-            ],
-            [
-              "references/review-checklist.md",
-              "Danh sách kiểm tra khi review"
-            ],
-            [
-              "assets/l1, l2, l3-skill-template.md",
-              "Mẫu skill cho 3 cấp L1, L2, L3"
-            ],
-            [
-              "assets/skill-brief-template.md",
-              "Mẫu brief cho skill"
-            ],
-            [
-              "assets/grade-report-template.md",
-              "Mẫu báo cáo chấm điểm"
+              "Review skill này, đừng sửa",
+              "Review",
+              "Reviewer độc lập chấm theo checklist, chỉ báo phát hiện"
             ]
           ]
         },
         {
           "k": "h",
-          "t": "Việc cần làm tiếp"
+          "t": "Nhánh Create từng bước"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Phỏng vấn thành brief",
+              "d": "Hỏi theo cụm 3 đến 5 câu, mỗi câu kèm phương án đề xuất. Có 5 câu chống overfit: điều gì thay đổi giữa các lần chạy, 3 ca lân cận cần xử lý, 3 câu na ná không được kích hoạt, ai khác sẽ dùng và nói thế nào, sự kiện nào làm skill lỗi thời."
+            },
+            {
+              "t": "Rà brief",
+              "d": "Một reviewer mới đọc brief và hỏi tiếp tới khi trả về NO GAPS. Sau đó bạn phải gật rõ ràng."
+            },
+            {
+              "t": "Chốt cấp độ",
+              "d": "L1 hướng dẫn công cụ, L2 quy trình, L3 router. Chốt trước khi dựng."
+            },
+            {
+              "t": "Dựng từ mẫu",
+              "d": "Trình bày cây file và cấu trúc, được đồng ý thì dựng từ mẫu trong assets."
+            },
+            {
+              "t": "Review",
+              "d": "Mỗi phát hiện phải được trả lời: đã sửa hoặc không đồng ý kèm lý do."
+            },
+            {
+              "t": "Test trigger",
+              "d": "Kiểm tra description kích hoạt đúng và im lặng đúng."
+            },
+            {
+              "t": "Chạy thử và đóng gói",
+              "d": "Chạy sạch một lần, gắn version 1.0.0 và changelog có ngày."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Ba cấp độ skill"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Cấp",
+            "Là gì",
+            "Ví dụ",
+            "Ngân sách dòng (mục tiêu)"
+          ],
+          "rows": [
+            [
+              "L1",
+              "Hướng dẫn một công cụ hoặc API",
+              "Skill dạy dùng một CLI",
+              "150"
+            ],
+            [
+              "L2",
+              "Quy trình làm một việc đầu đến cuối, có đầu ra kiểm được",
+              "Đa số skill",
+              "200"
+            ],
+            [
+              "L3",
+              "Router cho nhiều skill anh em, chỉ chứa bảng định tuyến",
+              "Muốn X thì gọi skill Y",
+              "80"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Description: nơi skill sống hay chết"
         },
         {
           "k": "list",
           "items": [
-            "Mở file README-VI.md trong zip để chép phần hướng dẫn đầy đủ vào thẻ này.",
-            "Bổ sung ví dụ lệnh kích hoạt và kết quả thực tế sau khi bạn dùng thử."
+            "Đặt cụm trigger người dùng thật sự gõ (kể cả tiếng Việt) lên đầu.",
+            "Phần mô tả ngắn 1 đến 2 câu.",
+            "Thêm 1 đến 2 mệnh đề không-kích-hoạt cho skill dễ nhầm nhất.",
+            "Tối đa 1024 ký tự, không dùng ngoặc nhọn."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cắt chữ cho gọn"
+        },
+        {
+          "k": "list",
+          "items": [
+            "No-op test: câu nào không đổi hành vi so với mặc định của model thì xoá.",
+            "Leading word: một từ model đã quen có thể thay cả ba câu diễn giải.",
+            "Mỗi ý chỉ sống ở một chỗ. Khi nén skill có sẵn, lập sổ claims: ý nào cũng phải còn hoặc có lý do cắt."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Hai luật cần nhớ"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Skill của hãng công cụ không sửa tại chỗ vì sẽ bị ghi đè khi cập nhật. Tuỳ biến đặt trong CLAUDE.md hoặc một skill overlay nhỏ.",
+            "Mỗi skill có version dạng 1.0.0 và một dòng changelog có ngày. Sửa chữ là patch, thêm nhánh là minor, đổi giao kèo là major."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Review trước khi dùng"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Kiểm tra tay",
+              "d": "Cấu trúc file, ngân sách dòng, frontmatter, công thức description."
+            },
+            {
+              "t": "Reviewer mới",
+              "d": "Chấm theo checklist đúng cấp độ, mỗi phát hiện có file và dòng làm bằng chứng. Quá 3 vòng thì dừng và đưa người quyết định."
+            },
+            {
+              "t": "Trigger test",
+              "d": "10 câu phải kích hoạt và 10 câu na ná phải im, mỗi bên đạt từ 9 trên 10. Sửa xong chạy lại cả bộ."
+            },
+            {
+              "t": "Chạy thử sạch",
+              "d": "Skill chưa chạy thật lần nào mới chỉ là bản nháp."
+            }
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Kết quả review ghi vào mẫu assets/grade-report-template.md."
+        },
+        {
+          "k": "code",
+          "t": "cp -r kes-create-skill ~/.claude/skills/\n# mở Claude Code rồi gõ:\ntạo skill cho tôi từ quy trình viết caption Facebook",
+          "cap": "Cài đặt và ví dụ kích hoạt"
+        },
+        {
+          "k": "h",
+          "t": "Kết quả đạt được khi dùng skill"
+        },
+        {
+          "k": "callout",
+          "t": "Kết quả dưới đây là sản phẩm đầu ra mà chính skill quy định (theo file SKILL.md và README), không phải số liệu đo từ dự án thực tế. Khi bạn dùng và có kết quả thật, hãy ghi lại để bổ sung vào đây."
+        },
+        {
+          "k": "list",
+          "items": [
+            "Một skill có cấu trúc chuẩn: SKILL.md, references, assets, version và changelog.",
+            "Brief 7 mục làm căn cứ, không bị dính chặt vào một ca duy nhất.",
+            "Description đã qua test trigger nên dễ kích hoạt đúng lúc và ít kích hoạt nhầm.",
+            "Báo cáo chấm điểm theo mẫu, mỗi phát hiện có bằng chứng.",
+            "Skill cũ được nén gọn mà vẫn giữ đủ các ý nhờ sổ claims."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Các file trong gói"
+        },
+        {
+          "k": "table",
+          "head": [
+            "File",
+            "Dùng khi"
+          ],
+          "rows": [
+            [
+              "references/standard.md",
+              "Viết hoặc đánh giá bất kỳ nội dung skill, đọc đầu tiên"
+            ],
+            [
+              "references/levels.md",
+              "Chọn cấp độ, mẫu, checklist"
+            ],
+            [
+              "references/interview.md",
+              "Bắt đầu Create hoặc Update chưa rõ ý"
+            ],
+            [
+              "references/review-checklist.md",
+              "Review, sửa, test trigger, chạy thử"
+            ],
+            [
+              "assets/skill-brief-template.md",
+              "Điền brief khi phỏng vấn"
+            ],
+            [
+              "assets/l1, l2, l3-skill-template.md",
+              "Dựng skill theo cấp"
+            ],
+            [
+              "assets/grade-report-template.md",
+              "Viết báo cáo chấm điểm"
+            ]
           ]
         },
         {
@@ -4994,16 +5174,16 @@
       "kho": "ai",
       "group": "skill",
       "guide": true,
-      "title": "kf-cl-design-init: khởi tạo thiết kế",
+      "title": "kf-cl-design-init: chuẩn bị đầu vào cho Claude Design",
       "type": "Skill",
       "badge": "Thiết kế",
       "tags": [
-        "thiết kế",
-        "KesFlow",
-        "cần bổ sung"
+        "claude design",
+        "DESIGN.md",
+        "PRODUCT.md"
       ],
       "thumb": "assets/res/skill-design-init.jpg",
-      "note": "Gói 166 KB của KesFlow. Nội dung chưa đọc được, thẻ này giữ chỗ và liên kết tải.",
+      "note": "Phỏng vấn để tạo bộ hồ sơ DESIGN.md, PRODUCT.md và UPLOAD.md đưa lên Claude Design. Phiên bản 1.0.0, tác giả Hưng Kescy.",
       "date": "2026-10-28",
       "ctas": [
         {
@@ -5019,17 +5199,223 @@
       "sections": [
         {
           "k": "callout",
-          "t": "Chưa có hướng dẫn chi tiết cho skill này vì chưa đọc được nội dung gói. Chỉ biết tên là kf-cl-design-init và dung lượng 166 KB. Tên gợi ý liên quan tới khởi tạo thiết kế, nhưng đó là suy đoán, chưa kiểm chứng."
+          "t": "Dùng khi muốn chuẩn bị bối cảnh thiết kế cho Claude Design, tạo hoặc làm mới DESIGN.md và PRODUCT.md, từ một ý tưởng hoặc một website có sẵn. Kích hoạt bằng: kf-cl-design-init, khởi tạo context cho Claude Design, chuẩn bị input cho Claude Design, tạo DESIGN.md và PRODUCT.md."
+        },
+        {
+          "k": "p",
+          "t": "Skill dùng trong lớp Teamwork với AI: phỏng vấn học viên bằng tiếng Việt rồi tạo bộ hồ sơ để đưa lên Claude Design."
+        },
+        {
+          "k": "callout",
+          "t": "Không dùng để: tự tạo hệ thống thiết kế (Claude Design làm bước này), viết hay review code giao diện, brainstorm sản phẩm, hay làm brand guideline đầy đủ."
         },
         {
           "k": "h",
-          "t": "Cách bổ sung"
+          "t": "Claude Design có hai giai đoạn"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Giai đoạn",
+            "Tải lên",
+            "Tác dụng"
+          ],
+          "rows": [
+            [
+              "1. Tạo hệ thống thiết kế",
+              "DESIGN.md, logo, ảnh thương hiệu, toàn bộ font",
+              "Claude Design dựng cả hệ thống trong một lần"
+            ],
+            [
+              "2. Thiết kế màn hình trong dự án",
+              "PRODUCT.md",
+              "Làm bối cảnh để màn hình hợp với sản phẩm và người dùng"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": "DESIGN.md là file chính. PRODUCT.md không dùng cho bước tạo hệ thống thiết kế."
+        },
+        {
+          "k": "callout",
+          "t": "Nguyên tắc cốt lõi: nói hướng đi bằng lời trước, chốt con số bằng mắt sau. Skill không bao giờ hỏi học viên mã hex, font hay độ bo góc, mà ghi lại cảm giác, dựng bản mẫu rồi chốt token từ bản được chọn. Khả năng đọc là bắt buộc, còn tông màu do học viên quyết."
+        },
+        {
+          "k": "h",
+          "t": "Tham số khi gọi"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Tham số",
+            "Việc làm"
+          ],
+          "rows": [
+            [
+              "both (mặc định)",
+              "Giai đoạn 1 rồi giai đoạn 2 rồi bàn giao"
+            ],
+            [
+              "product",
+              "Chỉ làm PRODUCT.md, sau đó đề nghị làm tiếp phần thiết kế"
+            ],
+            [
+              "design",
+              "Chỉ làm DESIGN.md, cần có PRODUCT.md trước"
+            ],
+            [
+              "refresh",
+              "Hỏi muốn làm lại file nào, không ghi đè khi chưa hỏi"
+            ]
+          ]
+        },
+        {
+          "k": "code",
+          "t": "kf-cl-design-init both\nkf-cl-design-init product\nkf-cl-design-init refresh",
+          "cap": "Ví dụ"
+        },
+        {
+          "k": "h",
+          "t": "Cách chạy từng bước"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Kiểm tra file có sẵn",
+              "d": "Skill xem thư mục gốc đã có PRODUCT.md, DESIGN.md chưa. Nếu bạn nhắc tới một website hay logo, skill đọc phần khởi động từ tài liệu tham chiếu để rút ngắn phần hỏi hình ảnh."
+            },
+            {
+              "t": "Giai đoạn 1: PRODUCT.md",
+              "d": "Phỏng vấn từng cụm một, mỗi câu kèm đáp án đề xuất và lý do. Xong khi mọi mục đã điền hoặc ghi N/A kèm lý do, có ít nhất một câu trả lời thật của học viên và bạn xác nhận bản DRAFT."
+            },
+            {
+              "t": "Giai đoạn 2: bản mẫu rồi DESIGN.md",
+              "d": "Dựng file design-explore.html có 3 họ phong cách để chọn bằng mắt. Mọi cặp màu phải đạt tương phản trước khi bạn thấy. Sau khi chọn, token được chốt từ bản đã chọn."
+            },
+            {
+              "t": "Bàn giao",
+              "d": "Tạo UPLOAD.md, ghi rõ file nào đưa lên Claude Design, file nào giữ lại. Bạn có thể chạy lại skill bất cứ lúc nào để làm mới."
+            },
+            {
+              "t": "Cổng chất lượng",
+              "d": "Một subagent độc lập, không thấy buổi phỏng vấn, kiểm tra bộ hồ sơ theo tiêu chí hoàn thành. Mọi phát hiện phải được sửa hoặc giải thích."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Đầu ra"
+        },
+        {
+          "k": "table",
+          "head": [
+            "File",
+            "Nội dung"
+          ],
+          "rows": [
+            [
+              "PRODUCT.md",
+              "Chiến lược sản phẩm"
+            ],
+            [
+              "DESIGN.md",
+              "Phần hình ảnh, định dạng 9 mục theo chuẩn Stitch, token đã chốt. Đây là file Claude Design dùng"
+            ],
+            [
+              "design-explore.html",
+              "Một file, 3 họ phong cách, chốt bằng mắt"
+            ],
+            [
+              "UPLOAD.md",
+              "Danh sách đưa lên Claude Design và giữ lại, DESIGN.md đánh dấu là file chính"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Tiêu chí hoàn thành"
         },
         {
           "k": "list",
           "items": [
-            "Giải nén zip và mở SKILL.md để xem mô tả, lệnh kích hoạt.",
-            "Gửi mô tả ngắn hoặc nội dung SKILL.md, thẻ sẽ được viết đầy đủ gồm hướng dẫn và kết quả."
+            "PRODUCT.md: mọi mục đã điền hoặc N/A có lý do.",
+            "DESIGN.md: có version, màu hex sRGB đã chốt, font hỗ trợ tiếng Việt, bo góc, khoảng cách và ít nhất một component; đủ 9 mục đúng thứ tự; mọi điều chống tham chiếu trong PRODUCT.md xuất hiện nguyên văn ở mục Don'ts; phần Motion ghi rõ là mở rộng ngoài chuẩn.",
+            "design-explore.html: 3 họ phong cách khác nhau, mọi cặp tương phản đạt.",
+            "UPLOAD.md: DESIGN.md được đánh dấu là file chính.",
+            "Không ghi đè file nào khi chưa hỏi."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Quy tắc bất biến"
+        },
+        {
+          "k": "list",
+          "items": [
+            "PRODUCT.md chỉ chứa chiến lược, DESIGN.md chỉ chứa hình ảnh.",
+            "Mỗi lần hỏi một cụm, kèm đáp án đề xuất và lý do, không âm thầm tự điền chỗ trống.",
+            "DESIGN.md theo chuẩn Stitch mã nguồn mở hiện hành. Chỉ Motion là phần mở rộng và được ghi rõ. Nếu chuẩn Stitch hoặc context.dev thay đổi thì tin nguồn mới nhất và báo học viên."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Kết quả đạt được khi dùng skill"
+        },
+        {
+          "k": "callout",
+          "t": "Kết quả dưới đây là sản phẩm đầu ra mà chính skill quy định (theo file SKILL.md và README), không phải số liệu đo từ dự án thực tế. Khi bạn dùng và có kết quả thật, hãy ghi lại để bổ sung vào đây."
+        },
+        {
+          "k": "list",
+          "items": [
+            "Một bộ hồ sơ sẵn sàng đưa lên Claude Design, không phải tự nghĩ cấu trúc.",
+            "DESIGN.md có token đã chốt và đạt tương phản, nên đọc được trên mọi màn hình.",
+            "Phần hình ảnh chọn bằng mắt từ bản mẫu thay vì đoán mã màu.",
+            "Có danh sách rõ file nào tải lên, file nào giữ lại.",
+            "Chạy lại được bất cứ lúc nào để làm mới mà không mất file cũ."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Các file trong gói (theo SKILL.md)"
+        },
+        {
+          "k": "table",
+          "head": [
+            "File",
+            "Dùng khi"
+          ],
+          "rows": [
+            [
+              "references/phase1-product.md",
+              "Phỏng vấn PRODUCT.md"
+            ],
+            [
+              "references/phase2-design.md",
+              "Phỏng vấn hình ảnh, bản mẫu, DESIGN.md"
+            ],
+            [
+              "references/reference-warmstart.md",
+              "Học viên có hoặc thích một website, logo, tài sản thương hiệu"
+            ],
+            [
+              "references/design-md-format.md",
+              "Viết hoặc kiểm tra DESIGN.md"
+            ],
+            [
+              "references/vn-fonts.md",
+              "Chọn font hỗ trợ tiếng Việt"
+            ],
+            [
+              "assets/corpus/*.csv",
+              "Tham chiếu bảng màu, cặp font, phong cách"
+            ],
+            [
+              "assets/templates/*",
+              "Điền từng file đầu ra"
+            ]
           ]
         },
         {
