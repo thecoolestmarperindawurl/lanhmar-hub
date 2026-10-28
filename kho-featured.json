@@ -4896,7 +4896,7 @@
         "trigger test"
       ],
       "thumb": "assets/res/skill-create-skill.jpg",
-      "note": "Phỏng vấn thành brief, dựng skill theo cấp L1/L2/L3 với khung và tiêu chí hoàn thành riêng, review độc lập và test trigger. Phiên bản 1.1.0, tác giả KesFlow - Hưng Kescy.",
+      "note": "Phỏng vấn thành brief 7 mục, dựng skill theo cấp L1/L2/L3, review độc lập và test trigger 20 câu. Phiên bản 1.1.0, tác giả KesFlow - Hưng Kescy.",
       "date": "2026-10-28",
       "ctas": [
         {
@@ -4991,6 +4991,119 @@
               "d": "Chạy sạch một lần, gắn version 1.0.0 và changelog có ngày."
             }
           ]
+        },
+        {
+          "k": "h",
+          "t": "Cách phỏng vấn để ra brief"
+        },
+        {
+          "k": "p",
+          "t": "Mục tiêu: biến câu 'làm cho tôi một skill' mơ hồ thành brief đủ để một người lạ dựng skill mà không phải hỏi lại, và đủ tổng quát để không bị dính chặt vào đúng ca bạn vừa chạy."
+        },
+        {
+          "k": "list",
+          "items": [
+            "Hỏi theo nhóm nhỏ 3 đến 5 câu liên quan mỗi lượt, mỗi câu kèm lý do hỏi và đáp án Claude đề xuất cùng lý do, vì sửa một đoán sai nhanh hơn điền chỗ trống.",
+            "Đọc trước, hỏi sau: đọc cuộc trò chuyện, file và các skill hiện có. Nếu bạn nói 'biến việc vừa làm thành skill' thì trích từ chính lần chạy đó trước.",
+            "Khi bạn đưa cả tài liệu nguồn lẫn lời dặn (ví dụ 'đây là docs, tập trung vào xác thực và phân trang'), lời dặn là yêu cầu bắt buộc, không phải bình luận.",
+            "Khác với brief vấn đề, brief skill được phép nêu trigger, cấp độ, đầu ra và các bước.",
+            "Dừng khi dự đoán được 3 câu trả lời kế tiếp của bạn (khoảng 95%), rồi soạn brief.",
+            "Cần bạn đồng ý rõ ràng với brief, không chấp nhận 'tuỳ bạn' hay im lặng. Sửa xong thì xác nhận lại."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "5 câu hỏi chống overfit (bắt buộc cả 5)"
+        },
+        {
+          "k": "p",
+          "t": "Lỗi mặc định là overfit: bạn mô tả đúng ca vừa làm, skill chỉ kích hoạt đúng ca đó."
+        },
+        {
+          "k": "table",
+          "head": [
+            "Câu hỏi",
+            "Để lộ ra"
+          ],
+          "rows": [
+            [
+              "Giữa các lần chạy, cái gì thay đổi?",
+              "Các nhánh"
+            ],
+            [
+              "Nêu 3 tình huống skill nên xử lý dù hôm nay chưa gặp",
+              "Các ca lân cận"
+            ],
+            [
+              "Nêu 3 câu hỏi trông giống nhưng KHÔNG được kích hoạt skill",
+              "Nửa câu phải-im của bộ trigger test"
+            ],
+            [
+              "Ai khác sẽ dùng và họ nói khác bạn thế nào?",
+              "Mở rộng cách diễn đạt trigger"
+            ],
+            [
+              "Sự kiện nào làm skill sai, và tín hiệu nào báo cần cập nhật?",
+              "Điều kiện cập nhật skill"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Câu trả lời về near-miss và về sự kiện làm skill lỗi thời được ghi nguyên văn để dùng cho trigger test và điều kiện cập nhật."
+        },
+        {
+          "k": "h",
+          "t": "Vòng rà brief bằng reviewer độc lập"
+        },
+        {
+          "k": "p",
+          "t": "Một subagent không có ngữ cảnh buổi phỏng vấn đọc lạnh bản brief với yêu cầu: phải dựng skill từ brief mà không được hỏi người đề bài, soi hai góc là đủ chưa và có bị dính vào một ca duy nhất không. Mỗi lỗ hổng thành một câu hỏi, Claude hỏi bạn, sửa brief, rồi rà lại cho tới khi trả về đúng chữ NO GAPS."
+        },
+        {
+          "k": "h",
+          "t": "Brief gồm 7 mục (thứ tự cố định)"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Mục",
+            "Nội dung"
+          ],
+          "rows": [
+            [
+              "1. Mục đích và phạm vi",
+              "Skill giúp agent làm được gì (1 dòng) và dừng ở đâu (1 dòng)"
+            ],
+            [
+              "2. Cấp độ",
+              "L1, L2 hoặc L3 kèm lý do; model tự gọi hay người dùng gọi, kèm lý do"
+            ],
+            [
+              "3. Bản đồ kích hoạt",
+              "Ít nhất 3 cách nói phải kích hoạt và 3 câu na ná phải im"
+            ],
+            [
+              "4. Nhánh và biến thiên",
+              "Cái gì thay đổi giữa các lần chạy; nhánh mọi lần cần thì để trong SKILL.md, nhánh ít ca thì đẩy ra references"
+            ],
+            [
+              "5. Đầu vào, đầu ra, DoD",
+              "Skill nhận gì, tạo gì, thế nào là xong kiểm tra được; nếu có tài liệu đầu ra thì chốt cấu trúc bắt buộc và viết bằng ngôn ngữ người dùng"
+            ],
+            [
+              "6. Bất biến",
+              "Thứ không đổi qua các lần chạy hay sửa: luật an toàn, giao kèo dữ liệu, chuỗi khách hàng thấy"
+            ],
+            [
+              "7. Ngoài phạm vi",
+              "Ít nhất 3 việc cố ý không làm, dạng 'Không làm việc gì vì lý do gì'"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Brief viết toàn bộ bằng ngôn ngữ của người dùng, kể cả tiêu đề. Số thứ tự các mục là giao kèo, không đổi thứ tự."
         },
         {
           "k": "h",
@@ -5161,48 +5274,262 @@
         },
         {
           "k": "h",
-          "t": "Hai luật cần nhớ"
+          "t": "Từ vựng chuẩn của bộ này"
         },
         {
-          "k": "list",
-          "items": [
-            "Skill của hãng công cụ không sửa tại chỗ vì sẽ bị ghi đè khi cập nhật. Tuỳ biến đặt trong CLAUDE.md hoặc một skill overlay nhỏ.",
-            "Mỗi skill có version dạng 1.0.0 và một dòng changelog có ngày. Sửa chữ là patch, thêm nhánh là minor, đổi giao kèo là major."
+          "k": "table",
+          "head": [
+            "Khái niệm",
+            "Ý nghĩa"
+          ],
+          "rows": [
+            [
+              "Predictability",
+              "Agent đi theo cùng một quy trình mỗi lần chạy, không phải cùng một đầu ra. Skill brainstorm vẫn cho ý mới mỗi lần, nhưng cách dẫn dắt nhất quán."
+            ],
+            [
+              "Model-invoked",
+              "Giữ description để agent tự kích hoạt, nhưng description luôn nằm trong ngữ cảnh mỗi lượt (tốn context)."
+            ],
+            [
+              "User-invoked",
+              "Bỏ description, chỉ kích hoạt khi bạn gõ tên (disable-model-invocation: true). Không tốn context nhưng bạn phải nhớ skill tồn tại, nên dùng ở chỗ cần phán đoán của con người."
+            ],
+            [
+              "Progressive disclosure",
+              "Đẩy tài liệu ít nhánh cần ra file riêng sau một con trỏ; cái mọi lần chạy đều cần thì để trong SKILL.md. Con trỏ nổ không đều thì sửa câu chữ con trỏ trước, kéo vào trong chỉ khi sửa chữ thất bại."
+            ],
+            [
+              "Co-location",
+              "Cái cần đọc cùng lúc thì đặt cạnh nhau (định nghĩa, luật, lưu ý dưới một tiêu đề)."
+            ],
+            [
+              "Completion criterion",
+              "Điều kiện cho agent biết một bước đã xong. Mạnh nhất khi vừa kiểm tra được vừa đòi hỏi đủ. Tiêu chí mờ như 'đã hiểu' dễ gây kết thúc sớm."
+            ],
+            [
+              "Leading word",
+              "Từ model đã học sẵn, gánh cả một nguyên tắc hành vi bằng một từ (ví dụ tracer bullets, tight, relentless). Từ quá yếu để thắng mặc định thì chính nó là no-op, cần từ mạnh hơn."
+            ],
+            [
+              "No-op",
+              "Câu không đổi hành vi so với mặc định của model. Câu nào trượt thì xoá cả câu, đừng gọt vài chữ."
+            ],
+            [
+              "Sediment",
+              "Chữ cũ bồi lắng vì thêm thì thấy an toàn còn xoá thì thấy rủi ro. Số phận mặc định của skill không có kỷ luật cắt tỉa."
+            ],
+            [
+              "Sprawl",
+              "Skill đơn giản là quá dài. Chữa bằng phân tầng tài liệu và tách theo nhánh."
+            ]
           ]
+        },
+        {
+          "k": "h",
+          "t": "Ba kiểu cổng duyệt của con người"
+        },
+        {
+          "k": "p",
+          "t": "Khi skill ghi vào thứ con người sở hữu (dữ liệu khách hàng, tin nhắn gửi đi), con người là cổng. Chọn kiểu theo ai tạo ra giá trị, không phải theo số lượng mục."
+        },
+        {
+          "k": "table",
+          "head": [
+            "Kiểu",
+            "Giá trị đến từ",
+            "Con người làm",
+            "Dùng khi"
+          ],
+          "rows": [
+            [
+              "Từng mục một",
+              "Con người",
+              "Quyết từng mục",
+              "Mỗi mục cần một quyết định khác nhau"
+            ],
+            [
+              "Gộp theo dạng câu hỏi",
+              "Con người",
+              "Trả lời cả cụm, rồi nghe danh sách đã phân tích đọc lại trước khi ghi",
+              "Nhiều mục cùng một câu hỏi"
+            ],
+            [
+              "Khớp sẵn, người duyệt phủ quyết",
+              "Quy trình",
+              "Duyệt bảng, im lặng nghĩa là đồng ý, chỉ nêu dòng sai",
+              "Có tín hiệu xác định cho ra đáp án"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Kiểu thứ ba chỉ dùng khi phép suy ra chính xác, không phải ước chừng (khớp trên giá trị chính người dùng đã nhập, không phải điểm giống nhau). Bắt người duyệt kiểm tra các đoán mò còn tệ hơn hỏi thẳng. Luôn hiện cả phần đã khớp và phần còn lại, phần còn lại quay về cách hỏi từng mục."
         },
         {
           "k": "h",
           "t": "Review trước khi dùng"
         },
         {
+          "k": "p",
+          "t": "Quy trình review gồm kiểm tra tay, review độc lập, sổ claims (khi nén hoặc cấu trúc lại), trigger test, chạy thử. Người dựng tự chấm bài mình là vô nghĩa vì ngữ cảnh dựng làm mờ mắt."
+        },
+        {
+          "k": "table",
+          "head": [
+            "Vai trò",
+            "Là ai",
+            "Làm gì"
+          ],
+          "rows": [
+            [
+              "Builder",
+              "Phiên chính",
+              "Trình hướng đi (mục tiêu, phạm vi, cách làm) trước, được đồng ý rồi mới sửa trực tiếp, báo kết quả trung thực kèm điểm"
+            ],
+            [
+              "Reviewer",
+              "Agent mới, không có ngữ cảnh dựng",
+              "Chấm theo checklist đúng cấp, tư thế đối kháng: tìm vì sao skill hỏng. Mỗi nhận xét trích file và dòng"
+            ],
+            [
+              "Con người",
+              "Chủ skill",
+              "Giữ cổng hướng đi ở đầu, không duyệt từng thay đổi nhỏ, nhận báo cáo và điểm cuối"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "1. Kiểm tra tay (mỗi vòng)"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Cấu trúc: SKILL.md ở gốc, thư mục references phẳng, assets, thêm scripts chỉ khi skill kèm script chạy; không lồng thư mục, không file thừa.",
+            "Ngân sách dòng đúng trần của cấp.",
+            "Frontmatter: name trùng tên thư mục; description đúng công thức, tối đa 1024 ký tự, không ngoặc nhọn; có metadata.version, metadata.author và changelog có ngày.",
+            "Không có nội dung dễ lỗi thời trong thân (ngày tháng, 'hiện nay', số liệu hay đổi).",
+            "Mọi file được trỏ tới đều tồn tại; từ 2 file reference trở lên thì có bảng read-when."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "2. Review độc lập"
+        },
+        {
           "k": "steps",
           "items": [
             {
-              "t": "Kiểm tra tay",
-              "d": "Cấu trúc file, ngân sách dòng, frontmatter, công thức description."
+              "t": "Reviewer mới chấm",
+              "d": "Chấm theo checklist của cấp và thử no-op với từng dòng. Mỗi kết luận phải trích file và dòng, chấm gộp kiểu 'đạt N trên M' không hợp lệ. Thiếu phần cốt lõi bắt buộc (Inputs, Steps, Done-when với L2) thì phải cấu trúc lại, không phải sửa vặt."
             },
             {
-              "t": "Reviewer mới",
-              "d": "Chấm theo checklist đúng cấp độ, mỗi phát hiện có file và dòng làm bằng chứng. Quá 3 vòng thì dừng và đưa người quyết định."
+              "t": "Builder trả lời mọi phát hiện",
+              "d": "Đã sửa, hoặc không đồng ý kèm lý do. Không được lờ đi."
             },
             {
-              "t": "Trigger test",
-              "d": "10 câu phải kích hoạt và 10 câu na ná phải im, mỗi bên đạt từ 9 trên 10. Sửa xong chạy lại cả bộ."
+              "t": "Người tìm ra lỗi kiểm lại bản sửa",
+              "d": "Rẻ nhất vì đã có sẵn ngữ cảnh."
             },
             {
-              "t": "Chạy thử sạch",
-              "d": "Skill chưa chạy thật lần nào mới chỉ là bản nháp."
+              "t": "Tối đa 3 vòng với cùng reviewer",
+              "d": "Vòng 4 hoặc sau khi viết lại lớn thì dùng reviewer mới, vì reviewer đã phán 3 lần sẽ bảo vệ phán quyết cũ. Kẹt sau 3 vòng thì dừng và đưa bảng phát hiện chưa giải quyết cho người quyết, không ép đạt."
+            },
+            {
+              "t": "Sửa một mẫu lỗi thì tìm mọi biến thể",
+              "d": "Danh sách vị trí trong phát hiện chỉ là mẫu. Tìm hết trong SKILL.md, references và assets trước khi sửa, nếu không nhãn 'đã sửa' là nhãn nói dối."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "3. Sổ claims (chỉ khi nén hoặc cấu trúc lại)"
+        },
+        {
+          "k": "p",
+          "t": "Một agent mới đối chiếu với bản gốc: liệt kê mọi claim (luật, bước, ràng buộc, dữ kiện) rồi đánh dấu kept (nay nằm ở đâu) hoặc cut kèm lý do. Rơi claim mà không khai báo thì bản sửa trượt. Sau đó kiểm lại ngân sách dòng, vì nén mà mất claim để đạt ngân sách là thất bại."
+        },
+        {
+          "k": "h",
+          "t": "4. Trigger test"
+        },
+        {
+          "k": "p",
+          "t": "Description là con trỏ duy nhất luôn được nạp, nên thân skill hoàn hảo sau description yếu cũng không bao giờ được tới. Chạy mỗi khi viết hoặc đổi description."
+        },
+        {
+          "k": "table",
+          "head": [
+            "Nhóm",
+            "Số lượng",
+            "Nội dung"
+          ],
+          "rows": [
+            [
+              "Phải kích hoạt",
+              "10",
+              "Một ý định, nhiều cách nói: trang trọng, thân mật, viết thường, gõ sai, đúng ngôn ngữ người dùng gõ. Gồm câu không nêu tên skill nhưng rõ ràng cần nó, một ca ít gặp, một ca skill phải thắng skill na ná"
+            ],
+            [
+              "Phải im",
+              "10",
+              "Chỉ những câu na ná, lấy từ câu hỏi near-miss lúc phỏng vấn. Mỗi câu có chung từ khoá hay khái niệm nhưng cần công cụ khác. Câu hoàn toàn không liên quan bị cấm vì không kiểm tra được gì"
+            ]
+          ]
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Trình 20 câu",
+              "d": "Bạn duyệt, vì câu hỏi tệ sinh ra description tệ. Câu phải cụ thể: tên file, tình huống thật, một dòng bối cảnh."
+            },
+            {
+              "t": "Chấm chỉ dựa trên description",
+              "d": "Đóng vai agent chọn skill, không nhìn thân skill. Ghi kích hoạt hay im."
+            },
+            {
+              "t": "Chấm điểm",
+              "d": "Từ 9 trên 10 câu phải-kích-hoạt thật sự kích hoạt VÀ từ 9 trên 10 câu phải-im thật sự im. Dưới ngưỡng ở một bên thì sửa rồi chạy lại cả bộ."
             }
           ]
         },
         {
           "k": "p",
-          "t": "Kết quả review ghi vào mẫu assets/grade-report-template.md."
+          "t": "Khi trượt: bỏ sót nghĩa là description thiếu họ cách nói đó, thêm vào; kích hoạt nhầm nghĩa là ranh giới mềm, nêu rõ skill không dành cho việc gì hoặc trỏ tới công cụ phụ trách ca đó."
         },
         {
-          "k": "code",
-          "t": "cp -r kes-create-skill ~/.claude/skills/\n# mở Claude Code rồi gõ:\ntạo skill cho tôi từ quy trình viết caption Facebook",
-          "cap": "Cài đặt và ví dụ kích hoạt"
+          "k": "h",
+          "t": "5. Chạy thử"
+        },
+        {
+          "k": "p",
+          "t": "Chạy skill hoàn chỉnh một lần trên một yêu cầu mẫu, Done-when của chính skill phải đúng. Skill chưa từng chạy một lần chỉ là bản nháp. Trượt thì quay về Builder, đạt thì báo kết quả kèm điểm trên mẫu báo cáo chấm điểm."
+        },
+        {
+          "k": "h",
+          "t": "Định nghĩa hoàn thành của cả quy trình"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Hướng đi được trình và đồng ý TRƯỚC khi sửa, kết quả báo trung thực sau đó.",
+            "Brief đầy đủ, NO GAPS, bạn đồng ý rõ ràng (nhánh Create).",
+            "Kiểm tra tay đều sạch.",
+            "Checklist của cấp đạt 100% kèm bằng chứng trích dẫn; mọi dòng qua no-op test và test từ đơn giản; skill tạo tài liệu thì có mẫu trong assets.",
+            "Trigger test đạt từ 9 trên 10 ở cả hai bên.",
+            "Chạy thử một lần thật, Done-when đúng.",
+            "Sổ claims sạch (chỉ khi nén lại skill cũ)."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Mẫu báo cáo chấm điểm"
+        },
+        {
+          "k": "p",
+          "t": "Báo cáo viết bằng ngôn ngữ người đọc, có các phần: bảng Kiểm tra (hướng đi, brief, static, checklist cấp độ, trigger test, chạy thử; mục không chạy ghi SKIPPED kèm lý do, không xoá dòng), bảng Phát hiện (mỗi dòng có file:dòng, mức chặn hoặc nên sửa, trích nguyên văn vấn đề, câu trả lời của Builder), Sổ claims, Phán quyết (điểm và kết quả) và Việc tiếp theo."
         },
         {
           "k": "h",
@@ -5224,7 +5551,7 @@
         },
         {
           "k": "h",
-          "t": "Các file trong gói"
+          "t": "Các file trong gói (đã đọc đủ)"
         },
         {
           "k": "table",
@@ -5292,7 +5619,7 @@
         "PRODUCT.md"
       ],
       "thumb": "assets/res/skill-design-init.jpg",
-      "note": "Phỏng vấn để tạo bộ hồ sơ DESIGN.md, PRODUCT.md và UPLOAD.md đưa lên Claude Design, có bộ câu hỏi cho giai đoạn 1. Phiên bản 1.0.0, tác giả Hưng Kescy.",
+      "note": "Phỏng vấn để tạo bộ hồ sơ DESIGN.md, PRODUCT.md và UPLOAD.md đưa lên Claude Design: câu hỏi giai đoạn 1, bản mẫu 3 phong cách, định dạng DESIGN.md và font tiếng Việt. Phiên bản 1.0.0, tác giả Hưng Kescy.",
       "date": "2026-10-28",
       "ctas": [
         {
@@ -5476,6 +5803,371 @@
         },
         {
           "k": "h",
+          "t": "Nếu bạn đã có hoặc thích một website (khởi động nhanh)"
+        },
+        {
+          "k": "p",
+          "t": "Skill hỏi: có website hay trang nào bạn muốn theo hoặc học hỏi không, rồi phân loại. Nếu là thương hiệu của bạn thì giữ bản sắc, nếu là trang bạn ngưỡng mộ thì chỉ lấy hướng, không phải thương hiệu của bạn. Không có thì chạy phỏng vấn đầy đủ."
+        },
+        {
+          "k": "list",
+          "items": [
+            "Với mọi đường link, gửi vào công cụ design-md-generator của context.dev (context.dev/free-tools/design-md-generator), nó trả về một DESIGN.md của trang đó. Không cần lưu HTML hay chụp màn hình.",
+            "Kết quả đó chỉ là tài liệu tham khảo, không phải file cuối. Lấy mã hex, font, bo góc, khoảng cách làm bản nháp cho frontmatter của DESIGN.md, ghi chú chỗ thiếu hoặc đổi tên, rồi vẫn đi qua bước chọn bằng mắt và kiểm tra tương phản.",
+            "Nếu công cụ hoặc đường link đã đổi thì tin công cụ hiện hành và báo cho học viên."
+          ]
+        },
+        {
+          "k": "table",
+          "head": [
+            "Núm kế thừa",
+            "Kế thừa phần nào của DESIGN.md"
+          ],
+          "rows": [
+            [
+              "color",
+              "Colors và token màu trong component"
+            ],
+            [
+              "type",
+              "Typography"
+            ],
+            [
+              "spacing",
+              "Token spacing và mật độ Layout"
+            ],
+            [
+              "style",
+              "Layout, Elevation và Depth, Shapes, Components, Motion"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Núm đã kế thừa được giữ cố định, núm muốn khám phá lại mới đưa qua bản mẫu. Theo hết mọi núm (không khám phá lại gì) thì bỏ bước 3 họ phong cách, chỉ xác nhận bằng mắt, kiểm tra tương phản rồi chốt."
+        },
+        {
+          "k": "table",
+          "head": [
+            "Loại",
+            "Xử lý tài sản"
+          ],
+          "rows": [
+            [
+              "Thương hiệu của bạn",
+              "Thu thập logo và file font thật, vẫn kiểm tra font có hỗ trợ tiếng Việt. Các tài sản này vào mục Bước 1 của UPLOAD.md"
+            ],
+            [
+              "Trang tham khảo của người khác",
+              "Không chép logo hay font nguyên bản vì là sở hữu trí tuệ và không phải thương hiệu của bạn. Chỉ kế thừa phong cách và cấu trúc. Nếu bạn chưa có logo thì ghi chú trong UPLOAD.md"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Màu kế thừa cũng không được miễn kiểm tra tương phản."
+        },
+        {
+          "k": "h",
+          "t": "Giai đoạn 2 chi tiết: từ cảm giác tới DESIGN.md"
+        },
+        {
+          "k": "p",
+          "t": "Giai đoạn 2 cần PRODUCT.md đã có. Nguyên tắc: nói hướng bằng lời trước, chốt con số bằng mắt sau. Không bao giờ hỏi học viên mã hex, font hay bo góc."
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Bước 1: phỏng vấn hướng đi (bằng lời)",
+              "d": "Một cụm, mỗi câu kèm đáp án đề xuất. (1) Cảm giác chủ đạo: 3 giây đầu người lạ phải cảm thấy gì, 3 từ càng riêng càng tốt. (2) Ẩn dụ: nếu brand là một căn phòng bạn bước vào thì là phòng gì, ánh sáng, không khí, chất liệu. (3) Tính cách màu: chọn mức dùng (a) trung tính cộng một màu nhấn không quá 10%, (b) một màu chủ đạo 30 đến 60%, (c) bảng 3 đến 4 màu, (d) màu phủ cả bề mặt, rồi tả gam bằng chữ. (4) Cảm giác chữ: (a) serif sang cộng sans thân, (b) một sans gọn, (c) display mạnh cộng mono, (d) kiểu tạp chí. (5) Năng lượng chuyển động: tiết chế, phản hồi, hay dàn dựng. (6) Độ nổi khối: phẳng, phân lớp nhẹ hay nổi rõ; product nên phẳng hoặc phân lớp, brand tự do. (7) Xác nhận lại các điều tuyệt đối không được giống từ PRODUCT.md."
+            },
+            {
+              "t": "Bước 2: dựng 3 họ phong cách",
+              "d": "Ba họ thật sự khác nhau về ngôn ngữ vẽ (kiểu khung, bo góc, độ nổi, mật độ, trang trí, trường phái bố cục), không phải đổi bảng màu của một thiết kế. A là sát lời học viên nhất, B là đẩy tính cách lên, C là sáng và dễ đọc (cũng là phép thử: nếu chọn C thì A và B đã đi quá). Ít nhất một họ phá khỏi lựa chọn hiển nhiên. Căn cứ vào các file styles.csv, colors.csv và một cặp font hỗ trợ tiếng Việt từ typography.csv."
+            },
+            {
+              "t": "Bước 3: dựng bản mẫu một file",
+              "d": "Điền specimen.html thành design-explore.html ở thư mục gốc, một file có 3 tab A, B, C. Mỗi tab dùng chữ thật của brand (tên, tagline, 2 đến 3 câu nguyên văn từ PRODUCT.md, không dùng lorem), một dòng thử dấu tiếng Việt, bộ màn hình theo Register, nút chính ở 3 trạng thái và bộ đọc tương phản WCAG bằng JS nhúng sẵn."
+            },
+            {
+              "t": "Bước 4: kiểm tra tương phản trước khi học viên nhìn",
+              "d": "Mọi cặp chữ và nền phải đạt WCAG AA. Trượt thì chỉnh token (tối hoặc sáng hơn) trong giới hạn tính cách của họ, vẫn trượt thì đổi sang bảng màu đủ vai trò gần nhất trong colors.csv. Lặp tới khi đạt hết. Học viên không bao giờ thấy phương án trượt."
+            },
+            {
+              "t": "Bước 5: xác nhận bằng mắt",
+              "d": "Hỏi bằng cảm giác: cái nào nhìn giống bạn nhất. Học viên được trộn (màu của A nhưng chữ của B), áp trực tiếp vào biến CSS rồi kiểm tra lại tương phản, nhắc Ctrl+F5 và ghi lại mọi chỉnh sửa. Xác nhận lại bằng lời thường, ví dụ 'mềm, ấm, bo tròn'."
+            },
+            {
+              "t": "Bước 6: chốt DESIGN.md từ bản đã chọn",
+              "d": "Đọc từng giá trị CSS của bản đã xác nhận, không viết theo trí nhớ, vì giá trị không vào DESIGN.md sẽ mất ở khâu sau (Claude Design đọc DESIGN.md, không đọc bản mẫu). Mọi điều tuyệt đối không được giống trong PRODUCT.md đưa nguyên văn vào Don'ts. Mục Motion mang dấu NON-SPEC EXTENSION."
+            }
+          ]
+        },
+        {
+          "k": "table",
+          "head": [
+            "Register",
+            "Bộ màn hình mẫu"
+          ],
+          "rows": [
+            [
+              "brand",
+              "Hero, nút kêu gọi hành động (3 trạng thái), thẻ bằng chứng, form ngắn"
+            ],
+            [
+              "product",
+              "Khung app (thanh điều hướng trên hoặc bên), dòng bảng dữ liệu, thẻ, form, nút (3 trạng thái)"
+            ]
+          ]
+        },
+        {
+          "k": "list",
+          "items": [
+            "Học viên không chọn được hoặc cảm thấy cái nào cũng sai: hỏi cái gì sai bằng lời, chỉnh họ gần nhất rồi cho xem lại, không tự bịa họ thứ tư.",
+            "Font đã chọn không qua bộ lọc tiếng Việt: thay theo vn-fonts.md, giữ nguyên tính cách.",
+            "Chế độ design mà chưa có PRODUCT.md: dừng và chạy giai đoạn 1 trước, vì Register và các điều tuyệt đối không được giống là đầu vào bắt buộc.",
+            "Ánh xạ từ tiếng Việt sang từ khoá tìm trong kho dữ liệu: sang trọng là luxury hoặc elegant, ấm áp là warm hoặc humanist, gọn hiện đại là minimal hoặc modern, mạnh gắt là bold hoặc brutalist, vui là playful hoặc rounded."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Định dạng DESIGN.md (chuẩn Stitch, 9 mục)"
+        },
+        {
+          "k": "p",
+          "t": "Nguồn chuẩn là đặc tả mã nguồn mở Stitch (google-labs-code/design.md, 8 mục cùng trường version). Skill thêm một phần mở rộng duy nhất là Motion, ghi rõ là ngoài chuẩn. Phần frontmatter là bắt buộc và máy đọc, phần thân là lý giải cho người đọc, không bao giờ định nghĩa lại giá trị token trong lời văn mâu thuẫn với frontmatter."
+        },
+        {
+          "k": "code",
+          "t": "---\nversion: alpha\nname: Tên dự án\ndescription: Một dòng tagline\ncolors:\n  primary: \"#1A1C1E\"\n  secondary: \"#6C7278\"\n  accent: \"#B8422E\"\n  background: \"#FFFFFF\"\n  foreground: \"#1A1C1E\"\ntypography:\n  h1:\n    fontFamily: \"Public Sans\"\n    fontSize: \"48px\"\n    fontWeight: 600\n    lineHeight: 1.1\n    letterSpacing: \"-0.02em\"\nrounded:\n  sm: \"4px\"\n  md: \"8px\"\n  lg: \"16px\"\nspacing:\n  xs: \"4px\"\n  sm: \"8px\"\n  md: \"16px\"\n  lg: \"32px\"\ncomponents:\n  button-primary:\n    backgroundColor: \"{colors.primary}\"\n    textColor: \"#FFFFFF\"\n    rounded: \"{rounded.sm}\"\n    padding: \"12px 24px\"\n---",
+          "cap": "Frontmatter mẫu của DESIGN.md"
+        },
+        {
+          "k": "list",
+          "items": [
+            "version là bắt buộc. Màu viết bằng hex sRGB (#RGB, #RGBA, #RRGGBB, #RRGGBBAA). Tham chiếu token dùng dạng {path.to.token}.",
+            "Tên vai trò màu viết thường cho vai trò cốt lõi (primary, secondary, accent, background, foreground, card, muted, border, ring, destructive); màu chữ trên nền dùng dạng onX (onPrimary) hoặc xForeground (mutedForeground). Nhất quán trong cùng file.",
+            "Token con của component chỉ gồm: backgroundColor, textColor, typography, rounded, padding, size, height, width.",
+            "Font bắt buộc có bộ ký tự tiếng Việt."
+          ]
+        },
+        {
+          "k": "table",
+          "head": [
+            "#",
+            "Mục (đúng tên, đúng thứ tự)",
+            "Nội dung"
+          ],
+          "rows": [
+            [
+              "1",
+              "Overview",
+              "Ngôi sao dẫn đường (một ẩn dụ) và 2 đến 3 câu về tính cách, mật độ, triết lý thẩm mỹ, kết bằng Key Characteristics. Gộp cả Register và các điều không được giống từ PRODUCT.md"
+            ],
+            [
+              "2",
+              "Colors",
+              "Một câu tả bảng màu, rồi từng vai trò: tên màu (#HEX), dùng ở đâu và vì sao. Có thể thêm Named Rules"
+            ],
+            [
+              "3",
+              "Typography",
+              "Font Display và Body (kèm phương án dự phòng), 1 đến 2 câu về tính cách của cặp font, rồi thứ bậc: cấp (độ đậm, cỡ, giãn dòng) và mục đích"
+            ],
+            [
+              "4",
+              "Layout",
+              "Lưới, cột, độ rộng khung, mật độ, breakpoint, nhịp không gian theo thang spacing"
+            ],
+            [
+              "5",
+              "Elevation & Depth",
+              "Đổ bóng hay phân lớp theo tông; nếu phẳng thì nói rõ"
+            ],
+            [
+              "6",
+              "Shapes",
+              "Ngôn ngữ góc (theo rounded), kiểu viền, họa tiết hình học (viên thuốc, sắc cạnh, hữu cơ)"
+            ],
+            [
+              "7",
+              "Motion",
+              "Mục mở rộng, kèm dấu NON-SPEC EXTENSION. Năng lượng chuyển động và tương tác nào có hoạt ảnh. Ngắn"
+            ],
+            [
+              "8",
+              "Components",
+              "Nút, thẻ hoặc khung chứa, ô nhập. Chỉ những thành phần có thật"
+            ],
+            [
+              "9",
+              "Do's and Don'ts",
+              "Do: chỉ dẫn cụ thể kèm giá trị chính xác. Don't: cấm cụ thể, mỗi điều tuyệt đối không được giống từ PRODUCT.md xuất hiện nguyên văn"
+            ]
+          ]
+        },
+        {
+          "k": "list",
+          "items": [
+            "Giọng văn quyết liệt: 'cấm', 'không bao giờ', 'luôn luôn', không dùng 'cân nhắc' hay 'có thể'.",
+            "Tả bằng cảm nhận hơn thuật ngữ kỹ thuật: 'góc bo nhẹ (bo 8px)' tốt hơn 'rounded-lg'.",
+            "Không thêm mục nào ngoài 9 mục, không đổi tên, không bịa component không tồn tại."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Font hỗ trợ tiếng Việt"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Bộ lọc cứng: font chỉ được dùng khi có subset vietnamese, vì dấu như ậ ằ ễ ợ ữ sẽ lỗi ở font không có. Kiểm tra trong cột Subsets của google-fonts.csv (505 font đạt theo tài liệu skill).",
+            "Cặp mặc định an toàn: Be Vietnam Pro (tiêu đề) và Noto Sans (nội dung). Dùng khi phân vân hoặc khi font đã chọn không qua bộ lọc.",
+            "Thay thế: font không có subset tiếng Việt thì đổi sang font cùng loại gần nhất (serif với serif, mono với mono) hoặc về cặp mặc định. Không bao giờ dùng font thiếu tiếng Việt.",
+            "Bản mẫu nạp font qua thẻ link Google Fonts (học viên đang online); 'một file' nghĩa là một file HTML, không phải dùng offline."
+          ]
+        },
+        {
+          "k": "table",
+          "head": [
+            "Phong cách",
+            "Cặp font (tiêu đề và nội dung)"
+          ],
+          "rows": [
+            [
+              "Cổ điển thanh lịch",
+              "Playfair Display + Inter"
+            ],
+            [
+              "Tối giản kiểu Thụy Sĩ",
+              "Inter + Inter"
+            ],
+            [
+              "Thư giãn, chăm sóc",
+              "Lora + Raleway"
+            ],
+            [
+              "Lập trình viên",
+              "JetBrains Mono + IBM Plex Sans"
+            ],
+            [
+              "Sang trọng serif",
+              "Cormorant + Montserrat"
+            ],
+            [
+              "SaaS thân thiện",
+              "Plus Jakarta Sans + Plus Jakarta Sans"
+            ],
+            [
+              "Tạp chí tin tức",
+              "Newsreader + Roboto"
+            ],
+            [
+              "Doanh nghiệp tin cậy",
+              "Lexend + Source Sans 3"
+            ],
+            [
+              "Tròn mềm",
+              "Varela Round + Nunito Sans"
+            ],
+            [
+              "Thân thiện tiếng Việt",
+              "Be Vietnam Pro + Noto Sans"
+            ],
+            [
+              "Tài chính tin cậy",
+              "IBM Plex Sans + IBM Plex Sans"
+            ],
+            [
+              "Phong cách tạp chí",
+              "Libre Bodoni + Public Sans"
+            ],
+            [
+              "Thể thao",
+              "Barlow Condensed + Barlow"
+            ],
+            [
+              "Học thuật",
+              "EB Garamond + Crimson Text"
+            ],
+            [
+              "Gen Z mạnh",
+              "Anton + Epilogue"
+            ],
+            [
+              "Material You",
+              "Roboto + Roboto"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Bảng trên là một phần trích. Tài liệu skill liệt kê 39 cặp đạt chuẩn tiếng Việt, xem đầy đủ trong typography.csv."
+        },
+        {
+          "k": "h",
+          "t": "UPLOAD.md: tải gì lên Claude Design"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Bước",
+            "Tải lên",
+            "Vai trò"
+          ],
+          "rows": [
+            [
+              "Bước 1: tạo design system",
+              "DESIGN.md",
+              "Chính. Spec để Claude Design sinh nguyên bộ design system"
+            ],
+            [
+              "",
+              "Logo, ảnh thương hiệu (nếu có)",
+              "Tài sản thương hiệu"
+            ],
+            [
+              "",
+              "Tất cả font dùng trong DESIGN.md",
+              "Upload hết, không giữ lại"
+            ],
+            [
+              "",
+              "DESIGN.md tham khảo (nếu có)",
+              "Dán nhãn tham khảo hoặc cảm hứng, không phải brand của bạn"
+            ],
+            [
+              "Bước 2: tạo màn hình",
+              "PRODUCT.md",
+              "Chiến lược (người dùng, brand, điều không được giống), đưa vào làm bối cảnh khi tạo từng màn hình"
+            ],
+            [
+              "Giữ lại, không tải",
+              "design-explore.html",
+              "Bản dựng 3 phong cách đã chốt bằng mắt, để đối chiếu"
+            ]
+          ]
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Mở Claude Design, tạo project mới",
+              "d": "Bước 1: tải DESIGN.md, logo, ảnh và tất cả font để sinh design system."
+            },
+            {
+              "t": "Tinh chỉnh design system",
+              "d": "Nếu cần."
+            },
+            {
+              "t": "Bước 2: vào tạo thiết kế hoặc màn hình",
+              "d": "Đưa PRODUCT.md vào làm bối cảnh."
+            }
+          ]
+        },
+        {
+          "k": "h",
           "t": "Đầu ra"
         },
         {
@@ -5549,7 +6241,7 @@
         },
         {
           "k": "h",
-          "t": "Các file trong gói (theo SKILL.md, đã đọc references/phase1-product.md)"
+          "t": "Các file trong gói (đã đọc đủ)"
         },
         {
           "k": "table",
@@ -5585,6 +6277,10 @@
             [
               "assets/templates/*",
               "Điền từng file đầu ra"
+            ],
+            [
+              "assets/corpus/ (4 file CSV)",
+              "colors.csv (161 dòng bảng màu theo loại sản phẩm), styles.csv (84 phong cách), typography.csv (73 cặp font), google-fonts.csv (1923 font kèm subset)"
             ]
           ]
         },
