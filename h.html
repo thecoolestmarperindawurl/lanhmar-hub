@@ -1,0 +1,4 @@
+<!doctype html><meta charset=utf-8><link rel=stylesheet href="/kho.css"><body><div class="grid" id=x></div><dialog id=resDlg class="res-dlg"></dialog>
+<script>window.STORAGE_API="https://fake.test/exec"</script>
+<script src="/kho-data.js"></script><script src="/resource.js"></script>
+<script>Res.load().then(async()=>{await Res.loadFeeds(true);const l=Res.all().filter(i=>i.feed==='ranking');document.getElementById('x').innerHTML=l.map(i=>Res.card(i)).join('');document.title='ok'});</script>

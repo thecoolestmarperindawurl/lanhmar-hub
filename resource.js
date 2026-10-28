@@ -16,6 +16,7 @@ window.Res = (() => {
   const TTL = 2 * 60e3;   // cache trình duyệt
   let live = null, keepScroll = null, notified = 0, lastRefresh = Date.now();
   const ai = {}; // id hãng -> { items, updated }
+  let rk = null;  // bảng xếp hạng trực tiếp: { quotes, news, updated }
 
   async function load() {
     try {
@@ -46,6 +47,20 @@ window.Res = (() => {
       if (j.ok) { ai[id] = j; try { sessionStorage.setItem("lm-ai-" + id, JSON.stringify({ t: Date.now(), v: j })); } catch {} baseline("ai-" + id, j.items); return j; }
     } catch {}
     if (prev) ai[id] = prev; // làm mới lỗi thì giữ tin cũ
+    return prev || null;
+  }
+
+  async function loadRanking(force) {
+    const prev = rk;
+    if (force) { rk = null; try { sessionStorage.removeItem("lm-rank"); } catch {} }
+    if (rk) return rk;
+    try { const c = JSON.parse(sessionStorage.getItem("lm-rank")); if (c && Date.now() - c.t < TTL) return (rk = c.v); } catch {}
+    if (!API()) return null;
+    try {
+      const j = await post({ action: "ranking" });
+      if (j.ok) { rk = j; try { sessionStorage.setItem("lm-rank", JSON.stringify({ t: Date.now(), v: j })); } catch {} return j; }
+    } catch {}
+    if (prev) rk = prev; // làm mới lỗi thì giữ số liệu cũ
     return prev || null;
   }
 
@@ -80,6 +95,7 @@ window.Res = (() => {
     }
     const an = list.find((i) => i.feed === "ainews");
     if (an) { const ids = new Set((an.companies || []).slice(0, 3).map((c) => c.id)); Object.keys(ai).forEach((k) => ids.add(k)); ids.forEach((id) => tasks.push(loadAi(id, force))); } // nạp trước 3 hãng đầu; làm mới thì nạp lại cả các hãng đã xem
+    if (list.some((i) => i.feed === "ranking")) tasks.push(loadRanking(force));
     await Promise.all(tasks);
     if (!feeds && prevFeeds) feeds = prevFeeds; // làm mới lỗi thì giữ tin cũ
     const nc = claudeNew(), nn = aiNew();
@@ -97,7 +113,7 @@ window.Res = (() => {
     if (!live || !dlg || !dlg.open) return;
     keepScroll = dlg.scrollTop;
     const i = list.find((x) => x.id === live.id); if (!i) return;
-    if (live.type === "claude") openClaude(i, dlg); else openAi(i, dlg, live.c);
+    if (live.type === "claude") openClaude(i, dlg); else if (live.type === "ranking") openRanking(i, dlg); else openAi(i, dlg, live.c);
   };
   async function refresh(force = true) {
     lastRefresh = Date.now();
@@ -117,6 +133,7 @@ window.Res = (() => {
   const compName = (an, id) => (an.companies.find((c) => c.id === id) || {}).name || id;
 
   /* ---------- thẻ ---------- */
+  const fmtPrice = (x) => `${Number(x.p).toLocaleString("en-US", { maximumFractionDigits: 2 })} ${esc(x.cur || "USD")}${x.pc == null ? "" : ` <span class="${x.pc >= 0 ? "up" : "down"}">${x.pc >= 0 ? "▲" : "▼"} ${Math.abs(x.pc).toFixed(2)}%</span>`}`;
   function liveBadges(i, n) { return `<span class="badge live"><i></i>LIVE</span><span class="badge">${esc(i.type || "Cập nhật trực tiếp")}</span>${n ? `<span class="badge new">${n} mới</span>` : ""}`; }
 
   function card(i) {
@@ -136,9 +153,12 @@ window.Res = (() => {
         <div class="meta"><span>Theo dõi ${(i.companies || []).length} hãng AI</span><span class="res-more">Xem tất cả →</span></div></div></article>`;
     }
     if (i.feed === "ranking") {
-      return `<article class="card res-card" data-res="${esc(i.id)}" tabindex="0" role="button" aria-label="${esc(i.title)}">
-        <img class="res-thumb" src="${esc(okUrl(i.thumb))}" alt="" loading="lazy"><div class="res-info"><span class="badge">${esc(i.type)}</span><span class="badge shared">Cập nhật ${esc(i.asof)}</span>
-        <h3>${esc(i.title)}</h3><p>${esc(i.note)}</p><div class="meta"><span>${esc(i.date)}</span><span class="res-more">Xem bảng xếp hạng →</span></div></div></article>`;
+      const q = (rk && rk.quotes) || [];
+      return `<article class="card res-card feed-card" data-res="${esc(i.id)}" tabindex="0" role="button" aria-label="${esc(i.title)}">
+        <img class="res-thumb" src="${esc(okUrl(i.thumb))}" alt="" loading="lazy"><div class="res-info">${rk ? '<span class="badge live"><i></i>LIVE</span>' : ""}<span class="badge">${esc(i.type)}</span>
+        <h3>${esc(i.title)}</h3>
+        ${q.length ? `<ul class="feed-mini">${q.slice(0, 2).map((x) => `<li><b>${esc(x.s)}</b> ${fmtPrice(x)}</li>`).join("")}</ul>` : `<p>${esc(i.note)}</p>`}
+        <div class="meta"><span>${rk ? "Cập nhật " + esc(updatedText(rk.updated)) : "Mốc " + esc(i.asof)}</span><span class="res-more">Xem bảng xếp hạng →</span></div></div></article>`;
     }
     return `<article class="card res-card" data-res="${esc(i.id)}" tabindex="0" role="button" aria-label="${esc(i.title)}">
       <img class="res-thumb" src="${esc(okUrl(i.thumb))}" alt="" loading="lazy">
@@ -188,10 +208,15 @@ window.Res = (() => {
   }
 
   function openRanking(i, dlg) {
+    live = { type: "ranking", id: i.id };
     const rows = (arr, cols) => arr.map((r, k) => `<tr><td class="rk">${k + 1}</td><td><b>${esc(r.n)}</b>${r.k ? ` <span class="badge">${esc(r.k)}</span>` : ""}<small>${esc(r.d)}</small></td><td class="num">${esc(r.v)}</td></tr>`).join("");
-    show(dlg, `<button class="x" id="resX" aria-label="Đóng">×</button><div class="res-body"><div class="res-head"><span class="badge">${esc(i.type)}</span><h2>${esc(i.title)}</h2><p class="news-meta">Số liệu tham khảo, cập nhật ${esc(i.asof)}.</p></div>
-      <h4>Vốn hoá / định giá lớn nhất</h4><table class="rank-t">${rows(i.valuation)}</table>
-      <h4>Tăng trưởng doanh thu nhanh nhất</h4><table class="rank-t">${rows(i.growth)}</table>
+    const quotes = rk && rk.quotes && rk.quotes.length ? `<h4>Giá cổ phiếu trực tiếp (công ty đại chúng)</h4><table class="rank-t">${rk.quotes.map((x) => `<tr><td><b>${esc(x.n)}</b> <span class="badge">${esc(x.s)}</span></td><td class="num">${fmtPrice(x)}</td></tr>`).join("")}</table><p class="res-pad rank-live-note">Giá khớp gần nhất so với phiên trước, từ Yahoo Finance, có thể chậm vài phút. Chưa phải vốn hoá. Vốn hoá = giá × số cổ phiếu lưu hành, xem trong bảng bên dưới.</p>` : "";
+    const news = rk && rk.news && rk.news.length ? `<h4>Tin mới về định giá, gọi vốn, doanh thu</h4>${rk.news.map((c) => `<div class="rank-news"><h5>${esc(c.n)}</h5>${c.items.map((x) => `<a href="${esc(okUrl(x.u))}" target="_blank" rel="noopener"><span>${esc(fmtDate(x.d))}${x.src ? " · " + esc(x.src) : ""}</span>${esc(vi(x.t || x.te))}</a>`).join("")}</div>`).join("")}<p class="res-pad rank-live-note">Định giá công ty tư nhân chỉ đổi khi có vòng gọi vốn hoặc thương vụ mới, nên không có số theo từng giây. Phần này lấy tin mới nhất trong 30 ngày qua, dịch tự động, hãy bấm bài gốc để xác minh con số.</p>` : "";
+    const status = !API() ? "Chưa kích hoạt nguồn trực tiếp, đang hiện số liệu tham khảo." : rk ? `Cập nhật lúc ${esc(updatedText(rk.updated))}, tự làm mới mỗi 5 phút khi đang mở. ${refreshBtn}` : `Chưa tải được dữ liệu trực tiếp, đang hiện số liệu tham khảo. ${refreshBtn}`;
+    show(dlg, `<button class="x" id="resX" aria-label="Đóng">×</button><div class="res-body"><div class="res-head">${rk ? '<span class="badge live"><i></i>LIVE</span>' : ""}<span class="badge">${esc(i.type)}</span><h2>${esc(i.title)}</h2><p class="news-meta">${status}</p></div>
+      ${quotes}${news}
+      <h4>Vốn hoá / định giá lớn nhất <small>(mốc đã tổng hợp ${esc(i.asof)})</small></h4><table class="rank-t">${rows(i.valuation)}</table>
+      <h4>Tăng trưởng doanh thu nhanh nhất <small>(mốc ${esc(i.asof)})</small></h4><table class="rank-t">${rows(i.growth)}</table>
       <p class="res-pad rank-note">⚠️ ${esc(i.note2)}</p>
       <h4>Nguồn tham khảo</h4><ul class="rank-src">${i.sources.map((s) => `<li><a href="${esc(okUrl(s.u))}" target="_blank" rel="noopener">${esc(s.t)} ↗</a></li>`).join("")}</ul></div>`);
   }

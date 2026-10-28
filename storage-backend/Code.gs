@@ -257,6 +257,53 @@ function aiNews_(id) {
   return json_(out);
 }
 
+/* ---------- Bảng xếp hạng công ty AI: giá cổ phiếu trực tiếp + tin mới về định giá, doanh thu ---------- */
+var RANK_QUOTES = [
+  { s: 'NVDA', n: 'NVIDIA' }, { s: 'MSFT', n: 'Microsoft' }, { s: 'GOOGL', n: 'Alphabet (Google)' }, { s: 'META', n: 'Meta' }
+];
+var RANK_NEWS = [
+  { id: 'anthropic', n: 'Anthropic', q: 'Anthropic' },
+  { id: 'openai', n: 'OpenAI', q: 'OpenAI' },
+  { id: 'xai', n: 'xAI', q: 'xAI Grok' },
+  { id: 'databricks', n: 'Databricks', q: 'Databricks' },
+  { id: 'cursor', n: 'Cursor (Anysphere)', q: 'Cursor Anysphere' },
+  { id: 'nvidia', n: 'NVIDIA', q: 'NVIDIA' }
+];
+
+function rankQuote_(sym) {
+  var r = UrlFetchApp.fetch('https://query1.finance.yahoo.com/v8/finance/chart/' + sym + '?interval=1d&range=5d', { muteHttpExceptions: true, followRedirects: true, headers: { 'User-Agent': 'Mozilla/5.0' } });
+  var m = JSON.parse(r.getContentText()).chart.result[0].meta;
+  var price = m.regularMarketPrice, prev = m.chartPreviousClose || m.previousClose;
+  if (!price) return null;
+  return { s: sym, p: price, pc: prev ? (price - prev) / prev * 100 : null, cur: m.currency || 'USD', t: m.regularMarketTime ? new Date(m.regularMarketTime * 1000).toISOString() : '' };
+}
+
+function rankNews_(q) {
+  var url = 'https://news.google.com/rss/search?q=' + encodeURIComponent(q + ' (valuation OR funding OR "run-rate" OR revenue OR ARR) when:30d') + '&hl=en-US&gl=US&ceid=US:en';
+  var xml = UrlFetchApp.fetch(url, { muteHttpExceptions: true, followRedirects: true, headers: { 'User-Agent': 'Mozilla/5.0' } }).getContentText();
+  return rssItems_(xml, 3).map(function (it) {
+    var title = it.title, src = it.source, cut = title.lastIndexOf(' - ');
+    if (cut > 20) { if (!src) src = title.slice(cut + 3); title = title.slice(0, cut); }
+    return { d: it.date, u: it.link, te: title, t: tr_(title), src: src || '' };
+  });
+}
+
+function ranking_() {
+  var cache = CacheService.getScriptCache(), hit = cache.get('ranking');
+  if (hit) return json_(JSON.parse(hit));
+  var out = { ok: true, updated: new Date().toISOString(), quotes: [], news: [] };
+  RANK_QUOTES.forEach(function (c) {
+    try { var q = rankQuote_(c.s); if (q) { q.n = c.n; out.quotes.push(q); } } catch (e) {}
+  });
+  RANK_NEWS.forEach(function (c) {
+    try { var items = rankNews_(c.q); if (items.length) out.news.push({ id: c.id, n: c.n, items: items }); } catch (e) {}
+  });
+  out.ok = out.quotes.length > 0 || out.news.length > 0;
+  if (out.ok) { var j = JSON.stringify(out); if (j.length < 90000) { cache.put('ranking', j, 300); cache.put('ranking_last', j, 21600); } }
+  else { var last = cache.get('ranking_last'); if (last) return json_(JSON.parse(last)); }
+  return json_(out);
+}
+
 // Khoá học KesFlow mới nhất: đọc từ trang chủ kesflow.vn để link giới thiệu luôn trỏ đúng khoá (TA06, TA07...).
 function course_() {
   var cache = CacheService.getScriptCache(), hit = cache.get('course');
@@ -289,6 +336,7 @@ function doPost(e) {
     if (pre.action === 'chat_get') return chatGet_(pre);
     if (pre.action === 'news') return news_();
     if (pre.action === 'ainews') return aiNews_(String(pre.c || ''));
+    if (pre.action === 'ranking') return ranking_();
   } catch (err0) {
     return json_({ ok: false, error: 'server' });
   }
