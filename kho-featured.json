@@ -7840,6 +7840,313 @@
           ]
         }
       ]
+    },
+    {
+      "id": "buy-ovh-hermes",
+      "kho": "ai",
+      "group": "buy",
+      "guide": true,
+      "date": "2026-10-28",
+      "title": "OVH VPS cho Hermes Agent: chọn gói và checklist cài",
+      "type": "Hướng dẫn",
+      "badge": "VPS",
+      "tags": [
+        "vps",
+        "ovh",
+        "hermes",
+        "telegram"
+      ],
+      "thumb": "assets/res/buy-ovh-hermes.jpg",
+      "note": "So sánh gói OVH VPS-1 tới VPS-5, yêu cầu của Hermes Agent, gợi ý chọn gói và checklist cài trên VPS.",
+      "ctas": [
+        {
+          "btn": "Mở trang VPS OVHcloud",
+          "url": "https://www.ovhcloud.com/en/vps/"
+        },
+        {
+          "btn": "Tài liệu Docker của Hermes",
+          "url": "https://hermes-agent.nousresearch.com/docs/user-guide/docker"
+        }
+      ],
+      "ctasTitle": "OVHcloud và Hermes Agent",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Cách đọc: số liệu gói và giá lấy từ kết quả tìm kiếm (trang OVH US và các trang so sánh), mình không mở được trang OVHcloud nên chưa phải xác nhận gốc. Các nguồn mâu thuẫn ở VPS-4 và VPS-5. Hãy đối chiếu trên trang VPS của OVHcloud trước khi mua. Mục 'gợi ý của mình' là ý kiến."
+        },
+        {
+          "k": "h",
+          "t": "1. So sánh gói OVH VPS"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Gói",
+            "vCores",
+            "RAM",
+            "Ổ NVMe",
+            "Giá/tháng (USD)",
+            "Độ chắc chắn"
+          ],
+          "rows": [
+            [
+              "VPS-1",
+              "2",
+              "4 GB",
+              "40 GB",
+              "từ 4,54",
+              "Từ trang OVH US. Băng thông 500 Mbps, không giới hạn lưu lượng, có sao lưu hằng ngày của 24 giờ trước"
+            ],
+            [
+              "VPS-2",
+              "4",
+              "8 GB",
+              "75 GB",
+              "từ 8,50",
+              "Cùng nguồn, băng thông 1 Gbps"
+            ],
+            [
+              "VPS-3",
+              "6",
+              "12 GB",
+              "100 GB",
+              "từ 12,32",
+              "Cùng nguồn"
+            ],
+            [
+              "VPS-4",
+              "8 hoặc 12",
+              "24 hoặc 48 GB",
+              "200 hoặc 300 GB",
+              "khoảng 22 đến 23",
+              "Các nguồn ghi khác nhau, chưa chốt"
+            ],
+            [
+              "VPS-5",
+              "16",
+              "64 GB",
+              "350 GB",
+              "khoảng 34 đến 55",
+              "Giá chênh nhiều giữa các nguồn"
+            ]
+          ]
+        },
+        {
+          "k": "list",
+          "items": [
+            "Có nguồn nói OVH có dòng VPS 2026 gồm 6 cấu hình, từ 4 vCores, 8 GB, 75 GB tới 24 vCores, 96 GB, 400 GB. Giá khác theo vùng và đơn vị tiền.",
+            "Vị trí máy chủ: một nguồn nói OVH có trung tâm dữ liệu Singapore cho châu Á. Mình chưa xác nhận Sydney hay Mumbai.",
+            "Mình chưa thấy nguồn nào xác nhận phí và điều kiện sao lưu của các gói trên VPS-1, hãy xem trên trang mua."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "2. Hermes Agent cần gì"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Nguồn",
+            "Tối thiểu",
+            "Khuyến nghị"
+          ],
+          "rows": [
+            [
+              "Tài liệu Docker chính thức của Hermes (qua tìm kiếm)",
+              "1 GB RAM, 1 nhân, 500 MB ổ đĩa",
+              "2 đến 4 GB RAM, 2 nhân"
+            ],
+            [
+              "Cùng nguồn, nếu bật công cụ trình duyệt",
+              "Từ 2 GB RAM, thêm tuỳ chọn --shm-size=1g",
+              "Chưa nêu"
+            ],
+            [
+              "Hãng hosting (Contabo, Gizmodo...)",
+              "Có bài ghi 2 GB RAM và 10 GB ổ đĩa",
+              "Có bài khuyên 2 nhân, 8 GB RAM"
+            ]
+          ]
+        },
+        {
+          "k": "list",
+          "items": [
+            "Hermes gọi mô hình qua API bên ngoài nên VPS không cần GPU.",
+            "Yêu cầu mô hình có ngữ cảnh từ 64K chỉ áp dụng khi bạn tự chạy mô hình.",
+            "Lời khuyên 8 GB của hãng hosting cao hơn nhiều so với mức chính thức, mình coi là hướng bán hàng thận trọng."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "3. Chọn gói nào (gợi ý của mình)"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Cách dùng",
+            "Gói",
+            "Lý do"
+          ],
+          "rows": [
+            [
+              "Hermes cùng cổng Telegram, không bật trình duyệt",
+              "VPS-1 (4 GB)",
+              "Gấp nhiều lần mức khuyến nghị chính thức, rẻ nhất"
+            ],
+            [
+              "Hermes, có công cụ trình duyệt, chạy theo lịch, thêm vài bot nhỏ",
+              "VPS-2 (8 GB)",
+              "Có dư RAM cho trình duyệt và Docker, bước nâng hợp lý"
+            ],
+            [
+              "Nhiều agent chạy song song, nhiều trình duyệt",
+              "VPS-3 (12 GB) trở lên",
+              "Chỉ khi thấy VPS-2 đầy"
+            ],
+            [
+              "Muốn chạy mô hình AI ngay trên VPS",
+              "Không phù hợp",
+              "Các gói này không có GPU, nên gọi mô hình qua API"
+            ]
+          ]
+        },
+        {
+          "k": "callout",
+          "t": "Gợi ý chốt: nếu định dùng Hermes lâu dài và muốn dư địa, chọn VPS-2. Muốn tiết kiệm, bắt đầu VPS-1 rồi nâng cấp khi theo dõi thấy RAM đầy. Chi phí lớn nhất thường là API mô hình, không phải VPS, hãy đặt giới hạn ngân sách ở nhà cung cấp mô hình ngay từ đầu."
+        },
+        {
+          "k": "h",
+          "t": "4. Checklist trước khi mua"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Đo VPS hiện tại",
+              "d": "Chạy free -h và htop lúc bot bận nhất. RAM trên khoảng 70 đến 80% hoặc hay dùng swap thì cần thêm RAM. RAM thoải mái mà CPU hay chạm 100% thì cần thêm nhân."
+            },
+            {
+              "t": "Xác định có bật trình duyệt không",
+              "d": "Có thì chọn từ 2 GB cho riêng Hermes, tính thêm RAM cho các bot khác."
+            },
+            {
+              "t": "Đối chiếu gói, giá, vùng trên trang OVH",
+              "d": "Xem đúng vùng và đơn vị tiền bạn mua, kiểm tra điều kiện sao lưu."
+            },
+            {
+              "t": "Chọn vị trí gần Việt Nam",
+              "d": "Ưu tiên Singapore nếu gói có vùng này."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "5. Checklist cài Hermes trên VPS"
+        },
+        {
+          "k": "callout",
+          "t": "Lệnh cài đặt chính xác lấy từ tài liệu chính thức của Hermes (link ở cuối thẻ), mình không chép lệnh để tránh sai phiên bản."
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Tạo VPS và bảo mật cơ bản",
+              "d": "Dùng người dùng không phải root, đăng nhập bằng khoá SSH, bật tường lửa. Đây là khuyến nghị chung của mình."
+            },
+            {
+              "t": "Cài Docker",
+              "d": "Theo tài liệu Docker của Hermes."
+            },
+            {
+              "t": "Tạo bot Telegram mới cho Hermes",
+              "d": "Tạo qua @BotFather. Một token chỉ nên có một chương trình nhận tin (hiểu biết chung của mình, chưa kiểm trong tài liệu Hermes). Token của LanhMar Contact Bot đang được Apps Script dùng cho chat trên web, đừng dùng chung."
+            },
+            {
+              "t": "Chạy container Hermes",
+              "d": "Tài liệu mô tả: kéo ảnh nousresearch/hermes-agent, chạy thiết lập một lần, rồi chạy gateway nền với thư mục ~/.hermes gắn vào /opt/data, cổng 8642, có --restart unless-stopped. Bật trình duyệt thì thêm --shm-size=1g."
+            },
+            {
+              "t": "Một thư mục dữ liệu cho mỗi gateway",
+              "d": "Không cho hai container gateway dùng chung một thư mục dữ liệu."
+            },
+            {
+              "t": "Điền token Telegram và khoá API mô hình",
+              "d": "Chỉ đặt trong cấu hình trên VPS, không đưa vào kho mã hay chat."
+            },
+            {
+              "t": "Đặt giới hạn ngân sách ở nhà cung cấp mô hình",
+              "d": "Tránh vòng lặp chạy mãi tốn tiền."
+            },
+            {
+              "t": "Thử bằng dữ liệu thử",
+              "d": "Cho agent làm vài việc nhỏ, kiểm tra nhật ký trước khi giao việc thật."
+            },
+            {
+              "t": "Sao lưu ~/.hermes",
+              "d": "Đây là nơi lưu bộ nhớ và cấu hình, mất là mất những gì agent đã học."
+            },
+            {
+              "t": "Theo dõi tài nguyên",
+              "d": "Sau 1 đến 2 tuần xem lại free -h, nếu chạm giới hạn thì nâng gói."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "6. Bảo mật"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Agent có quyền rộng: chạy trên VPS riêng, không để chung với dữ liệu quan trọng, cấp quyền tối thiểu.",
+            "Đừng đặt ADMIN_KEY hay khoá của kho và Apps Script lên máy này nếu không cần.",
+            "Nội dung agent đọc (email, web) có thể chứa lệnh độc hại ẩn. Đừng để agent tự làm theo mọi thứ nó đọc.",
+            "Đọc kỹ cảnh báo bảo mật của dự án Hermes trước khi bật quyền rộng."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Nguồn"
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "OVHcloud VPS (trang gốc, mình chưa mở được)",
+              "u": "https://www.ovhcloud.com/en/vps/"
+            },
+            {
+              "t": "OVHcloud VPS USA (giá VPS-1 tới VPS-3)",
+              "u": "https://www.ovhcloud.com/en/vps/vps-usa/"
+            },
+            {
+              "t": "Hermes Agent: tài liệu Docker",
+              "u": "https://hermes-agent.nousresearch.com/docs/user-guide/docker"
+            },
+            {
+              "t": "Hermes Agent: trang chính thức",
+              "u": "https://hermes-agent.nousresearch.com/"
+            },
+            {
+              "t": "Contabo: cài Hermes trên VPS",
+              "u": "https://contabo.com/blog/how-to-install-hermes-agent-on-a-vps-2026-step-by-step-guide/"
+            },
+            {
+              "t": "Gizmodo: VPS tốt nhất cho Hermes",
+              "u": "https://gizmodo.com/best-web-hosting/hermes-agent"
+            },
+            {
+              "t": "Hermes Atlas: cài trên VPS",
+              "u": "https://hermesatlas.com/guide/install/vps"
+            },
+            {
+              "t": "VPSBenchmarks: OVHcloud",
+              "u": "https://www.vpsbenchmarks.com/hosters/ovhcloud"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
