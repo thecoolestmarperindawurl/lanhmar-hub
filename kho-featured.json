@@ -6463,12 +6463,13 @@
       "type": "Thư mục Drive",
       "badge": "Drive",
       "tags": [
-        "edit",
-        "tài nguyên",
+        "meme",
+        "sound effect",
+        "font",
         "drive"
       ],
       "thumb": "assets/res/edit-tai-nguyen-drive.jpg",
-      "note": "Thư mục Google Drive chứa tài nguyên để dựng video. Danh mục chi tiết đang chờ bổ sung.",
+      "note": "Thư mục Drive của hieule.havah gồm meme, sound effect, bộ font, keyword tìm background và tài liệu ChatGPT cho người dựng video.",
       "cta": {
         "title": "Kho tài nguyên edit video · Google Drive",
         "url": "https://drive.google.com/drive/folders/1HMMJhDYV6DsXPYb_T1faGn3EqTBWXqbP",
@@ -6477,23 +6478,85 @@
       "sections": [
         {
           "k": "callout",
-          "t": "Thư mục tài nguyên để edit video, bạn lưu vào kho Edit để mở nhanh khi dựng."
+          "t": "Danh sách dưới đây lấy từ ảnh chụp thư mục bạn gửi (tên thư mục, chủ sở hữu và ngày sửa). Mình chưa mở được bên trong từng thư mục nên chỉ mô tả theo tên, chưa nói số lượng file hay chất lượng."
         },
         {
           "k": "p",
-          "t": "Mình chưa xem được nội dung thư mục (chưa được chia sẻ cho tài khoản Drive đang kết nối), nên chưa liệt kê các thư mục con và loại tài nguyên để tránh ghi sai."
+          "t": "Chủ sở hữu thư mục là tài khoản hieule.havah, không phải của bạn. Thư mục có thể bị chủ sở hữu đổi hoặc xoá bất cứ lúc nào."
         },
         {
           "k": "h",
-          "t": "Cần bổ sung"
+          "t": "Các thư mục con"
         },
         {
-          "k": "list",
-          "items": [
-            "Các thư mục con và loại tài nguyên (nhạc, hiệu ứng, preset, template, LUT, font…).",
-            "Dùng cho phần mềm nào (CapCut, Premiere, After Effects…).",
-            "Có bản quyền hay giới hạn sử dụng nào cần lưu ý."
+          "k": "table",
+          "head": [
+            "Thư mục",
+            "Sửa lần cuối",
+            "Dùng để"
+          ],
+          "rows": [
+            [
+              "All Video Memes Compilation",
+              "29/4/2024",
+              "Tổng hợp video meme"
+            ],
+            [
+              "Full Meme",
+              "29/4/2024",
+              "Bộ meme"
+            ],
+            [
+              "Meme - Sound Effect phổ biến",
+              "15/3/2024",
+              "Meme và hiệu ứng âm thanh hay dùng"
+            ],
+            [
+              "Sound Schannel",
+              "29/4/2024",
+              "Âm thanh (tên theo thư mục, chưa rõ chi tiết)"
+            ],
+            [
+              "FONT COLLECTION",
+              "9/7/2024",
+              "Bộ sưu tập font"
+            ],
+            [
+              "Keyword tìm kiếm background",
+              "12/4/2024",
+              "Từ khoá để tìm ảnh, video nền"
+            ],
+            [
+              "Nâng cao hiệu suất làm việc với chat GPT",
+              "12/4/2024",
+              "Tài liệu dùng ChatGPT trong công việc"
+            ]
           ]
+        },
+        {
+          "k": "h",
+          "t": "Cách dùng"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Mở thư mục Drive",
+              "d": "Bấm nút bên dưới bằng tài khoản Google bạn dùng."
+            },
+            {
+              "t": "Tải đúng thứ cần",
+              "d": "Meme và sound effect cho phần hài, font cho tiêu đề và phụ đề, keyword để tìm nền."
+            },
+            {
+              "t": "Kiểm tra bản quyền trước khi đăng",
+              "d": "Meme, âm thanh và font do người khác sưu tầm, mình chưa kiểm tra giấy phép. Với video thương mại, hãy xác minh quyền dùng từng thứ."
+            }
+          ]
+        },
+        {
+          "k": "callout",
+          "t": "Ghi chú: trong thư mục gốc còn một thư mục bản cài đặt Adobe crack. Mình không đưa vào kho và không khuyến khích dùng, vì phần mềm crack vi phạm bản quyền và hay kèm mã độc. Bạn nên dùng bản Adobe có bản quyền."
         }
       ]
     }
