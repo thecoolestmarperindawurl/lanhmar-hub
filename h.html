@@ -1,3 +1,3 @@
-<!doctype html><meta charset=utf-8><link rel=stylesheet href="/kho.css"><body><div class="grid" id=x></div>
-<script src="/kho-data.js"></script><script src="/resource.js"></script>
-<script>Res.load().then(()=>{const o=[];for(const k of['edit','design']){const l=Res.all().filter(i=>i.kho===k);o.push(Res.group(l,k,'',i=>Res.card(i)))}document.getElementById('x').innerHTML=o.join('<hr>');document.title='ok'});</script>
+<!doctype html><meta charset=utf-8><link rel=stylesheet href="/kho.css"><body><div class="wrap"><div class="tabs"><button class="tab on">Kho AI <small>12</small></button><button class="tab">Kho Edit</button></div><div class="groups"><button class="gpill on">Tất cả</button><button class="gpill">Skill</button></div><div class="tags"><span class="chip on">agent</span><span class="chip">canva</span></div><div class="grid" id=x></div></div><dialog id=resDlg class="res-dlg"></dialog>
+<script src="/kho-data.js"></script><script src="/resource.js"></script><script src="/fx.js"></script>
+<script>Res.load().then(()=>{const l=Res.all().filter(i=>['ai','knowledge'].includes(i.kho)).slice(0,14);document.getElementById('x').innerHTML=Res.group(l,'ai','',i=>Res.card(i));document.title='ok'});</script>

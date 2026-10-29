@@ -287,3 +287,89 @@ table.rank-t{width:calc(100% - 52px);margin:0 26px 6px;border-collapse:collapse;
 .rank-news a{display:block;padding:7px 0;border-bottom:1px dashed var(--lav-300);color:var(--ink);text-decoration:none;font-size:14px;line-height:1.45}
 .rank-news a span{display:block;font-size:12px;color:var(--ink-soft)}
 .rank-news a:hover{color:var(--purple-deep)}
+
+/* ================= Hiệu ứng tương tác & màu (giữ nguyên bảng màu, Montserrat, bo tròn, bóng ngả tím) ================= */
+:root{--ease:cubic-bezier(.2,.8,.2,1);--glow:0 18px 44px rgba(45,47,239,.26);--a1:var(--purple-deep);--a2:var(--purple-mid)}
+body::before,body::after{content:"";position:fixed;z-index:-1;pointer-events:none;border-radius:50%;filter:blur(70px);opacity:.5}
+body::before{width:420px;height:420px;left:-120px;top:18vh;background:rgba(255,122,69,.22);animation:fxOrb 22s ease-in-out infinite alternate}
+body::after{width:480px;height:480px;right:-140px;top:48vh;background:rgba(106,92,255,.2);animation:fxOrb 26s ease-in-out -8s infinite alternate-reverse}
+@keyframes fxOrb{0%{transform:translate(0,0) scale(1)}100%{transform:translate(60px,-80px) scale(1.15)}}
+#fxProg{position:fixed;left:0;top:0;height:4px;width:100%;z-index:80;background:linear-gradient(90deg,var(--orange),var(--purple-mid));transform:scaleX(0);transform-origin:left;pointer-events:none}
+.lockcard{animation:fxUp .6s var(--ease) both}
+@keyframes fxUp{0%{opacity:0;transform:translateY(18px)}100%{opacity:1;transform:none}}
+@keyframes fxPop{0%{transform:scale(.92)}60%{transform:scale(1.06)}100%{transform:scale(1)}}
+@keyframes fxRipple{to{transform:scale(1);opacity:0}}
+@keyframes fxDlg{0%{opacity:0;transform:translateY(26px) scale(.96)}100%{opacity:1;transform:none}}
+@keyframes fxFade{0%{opacity:0}100%{opacity:1}}
+
+/* thẻ */
+.card,.res-card{position:relative;overflow:hidden;background:linear-gradient(180deg,#fff,var(--paper));transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .25s}
+.card::before{content:"";position:absolute;left:0;top:0;right:0;height:5px;background:linear-gradient(90deg,var(--a1),var(--a2));transform:scaleX(.16);transform-origin:left;transition:transform .45s var(--ease)}
+.card::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(255,122,69,.16),transparent 60%)}
+.card[data-accent="o"]{--a1:var(--orange);--a2:var(--orange-soft)}
+.card[data-accent="m"]{--a1:var(--purple-deep);--a2:var(--orange)}
+.card[data-accent="p"] .res-badges .badge:first-child,.card[data-accent="p"]>.badge:first-child{background:var(--lav-200);color:var(--purple-deep)}
+.res-thumb{transition:transform .45s var(--ease),border-color .25s,box-shadow .25s}
+.res-more{display:inline-block;transition:transform .3s var(--ease)}
+.card:active{transform:translateY(-1px) scale(.985);transition-duration:.1s}
+@media (hover:hover){
+  .card:hover{transform:translateY(-6px);border-color:var(--a1);box-shadow:var(--glow)}
+  .card:hover::before{transform:scaleX(1)}
+  .card:hover::after{opacity:1}
+  .card:hover .res-thumb{transform:scale(1.06) rotate(-1.2deg);border-color:var(--a1);box-shadow:0 8px 18px rgba(45,47,239,.25)}
+  .card:hover .res-more{transform:translateX(6px)}
+  .card:hover h3{color:var(--a1)}
+  .card[data-accent="o"]:hover h3{color:var(--orange-deep)}
+  .tab:hover{background:var(--lav-200)}
+  .tab.on:hover{background:linear-gradient(135deg,var(--purple-deep),var(--purple-mid))}
+  .gpill:hover{transform:translateY(-3px);box-shadow:var(--shadow);background:var(--orange-soft);color:var(--orange-text)}
+  .gpill.on:hover{background:var(--orange);color:var(--ink)}
+  .chip:hover{transform:translateY(-2px);background:var(--orange-soft);color:var(--orange-text);border-color:var(--orange)}
+  .chip.dim:hover{transform:none;background:transparent;color:#7a7596;border-color:transparent}
+  .grp-h:hover{background:var(--lav-200)}
+  .g-card:hover,.news-item:hover{transform:translateY(-3px);border-color:var(--purple-mid);box-shadow:var(--shadow)}
+  .res-outline li:hover{transform:translateX(5px);border-color:var(--purple-mid)}
+  .g-tbl tbody tr:hover td,.g-tbl tbody tr:hover th{background:var(--lav-100)}
+  .rank-t tr:hover td{background:var(--lav-100)}
+  .res-cta .orange-btn:hover{box-shadow:0 0 0 5px rgba(255,122,69,.35);transform:translateY(-3px) scale(1.04)}
+  .res-dlg .x:hover{transform:rotate(90deg) scale(1.08);background:var(--orange-deep)}
+  .g-code .g-copy:hover{transform:scale(1.06);background:var(--orange-deep)}
+  .rank-news a:hover,.rank-src a:hover,.g-link:hover{text-decoration:underline;text-decoration-color:var(--orange);text-underline-offset:4px}
+}
+
+/* tab, nút, chip */
+.tab,.gpill,.chip,.btn{position:relative;overflow:hidden}
+.tab.on{background:linear-gradient(135deg,var(--purple-deep),var(--purple-mid));box-shadow:0 8px 20px rgba(45,47,239,.32);animation:fxPop .4s var(--ease)}
+.tab:active,.gpill:active,.btn:active,.chip:active{transform:scale(.95);transition-duration:.08s}
+.gpill.on{animation:fxPop .4s var(--ease);box-shadow:0 6px 16px rgba(255,122,69,.4)}
+.chip.on{animation:fxPop .35s var(--ease)}
+.btn.primary{background:linear-gradient(135deg,var(--purple-deep),var(--purple-mid))}
+.fx-ripple{position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,122,69,.32);transform:scale(0);animation:fxRipple .65s var(--ease) forwards}
+.tab.on .fx-ripple,.btn.primary .fx-ripple,.btn.storage .fx-ripple,.chip.on .fx-ripple{background:rgba(255,255,255,.4)}
+.gpill.on .fx-ripple{background:rgba(36,31,69,.18)}
+
+/* cửa sổ chi tiết */
+dialog[open]{animation:fxDlg .38s var(--ease)}
+dialog[open]::backdrop{animation:fxFade .3s;backdrop-filter:blur(3px)}
+.res-dlg[open] .res-body>*,.res-dlg[open] .g-body>*{animation:fxUp .5s var(--ease) both}
+.res-dlg[open] .res-body>*:nth-child(2){animation-delay:.05s}.res-dlg[open] .res-body>*:nth-child(3){animation-delay:.1s}
+.res-dlg[open] .res-body>*:nth-child(4){animation-delay:.15s}.res-dlg[open] .res-body>*:nth-child(5){animation-delay:.2s}
+.res-dlg[open] .res-body>*:nth-child(n+6){animation-delay:.25s}
+.res-outline li,.g-card,.news-item{transition:transform .3s var(--ease),border-color .25s,box-shadow .3s}
+.g-callout{border-left:5px solid var(--orange)}
+.res-cta .orange-btn{transition:transform .25s var(--ease),box-shadow .25s}
+
+/* hiện dần khi cuộn (chỉ bật khi JS chạy) */
+html.fx .card:not(.in){opacity:0;transform:translateY(22px)}
+html.fx .card.in{animation:fxUp .55s var(--ease) both;animation-delay:var(--d,0s)}
+html.fx .card.in.seen{animation:none}
+
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:10px}
+
+@media (prefers-reduced-motion:reduce){
+  body::before,body::after,.lockcard,.tab.on,.gpill.on,.chip.on,dialog[open],dialog[open]::backdrop,.res-dlg[open] .res-body>*,.res-dlg[open] .g-body>*,html.fx .card.in{animation:none!important}
+  html.fx .card:not(.in){opacity:1;transform:none}
+  .card,.res-thumb,.res-more,.card::before,.gpill,.chip,.btn,.tab{transition:none!important}
+  .card:hover,.card:hover .res-thumb,.card:hover .res-more{transform:none!important}
+  .fx-ripple,#fxProg{display:none}
+}
