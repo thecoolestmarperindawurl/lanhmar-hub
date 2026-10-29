@@ -294,7 +294,8 @@ body::before,body::after{content:"";position:fixed;z-index:-1;pointer-events:non
 body::before{width:420px;height:420px;left:-120px;top:18vh;background:rgba(255,122,69,.22);animation:fxOrb 22s ease-in-out infinite alternate}
 body::after{width:480px;height:480px;right:-140px;top:48vh;background:rgba(106,92,255,.2);animation:fxOrb 26s ease-in-out -8s infinite alternate-reverse}
 @keyframes fxOrb{0%{transform:translate(0,0) scale(1)}100%{transform:translate(60px,-80px) scale(1.15)}}
-#fxProg{position:fixed;left:0;top:0;height:4px;width:100%;z-index:80;background:linear-gradient(90deg,var(--orange),var(--purple-mid));transform:scaleX(0);transform-origin:left;pointer-events:none}
+#fxProg{position:fixed;left:0;top:0;height:6px;width:100%;z-index:80;background:rgba(178,164,239,.35);pointer-events:none}
+#fxProg i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--orange),var(--purple-mid));transform:scaleX(0);transform-origin:left;border-radius:0 999px 999px 0;box-shadow:0 0 10px rgba(255,122,69,.6);transition:transform .12s linear}
 .lockcard{animation:fxUp .6s var(--ease) both}
 @keyframes fxUp{0%{opacity:0;transform:translateY(18px)}100%{opacity:1;transform:none}}
 @keyframes fxPop{0%{transform:scale(.92)}60%{transform:scale(1.06)}100%{transform:scale(1)}}
@@ -371,5 +372,6 @@ html.fx .card.in.seen{animation:none}
   html.fx .card:not(.in){opacity:1;transform:none}
   .card,.res-thumb,.res-more,.card::before,.gpill,.chip,.btn,.tab{transition:none!important}
   .card:hover,.card:hover .res-thumb,.card:hover .res-more{transform:none!important}
-  .fx-ripple,#fxProg{display:none}
+  .fx-ripple{display:none}
+  #fxProg i{transition:none}
 }

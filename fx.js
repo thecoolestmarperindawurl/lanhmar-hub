@@ -62,12 +62,14 @@
     }, { passive: true });
   }
 
-  // thanh tiến độ cuộn
-  if (!reduce) {
-    const bar = document.createElement("div"); bar.id = "fxProg"; bar.setAttribute("aria-hidden", "true"); document.body.appendChild(bar);
+  // thanh tiến độ cuộn: luôn hiện (không phải chuyển động nên không tắt khi chọn giảm chuyển động)
+  {
+    const bar = document.createElement("div"); bar.id = "fxProg"; bar.setAttribute("aria-hidden", "true");
+    const fill = document.createElement("i"); bar.appendChild(fill); document.body.appendChild(bar);
     let tk = 0;
-    const upd = () => { tk = 0; const h = root.scrollHeight - innerHeight; bar.style.transform = `scaleX(${h > 0 ? Math.min(1, scrollY / h) : 0})`; };
+    const upd = () => { tk = 0; const h = root.scrollHeight - innerHeight; const r = h > 0 ? Math.min(1, Math.max(0, scrollY / h)) : 0; fill.style.transform = `scaleX(${r})`; };
     addEventListener("scroll", () => { if (!tk) tk = requestAnimationFrame(upd); }, { passive: true });
+    addEventListener("resize", upd, { passive: true });
     upd();
   }
 })();
