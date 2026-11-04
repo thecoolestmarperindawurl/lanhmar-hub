@@ -80,18 +80,18 @@
    }
   ],
   "brands_seeding": [
-    {"name": "Sprite", "logo": ""},
-    {"name": "Sting", "logo": ""},
-    {"name": "Pepsi", "logo": ""},
+    {"name": "Sprite", "logo": "assets/img/brands/sprite.webp"},
+    {"name": "Sting", "logo": "assets/img/brands/sting.webp"},
+    {"name": "Pepsi", "logo": "assets/img/brands/pepsi.webp"},
     {"name": "Samsung", "logo": "assets/img/brands/samsung.svg"},
     {"name": "Cell Fusion C", "logo": "assets/img/brands/cellfusionc.png"},
     {"name": "Lay's", "logo": "assets/img/brands/lays.svg"},
     {"name": "Revive", "logo": "assets/img/brands/revive.webp"},
     {"name": "DOL Đình Lực", "logo": "assets/img/brands/dol.png"},
-    {"name": "Downy", "logo": ""},
+    {"name": "Downy", "logo": "assets/img/brands/downy.webp"},
     {"name": "ZaloPay", "logo": ""},
     {"name": "Playah", "logo": "assets/img/brands/playah.png"},
-    {"name": "UOB", "logo": ""},
+    {"name": "UOB", "logo": "assets/img/brands/uob.webp"},
     {"name": "Hazeline", "logo": "assets/img/brands/hazeline.png"},
     {"name": "Manulife", "logo": "assets/img/brands/manulife.svg"}
   ],

@@ -89,9 +89,9 @@ body::after{width:520px;height:520px;right:-160px;top:55vh;background:rgba(106,9
 .mo-pill{user-select:none;cursor:default}
 
 /* dải logo brand đã cộng tác: thẻ trắng để logo giữ đúng màu gốc */
-.mo-logo{flex:none;display:grid;place-items:center;width:156px;height:76px;padding:14px 20px;background:#fff;border-radius:18px;box-shadow:0 8px 22px rgba(0,0,0,.22);transition:transform .3s var(--mo-ease),box-shadow .3s;user-select:none}
-.mo-logo img{max-width:100%;max-height:44px;width:auto;height:auto;object-fit:contain;display:block}
+.mo-logo{flex:none;display:grid;place-items:center;width:156px;height:76px;padding:8px 18px;background:#fff;border-radius:18px;box-shadow:0 8px 22px rgba(0,0,0,.22);transition:transform .3s var(--mo-ease),box-shadow .3s;user-select:none}
+.mo-logo img{max-width:100%;max-height:58px;width:auto;height:auto;object-fit:contain;display:block}
 .mo-logo.txt{font:800 15px/1.2 Montserrat;color:var(--ink);text-align:center;letter-spacing:.01em}
 .mo-logo:hover{transform:translateY(-4px) scale(1.05);box-shadow:0 14px 30px rgba(255,122,69,.35)}
-@media (max-width:640px){.mo-logo{width:128px;height:64px;padding:12px 16px}.mo-logo img{max-height:36px}.mo-logo.txt{font-size:13.5px}}
+@media (max-width:640px){.mo-logo{width:128px;height:64px;padding:7px 14px}.mo-logo img{max-height:48px}.mo-logo.txt{font-size:13.5px}}
 @media (prefers-reduced-motion:reduce){.mo-logo{transition:none}}
