@@ -1,0 +1,59 @@
+/* Trang Cộng đồng: dùng token và font của site.css (LANHMAR) */
+.cm-hero{padding:130px 0 40px;position:relative;overflow:hidden}
+.cm-hero .lead{max-width:640px;font-size:16.5px}
+.cm-hero .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.cm-star{position:absolute;color:var(--orange);font-size:34px;opacity:.55;animation:cmFloat 6s ease-in-out infinite;pointer-events:none}
+.cm-star.s1{right:9%;top:150px}.cm-star.s2{right:20%;top:260px;font-size:22px;animation-delay:-2s;color:var(--purple-mid)}.cm-star.s3{right:4%;top:300px;font-size:18px;animation-delay:-4s}
+@keyframes cmFloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-16px) rotate(20deg)}}
+.cm-strip{display:flex;gap:10px;flex-wrap:wrap;margin:26px 0 0}
+.cm-pill{background:var(--paper);border:2px solid var(--lav-300);border-radius:999px;padding:6px 16px;font:700 13px Montserrat;color:var(--ink)}
+.cm-pill b{color:var(--purple-deep)}
+.cm-sec{padding:30px 0 60px}
+.cm-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.cm-head h2{margin:0}
+.cm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
+.cm-card{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:12px;background:var(--ink);color:#fff;border-radius:24px;padding:26px;box-shadow:0 18px 44px rgba(36,31,69,.28);transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.cm-card::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(420px 220px at 100% 0,rgba(255,122,69,.35),transparent),radial-gradient(380px 240px at 0 100%,rgba(106,92,255,.5),transparent)}
+.cm-card>*{position:relative}
+.cm-card h3{color:#fff;font-size:24px;margin:0}
+.cm-card p{color:var(--lav-200);font-size:14.5px;margin:0}
+.cm-top{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.cm-plat{background:var(--orange);color:var(--ink);font:800 11px Montserrat;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:999px}
+.cm-state{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);font:700 11px Montserrat;letter-spacing:.08em;text-transform:uppercase;padding:3px 12px;border-radius:999px;display:inline-flex;gap:6px;align-items:center}
+.cm-state i{width:8px;height:8px;border-radius:50%;background:#2fbf71;animation:pulse 2s infinite}
+.cm-state.soon i{background:var(--orange-soft);animation:none}
+.cm-topics{display:flex;gap:6px;flex-wrap:wrap;list-style:none;margin:0;padding:0}
+.cm-topics li{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:#fff;font:600 12px Montserrat;padding:3px 11px;border-radius:999px}
+.cm-meta{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:2px 0 0;font-size:13px;color:var(--lav-300)}
+.cm-meta dt{font-weight:700;color:var(--orange-soft);letter-spacing:.06em;text-transform:uppercase;font-size:11px;padding-top:2px}
+.cm-meta dd{margin:0;color:#fff;font-weight:600}
+.cm-act{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto;padding-top:6px}
+.cm-join{display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:var(--ink);font:800 15px Montserrat;padding:12px 24px;border-radius:999px;text-decoration:none;border:2px solid var(--orange);transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s}
+.cm-join[aria-disabled="true"]{background:transparent;color:var(--lav-300);border:2px dashed var(--lav-400);cursor:default}
+.cm-join:not([aria-disabled="true"]):hover{transform:translateY(-3px) scale(1.03);box-shadow:0 0 0 5px rgba(255,122,69,.35)}
+.cm-join:not([aria-disabled="true"]):active{transform:scale(.97)}
+.cm-copy{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.5);font:700 14px Montserrat;padding:10px 18px;border-radius:999px;cursor:pointer;transition:.2s}
+.cm-copy:hover{background:rgba(255,255,255,.12);transform:translateY(-2px)}
+.cm-card.add{background:var(--paper);border:2px dashed var(--lav-400);color:var(--ink-soft);box-shadow:none;justify-content:center;text-align:center;align-items:center}
+.cm-card.add::before{display:none}
+.cm-card.add h3{color:var(--purple-deep);font-size:20px}
+.cm-card.add p{color:var(--ink-soft)}
+.cm-plus{width:54px;height:54px;border-radius:50%;background:var(--orange-soft);color:var(--orange-text);display:grid;place-items:center;font:800 28px Montserrat}
+@media (hover:hover){.cm-card:hover{transform:translateY(-6px);box-shadow:0 24px 54px rgba(45,47,239,.35)}.cm-card.add:hover{border-color:var(--purple-mid);box-shadow:var(--shadow)}}
+.cm-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:6px}
+.cm-step{background:var(--paper);border:2px solid var(--lav-300);border-radius:22px;padding:20px;box-shadow:var(--shadow);transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .25s}
+.cm-step b.n{width:36px;height:36px;border-radius:50%;background:var(--orange);color:var(--ink);display:grid;place-items:center;font-weight:800;margin-bottom:10px}
+.cm-step h3{font-size:17px;margin:0 0 6px}
+.cm-step p{margin:0;font-size:14px}
+@media (hover:hover){.cm-step:hover{transform:translateY(-4px);border-color:var(--purple-mid)}}
+.cm-rules{background:var(--lav-200);border-radius:26px;padding:26px;margin-top:6px}
+.cm-rules ul{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.cm-rules li{background:#fff;border:1px solid var(--lav-300);border-radius:16px;padding:12px 16px 12px 44px;position:relative;font-size:14px}
+.cm-rules li::before{content:"★";position:absolute;left:16px;top:11px;color:var(--orange)}
+.cm-note{font-size:12.5px;margin-top:12px}
+.cm-cta{margin:40px 0 70px;background:var(--ink);color:#fff;border-radius:28px;padding:34px;text-align:center;border-top:4px solid var(--orange)}
+.cm-cta h2{color:#fff}.cm-cta p{color:var(--lav-300);max-width:520px;margin:0 auto 18px}
+.cm-toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;background:var(--ink);color:#fff;border-left:5px solid var(--orange);border-radius:14px;padding:10px 18px;font-weight:600;font-size:14px;transition:.3s;z-index:60}
+.cm-toast.on{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){.cm-star,.cm-state i{animation:none}.cm-card,.cm-step,.cm-join,.cm-copy{transition:none}}
+@media(max-width:700px){.cm-hero{padding-top:110px}.cm-star{display:none}}
