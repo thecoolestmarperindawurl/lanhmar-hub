@@ -37,9 +37,8 @@ window.COMMUNITIES = [
         links: [{ t: "hungkescy.com", u: "https://hungkescy.com/" }, { t: "KesFlow", u: "https://kesflow.vn/" }]
       },
       {
-        show: false,
-        name: "Chuyên gia từ duycuf.vn",
-        role: "",
+        name: "Duy Cù",
+        role: "Chuyên gia đang hoạt động trong nhóm",
         bio: "",
         points: [],
         links: [{ t: "duycuf.vn", u: "https://www.duycuf.vn/" }]
