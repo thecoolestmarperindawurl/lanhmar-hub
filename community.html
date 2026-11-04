@@ -9,37 +9,38 @@
 <link rel="canonical" href="https://lanhmar.id.vn/community.html">
 <link rel="stylesheet" href="site.css?v=20261104n">
 <link rel="stylesheet" href="motion.css?v=20261104n">
-<link rel="stylesheet" href="community.css?v=20261104n">
+<link rel="stylesheet" href="community.css?v=20261104t">
 <link rel="stylesheet" href="mascot.css?v=20261104o">
 </head>
 <body>
 <header class="pill-nav" id="top">
   <a class="brand" href="index.html#top"><img src="assets/img/logo-lanhmar.png" alt="LANHMAR"></a>
   <nav id="navlinks">
-    <a href="index.html#story">Hành trình</a>
-    <a href="index.html#work">Dự án</a>
-    <a href="index.html#services">Dịch vụ</a>
-    <a href="community.html" aria-current="page"><b>Cộng đồng</b></a>
-    <a href="index.html#contact">Liên hệ</a>
+    <a href="index.html#story" data-i="nav_story">Hành trình</a>
+    <a href="index.html#work" data-i="nav_work">Dự án</a>
+    <a href="index.html#services" data-i="nav_services">Dịch vụ</a>
+    <a href="community.html" aria-current="page"><b data-i="nav_community">Cộng đồng</b></a>
+    <a href="index.html#contact" data-i="nav_contact">Liên hệ</a>
   </nav>
-  <a class="btn dark" href="index.html#contact">Liên hệ mình</a>
+  <div class="lang"><button data-lang="vi">VI</button><span>/</span><button data-lang="en">EN</button></div>
+  <a class="btn dark" href="index.html#contact" data-i="cta_talk">Liên hệ mình</a>
   <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="navlinks">☰</button>
 </header>
 
 <section class="cm-hero">
   <div class="cm-mascots" aria-hidden="true"><span class="lm-mascot" data-pose="mega"></span><span class="lm-mascot" data-pose="wave"></span><span class="lm-mascot" data-pose="yeah"></span></div>
   <div class="wrap">
-    <p class="kicker">★ CỘNG ĐỒNG · LANHMAR</p>
-    <h1>Cùng nhau <em>đi làm với AI.</em></h1>
-    <p class="lead">Nơi những người đi làm trao đổi cách dùng AI vào công việc thật: công cụ, quy trình, bài học và cả những lần làm chưa ra. Chọn một nhóm bên dưới để tham gia.</p>
-    <div class="cta-row"><a class="btn dark" href="#groups">Xem các nhóm →</a><a class="btn" href="index.html#contact">Đề xuất nhóm mới</a></div>
-    <div class="cm-strip"><span class="cm-pill" id="cmCount"></span><span class="cm-pill">★ Chia sẻ <b>thực tế</b></span><span class="cm-pill">★ Hỏi đáp <b>thân thiện</b></span></div>
+    <p class="kicker" data-i="hero_k">★ CỘNG ĐỒNG · LANHMAR</p>
+    <h1 data-ih="hero_h">Cùng nhau <em>đi làm với AI.</em></h1>
+    <p class="lead" data-i="hero_p">Nơi những người đi làm trao đổi cách dùng AI vào công việc thật: công cụ, quy trình, bài học và cả những lần làm chưa ra. Chọn một nhóm bên dưới để tham gia.</p>
+    <div class="cta-row"><a class="btn dark" href="#groups" data-i="hero_cta1">Xem các nhóm →</a><a class="btn" href="index.html#contact" data-i="hero_cta2">Đề xuất nhóm mới</a></div>
+    <div class="cm-strip"><span class="cm-pill" id="cmCount"></span><span class="cm-pill" data-ih="pill1">★ Chia sẻ <b>thực tế</b></span><span class="cm-pill" data-ih="pill2">★ Hỏi đáp <b>thân thiện</b></span></div>
   </div>
 </section>
 
 <section class="cm-sec" id="groups">
   <div class="wrap">
-    <div class="cm-head"><div><p class="kicker">NHÓM ĐANG MỞ</p><h2>Chọn nhóm của bạn.</h2></div></div>
+    <div class="cm-head"><div><p class="kicker" data-i="groups_k">NHÓM ĐANG MỞ</p><h2 data-i="groups_h">Chọn nhóm của bạn.</h2></div></div>
     <div class="cm-grid" id="cmGrid"></div>
   </div>
 </section>
@@ -50,12 +51,12 @@
 
 <section class="cm-sec">
   <div class="wrap">
-    <p class="kicker">CÁCH THAM GIA</p>
-    <h2>Ba bước để vào nhóm.</h2>
+    <p class="kicker" data-i="steps_k">CÁCH THAM GIA</p>
+    <h2 data-i="steps_h">Ba bước để vào nhóm.</h2>
     <div class="cm-steps">
-      <div class="cm-step reveal"><b class="n">1</b><h3>Chọn nhóm</h3><p>Đọc mô tả và chủ đề của nhóm để biết nhóm có hợp với bạn không.</p></div>
-      <div class="cm-step reveal"><b class="n">2</b><h3>Bấm tham gia</h3><p>Nút sẽ mở nhóm trên nền tảng của nhóm. Bạn có thể cần trả lời vài câu hỏi để được duyệt.</p></div>
-      <div class="cm-step reveal"><b class="n">3</b><h3>Giới thiệu và hỏi</h3><p>Chào mọi người một câu, nói bạn đang làm gì và muốn dùng AI vào việc nào.</p></div>
+      <div class="cm-step reveal"><b class="n">1</b><h3 data-i="s1_h">Chọn nhóm</h3><p data-i="s1_p">Đọc mô tả và chủ đề của nhóm để biết nhóm có hợp với bạn không.</p></div>
+      <div class="cm-step reveal"><b class="n">2</b><h3 data-i="s2_h">Bấm tham gia</h3><p data-i="s2_p">Nút sẽ mở nhóm trên nền tảng của nhóm. Bạn có thể cần trả lời vài câu hỏi để được duyệt.</p></div>
+      <div class="cm-step reveal"><b class="n">3</b><h3 data-i="s3_h">Giới thiệu và hỏi</h3><p data-i="s3_p">Chào mọi người một câu, nói bạn đang làm gì và muốn dùng AI vào việc nào.</p></div>
     </div>
   </div>
 </section>
@@ -63,27 +64,27 @@
 <section class="cm-sec">
   <div class="wrap">
     <div class="cm-rules reveal">
-      <p class="kicker">NỘI QUY CHUNG</p>
-      <h2>Để nhóm luôn dễ chịu.</h2>
+      <p class="kicker" data-i="rules_k">NỘI QUY CHUNG</p>
+      <h2 data-i="rules_h">Để nhóm luôn dễ chịu.</h2>
       <ul>
-        <li>Tôn trọng nhau, góp ý vào việc chứ không vào người.</li>
-        <li>Không spam, không quảng cáo khi chưa được phép.</li>
-        <li>Không đăng thông tin cá nhân, khách hàng hay khoá API, mật khẩu.</li>
-        <li>Nêu rõ nguồn khi chia sẻ số liệu hoặc nội dung của người khác.</li>
-        <li>Hỏi rõ bối cảnh, nêu công cụ đang dùng để mọi người giúp đúng chỗ.</li>
+        <li data-i="r1">Tôn trọng nhau, góp ý vào việc chứ không vào người.</li>
+        <li data-i="r2">Không spam, không quảng cáo khi chưa được phép.</li>
+        <li data-i="r3">Không đăng thông tin cá nhân, khách hàng hay khoá API, mật khẩu.</li>
+        <li data-i="r4">Nêu rõ nguồn khi chia sẻ số liệu hoặc nội dung của người khác.</li>
+        <li data-i="r5">Hỏi rõ bối cảnh, nêu công cụ đang dùng để mọi người giúp đúng chỗ.</li>
       </ul>
-      <p class="cm-note">Mỗi nhóm có thêm nội quy riêng trên trang nhóm. Bạn đọc qua trước khi đăng bài nhé.</p>
+      <p class="cm-note" data-i="rules_note">Mỗi nhóm có thêm nội quy riêng trên trang nhóm. Bạn đọc qua trước khi đăng bài nhé.</p>
     </div>
-    <div class="cm-cta reveal"><h2>Chưa thấy nhóm bạn cần?</h2><p>Nói với mình chủ đề bạn muốn trao đổi, mình sẽ cân nhắc mở thêm nhóm hoặc giới thiệu nơi phù hợp.</p><a class="btn orange" href="index.html#contact">Nhắn cho mình →</a></div>
+    <div class="cm-cta reveal"><h2 data-i="cta_h">Chưa thấy nhóm bạn cần?</h2><p data-i="cta_p">Nói với mình chủ đề bạn muốn trao đổi, mình sẽ cân nhắc mở thêm nhóm hoặc giới thiệu nơi phù hợp.</p><a class="btn orange" href="index.html#contact" data-i="msg_me">Nhắn cho mình →</a></div>
   </div>
 </section>
 
 <footer>
-  <div class="wrap foot"><span>© 2026 Dương Thị Lan Anh — LANHMAR</span><a href="index.html" class="open-storage">← Về trang chủ</a></div>
+  <div class="wrap foot"><span>© 2026 Dương Thị Lan Anh — LANHMAR</span><a href="index.html" class="open-storage" data-i="back_home">← Về trang chủ</a></div>
 </footer>
 <div class="cm-toast" id="cmToast" role="status"></div>
-<script src="community-data.js?v=20261104n"></script>
-<script src="community.js?v=20261104n"></script>
+<script src="community-data.js?v=20261104t"></script>
+<script src="community.js?v=20261104t"></script>
 <script src="motion.js?v=20261104n"></script>
 <script src="mascot.js?v=20261104o"></script>
 </body>
