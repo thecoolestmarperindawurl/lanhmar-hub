@@ -338,7 +338,7 @@ window.Res = (() => {
     const vis = (i) => shelfCur === "all" || shelfOf(i) === shelfCur;
     const shown = list.filter(vis).length;
     return `<div class="apps">
-      <div class="app-hero"><p class="app-k">★ ${esc(cfg.name || "Kho Ứng dụng")}</p>
+      <div class="app-hero"><span class="lm-mascot app-mascot" data-pose="yeah" aria-hidden="true"></span><p class="app-k">★ ${esc(cfg.name || "Kho Ứng dụng")}</p>
         <h2>${esc(cfg.headline || "Ứng dụng mình xây và dùng hằng ngày.")}</h2>
         <div class="app-counts">${shelves.filter((s) => cnt(s.id)).map((s) => `<span><b>${cnt(s.id)}</b> ${esc(s.name)}</span>`).join("")}</div></div>
       ${spot.length ? `<h3 class="app-sec">Mới và nổi bật</h3><div class="app-spot">${spot.map((i) => appCard(i, true, extra)).join("")}</div>` : ""}
@@ -347,7 +347,7 @@ window.Res = (() => {
         ${shelves.map((s) => { const n = cnt(s.id); return `<button type="button" class="app-shelf-btn${shelfCur === s.id ? " on" : ""}${n ? "" : " soon"}" data-shelf-f="${esc(s.id)}" aria-pressed="${shelfCur === s.id}"><b>${esc(s.name)}</b><small>${n || "sắp có"}</small>${s.sub ? `<i>${esc(s.sub)}</i>` : ""}</button>`; }).join("")}
       </div>
       <div class="app-grid">${list.map((i) => appCard(i, false, extra).replace("<article ", `<article ${vis(i) ? "" : "hidden "}`)).join("")}</div>
-      <div class="app-empty"${shown ? " hidden" : ""}><b>Kệ này đang được chuẩn bị.</b><span>Quay lại sau nhé, ứng dụng mới sẽ lên đây.</span></div>
+      <div class="app-empty"${shown ? " hidden" : ""}><span class="lm-mascot" data-pose="wave" aria-hidden="true" style="--size:110px;margin:0 auto"></span><b>Kệ này đang được chuẩn bị.</b><span>Quay lại sau nhé, ứng dụng mới sẽ lên đây.</span></div>
     </div>`;
   }
   document.addEventListener("click", (e) => {

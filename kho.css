@@ -509,3 +509,8 @@ body.neu-compact .card{padding:14px}
 .app-empty[hidden]{display:none}
 .app-empty b{color:var(--purple-deep)}
 @media (prefers-reduced-motion:reduce){.app-card,.app-card .app-thumb img,.app-shelf-btn{transition:none}}
+
+/* mascot LANHMAR trong Kho Ứng dụng */
+.app-hero{position:relative;padding-right:150px;min-height:120px}
+.app-mascot{position:absolute;right:0;top:-6px;--size:140px}
+@media(max-width:640px){.app-hero{padding-right:96px}.app-mascot{--size:92px;top:0}}
