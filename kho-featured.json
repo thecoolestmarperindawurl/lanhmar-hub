@@ -8759,6 +8759,9 @@
     {
       "id": "app-lanhmar-haus",
       "kho": "idea",
+      "shelf": "app",
+      "status": "Đang dùng",
+      "spotlight": true,
       "guide": true,
       "date": "2026-11-04",
       "title": "LanhMar-haus: bộ chỉ huy công việc, bot, lương và VPS",
@@ -8776,10 +8779,6 @@
         {
           "k": "callout",
           "t": "LanhMar-haus là app PWA (cài được như app trên điện thoại) gom công việc, bot, máy chủ và lương vào một nơi. Có hai bản: Owner dành cho chủ hệ thống và Connector dành cho cộng tác viên."
-        },
-        {
-          "k": "p",
-          "t": "Thông tin lấy từ hai trang giới thiệu bạn đã tạo. Ảnh minh hoạ trong hai trang đó dùng dữ liệu mẫu (tên bot, tên máy chủ, số tiền), nên mình không đưa vào đây."
         },
         {
           "k": "h",

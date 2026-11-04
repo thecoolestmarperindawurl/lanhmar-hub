@@ -9,7 +9,15 @@ window.KHO = [
   { id: "tool", name: "Kho Tool", icon: "⚙", desc: "Repo GitHub và công cụ hữu ích" },
   { id: "knowledge", name: "Kho Knowledge", icon: "✎", desc: "Kho ebook, khoá học theo Academy, Marketing Project",
     groups: [{ id: "web", name: "Web tự học", icon: "🌐" }, { id: "ebook", name: "Kho Ebook", icon: "📚" }, { id: "vuonuom", name: "Vườn Ươm Khu Phố", icon: "🌱" }, { id: "htxchiem", name: "Hợp tác xã Chị Em", icon: "🤝" }, { id: "seongon", name: "SEONGON Academy", icon: "🔎" }, { id: "queue", name: "Khoá chờ học", icon: "📥" }, { id: "mkproject", name: "Marketing Project", icon: "🎓" }], strictGroups: true },
-  { id: "idea", name: "Kho Ứng dụng", icon: "▣", desc: "Ứng dụng mình xây và dùng, kèm giới thiệu và cách dùng" }
+  { id: "idea", name: "Kho Ứng dụng", icon: "▣", desc: "Ứng dụng mình xây và dùng, kèm giới thiệu và cách dùng",
+    headline: "Ứng dụng mình xây và dùng hằng ngày.",
+    // Kệ lọc. Ứng dụng mới khai báo shelf bằng một id dưới đây; kệ chưa có mục nào sẽ hiện "sắp có".
+    shelves: [
+      { id: "app", name: "Ứng dụng", sub: "App điều hành, cài như app trên điện thoại" },
+      { id: "bot", name: "Bot & Trợ lý AI", sub: "Chatbot và trợ lý tự chạy" },
+      { id: "tool", name: "Công cụ", sub: "Tiện ích nhỏ cho việc hằng ngày" },
+      { id: "template", name: "Mẫu", sub: "Mẫu để tham khảo" }
+    ] }
 ];
 
 window.ITEMS = [
@@ -20,6 +28,5 @@ window.ITEMS = [
   { id: "s5", kho: "design", title: "Adobe Fonts", url: "https://fonts.adobe.com", note: "Font có hỗ trợ tiếng Việt, kiểm tra trước khi dùng.", tags: ["adobe", "font"], type: "Font", date: "2026-10-22" },
   { id: "s6", kho: "edit", group: "dung", title: "CapCut – hiệu ứng & template", url: "https://www.capcut.com", note: "Gom template trend, âm thanh, preset màu.", tags: ["capcut", "template"], type: "Template", date: "2026-10-22" },
   { id: "s7", kho: "edit", group: "dung", title: "Premiere Pro – phím tắt", url: "https://helpx.adobe.com/premiere-pro/using/keyboard-shortcuts.html", note: "Bảng phím tắt tăng tốc dựng.", tags: ["premiere", "phím tắt"], type: "Tài liệu", date: "2026-10-22" },
-  { id: "s8", kho: "tool", title: "awesome (GitHub topic)", url: "https://github.com/topics/awesome", note: "Danh sách tuyển chọn repo hay theo chủ đề.", tags: ["github", "danh sách"], type: "Repo", date: "2026-10-22" },
-  { id: "s11", kho: "idea", title: "Ứng dụng mẫu – (đặt tên ứng dụng)", url: "", note: "Ghi tên ứng dụng, link, trạng thái (đang làm / đang dùng / xong).", tags: ["mới"], type: "Ý tưởng", date: "2026-10-22" }
+  { id: "s8", kho: "tool", title: "awesome (GitHub topic)", url: "https://github.com/topics/awesome", note: "Danh sách tuyển chọn repo hay theo chủ đề.", tags: ["github", "danh sách"], type: "Repo", date: "2026-10-22" }
 ];

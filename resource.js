@@ -310,6 +310,55 @@ window.Res = (() => {
       return part.length ? `<h3 class="grp-h" data-gtoggle="${esc(g.id)}" role="button" tabindex="0" aria-expanded="${!shut}">${g.icon || ""} ${esc(g.name)} <small>${part.length}</small><i class="grp-arrow" aria-hidden="true"></i></h3><div class="grp-body" ${shut ? "hidden" : ""}>` + introHtml(g) + part.map(cardOf).join("") + "</div>" : "";
     }).join("") + loose;
   }
+  /* ---------- Kho Ứng dụng: trình bày kiểu thư viện (nổi bật + kệ lọc + lưới thẻ) ----------
+     Thêm ứng dụng mới: thêm một mục vào kho-featured.json với kho: "idea" và các trường
+       shelf  (id kệ trong KHO.idea.shelves),  status (vd "Đang dùng"),  spotlight: true (lên mục Nổi bật),
+       thumb  (ảnh 960×504 trong assets/res/, cùng cỡ các thẻ khác),   title, note, date, tags, rồi guide + sections hoặc intro như các thẻ khác. */
+  const appCfg = () => (window.KHO || []).find((k) => k.id === "idea") || {};
+  let shelfCur = "all";
+  function appCard(i, big, extra) {
+    const sh = (appCfg().shelves || []).find((s) => s.id === i.shelf) || (appCfg().shelves || [])[0] || {};
+    const thumb = okUrl(i.thumb);
+    const open = i.featured ? `data-res="${esc(i.id)}" role="button" tabindex="0"` : "";
+    const go = i.featured ? `<span class="app-go">Xem chi tiết →</span>` : /^https?:\/\//i.test(i.url || "") ? `<a class="app-go" href="${esc(i.url)}" target="_blank" rel="noopener noreferrer">Mở ứng dụng ↗</a>` : "";
+    return `<article class="app-card${big ? " big" : ""}" data-shelf="${esc(sh.id || "")}" ${open} aria-label="${esc(i.title)}">
+      <div class="app-thumb">${thumb ? `<img src="${esc(thumb)}" alt="" loading="lazy">` : `<span aria-hidden="true">${esc(appCfg().icon || "▣")}</span>`}</div>
+      <div class="app-body">
+        <p class="app-meta"><span class="app-shelf">${esc(sh.name || i.type || "Ứng dụng")}</span>${i.status ? `<span class="app-status">${esc(i.status)}</span>` : ""}</p>
+        <h3>${esc(i.title)}</h3><p class="app-note">${esc(i.note || "")}</p>
+        ${go}${extra ? extra(i) : ""}
+      </div></article>`;
+  }
+  function appShelf(list, extra) {
+    const cfg = appCfg(), shelves = cfg.shelves || [];
+    const shelfOf = (i) => (shelves.some((s) => s.id === i.shelf) ? i.shelf : (shelves[0] || {}).id);
+    const cnt = (id) => list.filter((i) => shelfOf(i) === id).length;
+    if (shelfCur !== "all" && !shelves.some((s) => s.id === shelfCur)) shelfCur = "all";
+    const spot = list.filter((i) => i.spotlight).slice(0, 2);
+    const vis = (i) => shelfCur === "all" || shelfOf(i) === shelfCur;
+    const shown = list.filter(vis).length;
+    return `<div class="apps">
+      <div class="app-hero"><p class="app-k">★ ${esc(cfg.name || "Kho Ứng dụng")}</p>
+        <h2>${esc(cfg.headline || "Ứng dụng mình xây và dùng hằng ngày.")}</h2>
+        <div class="app-counts">${shelves.filter((s) => cnt(s.id)).map((s) => `<span><b>${cnt(s.id)}</b> ${esc(s.name)}</span>`).join("")}</div></div>
+      ${spot.length ? `<h3 class="app-sec">Mới và nổi bật</h3><div class="app-spot">${spot.map((i) => appCard(i, true, extra)).join("")}</div>` : ""}
+      <div class="app-shelves" role="group" aria-label="Lọc theo kệ">
+        <button type="button" class="app-shelf-btn${shelfCur === "all" ? " on" : ""}" data-shelf-f="all" aria-pressed="${shelfCur === "all"}"><b>Tất cả</b><small>${list.length}</small></button>
+        ${shelves.map((s) => { const n = cnt(s.id); return `<button type="button" class="app-shelf-btn${shelfCur === s.id ? " on" : ""}${n ? "" : " soon"}" data-shelf-f="${esc(s.id)}" aria-pressed="${shelfCur === s.id}"><b>${esc(s.name)}</b><small>${n || "sắp có"}</small>${s.sub ? `<i>${esc(s.sub)}</i>` : ""}</button>`; }).join("")}
+      </div>
+      <div class="app-grid">${list.map((i) => appCard(i, false, extra).replace("<article ", `<article ${vis(i) ? "" : "hidden "}`)).join("")}</div>
+      <div class="app-empty"${shown ? " hidden" : ""}><b>Kệ này đang được chuẩn bị.</b><span>Quay lại sau nhé, ứng dụng mới sẽ lên đây.</span></div>
+    </div>`;
+  }
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-shelf-f]"); if (!b) return;
+    const box = b.closest(".apps"); const f = b.dataset.shelfF;
+    shelfCur = shelfCur === f || f === "all" ? "all" : f; // bấm lại kệ đang chọn thì về Tất cả
+    box.querySelectorAll("[data-shelf-f]").forEach((x) => { const on = x.dataset.shelfF === shelfCur; x.classList.toggle("on", on); x.setAttribute("aria-pressed", on); });
+    let n = 0; box.querySelectorAll(".app-grid .app-card").forEach((c) => { const on = shelfCur === "all" || c.dataset.shelf === shelfCur; c.hidden = !on; n += on; });
+    box.querySelector(".app-empty").hidden = n > 0;
+  });
+
   const groupSelectHtml = (kho, cur) => { const gs = khoGroups(kho); return gs ? gs.map((g) => `<option value="${esc(g.id)}" ${g.id === cur ? "selected" : ""}>${esc(g.name)}</option>`).join("") : ""; };
 
   document.addEventListener("click", (e) => {
@@ -320,5 +369,5 @@ window.Res = (() => {
     if (cp) { const t = cp.parentNode.querySelector("code").textContent; (navigator.clipboard?.writeText(t) || Promise.reject()).then(() => { cp.textContent = "Đã copy ✓"; setTimeout(() => (cp.textContent = "Copy"), 1500); }, () => { cp.textContent = "Bôi đen để copy"; }); return; }
     const c = e.target.closest("[data-res]"); if (c) open(c.dataset.res); });
   document.addEventListener("keydown", (e) => { if ((e.key === "Enter" || e.key === " ") && e.target.dataset?.gtoggle) { e.preventDefault(); toggleGroup(e.target); return; } if ((e.key === "Enter" || e.key === " ") && e.target.dataset?.res) { e.preventDefault(); open(e.target.dataset.res); } });
-  return { load, all, card, open, visible, loadFeeds, refresh, startAutoRefresh, groupPills, group, groupOf, khoGroups, groupSelectHtml };
+  return { load, all, card, open, visible, loadFeeds, refresh, startAutoRefresh, groupPills, group, groupOf, khoGroups, groupSelectHtml, appShelf };
 })();

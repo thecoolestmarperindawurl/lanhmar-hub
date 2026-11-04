@@ -79,7 +79,22 @@
     "en": "Time management"
    }
   ],
-  "brands_seeding": ["Sprite", "Sting", "Pepsi", "Samsung", "Cell Fusion C", "Lay's", "Revive", "DOL Đình Lực", "Downy", "ZaloPay", "Playah", "UOB", "Hazeline", "Manulife"],
+  "brands_seeding": [
+    {"name": "Sprite", "logo": ""},
+    {"name": "Sting", "logo": ""},
+    {"name": "Pepsi", "logo": ""},
+    {"name": "Samsung", "logo": "assets/img/brands/samsung.svg"},
+    {"name": "Cell Fusion C", "logo": ""},
+    {"name": "Lay's", "logo": "assets/img/brands/lays.svg"},
+    {"name": "Revive", "logo": ""},
+    {"name": "DOL Đình Lực", "logo": ""},
+    {"name": "Downy", "logo": ""},
+    {"name": "ZaloPay", "logo": ""},
+    {"name": "Playah", "logo": ""},
+    {"name": "UOB", "logo": ""},
+    {"name": "Hazeline", "logo": ""},
+    {"name": "Manulife", "logo": "assets/img/brands/manulife.svg"}
+  ],
   "software": [
    {
     "group_vi": "Branding",
