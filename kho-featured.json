@@ -8755,6 +8755,72 @@
           ]
         }
       ]
+    },
+    {
+      "id": "app-lanhmar-haus",
+      "kho": "idea",
+      "guide": true,
+      "date": "2026-11-04",
+      "title": "LanhMar-haus: ứng dụng của LANHMAR",
+      "type": "Ứng dụng",
+      "badge": "App",
+      "tags": [
+        "ứng dụng",
+        "lanhmar"
+      ],
+      "thumb": "assets/res/app-lanhmar-haus.jpg",
+      "note": "Trang giới thiệu ứng dụng LanhMar-haus. Nội dung chi tiết đang chờ bổ sung.",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Ứng dụng LanhMar-haus của LANHMAR. Mình chưa có thông tin về ứng dụng nên thẻ này mới có khung giới thiệu, chưa mô tả tính năng hay cách dùng để tránh viết sai."
+        },
+        {
+          "k": "h",
+          "t": "Khung giới thiệu (sẽ điền khi có thông tin)"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Mục",
+            "Cần điền"
+          ],
+          "rows": [
+            [
+              "Tổng quan",
+              "Ứng dụng là gì, dành cho ai, giải quyết việc gì"
+            ],
+            [
+              "Tính năng chính",
+              "3 đến 6 tính năng nổi bật, mỗi tính năng một dòng"
+            ],
+            [
+              "Cách dùng",
+              "Các bước từ mở app đến có kết quả"
+            ],
+            [
+              "Ảnh màn hình",
+              "Ảnh chụp các màn hình chính"
+            ],
+            [
+              "Nền tảng",
+              "Web, Android, iOS, máy tính"
+            ],
+            [
+              "Link",
+              "Link mở hoặc tải ứng dụng, link mã nguồn nếu có"
+            ],
+            [
+              "Phiên bản và cập nhật",
+              "Phiên bản hiện tại, ngày cập nhật gần nhất"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Bạn gửi cho mình mô tả ngắn, ảnh màn hình và link của ứng dụng, mình sẽ viết thẻ giới thiệu đầy đủ và thêm nút mở app."
+        }
+      ]
     }
   ]
 }

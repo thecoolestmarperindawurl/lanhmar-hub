@@ -9,7 +9,7 @@ window.KHO = [
   { id: "tool", name: "Kho Tool", icon: "⚙", desc: "Repo GitHub và công cụ hữu ích" },
   { id: "knowledge", name: "Kho Knowledge", icon: "✎", desc: "Kho ebook, khoá học theo Academy, Marketing Project",
     groups: [{ id: "web", name: "Web tự học", icon: "🌐" }, { id: "ebook", name: "Kho Ebook", icon: "📚" }, { id: "vuonuom", name: "Vườn Ươm Khu Phố", icon: "🌱" }, { id: "htxchiem", name: "Hợp tác xã Chị Em", icon: "🤝" }, { id: "seongon", name: "SEONGON Academy", icon: "🔎" }, { id: "queue", name: "Khoá chờ học", icon: "📥" }, { id: "mkproject", name: "Marketing Project", icon: "🎓" }], strictGroups: true },
-  { id: "idea", name: "Kho Idea", icon: "★", desc: "Ý tưởng content, sản phẩm, dự án muốn thử" }
+  { id: "idea", name: "Kho Ứng dụng", icon: "▣", desc: "Ứng dụng mình xây và dùng, kèm giới thiệu và cách dùng" }
 ];
 
 window.ITEMS = [
@@ -21,5 +21,5 @@ window.ITEMS = [
   { id: "s6", kho: "edit", group: "dung", title: "CapCut – hiệu ứng & template", url: "https://www.capcut.com", note: "Gom template trend, âm thanh, preset màu.", tags: ["capcut", "template"], type: "Template", date: "2026-10-22" },
   { id: "s7", kho: "edit", group: "dung", title: "Premiere Pro – phím tắt", url: "https://helpx.adobe.com/premiere-pro/using/keyboard-shortcuts.html", note: "Bảng phím tắt tăng tốc dựng.", tags: ["premiere", "phím tắt"], type: "Tài liệu", date: "2026-10-22" },
   { id: "s8", kho: "tool", title: "awesome (GitHub topic)", url: "https://github.com/topics/awesome", note: "Danh sách tuyển chọn repo hay theo chủ đề.", tags: ["github", "danh sách"], type: "Repo", date: "2026-10-22" },
-  { id: "s11", kho: "idea", title: "Ý tưởng mẫu – (đặt tên ý tưởng)", url: "", note: "Ghi nhanh ý tưởng, bước đầu tiên và trạng thái (mới / đang thử / xong).", tags: ["mới"], type: "Ý tưởng", date: "2026-10-22" }
+  { id: "s11", kho: "idea", title: "Ứng dụng mẫu – (đặt tên ứng dụng)", url: "", note: "Ghi tên ứng dụng, link, trạng thái (đang làm / đang dùng / xong).", tags: ["mới"], type: "Ý tưởng", date: "2026-10-22" }
 ];
