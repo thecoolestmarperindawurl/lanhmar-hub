@@ -1,0 +1,2279 @@
+{
+ "skill-create-skill": {
+  "id": "skill-create-skill",
+  "kho": "ai",
+  "group": "skill",
+  "guide": true,
+  "title": "kes-create-skill: create, edit and review skills the right way",
+  "type": "Skill",
+  "badge": "Skill builder",
+  "tags": [
+   "tạo skill",
+   "review",
+   "trigger test"
+  ],
+  "thumb": "assets/res/skill-create-skill.jpg",
+  "note": "Interviews you into a 7-part brief, builds the skill at level L1/L2/L3, runs an independent review and a 20-prompt trigger test. Version 1.1.0, by KesFlow - Hưng Kescy.",
+  "date": "2026-10-28",
+  "ctas": [
+   {
+    "btn": "Download kes-create-skill-v1.1.0.zip",
+    "url": "https://drive.google.com/file/d/1nHAtuUvdHe4e32yckPN87The4Oe3z62y/view?usp=drivesdk"
+   },
+   {
+    "btn": "Skill-Hub folder",
+    "url": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
+   }
+  ],
+  "ctasTitle": "Download the skill",
+  "sections": [
+   {
+    "k": "callout",
+    "t": "Use it when you want to create, write, edit, compress or review a Claude Code skill, or when a skill won't trigger. Triggered by: create skill, write skill, edit skill, update skill, review skill, compress skill, optimize skill, make this a skill."
+   },
+   {
+    "k": "h",
+    "t": "Goal: predictable behavior"
+   },
+   {
+    "k": "p",
+    "t": "AI agents are random: ask the same question twice and you may get different answers. A skill doesn't force the same result, it forces the same process every time. The wording can change, the method can't. Every technique in this kit serves that goal."
+   },
+   {
+    "k": "callout",
+    "t": "Not for: running a skill you already installed, writing SOPs or docs for human readers, or building automated workflows."
+   },
+   {
+    "k": "h",
+    "t": "Three branches at run time"
+   },
+   {
+    "k": "table",
+    "head": [
+     "You say",
+     "Branch",
+     "Path"
+    ],
+    "rows": [
+     [
+      "Make me a skill…",
+      "Create",
+      "Interview, brief, lock the level, build from template, review, trigger test, trial run, package 1.0.0"
+     ],
+     [
+      "Edit or compress this skill…",
+      "Update",
+      "Read the whole original, save a snapshot, lock the intent, edit, review with a claims ledger, bump the version"
+     ],
+     [
+      "Review this skill, don't change it",
+      "Review",
+      "An independent reviewer scores against the checklist and only reports findings"
+     ]
+    ]
+   },
+   {
+    "k": "h",
+    "t": "The Create branch step by step"
+   },
+   {
+    "k": "steps",
+    "items": [
+     {
+      "t": "Interview into a brief",
+      "d": "Ask in clusters of 3 to 5 questions, each with a suggested answer. There are 5 anti-overfit questions: what changes between runs, 3 nearby cases to handle, 3 look-alike prompts that must not trigger, who else will use it and how they phrase it, what event would make the skill outdated."
+     },
+     {
+      "t": "Check the brief",
+      "d": "A fresh reviewer reads the brief and keeps asking until it returns NO GAPS. Then you must explicitly approve."
+     },
+     {
+      "t": "Lock the level",
+      "d": "L1 tool guide, L2 workflow, L3 router. Decide before building."
+     },
+     {
+      "t": "Build from template",
+      "d": "Present the file tree and structure; once approved, build from the templates in assets."
+     },
+     {
+      "t": "Review",
+      "d": "Every finding must be answered: fixed, or disagreed with a reason."
+     },
+     {
+      "t": "Test trigger",
+      "d": "Check that the description triggers when it should and stays quiet when it should."
+     },
+     {
+      "t": "Trial run and packaging",
+      "d": "One clean run, tag version 1.0.0 and a dated changelog."
+     }
+    ]
+   },
+   {
+    "k": "h",
+    "t": "How to interview for a brief"
+   },
+   {
+    "k": "p",
+    "t": "Goal: turn a vague 'make me a skill' into a brief good enough for a stranger to build the skill without asking again, and general enough not to be stuck on the one case you just ran."
+   },
+   {
+    "k": "list",
+    "items": [
+     "Ask in small groups of 3 to 5 related questions per turn, each with why it's asked plus Claude's suggested answer and reasoning, because fixing a wrong guess is faster than filling a blank.",
+     "Read first, ask later: read the conversation, files and existing skills. If you say 'turn what we just did into a skill', extract from that run first.",
+     "When you give both source docs and instructions (e.g. 'here are the docs, focus on auth and pagination'), the instructions are hard requirements, not commentary.",
+     "Unlike a problem brief, a skill brief may state triggers, level, outputs and steps.",
+     "Stop when it can predict your next 3 answers (about 95%), then draft the brief.",
+     "You must clearly approve the brief; 'up to you' or silence doesn't count. After edits, confirm again."
+    ]
+   },
+   {
+    "k": "h",
+    "t": "5 anti-overfit questions (all 5 required)"
+   },
+   {
+    "k": "p",
+    "t": "The default failure is overfitting: you describe the exact case you just did, and the skill only triggers on that case."
+   },
+   {
+    "k": "table",
+    "head": [
+     "Question",
+     "What it reveals"
+    ],
+    "rows": [
+     [
+      "What changes between runs?",
+      "The branches"
+     ],
+     [
+      "Name 3 situations the skill should handle even if you haven't hit them yet",
+      "Nearby cases"
+     ],
+     [
+      "Name 3 prompts that look similar but must NOT trigger the skill",
+      "The must-stay-quiet half of the trigger test"
+     ],
+     [
+      "Who else will use it, and how do they phrase things differently from you?",
+      "Broader trigger phrasing"
+     ],
+     [
+      "What event would make the skill wrong, and what signal says it needs updating?",
+      "Conditions for updating the skill"
+     ]
+    ]
+   },
+   {
+    "k": "p",
+    "t": "Answers about near-misses and about what makes the skill outdated are recorded verbatim for the trigger test and the update conditions."
+   },
+   {
+    "k": "h",
+    "t": "Brief review by an independent reviewer"
+   },
+   {
+    "k": "p",
+    "t": "A subagent with no context from the interview cold-reads the brief with one instruction: build the skill from the brief without asking the requester, checking two angles: is it complete, and is it stuck on a single case. Each gap becomes a question; Claude asks you, updates the brief, and re-checks until it returns exactly NO GAPS."
+   },
+   {
+    "k": "h",
+    "t": "The brief has 7 parts (fixed order)"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Part",
+     "Content"
+    ],
+    "rows": [
+     [
+      "1. Purpose and scope",
+      "What the skill lets the agent do (1 line) and where it stops (1 line)"
+     ],
+     [
+      "2. Level",
+      "L1, L2 or L3 with a reason; model-invoked or user-invoked, with a reason"
+     ],
+     [
+      "3. Trigger map",
+      "At least 3 phrasings that must trigger and 3 look-alikes that must stay quiet"
+     ],
+     [
+      "4. Branches and variation",
+      "What changes between runs; branches needed every time go in SKILL.md, rare branches go to references"
+     ],
+     [
+      "5. Inputs, outputs, DoD",
+      "What the skill takes, what it produces, what a checkable 'done' looks like; if it outputs a document, lock the required structure and write it in the user's language"
+     ],
+     [
+      "6. Invariants",
+      "Things that never change across runs or edits: safety rules, data contracts, customer-facing strings"
+     ],
+     [
+      "7. Out of scope",
+      "At least 3 things it deliberately doesn't do, in the form 'Doesn't do X because Y'"
+     ]
+    ]
+   },
+   {
+    "k": "p",
+    "t": "The brief is written entirely in the user's language, headings included. The part numbers are a contract; don't reorder them."
+   },
+   {
+    "k": "h",
+    "t": "Three skill levels"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Level",
+     "What it is",
+     "Pick when",
+     "Default invocation",
+     "Lines (target / max)"
+    ],
+    "rows": [
+     [
+      "L1 Tool guide",
+      "Teaches the agent to use one tool or API correctly; mostly reference, few or no steps",
+      "The job is using one tool correctly, not running a multi-step task",
+      "Model-invoked",
+      "150 / 400"
+     ],
+     [
+      "L2 Workflow",
+      "Steps for one job end to end, with a checkable output and a review gate",
+      "One job run start to finish with a checkable result; most skills live here",
+      "User-invoked if it has side effects or is time-sensitive, otherwise model-invoked",
+      "200 / 500"
+     ],
+     [
+      "L3 Router",
+      "Entry point for an area: just a routing table and shared rules, does no work itself",
+      "2 or more sibling skills in one area that need a shared entry point",
+      "Model-invoked",
+      "80 / 150"
+     ]
+    ]
+   },
+   {
+    "k": "p",
+    "t": "Level measures one thing only: how many jobs a skill coordinates. It doesn't decide how docs are split or how the skill is invoked. Lock the level in the brief, since it sets the template, checklist and done criteria for the skill's whole life."
+   },
+   {
+    "k": "h",
+    "t": "The frame for each level"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Level",
+     "Content frame",
+     "Main done criteria"
+    ],
+    "rows": [
+     [
+      "L1",
+      "Tool scope in one line; a table of main operations with parameter formats; common mistakes as wrong vs. right; post-action check rules; drift warning (the real tool beats the skill); destructive operations never run on their own. Add a Setup section if the tool needs login; secrets never live in the skill.",
+      "Every operation and parameter must exist in the tool's real docs; every common mistake has a wrong/right pair; state which event forces a skill update; an embedded mini workflow is about 5 steps max, longer ones become an L2."
+     ],
+     [
+      "L2",
+      "Short intro (optional); required inputs; steps, each with a checkable done criterion; an independent review gate when the output matters; outputs with a Done-when line. If the output is a document, use a template from assets.",
+      "The Inputs section always comes first and says how to ask when something is missing; every step has a done criterion; every step that can fail names a way out (conditional retry, fallback, or stop and ask); creating a document without a template in assets fails; fixed command sequences are not written as prose."
+     ],
+     [
+      "L3",
+      "A one-paragraph map of the area; at most 5 hard rules, each blocking one type of error; a routing table 'want X, use skill Y' including seemingly small intents, plus look-alike intents that belong elsewhere; a change policy.",
+      "Every sibling skill is in the table; every routing target exists; no executable content in the body; adding, renaming, removing or rescoping a skill updates the table in the same batch."
+     ]
+    ]
+   },
+   {
+    "k": "p",
+    "t": "For an L2 with many branches: small branches get one line in a step, big branches get their own reference file per variant, bigger still means a separate skill. With 2 or more decision points, draw a mermaid diagram showing only the flow shape above the Steps section. The skill's output speaks the user's language from start to finish."
+   },
+   {
+    "k": "h",
+    "t": "System rules"
+   },
+   {
+    "k": "list",
+    "items": [
+     "One-way dependencies: L3 points to L2, L2 points to L1, a lower level never points up.",
+     "Only write commands, parameters, flags or field names when they appear verbatim in the source docs or were actually run while drafting. Plausible guesses are the top cause of broken tool guides.",
+     "The skill body is written in concise English. Vietnamese strings are kept only when a machine matches that exact string, customers read or hear it, it's an example teaching writing in that language, or it's a phrase users type to trigger the skill.",
+     "Use simple words a newcomer already knows. Jargon stays only if the skill defines it and reuses it as a leading word; jargon the reader has to look up and that isn't defined in the file is a review failure.",
+     "Naming: L1 is the tool's noun, L2 is a verb-first phrase (write plan-content, not content-planning), L3 is the area's noun.",
+     "Author: every skill has metadata.author in the form 'your name · built with kes-create-skill · KesFlow', unless you choose a different author line.",
+     "A skill of pure knowledge (theory, standards) isn't a level; it's reference material every level can cite."
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Vendor skills"
+   },
+   {
+    "k": "p",
+    "t": "Skills published by a tool vendor are read-only; update them by importing the new version, never edit in place. Put your customizations where they're just enough: a few rules go in CLAUDE.md, more than that becomes a small companion skill holding only the differences and triggered by the same keywords. Don't copy vendor content into the companion skill, it will drift when the original updates. On conflict: the companion skill beats the vendor skill, the real tool beats both."
+   },
+   {
+    "k": "h",
+    "t": "Versioning"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Type of change",
+     "Bump",
+     "Example"
+    ],
+    "rows": [
+     [
+      "A fix that doesn't change steps, branches or contracts",
+      "PATCH",
+      "Typos, wording fixes"
+     ],
+     [
+      "New additions, still backward compatible",
+      "MINOR",
+      "Add a step, branch, doc, template or trigger phrase"
+     ],
+     [
+      "A change that breaks the old usage",
+      "MAJOR",
+      "Rename, remove or rework a step, change the output format, restructure"
+     ]
+    ]
+   },
+   {
+    "k": "p",
+    "t": "Each release bumps once at the highest level touched, with a dated changelog line right below the frontmatter, in the form X.Y.Z (YYYY-MM-DD) — what changed. The first version is 1.0.0."
+   },
+   {
+    "k": "h",
+    "t": "When to split a skill"
+   },
+   {
+    "k": "list",
+    "items": [
+     "Split one L2 into several L2s plus an L3 when 2 or more separate trigger clusters appear, or the body exceeds the line cap even with docs split properly.",
+     "An L1 embeds a mini workflow of about 5 steps max; longer than that, it becomes an L2."
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Description: where a skill lives or dies"
+   },
+   {
+    "k": "list",
+    "items": [
+     "Put the trigger phrases users actually type (Vietnamese included) first.",
+     "A short description of 1 to 2 sentences.",
+     "Add 1 to 2 do-not-trigger clauses for the most easily confused skill.",
+     "Max 1024 characters, no angle brackets."
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Trimming words"
+   },
+   {
+    "k": "list",
+    "items": [
+     "No-op test: delete any sentence that doesn't change behavior from the model's default.",
+     "Leading word: one word the model already knows can replace three sentences of explanation.",
+     "Each idea lives in one place only. When compressing an existing skill, keep a claims ledger: every idea must remain or have a reason for being cut."
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Standard vocabulary for this kit"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Concept",
+     "Meaning"
+    ],
+    "rows": [
+     [
+      "Predictability",
+      "The agent follows the same process every run, not the same output. A brainstorm skill still gives new ideas each time, but the way it leads is consistent."
+     ],
+     [
+      "Model-invoked",
+      "Keep the description so the agent can trigger on its own, but the description is always in context every turn (costs context)."
+     ],
+     [
+      "User-invoked",
+      "Drop the description and trigger only when you type the name (disable-model-invocation: true). Costs no context but you have to remember the skill exists; use it where human judgment is needed."
+     ],
+     [
+      "Progressive disclosure",
+      "Move docs that rare branches need into separate files behind a pointer; what every run needs stays in SKILL.md. If a pointer fires unevenly, fix the pointer's wording first, and pull it inline only if rewording fails."
+     ],
+     [
+      "Co-location",
+      "Things that must be read together sit together (definitions, rules, caveats under one heading)."
+     ],
+     [
+      "Completion criterion",
+      "The condition that tells the agent a step is done. Strongest when it's both checkable and demanding enough. Fuzzy criteria like 'understood' tend to cause early stops."
+     ],
+     [
+      "Leading word",
+      "A word the model has already learned that carries a whole behavior principle (e.g. tracer bullets, tight, relentless). A word too weak to beat the default is itself a no-op; use a stronger one."
+     ],
+     [
+      "No-op",
+      "A sentence that doesn't change behavior from the model's default. If a sentence fails, delete the whole sentence, don't shave a few words."
+     ],
+     [
+      "Sediment",
+      "Old text that piles up because adding feels safe and deleting feels risky. The default fate of a skill without pruning discipline."
+     ],
+     [
+      "Sprawl",
+      "A skill that's simply too long. Fix it with layered docs and splitting by branch."
+     ]
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Three kinds of human approval gates"
+   },
+   {
+    "k": "p",
+    "t": "When a skill writes to something humans own (customer data, outgoing messages), a human is the gate. Pick the type by who creates the value, not by the number of items."
+   },
+   {
+    "k": "table",
+    "head": [
+     "Type",
+     "Value comes from",
+     "Human does",
+     "Use when"
+    ],
+    "rows": [
+     [
+      "One item at a time",
+      "Human",
+      "Decides each item",
+      "Each item needs a different decision"
+     ],
+     [
+      "Grouped by question",
+      "Human",
+      "Answers the whole cluster, then hears the parsed list read back before writing",
+      "Many items share one question"
+     ],
+     [
+      "Pre-matched, reviewer vetoes",
+      "Process",
+      "Reviews the table; silence means yes; only flags wrong rows",
+      "A deterministic signal produces the answer"
+     ]
+    ]
+   },
+   {
+    "k": "p",
+    "t": "The third type is only for exact inference, not estimation (matching on values the user entered, not similarity scores). Making a reviewer check guesses is worse than asking directly. Always show both the matched part and the rest; the rest falls back to asking item by item."
+   },
+   {
+    "k": "h",
+    "t": "Review before use"
+   },
+   {
+    "k": "p",
+    "t": "The review process covers a manual check, independent review, a claims ledger (when compressing or restructuring), trigger test and trial run. A builder grading their own work is pointless because the build context blinds them."
+   },
+   {
+    "k": "table",
+    "head": [
+     "Role",
+     "Who",
+     "Does what"
+    ],
+    "rows": [
+     [
+      "Builder",
+      "Main session",
+      "Presents the direction (goal, scope, approach) first, edits directly only after approval, reports results honestly with a score"
+     ],
+     [
+      "Reviewer",
+      "A fresh agent with no build context",
+      "Scores against the level's checklist in an adversarial stance: find why the skill breaks. Every comment cites file and line"
+     ],
+     [
+      "Human",
+      "Skill owner",
+      "Holds the direction gate at the start, doesn't approve every small change, receives the report and final score"
+     ]
+    ]
+   },
+   {
+    "k": "h",
+    "t": "1. Manual check (every round)"
+   },
+   {
+    "k": "list",
+    "items": [
+     "Structure: SKILL.md at the root, a flat references folder, assets, plus scripts only if the skill ships runnable scripts; no nested folders, no stray files.",
+     "Line budget within the level's cap.",
+     "Frontmatter: name matches the folder name; description follows the formula, max 1024 characters, no angle brackets; has metadata.version, metadata.author and a dated changelog.",
+     "Nothing that goes stale in the body (dates, 'currently', numbers that change).",
+     "Every referenced file exists; with 2 or more reference files, include a read-when table."
+    ]
+   },
+   {
+    "k": "h",
+    "t": "2. Independent review"
+   },
+   {
+    "k": "steps",
+    "items": [
+     {
+      "t": "A fresh reviewer scores",
+      "d": "Scores against the level's checklist and runs the no-op test on every line. Every conclusion must cite file and line; a lumped 'N out of M passed' is invalid. Missing a required core part (Inputs, Steps, Done-when for L2) means restructuring, not patching."
+     },
+     {
+      "t": "The builder answers every finding",
+      "d": "Fixed, or disagreed with a reason. Ignoring is not allowed."
+     },
+     {
+      "t": "Whoever found the issue checks the fix",
+      "d": "Cheapest, since they already have the context."
+     },
+     {
+      "t": "Max 3 rounds with the same reviewer",
+      "d": "For round 4 or after a big rewrite, use a fresh reviewer, because a reviewer who has ruled 3 times will defend old rulings. Stuck after 3 rounds: stop and hand the table of unresolved findings to the decision-maker, don't force a pass."
+     },
+     {
+      "t": "Fixing one error pattern means finding every variant",
+      "d": "The locations listed in a finding are just samples. Search all of SKILL.md, references and assets before fixing, or the 'fixed' label is a lie."
+     }
+    ]
+   },
+   {
+    "k": "h",
+    "t": "3. Claims ledger (only when compressing or restructuring)"
+   },
+   {
+    "k": "p",
+    "t": "A fresh agent compares against the original: list every claim (rule, step, constraint, fact) and mark it kept (where it lives now) or cut with a reason. Dropping a claim without declaring it fails the edit. Then recheck the line budget, because losing claims to hit the budget is a failure."
+   },
+   {
+    "k": "h",
+    "t": "4. Trigger test"
+   },
+   {
+    "k": "p",
+    "t": "The description is the only pointer always loaded, so a perfect skill body behind a weak description never gets reached. Run this whenever you write or change the description."
+   },
+   {
+    "k": "table",
+    "head": [
+     "Group",
+     "Count",
+     "Content"
+    ],
+    "rows": [
+     [
+      "Must trigger",
+      "10",
+      "One intent, many phrasings: formal, casual, lowercase, typos, in the language the user types. Include a prompt that doesn't name the skill but clearly needs it, a rare case, and a case where the skill must beat a look-alike skill"
+     ],
+     [
+      "Must stay quiet",
+      "10",
+      "Only look-alikes, taken from the near-miss questions in the interview. Each shares keywords or concepts but needs a different tool. Completely unrelated prompts are banned because they test nothing"
+     ]
+    ]
+   },
+   {
+    "k": "steps",
+    "items": [
+     {
+      "t": "Present the 20 prompts",
+      "d": "You approve them, because bad prompts produce a bad description. Prompts must be specific: file names, real situations, one line of context."
+     },
+     {
+      "t": "Score on the description only",
+      "d": "Play the agent choosing a skill, without looking at the skill body. Record trigger or quiet."
+     },
+     {
+      "t": "Scoring",
+      "d": "At least 9 of 10 must-trigger prompts actually trigger AND at least 9 of 10 must-stay-quiet prompts actually stay quiet. Below the bar on either side: fix and rerun the whole set."
+     }
+    ]
+   },
+   {
+    "k": "p",
+    "t": "When it fails: a miss means the description lacks that family of phrasings, so add it; a false trigger means a soft boundary, so state what the skill isn't for or point to the tool that owns that case."
+   },
+   {
+    "k": "h",
+    "t": "5. Trial run"
+   },
+   {
+    "k": "p",
+    "t": "Run the full skill once on a sample request; the skill's own Done-when must hold. A skill that has never run once is just a draft. If it fails, go back to the Builder; if it passes, report results with a score using the scoring report template."
+   },
+   {
+    "k": "h",
+    "t": "Definition of done for the whole process"
+   },
+   {
+    "k": "list",
+    "items": [
+     "Direction presented and approved BEFORE editing, results reported honestly afterward.",
+     "Complete brief, NO GAPS, explicit approval from you (Create branch).",
+     "Manual checks all clean.",
+     "The level checklist passes 100% with cited evidence; every line passes the no-op test and the simple-words test; a skill that creates documents has a template in assets.",
+     "Trigger test passes at least 9 of 10 on both sides.",
+     "One real trial run, Done-when holds.",
+     "Clean claims ledger (only when compressing an old skill)."
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Scoring report template"
+   },
+   {
+    "k": "p",
+    "t": "The report is written in the reader's language, with these parts: a Checks table (direction, brief, static, level checklist, trigger test, trial run; items not run are marked SKIPPED with a reason, rows never deleted), a Findings table (each row has file:line, blocking or should-fix, the issue quoted verbatim, the Builder's answer), Claims ledger, Verdict (score and result) and Next steps."
+   },
+   {
+    "k": "h",
+    "t": "What you get from using the skill"
+   },
+   {
+    "k": "callout",
+    "t": "The results below are the outputs the skill itself specifies (per SKILL.md and README), not numbers measured on real projects. When you use it and get real results, note them so they can be added here."
+   },
+   {
+    "k": "list",
+    "items": [
+     "A properly structured skill: SKILL.md, references, assets, version and changelog.",
+     "A 7-part brief as the basis, not stuck on a single case.",
+     "A description that passed the trigger test, so it fires at the right time and rarely misfires.",
+     "A scoring report from the template, with evidence for every finding.",
+     "Old skills compressed while keeping every idea, thanks to the claims ledger."
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Files in the package (all read)"
+   },
+   {
+    "k": "table",
+    "head": [
+     "File",
+     "Use when"
+    ],
+    "rows": [
+     [
+      "references/standard.md",
+      "Writing or evaluating any skill content; read first"
+     ],
+     [
+      "references/levels.md",
+      "Choosing level, template, checklist"
+     ],
+     [
+      "references/interview.md",
+      "Starting Create or Update when the intent is unclear"
+     ],
+     [
+      "references/review-checklist.md",
+      "Review, edit, trigger test, trial run"
+     ],
+     [
+      "assets/skill-brief-template.md",
+      "Filling in the brief during the interview"
+     ],
+     [
+      "assets/l1, l2, l3-skill-template.md",
+      "Building the skill by level"
+     ],
+     [
+      "assets/grade-report-template.md",
+      "Writing the scoring report"
+     ]
+    ]
+   },
+   {
+    "k": "h",
+    "t": "General setup"
+   },
+   {
+    "k": "list",
+    "items": [
+     "Download the file from the Drive button below.",
+     "Claude Code: unzip the skill folder into ~/.claude/skills/ (for all projects) or .claude/skills/ inside a project. Each skill is a folder containing SKILL.md.",
+     "Claude on web or app: go to Settings, Skills (Capabilities), upload the zip or .skill file and turn it on.",
+     "Open a new session and type the skill's command or trigger phrase."
+    ]
+   }
+  ]
+ },
+ "design-adobe-tools": {
+  "id": "design-adobe-tools",
+  "kho": "design",
+  "guide": true,
+  "date": "2026-10-28",
+  "title": "Adobe for Design: which tool, when, on which platform",
+  "type": "Guide",
+  "badge": "Adobe",
+  "tags": [
+   "adobe",
+   "photoshop",
+   "illustrator",
+   "express"
+  ],
+  "thumb": "assets/res/design-adobe.jpg",
+  "note": "Photoshop, Illustrator, InDesign, Lightroom, Express, Firefly: what each is for, in which situation, on which platform.",
+  "sections": [
+   {
+    "k": "callout",
+    "t": "How to read this: the feature descriptions come from roundup articles on the web (see sources at the end of the card). Where I write 'general knowledge', it's something I know but couldn't verify against a source this time. The 'my suggestion' sections are opinion, not official information. Sources list Creative Cloud prices and plans differently, so check adobe.com before buying."
+   },
+   {
+    "k": "h",
+    "t": "Adobe tools for Design"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Tool",
+     "What it is",
+     "Use when",
+     "Platform"
+    ],
+    "rows": [
+     [
+      "Photoshop",
+      "Photo editing and compositing (raster)",
+      "Photo editing, compositing, key visuals, mockups, background removal",
+      "Desktop. Has an iPad version (built for touch and Apple Pencil). Phone and web versions: not confirmed in this search"
+     ],
+     [
+      "Illustrator",
+      "Vector graphics",
+      "Logos, icons, illustrations, graphics that must scale without breaking",
+      "Desktop. Has an iPad version"
+     ],
+     [
+      "InDesign",
+      "Multi-page layout",
+      "Brochures, catalogues, ebooks, magazines, interactive PDFs",
+      "Desktop (general knowledge)"
+     ],
+     [
+      "Lightroom",
+      "Photo organizing and editing",
+      "Batch color grading of photos. The cloud version stores in the cloud, Lightroom Classic stores on your hard drive",
+      "Cloud: multiple devices. Classic: desktop"
+     ],
+     [
+      "Adobe Express",
+      "Fast, template-based design",
+      "Social posts, banners, flyers, short videos for Reels, TikTok, Shorts",
+      "Web and mobile. The only cross-device platform in this search"
+     ],
+     [
+      "Firefly",
+      "AI for generating images, video, audio",
+      "Quick ideas, background generation, image expansion",
+      "Web and built into apps. Models trained on licensed content such as Adobe Stock and public content"
+     ],
+     [
+      "Adobe Fonts",
+      "Font library built into Creative Cloud",
+      "Choosing fonts for designs. Over 1,500 popular fonts (such as Helvetica, Times New Roman, Gotham) were added to the library",
+      "Via Creative Cloud. Check Vietnamese support before using"
+     ],
+     [
+      "Animate, Character Animator",
+      "2D animation, webcam-driven character animation",
+      "Animated banners, moving illustrated characters",
+      "Desktop (general knowledge)"
+     ]
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Situations and goals"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Situation",
+     "Goal",
+     "Use",
+     "Why"
+    ],
+    "rows": [
+     [
+      "Need a post out today, no designer",
+      "Publish fast with a consistent style",
+      "Adobe Express",
+      "Ready-made templates, works on web or phone"
+     ],
+     [
+      "Building a brand identity, logo",
+      "Sharp graphics at any size",
+      "Illustrator",
+      "Vectors don't break when scaled up"
+     ],
+     [
+      "Making an ad key visual, campaign banner",
+      "Compositing, handling light and color",
+      "Photoshop",
+      "Strong at compositing, retouching, effects"
+     ],
+     [
+      "Making a multi-page ebook, brochure, catalogue",
+      "Professional layout, PDF export",
+      "InDesign",
+      "Built for multi-page documents"
+     ],
+     [
+      "Editing 100 product photos to the same tone",
+      "Consistent color, batch processing",
+      "Lightroom",
+      "Apply presets to many photos at once"
+     ],
+     [
+      "Need image ideas or backgrounds fast",
+      "Cut the time spent finding assets",
+      "Firefly",
+      "Generates images from a description; check the terms for commercial use"
+     ],
+     [
+      "Only have an iPad",
+      "Drawing, photo editing, vectors on the go",
+      "Photoshop iPad, Illustrator iPad",
+      "Has dedicated iPad versions"
+     ],
+     [
+      "Only have a phone",
+      "Make a quick design",
+      "Adobe Express",
+      "Has a mobile version"
+     ]
+    ]
+   },
+   {
+    "k": "h",
+    "t": "My suggestion: choose by the platform you have"
+   },
+   {
+    "k": "table",
+    "head": [
+     "You have",
+     "Start with",
+     "When to expand"
+    ],
+    "rows": [
+     [
+      "Phone only",
+      "Express",
+      "Move to a computer when you need compositing or a logo"
+     ],
+     [
+      "iPad",
+      "Photoshop iPad, Illustrator iPad",
+      "Need multi-page layout: use InDesign on a computer"
+     ],
+     [
+      "Windows or Mac laptop",
+      "Photoshop and Illustrator, plus Express for rush posts",
+      "Add InDesign if you make ebooks or catalogues"
+     ],
+     [
+      "Limited budget",
+      "Express (a free version may be usable, limits not checked) and learn one core app",
+      "Buy a single app instead of the whole bundle if you only use one (sources list different prices)"
+     ]
+    ]
+   },
+   {
+    "k": "p",
+    "t": "For marketers: a sensible minimum kit is Photoshop for campaign visuals and Illustrator for logos, plus Express for rush posts. Add InDesign when you have multi-page documents. This is my suggestion, not an official recommendation."
+   },
+   {
+    "k": "h",
+    "t": "Plans and pricing (check for yourself)"
+   },
+   {
+    "k": "list",
+    "items": [
+     "Creative Cloud Pro includes 20+ apps. The Substance 3D collection is priced separately and needs a different subscription (per a roundup article).",
+     "Sources list plan names and prices differently (one says Pro is 69.99 USD per month, another says Standard 59.99 or 54.99 and Pro 89.99). I'm not committing to any number.",
+     "One source says the Standard plan excludes the web, mobile and iPad apps and has only 25 Firefly credits per month, while Pro has 4,000. This is a secondary source; compare with Adobe's plans page.",
+     "Annual plans have an early cancellation fee. One source mentions an FTC settlement in 3/2026, but I haven't confirmed it from an official source."
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Sources"
+   },
+   {
+    "k": "links",
+    "items": [
+     {
+      "t": "Adobe: Creative Cloud All Apps plan (help)",
+      "u": "https://helpx.adobe.com/creative-cloud/help/faq-creative-cloud-all-apps-plan.html"
+     },
+     {
+      "t": "Creative Cloud Pro (Adobe)",
+      "u": "https://www.adobe.com/creative-cloud/pro.html"
+     },
+     {
+      "t": "List of Adobe software (Creative Bloq)",
+      "u": "https://www.creativebloq.com/features/adobe-software-list"
+     },
+     {
+      "t": "Guide to Creative Cloud apps (School of Motion)",
+      "u": "https://schoolofmotion.com/blog/the-ultimate-guide-to-adobe-creative-cloud-apps"
+     },
+     {
+      "t": "Adobe mobile apps (Adobe FAQ)",
+      "u": "https://helpx.adobe.com/creative-cloud/faq/mobileapps.html"
+     },
+     {
+      "t": "Premiere Rush end of support (Adobe)",
+      "u": "https://helpx.adobe.com/premiere-rush/premiere-rush-discontinuation.html"
+     },
+     {
+      "t": "Generative Extend in Premiere Pro (TV Technology)",
+      "u": "https://tvtechnology.com/news/nab-show-adobe-launches-generative-extend-ai-for-premiere-pro"
+     }
+    ]
+   }
+  ],
+  "group": "adobe"
+ },
+ "guide-ai-agent-theory": {
+  "id": "guide-ai-agent-theory",
+  "kho": "ai",
+  "group": "agent",
+  "guide": true,
+  "title": "What is an AI Agent? What it really is and how it differs from an AI chatbot",
+  "type": "Theory",
+  "date": "2026-10-24",
+  "tags": [
+   "ai agent",
+   "chatbot"
+  ],
+  "thumb": "assets/res/guide-agent-theory.jpg",
+  "note": "Understand what an agent really is, how it differs from ChatGPT, Claude, Gemini in Q&A mode, and what parts it's made of.",
+  "next": {
+   "id": "guide-ai-agent-ecosystem",
+   "label": "Read next: The AI Agent ecosystem (OpenClaw, Hermes, MCP…)"
+  },
+  "sections": [
+   {
+    "k": "callout",
+    "t": "One line to remember: a chatbot answers questions. An agent takes a goal, breaks it into steps, uses tools to do the work and reports back."
+   },
+   {
+    "k": "h",
+    "t": "What an AI Agent really is"
+   },
+   {
+    "k": "p",
+    "t": "An AI Agent is a system that uses a large language model (LLM) as its “brain”, surrounded by the things that let it act: tools, memory, workflows and permissions. Instead of stopping at one answer, an agent runs in a loop until the job is done, or stops to ask you when a decision is needed."
+   },
+   {
+    "k": "steps",
+    "items": [
+     {
+      "t": "Take a goal",
+      "d": "You hand over a job, no need to give every small command."
+     },
+     {
+      "t": "Plan",
+      "d": "The agent breaks the job into steps."
+     },
+     {
+      "t": "Use tools",
+      "d": "Search the web, read files, call APIs, run commands, control apps."
+     },
+     {
+      "t": "Observe results",
+      "d": "Read back what the tools return and check it matches the intent."
+     },
+     {
+      "t": "Adjust and repeat",
+      "d": "Keep going or change direction until the goal is reached."
+     },
+     {
+      "t": "Report, ask for approval",
+      "d": "Send the results, check back at important or irreversible steps."
+     }
+    ]
+   },
+   {
+    "k": "h",
+    "t": "How an AI chatbot and an AI Agent differ"
+   },
+   {
+    "k": "p",
+    "t": "ChatGPT, Claude, Gemini… used in a Q&A chat window are AI chatbots. The same model can act as an agent when given tools, memory and permission to act. So the difference lies in how the system is built around the model, not just in the model itself."
+   },
+   {
+    "k": "table",
+    "head": [
+     "Criteria",
+     "AI chatbot (Q&A)",
+     "AI Agent"
+    ],
+    "rows": [
+     [
+      "Goal",
+      "Answer questions, write, explain",
+      "Complete a multi-step task (read meeting notes, create tasks, schedule…)"
+     ],
+     [
+      "How it runs",
+      "One turn: you ask, it answers",
+      "A loop: plan, act, check, continue"
+     ],
+     [
+      "Tools",
+      "Few or none, mostly text",
+      "Call APIs, browse the web, read/write files, run code, control apps"
+     ],
+     [
+      "Memory",
+      "Within the current conversation",
+      "Lasting across days: notes, document stores, logs"
+     ],
+     [
+      "Initiative",
+      "Waits for your message",
+      "Can run on a schedule or on events, then report to you"
+     ],
+     [
+      "Real-world impact",
+      "Suggests, you do it yourself",
+      "Takes real actions itself (sends email, writes records, edits files) within granted scope"
+     ],
+     [
+      "Risk",
+      "Low: if it's wrong, you see it right away",
+      "Higher: mistakes can have real consequences; needs permissions and approval"
+     ],
+     [
+      "You need to be good at",
+      "Asking good questions",
+      "Delegating clearly, setting boundaries, checking results"
+     ]
+    ]
+   },
+   {
+    "k": "callout",
+    "t": "The line is blurring: ChatGPT, Claude and Gemini all have agent modes (tools, web browsing, running code…). Ask yourself three questions: (1) Does it plan multiple steps on its own? (2) Does it use tools to act on the outside world? (3) Does it remember and keep running when you're not there? The more “yes” answers, the more it's an agent."
+   },
+   {
+    "k": "h",
+    "t": "A quick comparison"
+   },
+   {
+    "k": "cards",
+    "items": [
+     {
+      "t": "With a chatbot",
+      "tag": "Q&A",
+      "d": "You paste meeting notes into the chat and ask for a summary. It returns a summary; you create the tasks and schedule yourself."
+     },
+     {
+      "t": "With an agent",
+      "tag": "Does it for you",
+      "d": "You send the notes file. The agent reads it, pulls out the action items, creates tasks, puts them on the calendar, messages the people involved and reports back to you."
+     }
+    ]
+   },
+   {
+    "k": "h",
+    "t": "The 6 parts of an AI Agent"
+   },
+   {
+    "k": "cards",
+    "items": [
+     {
+      "t": "Brain (LLM)",
+      "tag": "Understands and reasons",
+      "d": "The language model reads intent, breaks down the work, decides the next step."
+     },
+     {
+      "t": "Tools",
+      "tag": "Hands and feet",
+      "d": "APIs, browser, files, commands, apps. The MCP standard makes connecting tools easier."
+     },
+     {
+      "t": "Memory",
+      "tag": "Remembers",
+      "d": "Your context and data: notes, documents, history, so you don't have to explain again."
+     },
+     {
+      "t": "Skills",
+      "tag": "How-to",
+      "d": "Workflows you've packaged as instructions so the agent redoes them the right way."
+     },
+     {
+      "t": "Runtime environment",
+      "tag": "The frame",
+      "d": "Software that holds the loop, permissions, schedules, cost limits and logs."
+     },
+     {
+      "t": "Communication channel",
+      "tag": "Front door",
+      "d": "Where you hand over work and get results: Zalo, Telegram, Slack, email…"
+     }
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Levels of autonomy"
+   },
+   {
+    "k": "steps",
+    "items": [
+     {
+      "t": "Level 1: Fixed workflow",
+      "d": "You design the steps up front; AI handles a few of them (summarizing, classifying). Easiest to control."
+     },
+     {
+      "t": "Level 2: Agent with human approval",
+      "d": "The agent plans and acts on its own; you approve the important steps."
+     },
+     {
+      "t": "Level 3: Autonomous agent",
+      "d": "Runs long, decides many steps on its own; you only see results and alerts. Needs tight permissions and monitoring."
+     }
+    ]
+   },
+   {
+    "k": "p",
+    "t": "Beginners should start at levels 1 and 2, then widen permissions gradually as they come to trust the results."
+   },
+   {
+    "k": "h",
+    "t": "Risks to know before letting an agent work"
+   },
+   {
+    "k": "list",
+    "items": [
+     "Permissions too broad: the more an agent can do, the more harm a mistake causes. Grant minimum permissions.",
+     "Malicious instructions hidden in content the agent reads (emails, web pages, files), also called prompt injection. Don't let the agent follow everything it reads.",
+     "Unexpected costs: loops that run forever or call the model too often. Set a budget limit.",
+     "Mistakes nobody notices: keep logs so you can review what the agent did.",
+     "Leaked keys and data: don't put real passwords or API keys where the agent or others can read them."
+    ]
+   },
+   {
+    "k": "callout",
+    "t": "Golden rules: minimum permissions, approve every irreversible action, set a cost cap, turn on logging, keep secret keys separate from the data the agent reads."
+   }
+  ]
+ },
+ "design-brandkit-myse": {
+  "id": "design-brandkit-myse",
+  "kho": "design",
+  "guide": true,
+  "date": "2026-10-24",
+  "title": "LANHMAR Brand Kit: colors, fonts, logo",
+  "type": "Brand Kit",
+  "badge": "Canva",
+  "tags": [
+   "canva",
+   "brand kit",
+   "lanhmar",
+   "thương hiệu"
+  ],
+  "thumb": "assets/res/design-brandkit-myse.jpg",
+  "note": "The LANHMAR identity kit: a purple and orange palette, the Montserrat font, rules for rounded corners, shadows and text contrast. Use it to keep every design consistent.",
+  "cta": {
+   "title": "LANHMAR Brand Kit on Canva",
+   "url": "https://www.canva.com/brand/kAHLDi2TJGU",
+   "btn": "Open the Brand Kit on Canva"
+  },
+  "sections": [
+   {
+    "k": "callout",
+    "t": "The Canva link only opens if your account has been given access to the Brand Kit. If you see an access request, contact Lan Anh. The palette and rules below come from the lanhmar.id.vn website, so you can use them right away without Canva."
+   },
+   {
+    "k": "h",
+    "t": "Color palette"
+   },
+   {
+    "k": "swatches",
+    "items": [
+     {
+      "n": "Deep purple",
+      "c": "#2D2FEF",
+      "d": "Primary color: headings, main buttons, footer"
+     },
+     {
+      "n": "Mid purple",
+      "c": "#6A5CFF",
+      "d": "Marquee strips, portrait frames, timeline lines"
+     },
+     {
+      "n": "Orange",
+      "c": "#FF7A45",
+      "d": "Accent color: highlighted text, number dots. Not for large backgrounds"
+     },
+     {
+      "n": "Light orange",
+      "c": "#FFD8C2",
+      "d": "Badge backgrounds, underlines"
+     },
+     {
+      "n": "Text orange",
+      "c": "#A6380D",
+      "d": "Orange text on light or light-orange backgrounds"
+     },
+     {
+      "n": "Dark orange",
+      "c": "#C24418",
+      "d": "Orange backgrounds with white text (hover)"
+     },
+     {
+      "n": "Ink",
+      "c": "#241F45",
+      "d": "Main text and dark card backgrounds"
+     },
+     {
+      "n": "Light ink",
+      "c": "#55507A",
+      "d": "Body text"
+     },
+     {
+      "n": "Lavender 100",
+      "c": "#F3F1FD",
+      "d": "Page background"
+     },
+     {
+      "n": "Lavender 200",
+      "c": "#E7E2FB",
+      "d": "Alternating section backgrounds, tags"
+     },
+     {
+      "n": "Lavender 300",
+      "c": "#D6CEF7",
+      "d": "Card borders, divider lines"
+     },
+     {
+      "n": "Paper",
+      "c": "#FFFDF9",
+      "d": "Torn-paper block backgrounds"
+     }
+    ]
+   },
+   {
+    "k": "p",
+    "t": "Suggested ratio: about 60% lavender background, 25% purple, 10% orange, 5% ink. Orange is always the accent."
+   },
+   {
+    "k": "h",
+    "t": "Type"
+   },
+   {
+    "k": "list",
+    "items": [
+     "One font for headings and body: Montserrat (Google Fonts), with system-ui as fallback.",
+     "Headings in deep purple; body text in light ink, line height 1.65.",
+     "Small labels: UPPERCASE, wide letter spacing, bold, in text orange.",
+     "Highlighted words in headings: orange, italic, with a light-orange underline.",
+     "The hand-drawn marker lettering on banners is part of the image, so it has no font name yet; reuse the original image, don't recreate it."
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Shapes and style"
+   },
+   {
+    "k": "list",
+    "items": [
+     "Buttons, tags and badges are fully rounded; cards have about 22px corner radius.",
+     "Shadows have a soft purple tint; no black shadows.",
+     "Card borders are 2px Lavender 300; portrait photos get a dashed mid-purple border.",
+     "Main buttons: deep purple background, white text; secondary buttons: purple border, white background.",
+     "The ★ symbol is the signature divider (LAN ANH ★ PORTFOLIO ★ LANHMAR)."
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Color pairs with enough contrast"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Text / background",
+     "Ratio",
+     "OK to use?"
+    ],
+    "rows": [
+     [
+      "White / deep purple #2D2FEF",
+      "7.6",
+      "Yes, comfortably"
+     ],
+     [
+      "White / mid purple #6A5CFF",
+      "4.6",
+      "Yes (just enough)"
+     ],
+     [
+      "White / dark orange #C24418",
+      "5.1",
+      "Yes"
+     ],
+     [
+      "Text orange #A6380D / light orange #FFD8C2",
+      "5.0",
+      "Yes"
+     ],
+     [
+      "Orange #FF7A45 / ink #241F45",
+      "6.0",
+      "Yes, orange on a dark background"
+     ],
+     [
+      "White / orange #FF7A45",
+      "2.6",
+      "No, text is hard to read"
+     ],
+     [
+      "White / light purple #8F84FF",
+      "3.0",
+      "No, text is hard to read"
+     ]
+    ]
+   },
+   {
+    "k": "p",
+    "t": "Rule: white text only goes on deep purple, mid purple, dark orange or ink. For orange text on light backgrounds, use text orange #A6380D."
+   },
+   {
+    "k": "h",
+    "t": "How to use it in Canva"
+   },
+   {
+    "k": "steps",
+    "items": [
+     {
+      "t": "Open the Brand Kit",
+      "d": "Click the button below to view the identity kit in Canva."
+     },
+     {
+      "t": "Apply it",
+      "d": "In the editor, open the Brand tab in the left sidebar and pick the Brand Kit to get colors, fonts and logos."
+     },
+     {
+      "t": "Enter manually when needed",
+      "d": "If you don't have access yet, enter the color codes from the table above and choose the Montserrat font."
+     },
+     {
+      "t": "Cross-check",
+      "d": "Before handing off: right colors, right font, is there a ★ or other identity element, is the text contrast sufficient?"
+     }
+    ]
+   },
+   {
+    "k": "list",
+    "items": [
+     "Still missing: vector logo files, logo usage rules (clear space, minimum size, forbidden backgrounds), the name of the handwritten font on the banner."
+    ]
+   }
+  ],
+  "group": "tainguyen"
+ },
+ "web-tuhocbusinesscase": {
+  "id": "web-tuhocbusinesscase",
+  "kho": "knowledge",
+  "group": "web",
+  "guide": true,
+  "date": "2026-10-27",
+  "title": "Tự học Business Case (tuhocbusinesscase.org)",
+  "type": "Self-study site",
+  "badge": "⭐ Featured site",
+  "tags": [
+   "business case",
+   "case interview",
+   "miễn phí",
+   "issue tree"
+  ],
+  "thumb": "assets/res/web-tuhocbusinesscase.jpg",
+  "note": "A site for learning Business Case in Vietnamese: 783+ lessons and interactive case studies, free forever, with a learning path from Issue Tree, MECE and Unit Economics to Case Interview, earning XP to unlock certificates.",
+  "cta": {
+   "title": "Tự học Business Case · tuhocbusinesscase.org",
+   "url": "https://tuhocbusinesscase.org/",
+   "btn": "Start learning for free"
+  },
+  "sections": [
+   {
+    "k": "callout",
+    "t": "⭐ Featured site: Tự học Business Case. Learn to solve business cases in Vietnamese, with 783+ lessons and interactive case studies, free forever. Follow the learning path and earn XP to unlock skill certificates."
+   },
+   {
+    "k": "h",
+    "t": "Site info"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Item",
+     "Details"
+    ],
+    "rows": [
+     [
+      "Site name",
+      "Tự học Business Case"
+     ],
+     [
+      "Address",
+      "tuhocbusinesscase.org"
+     ],
+     [
+      "Language",
+      "Vietnamese"
+     ],
+     [
+      "Cost",
+      "Free forever (according to the site's About page)"
+     ],
+     [
+      "Content",
+      "783+ lessons and interactive case studies"
+     ],
+     [
+      "How you learn",
+      "Follow a learning path, earn XP, unlock skill certificates"
+     ],
+     [
+      "Community size",
+      "About 4,509 learners, nearly 40,000 lesson completions (self-reported by the site, may change)"
+     ],
+     [
+      "Good for (my suggestion)",
+      "Students and working professionals who want to train case-solving thinking and prepare for case competitions and case interviews"
+     ]
+    ]
+   },
+   {
+    "k": "h",
+    "t": "The site's learning path"
+   },
+   {
+    "k": "steps",
+    "items": [
+     {
+      "t": "Issue Tree",
+      "d": "Issue tree: break a big problem into smaller branches that are easy to analyze."
+     },
+     {
+      "t": "MECE",
+      "d": "Split into branches with no overlaps and no gaps, so the analysis is complete without repetition."
+     },
+     {
+      "t": "Unit Economics",
+      "d": "Unit economics: see how much each unit (customer, order, product) makes or loses."
+     },
+     {
+      "t": "In-depth Case Interview",
+      "d": "Practice solving cases the way consulting interviews and case competitions do."
+     }
+    ]
+   },
+   {
+    "k": "p",
+    "t": "The short explanations next to each step are my own general knowledge, not content copied from the site."
+   },
+   {
+    "k": "h",
+    "t": "A suggested way to study with the Library"
+   },
+   {
+    "k": "list",
+    "items": [
+     "Follow the path in order, a few lessons a day, and note hard cases in your own library.",
+     "Pair it with the Case Mastery course in the Courses to take group (Tomorrow Marketers) for extra practice.",
+     "Practice drawing the Issue Tree before looking at the answer, then compare with the solution."
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Other Business Case resources (search results, not checked in depth)"
+   },
+   {
+    "k": "links",
+    "items": [
+     {
+      "t": "Business Case 101 ebook: conquer the 4 biggest case competitions for students (Tomorrow Marketers)",
+      "u": "https://ebook.tomorrowmarketers.org/business-case-101"
+     },
+     {
+      "t": "Case Mastery: win Business Case Competitions (Tomorrow Marketers)",
+      "u": "https://www.tomorrowmarketers.org/case-mastery-course"
+     },
+     {
+      "t": "How and where to learn and practice Business Case? (Chương Khởi Điểm)",
+      "u": "https://chuongkhoidiem.com/hoc-va-luyen-business-case-bang-cach-nao/"
+     },
+     {
+      "t": "Business Problem Solving Foundations (The Trainee Club)",
+      "u": "https://www.thetraineeclub.com/khoa-hoc-va-san-pham/business-problem-solving-foundations"
+     },
+     {
+      "t": "Solving the Case (Vietnam Management Consulting, registration closed at the time of search)",
+      "u": "https://www.vietnammanagementconsulting.com/courses/solving-the-case/"
+     }
+    ]
+   },
+   {
+    "k": "p",
+    "t": "Site info comes from the site's own About section (via search results on 27/10/2026), since I couldn't open the site directly. Numbers may have changed; visit the site for the latest."
+   }
+  ]
+ },
+ "skill-plan": {
+  "id": "skill-plan",
+  "kho": "ai",
+  "group": "skill",
+  "guide": true,
+  "title": "plan: action plans for any project",
+  "type": "Skill",
+  "badge": "Planning",
+  "tags": [
+   "kế hoạch",
+   "roadmap",
+   "phase"
+  ],
+  "thumb": "assets/res/skill-plan.jpg",
+  "note": "A general planning skill: scans old plans, researches, splits into phases, red-teams and creates tasks.",
+  "date": "2026-10-28",
+  "ctas": [
+   {
+    "btn": "Download plan.skill",
+    "url": "https://drive.google.com/file/d/1DvZINNKSRqROsWdi-67zPmVjYbNxKERF/view?usp=drivesdk"
+   },
+   {
+    "btn": "Skill-Hub folder",
+    "url": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
+   }
+  ],
+  "ctasTitle": "Download the skill",
+  "sections": [
+   {
+    "k": "callout",
+    "t": "Use it when you need a quick plan for business, personal life, events, learning or career. Triggered by: plan, roadmap, break this down. The skill only plans; it doesn't execute."
+   },
+   {
+    "k": "h",
+    "t": "How it runs"
+   },
+   {
+    "k": "steps",
+    "items": [
+     {
+      "t": "Scan old plans",
+      "d": "Reads plan.md in ./plans/ and links blockedBy, blocks dependencies with related plans."
+     },
+     {
+      "t": "Challenge the scope",
+      "d": "Asks whether the goal is too broad (skipped for very small goals)."
+     },
+     {
+      "t": "Choose a mode",
+      "d": "Detects complexity automatically, or you set it with a flag."
+     },
+     {
+      "t": "Research and gather context",
+      "d": "Finds documents, asks you about the current situation."
+     },
+     {
+      "t": "Write the plan",
+      "d": "Creates ./plans/{YYYYMMDD}-{HHmm}-{slug}/plan.md plus a file for each phase."
+     },
+     {
+      "t": "Red team and validate",
+      "d": "Critiques the plan and asks the key questions (hard, two modes)."
+     },
+     {
+      "t": "Create tasks",
+      "d": "Each phase becomes a task. Skipped if there are fewer than 3 phases."
+     }
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Modes"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Flag",
+     "Mode",
+     "Research",
+     "Red team"
+    ],
+    "rows": [
+     [
+      "--auto",
+      "Auto-detect (default)",
+      "Depends on mode",
+      "Depends on mode"
+     ],
+     [
+      "--fast",
+      "Fast",
+      "Skip",
+      "Skip"
+     ],
+     [
+      "--hard",
+      "Thorough",
+      "Deep",
+      "Yes"
+     ],
+     [
+      "--two",
+      "Two options",
+      "Parallel",
+      "After choosing"
+     ],
+     [
+      "--no-tasks",
+      "No tasks",
+      "",
+      ""
+     ]
+    ]
+   },
+   {
+    "k": "code",
+    "t": "/plan Launch an online course in Q1 --hard\n/plan archive      # summarize and archive finished plans\n/plan red-team     # critique the plan\n/plan validate     # interview on the key questions",
+    "cap": "Example commands"
+   },
+   {
+    "k": "callout",
+    "t": "When it's done, the skill always reminds you: Run /clear, then start executing from the plan.md path. Follow this so the new session doesn't lose context."
+   },
+   {
+    "k": "h",
+    "t": "What you get from using the skill"
+   },
+   {
+    "k": "callout",
+    "t": "The results below are the outputs the skill itself specifies (per SKILL.md), not numbers measured on real projects. When you use it and get real results, note them so they can be added here."
+   },
+   {
+    "k": "list",
+    "items": [
+     "A plan folder with plan.md and each phase, usable across many work sessions.",
+     "Related plans know their dependencies on each other, avoiding overlap.",
+     "A task list that follows the phases.",
+     "Optional red-team critique to surface risks before you start."
+    ]
+   },
+   {
+    "k": "h",
+    "t": "General setup"
+   },
+   {
+    "k": "list",
+    "items": [
+     "Download the file from the Drive button below.",
+     "Claude Code: unzip the skill folder into ~/.claude/skills/ (for all projects) or .claude/skills/ inside a project. Each skill is a folder containing SKILL.md.",
+     "Claude on web or app: go to Settings, Skills (Capabilities), upload the zip or .skill file and turn it on.",
+     "Open a new session and type the skill's command or trigger phrase."
+    ]
+   }
+  ]
+ },
+ "skill-self-explorer": {
+  "id": "skill-self-explorer",
+  "kho": "ai",
+  "group": "skill",
+  "guide": true,
+  "title": "self-explorer: self-discovery from 3 angles",
+  "type": "Skill",
+  "badge": "Self",
+  "tags": [
+   "bản thân",
+   "tử vi",
+   "MBTI",
+   "essay"
+  ],
+  "thumb": "assets/res/skill-self-explorer.jpg",
+  "note": "Cross-checks your charts, personality tests and lived experience to produce a self-report backed by evidence.",
+  "date": "2026-10-28",
+  "ctas": [
+   {
+    "btn": "Download self-explorer.zip",
+    "url": "https://drive.google.com/file/d/1vvzhW9ZrlryGnKe6mDhp-Vd4Kcev-Co7/view?usp=drivesdk"
+   },
+   {
+    "btn": "Skill-Hub folder",
+    "url": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
+   }
+  ],
+  "ctasTitle": "Download the skill",
+  "sections": [
+   {
+    "k": "callout",
+    "t": "Use it when you want clarity on who you are, your purpose and values, or to reconcile contradictions between test results and lived experience. Best run on Claude Opus. The skill acts as a mirror that asks questions, not a therapist or coach."
+   },
+   {
+    "k": "h",
+    "t": "3 angles"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Angle",
+     "Source",
+     "Examples"
+    ],
+    "rows": [
+     [
+      "A: destiny",
+      "Birth charts, numerology",
+      "Tử Vi, astrology, numerology"
+     ],
+     [
+      "B: self-report",
+      "Personality tests",
+      "MBTI, DISC, Enneagram"
+     ],
+     [
+      "C: lived experience",
+      "Your own writing",
+      "An essay of 500 to 2000 words"
+     ]
+    ]
+   },
+   {
+    "k": "p",
+    "t": "When the angles conflict, C takes priority over A, and A over B (real experience over charts, charts over tests)."
+   },
+   {
+    "k": "h",
+    "t": "3 stages"
+   },
+   {
+    "k": "steps",
+    "items": [
+     {
+      "t": "Gather",
+      "d": "Basic info, data from the three angles, one essay. Claude creates a session notes file."
+     },
+     {
+      "t": "Cross-check",
+      "d": "Extract traits, find where they agree and where they diverge. Asks one question at a time, about 10 to 12 turns, resolving Critical and High conflicts first."
+     },
+     {
+      "t": "Report",
+      "d": "A 10-part report, with reflection questions in the last part and a closing note for your own use."
+     }
+    ]
+   },
+   {
+    "k": "callout",
+    "t": "Note: astrology and Tử Vi are only lenses for reflection, not predictions. If you notice signs of serious distress, see a mental health professional."
+   },
+   {
+    "k": "code",
+    "t": "I want to explore myself with self-explorer",
+    "cap": "Trigger phrase"
+   },
+   {
+    "k": "h",
+    "t": "What you get from using the skill"
+   },
+   {
+    "k": "callout",
+    "t": "The results below are the outputs the skill itself specifies (per SKILL.md), not numbers measured on real projects. When you use it and get real results, note them so they can be added here."
+   },
+   {
+    "k": "list",
+    "items": [
+     "A 10-part report that quotes your own words back to you.",
+     "Shows where the angles agree and where they conflict.",
+     "Reflection questions instead of imposed advice.",
+     "An action plan only if you ask for one."
+    ]
+   },
+   {
+    "k": "h",
+    "t": "General setup"
+   },
+   {
+    "k": "list",
+    "items": [
+     "Download the file from the Drive button below.",
+     "Claude Code: unzip the skill folder into ~/.claude/skills/ (for all projects) or .claude/skills/ inside a project. Each skill is a folder containing SKILL.md.",
+     "Claude on web or app: go to Settings, Skills (Capabilities), upload the zip or .skill file and turn it on.",
+     "Open a new session and type the skill's command or trigger phrase."
+    ]
+   }
+  ]
+ },
+ "skill-reflect": {
+  "id": "skill-reflect",
+  "kho": "ai",
+  "group": "skill",
+  "guide": true,
+  "title": "reflect: end-of-session retrospective",
+  "type": "Skill",
+  "badge": "Learning",
+  "tags": [
+   "reflect",
+   "bài học",
+   "retrospective"
+  ],
+  "thumb": "assets/res/skill-reflect.jpg",
+  "note": "Looks back on a work session in 5 parts and proposes lasting updates (skill, memory, rules). Developed by KesFlow.",
+  "date": "2026-10-28",
+  "ctas": [
+   {
+    "btn": "Download reflect.zip",
+    "url": "https://drive.google.com/file/d/15OdWXZ7h8d-UDgDyPzIoR2H-wwjgmvYg/view?usp=drivesdk"
+   },
+   {
+    "btn": "Skill-Hub folder",
+    "url": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
+   }
+  ],
+  "ctasTitle": "Download the skill",
+  "sections": [
+   {
+    "k": "callout",
+    "t": "Use it at the end of a session, after something went clearly well or badly. Triggered by: /reflect, lessons learned, look back, wrap up the conversation."
+   },
+   {
+    "k": "h",
+    "t": "The retrospective has 5 parts"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Part",
+     "Content"
+    ],
+    "rows": [
+     [
+      "1. What happened",
+      "A summary of the session"
+     ],
+     [
+      "2. What went well",
+      "Keep it, repeat it"
+     ],
+     [
+      "3. What didn't go well",
+      "State the cause plainly"
+     ],
+     [
+      "4. How to improve",
+      "Written as: when X happens, do Y"
+     ],
+     [
+      "5. Lasting updates",
+      "Proposes: Skill, Memory, Rule or Nothing"
+     ]
+    ]
+   },
+   {
+    "k": "callout",
+    "t": "The skill only proposes. It doesn't change any skill, memory or rule until you approve."
+   },
+   {
+    "k": "h",
+    "t": "How to use it"
+   },
+   {
+    "k": "steps",
+    "items": [
+     {
+      "t": "Type the command",
+      "d": "/reflect at the end of a session."
+     },
+     {
+      "t": "Read the retrospective",
+      "d": "Shown right in the chat, or saved as a file in docs/journals or reflections."
+     },
+     {
+      "t": "Review the proposals",
+      "d": "Pick which items are worth keeping as rules, drop the ones you don't need."
+     },
+     {
+      "t": "Apply",
+      "d": "Updates happen only after you agree."
+     }
+    ]
+   },
+   {
+    "k": "code",
+    "t": "/reflect",
+    "cap": "Trigger example"
+   },
+   {
+    "k": "h",
+    "t": "What you get from using the skill"
+   },
+   {
+    "k": "callout",
+    "t": "The results below are the outputs the skill itself specifies (per SKILL.md), not numbers measured on real projects. When you use it and get real results, note them so they can be added here."
+   },
+   {
+    "k": "list",
+    "items": [
+     "Lessons don't vanish when the session closes; they have a place to live.",
+     "Every improvement is a concrete action (when X, do Y).",
+     "You control what gets remembered long term."
+    ]
+   },
+   {
+    "k": "h",
+    "t": "General setup"
+   },
+   {
+    "k": "list",
+    "items": [
+     "Download the file from the Drive button below.",
+     "Claude Code: unzip the skill folder into ~/.claude/skills/ (for all projects) or .claude/skills/ inside a project. Each skill is a folder containing SKILL.md.",
+     "Claude on web or app: go to Settings, Skills (Capabilities), upload the zip or .skill file and turn it on.",
+     "Open a new session and type the skill's command or trigger phrase."
+    ]
+   }
+  ]
+ },
+ "edit-tai-nguyen-drive": {
+  "id": "edit-tai-nguyen-drive",
+  "kho": "edit",
+  "guide": true,
+  "date": "2026-10-28",
+  "title": "Video editing resource library",
+  "type": "Drive folder",
+  "badge": "Drive",
+  "tags": [
+   "meme",
+   "sound effect",
+   "font",
+   "drive"
+  ],
+  "thumb": "assets/res/edit-tai-nguyen-drive.jpg",
+  "note": "hieule.havah's Drive folder with memes, sound effects, font packs, keywords for finding backgrounds and ChatGPT docs for video editors.",
+  "cta": {
+   "title": "Video editing resource library · Google Drive",
+   "url": "https://drive.google.com/drive/folders/1HMMJhDYV6DsXPYb_T1faGn3EqTBWXqbP",
+   "btn": "Open the Drive folder"
+  },
+  "sections": [
+   {
+    "k": "callout",
+    "t": "The list below comes from the screenshot of the folder you sent (folder names, owner and modified dates). I couldn't open each folder, so I only describe them by name, without file counts or quality."
+   },
+   {
+    "k": "p",
+    "t": "The folder is owned by the hieule.havah account, not by you. The owner can change or delete it at any time."
+   },
+   {
+    "k": "h",
+    "t": "Subfolders"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Folder",
+     "Last modified",
+     "Used for"
+    ],
+    "rows": [
+     [
+      "All Video Memes Compilation",
+      "29/4/2024",
+      "Meme video compilation"
+     ],
+     [
+      "Full Meme",
+      "29/4/2024",
+      "Meme pack"
+     ],
+     [
+      "Meme - Popular Sound Effects",
+      "15/3/2024",
+      "Commonly used memes and sound effects"
+     ],
+     [
+      "Sound Schannel",
+      "29/4/2024",
+      "Audio (named after the folder, details unclear)"
+     ],
+     [
+      "FONT COLLECTION",
+      "9/7/2024",
+      "Font collection"
+     ],
+     [
+      "Background search keywords",
+      "12/4/2024",
+      "Keywords for finding background images and videos"
+     ],
+     [
+      "Boost work productivity with chat GPT",
+      "12/4/2024",
+      "Docs on using ChatGPT at work"
+     ]
+    ]
+   },
+   {
+    "k": "h",
+    "t": "How to use it"
+   },
+   {
+    "k": "steps",
+    "items": [
+     {
+      "t": "Open the Drive folder",
+      "d": "Click the button below with the Google account you use."
+     },
+     {
+      "t": "Download only what you need",
+      "d": "Memes and sound effects for the funny parts, fonts for titles and subtitles, keywords for finding backgrounds."
+     },
+     {
+      "t": "Check copyright before posting",
+      "d": "The memes, audio and fonts were collected by someone else, and I haven't checked their licenses. For commercial videos, verify the right to use each one."
+     }
+    ]
+   },
+   {
+    "k": "callout",
+    "t": "Note: the root folder also has a folder of cracked Adobe installers. I left it out of the library and don't recommend it, because cracked software violates copyright and often comes with malware. Use a licensed copy of Adobe instead."
+   }
+  ],
+  "group": "dung"
+ },
+ "seongon-project-management": {
+  "id": "seongon-project-management",
+  "kho": "knowledge",
+  "group": "seongon",
+  "guide": true,
+  "date": "2026-10-27",
+  "title": "Project Management: Project Management Fundamentals class",
+  "type": "Course",
+  "badge": "Full videos",
+  "tags": [
+   "project management",
+   "quản lý dự án"
+  ],
+  "thumb": "assets/res/seongon-project-management.jpg",
+  "note": "SEONGON Academy · 7 sessions (including 1 workshop), full video recordings and PDF recaps for sessions 1 to 5.",
+  "ctas": [
+   {
+    "btn": "Videos and materials",
+    "url": "https://drive.google.com/drive/folders/1zgKsbdj4ohCo2JTdUKYS5NbM6RVnZWvK"
+   },
+   {
+    "btn": "Recap (PDF)",
+    "url": "https://drive.google.com/drive/folders/10OS1QAeY3LMDaGPnjzDOiYmUIkbdbvwh"
+   }
+  ],
+  "ctasTitle": "Project Management · SEONGON Academy",
+  "sections": [
+   {
+    "k": "callout",
+    "t": "A SEONGON Academy course (Project Management Fundamentals class, started 07/08/2026). I checked the Google Drive folder on 27/10/2026: 7 sessions, each with a RECORD file (video)."
+   },
+   {
+    "k": "h",
+    "t": "Sessions"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Session",
+     "Content (from recap file names)"
+    ],
+    "rows": [
+     [
+      "Session 1",
+      "Intro to project management and how to define project scope"
+     ],
+     [
+      "Session 2",
+      "Working with project stakeholders"
+     ],
+     [
+      "Session 3",
+      "Planning and controlling the project schedule"
+     ],
+     [
+      "Session 4",
+      "Project cost management"
+     ],
+     [
+      "Session 5",
+      "Quality management"
+     ],
+     [
+      "Session 6",
+      "(Session name not given in the folder)"
+     ],
+     [
+      "Session 7",
+      "Workshop"
+     ]
+    ]
+   },
+   {
+    "k": "h",
+    "t": "In the course folder"
+   },
+   {
+    "k": "list",
+    "items": [
+     "Each session has its own folder with the RECORD video, the Zoom chat file and an exercise template.",
+     "The [RECAP] PROJECT MANAGEMENT COURSE folder: PDF recaps for sessions 1 to 5.",
+     "BONUS folder: the reference doc “Project resources”.",
+     "The class's student list file and the homework file."
+    ]
+   },
+   {
+    "k": "p",
+    "t": "Session 6's name isn't in the recap folder yet, so it's left blank. Recaps for sessions 6 and 7 will be added when available."
+   }
+  ]
+ },
+ "htx-capcut-k2": {
+  "id": "htx-capcut-k2",
+  "kho": "knowledge",
+  "group": "htxchiem",
+  "guide": true,
+  "date": "2026-10-27",
+  "title": "Video editing with CapCut (K2)",
+  "type": "Course",
+  "badge": "Full videos",
+  "tags": [],
+  "thumb": "assets/res/htx-capcut.jpg",
+  "note": "Hợp tác xã Chị Em by JOBVUI · Instructor Mr. Phan Anh · 4 sessions, checked on Drive: every session has a video file.",
+  "ctas": [
+   {
+    "btn": "Videos and materials",
+    "url": "https://drive.google.com/drive/folders/1vgrTzDeD5vm8GsMcST-ft5ygkgyqtY5l"
+   }
+  ],
+  "ctasTitle": "Video editing with CapCut (K2)",
+  "sections": [
+   {
+    "k": "callout",
+    "t": "A Hợp tác xã Chị Em by JOBVUI course. I checked the Google Drive folder on 27/10/2026: 4 sessions, each with a video file. Instructor: Mr. Phan Anh."
+   },
+   {
+    "k": "h",
+    "t": "Sessions"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Session",
+     "Content"
+    ],
+    "rows": [
+     [
+      "Session 1",
+      "Mindset and overview of video editing"
+     ],
+     [
+      "Session 2",
+      "Basic video shooting skills"
+     ],
+     [
+      "Session 3",
+      "Basic video editing workflow"
+     ],
+     [
+      "Session 4",
+      "Advanced features, Q&A"
+     ]
+    ]
+   },
+   {
+    "k": "p",
+    "t": "Each session has its own folder with RECORD (video) and SLIDE (PDF). The folder also has a course info sheet and a BTVN (homework) folder. The course recap will be added when available."
+   }
+  ]
+ },
+ "seongon-content-seo-ai": {
+  "id": "seongon-content-seo-ai",
+  "kho": "knowledge",
+  "group": "seongon",
+  "guide": true,
+  "date": "2026-10-27",
+  "title": "Content SEO AI MAX",
+  "type": "Course",
+  "badge": "Full videos",
+  "tags": [],
+  "thumb": "assets/res/seongon-content-seo-ai.jpg",
+  "note": "SEONGON Academy · Instructors Ms. Nguyễn Thị Vân, Ms. Trần Thị Bích Hạnh · 4 sessions, checked on Drive: every session has a video file.",
+  "ctas": [
+   {
+    "btn": "Videos and materials",
+    "url": "https://drive.google.com/drive/folders/1ObGP9w9q381i-hF8kjvLuR7sQlM6pVE_"
+   }
+  ],
+  "ctasTitle": "Content SEO AI MAX",
+  "sections": [
+   {
+    "k": "callout",
+    "t": "A SEONGON Academy course. I checked the Google Drive folder on 27/10/2026: 4 sessions, each with a video file. Instructors: Ms. Nguyễn Thị Vân, Ms. Trần Thị Bích Hạnh."
+   },
+   {
+    "k": "h",
+    "t": "Sessions"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Session",
+     "Content"
+    ],
+    "rows": [
+     [
+      "Session 1",
+      "Content SEO overview"
+     ],
+     [
+      "Session 2",
+      "Building SEO outlines for AEO (2 videos: Part 1 and Part 2)"
+     ],
+     [
+      "Session 3",
+      "Writing SEO articles and optimizing for AEO"
+     ],
+     [
+      "Session 4",
+      "Applying AI to Content SEO work"
+     ]
+    ]
+   },
+   {
+    "k": "p",
+    "t": " The course recap will be added when available."
+   }
+  ]
+ }
+}

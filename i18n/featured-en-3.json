@@ -1,0 +1,2170 @@
+{
+ "tool-phone-laptop-devmode": {
+  "id": "tool-phone-laptop-devmode",
+  "kho": "tool",
+  "guide": true,
+  "date": "2026-10-24",
+  "title": "Connect your phone to a laptop with Developer Mode (Android + iOS)",
+  "type": "Tip / Guide",
+  "badge": "Tip",
+  "tags": [
+   "android",
+   "ios",
+   "adb",
+   "scrcpy"
+  ],
+  "thumb": "assets/res/tool-phone-laptop.jpg",
+  "note": "Turn on Developer options, install adb, connect by cable and wirelessly, control the screen with scrcpy; iPhone: Developer Mode, Xcode, Safari Web Inspector, libimobiledevice. All commands included.",
+  "cta": {
+   "title": "Android Debug Bridge · developer.android.com",
+   "url": "https://developer.android.com/tools/adb",
+   "btn": "Open the adb docs"
+  },
+  "sections": [
+   {
+    "k": "callout",
+    "t": "Android can do almost everything through adb (install apps, copy files, view the screen, run commands). Apple locks the iPhone down much more: mostly logs, screen recording/mirroring and web debugging. This guide covers each system separately."
+   },
+   {
+    "k": "p",
+    "t": "Only turn on Developer Mode / USB debugging on your own phone and only trust your own laptop. This permission gives the laptop deep control over the phone; don't use public computers."
+   },
+   {
+    "k": "h",
+    "t": "PART 1 · ANDROID"
+   },
+   {
+    "k": "h",
+    "t": "Step 1: Turn on Developer options"
+   },
+   {
+    "k": "steps",
+    "items": [
+     {
+      "t": "Open Settings → About phone",
+      "d": "Samsung: About phone → Software information. Some phones: Settings → About phone."
+     },
+     {
+      "t": "Tap “Build number” 7 times",
+      "d": "The phone shows “You are now a developer”. Enter your PIN/password if asked."
+     },
+     {
+      "t": "Open Developer options",
+      "d": "Usually under Settings → System → Developer options (Samsung: at the bottom of the main Settings page)."
+     },
+     {
+      "t": "Turn on “USB debugging”",
+      "d": "Xiaomi/Redmi: also turn on “Install via USB” and “USB debugging (Security settings)” if you want to control it with a mouse."
+     }
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Step 2: Install adb on the laptop"
+   },
+   {
+    "k": "p",
+    "t": "adb comes with Google's SDK Platform-Tools, free."
+   },
+   {
+    "k": "code",
+    "t": "# Windows: download the zip at developer.android.com/tools/releases/platform-tools, unzip it,\n# open PowerShell in that folder and type  .\\adb version\n\n# macOS\nbrew install --cask android-platform-tools\n\n# Ubuntu / Debian\nsudo apt install adb\n\n# Check\nadb version",
+    "cap": "Install adb"
+   },
+   {
+    "k": "h",
+    "t": "Step 3: Plug in the cable and allow access"
+   },
+   {
+    "k": "steps",
+    "items": [
+     {
+      "t": "Use a USB cable that transfers data",
+      "d": "A charge-only cable won't be detected. If the phone asks for a USB mode, choose “File transfer”."
+     },
+     {
+      "t": "Tap “Allow USB debugging” on the phone",
+      "d": "Tick “Always allow from this computer” and tap Allow."
+     },
+     {
+      "t": "Check on the laptop",
+      "d": "Type adb devices. A status of device means it worked."
+     }
+    ]
+   },
+   {
+    "k": "code",
+    "t": "adb devices -l",
+    "cap": "Device list"
+   },
+   {
+    "k": "list",
+    "items": [
+     "unauthorized: you haven't tapped Allow on the phone. Unplug and replug the cable, or run adb kill-server then adb devices.",
+     "Device not found: try another cable/port and check that USB debugging is on. Windows may need the manufacturer's USB driver (Samsung, Xiaomi…).",
+     "Linux says “no permissions”: set up a udev rule for your phone brand, or rerun adb with the right permissions."
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Step 4: Common adb commands"
+   },
+   {
+    "k": "code",
+    "t": "# Install / uninstall apps\nadb install app.apk\nadb install -r app.apk          # reinstall, keep data\nadb uninstall com.ten.goi\n\n# Copy files\nadb push file.txt /sdcard/Download/\nadb pull /sdcard/DCIM/Camera/ ./anh\n\n# Take a screenshot\nadb shell screencap -p /sdcard/s.png\nadb pull /sdcard/s.png\n\n# Record the screen (max 3 minutes by default, Ctrl+C to stop)\nadb shell screenrecord /sdcard/demo.mp4\nadb pull /sdcard/demo.mp4\n\n# Open a shell on the phone / view logs\nadb shell\nadb logcat\n\n# List installed apps\nadb shell pm list packages\n\n# Type and tap remotely\nadb shell input text hello\nadb shell input tap 540 1200\nadb shell input keyevent 4      # 4=Back, 3=Home, 26=Power\n\n# Reboot\nadb reboot\n\n# When adb hangs\nadb kill-server\nadb start-server",
+    "cap": "Common commands"
+   },
+   {
+    "k": "h",
+    "t": "Step 5: Connect wirelessly (Android 11 and later)"
+   },
+   {
+    "k": "p",
+    "t": "The phone and laptop must be on the same Wi-Fi network. You only need to pair once per laptop."
+   },
+   {
+    "k": "steps",
+    "items": [
+     {
+      "t": "Turn on Wireless debugging",
+      "d": "Developer options → Wireless debugging → on."
+     },
+     {
+      "t": "Pair",
+      "d": "Tap “Pair device with pairing code”. The phone shows a pairing IP:port and a 6-digit code."
+     },
+     {
+      "t": "Run the pair command on the laptop",
+      "d": "Type adb pair IP:PAIRING-PORT and enter the 6-digit code."
+     },
+     {
+      "t": "Connect",
+      "d": "The main Wireless debugging screen shows a different IP:port (the connection port). Type adb connect IP:CONNECT-PORT. This port may change each time you turn it back on."
+     }
+    ]
+   },
+   {
+    "k": "code",
+    "t": "adb pair 192.168.1.20:37099\n# enter the 6-digit code when asked\nadb connect 192.168.1.20:41555\nadb devices\n\n# Disconnect\nadb disconnect",
+    "cap": "Example (replace with the IP and ports on your phone)"
+   },
+   {
+    "k": "p",
+    "t": "Android 10 and earlier: plug in the cable once, type adb tcpip 5555, unplug, then adb connect phone-IP:5555."
+   },
+   {
+    "k": "h",
+    "t": "Step 6: View and control the phone screen on the laptop (scrcpy)"
+   },
+   {
+    "k": "p",
+    "t": "scrcpy is an open-source tool. It needs no app on the phone and uses the same adb connection above (cable or wireless). You can control the phone with your mouse and keyboard."
+   },
+   {
+    "k": "code",
+    "t": "# Windows (if you have winget) or download the zip from the GitHub page (adb included)\nwinget install --exact Genymobile.scrcpy\n\n# macOS\nbrew install scrcpy\n\n# Ubuntu / Debian\nsudo apt install scrcpy\n\n# Run (phone has USB debugging on and is connected)\nscrcpy\n\n# Common options\nscrcpy --turn-screen-off --stay-awake     # turn off the phone screen, keep it awake\nscrcpy --max-size 1024                    # lower the resolution for smoother playback\nscrcpy --record demo.mp4                  # watch and record at the same time\nscrcpy -s SERIAL                          # pick a device when several are connected",
+    "cap": "Install and run scrcpy"
+   },
+   {
+    "k": "p",
+    "t": "Install commands and option names may differ depending on your scrcpy version and OS. Check the scrcpy README on GitHub for the latest commands."
+   },
+   {
+    "k": "h",
+    "t": "Turn it off when not in use"
+   },
+   {
+    "k": "list",
+    "items": [
+     "Turn off USB debugging and Wireless debugging when you're done.",
+     "Developer options → “Revoke USB debugging authorizations” to remove trusted laptops."
+    ]
+   },
+   {
+    "k": "h",
+    "t": "PART 2 · iPHONE (iOS)"
+   },
+   {
+    "k": "callout",
+    "t": "Know this first: iPhone has no adb. Apple doesn't let a laptop control the screen remotely like Android. What you can do: view logs, record/mirror the screen, debug web pages in Safari, install dev apps with Xcode (Mac)."
+   },
+   {
+    "k": "h",
+    "t": "Step 1: Trust the computer"
+   },
+   {
+    "k": "steps",
+    "items": [
+     {
+      "t": "Plug the iPhone into the laptop with a cable",
+      "d": "Use a Lightning/USB-C cable that transfers data."
+     },
+     {
+      "t": "Tap “Trust” on the iPhone",
+      "d": "Enter your passcode when asked. On Windows, also install the Apple Devices app (or iTunes) for the driver, otherwise the phone won't be detected."
+     }
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Step 2: Turn on Developer Mode (iOS 16 and later)"
+   },
+   {
+    "k": "steps",
+    "items": [
+     {
+      "t": "Open Settings → Privacy & Security",
+      "d": "Scroll to the bottom and find “Developer Mode”."
+     },
+     {
+      "t": "Flip the switch",
+      "d": "The iPhone will ask to restart."
+     },
+     {
+      "t": "Confirm after restarting",
+      "d": "Unlock the phone, tap “Turn On” and enter your passcode."
+     }
+    ]
+   },
+   {
+    "k": "p",
+    "t": "The Developer Mode option may not appear until the iPhone has been connected to Xcode on a Mac or has a dev build of an app installed. This is how iOS works, not a problem with your phone."
+   },
+   {
+    "k": "h",
+    "t": "Step 3A: If you have a Mac"
+   },
+   {
+    "k": "steps",
+    "items": [
+     {
+      "t": "View the device in Xcode",
+      "d": "Open Xcode → Window → Devices and Simulators. Tick “Connect via network” to connect wirelessly after pairing by cable."
+     },
+     {
+      "t": "Mirror and record the screen",
+      "d": "Open QuickTime Player → File → New Movie Recording, click the arrow next to the record button and choose the iPhone as the source."
+     },
+     {
+      "t": "Debug web pages on iPhone",
+      "d": "iPhone: Settings → Safari → Advanced → turn on Web Inspector (on newer iOS it may be under Settings → Apps → Safari). Mac: Safari → Settings → Advanced → turn on “Show features for web developers”. Open the page on the iPhone, then go to the Develop menu on the Mac and choose the iPhone's name and the page to inspect."
+     }
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Step 3B: If you use Windows or Linux"
+   },
+   {
+    "k": "p",
+    "t": "The open-source libimobiledevice toolkit can read device info and logs. Some commands (like screenshots) depend on the iOS version: iOS 17 and later need a different tool, e.g. pymobiledevice3."
+   },
+   {
+    "k": "code",
+    "t": "# macOS (Homebrew)\nbrew install libimobiledevice\n\n# Ubuntu / Debian\nsudo apt install libimobiledevice-utils usbmuxd\n\n# Pair and check\nidevicepair pair\nidevice_id -l                 # list UDIDs\nideviceinfo                   # device info\nidevicesyslog                 # live logs\nidevicescreenshot shot.png    # may not work on iOS 17+",
+    "cap": "libimobiledevice"
+   },
+   {
+    "k": "code",
+    "t": "# iOS 17+: pymobiledevice3 (requires Python)\npip install pymobiledevice3\npymobiledevice3 usbmux list\npymobiledevice3 syslog live",
+    "cap": "pymobiledevice3 (check against your iOS version)"
+   },
+   {
+    "k": "p",
+    "t": "Some pymobiledevice3 commands on iOS 17+ need a “tunnel” running and admin rights. See the project's docs on GitHub for the syntax for your version."
+   },
+   {
+    "k": "h",
+    "t": "Mirror the iPhone screen to a laptop without a cable"
+   },
+   {
+    "k": "list",
+    "items": [
+     "Mac: use Control Center on the iPhone → Screen Mirroring, or QuickTime with a cable as above.",
+     "Windows: Windows can't receive AirPlay out of the box. You need a third-party AirPlay receiver app. Check its reliability and price yourself before using it.",
+     "This guide hasn't tested each third-party app individually."
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Security notes for both systems"
+   },
+   {
+    "k": "list",
+    "items": [
+     "Turn off Developer Mode (iPhone) or USB debugging (Android) when not in use.",
+     "Don't plug into public charging stations while debugging is on. If a “Trust / Allow” dialog pops up unexpectedly, tap Don't Trust / Deny.",
+     "Don't run unfamiliar adb or pip commands copied from unknown sources. Many commands can delete data."
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Sources checked"
+   },
+   {
+    "k": "links",
+    "items": [
+     {
+      "t": "Android: Android Debug Bridge (developer.android.com)",
+      "u": "https://developer.android.com/tools/adb"
+     },
+     {
+      "t": "Android: Platform-Tools (adb) download",
+      "u": "https://developer.android.com/tools/releases/platform-tools"
+     },
+     {
+      "t": "scrcpy (Genymobile) on GitHub",
+      "u": "https://github.com/Genymobile/scrcpy"
+     },
+     {
+      "t": "Apple: enable Web Inspector (WebKit)",
+      "u": "https://webkit.org/web-inspector/enabling-web-inspector/"
+     },
+     {
+      "t": "Expo: enable Developer Mode on iOS",
+      "u": "https://docs.expo.dev/guides/ios-developer-mode/"
+     },
+     {
+      "t": "libimobiledevice",
+      "u": "https://libimobiledevice.org/"
+     },
+     {
+      "t": "pymobiledevice3 on GitHub",
+      "u": "https://github.com/doronz88/pymobiledevice3"
+     }
+    ]
+   }
+  ]
+ },
+ "buy-ovh-hermes": {
+  "id": "buy-ovh-hermes",
+  "kho": "ai",
+  "group": "buy",
+  "guide": true,
+  "date": "2026-10-28",
+  "title": "OVH VPS for Hermes Agent: picking a plan and a setup checklist",
+  "type": "Guide",
+  "badge": "VPS",
+  "tags": [
+   "vps",
+   "ovh",
+   "hermes",
+   "telegram"
+  ],
+  "thumb": "assets/res/buy-ovh-hermes.jpg",
+  "note": "Compares OVH VPS-1 to VPS-5, Hermes Agent's requirements, which plan I'd pick, and a checklist for setting it up on a VPS.",
+  "ctas": [
+   {
+    "btn": "Open the OVHcloud VPS page",
+    "url": "https://www.ovhcloud.com/en/vps/"
+   },
+   {
+    "btn": "Hermes Docker docs",
+    "url": "https://hermes-agent.nousresearch.com/docs/user-guide/docker"
+   }
+  ],
+  "ctasTitle": "OVHcloud and Hermes Agent",
+  "sections": [
+   {
+    "k": "callout",
+    "t": "How to read this: plan specs and prices come from search results (the OVH US page and comparison sites). I couldn't open the OVHcloud page itself, so they aren't confirmed at the source. Sources disagree on VPS-4 and VPS-5. Check the OVHcloud VPS page before buying. The 'my pick' section is opinion."
+   },
+   {
+    "k": "h",
+    "t": "1. OVH VPS plans compared"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Plan",
+     "vCores",
+     "RAM",
+     "NVMe storage",
+     "Price/month (USD)",
+     "Confidence"
+    ],
+    "rows": [
+     [
+      "VPS-1",
+      "2",
+      "4 GB",
+      "40 GB",
+      "from 4.54",
+      "From the OVH US page. 500 Mbps bandwidth, unlimited traffic, daily backup of the previous 24 hours"
+     ],
+     [
+      "VPS-2",
+      "4",
+      "8 GB",
+      "75 GB",
+      "from 8.50",
+      "Same source, 1 Gbps bandwidth"
+     ],
+     [
+      "VPS-3",
+      "6",
+      "12 GB",
+      "100 GB",
+      "from 12.32",
+      "Same source"
+     ],
+     [
+      "VPS-4",
+      "8 or 12",
+      "24 or 48 GB",
+      "200 or 300 GB",
+      "about 22 to 23",
+      "Sources differ, not settled"
+     ],
+     [
+      "VPS-5",
+      "16",
+      "64 GB",
+      "350 GB",
+      "about 34 to 55",
+      "Prices vary a lot between sources"
+     ]
+    ]
+   },
+   {
+    "k": "list",
+    "items": [
+     "One source says OVH has a 2026 VPS line with 6 configurations, from 4 vCores, 8 GB, 75 GB up to 24 vCores, 96 GB, 400 GB. Prices vary by region and currency.",
+     "Server location: one source says OVH has a Singapore data center for Asia. I haven't confirmed Sydney or Mumbai.",
+     "I haven't found a source confirming backup fees and terms for plans above VPS-1, so check on the order page."
+    ]
+   },
+   {
+    "k": "h",
+    "t": "2. What Hermes Agent needs"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Source",
+     "Minimum",
+     "Recommended"
+    ],
+    "rows": [
+     [
+      "Official Hermes Docker docs (via search)",
+      "1 GB RAM, 1 core, 500 MB disk",
+      "2 to 4 GB RAM, 2 cores"
+     ],
+     [
+      "Same source, with the browser tool on",
+      "2 GB RAM or more, plus the --shm-size=1g option",
+      "Not stated"
+     ],
+     [
+      "Hosting providers (Contabo, Gizmodo...)",
+      "Some posts say 2 GB RAM and 10 GB disk",
+      "Some posts recommend 2 cores, 8 GB RAM"
+     ]
+    ]
+   },
+   {
+    "k": "list",
+    "items": [
+     "Hermes calls models through external APIs, so the VPS doesn't need a GPU.",
+     "The 64K+ context model requirement only applies if you run the model yourself.",
+     "The hosting providers' 8 GB advice is far above the official level; I read it as cautious sales advice."
+    ]
+   },
+   {
+    "k": "h",
+    "t": "3. Which plan to pick (my pick)"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Use case",
+     "Plan",
+     "Why"
+    ],
+    "rows": [
+     [
+      "Hermes with the Telegram gateway, no browser",
+      "VPS-1 (4 GB)",
+      "Several times the official recommendation, cheapest"
+     ],
+     [
+      "Hermes with the browser tool, scheduled runs, plus a few small bots",
+      "VPS-2 (8 GB)",
+      "Spare RAM for the browser and Docker, a sensible step up"
+     ],
+     [
+      "Several agents running in parallel, several browsers",
+      "VPS-3 (12 GB) or higher",
+      "Only once VPS-2 feels full"
+     ],
+     [
+      "Want to run an AI model on the VPS itself",
+      "Not suitable",
+      "These plans have no GPU, so call models through an API"
+     ]
+    ]
+   },
+   {
+    "k": "callout",
+    "t": "Bottom line: if you plan to use Hermes long term and want headroom, go with VPS-2. To save money, start with VPS-1 and upgrade when monitoring shows RAM is full. The biggest cost is usually the model API, not the VPS, so set a budget limit with your model provider from day one."
+   },
+   {
+    "k": "h",
+    "t": "4. Checklist before buying"
+   },
+   {
+    "k": "steps",
+    "items": [
+     {
+      "t": "Measure your current VPS",
+      "d": "Run free -h and htop when the bot is busiest. If RAM is above roughly 70 to 80% or swap is used often, you need more RAM. If RAM is fine but CPU often hits 100%, you need more cores."
+     },
+     {
+      "t": "Decide whether you'll turn on the browser",
+      "d": "If yes, plan for at least 2 GB for Hermes alone, plus RAM for your other bots."
+     },
+     {
+      "t": "Check plan, price and region on the OVH site",
+      "d": "Look at the exact region and currency you're buying in, and check the backup terms."
+     },
+     {
+      "t": "Pick a location close to Vietnam",
+      "d": "Prefer Singapore if the plan offers it."
+     }
+    ]
+   },
+   {
+    "k": "h",
+    "t": "5. Checklist for installing Hermes on the VPS"
+   },
+   {
+    "k": "callout",
+    "t": "Take the exact install commands from the official Hermes docs (link at the end of this card). I don't copy them here to avoid version mismatches."
+   },
+   {
+    "k": "steps",
+    "items": [
+     {
+      "t": "Create the VPS and basic security",
+      "d": "Use a non-root user, log in with an SSH key, turn on the firewall. This is my general recommendation."
+     },
+     {
+      "t": "Install Docker",
+      "d": "Follow the Hermes Docker docs."
+     },
+     {
+      "t": "Create a new Telegram bot for Hermes",
+      "d": "Create it via @BotFather. One token should have only one program receiving messages (my general understanding, not checked in the Hermes docs). The LanhMar Contact Bot token is used by Apps Script for the website chat, so don't share it."
+     },
+     {
+      "t": "Run the Hermes container",
+      "d": "The docs describe: pull the nousresearch/hermes-agent image, run setup once, then run the gateway in the background with ~/.hermes mounted to /opt/data, port 8642, with --restart unless-stopped. If you turn on the browser, add --shm-size=1g."
+     },
+     {
+      "t": "One data folder per gateway",
+      "d": "Don't let two gateway containers share one data folder."
+     },
+     {
+      "t": "Add the Telegram token and model API key",
+      "d": "Only put them in the config on the VPS, never in a repo or chat."
+     },
+     {
+      "t": "Set a budget limit with the model provider",
+      "d": "Avoids an endless loop burning money."
+     },
+     {
+      "t": "Test with dummy data",
+      "d": "Give the agent a few small tasks and check the logs before handing it real work."
+     },
+     {
+      "t": "Back up ~/.hermes",
+      "d": "This holds memory and config; lose it and you lose what the agent has learned."
+     },
+     {
+      "t": "Monitor resources",
+      "d": "After 1 to 2 weeks, check free -h again and upgrade if you're hitting the limit."
+     }
+    ]
+   },
+   {
+    "k": "h",
+    "t": "6. Security"
+   },
+   {
+    "k": "list",
+    "items": [
+     "The agent has broad permissions: run it on a separate VPS, away from important data, with minimal permissions.",
+     "Don't put ADMIN_KEY or the repo and Apps Script keys on this machine unless needed.",
+     "Content the agent reads (email, web) can hide malicious instructions. Don't let the agent follow everything it reads.",
+     "Read the Hermes project's security warnings carefully before granting broad permissions."
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Sources"
+   },
+   {
+    "k": "links",
+    "items": [
+     {
+      "t": "OVHcloud VPS (official page, I couldn't open it)",
+      "u": "https://www.ovhcloud.com/en/vps/"
+     },
+     {
+      "t": "OVHcloud VPS USA (VPS-1 to VPS-3 prices)",
+      "u": "https://www.ovhcloud.com/en/vps/vps-usa/"
+     },
+     {
+      "t": "Hermes Agent: Docker docs",
+      "u": "https://hermes-agent.nousresearch.com/docs/user-guide/docker"
+     },
+     {
+      "t": "Hermes Agent: official site",
+      "u": "https://hermes-agent.nousresearch.com/"
+     },
+     {
+      "t": "Contabo: installing Hermes on a VPS",
+      "u": "https://contabo.com/blog/how-to-install-hermes-agent-on-a-vps-2026-step-by-step-guide/"
+     },
+     {
+      "t": "Gizmodo: best VPS for Hermes",
+      "u": "https://gizmodo.com/best-web-hosting/hermes-agent"
+     },
+     {
+      "t": "Hermes Atlas: installing on a VPS",
+      "u": "https://hermesatlas.com/guide/install/vps"
+     },
+     {
+      "t": "VPSBenchmarks: OVHcloud",
+      "u": "https://www.vpsbenchmarks.com/hosters/ovhcloud"
+     }
+    ]
+   }
+  ]
+ },
+ "guide-ai-agent-ecosystem": {
+  "id": "guide-ai-agent-ecosystem",
+  "kho": "ai",
+  "group": "agent",
+  "guide": true,
+  "title": "The AI Agent ecosystem: Codex, Antigravity, Cursor, Copilot, OpenClaw, Hermes…",
+  "type": "Knowledge map",
+  "date": "2026-10-24",
+  "tags": [
+   "ai agent",
+   "openclaw",
+   "hermes",
+   "mcp"
+  ],
+  "thumb": "assets/res/guide-agent-ecosystem.jpg",
+  "note": "Popular agents: Claude Code, Codex, Antigravity, Cursor, Copilot, OpenClaw, Hermes… plus MCP, Skills and frameworks.",
+  "next": {
+   "id": "res-tro-ly-24-365",
+   "label": "Read next: Build a 24/365 assistant (hands-on)"
+  },
+  "sections": [
+   {
+    "k": "p",
+    "t": "This section helps you recognize the names you'll see in AI Agent docs before going deeper. The field moves very fast; info updated 24/10/2026, so open the original pages for the latest version."
+   },
+   {
+    "k": "h",
+    "t": "Personal agents that run on your own machine or server"
+   },
+   {
+    "k": "cards",
+    "items": [
+     {
+      "t": "OpenClaw",
+      "tag": "Open source · MIT",
+      "d": "A personal agent running in the background on your machine, taking commands via WhatsApp, Telegram, Slack…; it can run commands, manage files, control a browser and automate tasks. Former names: Clawdbot, Moltbot; author Peter Steinberger. Note: its permissions are very broad, so run it in an isolated environment and grant access carefully.",
+      "u": "https://en.wikipedia.org/wiki/OpenClaw"
+     },
+     {
+      "t": "Hermes Agent (Nous Research)",
+      "tag": "Open source · MIT",
+      "d": "A self-hosted agent that runs as a background process: persistent memory, writes its own skills from repeated tasks, many chat gateways (Telegram, Discord, Slack, WhatsApp…), scheduled runs, any model you like. Launched around February 2026. You still pay for the model and the server.",
+      "u": "https://hermes-agent.nousresearch.com/"
+     }
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Coding agents"
+   },
+   {
+    "k": "cards",
+    "items": [
+     {
+      "t": "Claude Code",
+      "tag": "Terminal · Anthropic",
+      "d": "An agent that reads and edits code and runs commands in your project folder; supports skills, hooks, MCP and subagents. Also available in IDEs and as a desktop app.",
+      "u": "https://docs.claude.com/en/docs/claude-code"
+     },
+     {
+      "t": "OpenAI Codex",
+      "tag": "Terminal · IDE · Cloud · OpenAI",
+      "d": "OpenAI's coding agent: runs as a CLI, in an IDE, or hands tasks to a cloud version to work on several in parallel so you can review the results.",
+      "u": "https://openai.com/codex/"
+     },
+     {
+      "t": "Google Antigravity",
+      "tag": "IDE agent-first · Google",
+      "d": "A coding environment Google launched in late 2025 with the agent at its center: the agent plans, writes code, runs a browser to test, and leaves “artifacts” (plans, screenshots, recordings) for you to review. Uses Gemini and some other models.",
+      "u": "https://antigravity.google/"
+     },
+     {
+      "t": "Cursor",
+      "tag": "IDE · Anysphere",
+      "d": "A code editor built on VS Code with deep AI integration: chat, multi-file edits, an Agent mode that runs commands and fixes errors itself, plus background agents in the cloud. Lets you choose from many models.",
+      "u": "https://cursor.com/"
+     },
+     {
+      "t": "GitHub Copilot",
+      "tag": "IDE · GitHub · Microsoft",
+      "d": "Started as code suggestions, now has Agent mode in VS Code and a coding agent that takes GitHub issues, creates a branch, writes code and opens a pull request for you to review. Best fit if your team already uses GitHub.",
+      "u": "https://github.com/features/copilot"
+     },
+     {
+      "t": "Gemini CLI",
+      "tag": "Terminal · Google",
+      "d": "Google's open-source command-line agent, in the same group as Claude Code and Codex CLI.",
+      "u": "https://github.com/google-gemini/gemini-cli"
+     },
+     {
+      "t": "Windsurf",
+      "tag": "IDE",
+      "d": "An IDE with an agent (Cascade) that understands the whole project, competing directly with Cursor.",
+      "u": "https://windsurf.com/"
+     },
+     {
+      "t": "Devin",
+      "tag": "AI engineer · Cognition",
+      "d": "An autonomous agent you assign work to like an engineer: it picks up tasks, writes code, tests it and sends back results.",
+      "u": "https://devin.ai/"
+     }
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Standards and building blocks"
+   },
+   {
+    "k": "cards",
+    "items": [
+     {
+      "t": "MCP (Model Context Protocol)",
+      "tag": "Connection standard",
+      "d": "An open standard for connecting agents to tools and data, like a “USB port” for AI. Anthropic announced it in late 2024, and many companies now support it.",
+      "u": "https://modelcontextprotocol.io"
+     },
+     {
+      "t": "Agent Skills",
+      "tag": "Packaged know-how",
+      "d": "A bundle of instructions plus scripts so an agent can redo a task the right way. It's an open standard, just donated to the Agentic AI Foundation (news from 22/10/2026 in AI News).",
+      "u": "https://www.anthropic.com/news/donating-agent-skills-to-the-agentic-ai-foundation"
+     }
+    ]
+   },
+   {
+    "k": "h",
+    "t": "General-purpose agents (no coding needed)"
+   },
+   {
+    "k": "cards",
+    "items": [
+     {
+      "t": "ChatGPT Agent, Claude, Gemini (agent mode)",
+      "tag": "Upgraded chatbots",
+      "d": "Turn on tools, browse the web, run code and read files right in the app you already use for multi-step work. The easiest place to start.",
+      "u": ""
+     },
+     {
+      "t": "Manus",
+      "tag": "General-purpose agent",
+      "d": "A cloud agent that takes a goal, then researches, writes reports, builds web pages and sends back the results on its own.",
+      "u": "https://manus.im/"
+     }
+    ]
+   },
+   {
+    "k": "h",
+    "t": "AI automation with little or no code"
+   },
+   {
+    "k": "cards",
+    "items": [
+     {
+      "t": "n8n, Make, Zapier",
+      "tag": "Workflow",
+      "d": "Connect apps with drag-and-drop workflows and add AI steps. Good for “fixed workflow” level tasks, easy to control, beginner-friendly.",
+      "u": "https://n8n.io"
+     }
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Frameworks for developers"
+   },
+   {
+    "k": "cards",
+    "items": [
+     {
+      "t": "LangGraph",
+      "tag": "Framework",
+      "d": "Build agents as state graphs, with control over flow and memory.",
+      "u": "https://www.langchain.com/langgraph"
+     },
+     {
+      "t": "CrewAI",
+      "tag": "Multi-agent",
+      "d": "Organize several role-based agents to work together.",
+      "u": "https://www.crewai.com"
+     },
+     {
+      "t": "AutoGen",
+      "tag": "Multi-agent",
+      "d": "Microsoft's framework for agents to talk to and coordinate with each other.",
+      "u": "https://microsoft.github.io/autogen/"
+     }
+    ]
+   },
+   {
+    "k": "h",
+    "t": "What to pick when starting out"
+   },
+   {
+    "k": "list",
+    "items": [
+     "Can't code yet and want to try first: use workflows (n8n, Zapier) or the tool modes in ChatGPT, Claude, Gemini.",
+     "Want your own assistant running 24/365: read the “Build a 24/365 assistant” doc, then try OpenClaw or Hermes on a separate machine with test data, not real data yet.",
+     "Can code: Claude Code, Codex, Cursor, Copilot or Antigravity (combined with MCP and Skills), or a framework like LangGraph. Try one tool for a week before switching."
+    ]
+   },
+   {
+    "k": "callout",
+    "t": "For open-source agents with broad permissions like OpenClaw or Hermes: run them on a separate machine or server, away from important data, grant minimal permissions and read the project's security warnings carefully before use."
+   },
+   {
+    "k": "h",
+    "t": "References"
+   },
+   {
+    "k": "links",
+    "items": [
+     {
+      "t": "OpenClaw (Wikipedia)",
+      "u": "https://en.wikipedia.org/wiki/OpenClaw"
+     },
+     {
+      "t": "Taskade: History of OpenClaw, Clawdbot, Moltbot",
+      "u": "https://www.taskade.com/blog/moltbook-clawdbot-openclaw-history"
+     },
+     {
+      "t": "Hermes Agent: official site",
+      "u": "https://hermes-agent.nousresearch.com/"
+     },
+     {
+      "t": "Hermes Agent on GitHub",
+      "u": "https://github.com/nousresearch/hermes-agent"
+     },
+     {
+      "t": "Width.ai: What is the Hermes AI Agent",
+      "u": "https://www.width.ai/post/what-is-hermes-ai-agent"
+     }
+    ]
+   }
+  ]
+ },
+ "tool-facebook-cli": {
+  "id": "tool-facebook-cli",
+  "kho": "tool",
+  "guide": true,
+  "date": "2026-10-27",
+  "title": "facebook-cli (fb): Facebook and Messenger for AI agents",
+  "type": "Repo GitHub",
+  "badge": "Repo",
+  "tags": [
+   "facebook",
+   "messenger",
+   "cli",
+   "rust"
+  ],
+  "thumb": "assets/res/tool-facebook-cli.jpg",
+  "note": "A single-file Rust CLI that drives your Chrome already logged in to Facebook: read the feed, profiles, friends, search; read and send Messenger messages; post, comment, react, delete. Compact output for AI agents. MIT license.",
+  "cta": {
+   "title": "hieu-lee/facebook-cli",
+   "url": "https://github.com/hieu-lee/facebook-cli",
+   "btn": "Open the GitHub repo"
+  },
+  "sections": [
+   {
+    "k": "callout",
+    "t": "fb is a command-line tool for AI agents (and you) to use Facebook and Messenger. It drives a headless Chrome already logged in to your account and returns data as compact text lines to save tokens."
+   },
+   {
+    "k": "h",
+    "t": "Repo info"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Item",
+     "Details"
+    ],
+    "rows": [
+     [
+      "Author",
+      "hieu-lee"
+     ],
+     [
+      "URL",
+      "github.com/hieu-lee/facebook-cli"
+     ],
+     [
+      "Command name",
+      "fb"
+     ],
+     [
+      "Language",
+      "Rust (the page-control part is written in JavaScript)"
+     ],
+     [
+      "Version",
+      "0.1.5 (per Cargo.toml when I read it, latest commit 26/10/2026)"
+     ],
+     [
+      "License",
+      "MIT (with an Apache 2.0 notice for part of the macOS key handling)"
+     ],
+     [
+      "OS",
+      "Linux, macOS, Windows (native or WSL2)"
+     ],
+     [
+      "Requirements",
+      "Google Chrome installed and logged in to Facebook in your everyday Chrome"
+     ]
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Highlights"
+   },
+   {
+    "k": "list",
+    "items": [
+     "A background process keeps the Chrome connection; each command runs in its own tab, so they can run in parallel (fb batch).",
+     "Chrome runs headless: no window, no stolen focus. The login session is copied once into fb's own Chrome profile.",
+     "Minimal output: tab-separated lines, no headers, 5-character reference codes (p3k9a, c8x2f…) reusable across all commands.",
+     "fb help is only about 450 tokens, good for AI agents to read quickly.",
+     "Recognizes the post, audience and delete buttons by their English, Vietnamese and French labels."
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Install (3 steps)"
+   },
+   {
+    "k": "code",
+    "cap": "Linux, macOS, WSL",
+    "t": "curl -fsSL https://raw.githubusercontent.com/hieu-lee/facebook-cli/main/install.sh | sh"
+   },
+   {
+    "k": "code",
+    "cap": "Windows (PowerShell)",
+    "t": "irm https://raw.githubusercontent.com/hieu-lee/facebook-cli/main/install.ps1 | iex"
+   },
+   {
+    "k": "code",
+    "cap": "Log in once, then try it",
+    "t": "fb login        # copy the Facebook session from your everyday Chrome, click Allow once\nfb feed -n 3\nfb help"
+   },
+   {
+    "k": "p",
+    "t": "My tip: before running a curl | sh style install command, open install.sh on GitHub and read through it once."
+   },
+   {
+    "k": "h",
+    "t": "Main commands"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Group",
+     "Command",
+     "What it does"
+    ],
+    "rows": [
+     [
+      "Read",
+      "fb feed, posts, view, profile, friends, search, notifs",
+      "View the feed, posts from a person or page, comments, profiles, friends, search, notifications"
+     ],
+     [
+      "Messenger",
+      "fb chats, read, send, unsend, unlock",
+      "Chat list, read messages, send messages and files (up to 25MB), unsend messages, unlock end-to-end encrypted chats with a PIN"
+     ],
+     [
+      "Actions",
+      "fb post, comment, react, delete",
+      "Post (with images, choose audience), comment, react, delete your own posts (to Trash)"
+     ],
+     [
+      "Other",
+      "fb batch, login, status, stop, quit, eval, shot, ax",
+      "Run several commands in parallel, manage sessions, run JS, take screenshots, view the accessibility tree"
+     ],
+     [
+      "Any page",
+      "fb page NAME open, snapshot, click, fill, key, shot",
+      "Do anything on a named page (settings, group admin…) without dumping the whole DOM"
+     ]
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Config variables"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Variable",
+     "Meaning"
+    ],
+    "rows": [
+     [
+      "FB_TIMEOUT",
+      "Max seconds per command (default 150)"
+     ],
+     [
+      "FB_TABS",
+      "Number of command tabs running at once (default 10, named pages max 6)"
+     ],
+     [
+      "FB_IDLE",
+      "Auto-exit after this many idle seconds (default 900) and close Chrome"
+     ],
+     [
+      "FB_PROFILE / FB_STATE",
+      "Chrome profile folder and state folder (default under ~/.cache/fb)"
+     ],
+     [
+      "FB_CDP",
+      "Use a Chrome you open yourself with a debugging port instead of the headless one"
+     ]
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Important notes before use"
+   },
+   {
+    "k": "list",
+    "items": [
+     "Facebook's terms restrict automated access. Only use it on your own account, at a human-like pace, and accept the risk of account restrictions. This is the repo README's own assessment.",
+     "Login cookies live in the ~/.cache/fb profile (or %LOCALAPPDATA%\\fb on Windows). Anyone who can read this folder can use your session, so treat it like a password.",
+     "The headless Chrome is controlled via the DevTools protocol on a random 127.0.0.1 port with no authentication. Only use it on a personal machine, not a shared one.",
+     "Post, comment, send and delete commands are real actions on your account. With an AI agent, try read-only mode first and require confirmation before posting or sending.",
+     "Facebook's interface can change at any time, so the tool may need updates. The repo states clearly that not every feature is guaranteed to be tested.",
+     "End-to-end encrypted chats need your Messenger PIN: pass it via the FB_PIN variable or stdin, not as a command argument."
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Ideas for using it in the Library"
+   },
+   {
+    "k": "list",
+    "items": [
+     "Have an AI agent read and summarize messages, notifications and posts in the marketing groups you follow.",
+     "Draft posts with AI, then use fb post ... --to me to test-post as Only me before going public.",
+     "Pair with the AI Agent courses (Agent Boss, KesFlow) in the Library to build a fanpage management assistant."
+    ]
+   },
+   {
+    "k": "links",
+    "items": [
+     {
+      "t": "Repo GitHub hieu-lee/facebook-cli",
+      "u": "https://github.com/hieu-lee/facebook-cli"
+     },
+     {
+      "t": "Install page (install.sh)",
+      "u": "https://github.com/hieu-lee/facebook-cli/blob/main/install.sh"
+     },
+     {
+      "t": "Failures and commitments doc (tests/FAILURES.md)",
+      "u": "https://github.com/hieu-lee/facebook-cli/blob/main/tests/FAILURES.md"
+     }
+    ]
+   },
+   {
+    "k": "p",
+    "t": "Info taken from the repo's README, LICENSE and Cargo.toml (read on 27/10/2026). I haven't tried this tool yet. Stars, downloads and release history not checked."
+   }
+  ]
+ },
+ "edit-quay-co-ban": {
+  "id": "edit-quay-co-ban",
+  "kho": "edit",
+  "group": "quay",
+  "guide": true,
+  "date": "2026-10-28",
+  "title": "Filming basics: shot sizes, camera angles, lighting, gear",
+  "type": "Guide",
+  "badge": "Quay",
+  "tags": [
+   "quay",
+   "góc máy",
+   "ánh sáng",
+   "gimbal"
+  ],
+  "thumb": "assets/res/edit-quay-co-ban.jpg",
+  "note": "Shot sizes, camera angles, the rule of thirds, 3-point lighting and reflectors, basic gear and a pre-shoot checklist.",
+  "sections": [
+   {
+    "k": "callout",
+    "t": "Sources: university video production guides and roundup articles on the web (see the end of this card). One is a 2008 checklist, so I only took the principles, not the old gear names. Most Vietnamese articles I found only covered gimbals and mics, so the angles and lighting parts come from English sources."
+   },
+   {
+    "k": "h",
+    "t": "1. Shot sizes and camera angles"
+   },
+   {
+    "k": "p",
+    "t": "Cover all the shot sizes: wide shots for information, close shots for emotion. Also shoot B-roll and cutaways so you have something to insert when editing, especially for interviews."
+   },
+   {
+    "k": "table",
+    "head": [
+     "Shot size",
+     "Camera angle"
+    ],
+    "rows": [
+     [
+      "Wide",
+      "Eye-level"
+     ],
+     [
+      "Medium (trung)",
+      "Low (looking up)"
+     ],
+     [
+      "Close-up",
+      "High (looking down)"
+     ],
+     [
+      "Extreme close-up",
+      "Hip-level, ground-level"
+     ],
+     [
+      "Over-the-shoulder (qua vai), POV",
+      "Dutch (tilted), bird's-eye (from above)"
+     ]
+    ]
+   },
+   {
+    "k": "h",
+    "t": "2. Composition: the rule of thirds"
+   },
+   {
+    "k": "p",
+    "t": "Split the frame with 2 horizontal and 2 vertical lines and place the subject on a line or intersection. It's a guideline, not a hard rule, so break it when the shot needs it. Many cameras have a built-in grid to make this easy."
+   },
+   {
+    "k": "h",
+    "t": "3. Lighting: 3-point lighting and reflectors"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Light",
+     "Where to place it",
+     "What it does"
+    ],
+    "rows": [
+     [
+      "Key (main)",
+      "About 45 degrees in front of the subject",
+      "Main light source"
+     ],
+     [
+      "Fill",
+      "Opposite the key, about half its intensity",
+      "Softens shadows"
+     ],
+     [
+      "Back",
+      "Behind the subject",
+      "Separates the subject from the background"
+     ]
+    ]
+   },
+   {
+    "k": "list",
+    "items": [
+     "No fill light yet? Use a reflector or a white card instead, per the checklist.",
+     "Avoid strong light right behind the subject, as it easily turns them dark or into a silhouette.",
+     "Set white balance to match the light source, such as daylight or tungsten."
+    ]
+   },
+   {
+    "k": "h",
+    "t": "4. Basic gear"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Gear",
+     "Notes"
+    ],
+    "rows": [
+     [
+      "Tripod",
+      "Use one whenever you can; handheld is harder to keep steady than it feels"
+     ],
+     [
+      "Basic light kit or reflector",
+      "The minimum lighting kit per the checklists"
+     ],
+     [
+      "External mic",
+      "Check audio levels before shooting. A directional mic picks up sound in front clearly and cuts surrounding noise. Use a windscreen outdoors"
+     ],
+     [
+      "Gimbal (phone)",
+      "Stabilizes with motors and sensors, helps with tricky shots like POV and 360-degree rotation. Check phone compatibility and decide what you'll shoot before buying"
+     ],
+     [
+      "Charged batteries, script or shot list",
+      "Prepare before getting to the location"
+     ]
+    ]
+   },
+   {
+    "k": "h",
+    "t": "5. Before you hit record"
+   },
+   {
+    "k": "steps",
+    "items": [
+     {
+      "t": "Scout the location",
+      "d": "Check the light and noise."
+     },
+     {
+      "t": "Prepare a script or shot list",
+      "d": "List the shot sizes and angles you need."
+     },
+     {
+      "t": "Check batteries, memory cards, audio",
+      "d": "Test audio levels before shooting."
+     },
+     {
+      "t": "Set white balance and turn on the grid",
+      "d": "Match the light source, turn on the rule-of-thirds grid."
+     },
+     {
+      "t": "Shoot extra B-roll and 20 seconds of room tone",
+      "d": "Room tone helps you get cleaner audio in the edit."
+     }
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Not covered in this card"
+   },
+   {
+    "k": "list",
+    "items": [
+     "Specific camera settings (aperture, ISO, shutter speed, fps).",
+     "Comparisons or prices of specific gear (lights, gimbals, mics).",
+     "Phone-specific filming and natural light."
+    ]
+   },
+   {
+    "k": "p",
+    "t": "Send me more material or tell me which part you'd like expanded, and I'll research and add it."
+   },
+   {
+    "k": "h",
+    "t": "References"
+   },
+   {
+    "k": "links",
+    "items": [
+     {
+      "t": "Camera Composition (Saskoer)",
+      "u": "https://www.saskoer.ca/videoproduction/chapter/camera-composition/"
+     },
+     {
+      "t": "Video Production Basics (UVM)",
+      "u": "https://epscor.w3.uvm.edu/pdf/media_tool_kit/Video_Production_Basics.pdf"
+     },
+     {
+      "t": "Video Creation 101 (York University)",
+      "u": "https://www.library.yorku.ca/ds/wp-content/uploads/2023/03/Video-Creation-101_S.pdf"
+     },
+     {
+      "t": "How to use a gimbal (FPT Shop)",
+      "u": "https://fptshop.com.vn/tin-tuc/danh-gia/cach-su-dung-gimbal-163910"
+     },
+     {
+      "t": "Do you need a gimbal for filming video? (FPT Shop)",
+      "u": "https://fptshop.com.vn/tin-tuc/for-gamers/gimbal-co-can-thiet-khi-quay-video-khong-210729"
+     }
+    ]
+   }
+  ]
+ },
+ "knowledge-marketing-project-k22": {
+  "id": "knowledge-marketing-project-k22",
+  "kho": "knowledge",
+  "group": "mkproject",
+  "guide": true,
+  "date": "2026-10-27",
+  "title": "Marketing Project: Marketing Management major subjects, K22 (UFM)",
+  "type": "Marketing Project",
+  "badge": "Project",
+  "tags": [
+   "marketing project",
+   "ufm",
+   "marketing management",
+   "k22"
+  ],
+  "thumb": "assets/res/knowledge-marketing-project.jpg",
+  "note": "Index of 22 subject and project folders from the Marketing Management major, K22 (2022 - 2026) at UFM, with a link to each folder.",
+  "ctas": [
+   {
+    "btn": "Open the Marketing Project folder",
+    "url": "https://drive.google.com/drive/folders/1gcrVxe75oPg2An8LAdWPxTVWBYAoygan"
+   }
+  ],
+  "ctasTitle": "Marketing Project · K22 (UFM)",
+  "sections": [
+   {
+    "k": "callout",
+    "t": "The Marketing Project library holds 22 subject and project folders from the Marketing Management major, cohort K22 (2022 - 2026) at UFM. Click a subject name to open its folder on Google Drive."
+   },
+   {
+    "k": "h",
+    "t": "Index of 22 folders"
+   },
+   {
+    "k": "links",
+    "items": [
+     {
+      "t": "1. MARKETING ETHICS",
+      "u": "https://drive.google.com/drive/folders/1dBVSkw2c1uWqo0fpGRFQHfWeg0JzV8GN"
+     },
+     {
+      "t": "2. MARKETING RESEARCH",
+      "u": "https://drive.google.com/drive/folders/1Umw54wbfBg0_FHtz-GZ9sQxaRICNSJHB"
+     },
+     {
+      "t": "3. CONSUMER BEHAVIOR",
+      "u": "https://drive.google.com/drive/folders/1Nn3rauXbECnuS86eVuNWLLBqExlB00Ne"
+     },
+     {
+      "t": "4. SERVICES MARKETING",
+      "u": "https://drive.google.com/drive/folders/1ZAAfFcsMIdT8ZRBL2ozP4BGVEuCu3nVS"
+     },
+     {
+      "t": "5. MARKETING MANAGEMENT",
+      "u": "https://drive.google.com/drive/folders/1A5LFWTRXVpoLgpaOq5I_McjUDeg8iid-"
+     },
+     {
+      "t": "6. INTERNATIONAL MARKETING",
+      "u": "https://drive.google.com/drive/folders/1xeK9Zq7iQEUCSnEiyosvb-elzLdAS2Pt"
+     },
+     {
+      "t": "7. STRATEGIC MARKETING",
+      "u": "https://drive.google.com/drive/folders/1Ih0SKSb0_uC1pnIgtgj9Zo3Ul13pCu0G"
+     },
+     {
+      "t": "8. THNN1",
+      "u": "https://drive.google.com/drive/folders/1C-u28wBtcC03mY3JlKJ2-vleXDCS96VB"
+     },
+     {
+      "t": "9. PRODUCT MANAGEMENT",
+      "u": "https://drive.google.com/drive/folders/1MrrT5DvLe92qNxRShriidfDi8AB3EOAa"
+     },
+     {
+      "t": "10. PROMOTION MANAGEMENT",
+      "u": "https://drive.google.com/drive/folders/1r28vkjj3fCR3oOY6V2DWc9Ed0dZ4ibRq"
+     },
+     {
+      "t": "11. MARKETING METRICS",
+      "u": "https://drive.google.com/drive/folders/1qU2KBQH2DRsmX0rb6KcgF1qqIgUsPikt"
+     },
+     {
+      "t": "12. BUSINESS-TO-BUSINESS MARKETING",
+      "u": "https://drive.google.com/drive/folders/12sTinPtTYV1yjgSp4NE2YE9_eGz05utF"
+     },
+     {
+      "t": "13. OUTSOURCES",
+      "u": "https://drive.google.com/drive/folders/1B1tIsAXc8WxYqdJo-XWFONGqMMk9PrzE"
+     },
+     {
+      "t": "14. DISTRIBUTION CHANNEL MANAGEMENT",
+      "u": "https://drive.google.com/drive/folders/1t_kbOkMWB-F4Fl_--Lqwzxre98vR0Ucz"
+     },
+     {
+      "t": "15. SOCIAL MARKETING",
+      "u": "https://drive.google.com/drive/folders/1LwneASbUQXSCtP1_zqgXJGBP7PKkuUdw"
+     },
+     {
+      "t": "16. ENTREPRENEURSHIP & INNOVATION",
+      "u": "https://drive.google.com/drive/folders/1lWHOBbJud9d9HJhy78-yI3qUPHQWiQaD"
+     },
+     {
+      "t": "17. MARKETING PLANNING",
+      "u": "https://drive.google.com/drive/folders/1tAXIIKUYvEmRj_N4vZoYwTe4Qi_6I8Sb"
+     },
+     {
+      "t": "18. THNN2",
+      "u": "https://drive.google.com/drive/folders/1M4PIE3MXGMvXRmsAy06agnNZyPgBe6tH"
+     },
+     {
+      "t": "19. PRICING MANAGEMENT",
+      "u": "https://drive.google.com/drive/folders/1XYIApok4Vw-177gExn1xulgEOC0p5Q9f"
+     },
+     {
+      "t": "20. EXPERIENTIAL MARKETING",
+      "u": "https://drive.google.com/drive/folders/1wRZLA_GcRl1OVa4VwPjbN2MrIt1viY23"
+     },
+     {
+      "t": "21. TRADE MARKETING",
+      "u": "https://drive.google.com/drive/folders/1FYBWR8VufrKXGtLf-gDh4qTNEoyTwnYm"
+     },
+     {
+      "t": "22. KLTN",
+      "u": "https://drive.google.com/drive/folders/1zLYNb7kS7bp7ZTYAq7TPnRHJnJ26jI0q"
+     }
+    ]
+   },
+   {
+    "k": "p",
+    "t": "Ordered by folder creation date on Drive, oldest to newest (roughly the order I studied them). Subject names follow the folder names, translated here. THNN1, THNN2 and KLTN are folder abbreviations without full names yet. If Drive says “You need access”, sign in with the account the folder was shared with."
+   }
+  ]
+ },
+ "tool-social-aio": {
+  "kho": "tool",
+  "guide": true,
+  "date": "2026-10-24",
+  "id": "tool-social-aio",
+  "title": "Social AIO: a Chrome extension for managing social media",
+  "type": "Chrome extension",
+  "badge": "Extension",
+  "tags": [
+   "chrome",
+   "extension",
+   "mạng xã hội",
+   "facebook"
+  ],
+  "thumb": "assets/res/tool-social-aio.jpg",
+  "note": "A toolbox in Chrome: download photos/videos, export comments, bulk-clean posts and friend lists, block seen receipts, lock pages with a password.",
+  "cta": {
+   "title": "Social AIO on the Chrome Web Store",
+   "url": "https://chromewebstore.google.com/detail/ncncagnhhigemlgiflfgdhcdpipadmmm",
+   "btn": "Open on the Chrome Web Store"
+  },
+  "sections": [
+   {
+    "k": "callout",
+    "t": "The extension acts on the social media accounts you're logged in to. Bulk actions (deleting posts, unfriending, unfollowing…) are hard to undo and may break platform terms. Try on a few items first and review the permissions list when installing."
+   },
+   {
+    "k": "h",
+    "t": "What it is"
+   },
+   {
+    "k": "p",
+    "t": "Social AIO (formerly FB AIO, Tools category on the Chrome Web Store, version 2.1, updated 31/7/2026) is a toolbox that bundles many social media management tasks into one extension. Per the store page, it has about 30,000 users and a 5.0 rating from about 2.8 thousand reviews. The developer states it isn't affiliated with any social media platform."
+   },
+   {
+    "k": "h",
+    "t": "Main features (per the store page)"
+   },
+   {
+    "k": "cards",
+    "items": [
+     {
+      "t": "Save and export",
+      "tag": "Data",
+      "d": "Download photos and videos; export a post's comments and reactions; save media from Instagram, Threads, TikTok; export your list of subscribed YouTube channels."
+     },
+     {
+      "t": "Post management",
+      "tag": "Bulk",
+      "d": "Change privacy, delete or archive many posts at once, with search and filters."
+     },
+     {
+      "t": "Messages",
+      "tag": "Conversations",
+      "d": "Review conversations, find the first message, download chats."
+     },
+     {
+      "t": "Connections",
+      "tag": "Friends",
+      "d": "Track changes in your friend list, rank interaction levels, bulk unfriend, unfollow, unlike."
+     },
+     {
+      "t": "Privacy",
+      "tag": "Protection",
+      "d": "Block story seen and message read receipts, strip tracking parameters from links, lock some pages with a password stored on your machine."
+     },
+     {
+      "t": "Clean up the feed",
+      "tag": "Utilities",
+      "d": "Hide feed blocks, pause auto-refresh, track time spent on each website, add video controls on Facebook."
+     }
+    ]
+   },
+   {
+    "k": "h",
+    "t": "How to use"
+   },
+   {
+    "k": "steps",
+    "items": [
+     {
+      "t": "Install",
+      "d": "Open the extension page on the Chrome Web Store, click Add to Chrome and read the requested permissions."
+     },
+     {
+      "t": "Log in to social media as usual",
+      "d": "The extension works on the pages you have open, so log in to the account you want to manage first."
+     },
+     {
+      "t": "Test first",
+      "d": "Try a task on a few items (one post, a few people) to see the result before doing it in bulk."
+     },
+     {
+      "t": "Need help",
+      "d": "The store page links to the developer's support site (fbaio.org) and GitHub issues."
+     }
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Use it for the right things"
+   },
+   {
+    "k": "list",
+    "items": [
+     "Good for: backing up your own content, cleaning up a personal account, more privacy, tracking how much time you spend.",
+     "Be careful: bulk actions on accounts used for work, ads or fanpages. Going too fast can trigger the platform's anti-bot checks.",
+     "Don't use it to download or repost other people's content without permission.",
+     "The extension can read the social media pages you open: only install from the official store, keep an eye on updates and remove it if you no longer use it."
+    ]
+   },
+   {
+    "k": "p",
+    "t": "The description and privacy commitments above are the developer's own words on the store page, not independently verified."
+   }
+  ]
+ },
+ "vukp-kesflow-k1": {
+  "id": "vukp-kesflow-k1",
+  "kho": "knowledge",
+  "group": "vuonuom",
+  "guide": true,
+  "date": "2026-10-28",
+  "title": "VUKP x KESFLOW: Build a personal AI Agent assistant (K1)",
+  "type": "Course",
+  "badge": "Full videos",
+  "tags": [],
+  "thumb": "assets/res/vukp-kesflow-k1.jpg",
+  "note": "Vườn Ươm Khu Phố x KesFlow · Instructor Hưng Kescy · 7 sessions, checked on Drive: every session has a recording.",
+  "ctas": [
+   {
+    "btn": "Videos and materials",
+    "url": "https://drive.google.com/drive/folders/18eDZCOA5MQC4HKYPrN4q-IVJz_ssPGXS"
+   },
+   {
+    "btn": "Full course recap",
+    "url": "https://drive.google.com/drive/folders/1tzx7Gw6gTeU9kInclXFrzOqskdFaUwhx"
+   }
+  ],
+  "ctasTitle": "VUKP x KESFLOW: Build a personal AI Agent assistant (K1)",
+  "sections": [
+   {
+    "k": "callout",
+    "t": "A 7-session course by Vườn Ươm Khu Phố x KesFlow, taught by Hưng Kescy. I checked the Google Drive folder on 28/10/2026: all 7 sessions have a recording. This is different from TA03 (a separate KesFlow course, not merged here)."
+   },
+   {
+    "k": "h",
+    "t": "Sessions"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Session",
+     "Content",
+     "Materials on Drive"
+    ],
+    "rows": [
+     [
+      "Session 1",
+      "Mindset, Memory and Toolset (per the recap in the session 4 slides)",
+      "Record"
+     ],
+     [
+      "Session 2",
+      "Skillset: packaging workflows into Skills",
+      "Record, slide"
+     ],
+     [
+      "Session 3",
+      "Cowork: an AI team, AI working directly on your computer, calling Subagents",
+      "Record, slide"
+     ],
+     [
+      "Session 4",
+      "Knowledge Base: a company knowledge base, NotebookLM and Deep Research",
+      "Recording, slides, NotebookLM intro video, Zoom chat"
+     ],
+     [
+      "Session 5",
+      "Session title unknown (Drive also has the kf-cl-design-init skill)",
+      "Record, file kf-cl-design-init.zip"
+     ],
+     [
+      "Session 6",
+      "Session title unknown",
+      "Record, chat Zoom"
+     ],
+     [
+      "Session 7",
+      "Session title unknown",
+      "Record"
+     ]
+    ]
+   },
+   {
+    "k": "p",
+    "t": "Titles for sessions 1 to 4 come from the slides and the recaps in them. I haven't been able to read sessions 5, 6 and 7 yet, so no titles. The slides say 6 sessions in total, but Drive has 7 folders, so I count it as 7 sessions."
+   },
+   {
+    "k": "h",
+    "t": "Other folders in the course"
+   },
+   {
+    "k": "list",
+    "items": [
+     "FULL COURSE RECAP: the folder exists, I haven't seen any files inside.",
+     "DASHBOARD, FEEDBACK + AUTOMAIL SETUP, GRADUATION GIFT: on Drive, contents not checked.",
+     "The shortcut INFORMATION MANAGEMENT | Build a personal AI Agent assistant K1 shows the course name in the system is 'Build a personal AI Agent assistant K1'."
+    ]
+   },
+   {
+    "k": "h",
+    "t": "What the course teaches (per the session slides I've read)"
+   },
+   {
+    "k": "list",
+    "items": [
+     "The three pieces of an AI coworker: Mindset (Instruction and Memory), Toolset (Connector, MCP), Skillset (Skills).",
+     "Session 2: a skill is the recipe, tools are the utensils. A skill is a folder with SKILL.md as the entry point, plus references and scripts when needed.",
+     "Session 3: Claude Cowork works directly on real files on your machine and runs several agents in parallel with Subagents. Three common mistakes when packaging a skill: no completion criteria, duplicated content, mixing human-facing docs into the skill.",
+     "Session 4: three ways AI looks up information (training data, web search, Deep Research) and using NotebookLM as an always-on knowledge base."
+    ]
+   },
+   {
+    "k": "p",
+    "t": "The course recap will be added when available."
+   }
+  ]
+ },
+ "queue-other-academies": {
+  "id": "queue-other-academies",
+  "kho": "knowledge",
+  "group": "queue",
+  "guide": true,
+  "date": "2026-10-27",
+  "title": "Other academies: courses in the queue",
+  "type": "Queued course",
+  "badge": "Not started",
+  "tags": [
+   "pmax",
+   "excel",
+   "content"
+  ],
+  "thumb": "assets/res/queue-other-academies.jpg",
+  "note": "Courses from PMAX, AIM, No More Lies, Gigan, Kind Content, Nghề Excel, Hợp tác xã Chị Em and a few standalone courses, waiting to be scheduled.",
+  "sections": [
+   {
+    "k": "callout",
+    "t": "Courses set up on Notion with status “Not started”. Each item is a course; click to open its Drive folder."
+   },
+   {
+    "k": "h",
+    "t": "Data and tools"
+   },
+   {
+    "k": "links",
+    "items": [
+     {
+      "t": "Nghề Excel: Excel x Dashboard (Mr. Lã Văn Toàn)",
+      "u": "https://drive.google.com/drive/folders/1SKf1ZiN4VxxJS-_SKukIGmxlieYv7V_2"
+     },
+     {
+      "t": "Power BI (academy not noted)",
+      "u": "https://drive.google.com/drive/folders/1hK6teIctIdWubLFItKMmNTvxYsSGvjSg"
+     }
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Performance and research"
+   },
+   {
+    "k": "links",
+    "items": [
+     {
+      "t": "PMAX Academy: Digital Performance Management",
+      "u": "https://drive.google.com/drive/folders/1yivBN4EpxLZfDNRzFTtIIEWtmjtJUUeH"
+     },
+     {
+      "t": "AIM Academy: Credible Market Research for marketers (link from Notion, third-party page)",
+      "u": "https://khoahocre.com/khoa-hoc/khoa-hoc-aim-academy-market-research-uy-tin-danh-cho-marketer/bai-hoc/buoi-1-research-101/"
+     },
+     {
+      "t": "Gigan Training Center: Performance Content, optimizing ad content (Ms. Hảo Nguyễn)",
+      "u": "https://drive.google.com/drive/folders/11t81LpnlBNyPl41QrfxNBDbLHlpvNx5G"
+     }
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Content and creative"
+   },
+   {
+    "k": "links",
+    "items": [
+     {
+      "t": "Content Marketing: No Viral No Money (Mr. Nguyễn Đức Dương)",
+      "u": "https://drive.google.com/drive/folders/1nZMB9C_NH64Gvfp-fXfiDq-K-kdYARom"
+     },
+     {
+      "t": "Kind Content: Content Marketing Foundations for beginners",
+      "u": "https://drive.google.com/drive/folders/1PuKOrnBq3FSQpCTD_4vOuCPhkTva19Vv"
+     },
+     {
+      "t": "The highest-quality content (Mr. Phùng Thái Học)",
+      "u": "https://drive.google.com/drive/folders/1i31I2QcfOEP1k5u-B1W2LechJVhIGSy5"
+     },
+     {
+      "t": "No More Lies: Creative Fundamentals",
+      "u": "https://drive.google.com/drive/folders/1YseuPMgKlvBpgWlP-JTM1PndJybSMQYU"
+     },
+     {
+      "t": "No More Lies: Marketing Cases and Contest Preparation",
+      "u": "https://drive.google.com/drive/folders/12yhUhxxq9-Pl5lnhQEblk1GNBK0C3j02"
+     }
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Hợp tác xã Chị Em"
+   },
+   {
+    "k": "links",
+    "items": [
+     {
+      "t": "UGC for Affiliate (several instructors: Ms. Lê Mỡ, Mr. Phan Anh, Ms. Hoàng Chi, KOC Khoa Thích Đi, an MCN manager as guest)",
+      "u": "https://drive.google.com/drive/folders/10liTjjnOiedFVXHBKX07t9pY8ZgbVTge"
+     }
+    ]
+   },
+   {
+    "k": "p",
+    "t": "Last time I checked, the UGC for Affiliate folder was empty. The other folders' contents haven't been checked."
+   }
+  ]
+ },
+ "queue-brandcamp": {
+  "id": "queue-brandcamp",
+  "kho": "knowledge",
+  "group": "queue",
+  "guide": true,
+  "date": "2026-10-27",
+  "title": "BrandCamp: 12 courses in the queue",
+  "type": "Queued course",
+  "badge": "Not started",
+  "tags": [
+   "brand marketing"
+  ],
+  "thumb": "assets/res/queue-brandcamp.jpg",
+  "note": "12 Brand Marketing courses set up on Notion, not yet scheduled. Click a course name to open its Drive folder.",
+  "sections": [
+   {
+    "k": "callout",
+    "t": "The BrandCamp courses are set up for studying and note-taking on Notion, status “Not started”."
+   },
+   {
+    "k": "h",
+    "t": "List of 12 courses (Google Drive)"
+   },
+   {
+    "k": "links",
+    "items": [
+     {
+      "t": "1. Marketing Fundamentals: the role of Brand Marketing",
+      "u": "https://drive.google.com/drive/folders/1SqD-9wMij3abehvhf5Yo9E_9nYVlH7Cy"
+     },
+     {
+      "t": "2. Brand Planning: strategy and planning",
+      "u": "https://drive.google.com/drive/folders/1Wcby-jHbN0WZNIZGzGtFC6lFWqzjBpzH"
+     },
+     {
+      "t": "3. Brand Communication: advertising and communications",
+      "u": "https://drive.google.com/drive/folders/12zN2eNOuVNQYBp7eQNFbKnEShGzJ6jRs"
+     },
+     {
+      "t": "4. Brand Activation (Mr. Nguyễn Quang Hiệp)",
+      "u": "https://drive.google.com/drive/folders/1QzABl8oKIJQ8XYLONfab4qPUIWqJob7R"
+     },
+     {
+      "t": "5. Brand Innovation: product improvement (Mr. Nguyễn Quang Hiệp)",
+      "u": "https://drive.google.com/drive/folders/1M8n8Mvv8y3s1d1hI00m5Wto7b_f4hIKn"
+     },
+     {
+      "t": "6. Consumer Understanding: identifying and truly understanding users",
+      "u": "https://drive.google.com/drive/folders/1TyChkb64UGXM56SZworD9xq0MoszCkHp"
+     },
+     {
+      "t": "7. Creative and Advertising",
+      "u": "https://drive.google.com/drive/folders/1ypGZsVAnjbgW8FlSeCHBX57sbN6tIutM"
+     },
+     {
+      "t": "8. Digital Marketing: speeding up marketing in the digital age",
+      "u": "https://drive.google.com/drive/folders/13nTlW_i8hPct2EeQHVFiEgHKcbrTIgbl"
+     },
+     {
+      "t": "9. Tracking and Measurement",
+      "u": "https://drive.google.com/drive/folders/1ABqv_tHTMUkW_rG0q96gD7_Hnr08eX6x"
+     },
+     {
+      "t": "10. Trade Marketing",
+      "u": "https://drive.google.com/drive/folders/17sTYo8KW7ynTstQGTfn3_ZBF9Y6ReEB5"
+     },
+     {
+      "t": "11. Hospitality, Retail and F&B Business",
+      "u": "https://drive.google.com/drive/folders/1vgjPN4kj_CEYIYLKJoc9a__ZE4OZw7OX"
+     },
+     {
+      "t": "12. Professional Skills",
+      "u": "https://drive.google.com/drive/folders/1srKqXbNW_DgBjo2C0a7NMNiB6tJRAsIw"
+     }
+    ]
+   },
+   {
+    "k": "p",
+    "t": "Folder contents not checked yet. Instructors are only noted for Brand Activation and Brand Innovation (Mr. Nguyễn Quang Hiệp)."
+   }
+  ]
+ },
+ "queue-tomorrow-marketers": {
+  "id": "queue-tomorrow-marketers",
+  "kho": "knowledge",
+  "group": "queue",
+  "guide": true,
+  "date": "2026-10-27",
+  "title": "Tomorrow Marketers: 9 courses in the queue",
+  "type": "Queued course",
+  "badge": "Not started",
+  "tags": [],
+  "thumb": "assets/res/queue-tomorrow-marketers.jpg",
+  "note": "9 courses set up on Notion, not yet scheduled. Click a course name to open its Drive folder.",
+  "sections": [
+   {
+    "k": "callout",
+    "t": "These courses are set up for studying and note-taking on Notion, status “Not started”. The list follows the Notion order so you can take them one by one."
+   },
+   {
+    "k": "h",
+    "t": "List of 9 courses (Google Drive)"
+   },
+   {
+    "k": "links",
+    "items": [
+     {
+      "t": "1. Marketing Foundation",
+      "u": "https://drive.google.com/drive/folders/17abjxUJr4-uNp8zxmGcoYE_ISN7NtSIb"
+     },
+     {
+      "t": "2. Brand Development",
+      "u": "https://drive.google.com/drive/folders/12BuAxF4kGdJl6nCpIhfucTeL4frwv4Ey"
+     },
+     {
+      "t": "3. Data System",
+      "u": "https://drive.google.com/drive/folders/1Iz-gXcc6bIn_3u83YDAHkI2LiENgvoIP"
+     },
+     {
+      "t": "4. Advanced Analytics with Python",
+      "u": "https://drive.google.com/drive/folders/1pAGFFTyfIwkXYNbt5QYaZLHB227yfj0G"
+     },
+     {
+      "t": "5. Data Analysis for Decision Making",
+      "u": "https://drive.google.com/drive/folders/1D8sgkOaHypFXwys1l6lG_BdoWuz2ry8u"
+     },
+     {
+      "t": "6. Digital Foundation",
+      "u": "https://drive.google.com/drive/folders/1xayKcVAMIqwPHOCD0c-0RXHnPFZgEx0o"
+     },
+     {
+      "t": "7. Digital Performance",
+      "u": "https://drive.google.com/drive/folders/1NEVxxVf0IXSxijSaskL3pOT_FE8DvMr3"
+     },
+     {
+      "t": "8. Case Mastery",
+      "u": "https://drive.google.com/drive/folders/1cWTiTGh9RtRbrc2nAoVtbNbPH3Gw41C9"
+     },
+     {
+      "t": "9. Master Critical Thinking and Interview",
+      "u": "https://drive.google.com/drive/folders/1M1lmmf2Tt-y0h4vrjh04wTDGfL5Szgqr"
+     }
+    ]
+   },
+   {
+    "k": "p",
+    "t": "Folder contents not checked yet (whether all videos are there). Instructors aren't noted on Notion. When you finish one, message me to move it to the Academy group with its own session table and banner."
+   }
+  ]
+ },
+ "knowledge-ebook": {
+  "id": "knowledge-ebook",
+  "kho": "knowledge",
+  "group": "ebook",
+  "guide": true,
+  "date": "2026-10-24",
+  "title": "Ebook Library: book folders on Google Drive",
+  "type": "Kho Ebook",
+  "badge": "Ebook",
+  "tags": [
+   "ebook",
+   "sách"
+  ],
+  "thumb": "assets/res/knowledge-ebook.jpg",
+  "note": "Ebooks and ebook folders on Google Drive. Open one to pick a book.",
+  "sections": [
+   {
+    "k": "callout",
+    "t": "The folders are on Google Drive. If Drive says “You need access”, sign in with the Google account it was shared with or request access from the folder owner."
+   },
+   {
+    "k": "h",
+    "t": "Group 1: an ebook and 2 subfolders"
+   },
+   {
+    "k": "cards",
+    "items": [
+     {
+      "t": "BRAND COMPETENCY FRAMEWORK",
+      "tag": "File",
+      "d": "Author: CASK Academy. The first ebook in group 1.",
+      "u": "https://drive.google.com/file/d/1GoU5H9TNWybPn6QbqiYI-TksxLywR8Qi/view",
+      "lb": "Open ebook"
+     },
+     {
+      "t": "Series \"Storytelling with Data\"",
+      "tag": "Drive",
+      "d": "First ebook subfolder.",
+      "u": "https://drive.google.com/drive/folders/1IgdZfQz3Oh_edzLwrxc7FuPypU87OM2f",
+      "lb": "Open folder"
+     },
+     {
+      "t": "PMAX - PST - Sample Test",
+      "tag": "Drive",
+      "d": "Second ebook subfolder.",
+      "u": "https://drive.google.com/drive/folders/1RAZYSHZgqrHPM65MDsZX3EjBO9dyOWUh",
+      "lb": "Open folder"
+     }
+    ]
+   },
+   {
+    "k": "h",
+    "t": "Folder 2"
+   },
+   {
+    "k": "cards",
+    "items": [
+     {
+      "t": "IMC BOOKS",
+      "tag": "Drive",
+      "d": "IMC book folder.",
+      "u": "https://drive.google.com/drive/folders/1Nv3tCy7I-iDEL1jF09mwnMaYAVCYoH4X",
+      "lb": "Open folder"
+     }
+    ]
+   },
+   {
+    "k": "p",
+    "t": "Want another ebook folder added? Send the Drive link and I'll add it here."
+   }
+  ]
+ },
+ "vuonuom-van-hanh-san-ecommerce": {
+  "id": "vuonuom-van-hanh-san-ecommerce",
+  "kho": "knowledge",
+  "group": "vuonuom",
+  "guide": true,
+  "date": "2026-10-27",
+  "title": "Running E-commerce Marketplaces",
+  "type": "Course",
+  "badge": "Materials complete",
+  "tags": [],
+  "thumb": "assets/res/vuonuom-ecommerce.jpg",
+  "note": "Vườn Ươm Khu Phố by JOBVUI · Instructor Mr. Trần Ngô Đình Tấn · 5 session entries, with video recordings and materials.",
+  "ctas": [
+   {
+    "btn": "Videos and materials",
+    "url": "https://drive.google.com/drive/folders/1iJOZGu1ymCRAZFJhgxm_UDTY4TxLGSiA"
+   }
+  ],
+  "ctasTitle": "Running E-commerce Marketplaces",
+  "sections": [
+   {
+    "k": "callout",
+    "t": "Part of the Vườn Ươm Khu Phố by JOBVUI program. Instructor: Mr. Trần Ngô Đình Tấn. Every session is marked Done in Notion (video recordings and materials available)."
+   },
+   {
+    "k": "h",
+    "t": "Sessions"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Session",
+     "Content",
+     "Status (Notion)"
+    ],
+    "rows": [
+     [
+      "Session 1",
+      "Shopee: basics and setting up a shop",
+      "Done"
+     ],
+     [
+      "Session 2",
+      "Shopee: growing orders and basic Ads",
+      "Done"
+     ],
+     [
+      "Session 3",
+      "TikTok Shop: setup and products",
+      "Done"
+     ],
+     [
+      "Session 4",
+      "TikTok Shop, GMV Max, promotions",
+      "Done"
+     ],
+     [
+      "Session 5",
+      "Reading product, shop, live and video analytics on the marketplace (session title cut off in Notion)",
+      "Done"
+     ]
+    ]
+   },
+   {
+    "k": "p",
+    "t": "The course recap will be added when available. "
+   }
+  ]
+ },
+ "seongon-seo-website": {
+  "id": "seongon-seo-website",
+  "kho": "knowledge",
+  "group": "seongon",
+  "guide": true,
+  "date": "2026-10-27",
+  "title": "SEO Website",
+  "type": "Course",
+  "badge": "Full videos",
+  "tags": [],
+  "thumb": "assets/res/seongon-seo-website.jpg",
+  "note": "SEONGON Academy · Instructor Ms. Dương Thị Hương · 7 sessions, checked on Drive: every session has a video file.",
+  "ctas": [
+   {
+    "btn": "Videos and materials",
+    "url": "https://drive.google.com/drive/folders/1HcaPinbdjuajcZj7qJ2O-uWRzQHIRzOQ"
+   }
+  ],
+  "ctasTitle": "SEO Website",
+  "sections": [
+   {
+    "k": "callout",
+    "t": "Part of SEONGON Academy. I checked the Google Drive folder on 27/10/2026: 7 sessions, each with a video file. Instructor: Ms. Dương Thị Hương."
+   },
+   {
+    "k": "h",
+    "t": "Sessions"
+   },
+   {
+    "k": "table",
+    "head": [
+     "Session",
+     "Content"
+    ],
+    "rows": [
+     [
+      "Session 1",
+      "SEO overview"
+     ],
+     [
+      "Session 2",
+      "SEO keyword research"
+     ],
+     [
+      "Session 3",
+      "Website structure"
+     ],
+     [
+      "Session 4",
+      "On-page optimization with a standard checklist"
+     ],
+     [
+      "Session 5",
+      "Outlining and writing SEO content"
+     ],
+     [
+      "Session 6",
+      "Publishing and Off-page: controlling rankings"
+     ],
+     [
+      "Session 7",
+      "Automating SEO publishing"
+     ]
+    ]
+   },
+   {
+    "k": "p",
+    "t": " The course recap will be added when available."
+   }
+  ]
+ },
+ "feed-claude-code": {
+  "id": "feed-claude-code",
+  "kho": "ai",
+  "feed": "claude",
+  "title": "Claude Code: latest updates",
+  "type": "Live updates",
+  "url": "https://docs.claude.com/en/docs/claude-code",
+  "date": "2026-10-24",
+  "tags": [
+   "claude",
+   "agent",
+   "docs"
+  ],
+  "note": "A summary of new Claude Code releases, updated automatically.",
+  "thumb": "assets/res/feed-claude-code.jpg",
+  "group": "news"
+ }
+}

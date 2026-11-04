@@ -43,6 +43,7 @@ function applyLang() {
   const dh = $("#donHere"); if (dh && dh.innerHTML) dh.innerHTML = window.donateHtml({ here: true });
 }
 document.addEventListener("lm:lang", () => { applyLang(); if (!$("#app").hidden) render(); });
+document.addEventListener("lm:content", () => { if (!$("#app").hidden) render(); }); // bản dịch nội dung chi tiết vừa tải xong
 
 async function call(payload) {
   if (!API) throw new Error("no_api");
