@@ -1,0 +1,22 @@
+/* Mascot LANHMAR (mascot.js) */
+.lm-mascot{display:inline-block;width:var(--size,140px);aspect-ratio:216/200;line-height:0;flex:none}
+.lm-mascot svg{width:100%;height:100%;overflow:visible;display:block}
+.lm-bob{animation:lmBob 3.2s ease-in-out infinite;transform-origin:100px 180px}
+.lm-shadow{animation:lmShadow 3.2s ease-in-out infinite;transform-origin:100px 186px}
+.lm-eyes{animation:lmBlink 4.6s infinite;transform-origin:100px 100px}
+.lm-wave{animation:lmWave 1.4s ease-in-out infinite}
+.lm-up.l{animation:lmUpL 1.1s ease-in-out infinite}
+.lm-up.r{animation:lmUpR 1.1s ease-in-out infinite}
+.lm-tuft{animation:lmTuft 3.2s ease-in-out infinite;transform-origin:100px 54px}
+.lm-sound{animation:lmSound 1s ease-in-out infinite}
+.lm-spark{animation:lmSpark 1.6s ease-in-out infinite;transform-origin:100px 60px}
+@keyframes lmBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes lmShadow{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.88)}}
+@keyframes lmBlink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes lmWave{0%,100%{transform:rotate(0)}50%{transform:rotate(-22deg)}}
+@keyframes lmUpL{0%,100%{transform:rotate(0)}50%{transform:rotate(14deg)}}
+@keyframes lmUpR{0%,100%{transform:rotate(0)}50%{transform:rotate(-14deg)}}
+@keyframes lmTuft{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(8deg)}}
+@keyframes lmSound{0%,100%{opacity:.25;transform:translateX(0)}50%{opacity:1;transform:translateX(-3px)}}
+@keyframes lmSpark{0%,100%{opacity:.55;transform:scale(.96)}50%{opacity:1;transform:scale(1.04)}}
+@media (prefers-reduced-motion:reduce){.lm-mascot *{animation:none!important}}

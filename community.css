@@ -124,3 +124,11 @@
 @media (hover:hover){.cm-pro:hover{transform:translateY(-5px);border-color:var(--purple-mid);box-shadow:0 22px 48px rgba(45,47,239,.25)}.cm-pro:hover .cm-photo{transform:rotate(0) scale(1.03)}}
 @media (max-width:640px){.cm-pro.wide{display:flex}.cm-pro.wide .cm-kv{min-height:250px}.cm-stats dt{font-size:19px}.cm-photo{width:128px}}
 @media (prefers-reduced-motion:reduce){.cm-kv::after{animation:none}}
+
+/* mascot LANHMAR ở phần đầu trang */
+.cm-mascots{position:absolute;right:max(24px,calc((100vw - 1080px)/2 - 40px));top:205px;display:flex;align-items:flex-end;gap:4px;pointer-events:none}
+.cm-mascots .lm-mascot{--size:120px}
+.cm-mascots .lm-mascot:nth-child(2){--size:160px;margin-bottom:18px}
+.cm-mascots .lm-mascot:nth-child(2) .lm-bob{animation-delay:-1.1s}
+.cm-mascots .lm-mascot:nth-child(3) .lm-bob{animation-delay:-2.2s}
+@media(max-width:1320px){.cm-mascots{position:static;justify-content:center;margin:0 auto 6px}.cm-mascots .lm-mascot{--size:92px}.cm-mascots .lm-mascot:nth-child(2){--size:118px;margin-bottom:10px}}
