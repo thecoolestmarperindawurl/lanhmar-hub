@@ -8761,64 +8761,195 @@
       "kho": "idea",
       "guide": true,
       "date": "2026-11-04",
-      "title": "LanhMar-haus: ứng dụng của LANHMAR",
+      "title": "LanhMar-haus: bộ chỉ huy công việc, bot, lương và VPS",
       "type": "Ứng dụng",
-      "badge": "App",
+      "badge": "App PWA",
       "tags": [
-        "ứng dụng",
-        "lanhmar"
+        "pwa",
+        "điều hành",
+        "bot",
+        "vps"
       ],
       "thumb": "assets/res/app-lanhmar-haus.jpg",
-      "note": "Trang giới thiệu ứng dụng LanhMar-haus. Nội dung chi tiết đang chờ bổ sung.",
+      "note": "App PWA gom công việc, giám sát bot, lương và máy chủ VPS. Có bản Owner cho chủ và bản Connector cho cộng tác viên.",
       "sections": [
         {
           "k": "callout",
-          "t": "Ứng dụng LanhMar-haus của LANHMAR. Mình chưa có thông tin về ứng dụng nên thẻ này mới có khung giới thiệu, chưa mô tả tính năng hay cách dùng để tránh viết sai."
+          "t": "LanhMar-haus là app PWA (cài được như app trên điện thoại) gom công việc, bot, máy chủ và lương vào một nơi. Có hai bản: Owner dành cho chủ hệ thống và Connector dành cho cộng tác viên."
+        },
+        {
+          "k": "p",
+          "t": "Thông tin lấy từ hai trang giới thiệu bạn đã tạo. Ảnh minh hoạ trong hai trang đó dùng dữ liệu mẫu (tên bot, tên máy chủ, số tiền), nên mình không đưa vào đây."
         },
         {
           "k": "h",
-          "t": "Khung giới thiệu (sẽ điền khi có thông tin)"
+          "t": "Hai phiên bản"
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "Bản Owner",
+              "tag": "Dành cho chủ",
+              "d": "Điều hành toàn bộ: công việc, giám sát bot, lương và chấm công, máy chủ VPS, thông báo đẩy. Truy cập qua mạng riêng Tailscale nên không lộ ra internet."
+            },
+            {
+              "t": "Bản Connector",
+              "tag": "Dành cho cộng tác viên",
+              "d": "Giao diện rút gọn: đăng nhập bằng Google, chỉ thấy việc của mình, bấm Xong khi hoàn thành, xem tình trạng bot được phân quyền. Vào được ở mọi nơi chỉ cần internet."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Bản Owner: 5 khu vực trên một màn hình"
         },
         {
           "k": "table",
           "head": [
-            "Mục",
-            "Cần điền"
+            "Khu vực",
+            "Làm được gì"
           ],
           "rows": [
             [
-              "Tổng quan",
-              "Ứng dụng là gì, dành cho ai, giải quyết việc gì"
+              "Việc",
+              "Việc đồng bộ từ Google Sheet, chia Quá hạn, Hôm nay, Sắp tới. Đánh dấu Xong ngay trên điện thoại và ghi thẳng vào bảng chung"
             ],
             [
-              "Tính năng chính",
-              "3 đến 6 tính năng nổi bật, mỗi tính năng một dòng"
+              "Bot",
+              "Xem trạng thái sống hay chết của từng bot theo thời gian thực. Tạm dừng theo dõi, tắt cảnh báo, khởi động lại từ xa"
             ],
             [
-              "Cách dùng",
-              "Các bước từ mở app đến có kết quả"
+              "Lương",
+              "Lương gộp, thực nhận, ứng lương và giải trình chấm công, cập nhật theo kỳ"
             ],
             [
-              "Ảnh màn hình",
-              "Ảnh chụp các màn hình chính"
+              "VPS",
+              "Theo dõi VPS thường và Oracle Cloud: sống hay chết, nhắc hạn gia hạn, và Bật, Tắt, Khởi động lại instance Oracle ngay trong app"
             ],
             [
-              "Nền tảng",
-              "Web, Android, iOS, máy tính"
-            ],
-            [
-              "Link",
-              "Link mở hoặc tải ứng dụng, link mã nguồn nếu có"
-            ],
-            [
-              "Phiên bản và cập nhật",
-              "Phiên bản hiện tại, ngày cập nhật gần nhất"
+              "Cài đặt",
+              "Giao diện sáng, tối hoặc tự động, tiếng Việt hoặc English, cỡ chữ, bật thông báo đẩy"
             ]
           ]
         },
         {
-          "k": "p",
-          "t": "Bạn gửi cho mình mô tả ngắn, ảnh màn hình và link của ứng dụng, mình sẽ viết thẻ giới thiệu đầy đủ và thêm nút mở app."
+          "k": "h",
+          "t": "Điểm nhấn: nhịp tim của cả hệ thống"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Trạng thái RUNNING hoặc STOPPED của instance Oracle lấy trực tiếp từ API Oracle OCI.",
+            "Ping TCP đa luồng cho VPS thường, cảnh báo khi không phản hồi.",
+            "Đếm ngược ngày hết hạn, nhắc gia hạn trước khi mất máy.",
+            "Thông báo đẩy một chạm ra điện thoại khi bot lỗi, VPS sắp hết hạn, instance dừng, hoặc có việc mới và việc quá hạn."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Bản Connector: cách dùng ba bước"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Mở link",
+              "d": "Chủ hệ thống gửi đường link app. Mở trên điện thoại hoặc máy tính, không cần cài gì trước."
+            },
+            {
+              "t": "Đăng nhập Google",
+              "d": "Chọn tài khoản Google đã được cấp quyền. Không có mật khẩu riêng để nhớ, chỉ email được cấp quyền mới vào được."
+            },
+            {
+              "t": "Làm và đánh dấu Xong",
+              "d": "Xem việc của mình, mở link đính kèm, xong thì bấm Xong. Có thể thêm app vào màn hình chính để mở nhanh lần sau."
+            }
+          ]
+        },
+        {
+          "k": "list",
+          "items": [
+            "App tự lọc theo email nên mỗi người chỉ thấy việc mình phụ trách, chia theo Hôm nay, Sắp tới, Quá hạn.",
+            "Nếu được cấp quyền, bạn xem được tình trạng bot mình phụ trách (chỉ xem, không có phần cài đặt phức tạp)."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Xem qua giao diện"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Màn hình",
+            "Nội dung",
+            "Bản"
+          ],
+          "rows": [
+            [
+              "Công việc",
+              "Thẻ việc theo hạn chót, có nút Xong, Đang làm, Hoãn",
+              "Owner"
+            ],
+            [
+              "Tình trạng bot",
+              "Trạng thái từng bot, nhịp cuối, nút khởi động lại và tắt cảnh báo",
+              "Owner"
+            ],
+            [
+              "Lương và chấm công",
+              "Thực nhận, lương gộp, trừ ứng, lịch sử chấm công theo ngày",
+              "Owner"
+            ],
+            [
+              "Máy chủ VPS",
+              "Danh sách máy chủ, trạng thái, ngày còn lại, nút điều khiển instance",
+              "Owner"
+            ],
+            [
+              "Đăng nhập",
+              "Một nút Đăng nhập bằng Google",
+              "Connector"
+            ],
+            [
+              "Việc của bạn",
+              "Việc hôm nay và sắp tới, nút Xong",
+              "Connector"
+            ],
+            [
+              "Tình trạng bot",
+              "Chỉ các bot bạn phụ trách",
+              "Connector (tuỳ quyền)"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Nền tảng"
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "PWA cài được",
+              "tag": "Mọi thiết bị",
+              "d": "Mở toàn màn hình như app thật, thêm vào màn hình chính."
+            },
+            {
+              "t": "Riêng tư",
+              "tag": "Owner",
+              "d": "Bản Owner chỉ vào được qua mạng riêng Tailscale. Bản Connector đăng nhập Google và giới hạn theo email được cấp quyền."
+            },
+            {
+              "t": "Nhận diện LANHMAR",
+              "tag": "Giao diện",
+              "d": "Màu tím và cam, chế độ sáng, tối, tiếng Việt và English."
+            }
+          ]
+        },
+        {
+          "k": "callout",
+          "t": "Về link: mình chưa đưa đường link app vào trang này vì kho này nằm trong mã nguồn công khai. Bạn nên lưu link riêng bằng nút '+ Thêm' trong Kho Ứng dụng (được mã hoá). Link bản Owner chỉ chạy trong mạng riêng và không nên đăng công khai."
         }
       ]
     }
