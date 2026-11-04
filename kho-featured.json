@@ -8283,6 +8283,478 @@
           ]
         }
       ]
+    },
+    {
+      "id": "tool-cloakbrowser",
+      "kho": "tool",
+      "guide": true,
+      "date": "2026-11-04",
+      "title": "CloakBrowser: Chromium thay thế Playwright, vá fingerprint ở mức C++",
+      "type": "Repo GitHub",
+      "badge": "Repo",
+      "tags": [
+        "browser",
+        "playwright",
+        "chromium",
+        "anti-detect"
+      ],
+      "thumb": "assets/res/tool-cloakbrowser.jpg",
+      "note": "Bản Chromium tuỳ biến thay trực tiếp Playwright, 87 bản vá ở mức C++, có humanize và proxy. Mã wrapper MIT, binary cần license key.",
+      "cta": {
+        "title": "CloakHQ/CloakBrowser",
+        "url": "https://github.com/CloakHQ/CloakBrowser",
+        "btn": "Mở repo GitHub"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Dùng có trách nhiệm: đây là trình duyệt giả lập danh tính thiết bị để chạy tự động. Chỉ dùng trên trang của bạn, dữ liệu công khai được phép thu thập, hoặc khi có sự cho phép. Tự động hoá vi phạm điều khoản dịch vụ (đặc biệt trên Facebook, Zalo, TikTok...) có thể khiến tài khoản bị khoá, và có thể vi phạm pháp luật. README của CloakBrowser cũng nêu rõ cấm tự động hoá không có ủy quyền, credential stuffing và lạm dụng tạo tài khoản."
+        },
+        {
+          "k": "p",
+          "t": "Thông tin lấy từ trang GitHub của repo, đọc ngày 4/11/2026. Số sao, phiên bản và điều khoản có thể đã đổi, và các tuyên bố về khả năng vượt kiểm tra bot là do chính tác giả công bố, mình chưa kiểm chứng độc lập."
+        },
+        {
+          "k": "h",
+          "t": "So sánh nhanh với Camoufox"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Tiêu chí",
+            "CloakBrowser",
+            "Camoufox"
+          ],
+          "rows": [
+            [
+              "Nền tảng trình duyệt",
+              "Chromium",
+              "Firefox"
+            ],
+            [
+              "Cách điều khiển",
+              "Playwright (có Puppeteer)",
+              "Playwright"
+            ],
+            [
+              "Giấy phép",
+              "Wrapper MIT, binary cần license key",
+              "Trình duyệt MPL-2.0, gói MIT"
+            ],
+            [
+              "Chi phí",
+              "Gói miễn phí giới hạn một phiên đồng thời, có gói Pro",
+              "Mã nguồn mở, không cần key"
+            ],
+            [
+              "Nền tảng chạy",
+              "Linux, macOS, Windows",
+              "Linux, Windows, macOS, không chạy trên WSL"
+            ],
+            [
+              "Mức quan tâm (lúc đọc)",
+              "32,7 nghìn sao",
+              "13,0 nghìn sao"
+            ],
+            [
+              "Tình trạng tự nêu",
+              "Đang duy trì, kiểm thử 11/2026",
+              "Đang phát triển, có thể chưa ổn định cho production"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Gợi ý của mình: cần Chromium và muốn một bản dựng sẵn có hỗ trợ, chấp nhận license key thì xem CloakBrowser. Cần mã nguồn mở hoàn toàn, không cần key, chấp nhận engine Firefox và ghi chú 'chưa ổn định cho production' thì xem Camoufox. Cả hai đều cần tự thử trên trường hợp của bạn."
+        },
+        {
+          "k": "h",
+          "t": "Thông tin repo"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Mục",
+            "Chi tiết"
+          ],
+          "rows": [
+            [
+              "Repo chính thức",
+              "CloakHQ/CloakBrowser"
+            ],
+            [
+              "Là gì",
+              "Bản Chromium tuỳ biến, dùng thay trực tiếp cho Playwright (có hỗ trợ Puppeteer)"
+            ],
+            [
+              "Phiên bản (lúc đọc)",
+              "v0.7.0, 87 bản vá, dựa trên Chromium 156.0.8078.47.1"
+            ],
+            [
+              "Nền tảng",
+              "Linux x86_64 và arm64, macOS arm64 và x86_64, Windows x86_64"
+            ],
+            [
+              "Mức quan tâm (lúc đọc)",
+              "Khoảng 32,7 nghìn sao, 2,7 nghìn fork, 137 issue mở, 390 commit"
+            ],
+            [
+              "Giấy phép",
+              "Mã wrapper (Python, JS, .NET): MIT. Binary Chromium: giấy phép riêng, cần license key"
+            ],
+            [
+              "Tình trạng",
+              "README ghi 'Last tested: Nov 2026' và tự mô tả là đang duy trì"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Điểm nổi bật"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Chỉnh fingerprint ngay ở mã nguồn C++ của Chromium, không dùng JavaScript injection hay cờ cấu hình. Binary được xác minh chữ ký Ed25519 trước khi giải nén.",
+            "humanize=True: di chuyển chuột đường cong Bézier, gõ phím có độ trễ ngẫu nhiên, cuộn trang theo nhịp tự nhiên.",
+            "Hỗ trợ proxy HTTP và SOCKS5, geoip=True để múi giờ và ngôn ngữ khớp IP proxy, giả lập IP WebRTC.",
+            "Hồ sơ lưu bền (giữ cookie và localStorage giữa các lần chạy) và nạp extension Chrome.",
+            "Mặc định giả danh Windows trên Linux và Windows, có tuỳ chọn danh tính macOS.",
+            "cloakserve chạy trình duyệt như máy chủ CDP, có Docker image, client .NET và CLI (cài binary, chẩn đoán, quản lý cache)."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cài đặt"
+        },
+        {
+          "k": "code",
+          "t": "pip install cloakbrowser\n\nnpm install cloakbrowser playwright-core   # hoặc puppeteer-core\n\ndotnet add package CloakBrowser",
+          "cap": "Python, Node.js, .NET"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Binary khoảng 200 MB tự tải về ở lần chạy đầu và được lưu cache. Không cần chạy playwright install chromium, nhưng vẫn cần các thư viện hệ thống mà Playwright yêu cầu.",
+            "launch() trả về đối tượng Browser của Playwright, nên new_page(), close()... dùng như bình thường. Chuyển từ Playwright chỉ cần đổi phần khởi tạo trình duyệt."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Giấy phép và license key (quan trọng)"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Gói",
+            "Điều kiện"
+          ],
+          "rows": [
+            [
+              "Miễn phí",
+              "Đăng ký email để lấy key, một phiên chạy đồng thời. Luôn nhận bản build mới nhất"
+            ],
+            [
+              "Pro (trả phí)",
+              "Nhiều phiên đồng thời hơn, có thể ghim phiên bản Chromium để quay lui"
+            ],
+            [
+              "Dùng cho",
+              "Cá nhân và thương mại theo README, không được phân phối lại binary. Phục vụ bên thứ ba cần giấy phép OEM hoặc SaaS"
+            ]
+          ]
+        },
+        {
+          "k": "list",
+          "items": [
+            "Mỗi lần khởi chạy cần key, đặt qua biến môi trường CLOAKBROWSER_LICENSE_KEY. Không đưa key vào mã nguồn hay chat.",
+            "Bản binary v146 không cần key chỉ có trong wrapper cũ (pip install \"cloakbrowser<0.7\"), và không còn được cập nhật.",
+            "Điều khoản chi tiết nằm trong BINARY-LICENSE.md của repo, hãy đọc trước khi dùng thương mại."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Giới hạn README tự nêu"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Không giải CAPTCHA, mà cố tránh để CAPTCHA không xuất hiện. Không có sẵn xoay vòng proxy, bạn tự cung cấp proxy.",
+            "Một số trang vẫn phát hiện chế độ headless, khuyến nghị chạy có giao diện (trên Linux dùng Xvfb).",
+            "Trên Linux, danh tính Windows muốn thuyết phục cần cài font Windows thật, danh tính macOS cần font Mac thật.",
+            "Puppeteer có thể bị reCAPTCHA Enterprise phát hiện, nên khuyến nghị dùng Playwright. page.wait_for_timeout() và page.evaluate() có thể gửi lệnh CDP mà một số hệ thống nhận ra.",
+            "context.request và route.fetch() của Playwright không đi qua proxy SOCKS5 hoặc proxy có xác thực.",
+            "README thừa nhận việc phát hiện có thể bắt kịp trong tương lai, đây là cuộc chạy đua liên tục."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Ý tưởng dùng trong Kho"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Kiểm thử website và landing page của chính bạn dưới nhiều cấu hình trình duyệt và vùng địa lý.",
+            "Chạy agent trình duyệt trên VPS (kết hợp với bài OVH VPS cho Hermes Agent) để ít bị chặn nhầm khi truy cập dữ liệu công khai được phép.",
+            "Nghiên cứu cách các hệ thống chống bot hoạt động, trên môi trường của bạn."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Lưu ý an toàn khi cài"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Có nhiều fork và bản sao tên giống nhau (như zapabob, DivMode, dgtlmoon, Munasco) với số liệu khác nhau. Chỉ dùng repo chính thức CloakHQ/CloakBrowser và gói trên PyPI hoặc npm của chính tác giả.",
+            "Binary đóng gói sẵn tải từ nhà phát hành, nên chạy trong môi trường tách riêng (VPS riêng hoặc Docker), không để chung với khoá API, mật khẩu hay dữ liệu quan trọng."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Link"
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "Repo CloakHQ/CloakBrowser",
+              "u": "https://github.com/CloakHQ/CloakBrowser"
+            },
+            {
+              "t": "README",
+              "u": "https://github.com/CloakHQ/CloakBrowser/blob/main/README.md"
+            },
+            {
+              "t": "Gói PyPI",
+              "u": "https://pypi.org/project/CloakBrowser/"
+            },
+            {
+              "t": "Gói npm",
+              "u": "https://www.npmjs.com/package/cloakbrowser"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tool-camoufox",
+      "kho": "tool",
+      "guide": true,
+      "date": "2026-11-04",
+      "title": "Camoufox: Firefox anti-detect mã nguồn mở cho scraping và AI agent",
+      "type": "Repo GitHub",
+      "badge": "Repo",
+      "tags": [
+        "browser",
+        "playwright",
+        "firefox",
+        "anti-detect"
+      ],
+      "thumb": "assets/res/tool-camoufox.jpg",
+      "note": "Bản build Firefox giả lập fingerprint, điều khiển bằng Playwright, có humanize, geoip, proxy. Trình duyệt MPL-2.0, gói MIT. Đang phát triển.",
+      "cta": {
+        "title": "daijro/camoufox",
+        "url": "https://github.com/daijro/camoufox",
+        "btn": "Mở repo GitHub"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Dùng có trách nhiệm: đây là trình duyệt giả lập danh tính thiết bị để chạy tự động. Chỉ dùng trên trang của bạn, dữ liệu công khai được phép thu thập, hoặc khi có sự cho phép. Tự động hoá vi phạm điều khoản dịch vụ (đặc biệt trên Facebook, Zalo, TikTok...) có thể khiến tài khoản bị khoá, và có thể vi phạm pháp luật. README của CloakBrowser cũng nêu rõ cấm tự động hoá không có ủy quyền, credential stuffing và lạm dụng tạo tài khoản."
+        },
+        {
+          "k": "p",
+          "t": "Thông tin lấy từ trang GitHub của repo, đọc ngày 4/11/2026. Số sao, phiên bản và điều khoản có thể đã đổi, và các tuyên bố về khả năng vượt kiểm tra bot là do chính tác giả công bố, mình chưa kiểm chứng độc lập."
+        },
+        {
+          "k": "h",
+          "t": "Thông tin repo"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Mục",
+            "Chi tiết"
+          ],
+          "rows": [
+            [
+              "Repo chính thức",
+              "daijro/camoufox"
+            ],
+            [
+              "Là gì",
+              "Bản build Firefox anti-detect mã nguồn mở cho web scraping và AI agent, điều khiển bằng Playwright"
+            ],
+            [
+              "Cách điều khiển",
+              "Playwright dùng giao thức Juggler có sẵn trong Firefox, mã tự động hoá chạy trong môi trường cô lập mà trang web không thấy"
+            ],
+            [
+              "Mức quan tâm (lúc đọc)",
+              "Khoảng 13,0 nghìn sao, 1,1 nghìn fork, 38 issue mở, 14 pull request, 916 commit"
+            ],
+            [
+              "Giấy phép",
+              "Trình duyệt (patch và build): MPL-2.0. Gói Python và TypeScript: MIT. Dữ liệu chuột Cursory: LGPLv3 trở lên"
+            ],
+            [
+              "Tài liệu",
+              "camoufox.com và các README trong repo (python, typescript, docs)"
+            ],
+            [
+              "Tình trạng",
+              "README ghi: 'This project is under development. It may not be suitable for stable production use.'"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Điểm nổi bật"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Mỗi lần khởi chạy có một danh tính thiết bị nhất quán, sinh từ phân bố thiết bị thực tế.",
+            "Giả lập fingerprint: navigator, màn hình, WebGL, WebGPU, font, âm thanh, giọng nói, thiết bị media, múi giờ, locale, vị trí, IP WebRTC.",
+            "humanize=True: di chuyển chuột giống người, dựa trên các đoạn ghi thao tác thật.",
+            "Nhiều danh tính trong một trình duyệt qua NewContext().",
+            "Cài sẵn uBlock Origin, đã loại bỏ telemetry và các tiện ích không cần thiết."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cài đặt và dùng"
+        },
+        {
+          "k": "code",
+          "t": "pip install -U \"camoufox[geoip]\"\ncamoufox fetch\n\nnpm install camoufox playwright-core\nnpx camoufox fetch",
+          "cap": "Python và Node.js"
+        },
+        {
+          "k": "code",
+          "t": "from camoufox.sync_api import Camoufox\n\nwith Camoufox(headless=True) as browser:\n    page = browser.new_page()\n    # dùng như Playwright bình thường",
+          "cap": "Python (đồng bộ). Có bản async: camoufox.async_api.AsyncCamoufox"
+        },
+        {
+          "k": "p",
+          "t": "Trình duyệt trả về là một Browser chuẩn của Playwright. Với Node.js dùng const browser = await Camoufox({ headless: true })."
+        },
+        {
+          "k": "h",
+          "t": "Các tuỳ chọn chính"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Tuỳ chọn",
+            "Tác dụng"
+          ],
+          "rows": [
+            [
+              "humanize",
+              "True, hoặc số giây tối đa cho mỗi lần di chuyển chuột"
+            ],
+            [
+              "proxy, geoip",
+              "proxy kèm geoip=True để múi giờ, ngôn ngữ, vị trí và IP WebRTC khớp IP đầu ra"
+            ],
+            [
+              "headless",
+              "True, hoặc 'virtual' và 'virtual-gpu' (hai giá trị sau chỉ trên Linux)"
+            ],
+            [
+              "os",
+              "Đặt hệ điều hành cho từng context qua NewContext(browser, os=...)"
+            ],
+            [
+              "block_images, block_webrtc, block_webgl",
+              "Chặn ảnh, WebRTC hoặc WebGL"
+            ],
+            [
+              "canvas_noise",
+              "Bật hoặc tắt nhiễu canvas"
+            ],
+            [
+              "Khác",
+              "fingerprint_preset, locale, addons, exclude_addons, pin_cpu_cores, main_world_eval, launch_server()"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Danh sách đầy đủ nằm trong python/README.md của repo."
+        },
+        {
+          "k": "h",
+          "t": "Hệ điều hành"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Quá trình build chạy trên Linux, bản Windows và macOS được cross-compile. Kiến trúc đóng gói: x86_64, arm64, và i686 (chỉ Windows).",
+            "README ghi rõ 'WSL does not work', tức không chạy được trên WSL.",
+            "WebGPU chỉ có trên Windows và Mac chip Apple."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Giới hạn README tự nêu"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Camoufox chỉ giả lập danh tính Firefox. Một số hệ thống kiểm tra hành vi riêng của SpiderMonkey, không thể giả thành Chromium.",
+            "Canvas trên hệ điều hành khác máy thật trả dữ liệu ngẫu nhiên và có thể bị lộ. Không làm nhiễu kết quả render âm thanh và độ rộng văn bản.",
+            "Bật instantAnimations có thể khiến trình duyệt bị phát hiện. Codec media trên Linux phụ thuộc thư viện đã cài trên máy.",
+            "README thừa nhận Camoufox vẫn có thể bị phát hiện."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Tình trạng bảo trì cần theo dõi"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Một bản fork ghi rằng người duy trì gốc gặp sự cố sức khoẻ từ tháng 3/2025. Đây là thông tin từ một fork, mình chưa xác minh, bạn xem lịch commit và issue của repo gốc để đánh giá mức hoạt động.",
+            "Các fork ghi phiên bản Firefox nền khác nhau (có fork ghi 142, fork khác ghi 146), mình chưa xác nhận bản nào là mới nhất của repo gốc.",
+            "Trang README có nhiều nội dung quảng cáo tài trợ từ nhà cung cấp proxy và dịch vụ scraping, không liên quan đến chức năng của dự án."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Lưu ý an toàn khi cài"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Có rất nhiều fork tên camoufox. Chỉ cài từ repo gốc daijro/camoufox hoặc gói chính thức, và kiểm tra tác giả trước khi cài từ fork.",
+            "Chạy trong môi trường tách riêng (VPS riêng hoặc Docker), không để chung với khoá API, mật khẩu hay dữ liệu quan trọng."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Link"
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "Repo daijro/camoufox",
+              "u": "https://github.com/daijro/camoufox"
+            },
+            {
+              "t": "README",
+              "u": "https://github.com/daijro/camoufox/blob/main/README.md"
+            },
+            {
+              "t": "Tài liệu camoufox.com",
+              "u": "https://camoufox.com/"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
