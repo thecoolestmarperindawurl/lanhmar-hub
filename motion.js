@@ -43,9 +43,18 @@
       const rows = [br.slice(0, half), br.slice(half)].filter((r) => r.length);
       if (!rows.length) return;
       // lặp đủ dài để vòng chạy không hở trên màn hình rộng; bản lặp bị ẩn khi chọn giảm chuyển động
+      const allLogo = br.every((b) => /^assets\/img\/brands\/[\w\-.]+\.(svg|png|webp|jpg)$/i.test(b.logo || ""));
+      const mkText = (arr) => {
+        const k = Math.max(1, Math.ceil(1800 / (arr.length * 150)));
+        const items = Array.from({ length: k }, (_, n) => arr.map((b) => `<span class="mo-pill${n ? " mo-dup" : ""}">${esc(b.name)}</span>`).join("")).join("");
+        const one = `<div class="mo-track">${items}</div>`;
+        return one + one.replace('class="mo-track"', 'class="mo-track" aria-hidden="true"');
+      };
       const mk = (arr) => {
         const k = Math.max(1, Math.ceil(1800 / (arr.length * 170)));
         const okLogo = (u) => /^assets\/img\/brands\/[\w\-.]+\.(svg|png|webp|jpg)$/i.test(u || "");
+        // chỉ chuyển sang dải logo khi mọi brand đã có logo; thiếu thì giữ dạng chữ để dải đồng đều
+        if (!allLogo) return mkText(arr);
         const tile = (b, n) => okLogo(b.logo)
           ? `<span class="mo-logo${n ? " mo-dup" : ""}" title="${esc(b.name)}"><img src="${esc(b.logo)}" alt="${esc(b.name)}" loading="lazy" decoding="async"></span>`
           : `<span class="mo-logo txt${n ? " mo-dup" : ""}">${esc(b.name)}</span>`;

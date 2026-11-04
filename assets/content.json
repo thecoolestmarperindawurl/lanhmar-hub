@@ -85,7 +85,7 @@
     {"name": "Pepsi", "logo": ""},
     {"name": "Samsung", "logo": "assets/img/brands/samsung.svg"},
     {"name": "Cell Fusion C", "logo": ""},
-    {"name": "Lay's", "logo": ""},
+    {"name": "Lay's", "logo": "assets/img/brands/lays.svg"},
     {"name": "Revive", "logo": ""},
     {"name": "DOL Đình Lực", "logo": ""},
     {"name": "Downy", "logo": ""},
@@ -93,7 +93,7 @@
     {"name": "Playah", "logo": ""},
     {"name": "UOB", "logo": ""},
     {"name": "Hazeline", "logo": ""},
-    {"name": "Manulife", "logo": ""}
+    {"name": "Manulife", "logo": "assets/img/brands/manulife.svg"}
   ],
   "software": [
    {
