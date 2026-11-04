@@ -94,7 +94,15 @@
 
   function say(el, text, ms = 2800) {
     const b = el.querySelector(".lm-say"); if (!b) return;
-    b.textContent = text; b.classList.add("on");
+    b.textContent = text; b.style.setProperty("--sx", "0px"); b.classList.add("on");
+    // giữ bong bóng trong màn hình: nếu chạm mép thì dịch vào trong, mũi nhọn vẫn chỉ vào mascot
+    requestAnimationFrame(() => {
+      // tính theo kích thước thật (không bị ảnh hưởng bởi hiệu ứng phóng to khi hiện)
+      const m = el.getBoundingClientRect(), w = b.offsetWidth, pad = 10, vw = document.documentElement.clientWidth;
+      const left = m.left + m.width / 2 - w / 2, right = left + w;
+      const dx = left < pad ? pad - left : right > vw - pad ? vw - pad - right : 0;
+      if (dx) b.style.setProperty("--sx", Math.round(dx) + "px");
+    });
     clearTimeout(el._t); el._t = setTimeout(() => b.classList.remove("on"), ms);
   }
   // đổi biểu cảm: ảnh mới đã tải xong mới thay để không chớp trắng

@@ -245,7 +245,7 @@ dialog::backdrop{background:rgba(36,31,69,.6)}
 /* mascot Ranh trên trang chủ */
 .after .wrap{position:relative}
 .after-mascot{display:block!important;margin:0 auto 4px;--size:118px}
-@media(min-width:1380px){.after-mascot{position:absolute!important;left:-170px;top:50%;margin:-80px 0 0;--size:160px}}
+@media(min-width:1180px){.after .wrap{padding-left:230px;padding-right:230px}.after-mascot{position:absolute!important;left:40px;top:50%;margin:-60px 0 0;--size:136px}}
 .work-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:12px}
 .work-head h2{margin-bottom:0}
 .work-mascot{--size:112px;margin-bottom:-6px}
