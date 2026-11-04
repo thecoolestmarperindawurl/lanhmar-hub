@@ -37,11 +37,21 @@ window.COMMUNITIES = [
         links: [{ t: "hungkescy.com", u: "https://hungkescy.com/" }, { t: "KesFlow", u: "https://kesflow.vn/" }]
       },
       {
-        name: "Duy Cù",
-        role: "Chuyên gia đang hoạt động trong nhóm",
-        bio: "",
-        points: [],
-        links: [{ t: "duycuf.vn", u: "https://www.duycuf.vn/" }]
+        name: "Cù Đức Duy",
+        role: "duycuf · Full-stack AI Creator tại Hà Nội, đang làm việc cùng KesFlow",
+        bio: "Dạy người đi làm và đội nhóm làm việc với AI, đồng thời xây các công cụ AI chạy thật: agent, tự động hoá, video và website.",
+        points: [
+          "Dạy AI: lớp AI cho người mới bắt đầu và workshop theo việc thật của từng đội nhóm",
+          "Xây Nimrod: trợ lý AI trả lời học viên 24/7 từ tài liệu khoá học, đang chạy tại KesFlow cho lớp hơn 800 học viên",
+          "Xây Argus: phần mềm quản lý đa kênh và SEO (YouTube, Facebook, Instagram, Zalo, website), gửi bản tin AI lúc 7 giờ sáng mỗi ngày",
+          "Làm video bằng AI: quy trình từ kịch bản thành video hoàn chỉnh, video kiến thức và đào tạo, motion graphics viết bằng code cùng Claude",
+          "Chia sẻ miễn phí thư viện skill cho Claude"
+        ],
+        links: [
+          { t: "duycuf.vn", u: "https://www.duycuf.vn/" },
+          { t: "Facebook", u: "https://www.facebook.com/duycudaya/" },
+          { t: "GitHub", u: "https://github.com/duycuf" }
+        ]
       }
     ]
   }
