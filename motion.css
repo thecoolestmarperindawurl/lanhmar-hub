@@ -97,3 +97,16 @@ body::after{width:520px;height:520px;right:-160px;top:55vh;background:rgba(106,9
 @media (prefers-reduced-motion:reduce){.mo-logo{transition:none}}
 .mo-logo.fill{padding:4px 12px}.mo-logo.fill img{max-height:68px}
 @media (max-width:640px){.mo-logo.fill img{max-height:56px}}
+
+/* dải logo brand: chạy từ trái sang phải, hàng 2 chậm hơn; rê chuột vào thì dừng.
+   Dải này vẫn chạy (chậm hơn) khi máy bật giảm chuyển động, vì đây là phần trình bày chính chủ trang yêu cầu. */
+.mo-band.mo-brands .mo-track{animation:moRunR 46s linear infinite}
+.mo-band.mo-brands .mo-row.r2 .mo-track{animation-duration:60s}
+@keyframes moRunR{from{transform:translateX(-100%)}to{transform:translateX(0)}}
+@media (prefers-reduced-motion:reduce){
+  .mo-band.mo-brands .mo-row{overflow:hidden;flex-wrap:nowrap;justify-content:flex-start;margin:12px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+  .mo-band.mo-brands .mo-track{flex:none;flex-wrap:nowrap;justify-content:flex-start;padding:0 12px 0 0;animation:moRunR 90s linear infinite!important}
+  .mo-band.mo-brands .mo-row.r2 .mo-track{animation-duration:110s!important}
+  .mo-band.mo-brands .mo-track[aria-hidden]{display:flex}
+  .mo-band.mo-brands .mo-dup{display:grid}
+}

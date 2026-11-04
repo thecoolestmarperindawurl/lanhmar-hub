@@ -154,10 +154,22 @@ async function loadCourseInfo(cfg) {
   }
   if (!info) return;
   setCourseLink(courseUrl(cfg.url, info.slug));
+  const el = $("#courseInfo");
+  if (lang === "en") {
+    // Trang KesFlow chỉ có tiếng Việt: bản tiếng Anh dựng lại tên khoá và ngày khai giảng, không dùng nguyên văn
+    const no = (String(info.slug).match(/ta-?0*(\d+)$/i) || [])[1];
+    $("#courseName").textContent = "Teamwork with AI" + (no ? " (cohort " + String(no).padStart(2, "0") + ")" : "") + " · KesFlow";
+    const d = String(info.description || "").match(/khai giảng[^0-9]*(\d{1,2})\/(\d{1,2})(?:\/(\d{4}))?/i);
+    if (d) {
+      const dt = new Date(Number(d[3] || new Date().getFullYear()), Number(d[2]) - 1, Number(d[1]));
+      el.textContent = "📅 Next cohort starts " + dt.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) + ".";
+      el.hidden = false;
+    } else el.hidden = true;
+    return;
+  }
   const nm = String(info.title || "").split("·")[0].trim();
   if (nm) $("#courseName").textContent = nm + " · KesFlow";
-  const el = $("#courseInfo");
-  if (info.description) { el.textContent = "📅 " + info.description; el.hidden = false; }
+  if (info.description) { el.textContent = "📅 " + info.description; el.hidden = false; } else el.hidden = true;
 }
 
 function renderCourse() {
@@ -166,6 +178,8 @@ function renderCourse() {
   if (!sec || !/^https?:/i.test(url)) { if (sec) sec.hidden = true; return; }
   sec.hidden = false;
   setCourseLink(url);
+  $("#courseName").textContent = (lang === "en" ? "Teamwork with AI" : "Teamwork với AI") + " · KesFlow";
+  $("#courseInfo").hidden = true;
   $("#coursePoints").innerHTML = COURSE_POINTS[lang].map((x) => `<li>${esc(x)}</li>`).join("");
   const b = $("#courseBadge"); b.hidden = !cfg.discount; b.textContent = cfg.discount || "";
   observeReveal();
