@@ -375,3 +375,88 @@ html.fx .card.in.seen{animation:none}
   .fx-ripple{display:none}
   #fxProg i{transition:none}
 }
+
+/* ================= Neumorphism theo màu LANHMAR =================
+   Nền lavender #F3F1FD, sáng ở góc trên trái (trắng), tối ở góc dưới phải (tím nhạt, không dùng xám/đen).
+   Nổi (raised) khi nghỉ, lún (pressed) khi bấm hoặc đang chọn. Cam chỉ làm điểm nhấn, tím đậm cho nút chính. */
+:root{
+  --neu-bg:#F3F1FD;--neu-hi:rgba(255,255,255,.95);--neu-lo:rgba(106,92,255,.22);
+  --neu-up:8px 8px 18px var(--neu-lo),-8px -8px 18px var(--neu-hi);
+  --neu-up-s:4px 4px 10px var(--neu-lo),-4px -4px 10px var(--neu-hi);
+  --neu-up-l:14px 14px 30px rgba(106,92,255,.28),-12px -12px 26px var(--neu-hi);
+  --neu-dn:inset 5px 5px 11px var(--neu-lo),inset -5px -5px 11px var(--neu-hi);
+  --neu-dn-s:inset 3px 3px 7px var(--neu-lo),inset -3px -3px 7px var(--neu-hi);
+  --neu-face:linear-gradient(145deg,#F9F8FF,#EDEAFB);
+}
+/* thẻ nổi, bấm thì lún */
+.card,.res-card{background:var(--neu-face);border:1px solid rgba(255,255,255,.75);box-shadow:var(--neu-up);transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.card:active,.res-card:active{transform:translateY(0) scale(.99);box-shadow:var(--neu-dn);transition-duration:.12s}
+@media (hover:hover){
+  .card:hover,.res-card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.9);box-shadow:var(--neu-up-l)}
+  .card:hover .res-thumb{box-shadow:var(--neu-up-s)}
+}
+.res-thumb{border:3px solid var(--neu-bg);border-radius:16px;box-shadow:var(--neu-up-s)}
+.card::before{height:4px;opacity:.9}
+.badge{box-shadow:var(--neu-up-s);box-shadow:3px 3px 7px var(--neu-lo),-3px -3px 7px var(--neu-hi)}
+.badge.live{box-shadow:none}
+/* tab, nhóm, chip: nổi, đang chọn thì lún và chữ đậm màu */
+.tab,.gpill,.chip{background:var(--neu-bg);border:0;box-shadow:var(--neu-up-s);transition:box-shadow .25s,transform .25s var(--ease),color .2s}
+.tab{color:var(--purple-deep)}
+.tab.on{background:var(--neu-bg);color:var(--purple-deep);box-shadow:var(--neu-dn-s);animation:fxPop .35s var(--ease)}
+.tab.on::after{content:"";position:absolute;right:10px;top:8px;width:6px;height:6px;border-radius:50%;background:var(--orange);box-shadow:0 0 6px rgba(255,122,69,.8)}
+.gpill{color:var(--ink)}
+.gpill.on{background:var(--neu-bg);color:var(--orange-text);box-shadow:var(--neu-dn-s)}
+.chip{color:var(--purple-deep)}
+.chip.on{background:var(--neu-bg);color:var(--orange-text);box-shadow:var(--neu-dn-s)}
+.chip.more{box-shadow:var(--neu-up-s)}
+@media (hover:hover){
+  .tab:hover,.gpill:hover,.chip:hover{background:var(--neu-bg);color:var(--purple-deep);transform:translateY(-2px);box-shadow:6px 6px 14px var(--neu-lo),-6px -6px 14px var(--neu-hi)}
+  .tab.on:hover,.gpill.on:hover,.chip.on:hover{background:var(--neu-bg);transform:none;box-shadow:var(--neu-dn-s)}
+  .gpill.on:hover,.chip.on:hover{color:var(--orange-text)}
+}
+.tab:active,.gpill:active,.chip:active,.btn:active{box-shadow:var(--neu-dn-s);transform:scale(.97)}
+/* nút */
+.btn{background:var(--neu-bg);border:0;box-shadow:var(--neu-up-s);color:var(--purple-deep)}
+.btn.primary{background:linear-gradient(145deg,#4A4CF3,#2D2FEF);color:#fff;box-shadow:6px 6px 14px rgba(45,47,239,.38),-5px -5px 12px var(--neu-hi),inset 1px 1px 2px rgba(255,255,255,.35)}
+.btn.primary:active{box-shadow:inset 4px 4px 9px rgba(20,22,140,.55),inset -3px -3px 7px rgba(106,92,255,.5)}
+.btn.storage{background:linear-gradient(145deg,#D4511F,#C24418);border:0;color:#fff;box-shadow:6px 6px 14px rgba(194,68,24,.35),-5px -5px 12px var(--neu-hi),inset 1px 1px 2px rgba(255,255,255,.3)}
+.btn.danger{color:var(--orange-deep)}
+footer .btn{background:transparent;box-shadow:none;border:2px solid #fff;color:#fff}
+@media (hover:hover){.btn:hover{background:var(--neu-bg);box-shadow:6px 6px 14px var(--neu-lo),-6px -6px 14px var(--neu-hi);transform:translateY(-2px)}.btn.primary:hover{background:linear-gradient(145deg,#5456F5,#2D2FEF)}.btn.storage:hover{background:linear-gradient(145deg,#DA5724,#C24418)}footer .btn:hover{background:rgba(255,255,255,.12);box-shadow:none}}
+/* ô nhập lún như rãnh */
+input,select,textarea,.bar input{background:var(--neu-bg);border:0;box-shadow:var(--neu-dn-s)}
+input:focus,select:focus,textarea:focus{outline:0;box-shadow:var(--neu-dn-s),0 0 0 3px rgba(255,122,69,.4)}
+/* hộp thoại và khối con */
+dialog{background:var(--neu-bg);box-shadow:var(--neu-up-l)}
+.lockcard{background:var(--neu-face);border:1px solid rgba(255,255,255,.75);box-shadow:var(--neu-up-l)}
+.news-item,.g-card,.g-fd-i,.res-outline li{background:var(--neu-face);border:1px solid rgba(255,255,255,.7);box-shadow:var(--neu-up-s)}
+.res-facts div{background:var(--neu-bg);border:0;box-shadow:var(--neu-dn-s)}
+.g-tbl{border:0;box-shadow:var(--neu-dn-s);background:var(--neu-bg)}
+.grp-h small{background:var(--neu-bg);box-shadow:var(--neu-up-s)}
+.empty{border:0;box-shadow:var(--neu-dn)}
+.res-dlg .x{box-shadow:4px 4px 10px rgba(45,47,239,.4),-3px -3px 8px var(--neu-hi)}
+.res-dlg .x:active{box-shadow:inset 3px 3px 7px rgba(20,22,140,.55);transform:scale(.94)}
+@media (hover:hover){.g-card:hover,.news-item:hover{box-shadow:var(--neu-up);border-color:rgba(255,255,255,.9)}.res-outline li:hover{border-color:rgba(255,255,255,.9);box-shadow:var(--neu-up)}}
+
+/* công tắc, thanh trượt, núm xoay: điều khiển cách xem */
+.bar{align-items:center}
+.neu-ctl{display:flex;gap:22px;align-items:center;flex-wrap:wrap;padding:6px 8px}
+.neu-sw,.neu-rg{display:inline-flex;align-items:center;gap:10px;font:700 12px Montserrat;color:var(--ink);letter-spacing:.04em;cursor:pointer;user-select:none}
+.neu-sw input{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
+.neu-sw i{position:relative;width:54px;height:28px;border-radius:999px;background:var(--neu-bg);box-shadow:var(--neu-dn-s);transition:background .3s}
+.neu-sw i::after{content:"";position:absolute;left:3px;top:3px;width:22px;height:22px;border-radius:50%;background:linear-gradient(145deg,#fff,#E3DFF7);box-shadow:3px 3px 6px rgba(106,92,255,.35),-2px -2px 5px var(--neu-hi);transition:transform .35s var(--ease)}
+.neu-sw input:checked+i{background:linear-gradient(135deg,var(--purple-deep),var(--purple-mid));box-shadow:inset 3px 3px 7px rgba(20,22,140,.5),inset -2px -2px 5px rgba(106,92,255,.5)}
+.neu-sw input:checked+i::after{transform:translateX(26px)}
+.neu-sw input:focus-visible+i,.neu-rg input:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+.neu-sw:active i::after{width:26px}
+.neu-rg input{-webkit-appearance:none;appearance:none;width:150px;height:12px;padding:0;border:0;border-radius:999px;background:var(--neu-bg);box-shadow:var(--neu-dn-s);cursor:pointer}
+.neu-rg input::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;border:0;background:radial-gradient(circle at 35% 30%,#fff,#E3DFF7);box-shadow:3px 3px 7px rgba(106,92,255,.4),-2px -2px 6px var(--neu-hi);transition:transform .2s}
+.neu-rg input::-moz-range-thumb{width:26px;height:26px;border-radius:50%;border:0;background:radial-gradient(circle at 35% 30%,#fff,#E3DFF7);box-shadow:3px 3px 7px rgba(106,92,255,.4),-2px -2px 6px var(--neu-hi)}
+.neu-rg input:active::-webkit-slider-thumb{transform:scale(1.15)}
+.grid{grid-template-columns:repeat(auto-fill,minmax(var(--gmin,300px),1fr))}
+body.neu-compact .res-info p,body.neu-compact .card>p{display:none}
+body.neu-compact .res-thumb{width:84px;height:48px}
+body.neu-compact .res-card{padding:10px 14px;grid-template-columns:96px 1fr}
+body.neu-compact .card{padding:14px}
+@media(max-width:560px){.neu-ctl{gap:14px}.neu-rg input{width:110px}}
+@media (prefers-reduced-motion:reduce){.neu-sw i::after,.card,.res-card,.tab,.gpill,.chip,.btn{transition:none!important}}

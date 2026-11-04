@@ -62,6 +62,25 @@
     }, { passive: true });
   }
 
+
+  // điều khiển cách xem (công tắc và thanh trượt kiểu neumorphism): Gọn / Cỡ thẻ, nhớ lựa chọn trên trình duyệt này
+  {
+    const bar = document.querySelector(".bar");
+    const grid = document.getElementById("grid");
+    if (bar && grid && !document.querySelector(".neu-ctl")) {
+      const get = (k, d) => { try { return localStorage.getItem(k) ?? d; } catch { return d; } };
+      const set = (k, v) => { try { localStorage.setItem(k, v); } catch {} };
+      const wrap = document.createElement("div"); wrap.className = "neu-ctl";
+      wrap.innerHTML = `<label class="neu-sw"><input type="checkbox" id="neuCompact" role="switch"><i></i><span>Gọn</span></label><label class="neu-rg"><span>Cỡ thẻ</span><input type="range" id="neuSize" min="240" max="420" step="20" aria-label="Cỡ thẻ"></label>`;
+      bar.appendChild(wrap);
+      const cb = wrap.querySelector("#neuCompact"), rg = wrap.querySelector("#neuSize");
+      const apply = () => { document.body.classList.toggle("neu-compact", cb.checked); grid.style.setProperty("--gmin", rg.value + "px"); };
+      cb.checked = get("lm-neu-compact", "0") === "1"; rg.value = get("lm-neu-size", "300"); apply();
+      cb.addEventListener("change", () => { set("lm-neu-compact", cb.checked ? "1" : "0"); apply(); });
+      rg.addEventListener("input", () => { set("lm-neu-size", rg.value); apply(); });
+    }
+  }
+
   // thanh tiến độ cuộn: luôn hiện (không phải chuyển động nên không tắt khi chọn giảm chuyển động)
   {
     const bar = document.createElement("div"); bar.id = "fxProg"; bar.setAttribute("aria-hidden", "true");
