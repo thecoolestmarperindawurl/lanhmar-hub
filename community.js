@@ -23,6 +23,26 @@
   const open = list.filter((g) => g.status !== "soon").length;
   $("#cmCount").innerHTML = `<b>${open}</b> nhóm đang mở`;
 
+
+  // phần giới thiệu chi tiết cho nhóm nổi bật
+  const initials = (n) => String(n).split(/\s+/).filter(Boolean).slice(-2).map((w) => w[0]).join("").toUpperCase();
+  const f = list.find((g) => g.feature);
+  if (f) {
+    const url = okUrl(f.url), ex = (f.experts || []).filter((x) => x.show !== false && x.name);
+    const expCard = (x) => `<article class="cm-ex reveal"><div class="cm-av" aria-hidden="true">${esc(initials(x.name))}</div><div class="cm-ex-b"><h3>${esc(x.name)}</h3>${x.role ? `<p class="cm-role">${esc(x.role)}</p>` : ""}${x.bio ? `<p>${esc(x.bio)}</p>` : ""}${(x.points || []).length ? `<ul>${x.points.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}${(x.links || []).length ? `<div class="cm-lk">${x.links.filter((l) => okUrl(l.u)).map((l) => `<a href="${esc(l.u)}" target="_blank" rel="noopener">${esc(l.t)} ↗</a>`).join("")}</div>` : ""}</div></article>`;
+    const mod = f.moderator;
+    $("#spotBody").innerHTML = `
+      <p class="kicker">NHÓM NỔI BẬT</p>
+      <h2>Giới thiệu nhóm ${esc(f.name)}.</h2>
+      <div class="cm-about reveal"><p>${esc(f.desc)}</p>
+        <dl class="cm-facts"><div><dt>Nền tảng</dt><dd>${esc(f.platform)}</dd></div>${mod ? `<div><dt>Moderator</dt><dd>${esc(mod.name)}</dd></div>` : ""}<div><dt>Chủ đề</dt><dd>${(f.topics || []).map(esc).join(", ")}</dd></div></dl>
+        ${url ? `<div class="cm-act"><a class="cm-join" href="${esc(url)}" target="_blank" rel="noopener">Vào nhóm trên ${esc(f.platform)} →</a></div>` : ""}</div>
+      ${(f.members_kinds || []).length ? `<h3 class="cm-sub">Ai đang ở trong nhóm</h3><div class="cm-kinds">${f.members_kinds.map((k, i) => `<div class="cm-kind reveal"><b class="n">${i + 1}</b><h4>${esc(k.t)}</h4><p>${esc(k.d)}</p></div>`).join("")}</div>` : ""}
+      ${ex.length ? `<h3 class="cm-sub">Chuyên gia đang hoạt động trong nhóm</h3><div class="cm-exs">${ex.map(expCard).join("")}</div>` : ""}
+      ${mod ? `<h3 class="cm-sub">Người điều hành</h3><article class="cm-ex reveal"><div class="cm-av" aria-hidden="true">${esc(initials(mod.name))}</div><div class="cm-ex-b"><h3>${esc(mod.name)}</h3><p class="cm-role">${esc(mod.role)}</p><div class="cm-lk"><a href="index.html">Xem trang cá nhân ↗</a></div></div></article>` : ""}`;
+    $("#spot").hidden = false;
+  }
+
   // sao chép link
   const toast = (m) => { const t = $("#cmToast"); t.textContent = m; t.classList.add("on"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("on"), 2200); };
   document.addEventListener("click", async (e) => {
