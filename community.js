@@ -29,7 +29,29 @@
   const f = list.find((g) => g.feature);
   if (f) {
     const url = okUrl(f.url), ex = (f.experts || []).filter((x) => x.show !== false && x.name);
-    const expCard = (x) => `<article class="cm-ex reveal"><div class="cm-av" aria-hidden="true">${esc(initials(x.name))}</div><div class="cm-ex-b"><h3>${esc(x.name)}</h3>${x.role ? `<p class="cm-role">${esc(x.role)}</p>` : ""}${x.bio ? `<p>${esc(x.bio)}</p>` : ""}${(x.points || []).length ? `<ul>${x.points.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}${(x.links || []).length ? `<div class="cm-lk">${x.links.filter((l) => okUrl(l.u)).map((l) => `<a href="${esc(l.u)}" target="_blank" rel="noopener">${esc(l.t)} ↗</a>`).join("")}</div>` : ""}</div></article>`;
+    // thẻ hồ sơ chuyên gia: KV (ảnh, nhãn, logo đơn vị) + thân (tên, vai trò, chỉ số, chuyên môn, điểm nổi bật, link)
+    const okImg = (u) => (/^(assets\/[\w\-./]+|https:\/\/[^\s"'<>]+)$/i.test(String(u || "")) ? u : "");
+    const proCard = (x, badge, wide) => {
+      const photo = okImg(x.photo), logo = x.org && okImg(x.org.logo);
+      const links = (x.links || []).filter((l) => okUrl(l.u) || /^[\w\-]+\.html(#[\w\-]*)?$/.test(l.u || ""));
+      return `<article class="cm-pro reveal${wide ? " wide" : ""}">
+        <div class="cm-kv">
+          <span class="cm-kv-mark" aria-hidden="true">${esc(x.alias || x.name)}</span>
+          <div class="cm-kv-top"><span class="cm-badge">★ ${esc(badge)}</span>${x.org ? `<span class="cm-org${x.org.logoOnly ? " logo-only" : ""}">${logo ? `<img src="${esc(logo)}" alt="${x.org.logoOnly ? esc(x.alias || "") : ""}">` : ""}${esc(x.org.name || "")}</span>` : ""}</div>
+          ${photo ? `<figure class="cm-photo"><img src="${esc(photo)}" alt="Chân dung ${esc(x.name)}" width="480" height="600"></figure>`
+                  : `<div class="cm-av big" aria-hidden="true">${esc(initials(x.name))}</div>`}
+        </div>
+        <div class="cm-pro-b">
+          <h3>${esc(x.name)}${x.alias ? ` <small>${esc(x.alias)}</small>` : ""}</h3>
+          ${x.role ? `<p class="cm-role">${esc(x.role)}</p>` : ""}
+          ${x.bio ? `<p class="cm-bio">${esc(x.bio)}</p>` : ""}
+          ${(x.stats || []).length ? `<dl class="cm-stats">${x.stats.slice(0, 3).map((s) => `<div><dt>${esc(s.n)}</dt><dd>${esc(s.t)}</dd></div>`).join("")}</dl>` : ""}
+          ${(x.tags || []).length ? `<ul class="cm-tags" aria-label="Chuyên môn">${x.tags.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
+          ${(x.points || []).length ? `<ul class="cm-pts">${x.points.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
+          ${links.length ? `<div class="cm-lk">${links.map((l) => /^https:/.test(l.u) ? `<a href="${esc(l.u)}" target="_blank" rel="noopener">${esc(l.t)} ↗</a>` : `<a href="${esc(l.u)}">${esc(l.t)} →</a>`).join("")}</div>` : ""}
+        </div></article>`;
+    };
+    const expCard = (x) => proCard(x, "Chuyên gia");
     const mod = f.moderator;
     $("#spotBody").innerHTML = `
       <p class="kicker">NHÓM NỔI BẬT</p>
@@ -39,7 +61,7 @@
         ${url ? `<div class="cm-act"><a class="cm-join" href="${esc(url)}" target="_blank" rel="noopener">Vào nhóm trên ${esc(f.platform)} →</a></div>` : ""}</div>
       ${(f.members_kinds || []).length ? `<h3 class="cm-sub">Ai đang ở trong nhóm</h3><div class="cm-kinds">${f.members_kinds.map((k, i) => `<div class="cm-kind reveal"><b class="n">${i + 1}</b><h4>${esc(k.t)}</h4><p>${esc(k.d)}</p></div>`).join("")}</div>` : ""}
       ${ex.length ? `<h3 class="cm-sub">Chuyên gia đang hoạt động trong nhóm</h3><div class="cm-exs">${ex.map(expCard).join("")}</div>` : ""}
-      ${mod ? `<h3 class="cm-sub">Người điều hành</h3><article class="cm-ex reveal"><div class="cm-av" aria-hidden="true">${esc(initials(mod.name))}</div><div class="cm-ex-b"><h3>${esc(mod.name)}</h3><p class="cm-role">${esc(mod.role)}</p><div class="cm-lk"><a href="index.html">Xem trang cá nhân ↗</a></div></div></article>` : ""}`;
+      ${mod ? `<h3 class="cm-sub">Người điều hành</h3>${proCard({ ...mod, links: [{ t: "Xem trang cá nhân", u: mod.u || "index.html" }] }, "Moderator", true)}` : ""}`;
     $("#spot").hidden = false;
   }
 
