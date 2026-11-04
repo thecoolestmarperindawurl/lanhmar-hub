@@ -27,14 +27,17 @@ window.COMMUNITIES = [
     experts: [
       {
         name: "Hưng Kescy",
-        role: "Chuyên gia tư vấn và đào tạo vận hành doanh nghiệp SME với AI, tự động hoá",
-        bio: "Gắn với KesFlow. Giảng viên các khoá và workshop về AI Agent cho người đi làm và marketer.",
+        role: "CEO & Founder KesFlow. Tư vấn, đào tạo AI Automation cho doanh nghiệp",
+        bio: "Tên thật Đinh Tiến Hưng. Đứng lớp, đào tạo nội bộ và tư vấn vận hành cho doanh nghiệp Việt, theo nguyên tắc chọn đúng việc đáng làm trước, tối ưu công cụ sau.",
         points: [
-          "Giảng viên khoá VUKP x KESFLOW: Xây trợ lý cá nhân AI Agent (K1)",
+          "2900+ học viên đã qua các lớp (trong đó 200+ chủ doanh nghiệp); 700+ chủ doanh nghiệp dự workshop, webinar; 10+ doanh nghiệp đã đào tạo nội bộ",
+          "Lớp Teamwork với AI: khoá 6 buổi cho chủ doanh nghiệp và quản lý, đã chạy tới khoá 04",
+          "Đồng tổ chức AI Agent K1 cùng Vườn Ươm Khu Phố: 6 buổi online, gần 600 học viên, điểm kiến thức giảng viên 4,81/5 (501 phản hồi)",
+          "Giảng viên khách mời phần AI Agent, lớp Fullstack Marketing (Vườn Ươm Khu Phố, hơn 1800 học viên): 4,93/5 (349 phản hồi)",
           "Giảng viên workshop Agent Boss: AI Agent cho Marketer",
           "Tác giả bộ skill cho Claude (brainstorm, kf-plan, kes-create-skill, kf-cl-design-init...)"
         ],
-        links: [{ t: "hungkescy.com", u: "https://hungkescy.com/" }, { t: "KesFlow", u: "https://kesflow.vn/" }]
+        links: [{ t: "hungkescy.com", u: "https://hungkescy.com/" }, { t: "KesFlow", u: "https://kesflow.vn/" }, { t: "Facebook", u: "https://fb.com/kescyz" }]
       },
       {
         name: "Duy Cù",
