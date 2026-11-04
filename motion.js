@@ -65,6 +65,7 @@
       let el = $("#moBand");
       if (!el) { el = document.createElement("section"); el.id = "moBand"; el.className = "mo-band"; anchor.parentNode.insertBefore(el, anchor); }
       const head = L === "en" ? ["BRANDS · SEEDING", "Brands I have worked with."] : ["BRAND ĐÃ CỘNG TÁC · SEEDING", "Những thương hiệu mình đã đồng hành."];
+      el.classList.toggle("mo-brands", allLogo); // dải logo: luôn chạy từ trái sang phải (xem motion.css)
       el.innerHTML = `<div class="wrap"><p class="kicker mo-line in">★ ${head[0]}</p><h2>${head[1]}</h2></div>` + rows.map((r, i) => `<div class="mo-row r${i + 1}">${mk(r)}</div>`).join("");
     }).catch(() => {});
   };
