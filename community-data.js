@@ -20,7 +20,7 @@ window.COMMUNITIES = [
     feature: true,
     desc: "Nhóm Facebook cho người đi làm ứng dụng AI vào workflow hằng ngày: có chuyên gia về AI và tự động hoá, chủ doanh nghiệp và người đi làm cùng chia sẻ cách làm thực tế.",
     topics: ["AI trong workflow", "AI Agent", "Tự động hoá", "Vận hành SME với AI", "Hỏi đáp"],
-    moderator: { name: "Dương Thị Lan Anh", alias: "LANHMAR", role: "Moderator của nhóm, Digital Marketer (LANHMAR)", photo: "assets/img/experts/lan-anh.webp", org: { name: "", logo: "assets/img/logo-lanhmar.png", logoOnly: true }, u: "index.html" },
+    moderator: { name: "Dương Thị Lan Anh", alias: "LANHMAR", role: "Moderator nhóm Đi làm với AI · Digital Marketer", photo: "assets/img/experts/lan-anh.webp", org: { name: "", logo: "assets/img/logo-lanhmar.png", logoOnly: true }, u: "index.html" },
     members_kinds: [
       { t: "Chuyên gia AI và tự động hoá", d: "Những người làm nghề tư vấn, đào tạo và xây hệ thống AI, chia sẻ phương pháp và công cụ." },
       { t: "Chủ doanh nghiệp", d: "Người đang đưa AI vào vận hành doanh nghiệp, kể rõ việc đã làm và kết quả." },
@@ -44,7 +44,7 @@ window.COMMUNITIES = [
           "Lớp Teamwork với AI: 6 buổi cho chủ doanh nghiệp và quản lý, đã chạy tới khoá 04",
           "Đồng tổ chức AI Agent K1 cùng Vườn Ươm Khu Phố: gần 600 học viên, điểm kiến thức giảng viên 4,81/5 (501 phản hồi)",
           "Giảng viên workshop Agent Boss: AI Agent cho Marketer",
-          "Tác giả bộ skill cho Claude (brainstorm, kf-plan, kes-create-skill, kf-cl-design-init...)"
+          "Tác giả các bộ skill cho Claude, như brainstorm và kf-plan"
         ],
         links: [{ t: "hungkescy.com", u: "https://hungkescy.com/" }, { t: "KesFlow", u: "https://kesflow.vn/" }]
       },
