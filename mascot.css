@@ -1,13 +1,26 @@
 /* Mascot LANHMAR 3D (mascot.js) */
-.lm-mascot{position:relative;display:inline-block;width:var(--size,140px);aspect-ratio:1;line-height:0;flex:none}
+.lm-mascot{position:relative;display:inline-block;width:var(--size,140px);aspect-ratio:1;line-height:0;flex:none;vertical-align:bottom;-webkit-tap-highlight-color:transparent}
 .lm-mascot .lm-bob{position:absolute;inset:0;z-index:1;animation:lmBob 3.2s ease-in-out infinite}
-.lm-mascot img{width:100%;height:100%;object-fit:contain;display:block;user-select:none;filter:drop-shadow(0 10px 14px rgba(45,47,239,.18))}
+.lm-mascot .lm-tilt{position:absolute;inset:0;transform-origin:50% 90%;transform:rotate(calc(var(--rx,0) * 8deg)) translate(calc(var(--rx,0) * 3%),calc(var(--ry,0) * 2%));transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.lm-mascot img{width:100%;height:100%;object-fit:contain;display:block;user-select:none;-webkit-user-drag:none;filter:drop-shadow(0 10px 14px rgba(45,47,239,.18))}
 .lm-mascot .lm-shadow{position:absolute;left:24%;right:24%;bottom:0;height:7%;border-radius:50%;background:rgba(36,31,69,.16);filter:blur(3px);animation:lmShadow 3.2s ease-in-out infinite}
-.lm-sp{position:absolute;z-index:2;font-style:normal;color:#FF7A45;line-height:1;animation:lmSpark 1.6s ease-in-out infinite;text-shadow:0 2px 6px rgba(255,122,69,.35)}
+.lm-sp{position:absolute;z-index:2;display:none;font-style:normal;color:#FF7A45;line-height:1;animation:lmSpark 1.6s ease-in-out infinite;text-shadow:0 2px 6px rgba(255,122,69,.35);pointer-events:none}
+.lm-mascot.is-yeah .lm-sp{display:block}
 .lm-sp.s1{left:2%;top:26%;font-size:calc(var(--size,140px)*.12)}
 .lm-sp.s2{right:4%;top:18%;font-size:calc(var(--size,140px)*.09);animation-delay:-.5s}
 .lm-sp.s3{right:14%;top:2%;font-size:calc(var(--size,140px)*.07);animation-delay:-1s}
+
+/* tương tác */
+.lm-mascot.lm-live{cursor:pointer;pointer-events:auto}
+.lm-mascot.lm-live:focus-visible{outline:3px solid #6A5CFF;outline-offset:4px;border-radius:24px}
+.lm-mascot.lm-live:hover .lm-tilt{filter:brightness(1.05)}
+.lm-mascot.poke .lm-tilt{animation:lmPoke .55s cubic-bezier(.3,1.6,.5,1)}
+.lm-say{position:absolute;z-index:5;left:50%;bottom:calc(100% - 6px);width:max-content;max-width:min(230px,70vw);padding:9px 14px;border-radius:16px;background:#fff;color:#241F45;border:2px solid #241F45;box-shadow:0 8px 20px rgba(45,47,239,.2);font:700 13px/1.35 Montserrat,system-ui,sans-serif;text-align:center;white-space:normal;pointer-events:none;opacity:0;transform:translate(-50%,8px) scale(.9);transition:opacity .2s,transform .25s cubic-bezier(.2,1.4,.4,1)}
+.lm-say::after{content:"";position:absolute;left:50%;top:100%;width:12px;height:12px;background:#fff;border-right:2px solid #241F45;border-bottom:2px solid #241F45;transform:translate(-50%,-6px) rotate(45deg)}
+.lm-say.on{opacity:1;transform:translate(-50%,0) scale(1)}
+
 @keyframes lmBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5%)}}
 @keyframes lmShadow{0%,100%{transform:scaleX(1);opacity:1}50%{transform:scaleX(.85);opacity:.7}}
 @keyframes lmSpark{0%,100%{opacity:.5;transform:scale(.85) rotate(0)}50%{opacity:1;transform:scale(1.1) rotate(15deg)}}
-@media (prefers-reduced-motion:reduce){.lm-mascot *{animation:none!important}}
+@keyframes lmPoke{0%{transform:scale(1)}25%{transform:scale(1.12,.86) translateY(4%)}55%{transform:scale(.92,1.1) translateY(-10%)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.lm-mascot *{animation:none!important;transition:none!important}}

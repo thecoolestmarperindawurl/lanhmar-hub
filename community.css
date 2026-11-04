@@ -132,3 +132,8 @@
 .cm-mascots .lm-mascot:nth-child(2) .lm-bob{animation-delay:-1.1s}
 .cm-mascots .lm-mascot:nth-child(3) .lm-bob{animation-delay:-2.2s}
 @media(max-width:1320px){.cm-mascots{position:static;justify-content:center;margin:0 auto 6px}.cm-mascots .lm-mascot{--size:92px}.cm-mascots .lm-mascot:nth-child(2){--size:118px;margin-bottom:10px}}
+
+/* mascot ở ô "Chưa thấy nhóm bạn cần?" */
+.cm-cta{position:relative;overflow:visible}
+.cm-cta-mascot{position:absolute!important;right:22px;top:-70px;--size:118px}
+@media(max-width:640px){.cm-cta{padding-top:60px}.cm-cta-mascot{right:50%;transform:translateX(50%);top:-58px;--size:96px}}
