@@ -20,8 +20,9 @@ window.Res = (() => {
   // thẻ nổi bật theo ngôn ngữ đang chọn (tiêu đề/mô tả tiếng Anh lấy từ kho-en.js)
   const relocalize = () => { list = raw.map((i) => (window.LM ? LM.localizeItem(i) : i)); };
   document.addEventListener("lm:lang", relocalize);
+  document.addEventListener("lm:content", relocalize);
   // nội dung chi tiết chỉ có tiếng Việt: báo rõ khi đang xem bản tiếng Anh
-  const viNote = () => (EN() ? `<p class="res-pad res-vi-note">🇻🇳 The detailed content below is in Vietnamese. Use your browser's translate feature if needed.</p>` : "");
+  const viNote = (i) => (EN() && !(i && i._full) ? `<p class="res-pad res-vi-note">🇻🇳 The detailed content below is in Vietnamese. Use your browser's translate feature if needed.</p>` : "");
   const TTL = 2 * 60e3;   // cache trình duyệt
   let live = null, keepScroll = null, notified = 0, lastRefresh = Date.now();
   const ai = {}; // id hãng -> { items, updated }
@@ -227,7 +228,7 @@ window.Res = (() => {
       ${quotes}${news}
       <h4>${T("Vốn hoá / định giá lớn nhất", "Largest market cap / valuation")} <small>(${T("mốc đã tổng hợp", "compiled as of")} ${esc(i.asof)})</small></h4><table class="rank-t">${rows(i.valuation)}</table>
       <h4>${T("Tăng trưởng doanh thu nhanh nhất", "Fastest revenue growth")} <small>(${T("mốc", "as of")} ${esc(i.asof)})</small></h4><table class="rank-t">${rows(i.growth)}</table>
-      ${viNote()}<p class="res-pad rank-note">⚠️ ${esc(i.note2)}</p>
+      ${viNote(i)}<p class="res-pad rank-note">⚠️ ${esc(i.note2)}</p>
       <h4>${T("Nguồn tham khảo", "Sources")}</h4><ul class="rank-src">${i.sources.map((s) => `<li><a href="${esc(okUrl(s.u))}" target="_blank" rel="noopener">${esc(s.t)} ↗</a></li>`).join("")}</ul></div>`);
   }
 
@@ -255,7 +256,7 @@ window.Res = (() => {
   function openGuide(i, dlg) {
     const nx = i.next && list.find((x) => x.id === i.next.id);
     show(dlg, `<button class="x" id="resX" aria-label="${T("Đóng", "Close")}">×</button><div class="res-body g-body">
-      <div class="res-head"><span class="badge">${esc(i.type || T("Lý thuyết", "Theory"))}</span><h2>${esc(i.title)}</h2><p class="news-meta">${esc(i.note || "")}</p></div>${viNote()}
+      <div class="res-head"><span class="badge">${esc(i.type || T("Lý thuyết", "Theory"))}</span><h2>${esc(i.title)}</h2><p class="news-meta">${esc(i.note || "")}</p></div>${viNote(i)}
       ${(i.sections || []).map(guideSection).join("")}</div>` +
       (Array.isArray(i.ctas) && i.ctas.length ? `<div class="res-cta"><div><b>${esc(EN() ? i.title : i.ctasTitle || i.title)}</b></div><div class="res-cta-btns">${i.ctas.map((c) => `<a class="btn orange-btn" href="${esc(okUrl(c.url))}" target="_blank" rel="noopener">${esc(c.btn)} ↗</a>`).join("")}</div></div>`
         : i.cta ? `<div class="res-cta"><div><b>${esc(EN() ? i.title : i.cta.title)}</b><small>${esc(String(i.cta.url).replace(/^https?:\/\//, ""))}</small></div><a class="btn orange-btn" href="${esc(okUrl(i.cta.url))}" target="_blank" rel="noopener">${esc(i.cta.btn || T("Mở trang gốc", "Open source page"))} ↗</a></div>` : "") +
@@ -277,7 +278,7 @@ window.Res = (() => {
         ${i.cover ? `<img class="res-cover" src="${esc(okUrl(i.cover))}" alt="">` : ""}
         <div class="res-head"><span class="badge">${esc(i.type || "")}</span><h2>${esc(i.title)}</h2>
           <div class="res-tags">${(i.tags || []).map((t) => `<span class="chip">#${esc(t)}</span>`).join(" ")}</div></div>
-        ${viNote()}<h4>${T("Giới thiệu", "Overview")}</h4>
+        ${viNote(i)}<h4>${T("Giới thiệu", "Overview")}</h4>
         ${(i.intro || []).map((p) => `<p>${esc(p)}</p>`).join("")}
         ${i.facts?.length ? `<dl class="res-facts">${i.facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>` : ""}
         ${i.outline?.length ? `<h4>${T("Xem nhanh nội dung", "Contents at a glance")}</h4><ol class="res-outline">${i.outline.map((o) => `<li><b>${esc(o.t)}</b><span>${esc(o.d)}</span></li>`).join("")}</ol>` : ""}

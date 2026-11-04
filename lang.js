@@ -16,6 +16,7 @@
       cur = l; try { localStorage.setItem("lm_lang", l); } catch {}
       document.documentElement.lang = l; LM.localizeKho(); paintToggles();
       document.dispatchEvent(new CustomEvent("lm:lang", { detail: l }));
+      LM.loadFull();
     },
     localizeKho() {
       const E = (window.KHO_EN || {}).kho || {};
@@ -45,8 +46,16 @@
     localizeItem(i) {
       if (cur !== "en") return i;
       const E = window.KHO_EN || {}, e = (E.items || {})[i.id], tm = E.tags || {};
+      const full = (LM._full || {})[i.id]; // bản dịch đầy đủ nội dung chi tiết (i18n/featured-en.json)
       const tags = (i.tags || []).map((t) => tm[t] || t);
-      return e ? { ...i, ...e, tags, _en: true } : { ...i, tags };
+      return { ...i, ...(full || {}), ...(e || {}), tags, featured: true, _en: !!e, _full: !!full };
+    },
+    // tải bản dịch nội dung chi tiết khi cần (chỉ khi đang xem EN); xong thì phát "lm:content" để trang vẽ lại
+    loadFull() {
+      if (cur !== "en" || LM._full || LM._loading) return LM._loading || Promise.resolve();
+      LM._loading = fetch("i18n/featured-en.json?v=" + (window.__khoEnV || "1")).then((r) => (r.ok ? r.json() : {})).catch(() => ({}))
+        .then((j) => { LM._full = j || {}; LM._loading = null; document.dispatchEvent(new CustomEvent("lm:content")); });
+      return LM._loading;
     }
   };
   function paintToggles() {
@@ -62,5 +71,6 @@
   window.LM = LM;
   document.documentElement.lang = cur;
   LM.localizeKho();
+  LM.loadFull();
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", paintToggles); else paintToggles();
 })();
