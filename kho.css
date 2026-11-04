@@ -519,3 +519,4 @@ body.neu-compact .card{padding:14px}
 .lockcard{position:relative}
 .lockcard .gate-mascot{position:absolute!important;right:18px;top:-58px;--size:110px}
 @media(max-width:560px){.lockcard .gate-mascot{--size:84px;top:-44px;right:10px}}
+.app-sec{display:flex;align-items:flex-end;gap:6px}.app-sec .app-sec-mascot{--size:64px;margin:-30px 0 -8px}
