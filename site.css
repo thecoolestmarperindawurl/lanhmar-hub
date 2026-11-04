@@ -250,3 +250,7 @@ dialog::backdrop{background:rgba(36,31,69,.6)}
 .work-head h2{margin-bottom:0}
 .work-mascot{--size:112px;margin-bottom:-6px}
 @media(max-width:900px){.work-mascot{--size:84px}}
+.bye-wrap{position:relative;justify-self:center}
+.bye-wrap .bye{display:block}
+.bye-mascot{position:absolute!important;left:-54px;bottom:-26px;--size:120px}
+@media(max-width:900px){.bye-mascot{left:-14px;bottom:-20px;--size:96px}}

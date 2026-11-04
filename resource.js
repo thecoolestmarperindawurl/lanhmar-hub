@@ -341,7 +341,7 @@ window.Res = (() => {
       <div class="app-hero"><span class="lm-mascot app-mascot" data-pose="yeah" data-say="apps"></span><p class="app-k">★ ${esc(cfg.name || "Kho Ứng dụng")}</p>
         <h2>${esc(cfg.headline || "Ứng dụng mình xây và dùng hằng ngày.")}</h2>
         <div class="app-counts">${shelves.filter((s) => cnt(s.id)).map((s) => `<span><b>${cnt(s.id)}</b> ${esc(s.name)}</span>`).join("")}</div></div>
-      ${spot.length ? `<h3 class="app-sec">Mới và nổi bật</h3><div class="app-spot">${spot.map((i) => appCard(i, true, extra)).join("")}</div>` : ""}
+      ${spot.length ? `<h3 class="app-sec">Mới và nổi bật <span class="lm-mascot app-sec-mascot" data-pose="laptop" data-say="apps"></span></h3><div class="app-spot">${spot.map((i) => appCard(i, true, extra)).join("")}</div>` : ""}
       <div class="app-shelves" role="group" aria-label="Lọc theo kệ">
         <button type="button" class="app-shelf-btn${shelfCur === "all" ? " on" : ""}" data-shelf-f="all" aria-pressed="${shelfCur === "all"}"><b>Tất cả</b><small>${list.length}</small></button>
         ${shelves.map((s) => { const n = cnt(s.id); return `<button type="button" class="app-shelf-btn${shelfCur === s.id ? " on" : ""}${n ? "" : " soon"}" data-shelf-f="${esc(s.id)}" aria-pressed="${shelfCur === s.id}"><b>${esc(s.name)}</b><small>${n || "sắp có"}</small>${s.sub ? `<i>${esc(s.sub)}</i>` : ""}</button>`; }).join("")}
