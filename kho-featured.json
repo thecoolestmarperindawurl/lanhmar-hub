@@ -8951,6 +8951,112 @@
           "t": "Về link: mình chưa đưa đường link app vào trang này vì kho này nằm trong mã nguồn công khai. Bạn nên lưu link riêng bằng nút '+ Thêm' trong Kho Ứng dụng (được mã hoá). Link bản Owner chỉ chạy trong mạng riêng và không nên đăng công khai."
         }
       ]
+    },
+    {
+      "id": "tool-ai-convert",
+      "kho": "idea",
+      "shelf": "tool",
+      "status": "Đang dùng",
+      "guide": true,
+      "date": "2026-11-04",
+      "title": "AI Convert: chuyển PDF, Word, Excel, PowerPoint sang Markdown cho AI",
+      "type": "Công cụ",
+      "badge": "Web tool",
+      "tags": [
+        "markdown",
+        "vibe code",
+        "ai agent",
+        "token"
+      ],
+      "thumb": "assets/res/tool-ai-convert.jpg",
+      "note": "Kéo thả tài liệu, nhận Markdown sạch để Claude, ChatGPT, Cursor đọc nhanh hơn và tốn ít token hơn. Xử lý ngay trong trình duyệt, file không rời máy.",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "AI đọc Markdown tốt hơn PDF hay Word: giữ được tiêu đề, danh sách, bảng mà không kèm rác định dạng. Công cụ này chuyển tài liệu sang Markdown ngay trong trình duyệt, không tải file lên máy chủ nào."
+        },
+        {
+          "k": "h",
+          "t": "Đọc được những gì"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Loại file",
+            "Công cụ làm gì"
+          ],
+          "rows": [
+            [
+              "PDF",
+              "Ghép chữ thành đoạn, nhận tiêu đề theo cỡ chữ, bỏ header/footer lặp lại và số trang. Báo khi PDF là bản scan không có chữ"
+            ],
+            [
+              "Word (.docx)",
+              "Giữ tiêu đề, danh sách, bảng; bỏ ảnh"
+            ],
+            [
+              "Excel, CSV",
+              "Mỗi sheet thành một bảng Markdown, bỏ dòng/cột trống, giới hạn số dòng"
+            ],
+            [
+              "PowerPoint (.pptx)",
+              "Mỗi slide một mục, giữ cấp ý, bảng và ghi chú người thuyết trình"
+            ],
+            [
+              "HTML, TXT, JSON, code",
+              "Bỏ menu/script của trang web; file code được bọc đúng ngôn ngữ"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cách dùng"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Thả file",
+              "d": "Kéo nhiều file một lúc vào ô, chỉnh tuỳ chọn làm sạch nếu cần."
+            },
+            {
+              "t": "Xem kết quả",
+              "d": "Mỗi file hiện loại, số trang/slide/sheet và ước tính token. Bấm Xem để kiểm tra nhanh."
+            },
+            {
+              "t": "Lấy ra",
+              "d": "Copy tất cả để dán vào chat, tải context.md, hoặc tải .zip gồm từng file kèm INDEX.md."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Dùng trong vibe code"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Giải nén .zip vào docs/context/ của dự án.",
+            "Thêm vào CLAUDE.md (hoặc .cursorrules): \"Tài liệu tham khảo ở docs/context/, đọc INDEX.md trước.\" Agent sẽ chỉ mở đúng file cần.",
+            "Tài liệu dài: bật Chia đoạn để mỗi phần vừa cửa sổ ngữ cảnh.",
+            "Ảnh, sơ đồ, bản scan: gửi thẳng ảnh cho AI sẽ chính xác hơn."
+          ]
+        },
+        {
+          "k": "code",
+          "cap": "Bản dòng lệnh để chuyển cả thư mục (trong repo lanhmar-hub)",
+          "t": "pip install 'markitdown[pdf,docx,xlsx,pptx]'\npython3 tools/to-md.py tai-lieu/ -o docs/context"
+        },
+        {
+          "k": "callout",
+          "t": "Số token chỉ là ước tính thô (ký tự ÷ 4, tiếng Việt có dấu ÷ 3) để so sánh; số thật tuỳ tokenizer của từng model."
+        }
+      ],
+      "cta": {
+        "title": "Mở AI Convert",
+        "url": "https://lanhmar.id.vn/ai-convert.html",
+        "btn": "Mở công cụ"
+      }
     }
   ]
 }
