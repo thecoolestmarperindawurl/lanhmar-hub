@@ -1,0 +1,41 @@
+/* AI Convert — dùng chung token từ kho.css */
+.cv{display:grid;gap:20px;padding-bottom:60px}
+.panel{background:var(--paper);border:2px solid var(--lav-300);border-radius:22px;padding:22px;box-shadow:var(--shadow);min-width:0}
+.panel h2{margin:0 0 10px;color:var(--purple-deep);font-size:22px}
+.drop{display:grid;place-items:center;gap:4px;text-align:center;border:3px dashed var(--purple-mid);border-radius:22px;padding:36px 16px;background:var(--lav-100);cursor:pointer;transition:.2s;text-transform:none;letter-spacing:0;font-size:15px;margin:0;color:var(--ink-soft)}
+.drop b{color:var(--purple-deep);font-size:18px}
+.drop small{opacity:.85}
+.drop:hover,.drop.over,.drop:focus{background:var(--lav-200);outline:none;transform:translateY(-2px)}
+.drop-ico{font-size:34px;color:var(--orange);line-height:1}
+.opts{margin-top:16px}
+.opts summary{cursor:pointer;font-weight:700;color:var(--purple-deep)}
+.opt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:4px 18px;margin-top:8px}
+.opt-grid label{margin:6px 0}
+label.inline{display:flex;align-items:center;gap:8px;text-transform:none;letter-spacing:0;font-size:14px;font-weight:600}
+label.inline input{width:100px;padding:6px 10px}
+.res-head{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.res-acts{display:flex;flex-wrap:wrap;gap:8px}
+.res-acts .btn{padding:8px 14px;font-size:13px}
+.sum{font-weight:600;margin:8px 0 14px}
+.list{display:grid;gap:14px}
+.item{border:2px solid var(--lav-300);border-radius:18px;padding:14px;background:#fff;min-width:0}
+.item.err{border-color:var(--orange)}
+.item-head{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.item-head h3{margin:0;color:var(--purple-deep);font-size:16px;word-break:break-all}
+.item-meta{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.item-acts{display:flex;gap:6px;flex-wrap:wrap}
+.item-acts button{background:none;border:2px solid var(--lav-300);border-radius:999px;color:var(--purple-deep);font:700 12px Montserrat;padding:4px 12px;cursor:pointer}
+.item-acts button:hover{border-color:var(--purple-deep)}
+.item pre{margin:8px 0 0;max-height:320px;overflow:auto;background:var(--ink);color:#F3F1FD;border-radius:14px;padding:14px;font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:pre-wrap;word-break:break-word}
+.item .msg{color:var(--orange-text);font-weight:700;margin:6px 0 0}
+.badge.ok{background:var(--lav-200);color:var(--purple-deep)}
+.spin{display:inline-block;width:14px;height:14px;border:3px solid var(--lav-300);border-top-color:var(--purple-deep);border-radius:50%;animation:sp 1s linear infinite;vertical-align:-2px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.tips ol{padding-left:20px;margin:0}
+.tips li{margin:6px 0}
+.tips code{background:var(--lav-200);color:var(--purple-deep);padding:1px 6px;border-radius:6px;font-size:13px}
+.tips .note{font-size:13px;margin:12px 0 0}
+@media (max-width:600px){.wrap{padding:0 16px}.panel{padding:16px}.res-acts .btn{flex:1 1 auto}}
+/* Font dự phòng khi Montserrat chưa tải xong */
+.cv .btn,.cv .badge,.cv button,.cv input,.res-acts .btn,footer .btn,.btn.back{font-family:Montserrat,system-ui,sans-serif}
+label.inline{flex-wrap:wrap}
