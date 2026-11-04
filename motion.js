@@ -40,8 +40,14 @@
       const skills = (p.skills || []).map((s) => s[L] || s.vi);
       const sw = (p.software || []).flatMap((g) => g.items);
       const half = Math.ceil(sw.length / 2);
-      const rows = [skills, sw.slice(0, half), sw.slice(half).concat(skills.slice(0, 3))].filter((r) => r.length);
-      const mk = (arr) => { const one = `<div class="mo-track">${arr.map((t) => `<span class="mo-pill">${esc(t)}</span>`).join("")}</div>`; return one + one.replace('class="mo-track"', 'class="mo-track" aria-hidden="true"'); };
+      const rows = [skills, sw.slice(0, half), sw.slice(half)].filter((r) => r.length);
+      // lặp đủ dài để vòng chạy không hở trên màn hình rộng; bản lặp bị ẩn khi chọn giảm chuyển động
+      const mk = (arr) => {
+        const k = Math.max(1, Math.ceil(1800 / (arr.length * 150)));
+        const items = Array.from({ length: k }, (_, n) => arr.map((t) => `<span class="mo-pill${n ? " mo-dup" : ""}">${esc(t)}</span>`).join("")).join("");
+        const one = `<div class="mo-track">${items}</div>`;
+        return one + one.replace('class="mo-track"', 'class="mo-track" aria-hidden="true"');
+      };
       let el = $("#moBand");
       if (!el) { el = document.createElement("section"); el.id = "moBand"; el.className = "mo-band"; anchor.parentNode.insertBefore(el, anchor); }
       const head = L === "en" ? ["TOOLS & SKILLS", "What I work with every day."] : ["CÔNG CỤ & KỸ NĂNG", "Những thứ mình dùng mỗi ngày."];
