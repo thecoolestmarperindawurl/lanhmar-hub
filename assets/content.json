@@ -81,7 +81,7 @@
   ],
   "brands_seeding": [
     {"name": "Sprite", "logo": "assets/img/brands/sprite.webp"},
-    {"name": "Sting", "logo": "assets/img/brands/sting.webp"},
+    {"name": "Sting", "logo": "assets/img/brands/sting.webp", "bg": "#F80000"},
     {"name": "Pepsi", "logo": "assets/img/brands/pepsi.webp"},
     {"name": "Samsung", "logo": "assets/img/brands/samsung.svg"},
     {"name": "Cell Fusion C", "logo": "assets/img/brands/cellfusionc.png"},

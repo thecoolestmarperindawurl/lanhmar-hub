@@ -95,3 +95,5 @@ body::after{width:520px;height:520px;right:-160px;top:55vh;background:rgba(106,9
 .mo-logo:hover{transform:translateY(-4px) scale(1.05);box-shadow:0 14px 30px rgba(255,122,69,.35)}
 @media (max-width:640px){.mo-logo{width:128px;height:64px;padding:7px 14px}.mo-logo img{max-height:48px}.mo-logo.txt{font-size:13.5px}}
 @media (prefers-reduced-motion:reduce){.mo-logo{transition:none}}
+.mo-logo.fill{padding:4px 12px}.mo-logo.fill img{max-height:68px}
+@media (max-width:640px){.mo-logo.fill img{max-height:56px}}
