@@ -514,3 +514,8 @@ body.neu-compact .card{padding:14px}
 .app-hero{position:relative;padding-right:150px;min-height:120px}
 .app-hero .lm-mascot.app-mascot{position:absolute;right:0;top:-6px;--size:140px}
 @media(max-width:640px){.app-hero{padding-right:96px}.app-hero .lm-mascot.app-mascot{--size:92px;top:0}}
+
+/* mascot ở thẻ đăng ký Data Storage */
+.lockcard{position:relative}
+.lockcard .gate-mascot{position:absolute!important;right:18px;top:-58px;--size:110px}
+@media(max-width:560px){.lockcard .gate-mascot{--size:84px;top:-44px;right:10px}}
