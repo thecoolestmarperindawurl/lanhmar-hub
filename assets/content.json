@@ -79,6 +79,7 @@
     "en": "Time management"
    }
   ],
+  "brands_seeding": ["Sprite", "Sting", "Pepsi", "Samsung", "Cell Fusion C", "Lay's", "Revive", "DOL Đình Lực", "Downy", "ZaloPay", "Playah", "UOB", "Hazeline", "Manulife"],
   "software": [
    {
     "group_vi": "Branding",

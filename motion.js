@@ -32,15 +32,15 @@
     photo.insertAdjacentHTML("beforeend", words.map(([w, c, d]) => `<span class="mo-chip ${c}" data-depth="${d}" aria-hidden="true"><b>★</b>${w}</span>`).join(""));
   }
 
-  // hàng pill chạy ngược chiều, lấy từ nội dung thật (kỹ năng và phần mềm)
+  // hàng pill chạy ngược chiều: các brand đã cộng tác seeding (profile.brands_seeding trong assets/content.json)
   const band = () => {
     const anchor = $("#services"); if (!anchor) return;
     fetch("assets/content.json?v=" + (window.__v || "1")).then((r) => r.json()).then((d) => {
       const p = d.profile || {}, L = lang();
-      const skills = (p.skills || []).map((s) => s[L] || s.vi);
-      const sw = (p.software || []).flatMap((g) => g.items);
-      const half = Math.ceil(sw.length / 2);
-      const rows = [skills, sw.slice(0, half), sw.slice(half)].filter((r) => r.length);
+      const br = p.brands_seeding || [];
+      const half = Math.ceil(br.length / 2);
+      const rows = [br.slice(0, half), br.slice(half)].filter((r) => r.length);
+      if (!rows.length) return;
       // lặp đủ dài để vòng chạy không hở trên màn hình rộng; bản lặp bị ẩn khi chọn giảm chuyển động
       const mk = (arr) => {
         const k = Math.max(1, Math.ceil(1800 / (arr.length * 150)));
@@ -50,7 +50,7 @@
       };
       let el = $("#moBand");
       if (!el) { el = document.createElement("section"); el.id = "moBand"; el.className = "mo-band"; anchor.parentNode.insertBefore(el, anchor); }
-      const head = L === "en" ? ["TOOLS & SKILLS", "What I work with every day."] : ["CÔNG CỤ & KỸ NĂNG", "Những thứ mình dùng mỗi ngày."];
+      const head = L === "en" ? ["BRANDS · SEEDING", "Brands I have worked with."] : ["BRAND ĐÃ CỘNG TÁC · SEEDING", "Những thương hiệu mình đã đồng hành."];
       el.innerHTML = `<div class="wrap"><p class="kicker mo-line in">★ ${head[0]}</p><h2>${head[1]}</h2></div>` + rows.map((r, i) => `<div class="mo-row r${i + 1}">${mk(r)}</div>`).join("");
     }).catch(() => {});
   };
