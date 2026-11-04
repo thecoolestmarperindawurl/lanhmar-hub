@@ -37,14 +37,19 @@
     const anchor = $("#services"); if (!anchor) return;
     fetch("assets/content.json?v=" + (window.__v || "1")).then((r) => r.json()).then((d) => {
       const p = d.profile || {}, L = lang();
-      const br = p.brands_seeding || [];
+      // mỗi brand: { name, logo } (logo đặt trong assets/img/brands/); chưa có logo thì hiện tên dạng chữ
+      const br = (p.brands_seeding || []).map((b) => (typeof b === "string" ? { name: b, logo: "" } : b)).filter((b) => b && b.name);
       const half = Math.ceil(br.length / 2);
       const rows = [br.slice(0, half), br.slice(half)].filter((r) => r.length);
       if (!rows.length) return;
       // lặp đủ dài để vòng chạy không hở trên màn hình rộng; bản lặp bị ẩn khi chọn giảm chuyển động
       const mk = (arr) => {
-        const k = Math.max(1, Math.ceil(1800 / (arr.length * 150)));
-        const items = Array.from({ length: k }, (_, n) => arr.map((t) => `<span class="mo-pill${n ? " mo-dup" : ""}">${esc(t)}</span>`).join("")).join("");
+        const k = Math.max(1, Math.ceil(1800 / (arr.length * 170)));
+        const okLogo = (u) => /^assets\/img\/brands\/[\w\-.]+\.(svg|png|webp|jpg)$/i.test(u || "");
+        const tile = (b, n) => okLogo(b.logo)
+          ? `<span class="mo-logo${n ? " mo-dup" : ""}" title="${esc(b.name)}"><img src="${esc(b.logo)}" alt="${esc(b.name)}" loading="lazy" decoding="async"></span>`
+          : `<span class="mo-logo txt${n ? " mo-dup" : ""}">${esc(b.name)}</span>`;
+        const items = Array.from({ length: k }, (_, n) => arr.map((b) => tile(b, n)).join("")).join("");
         const one = `<div class="mo-track">${items}</div>`;
         return one + one.replace('class="mo-track"', 'class="mo-track" aria-hidden="true"');
       };
