@@ -20,8 +20,23 @@ window.Res = (() => {
 
   /* Song ngữ: chọn EN (localStorage "lm_lang", dùng chung với trang chủ) thì mọi trường "x" có bản "x_en"
      — ở bất kỳ độ sâu nào: title, note, sections[].t, rows, items, cta… — được thay bằng bản tiếng Anh.
-     Mục chưa có bản _en giữ nguyên tiếng Việt. */
+     Áp dụng cho kho-featured.json VÀ bảng KHO trong kho-data.js (tên kho, mục con, kệ, intro).
+     Mục chưa có bản _en giữ nguyên tiếng Việt. Kiểm tra thiếu _en: node tools/i18n-check.mjs */
   const lang = () => { try { return localStorage.getItem("lm_lang") === "en" ? "en" : "vi"; } catch { return "vi"; } };
+  const UI = {
+    vi: { all: "Tất cả", soon: "sắp có", detail: "Xem chi tiết →", open_app: "Mở ứng dụng ↗", open_src: "Mở trang gốc", theory: "Lý thuyết",
+      sources: "Nguồn tham khảo", resource: "Tài nguyên", read_first: "Đọc trước", featured: "Nổi bật", spot: "Mới và nổi bật", filter_shelf: "Lọc theo kệ",
+      apps: "Kho Ứng dụng", apps_head: "Ứng dụng mình xây và dùng hằng ngày.", shelf_empty_b: "Kệ này đang được chuẩn bị.", shelf_empty: "Quay lại sau nhé, ứng dụng mới sẽ lên đây.",
+      ranking: "Xem bảng xếp hạng →", updated: "Cập nhật", asof: "Mốc", shared: "Chia sẻ", edit: "Sửa", del: "Xoá", collapse: "Thu gọn ▴", more_tags: (n) => "+" + n + " thẻ ▾",
+      empty_apps: "Chưa có ứng dụng nào. Bấm “+ Thêm” để bắt đầu.", empty: "Chưa có mục nào. Bấm “+ Thêm” để bắt đầu.", situation: "Tình huống", use_skill: "Dùng skill", open: "Mở" },
+    en: { all: "All", soon: "coming soon", detail: "View details →", open_app: "Open app ↗", open_src: "Open source page", theory: "Theory",
+      sources: "Sources", resource: "Resource", read_first: "Read first", featured: "Featured", spot: "New & featured", filter_shelf: "Filter by shelf",
+      apps: "App Library", apps_head: "Apps I build and use every day.", shelf_empty_b: "This shelf is being prepared.", shelf_empty: "Check back soon, new apps will land here.",
+      ranking: "See the ranking →", updated: "Updated", asof: "As of", shared: "Shared", edit: "Edit", del: "Delete", collapse: "Collapse ▴", more_tags: (n) => "+" + n + " tags ▾",
+      empty_apps: "No apps yet. Click “+ Add” to start.", empty: "Nothing here yet. Click “+ Add” to start.", situation: "Situation", use_skill: "Use skill", open: "Open" }
+  };
+  const t = (k) => { const v = UI[lang()][k]; return v !== undefined ? v : UI.vi[k]; };
+  const KHO_RAW = window.KHO; // bản gốc (có cả _en) của kho-data.js; window.KHO được thay bằng bản đã chọn ngôn ngữ trong load()
   const loc = (o, en) => {
     if (Array.isArray(o)) return o.map((x) => loc(x, en));
     if (!o || typeof o !== "object") return o;
@@ -39,6 +54,7 @@ window.Res = (() => {
       if (!r.ok) return (list = []);
       const j = await r.json();
       const en = lang() === "en";
+      if (KHO_RAW) window.KHO = loc(KHO_RAW, en);
       list = (j.items || []).map((i) => ({ ...loc(i, en), featured: true }));
     } catch { list = []; }
     return list;
@@ -174,13 +190,13 @@ window.Res = (() => {
         <img class="res-thumb" src="${esc(okUrl(i.thumb))}" alt="" loading="lazy"><div class="res-info">${rk ? '<span class="badge live"><i></i>LIVE</span>' : ""}<span class="badge">${esc(i.type)}</span>
         <h3>${esc(i.title)}</h3>
         ${q.length ? `<ul class="feed-mini">${q.slice(0, 2).map((x) => `<li><b>${esc(x.s)}</b> ${fmtPrice(x)}</li>`).join("")}</ul>` : `<p>${esc(i.note)}</p>`}
-        <div class="meta"><span>${rk ? "Cập nhật " + esc(updatedText(rk.updated)) : "Mốc " + esc(i.asof)}</span><span class="res-more">Xem bảng xếp hạng →</span></div></div></article>`;
+        <div class="meta"><span>${rk ? t("updated") + " " + esc(updatedText(rk.updated)) : t("asof") + " " + esc(i.asof)}</span><span class="res-more">${t("ranking")}</span></div></div></article>`;
     }
     return `<article class="card res-card" data-res="${esc(i.id)}" tabindex="0" role="button" aria-label="${esc(i.title)}">
       <img class="res-thumb" src="${esc(okUrl(i.thumb))}" alt="" loading="lazy">
-      <div class="res-info"><div class="res-badges">${(() => { const a = i.type || "Tài nguyên", b = i.guide ? i.badge || "Đọc trước" : "Nổi bật", la = a.toLowerCase(), lb = b.toLowerCase(), same = la.includes(lb) || lb.includes(la); return `<span class="badge">${esc(a)}</span>` + (same ? "" : `<span class="badge shared">${esc(b)}</span>`); })()}</div>
+      <div class="res-info"><div class="res-badges">${(() => { const a = i.type || t("resource"), b = i.guide ? i.badge || t("read_first") : t("featured"), la = a.toLowerCase(), lb = b.toLowerCase(), same = la.includes(lb) || lb.includes(la); return `<span class="badge">${esc(a)}</span>` + (same ? "" : `<span class="badge shared">${esc(b)}</span>`); })()}</div>
         <h3>${esc(i.title)}</h3><p>${esc(i.note)}</p>
-        <div class="meta"><span>${esc(i.date)}</span><span class="res-more">Xem chi tiết →</span></div></div>
+        <div class="meta"><span>${esc(i.date)}</span><span class="res-more">${t("detail")}</span></div></div>
     </article>`;
   }
 
@@ -193,7 +209,7 @@ window.Res = (() => {
     dlg.scrollTo({ top: keepScroll == null ? 0 : keepScroll, behavior: "instant" }); keepScroll = null;
     if (!dlg.dataset.liveWired) { dlg.addEventListener("close", () => { live = null; }); dlg.dataset.liveWired = "1"; }
   }
-  const cta = (title, url) => `<div class="res-cta"><div><b>${esc(title)}</b><small>${esc(String(url).replace(/^https?:\/\//, ""))}</small></div><a class="btn orange-btn" href="${esc(okUrl(url))}" target="_blank" rel="noopener">Mở trang gốc ↗</a></div>`;
+  const cta = (title, url) => `<div class="res-cta"><div><b>${esc(title)}</b><small>${esc(String(url).replace(/^https?:\/\//, ""))}</small></div><a class="btn orange-btn" href="${esc(okUrl(url))}" target="_blank" rel="noopener">${t("open_src")} ↗</a></div>`;
   const head = (i, extra) => `<button class="x" id="resX" aria-label="Đóng">×</button><div class="res-body"><div class="res-head"><span class="badge live"><i></i>LIVE</span><h2>${esc(i.title)}</h2>${extra || ""}</div>`;
 
   function openClaude(i, dlg) {
@@ -234,12 +250,12 @@ window.Res = (() => {
       <h4>Vốn hoá / định giá lớn nhất <small>(mốc đã tổng hợp ${esc(i.asof)})</small></h4><table class="rank-t">${rows(i.valuation)}</table>
       <h4>Tăng trưởng doanh thu nhanh nhất <small>(mốc ${esc(i.asof)})</small></h4><table class="rank-t">${rows(i.growth)}</table>
       <p class="res-pad rank-note">⚠️ ${esc(i.note2)}</p>
-      <h4>Nguồn tham khảo</h4><ul class="rank-src">${i.sources.map((s) => `<li><a href="${esc(okUrl(s.u))}" target="_blank" rel="noopener">${esc(s.t)} ↗</a></li>`).join("")}</ul></div>`);
+      <h4>${t("sources")}</h4><ul class="rank-src">${i.sources.map((s) => `<li><a href="${esc(okUrl(s.u))}" target="_blank" rel="noopener">${esc(s.t)} ↗</a></li>`).join("")}</ul></div>`);
   }
 
   /* ---------- bài lý thuyết / bản đồ kiến thức (guide) ---------- */
   function guideSection(x) {
-    const lnk = (u, lb) => (okUrl(u) ? ` <a class="g-link" href="${esc(okUrl(u))}" target="_blank" rel="noopener">${esc(lb || "Mở trang gốc")} ↗</a>` : "");
+    const lnk = (u, lb) => (okUrl(u) ? ` <a class="g-link" href="${esc(okUrl(u))}" target="_blank" rel="noopener">${esc(lb || t("open_src"))} ↗</a>` : "");
     switch (x.k) {
       case "h": return `<h4>${esc(x.t)}</h4>`;
       case "p": return `<p>${esc(x.t)}</p>`;
@@ -261,10 +277,10 @@ window.Res = (() => {
   function openGuide(i, dlg) {
     const nx = i.next && list.find((x) => x.id === i.next.id);
     show(dlg, `<button class="x" id="resX" aria-label="Đóng">×</button><div class="res-body g-body">
-      <div class="res-head"><span class="badge">${esc(i.type || "Lý thuyết")}</span><h2>${esc(i.title)}</h2><p class="news-meta">${esc(i.note || "")}</p></div>
+      <div class="res-head"><span class="badge">${esc(i.type || t("theory"))}</span><h2>${esc(i.title)}</h2><p class="news-meta">${esc(i.note || "")}</p></div>
       ${(i.sections || []).map(guideSection).join("")}</div>` +
       (Array.isArray(i.ctas) && i.ctas.length ? `<div class="res-cta"><div><b>${esc(i.ctasTitle || i.title)}</b></div><div class="res-cta-btns">${i.ctas.map((c) => `<a class="btn orange-btn" href="${esc(okUrl(c.url))}" target="_blank" rel="noopener">${esc(c.btn)} ↗</a>`).join("")}</div></div>`
-        : i.cta ? `<div class="res-cta"><div><b>${esc(i.cta.title)}</b><small>${esc(String(i.cta.url).replace(/^https?:\/\//, ""))}</small></div><a class="btn orange-btn" href="${esc(okUrl(i.cta.url))}" target="_blank" rel="noopener">${esc(i.cta.btn || "Mở trang gốc")} ↗</a></div>` : "") +
+        : i.cta ? `<div class="res-cta"><div><b>${esc(i.cta.title)}</b><small>${esc(String(i.cta.url).replace(/^https?:\/\//, ""))}</small></div><a class="btn orange-btn" href="${esc(okUrl(i.cta.url))}" target="_blank" rel="noopener">${esc(i.cta.btn || t("open_src"))} ↗</a></div>` : "") +
       (nx ? `<div class="res-cta"><div><b>${esc(i.next.label)}</b></div><button class="btn orange-btn" type="button" data-res="${esc(nx.id)}">Mở tiếp →</button></div>` : ""));
   }
 
@@ -306,14 +322,14 @@ window.Res = (() => {
   function groupPills(kho, arr, grp) {
     const gs = khoGroups(kho); if (!gs) return "";
     const cnt = (id) => arr.filter((i) => groupOf(i, gs) === id).length;
-    return `<button class="gpill ${grp === "" ? "on" : ""}" data-g="" type="button">Tất cả <small>${arr.length}</small></button>` +
+    return `<button class="gpill ${grp === "" ? "on" : ""}" data-g="" type="button">${t("all")} <small>${arr.length}</small></button>` +
       gs.map((g) => `<button class="gpill ${grp === g.id ? "on" : ""}" data-g="${esc(g.id)}" type="button">${g.icon || ""} ${esc(g.name)} <small>${cnt(g.id)}</small></button>`).join("");
   }
   // Gom thẻ theo mục con; kho không có mục con thì trả về danh sách phẳng. Trả "" nếu không có thẻ nào.
   const introHtml = (g) => {
     const n = g.intro; if (!n) return "";
     const rows = (n.rows || []).map((r) => `<tr><td>${esc(r[0])}</td><td><b>${esc(r[1])}</b></td></tr>`).join("");
-    return `<aside class="grp-intro"><p>${esc(n.text)}</p>${rows ? `<table><thead><tr><th>Tình huống</th><th>Dùng skill</th></tr></thead><tbody>${rows}</tbody></table>` : ""}${n.note ? `<p class="grp-intro-note">${esc(n.note)}</p>` : ""}${n.url ? `<a class="grp-intro-link" href="${esc(n.url)}" target="_blank" rel="noopener">${esc(n.btn || "Mở")}</a>` : ""}</aside>`;
+    return `<aside class="grp-intro"><p>${esc(n.text)}</p>${rows ? `<table><thead><tr><th>${t("situation")}</th><th>${t("use_skill")}</th></tr></thead><tbody>${rows}</tbody></table>` : ""}${n.note ? `<p class="grp-intro-note">${esc(n.note)}</p>` : ""}${n.url ? `<a class="grp-intro-link" href="${esc(n.url)}" target="_blank" rel="noopener">${esc(n.btn || t("open"))}</a>` : ""}</aside>`;
   };
   function group(list, kho, grp, cardOf) {
     if (!list.length) return "";
@@ -336,7 +352,7 @@ window.Res = (() => {
     const sh = (appCfg().shelves || []).find((s) => s.id === i.shelf) || (appCfg().shelves || [])[0] || {};
     const thumb = okUrl(i.thumb);
     const open = i.featured ? `data-res="${esc(i.id)}" role="button" tabindex="0"` : "";
-    const go = i.featured ? `<span class="app-go">Xem chi tiết →</span>` : /^https?:\/\//i.test(i.url || "") ? `<a class="app-go" href="${esc(i.url)}" target="_blank" rel="noopener noreferrer">Mở ứng dụng ↗</a>` : "";
+    const go = i.featured ? `<span class="app-go">${t("detail")}</span>` : /^https?:\/\//i.test(i.url || "") ? `<a class="app-go" href="${esc(i.url)}" target="_blank" rel="noopener noreferrer">${t("open_app")}</a>` : "";
     return `<article class="app-card${big ? " big" : ""}" data-shelf="${esc(sh.id || "")}" ${open} aria-label="${esc(i.title)}">
       <div class="app-thumb">${thumb ? `<img src="${esc(thumb)}" alt="" loading="lazy">` : `<span aria-hidden="true">${esc(appCfg().icon || "▣")}</span>`}</div>
       <div class="app-body">
@@ -354,16 +370,16 @@ window.Res = (() => {
     const vis = (i) => shelfCur === "all" || shelfOf(i) === shelfCur;
     const shown = list.filter(vis).length;
     return `<div class="apps">
-      <div class="app-hero"><span class="lm-mascot app-mascot" data-pose="yeah" data-say="apps"></span><p class="app-k">★ ${esc(cfg.name || "Kho Ứng dụng")}</p>
-        <h2>${esc(cfg.headline || "Ứng dụng mình xây và dùng hằng ngày.")}</h2>
+      <div class="app-hero"><span class="lm-mascot app-mascot" data-pose="yeah" data-say="apps"></span><p class="app-k">★ ${esc(cfg.name || t("apps"))}</p>
+        <h2>${esc(cfg.headline || t("apps_head"))}</h2>
         <div class="app-counts">${shelves.filter((s) => cnt(s.id)).map((s) => `<span><b>${cnt(s.id)}</b> ${esc(s.name)}</span>`).join("")}</div></div>
-      ${spot.length ? `<h3 class="app-sec">Mới và nổi bật <span class="lm-mascot app-sec-mascot" data-pose="laptop" data-say="apps"></span></h3><div class="app-spot">${spot.map((i) => appCard(i, true, extra)).join("")}</div>` : ""}
-      <div class="app-shelves" role="group" aria-label="Lọc theo kệ">
-        <button type="button" class="app-shelf-btn${shelfCur === "all" ? " on" : ""}" data-shelf-f="all" aria-pressed="${shelfCur === "all"}"><b>Tất cả</b><small>${list.length}</small></button>
-        ${shelves.map((s) => { const n = cnt(s.id); return `<button type="button" class="app-shelf-btn${shelfCur === s.id ? " on" : ""}${n ? "" : " soon"}" data-shelf-f="${esc(s.id)}" aria-pressed="${shelfCur === s.id}"><b>${esc(s.name)}</b><small>${n || "sắp có"}</small>${s.sub ? `<i>${esc(s.sub)}</i>` : ""}</button>`; }).join("")}
+      ${spot.length ? `<h3 class="app-sec">${t("spot")} <span class="lm-mascot app-sec-mascot" data-pose="laptop" data-say="apps"></span></h3><div class="app-spot">${spot.map((i) => appCard(i, true, extra)).join("")}</div>` : ""}
+      <div class="app-shelves" role="group" aria-label="${t("filter_shelf")}">
+        <button type="button" class="app-shelf-btn${shelfCur === "all" ? " on" : ""}" data-shelf-f="all" aria-pressed="${shelfCur === "all"}"><b>${t("all")}</b><small>${list.length}</small></button>
+        ${shelves.map((s) => { const n = cnt(s.id); return `<button type="button" class="app-shelf-btn${shelfCur === s.id ? " on" : ""}${n ? "" : " soon"}" data-shelf-f="${esc(s.id)}" aria-pressed="${shelfCur === s.id}"><b>${esc(s.name)}</b><small>${n || t("soon")}</small>${s.sub ? `<i>${esc(s.sub)}</i>` : ""}</button>`; }).join("")}
       </div>
       <div class="app-grid">${list.map((i) => appCard(i, false, extra).replace("<article ", `<article ${vis(i) ? "" : "hidden "}`)).join("")}</div>
-      <div class="app-empty"${shown ? " hidden" : ""}><span class="lm-mascot" data-pose="wave" data-say="empty" style="--size:110px;margin:0 auto"></span><b>Kệ này đang được chuẩn bị.</b><span>Quay lại sau nhé, ứng dụng mới sẽ lên đây.</span></div>
+      <div class="app-empty"${shown ? " hidden" : ""}><span class="lm-mascot" data-pose="wave" data-say="empty" style="--size:110px;margin:0 auto"></span><b>${t("shelf_empty_b")}</b><span>${t("shelf_empty")}</span></div>
     </div>`;
   }
   document.addEventListener("click", (e) => {
@@ -385,5 +401,5 @@ window.Res = (() => {
     if (cp) { const t = cp.parentNode.querySelector("code").textContent; (navigator.clipboard?.writeText(t) || Promise.reject()).then(() => { cp.textContent = "Đã copy ✓"; setTimeout(() => (cp.textContent = "Copy"), 1500); }, () => { cp.textContent = "Bôi đen để copy"; }); return; }
     const c = e.target.closest("[data-res]"); if (c) open(c.dataset.res); });
   document.addEventListener("keydown", (e) => { if ((e.key === "Enter" || e.key === " ") && e.target.dataset?.gtoggle) { e.preventDefault(); toggleGroup(e.target); return; } if ((e.key === "Enter" || e.key === " ") && e.target.dataset?.res) { e.preventDefault(); open(e.target.dataset.res); } });
-  return { load, all, card, open, visible, loadFeeds, refresh, startAutoRefresh, groupPills, group, groupOf, khoGroups, groupSelectHtml, appShelf };
+  return { load, all, card, open, visible, loadFeeds, refresh, startAutoRefresh, groupPills, group, groupOf, khoGroups, groupSelectHtml, appShelf, t, lang };
 })();

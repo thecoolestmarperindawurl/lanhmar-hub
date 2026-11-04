@@ -30,30 +30,30 @@
 <div id="app" hidden>
 <div class="marquee"><span>★ KHO AI ★ KHO DESIGN ★ KHO EDIT ★ KHO TOOL ★ KHO KNOWLEDGE ★ KHO ỨNG DỤNG ★ KHO AI ★ KHO DESIGN ★ KHO EDIT ★ KHO TOOL ★ KHO KNOWLEDGE ★ KHO ỨNG DỤNG</span></div>
 <header class="hero"><div class="wrap">
-  <div class="topbar"><a class="btn back" href="index.html">← Về portfolio</a>
+  <div class="topbar"><a class="btn back" href="index.html" data-i="back">← Về portfolio</a>
     <div class="lang" title="Ngôn ngữ nội dung thẻ / Card content language"><button type="button" data-lang="vi">VI</button><span>/</span><button type="button" data-lang="en">EN</button></div></div>
-  <div class="kicker">★ Kho cá nhân</div>
-  <h1>Kho <em>tool</em> của mình</h1>
-  <p>Nơi gom AI, thiết kế, dựng video, repo hay và kiến thức khoá học — cập nhật liên tục.</p>
+  <div class="kicker" data-i="kicker">★ Kho cá nhân</div>
+  <h1 data-ih="h1">Kho <em>tool</em> của mình</h1>
+  <p data-i="lead">Nơi gom AI, thiết kế, dựng video, repo hay và kiến thức khoá học — cập nhật liên tục.</p>
   <nav class="tabs" id="tabs"></nav>
   <p class="desc" id="desc"></p>
   <div class="groups" id="groups"></div>
   <div class="bar">
-    <input id="q" type="search" placeholder="Tìm trong kho…">
-    <button class="btn primary" id="add">+ Thêm</button>
+    <input id="q" type="search" placeholder="Tìm trong kho…" data-ph="search">
+    <button class="btn primary" id="add" data-i="add">+ Thêm</button>
   </div>
   <div class="tags" id="tags"></div>
 </div></header>
 <main class="wrap"><section class="grid" id="grid"></section></main>
 <footer><div class="wrap" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between">
-  <span>★ Dữ liệu được mã hoá trong trình duyệt — nhớ Xuất bản mã để sao lưu. <em id="cloudState"></em></span>
+  <span><span data-i="foot">★ Dữ liệu được mã hoá trong trình duyệt — nhớ Xuất bản mã để sao lưu.</span> <em id="cloudState"></em></span>
   <span style="display:flex;gap:8px;flex-wrap:wrap">
-    <button class="btn" id="export">Xuất bản mã</button>
-    <label class="btn" style="margin:0;text-transform:none;letter-spacing:0;font-size:12px;color:#fff">Nhập bản mã<input id="import" type="file" accept=".json" hidden></label>
-    <button class="btn" id="cloudSync" hidden>Đồng bộ đám mây</button>
-    <button class="btn" id="syncStorage">Đồng bộ Storage</button>
+    <button class="btn" id="export" data-i="export">Xuất bản mã</button>
+    <label class="btn" style="margin:0;text-transform:none;letter-spacing:0;font-size:12px;color:#fff"><span data-i="import">Nhập bản mã</span><input id="import" type="file" accept=".json" hidden></label>
+    <button class="btn" id="cloudSync" hidden data-i="cloud">Đồng bộ đám mây</button>
+    <button class="btn" id="syncStorage" data-i="sync">Đồng bộ Storage</button>
     <a class="btn" href="index.html">← Portfolio</a>
-    <button class="btn" id="lockNow">Khoá lại</button>
+    <button class="btn" id="lockNow" data-i="lock">Khoá lại</button>
   </span>
 </div></footer>
 <dialog id="dlg"><form id="form" method="dialog">
@@ -73,7 +73,7 @@
 <dialog id="gDlg"><h2>Đăng nhập Google</h2><p>Đăng nhập lại bằng mail chủ kho để lưu/đồng bộ lên đám mây.</p><div id="gBtn2" class="gbtn"></div><div class="row"><button type="button" class="btn" id="gClose">Đóng</button></div></dialog>
 <dialog id="resDlg" class="res-dlg"></dialog>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
-<script src="kho-data.js?v=20261104u"></script>
+<script src="kho-data.js?v=20261104y"></script>
 <script src="resource.js?v=20261104y"></script>
 <script src="storage-config.js?v=20261104u"></script>
 <script src="chat.js?v=20261104u"></script>

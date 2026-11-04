@@ -175,7 +175,7 @@ function render() {
   let shown = tagsOpen ? tags : tags.slice(0, TAG_LIMIT);
   if (tag && !shown.includes(tag)) shown = [tag, ...shown.slice(0, TAG_LIMIT - 1)];
   $("#tags").innerHTML = shown.map((t) => `<span class="chip ${t === tag ? "on" : ""}" data-t="${esc(t)}">#${esc(t)}</span>`).join("") +
-    (tags.length > TAG_LIMIT ? `<button class="chip more" type="button" data-more>${tagsOpen ? "Thu gọn ▴" : "+" + (tags.length - TAG_LIMIT) + " thẻ ▾"}</button>` : "");
+    (tags.length > TAG_LIMIT ? `<button class="chip more" type="button" data-more>${tagsOpen ? Res.t("collapse") : Res.t("more_tags")(tags.length - TAG_LIMIT)}</button>` : "");
   const needle = q.trim().toLowerCase();
   const list = inKho
     .filter((i) => !tag || (i.tags || []).includes(tag))
@@ -183,22 +183,22 @@ function render() {
     .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
   const cardOf = (i) => i.featured ? Res.card(i) : `
     <article class="card">
-      ${i.type ? `<span class="badge">${esc(i.type)}</span>` : ""}${i.shared ? `<span class="badge shared">Chia sẻ</span>` : ""}
+      ${i.type ? `<span class="badge">${esc(i.type)}</span>` : ""}${i.shared ? `<span class="badge shared">${Res.t("shared")}</span>` : ""}
       <h3>${/^https?:\/\//i.test(i.url) ? `<a href="${esc(i.url)}" target="_blank" rel="noopener noreferrer">${esc(i.title)} ↗</a>` : esc(i.title)}</h3>
       <p>${esc(i.note)}</p>
       <div class="card-tags">${(i.tags || []).slice(0, 3).map((t) => `<span class="chip" data-t="${esc(t)}">#${esc(t)}</span>`).join(" ")}${(i.tags || []).length > 3 ? `<span class="chip dim">+${i.tags.length - 3}</span>` : ""}</div>
-      <div class="meta"><span>${esc(i.date)}</span><span class="acts"><button data-edit="${i.id}">Sửa</button><button data-del="${i.id}">Xoá</button></span></div>
+      <div class="meta"><span>${esc(i.date)}</span><span class="acts"><button data-edit="${i.id}">${Res.t("edit")}</button><button data-del="${i.id}">${Res.t("del")}</button></span></div>
     </article>`;
   $("#grid").classList.toggle("is-apps", cur === "idea");
   if (cur === "idea") { // Kho Ứng dụng: trình bày kiểu thư viện
     $("#groups").innerHTML = ""; $("#tags").innerHTML = "";
-    const acts = (i) => i.featured ? "" : `<div class="meta"><span>${esc(i.date)}</span><span class="acts"><button data-edit="${i.id}">Sửa</button><button data-del="${i.id}">Xoá</button></span></div>`;
-    $("#grid").innerHTML = list.length ? Res.appShelf(list, acts) : `<div class="empty">Chưa có ứng dụng nào. Bấm “+ Thêm” để bắt đầu.</div>`;
+    const acts = (i) => i.featured ? "" : `<div class="meta"><span>${esc(i.date)}</span><span class="acts"><button data-edit="${i.id}">${Res.t("edit")}</button><button data-del="${i.id}">${Res.t("del")}</button></span></div>`;
+    $("#grid").innerHTML = list.length ? Res.appShelf(list, acts) : `<div class="empty">${Res.t("empty_apps")}</div>`;
     return;
   }
   $("#groups").innerHTML = Res.groupPills(cur, inKho, grp);
   requestAnimationFrame(() => document.querySelectorAll(".tab.on,.gpill.on").forEach((b) => { const c = b.parentElement; if (c && c.scrollWidth > c.clientWidth) c.scrollTo({ left: b.offsetLeft - c.clientWidth / 2 + b.offsetWidth / 2, behavior: "smooth" }); }));
-  $("#grid").innerHTML = Res.group(list, cur, grp, cardOf) || `<div class="empty">Chưa có mục nào. Bấm “+ Thêm” để bắt đầu.</div>`;
+  $("#grid").innerHTML = Res.group(list, cur, grp, cardOf) || `<div class="empty">${Res.t("empty")}</div>`;
 }
 
 const dlg = $("#dlg"), f = $("#form");
@@ -226,10 +226,23 @@ f.addEventListener("submit", async (e) => {
   await seal(); dlg.close(); cur = rec.kho; render();
 });
 
-// Nút VI/EN: đổi ngôn ngữ nội dung thẻ (mục có bản _en trong kho-featured.json), dùng chung "lm_lang" với trang chủ
+// Nút VI/EN: đổi ngôn ngữ nội dung thẻ (mục có bản _en trong kho-featured.json / kho-data.js) và khung trang, dùng chung "lm_lang" với trang chủ
+const KHO_UI = {
+  vi: { back: "← Về portfolio", kicker: "★ Kho cá nhân", h1: "Kho <em>tool</em> của mình", lead: "Nơi gom AI, thiết kế, dựng video, repo hay và kiến thức khoá học — cập nhật liên tục.",
+    search: "Tìm trong kho…", add: "+ Thêm", foot: "★ Dữ liệu được mã hoá trong trình duyệt — nhớ Xuất bản mã để sao lưu.", export: "Xuất bản mã", import: "Nhập bản mã",
+    cloud: "Đồng bộ đám mây", sync: "Đồng bộ Storage", lock: "Khoá lại" },
+  en: { back: "← Back to portfolio", kicker: "★ Personal Library", h1: "My <em>tool</em> library", lead: "AI, design, video editing, great repos and course notes in one place — updated all the time.",
+    search: "Search the library…", add: "+ Add", foot: "★ Data is encrypted in your browser — remember to Export a backup.", export: "Export backup", import: "Import backup",
+    cloud: "Cloud sync", sync: "Sync Storage", lock: "Lock" }
+};
 function paintLang() {
   let l = "vi"; try { l = localStorage.getItem("lm_lang") === "en" ? "en" : "vi"; } catch {}
+  const U = (k) => KHO_UI[l][k] ?? KHO_UI.vi[k];
+  document.documentElement.lang = l;
   document.querySelectorAll(".lang button").forEach((b) => { const on = b.dataset.lang === l; b.classList.toggle("on", on); b.setAttribute("aria-pressed", on); });
+  document.querySelectorAll("#app [data-i]").forEach((e) => { e.textContent = U(e.dataset.i); });
+  document.querySelectorAll("#app [data-ih]").forEach((e) => { e.innerHTML = U(e.dataset.ih); }); // chuỗi cố định trong KHO_UI
+  document.querySelectorAll("#app [data-ph]").forEach((e) => { e.placeholder = U(e.dataset.ph); });
   return l;
 }
 paintLang();
