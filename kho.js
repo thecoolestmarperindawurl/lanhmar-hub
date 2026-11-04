@@ -226,6 +226,20 @@ f.addEventListener("submit", async (e) => {
   await seal(); dlg.close(); cur = rec.kho; render();
 });
 
+// Nút VI/EN: đổi ngôn ngữ nội dung thẻ (mục có bản _en trong kho-featured.json), dùng chung "lm_lang" với trang chủ
+function paintLang() {
+  let l = "vi"; try { l = localStorage.getItem("lm_lang") === "en" ? "en" : "vi"; } catch {}
+  document.querySelectorAll(".lang button").forEach((b) => { const on = b.dataset.lang === l; b.classList.toggle("on", on); b.setAttribute("aria-pressed", on); });
+  return l;
+}
+paintLang();
+document.querySelectorAll(".lang button").forEach((b) => b.addEventListener("click", async () => {
+  if (b.dataset.lang === paintLang()) return;
+  try { localStorage.setItem("lm_lang", b.dataset.lang === "en" ? "en" : "vi"); } catch {}
+  paintLang();
+  featured = await Res.load(); render();
+}));
+
 async function start() {
   featured = await Res.load();
   Res.loadFeeds().then(() => { render(); Res.startAutoRefresh(render); });

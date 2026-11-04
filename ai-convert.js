@@ -1,6 +1,105 @@
-/* AI Convert — chuyển file sang Markdown cho AI Agent. Chạy 100% trong trình duyệt. */
+/* AI Convert — chuyển file sang Markdown cho AI Agent. Chạy 100% trong trình duyệt.
+   Song ngữ VI/EN: dùng chung lựa chọn với trang chủ (localStorage "lm_lang"). */
 (function () {
   "use strict";
+
+  // ---------- Song ngữ ----------
+  var I18N = {
+    vi: {
+      title: "AI Convert — LANHMAR",
+      marquee: "★ FILE → MARKDOWN ★ AI-READY ★ VIBE CODE ★ ÍT TOKEN HƠN ★ FILE → MARKDOWN ★ AI-READY ★ VIBE CODE ★ ÍT TOKEN HƠN",
+      back: "← Về portfolio",
+      h1: "File → <em>Markdown</em> cho AI",
+      lead: "Thả PDF, Word, Excel, PowerPoint, HTML hay file code vào đây. Mình chuyển hết sang Markdown sạch để Claude, ChatGPT, Cursor… đọc nhanh hơn, hiểu cấu trúc tốt hơn và tốn ít token hơn. <b>File được xử lý ngay trong trình duyệt của bạn, không tải lên máy chủ nào.</b>",
+      drop_b: "Kéo thả file vào đây", drop_s: "hoặc bấm để chọn (chọn được nhiều file)",
+      drop_f: "PDF · DOCX · XLSX/XLS/CSV · PPTX · HTML · TXT/MD · JSON/YAML/XML · file code",
+      opts: "Tuỳ chọn làm sạch",
+      o_front: "Thêm metadata đầu file (nguồn, loại, ước tính token)", o_pages: "Đánh dấu số trang / số slide",
+      o_hf: "PDF: bỏ header/footer lặp lại & số trang", o_notes: "PPTX: lấy cả ghi chú người thuyết trình",
+      o_space: "Gộp dòng trống thừa", o_rows1: "Excel: tối đa", o_rows2: "dòng/sheet",
+      o_chunk1: "Chia đoạn khi vượt", o_chunk2: "(0 = không chia)",
+      res_h: "Kết quả", copy_all: "Copy tất cả", dl_bundle: "Tải 1 file context.md", dl_zip: "Tải .zip (từng file + INDEX.md)", clear: "Xoá",
+      tips_h: "Dùng trong vibe code thế nào?",
+      tip1: "<b>Bỏ vào repo:</b> giải nén .zip vào thư mục <code>docs/context/</code>. Trong <code>CLAUDE.md</code> (hoặc <code>.cursorrules</code>) ghi một dòng: <i>“Tài liệu tham khảo nằm ở docs/context/, đọc INDEX.md trước.”</i> Agent sẽ chỉ mở đúng file cần, thay vì nhai cả PDF.",
+      tip2: "<b>Dán thẳng vào chat:</b> dùng “Copy tất cả” hoặc file <code>context.md</code>. Mỗi tài liệu được bọc trong thẻ <code>&lt;document&gt;</code> để AI phân biệt nguồn.",
+      tip3: "<b>Tài liệu dài:</b> bật “Chia đoạn” để mỗi phần vừa cửa sổ ngữ cảnh, đưa lần lượt từng phần.",
+      tip4: "<b>Ảnh, sơ đồ, bản scan:</b> công cụ này chỉ lấy chữ. Với ảnh, gửi thẳng ảnh cho AI (các model hiện nay đọc được ảnh) sẽ chính xác hơn.",
+      tok_note: "Ước tính token là con số thô (≈ số ký tự ÷ 4 với tiếng Anh, ÷ 3 với tiếng Việt có dấu), chỉ để so sánh. Số thật phụ thuộc tokenizer của từng model.",
+      foot: "★ LANHMAR · AI Convert — xử lý cục bộ trong trình duyệt",
+      // phần động
+      busy: "Đang xử lý…", reading: "đang đọc…", skipped: "Bỏ qua",
+      sum: function (ok, all, tok) { return ok + "/" + all + " file chuyển xong · tổng ≈ " + tok + " token (ước tính)"; },
+      copy: "Copy", dl: "Tải .md", view: "Xem", hide: "Ẩn", copied: "Đã copy ✓", parts: "phần",
+      copy_fail: "Trình duyệt không cho copy, hãy dùng nút Tải.",
+      m_pages: "số trang", m_sheets: "số sheet", m_slides: "số slide",
+      k_pdf: "PDF", k_word: "Word", k_sheet: "Bảng tính", k_ppt: "PowerPoint", k_html: "HTML", k_text: "Văn bản", k_code: "Code/dữ liệu",
+      e_old: function (e) { return "File ." + e + " đời cũ: mở bằng Word/PowerPoint rồi lưu lại thành .docx/.pptx trước."; },
+      e_img: "Ảnh: gửi thẳng ảnh cho AI sẽ chính xác hơn chuyển sang chữ.",
+      e_fmt: function (e) { return "Chưa hỗ trợ định dạng ." + e; },
+      e_empty: "Không đọc được chữ nào trong file.",
+      e_lib: "Không tải được thư viện: ",
+      w_scan: "PDF gần như không có lớp chữ (có thể là bản scan/ảnh). Hãy gửi thẳng file cho AI hoặc chạy OCR trước.",
+      md_page: "Trang", md_slide: "Slide", md_sheet: "Sheet", md_notes: "Ghi chú", md_col: "Cột", md_img: "Hình",
+      md_empty_sheet: "_(sheet trống)_",
+      md_rows: function (n, cut) { return "_" + n + " dòng dữ liệu" + (cut ? ", đã cắt còn " + cut + " dòng đầu" : "") + "._"; },
+      idx_h: "# INDEX — tài liệu tham khảo cho AI",
+      idx_p: "Mỗi file dưới đây là bản Markdown của một tài liệu gốc. Đọc file này trước, rồi chỉ mở file liên quan tới việc đang làm.",
+      idx_cols: "| File | Nguồn gốc | Loại | ≈ Token |",
+      part_slug: "phan"
+    },
+    en: {
+      title: "AI Convert — LANHMAR",
+      marquee: "★ FILE → MARKDOWN ★ AI-READY ★ VIBE CODE ★ FEWER TOKENS ★ FILE → MARKDOWN ★ AI-READY ★ VIBE CODE ★ FEWER TOKENS",
+      back: "← Back to portfolio",
+      h1: "File → <em>Markdown</em> for AI",
+      lead: "Drop in PDF, Word, Excel, PowerPoint, HTML or code files. I turn them into clean Markdown so Claude, ChatGPT, Cursor… read faster, understand the structure better and use fewer tokens. <b>Files are processed right in your browser and never uploaded to any server.</b>",
+      drop_b: "Drag & drop files here", drop_s: "or click to choose (multiple files allowed)",
+      drop_f: "PDF · DOCX · XLSX/XLS/CSV · PPTX · HTML · TXT/MD · JSON/YAML/XML · code files",
+      opts: "Clean-up options",
+      o_front: "Add metadata header (source, type, token estimate)", o_pages: "Mark page / slide numbers",
+      o_hf: "PDF: remove repeated headers/footers & page numbers", o_notes: "PPTX: include speaker notes",
+      o_space: "Collapse extra blank lines", o_rows1: "Excel: max", o_rows2: "rows/sheet",
+      o_chunk1: "Split when over", o_chunk2: "(0 = no split)",
+      res_h: "Results", copy_all: "Copy all", dl_bundle: "Download context.md", dl_zip: "Download .zip (files + INDEX.md)", clear: "Clear",
+      tips_h: "How to use it when vibe coding",
+      tip1: "<b>Put it in the repo:</b> unzip into <code>docs/context/</code>. In <code>CLAUDE.md</code> (or <code>.cursorrules</code>) add one line: <i>“Reference docs live in docs/context/, read INDEX.md first.”</i> The agent then opens only the file it needs instead of chewing through the whole PDF.",
+      tip2: "<b>Paste straight into chat:</b> use “Copy all” or the <code>context.md</code> file. Each document is wrapped in a <code>&lt;document&gt;</code> tag so the AI can tell sources apart.",
+      tip3: "<b>Long documents:</b> turn on “Split” so each part fits the context window, then feed them one by one.",
+      tip4: "<b>Images, diagrams, scans:</b> this tool extracts text only. For images, sending the image itself to the AI (current models can read images) is more accurate.",
+      tok_note: "Token counts are rough estimates (≈ characters ÷ 4 for English, ÷ 3 for accented Vietnamese), for comparison only. Real counts depend on each model's tokenizer.",
+      foot: "★ LANHMAR · AI Convert — processed locally in your browser",
+      busy: "Processing…", reading: "reading…", skipped: "Skipped",
+      sum: function (ok, all, tok) { return ok + "/" + all + " files converted · ≈ " + tok + " tokens total (estimate)"; },
+      copy: "Copy", dl: "Download .md", view: "View", hide: "Hide", copied: "Copied ✓", parts: "parts",
+      copy_fail: "Your browser blocked copying, please use Download instead.",
+      m_pages: "pages", m_sheets: "sheets", m_slides: "slides",
+      k_pdf: "PDF", k_word: "Word", k_sheet: "Spreadsheet", k_ppt: "PowerPoint", k_html: "HTML", k_text: "Text", k_code: "Code/data",
+      e_old: function (e) { return "Legacy ." + e + " file: open it in Word/PowerPoint and save as .docx/.pptx first."; },
+      e_img: "Image: sending the image itself to the AI is more accurate than converting it to text.",
+      e_fmt: function (e) { return "Unsupported format ." + e; },
+      e_empty: "No text could be read from this file.",
+      e_lib: "Could not load library: ",
+      w_scan: "This PDF has almost no text layer (probably a scan/image). Send the file to the AI directly or run OCR first.",
+      md_page: "Page", md_slide: "Slide", md_sheet: "Sheet", md_notes: "Notes", md_col: "Column", md_img: "Image",
+      md_empty_sheet: "_(empty sheet)_",
+      md_rows: function (n, cut) { return "_" + n + " data rows" + (cut ? ", truncated to the first " + cut : "") + "._"; },
+      idx_h: "# INDEX — reference docs for AI",
+      idx_p: "Each file below is the Markdown version of a source document. Read this file first, then open only the files relevant to the task.",
+      idx_cols: "| File | Source | Type | ≈ Tokens |",
+      part_slug: "part"
+    }
+  };
+  var lang = "vi";
+  try { lang = localStorage.getItem("lm_lang") === "en" ? "en" : "vi"; } catch (_) { /* chế độ riêng tư */ }
+  function T(k) { var v = I18N[lang][k]; return v !== undefined ? v : I18N.vi[k]; }
+
+  function applyLang() {
+    document.documentElement.lang = lang;
+    document.title = T("title");
+    document.querySelectorAll("[data-i]").forEach(function (e) { e.textContent = T(e.dataset.i); });
+    document.querySelectorAll("[data-ih]").forEach(function (e) { e.innerHTML = T(e.dataset.ih); }); // chuỗi cố định trong I18N
+    document.querySelectorAll(".lang button").forEach(function (b) { var on = b.dataset.lang === lang; b.classList.toggle("on", on); b.setAttribute("aria-pressed", on); });
+  }
 
   // Thư viện tải theo nhu cầu (chỉ khi gặp loại file cần đến)
   var LIBS = {
@@ -20,7 +119,7 @@
     loaded[src] = new Promise(function (res, rej) {
       var s = document.createElement("script");
       s.src = src; s.onload = res;
-      s.onerror = function () { delete loaded[src]; rej(new Error("Không tải được thư viện: " + src)); };
+      s.onerror = function () { delete loaded[src]; rej(new Error(T("e_lib") + src)); };
       document.head.appendChild(s);
     });
     return loaded[src];
@@ -30,7 +129,7 @@
   }
 
   var $ = function (id) { return document.getElementById(id); };
-  var results = []; // {name, base, kind, md, meta, error}
+  var results = []; // {file, name, base, size, kind, md, meta, warn, error, lang}
 
   function opts() {
     return {
@@ -54,7 +153,7 @@
     var ratio = vi / Math.max(1, text.length) > 0.03 ? 3 : 4;
     return Math.ceil(text.length / ratio);
   }
-  function fmtNum(n) { return n.toLocaleString("vi-VN"); }
+  function fmtNum(n) { return n.toLocaleString(lang === "en" ? "en-US" : "vi-VN"); }
   function fmtSize(b) { return b < 1024 ? b + " B" : b < 1048576 ? (b / 1024).toFixed(1) + " KB" : (b / 1048576).toFixed(1) + " MB"; }
   function tidy(md, o) {
     md = md.replace(/\r\n?/g, "\n").replace(/[ \t]+$/gm, "").replace(/ /g, " ");
@@ -70,7 +169,7 @@
     var w = rows.reduce(function (m, r) { return Math.max(m, r.length); }, 0);
     if (!w) return "";
     var pad = function (r) { var a = r.slice(); while (a.length < w) a.push(""); return a; };
-    var head = pad(rows[0]).map(function (c, i) { return cell(c) || "Cột " + (i + 1); });
+    var head = pad(rows[0]).map(function (c, i) { return cell(c) || T("md_col") + " " + (i + 1); });
     var out = ["| " + head.join(" | ") + " |", "|" + head.map(function () { return " --- "; }).join("|") + "|"];
     rows.slice(1).forEach(function (r) { out.push("| " + pad(r).map(cell).join(" | ") + " |"); });
     return out.join("\n");
@@ -93,7 +192,7 @@
         return rows.length ? "\n\n" + mdTable(rows) + "\n\n" : "";
       }
     });
-    td.addRule("dropImg", { filter: "img", replacement: function (c, n) { var a = n.getAttribute("alt"); return a ? "[Hình: " + a + "]" : ""; } });
+    td.addRule("dropImg", { filter: "img", replacement: function (c, n) { var a = n.getAttribute("alt"); return a ? "[" + T("md_img") + ": " + a + "]" : ""; } });
     return td;
   }
 
@@ -110,7 +209,7 @@
       // Gom các mẩu chữ theo toạ độ y thành dòng
       var lines = [];
       tc.items.forEach(function (it) {
-        if (!it.str || !it.str.trim()) { if (it.hasEOL && lines.length) lines[lines.length - 1].eol = true; return; }
+        if (!it.str || !it.str.trim()) return;
         var y = Math.round(it.transform[5]), x = it.transform[4], h = Math.abs(it.transform[3]) || it.height || 0;
         var line = lines.find(function (l) { return Math.abs(l.y - y) <= Math.max(2, h * 0.4); });
         if (!line) { line = { y: y, parts: [], size: 0 }; lines.push(line); }
@@ -133,9 +232,8 @@
     }
 
     // Header/footer: dòng trong vùng lề trên/dưới (8% chiều cao trang) lặp lại trên >= 50% số trang, hoặc là số trang
-    var drop = {};
     if (o.headFoot && pages.length >= 3) {
-      var cnt = {};
+      var cnt = {}, drop = {};
       var key = function (t) { return t.replace(/\d+/g, "#").toLowerCase(); };
       pages.forEach(function (ls) {
         var seen = {};
@@ -160,7 +258,7 @@
     var md = [];
     var chars = 0;
     pages.forEach(function (ls, i) {
-      if (o.pages) md.push("\n<!-- Trang " + (i + 1) + " -->\n");
+      if (o.pages) md.push("\n<!-- " + T("md_page") + " " + (i + 1) + " -->\n");
       var para = [];
       var flush = function () { if (para.length) { md.push(para.join(" ").replace(/(\w)- (\w)/g, "$1$2")); md.push(""); para = []; } };
       ls.forEach(function (l, j) {
@@ -180,8 +278,7 @@
       flush();
     });
 
-    var warn = chars < doc.numPages * 30 ? "PDF gần như không có lớp chữ (có thể là bản scan/ảnh). Hãy gửi thẳng file cho AI hoặc chạy OCR trước." : "";
-    return { md: md.join("\n"), meta: { "số trang": doc.numPages }, warn: warn };
+    return { md: md.join("\n"), meta: { m_pages: doc.numPages }, warn: chars < doc.numPages * 30 ? "w_scan" : "" };
   }
 
   async function fromDocx(file) {
@@ -207,13 +304,13 @@
       var keep = [];
       for (var c = 0; c < w; c++) if (rows.some(function (r) { return String(r[c] || "").trim() !== ""; })) keep.push(c);
       rows = rows.map(function (r) { return keep.map(function (c) { return r[c]; }); });
-      if (!isText || wb.SheetNames.length > 1) md.push("## Sheet: " + n, "");
-      if (!rows.length) { md.push("_(sheet trống)_", ""); return; }
+      if (!isText || wb.SheetNames.length > 1) md.push("## " + T("md_sheet") + ": " + n, "");
+      if (!rows.length) { md.push(T("md_empty_sheet"), ""); return; }
       var total = rows.length - 1;
       md.push(mdTable(rows.slice(0, o.rows + 1)), "");
-      md.push("_" + fmtNum(total) + " dòng dữ liệu" + (total > o.rows ? ", đã cắt còn " + fmtNum(o.rows) + " dòng đầu" : "") + "._", "");
+      md.push(T("md_rows")(fmtNum(total), total > o.rows ? fmtNum(o.rows) : ""), "");
     });
-    return { md: md.join("\n"), meta: { "số sheet": wb.SheetNames.length } };
+    return { md: md.join("\n"), meta: { m_sheets: wb.SheetNames.length } };
   }
 
   async function fromPptx(file, o) {
@@ -232,7 +329,8 @@
         var ph = sp.getElementsByTagNameNS(P, "ph")[0];
         var type = ph ? ph.getAttribute("type") || "" : "";
         var ps = Array.prototype.slice.call(sp.getElementsByTagNameNS(A, "p")).map(function (p) {
-          var lvl = +((p.getElementsByTagNameNS(A, "pPr")[0] || { getAttribute: function () { return 0; } }).getAttribute("lvl") || 0);
+          var pPr = p.getElementsByTagNameNS(A, "pPr")[0];
+          var lvl = +((pPr && pPr.getAttribute("lvl")) || 0);
           var t = Array.prototype.slice.call(p.getElementsByTagNameNS(A, "t")).map(function (n) { return n.textContent; }).join("").trim();
           return { t: t, lvl: lvl };
         }).filter(function (x) { return x.t; });
@@ -252,8 +350,8 @@
     var md = [];
     for (var i = 0; i < slides.length; i++) {
       var s = paras(await zip.file(slides[i]).async("string"));
-      var no = i + 1;
-      md.push("## " + (o.pages ? "Slide " + no + (s.title ? ": " : "") : "") + (s.title || (o.pages ? "" : "Slide " + no)), "");
+      var label = T("md_slide") + " " + (i + 1);
+      md.push("## " + (o.pages ? label + (s.title ? ": " + s.title : "") : (s.title || label)), "");
       s.body.forEach(function (b) {
         if (b.table) md.push("", b.table, "");
         else md.push("  ".repeat(b.lvl) + "- " + b.t);
@@ -266,19 +364,19 @@
           if (nf) {
             var notes = paras(await nf.async("string")).body.map(function (b) { return b.t; }).filter(Boolean)
               .filter(function (t) { return !/^\d+$/.test(t); });
-            if (notes.length) md.push("", "> **Ghi chú:** " + notes.join(" "));
+            if (notes.length) md.push("", "> **" + T("md_notes") + ":** " + notes.join(" "));
           }
         }
       }
       md.push("");
     }
-    return { md: md.join("\n"), meta: { "số slide": slides.length } };
+    return { md: md.join("\n"), meta: { m_slides: slides.length } };
   }
 
   async function fromHtml(file) {
     await need("turndown");
     var d = new DOMParser().parseFromString(await file.text(), "text/html");
-    d.querySelectorAll("script,style,noscript,nav,footer,header > nav,aside,form,iframe,svg").forEach(function (n) { n.remove(); });
+    d.querySelectorAll("script,style,noscript,nav,footer,aside,form,iframe,svg").forEach(function (n) { n.remove(); });
     var root = d.querySelector("main,article") || d.body;
     var title = (d.querySelector("title") || {}).textContent;
     var md = turndownSvc().turndown(root.innerHTML);
@@ -294,23 +392,28 @@
     return { md: fence + (LANG[e] || "") + "\n" + t.replace(/\s+$/, "") + "\n" + fence, meta: {} };
   }
 
+  // Trả về [khoá loại, hàm chuyển] hoặc [null, khoá lỗi, tham số]
   function pick(name) {
     var e = ext(name);
-    if (e === "pdf") return ["PDF", fromPdf];
-    if (e === "docx") return ["Word", fromDocx];
-    if (/^(xlsx|xls|csv|tsv)$/.test(e)) return ["Bảng tính", fromSheet];
-    if (e === "pptx") return ["PowerPoint", fromPptx];
-    if (/^html?$/.test(e)) return ["HTML", fromHtml];
-    if (e === "md" || e === "txt") return ["Văn bản", fromText];
-    if (LANG[e]) return ["Code/dữ liệu", fromText];
-    if (e === "doc" || e === "ppt") return [null, "File ." + e + " đời cũ: mở bằng Word/PowerPoint rồi lưu lại thành .docx/.pptx trước."];
-    if (/^(png|jpe?g|webp|gif|heic)$/.test(e)) return [null, "Ảnh: gửi thẳng ảnh cho AI sẽ chính xác hơn chuyển sang chữ."];
-    return [null, "Chưa hỗ trợ định dạng ." + (e || "?")];
+    if (e === "pdf") return ["k_pdf", fromPdf];
+    if (e === "docx") return ["k_word", fromDocx];
+    if (/^(xlsx|xls|csv|tsv)$/.test(e)) return ["k_sheet", fromSheet];
+    if (e === "pptx") return ["k_ppt", fromPptx];
+    if (/^html?$/.test(e)) return ["k_html", fromHtml];
+    if (e === "md" || e === "txt") return ["k_text", fromText];
+    if (LANG[e]) return ["k_code", fromText];
+    if (e === "doc" || e === "ppt") return [null, "e_old", e];
+    if (/^(png|jpe?g|webp|gif|heic)$/.test(e)) return [null, "e_img"];
+    return [null, "e_fmt", e || "?"];
+  }
+  function errText(r) {
+    if (r.errKey) { var v = T(r.errKey); return typeof v === "function" ? v(r.errArg) : v; }
+    return r.error;
   }
 
   function frontMatter(r) {
-    var lines = ["---", "source: \"" + r.name.replace(/"/g, "'") + "\"", "type: " + r.kind, "size: " + fmtSize(r.size)];
-    Object.keys(r.meta).forEach(function (k) { lines.push(slug(k).replace(/-/g, "_") + ": " + r.meta[k]); });
+    var lines = ["---", "source: \"" + r.name.replace(/"/g, "'") + "\"", "type: " + I18N.en[r.kind], "size: " + fmtSize(r.size)];
+    Object.keys(r.meta).forEach(function (k) { lines.push(k.replace(/^m_/, "") + ": " + r.meta[k]); });
     lines.push("est_tokens: " + r.tokens, "converted: " + new Date().toISOString().slice(0, 10), "---", "");
     return lines.join("\n");
   }
@@ -318,7 +421,7 @@
   // Chia theo tiêu đề / đoạn văn, không cắt giữa đoạn
   function chunks(md, max) {
     if (!max || estTokens(md) <= max) return [md];
-    var blocks = md.split(/\n(?=#{1,3} |<!-- Trang |## Slide )|\n\n/);
+    var blocks = md.split(/\n(?=#{1,3} |<!-- )|\n\n/);
     var out = [], cur = "";
     blocks.forEach(function (b) {
       var next = cur ? cur + "\n\n" + b : b;
@@ -332,7 +435,7 @@
     var parts = chunks(r.md, o.chunk);
     var base = slug(r.base);
     return parts.map(function (p, i) {
-      var name = base + (parts.length > 1 ? "-phan-" + String(i + 1).padStart(2, "0") : "") + ".md";
+      var name = base + (parts.length > 1 ? "-" + T("part_slug") + "-" + String(i + 1).padStart(2, "0") : "") + ".md";
       var head = o.front ? frontMatter(r).replace("---\n", "---\n" + (parts.length > 1 ? "part: " + (i + 1) + "/" + parts.length + "\n" : "")) : "";
       return { name: name, text: head + p.trim() + "\n" };
     });
@@ -347,46 +450,51 @@
     var ok = results.filter(function (r) { return r.md; });
     var inTok = ok.reduce(function (s, r) { return s + r.tokens; }, 0);
     var busy = results.some(function (r) { return r.busy; });
-    $("sum").innerHTML = busy ? '<span class="spin"></span> Đang xử lý…'
-      : fmtNum(ok.length) + "/" + fmtNum(results.length) + " file chuyển xong · tổng ≈ " + fmtNum(inTok) + " token (ước tính)";
+    $("sum").innerHTML = busy ? '<span class="spin"></span> ' + esc(T("busy")) : esc(T("sum")(fmtNum(ok.length), fmtNum(results.length), fmtNum(inTok)));
     ["copyAll", "dlBundle", "dlZip"].forEach(function (id) { $(id).disabled = busy || !ok.length; });
     $("list").innerHTML = results.map(function (r, i) {
-      if (r.busy) return '<div class="item"><div class="item-head"><h3>' + esc(r.name) + '</h3><span><span class="spin"></span> đang đọc…</span></div></div>';
-      if (r.error) return '<div class="item err"><div class="item-head"><h3>' + esc(r.name) + '</h3><span class="badge">Bỏ qua</span></div><p class="msg">' + esc(r.error) + "</p></div>";
+      if (r.busy) return '<div class="item"><div class="item-head"><h3>' + esc(r.name) + '</h3><span><span class="spin"></span> ' + esc(T("reading")) + "</span></div></div>";
+      if (!r.md) return '<div class="item err"><div class="item-head"><h3>' + esc(r.name) + '</h3><span class="badge">' + esc(T("skipped")) + '</span></div><p class="msg">' + esc(errText(r)) + "</p></div>";
       var files = finalFiles(r, o);
-      var meta = Object.keys(r.meta).map(function (k) { return '<span class="badge ok">' + esc(k) + ": " + esc(r.meta[k]) + "</span>"; }).join("");
+      var meta = Object.keys(r.meta).map(function (k) { return '<span class="badge ok">' + esc(T(k)) + ": " + esc(r.meta[k]) + "</span>"; }).join("");
       return '<div class="item"><div class="item-head"><h3>' + esc(r.name) + '</h3><div class="item-acts">' +
-        '<button data-act="copy" data-i="' + i + '">Copy</button><button data-act="dl" data-i="' + i + '">Tải .md</button><button data-act="toggle" data-i="' + i + '">Xem</button></div></div>' +
-        '<div class="item-meta"><span class="badge">' + esc(r.kind) + '</span><span class="badge ok">' + fmtSize(r.size) + '</span>' + meta +
-        '<span class="badge ok">≈ ' + fmtNum(r.tokens) + " token</span>" + (files.length > 1 ? '<span class="badge ok">' + files.length + " phần</span>" : "") + "</div>" +
-        (r.warn ? '<p class="msg">' + esc(r.warn) + "</p>" : "") +
+        '<button data-act="copy" data-i="' + i + '">' + esc(T("copy")) + '</button><button data-act="dl" data-i="' + i + '">' + esc(T("dl")) + '</button><button data-act="toggle" data-i="' + i + '">' + esc(T("view")) + "</button></div></div>" +
+        '<div class="item-meta"><span class="badge">' + esc(T(r.kind)) + '</span><span class="badge ok">' + fmtSize(r.size) + "</span>" + meta +
+        '<span class="badge ok">≈ ' + fmtNum(r.tokens) + " token</span>" + (files.length > 1 ? '<span class="badge ok">' + files.length + " " + esc(T("parts")) + "</span>" : "") + "</div>" +
+        (r.warn ? '<p class="msg">' + esc(T(r.warn)) + "</p>" : "") +
         '<pre hidden id="pv' + i + '">' + esc(files.map(function (f) { return f.text; }).join("\n\n").slice(0, 20000)) + "</pre></div>";
     }).join("");
   }
 
-  async function handle(fileList) {
+  async function convert(r, o) {
+    var p = pick(r.name);
+    r.busy = true; r.md = ""; r.error = ""; r.errKey = ""; r.lang = lang;
+    try {
+      if (!p[0]) { r.errKey = p[1]; r.errArg = p[2]; return; }
+      r.kind = p[0];
+      var out = await p[1](r.file, o);
+      r.md = tidy(out.md, o); r.meta = out.meta || {}; r.warn = out.warn || "";
+      r.tokens = estTokens(r.md);
+      if (!r.md.trim()) { r.md = ""; r.errKey = "e_empty"; }
+    } catch (e) {
+      r.error = e && e.message ? e.message : String(e); r.md = "";
+    } finally { r.busy = false; }
+  }
+
+  async function run(list) {
     var o = opts();
-    var jobs = Array.prototype.slice.call(fileList).map(function (f) {
-      var r = { name: f.name, base: baseName(f.name), size: f.size, busy: true };
-      results.push(r);
-      return { f: f, r: r };
-    });
+    list.forEach(function (r) { r.busy = true; }); // khoá nút tải tới khi chuyển xong hết
     render();
-    for (var k = 0; k < jobs.length; k++) {
-      var f = jobs[k].f, r = jobs[k].r, p = pick(f.name);
-      try {
-        if (!p[0]) throw new Error(p[1]);
-        r.kind = p[0];
-        var out = await p[1](f, o);
-        r.md = tidy(out.md, o); r.meta = out.meta || {}; r.warn = out.warn || "";
-        r.tokens = estTokens(r.md);
-        if (!r.md.trim()) throw new Error("Không đọc được chữ nào trong file.");
-      } catch (e) {
-        r.error = e && e.message ? e.message : String(e); r.md = "";
-      }
-      r.busy = false;
-      render();
-    }
+    for (var k = 0; k < list.length; k++) { await convert(list[k], o); render(); }
+  }
+
+  function handle(fileList) {
+    var jobs = Array.prototype.slice.call(fileList).map(function (f) {
+      var r = { file: f, name: f.name, base: baseName(f.name), size: f.size, busy: true };
+      results.push(r);
+      return r;
+    });
+    return run(jobs);
   }
 
   function allFiles() {
@@ -410,10 +518,8 @@
   }
 
   function indexMd(list) {
-    var rows = list.map(function (f) { return "| [" + f.name + "](" + f.name + ") | " + cell(f.r.name) + " | " + f.r.kind + " | " + fmtNum(estTokens(f.text)) + " |"; });
-    return "# INDEX — tài liệu tham khảo cho AI\n\n" +
-      "Mỗi file dưới đây là bản Markdown của một tài liệu gốc. Đọc file này trước, rồi chỉ mở file liên quan tới việc đang làm.\n\n" +
-      "| File | Nguồn gốc | Loại | ≈ Token |\n| --- | --- | --- | --- |\n" + rows.join("\n") + "\n";
+    var rows = list.map(function (f) { return "| [" + f.name + "](" + f.name + ") | " + cell(f.r.name) + " | " + T(f.r.kind) + " | " + fmtNum(estTokens(f.text)) + " |"; });
+    return T("idx_h") + "\n\n" + T("idx_p") + "\n\n" + T("idx_cols") + "\n| --- | --- | --- | --- |\n" + rows.join("\n") + "\n";
   }
 
   function save(name, blob) {
@@ -423,11 +529,11 @@
     setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
   }
   function copy(text, btn) {
-    var done = function () { var t = btn.textContent; btn.textContent = "Đã copy ✓"; setTimeout(function () { btn.textContent = t; }, 1500); };
+    var done = function () { var t = btn.textContent; btn.textContent = T("copied"); setTimeout(function () { btn.textContent = t; }, 1500); };
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback); else fallback();
     function fallback() {
       var ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta); ta.select();
-      try { document.execCommand("copy"); done(); } catch (_) { alert("Trình duyệt không cho copy, hãy dùng nút Tải."); }
+      try { document.execCommand("copy"); done(); } catch (_) { alert(T("copy_fail")); }
       ta.remove();
     }
   }
@@ -441,12 +547,23 @@
   drop.addEventListener("drop", function (e) { if (e.dataTransfer.files.length) handle(e.dataTransfer.files); });
   document.querySelectorAll(".opts input").forEach(function (i) { i.addEventListener("change", render); });
 
+  // Đổi ngôn ngữ: dịch giao diện và chuyển lại các file đã có để nội dung Markdown cũng đổi theo
+  document.querySelectorAll(".lang button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var next = b.dataset.lang === "en" ? "en" : "vi"; if (next === lang) return;
+      lang = next; try { localStorage.setItem("lm_lang", lang); } catch (_) { /* bỏ qua */ }
+      applyLang();
+      var stale = results.filter(function (r) { return !r.busy && r.lang !== lang; });
+      if (stale.length) run(stale); else render();
+    });
+  });
+
   $("list").addEventListener("click", function (e) {
     var b = e.target.closest("button[data-act]"); if (!b) return;
     var i = +b.dataset.i, r = results[i], files = finalFiles(r, opts());
     if (b.dataset.act === "copy") copy(files.map(function (f) { return f.text; }).join("\n\n"), b);
     else if (b.dataset.act === "dl") files.forEach(function (f) { save(f.name, new Blob([f.text], { type: "text/markdown;charset=utf-8" })); });
-    else { var pv = $("pv" + i); pv.hidden = !pv.hidden; b.textContent = pv.hidden ? "Xem" : "Ẩn"; }
+    else { var pv = $("pv" + i); pv.hidden = !pv.hidden; b.textContent = pv.hidden ? T("view") : T("hide"); }
   });
   $("copyAll").addEventListener("click", function () { copy(bundle(), this); });
   $("dlBundle").addEventListener("click", function () { save("context.md", new Blob([bundle()], { type: "text/markdown;charset=utf-8" })); });
@@ -462,4 +579,6 @@
     btn.disabled = false;
   });
   $("clear").addEventListener("click", function () { results = []; render(); });
+
+  applyLang();
 })();

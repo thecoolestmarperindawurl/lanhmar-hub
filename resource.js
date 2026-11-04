@@ -18,12 +18,28 @@ window.Res = (() => {
   const ai = {}; // id hãng -> { items, updated }
   let rk = null;  // bảng xếp hạng trực tiếp: { quotes, news, updated }
 
+  /* Song ngữ: chọn EN (localStorage "lm_lang", dùng chung với trang chủ) thì mọi trường "x" có bản "x_en"
+     — ở bất kỳ độ sâu nào: title, note, sections[].t, rows, items, cta… — được thay bằng bản tiếng Anh.
+     Mục chưa có bản _en giữ nguyên tiếng Việt. */
+  const lang = () => { try { return localStorage.getItem("lm_lang") === "en" ? "en" : "vi"; } catch { return "vi"; } };
+  const loc = (o, en) => {
+    if (Array.isArray(o)) return o.map((x) => loc(x, en));
+    if (!o || typeof o !== "object") return o;
+    const r = {};
+    for (const k of Object.keys(o)) {
+      if (k.endsWith("_en")) continue;
+      r[k] = loc(en && o[k + "_en"] != null ? o[k + "_en"] : o[k], en);
+    }
+    return r;
+  };
+
   async function load() {
     try {
       const r = await fetch("kho-featured.json?v=" + Date.now(), { cache: "no-store" });
       if (!r.ok) return (list = []);
       const j = await r.json();
-      list = (j.items || []).map((i) => ({ ...i, featured: true }));
+      const en = lang() === "en";
+      list = (j.items || []).map((i) => ({ ...loc(i, en), featured: true }));
     } catch { list = []; }
     return list;
   }

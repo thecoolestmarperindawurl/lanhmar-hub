@@ -520,3 +520,10 @@ body.neu-compact .card{padding:14px}
 .lockcard .gate-mascot{position:absolute!important;right:18px;top:-58px;--size:110px}
 @media(max-width:560px){.lockcard .gate-mascot{--size:84px;top:-44px;right:10px}}
 .app-sec{display:flex;align-items:flex-end;gap:6px}.app-sec .app-sec-mascot{--size:64px;margin:-30px 0 -8px}
+
+/* Nút VI/EN — dùng chung lựa chọn "lm_lang" với trang chủ */
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.topbar .btn.back{margin:0}
+.lang{display:flex;gap:4px;align-items:center;font:700 13px Montserrat,system-ui,sans-serif;color:var(--ink-soft)}
+.lang button{background:#fff;border:2px solid var(--lav-300);border-radius:999px;font:700 13px Montserrat,system-ui,sans-serif;color:var(--ink-soft);cursor:pointer;padding:4px 12px}
+.lang button.on{background:var(--purple-deep);border-color:var(--purple-deep);color:#fff}
