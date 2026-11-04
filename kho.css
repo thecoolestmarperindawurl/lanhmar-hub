@@ -512,5 +512,5 @@ body.neu-compact .card{padding:14px}
 
 /* mascot LANHMAR trong Kho Ứng dụng */
 .app-hero{position:relative;padding-right:150px;min-height:120px}
-.app-mascot{position:absolute;right:0;top:-6px;--size:140px}
-@media(max-width:640px){.app-hero{padding-right:96px}.app-mascot{--size:92px;top:0}}
+.app-hero .lm-mascot.app-mascot{position:absolute;right:0;top:-6px;--size:140px}
+@media(max-width:640px){.app-hero{padding-right:96px}.app-hero .lm-mascot.app-mascot{--size:92px;top:0}}
