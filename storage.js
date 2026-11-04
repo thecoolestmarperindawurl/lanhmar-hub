@@ -97,6 +97,12 @@ function render() {
       <div>${(i.tags || []).map((t) => `<span class="chip" data-t="${esc(t)}">#${esc(t)}</span>`).join(" ")}</div>
       <div class="meta"><span>${esc(i.date)}</span></div>
     </article>`;
+  $("#grid").classList.toggle("is-apps", cur === "idea");
+  if (cur === "idea") { // Kho Ứng dụng: trình bày kiểu thư viện
+    $("#groups").innerHTML = ""; $("#tags").innerHTML = "";
+    $("#grid").innerHTML = list.length ? Res.appShelf(list) : `<div class="empty">Chưa có ứng dụng nào được chia sẻ.</div>`;
+    return;
+  }
   $("#groups").innerHTML = Res.groupPills(cur, inKho, grp);
   $("#grid").innerHTML = Res.group(list, cur, grp, cardOf) || `<div class="empty">Chưa có mục nào được chia sẻ trong kho này.</div>`;
 }

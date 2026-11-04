@@ -189,6 +189,13 @@ function render() {
       <div class="card-tags">${(i.tags || []).slice(0, 3).map((t) => `<span class="chip" data-t="${esc(t)}">#${esc(t)}</span>`).join(" ")}${(i.tags || []).length > 3 ? `<span class="chip dim">+${i.tags.length - 3}</span>` : ""}</div>
       <div class="meta"><span>${esc(i.date)}</span><span class="acts"><button data-edit="${i.id}">Sửa</button><button data-del="${i.id}">Xoá</button></span></div>
     </article>`;
+  $("#grid").classList.toggle("is-apps", cur === "idea");
+  if (cur === "idea") { // Kho Ứng dụng: trình bày kiểu thư viện
+    $("#groups").innerHTML = ""; $("#tags").innerHTML = "";
+    const acts = (i) => i.featured ? "" : `<div class="meta"><span>${esc(i.date)}</span><span class="acts"><button data-edit="${i.id}">Sửa</button><button data-del="${i.id}">Xoá</button></span></div>`;
+    $("#grid").innerHTML = list.length ? Res.appShelf(list, acts) : `<div class="empty">Chưa có ứng dụng nào. Bấm “+ Thêm” để bắt đầu.</div>`;
+    return;
+  }
   $("#groups").innerHTML = Res.groupPills(cur, inKho, grp);
   requestAnimationFrame(() => document.querySelectorAll(".tab.on,.gpill.on").forEach((b) => { const c = b.parentElement; if (c && c.scrollWidth > c.clientWidth) c.scrollTo({ left: b.offsetLeft - c.clientWidth / 2 + b.offsetWidth / 2, behavior: "smooth" }); }));
   $("#grid").innerHTML = Res.group(list, cur, grp, cardOf) || `<div class="empty">Chưa có mục nào. Bấm “+ Thêm” để bắt đầu.</div>`;
