@@ -127,14 +127,19 @@ window.EVENTS = [
     group: "di-lam-voi-ai",
     name: "Workshop \"Đi làm với AI\"",
     name_en: "\"Đi làm với AI\" Workshop",
-    date: "2026-10-17", // theo dấu thời gian ảnh chụp
+    date: "2026-10-17", time: "14:00–18:00", // theo standee sự kiện
     host: "AI Agent Hub × KesFlow", host_en: "AI Agent Hub × KesFlow",
+    speakers: ["Hưng Kescy"], speakers_en: ["Hưng Kescy"],
+    quote: "Cái gì máy làm tốt thì người đừng làm", quote_en: "What a machine does well, a person shouldn't do",
+    topics: ["Thế nào là một \"skill\" tốt?", "6 bước giải quyết vấn đề (nâng cao)"],
+    topics_en: ["What makes a good \"skill\"?", "6-step problem solving (advanced)"],
     place: "Bamos Coffee, Bình Thạnh", place_en: "Bamos Coffee, Binh Thanh (Ho Chi Minh City)",
     map: "https://share.google/QRK3a7kzh5mzemacS",
     attendees: 30,
-    desc: "Buổi gặp mặt trực tiếp đầu tiên của nhóm: chia sẻ cách dùng AI Agent và skill cho Claude Code vào việc hằng ngày, kèm phần thực hành ngay tại chỗ.",
-    desc_en: "The group's first in-person meetup: how to put AI agents and Claude Code skills to work day to day, with hands-on practice on the spot.",
-    // Điền sau khi chạy tools/event-photos.py (ảnh sáng, rõ; ảnh đầu = ảnh bìa). Đang chờ ảnh từ chủ nhóm.
-    photos: []
+    desc: "Buổi workshop trực tiếp của cộng đồng Đi làm với AI tại Sài Gòn: diễn giả Hưng Kescy nói về cách xây một skill tốt cho AI và quy trình 6 bước giải quyết vấn đề, kèm thực hành ngay tại chỗ.",
+    desc_en: "The Đi làm với AI community's in-person workshop in Saigon: speaker Hưng Kescy on what makes a good AI skill and a 6-step problem-solving process, with hands-on practice on the spot.",
+    // Ảnh đầu = ảnh bìa/poster. Ảnh chụp tại sự kiện: chạy tools/event-photos.py rồi thêm vào sau standee.
+    // Mẫu: { src: "assets/img/events/workshop-di-lam-voi-ai-2026-10/01.webp", alt: "Standee workshop: diễn giả Hưng Kescy, 14h–18h ngày 17/10", alt_en: "Workshop standee: speaker Hưng Kescy, 2–6 pm, 17 Oct" }
+    photos: [] // đang chờ file standee + ảnh chụp từ chủ nhóm
   }
 ];
