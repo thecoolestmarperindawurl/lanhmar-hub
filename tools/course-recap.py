@@ -9,6 +9,12 @@ Cách dùng:
   python3 tools/course-recap.py bai-1.mp4 --scene 0.2 --min-gap 6        # nhạy hơn khi slide ít khác nhau
   python3 tools/course-recap.py bai-1.mp4 --crop "iw*0.78:ih:0:0"        # chỉ xét vùng slide, bỏ khung webcam bên phải
 
+Làm sạch lời giảng (khi gỡ băng sai nhiều thuật ngữ/tên riêng) — dùng Claude đọc ảnh slide + lời giảng thô của từng slide:
+  pip install anthropic ; đặt biến môi trường ANTHROPIC_API_KEY
+  python3 tools/course-recap.py bai-1.mp4 --polish --context "Khoá Performance Marketing, giảng viên nói về Meta Ads, CPA, ROAS" --glossary thuat-ngu.txt
+  python3 tools/course-recap.py bai-1.mp4 --polish-only      # chỉ chạy lại bước làm sạch trên recap.json có sẵn (không dò slide/gỡ băng lại)
+Bản gốc chưa chỉnh luôn được giữ (recap.json: "raw"; recap.html: mục "Xem lời giảng gốc"). Chỗ Claude không chắc được đánh dấu "Cần kiểm tra".
+
 Video dài (>2 giờ): dò slide ở 1 khung/giây độ phân giải thấp nên nhanh; gỡ băng là bước lâu nhất (thường ~0.5–1x thời lượng
 trên CPU, model `small`). Kết quả gỡ băng được lưu `transcript.json` trong thư mục xuất — chạy lại sẽ dùng luôn, không gỡ lại.
 Mở `sample.jpg` trong thư mục xuất để chọn --crop nếu khung hình có webcam giảng viên.
@@ -22,7 +28,7 @@ Cách làm:
   4. Xuất recap.md + recap.html (+ recap.json) và thư mục slides/.
 Không bịa nội dung: chữ trong recap chính là lời giảng đã gỡ băng, chỉ gom câu và bỏ trùng.
 """
-import argparse, html, json, os, re, shutil, subprocess, sys, time, urllib.parse, urllib.request, wave
+import argparse, base64, concurrent.futures, hashlib, html, json, os, re, shutil, subprocess, sys, time, urllib.parse, urllib.request, wave
 
 os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")  # Windows không có symlink: bỏ cảnh báo vô hại
 from pathlib import Path
@@ -140,7 +146,7 @@ def parse_subs(path):
     return cues
 
 
-def whisper_cues(video, lang, model_name, cache):
+def whisper_cues(video, lang, model_name, cache, prompt=None):
     cache = Path(cache)
     if cache.is_file():
         print(f"Dùng lời giảng đã gỡ băng: {cache}")
@@ -161,7 +167,7 @@ def whisper_cues(video, lang, model_name, cache):
     import numpy as np
     with wave.open(str(wav), "rb") as w:
         audio = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float32) / 32768.0
-    segs, info = model.transcribe(audio, language=lang, vad_filter=True, beam_size=1, condition_on_previous_text=False)
+    segs, info = model.transcribe(audio, language=lang, initial_prompt=prompt or None, vad_filter=True, beam_size=1, condition_on_previous_text=False)
     cues, t0, last = [], time.time(), 0
     for s_ in segs:
         if s_.text.strip():
@@ -203,6 +209,73 @@ def paragraphs(cues, pause=2.5, maxlen=420):
 
 
 # ---------- Xuất ----------
+# ---------- Làm sạch lời giảng bằng Claude ----------
+POLISH_RULES = """Bạn đang biên tập lời giảng đã gỡ băng tự động (speech-to-text tiếng Việt, hay sai) của một bài giảng. Bạn thấy ảnh slide đang chiếu và lời giảng thô của đúng đoạn đó.
+
+Nhiệm vụ: viết lại lời giảng cho đúng ngữ cảnh, dễ đọc, nhưng KHÔNG đổi nội dung.
+- Sửa lỗi nhận dạng giọng nói: tên riêng, thuật ngữ, từ tiếng Anh, tên công cụ/thương hiệu, con số, dấu câu, viết hoa. Dùng chữ trên slide và danh sách thuật ngữ để chuẩn hoá cách viết.
+- Bỏ từ đệm và câu lặp (ừ, à, thì là, nói lại...) nhưng GIỮ mọi ý, ví dụ, con số, lời dặn của giảng viên. Giữ giọng giảng viên (xưng hô như trong lời gốc), văn nói tự nhiên, rõ ràng; chia đoạn theo ý.
+- TUYỆT ĐỐI không thêm thông tin, số liệu, ví dụ hay kết luận mà lời giảng và slide không có. Không tóm tắt cho ngắn đi.
+- Chỗ không chắc (từ nghe không ra, tên riêng không đối chiếu được): giữ nguyên từ gốc, KHÔNG đoán, và ghi đoạn nghi ngờ vào "uncertain".
+Chỉ trả về JSON hợp lệ, không thêm chữ nào khác: {"paragraphs": ["..."], "uncertain": ["trích đoạn nghi ngờ + lý do ngắn"]}"""
+
+
+def polish_slide(client, model, img_path, raw, context, glossary):
+    img = base64.standard_b64encode(Path(img_path).read_bytes()).decode()
+    extra = (f"Bối cảnh bài giảng: {context}\n" if context else "") + (f"Thuật ngữ/tên riêng chuẩn: {', '.join(glossary)}\n" if glossary else "")
+    text = f"{extra}\nLời giảng thô của slide này:\n" + "\n\n".join(raw)
+    last = None
+    for attempt in range(3):
+        try:
+            r = client.messages.create(
+                model=model, max_tokens=4096, system=POLISH_RULES,
+                messages=[{"role": "user", "content": [
+                    {"type": "image", "source": {"type": "base64", "media_type": "image/jpeg", "data": img}},
+                    {"type": "text", "text": text}]}])
+            out = "".join(b.text for b in r.content if getattr(b, "type", "") == "text")
+            data = json.loads(out[out.index("{"): out.rindex("}") + 1])
+            paras = [str(x).strip() for x in data.get("paragraphs", []) if str(x).strip()]
+            if paras:
+                return paras, [str(x) for x in data.get("uncertain", [])]
+            last = "trả về rỗng"
+        except Exception as e:  # lỗi mạng / JSON hỏng: thử lại
+            last = e
+            time.sleep(2 * (attempt + 1))
+    print(f"\n  ! Slide: không làm sạch được ({last}); giữ lời giảng gốc")
+    return raw, []
+
+
+def polish_all(slides, out, model, context, glossary, workers=4):
+    try:
+        import anthropic
+    except ImportError:
+        sys.exit("Cần `pip install anthropic` để dùng --polish.")
+    if not os.environ.get("ANTHROPIC_API_KEY"):
+        sys.exit("Chưa đặt ANTHROPIC_API_KEY. PowerShell: $env:ANTHROPIC_API_KEY=\"sk-ant-...\"")
+    client = anthropic.Anthropic()
+    cache_f = out / "polished.json"
+    cache = json.loads(cache_f.read_text(encoding="utf-8")) if cache_f.is_file() else {}
+    key = lambda s: hashlib.sha1(("|".join(s["raw"]) + model + (context or "") + ",".join(glossary)).encode()).hexdigest()
+    todo = [s for s in slides if s["raw"] and key(s) not in cache]
+    print(f"Làm sạch lời giảng bằng {model}: {len(todo)} slide cần xử lý ({sum(1 for s in slides if s['raw']) - len(todo)} đã làm sạch từ trước, dùng lại)")
+    done = 0
+    with concurrent.futures.ThreadPoolExecutor(workers) as ex:
+        futs = {ex.submit(polish_slide, client, model, out / s["image"], s["raw"], context, glossary): s for s in todo}
+        for f in concurrent.futures.as_completed(futs):
+            s = futs[f]
+            paras, unsure = f.result()
+            if paras is not s["raw"]:
+                cache[key(s)] = {"paras": paras, "uncertain": unsure}
+                cache_f.write_text(json.dumps(cache, ensure_ascii=False), encoding="utf-8")
+            done += 1
+            print(f"  {done}/{len(todo)}", end="\r", flush=True)
+    for s in slides:
+        c = cache.get(key(s))
+        if c:
+            s["paras"], s["notes"] = c["paras"], c["uncertain"]
+    print()
+
+
 def hms(t):
     t = int(t)
     return f"{t // 3600:02d}:{t % 3600 // 60:02d}:{t % 60:02d}" if t >= 3600 else f"{t // 60:02d}:{t % 60:02d}"
@@ -214,7 +287,7 @@ main{max-width:860px;margin:0 auto;padding:32px 16px 80px}h1{color:var(--p);font
 .meta{color:var(--mut);margin:0 0 28px}.card{background:#fff;border-radius:20px;padding:18px;margin:0 0 22px;box-shadow:0 8px 28px rgba(45,47,239,.10)}
 .card img{width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e6e6fb}
 .tag{display:inline-block;background:var(--o);color:#fff;border-radius:999px;padding:2px 12px;font-size:.78rem;font-weight:700;margin:0 0 10px}
-.card p{margin:12px 0 0}.empty{color:var(--mut);font-style:italic}nav.toc{margin:0 0 28px;display:flex;flex-wrap:wrap;gap:8px}
+.card p{margin:12px 0 0}.empty{color:var(--mut);font-style:italic}details{margin:12px 0 0;color:var(--mut);font-size:.9rem}details p{margin:8px 0 0}.warn{background:#fff3ec;border-left:4px solid var(--o);border-radius:8px;padding:8px 12px;margin:12px 0 0;font-size:.88rem}nav.toc{margin:0 0 28px;display:flex;flex-wrap:wrap;gap:8px}
 nav.toc a{background:#fff;color:var(--p);border-radius:999px;padding:4px 12px;font-size:.82rem;font-weight:600;text-decoration:none}"""
 
 
@@ -233,6 +306,10 @@ def write_outputs(out, title, video, segs):
                 md += [p, ""]; h.append(f"<p>{html.escape(p)}</p>")
         else:
             md += ["_(không có lời giảng ở đoạn này)_", ""]; h.append("<p class='empty'>(không có lời giảng ở đoạn này)</p>")
+        for n_ in s.get("notes", []):
+            md += [f"> ⚠ Cần kiểm tra: {n_}", ""]; h.append(f"<div class='warn'>⚠ Cần kiểm tra: {html.escape(n_)}</div>")
+        if s.get("raw") and s["raw"] != s["paras"]:
+            h.append("<details><summary>Xem lời giảng gốc (chưa chỉnh)</summary>" + "".join(f"<p>{html.escape(p)}</p>" for p in s["raw"]) + "</details>")
         h.append("</section>")
     (out / "recap.md").write_text("\n".join(md), encoding="utf-8")
     (out / "recap.html").write_text("".join(h) + "</main></html>", encoding="utf-8")
@@ -251,6 +328,11 @@ def main():
     ap.add_argument("--scene", type=float, default=0.3, help="Ngưỡng dò đổi slide 0–1; nhỏ hơn = nhạy hơn (mặc định 0.3)")
     ap.add_argument("--min-gap", type=float, default=5.0, help="Mỗi slide tối thiểu bao nhiêu giây (mặc định 5)")
     ap.add_argument("--crop", help="Chỉ xét vùng slide khi dò/chụp, cú pháp ffmpeg w:h:x:y, vd \"iw*0.78:ih:0:0\" (bỏ webcam)")
+    ap.add_argument("--polish", action="store_true", help="Làm sạch/viết lại lời giảng đúng ngữ cảnh bằng Claude (cần ANTHROPIC_API_KEY)")
+    ap.add_argument("--polish-only", action="store_true", help="Chỉ chạy bước làm sạch trên recap.json có sẵn trong thư mục --out")
+    ap.add_argument("--polish-model", default="claude-sonnet-5-5", help="Model Claude dùng để làm sạch (mặc định claude-sonnet-5-5)")
+    ap.add_argument("--context", help="Mô tả bài giảng + thuật ngữ chính; dùng gợi ý cho gỡ băng và cho bước làm sạch")
+    ap.add_argument("--glossary", help="File .txt: mỗi dòng một thuật ngữ/tên riêng cần viết đúng")
     ap.add_argument("--width", type=int, default=1280, help="Chiều rộng ảnh slide (mặc định 1280)")
     a = ap.parse_args()
 
@@ -268,6 +350,19 @@ def main():
             sys.exit(f"Không thấy file {video}")
         out = Path(a.out or f"recap-{video.stem}")
     (out / "slides").mkdir(parents=True, exist_ok=True)
+    glossary = [l.strip() for l in Path(a.glossary).read_text(encoding="utf-8-sig").splitlines() if l.strip()] if a.glossary else []
+    prompt = " ".join(x for x in [a.context, ", ".join(glossary)] if x)[:600] or None
+    title = a.title or video.stem.replace("-", " ").replace("_", " ")
+
+    if a.polish_only:
+        data = json.loads((out / "recap.json").read_text(encoding="utf-8"))
+        slides = data["slides"]
+        for sl in slides:
+            sl["raw"] = sl.get("raw") or sl["paras"]
+        polish_all(slides, out, a.polish_model, a.context, glossary)
+        write_outputs(out, a.title or data["title"], Path(data["video"]), slides)
+        print(f"Xong -> {out}/recap.html")
+        return
 
     total = duration(video)
     print(f"Video dài {hms(total)} — dò đổi slide (1 khung/giây)…")
@@ -276,7 +371,7 @@ def main():
     segments = build_segments(detect_changes(video, a.scene, a.crop), total, a.min_gap)
     print(f"  {len(segments)} đoạn slide (mất {hms(time.time() - t0)}). Xem khung đang xét: {out}/sample.jpg")
 
-    cues = parse_subs(a.transcript) if a.transcript else whisper_cues(video, a.lang, a.model, out / "transcript.json")
+    cues = parse_subs(a.transcript) if a.transcript else whisper_cues(video, a.lang, a.model, out / "transcript.json", prompt)
     cues = dedupe(sorted(cues))
     print(f"  {len(cues)} câu lời giảng")
 
@@ -300,9 +395,12 @@ def main():
         tmp.rename(out / name)
         mine = [c for c in cues if t0 <= (c[0] + c[1]) / 2 < t1 or (n == len(merged) and c[0] >= t1)]
         slides.append({"n": n, "start": round(t0, 2), "end": round(t1, 2), "image": name, "paras": paragraphs(mine)})
+        slides[-1]["raw"] = list(slides[-1]["paras"])
     print(f"\n  {len(slides)} slide sau khi gộp trùng")
 
-    write_outputs(out, a.title or video.stem.replace("-", " ").replace("_", " "), video, slides)
+    if a.polish:
+        polish_all(slides, out, a.polish_model, a.context, glossary)
+    write_outputs(out, title, video, slides)
     print(f"Xong -> {out}/recap.html (mở bằng trình duyệt), recap.md, recap.json")
 
 
