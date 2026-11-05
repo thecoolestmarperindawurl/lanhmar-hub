@@ -8,6 +8,11 @@
   const seen = new Set();
   try { JSON.parse(sessionStorage.getItem("lm-fx-seen") || "[]").forEach((k) => seen.add(k)); } catch {}
   const keyOf = (c) => c.dataset.res || (c.querySelector("h3") || {}).textContent || "";
+  // công tắc "Hiệu ứng" (gợn sóng khi bấm, ánh sáng theo chuột, vệt sao theo con trỏ); nhớ trên trình duyệt này; mặc định bật, trừ khi máy chọn giảm chuyển động
+  const getLS = (k, d) => { try { return localStorage.getItem(k) ?? d; } catch { return d; } };
+  const setLS = (k, v) => { try { localStorage.setItem(k, v); } catch {} };
+  let fxOn = !reduce && getLS("lm-fx-on", "1") === "1";
+  document.body.classList.toggle("fx-off", !fxOn);
 
   // màu nhấn theo loại thẻ: p = tím, o = cam, m = tím + cam
   const accentOf = (c) => {
@@ -46,6 +51,7 @@
   if (hover && !reduce) {
     let raf = 0;
     document.addEventListener("pointermove", (e) => {
+      if (!fxOn) return;
       const c = e.target.closest && e.target.closest(".card"); if (!c || raf) return;
       raf = requestAnimationFrame(() => { raf = 0; const r = c.getBoundingClientRect(); c.style.setProperty("--mx", e.clientX - r.left + "px"); c.style.setProperty("--my", e.clientY - r.top + "px"); });
     }, { passive: true });
@@ -54,6 +60,7 @@
   // gợn sóng khi bấm
   if (!reduce) {
     document.addEventListener("pointerdown", (e) => {
+      if (!fxOn) return;
       const t = e.target.closest && e.target.closest(".btn,.tab,.gpill,.chip,.card");
       if (!t || t.disabled) return;
       const r = t.getBoundingClientRect(), s = Math.max(r.width, r.height) * 2.2, p = document.createElement("span");
@@ -63,28 +70,38 @@
   }
 
 
-  // điều khiển cách xem (công tắc và thanh trượt kiểu neumorphism): Gọn / Cỡ thẻ, nhớ lựa chọn trên trình duyệt này.
-  // Thanh trượt Cỡ thẻ chỉ đổi độ rộng cột lưới cho thẻ tự thêm; Storage toàn thẻ nổi bật chiếm trọn hàng nên kéo không đổi gì
-  // → .bar có data-ctl="nosize" thì không vẽ thanh trượt (Storage), chỉ còn công tắc Gọn.
+  // vệt sao ★ theo con trỏ (màu brand, thưa, tự tan) và bung sao nhỏ khi bấm — chỉ khi công tắc Hiệu ứng bật
+  if (hover && !reduce) {
+    const layer = document.createElement("div"); layer.className = "fx-stars"; layer.setAttribute("aria-hidden", "true"); document.body.appendChild(layer);
+    const COLORS = ["#FF7A45", "#6A5CFF", "#FFD8C2", "#B2A4EF"];
+    let last = 0, n = 0;
+    const star = (x, y, big) => {
+      if (layer.childElementCount > 40) return;
+      const el = document.createElement("i"); el.textContent = "★";
+      const sz = big ? 14 + Math.random() * 10 : 8 + Math.random() * 8, dx = (Math.random() - .5) * (big ? 90 : 24), dy = (big ? -30 : 10) + Math.random() * (big ? 40 : 20);
+      el.style.cssText = `left:${x}px;top:${y}px;font-size:${sz}px;color:${COLORS[n++ % COLORS.length]};--dx:${dx}px;--dy:${dy}px;--rot:${(Math.random() - .5) * 180}deg`;
+      layer.appendChild(el); setTimeout(() => el.remove(), 900);
+    };
+    document.addEventListener("pointermove", (e) => {
+      if (!fxOn || e.pointerType !== "mouse") return;
+      const t = performance.now(); if (t - last < 70) return; last = t;
+      star(e.clientX, e.clientY, false);
+    }, { passive: true });
+    document.addEventListener("pointerdown", (e) => { if (!fxOn) return; for (let i = 0; i < 6; i++) star(e.clientX, e.clientY, true); }, { passive: true });
+  }
+
+  // công tắc "Hiệu ứng" trong thanh tìm kiếm của Kho / Storage (thay cho Gọn và Cỡ thẻ cũ)
   {
     const bar = document.querySelector(".bar");
-    const grid = document.getElementById("grid");
-    if (bar && grid && !document.querySelector(".neu-ctl")) {
-      const get = (k, d) => { try { return localStorage.getItem(k) ?? d; } catch { return d; } };
-      const set = (k, v) => { try { localStorage.setItem(k, v); } catch {} };
+    if (bar && !document.querySelector(".neu-ctl")) {
       const wrap = document.createElement("div"); wrap.className = "neu-ctl";
-      wrap.innerHTML = `<label class="neu-sw"><input type="checkbox" id="neuCompact" role="switch"><i></i><span data-fx="compact">Gọn</span></label>` + (bar.dataset.ctl === "nosize" ? "" : `<label class="neu-rg"><span data-fx="size">Cỡ thẻ</span><input type="range" id="neuSize" min="240" max="420" step="20" aria-label="Cỡ thẻ"></label>`);
+      wrap.innerHTML = `<label class="neu-sw" title="Gợn sóng khi bấm, ánh sáng theo chuột, vệt sao theo con trỏ"><input type="checkbox" id="fxToggle" role="switch"><i></i><span data-fx="label">Hiệu ứng</span></label>`;
       bar.appendChild(wrap);
-      const fxLang = () => { const T = (v, e) => (window.LM ? LM.t(v, e) : v);
-        wrap.querySelector('[data-fx="compact"]').textContent = T("Gọn", "Compact");
-        const sz = wrap.querySelector('[data-fx="size"]'); if (sz) sz.textContent = T("Cỡ thẻ", "Card size");
-        const rgEl = wrap.querySelector("#neuSize"); if (rgEl) rgEl.setAttribute("aria-label", T("Cỡ thẻ", "Card size")); };
+      const cb = wrap.querySelector("#fxToggle"), lb = wrap.querySelector('[data-fx="label"]');
+      const fxLang = () => { const T = (v, e) => (window.LM ? LM.t(v, e) : v); lb.textContent = T("Hiệu ứng", "Effects"); wrap.querySelector(".neu-sw").title = T("Gợn sóng khi bấm, ánh sáng theo chuột, vệt sao theo con trỏ", "Click ripples, hover glow, star trail behind the cursor"); };
       fxLang(); document.addEventListener("lm:lang", fxLang);
-      const cb = wrap.querySelector("#neuCompact"), rg = wrap.querySelector("#neuSize");
-      const apply = () => { document.body.classList.toggle("neu-compact", cb.checked); if (rg) grid.style.setProperty("--gmin", rg.value + "px"); };
-      cb.checked = get("lm-neu-compact", "0") === "1"; if (rg) rg.value = get("lm-neu-size", "300"); apply();
-      cb.addEventListener("change", () => { set("lm-neu-compact", cb.checked ? "1" : "0"); apply(); });
-      if (rg) rg.addEventListener("input", () => { set("lm-neu-size", rg.value); apply(); });
+      cb.checked = fxOn; cb.disabled = reduce;
+      cb.addEventListener("change", () => { fxOn = cb.checked; setLS("lm-fx-on", fxOn ? "1" : "0"); document.body.classList.toggle("fx-off", !fxOn); });
     }
   }
 
