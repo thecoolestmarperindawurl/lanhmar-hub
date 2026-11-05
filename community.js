@@ -8,7 +8,7 @@
   /* ---------- song ngữ: dùng chung lựa chọn với trang chủ (localStorage "lm_lang") ---------- */
   const I18N = {
     vi: {
-      title: "Cộng đồng | LANHMAR",
+      title: "Cộng đồng | LANHMAR", foot: "© 2026 Dương Thị Lan Anh — LANHMAR",
       nav_story: "Hành trình", nav_work: "Dự án", nav_services: "Dịch vụ", nav_community: "Cộng đồng", nav_contact: "Liên hệ", cta_talk: "Liên hệ mình",
       hero_k: "★ CỘNG ĐỒNG · LANHMAR", hero_h: "Cùng nhau <em>đi làm với AI.</em>",
       hero_p: "Nơi những người đi làm trao đổi cách dùng AI vào công việc thật: công cụ, quy trình, bài học và cả những lần làm chưa ra. Chọn một nhóm bên dưới để tham gia.",
@@ -34,7 +34,7 @@
       back_home: "← Về trang chủ", copied: "Đã sao chép link nhóm", copy_fail: "Không sao chép được, hãy bấm giữ vào link"
     },
     en: {
-      title: "Community | LANHMAR",
+      title: "Community | LANHMAR", foot: "© 2026 Lana Duong — LANHMAR",
       nav_story: "Journey", nav_work: "Projects", nav_services: "Services", nav_community: "Community", nav_contact: "Contact", cta_talk: "Get in touch",
       hero_k: "★ COMMUNITY · LANHMAR", hero_h: "Working with <em>AI, together.</em>",
       hero_p: "A place where working professionals swap how they use AI in real work: tools, workflows, lessons, and the attempts that didn't pan out. Pick a group below to join.",
