@@ -22,7 +22,9 @@ Cách làm:
   4. Xuất recap.md + recap.html (+ recap.json) và thư mục slides/.
 Không bịa nội dung: chữ trong recap chính là lời giảng đã gỡ băng, chỉ gom câu và bỏ trùng.
 """
-import argparse, html, json, re, shutil, subprocess, sys, time, urllib.parse, urllib.request
+import argparse, html, json, os, re, shutil, subprocess, sys, time, urllib.parse, urllib.request, wave
+
+os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")  # Windows không có symlink: bỏ cảnh báo vô hại
 from pathlib import Path
 
 
@@ -155,7 +157,11 @@ def whisper_cues(video, lang, model_name, cache):
     print(f"Gỡ băng bằng faster-whisper ({model_name}) — bài dài có thể mất hàng chục phút; lần đầu còn tải model.")
     model = WhisperModel(model_name, compute_type="int8")
     # condition_on_previous_text=False: tránh lặp câu / trôi chữ khi bài rất dài
-    segs, info = model.transcribe(str(wav), language=lang, vad_filter=True, beam_size=1, condition_on_previous_text=False)
+    # Tự đọc wav thành mảng số rồi đưa thẳng cho whisper -> không phụ thuộc phiên bản PyAV (`av`) của máy
+    import numpy as np
+    with wave.open(str(wav), "rb") as w:
+        audio = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float32) / 32768.0
+    segs, info = model.transcribe(audio, language=lang, vad_filter=True, beam_size=1, condition_on_previous_text=False)
     cues, t0, last = [], time.time(), 0
     for s_ in segs:
         if s_.text.strip():
