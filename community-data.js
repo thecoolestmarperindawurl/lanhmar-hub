@@ -103,8 +103,8 @@ window.COMMUNITIES = [
   {
     // Mô tả và chủ đề viết dựa trên tên nhóm (chủ nhóm chưa gửi mô tả chính thức, 05/11/2026) — cập nhật khi có. Không ghi số thành viên vì chưa xác minh.
     id: "ai-agent-hub-sai-gon",
-    name: "AI Agent Hub | Hội nuôi AI Sài Gòn",
-    name_en: "AI Agent Hub | Hội nuôi AI Sài Gòn", // tên riêng, giữ nguyên
+    name: "SG Agent Hub | Hội nuôi AI Agent Sài Gòn",
+    name_en: "SG Agent Hub | Hội nuôi AI Agent Sài Gòn", // tên riêng, giữ nguyên
     platform: "Zalo",
     url: "https://zalo.me/g/eu82fyffympy6gnevcxe",
     members: "",
@@ -117,29 +117,29 @@ window.COMMUNITIES = [
   }
 ];
 
-/* Sự kiện đã tổ chức trong nhóm — hiện ở mục "Sự kiện trong nhóm" của community.html.
-   Ảnh lấy thẳng từ thư mục Drive công khai (ảnh phải ở chế độ "Bất kỳ ai có link"): photos[].id là id file trên Drive.
-   Đổi ảnh: thay id (lấy từ link https://drive.google.com/file/d/<id>/view). Ảnh đầu tiên là ảnh lớn; trang hiện tối đa 5 ảnh đầu.
-   Thêm sự kiện mới: thêm một mục, nhớ kèm name_en, desc_en, alt_en (node tools/i18n-check.mjs sẽ nhắc). */
+/* Sự kiện đã tổ chức trong nhóm — mục "Sự kiện trong nhóm" của community.html (thẻ → bấm mở bộ ảnh).
+   Ảnh nằm trong repo (assets/img/events/<id>/NN.webp), KHÔNG nhúng/liên kết tới Drive hay nguồn ngoài.
+   Chuẩn bị ảnh: python3 tools/event-photos.py <thư mục ảnh gốc> --id <id> --write --pick <ảnh sáng, rõ…>
+   Ảnh đầu tiên là ảnh bìa. Sự kiện mới nhất tự xếp lên đầu (theo date). Mỗi mục cần name_en, desc_en, place_en, alt_en. */
 window.EVENTS = [
   {
     id: "workshop-di-lam-voi-ai-2026-10",
     group: "di-lam-voi-ai",
     name: "Workshop \"Đi làm với AI\"",
     name_en: "\"Đi làm với AI\" Workshop",
-    date: "2026-10-17", // theo dấu thời gian ảnh chụp (IMG20261017…); địa điểm và số người tham dự chờ chủ nhóm bổ sung
-    place: "",
-    place_en: "",
-    desc: "Buổi gặp mặt trực tiếp đầu tiên của nhóm: chia sẻ cách dùng AI Agent và skill cho Claude Code vào việc hằng ngày, kèm phần thực hành ngay tại chỗ.",
-    desc_en: "The group's first in-person meetup: how to put AI agents and Claude Code skills to work day to day, with hands-on practice on the spot.",
-    album: "https://drive.google.com/drive/folders/1t7CiRVJx4V4pTrqeOuB46cotK6jgvDV8",
-    photos: [
-      { id: "1GEIC3V8rWtrSd3wh0YZcqVnSLCufg8Y-", alt: "Diễn giả trình bày trước màn chiếu tại workshop", alt_en: "Speaker presenting in front of the screen at the workshop" },
-      { id: "1vXyqcu8KxolCr1xWB-C0DNFtFF8D6Zds", alt: "Không khí buổi workshop", alt_en: "The workshop in progress" },
-      { id: "1_BVG7DRadTsVRDXfs_vyB5p18GideAH9", alt: "Người tham dự theo dõi phần trình bày", alt_en: "Attendees following the talk" },
-      { id: "1l1pH_qqzg2Jmr1IG8KWJ1Wnvg7dDjgua", alt: "Trao đổi tại workshop", alt_en: "Discussion at the workshop" },
-      { id: "1lmu1S8xz3_JfbQ-0Vf2iSe1IZH5mbKbT", alt: "Thực hành cùng nhau", alt_en: "Hands-on practice together" },
-      { id: "1xeNxCBKjv6ZGomVs9u-xG6BAUxkwyEhv", alt: "Khung cảnh buổi workshop", alt_en: "A view of the workshop" }
-    ]
+    date: "2026-10-17", time: "14:00–18:00", // theo standee sự kiện
+    host: "SG Agent Hub × KesFlow", host_en: "SG Agent Hub × KesFlow",
+    speakers: ["Hưng Kescy"], speakers_en: ["Hưng Kescy"],
+    quote: "Cái gì máy làm tốt thì người đừng làm", quote_en: "What a machine does well, a person shouldn't do",
+    topics: ["Thế nào là một \"skill\" tốt?", "6 bước giải quyết vấn đề (nâng cao)"],
+    topics_en: ["What makes a good \"skill\"?", "6-step problem solving (advanced)"],
+    place: "Bamos Coffee, Bình Thạnh", place_en: "Bamos Coffee, Binh Thanh (Ho Chi Minh City)",
+    map: "https://share.google/QRK3a7kzh5mzemacS",
+    attendees: 30,
+    desc: "Buổi workshop trực tiếp của cộng đồng Đi làm với AI tại Sài Gòn: diễn giả Hưng Kescy nói về cách xây một skill tốt cho AI và quy trình 6 bước giải quyết vấn đề, kèm thực hành ngay tại chỗ.",
+    desc_en: "The Đi làm với AI community's in-person workshop in Saigon: speaker Hưng Kescy on what makes a good AI skill and a 6-step problem-solving process, with hands-on practice on the spot.",
+    // Ảnh đầu = ảnh bìa/poster. Ảnh chụp tại sự kiện: chạy tools/event-photos.py rồi thêm vào sau standee.
+    // Mẫu: { src: "assets/img/events/workshop-di-lam-voi-ai-2026-10/01.webp", alt: "Standee workshop: diễn giả Hưng Kescy, 14h–18h ngày 17/10", alt_en: "Workshop standee: speaker Hưng Kescy, 2–6 pm, 17 Oct" }
+    photos: [] // đang chờ file standee + ảnh chụp từ chủ nhóm
   }
 ];

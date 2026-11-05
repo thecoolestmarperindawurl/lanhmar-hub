@@ -26,7 +26,8 @@
       s2_h: "Bấm tham gia", s2_p: "Nút sẽ mở nhóm trên nền tảng của nhóm. Bạn có thể cần trả lời vài câu hỏi để được duyệt.",
       s3_h: "Giới thiệu và hỏi", s3_p: "Chào mọi người một câu, nói bạn đang làm gì và muốn dùng AI vào việc nào.",
       rules_k: "NỘI QUY CHUNG", rules_h: "Để nhóm luôn dễ chịu.",
-      events_k: "SỰ KIỆN TRONG NHÓM", events_h: "Đã gặp nhau ngoài đời.", ev_album: "Xem toàn bộ ảnh trên Drive →", ev_photo: "Ảnh", ev_open: "Mở ảnh gốc",
+      events_k: "SỰ KIỆN TRONG NHÓM", events_h: "Đã gặp nhau ngoài đời.", events_p: "Những buổi gặp, workshop đã tổ chức trong cộng đồng. Bấm vào một sự kiện để xem bộ ảnh.",
+      ev_photos: (n) => `${n} ảnh`, ev_view: "Xem bộ ảnh →", ev_soon: "Ảnh đang được chọn lọc", ev_more: (n) => `Xem thêm ${n} sự kiện`, ev_less: "Thu gọn", ev_close: "Đóng", ev_photo: "Ảnh", ev_host: "Tổ chức", ev_att: (n) => `${n} người tham dự`, ev_map: "Bản đồ ↗", ev_latest: "Mới nhất", ev_side: "SỰ KIỆN ★ TRONG NHÓM ★", ev_speaker: "Diễn giả", ev_time: "Thời gian", ev_topics: "Nội dung", ev_prev: "Sự kiện trước đó", st_events: "Sự kiện", st_people: "Người tham dự", st_photos: "Khoảnh khắc",
       r1: "Tôn trọng nhau, góp ý vào việc chứ không vào người.", r2: "Không spam, không quảng cáo khi chưa được phép.",
       r3: "Không đăng thông tin cá nhân, khách hàng hay khoá API, mật khẩu.", r4: "Nêu rõ nguồn khi chia sẻ số liệu hoặc nội dung của người khác.",
       r5: "Hỏi rõ bối cảnh, nêu công cụ đang dùng để mọi người giúp đúng chỗ.",
@@ -53,7 +54,8 @@
       s2_h: "Hit join", s2_p: "The button opens the group on its platform. You may need to answer a few questions to be approved.",
       s3_h: "Say hi and ask", s3_p: "Greet everyone, say what you do and where you'd like to use AI.",
       rules_k: "GROUND RULES", rules_h: "Keeping the group a good place.",
-      events_k: "GROUP EVENTS", events_h: "We met in real life.", ev_album: "See all photos on Drive →", ev_photo: "Photo", ev_open: "Open full-size photo",
+      events_k: "GROUP EVENTS", events_h: "We met in real life.", events_p: "Meetups and workshops the community has held. Click an event to see the photos.",
+      ev_photos: (n) => `${n} photo${n === 1 ? "" : "s"}`, ev_view: "See photos →", ev_soon: "Photos coming soon", ev_more: (n) => `Show ${n} more event${n === 1 ? "" : "s"}`, ev_less: "Show less", ev_close: "Close", ev_photo: "Photo", ev_host: "Hosted by", ev_att: (n) => `${n} attendees`, ev_map: "Map ↗", ev_latest: "Latest", ev_side: "GROUP ★ EVENTS ★", ev_speaker: "Speaker", ev_time: "Time", ev_topics: "Agenda", ev_prev: "Earlier events", st_events: "Events", st_people: "Attendees", st_photos: "Moments",
       r1: "Be respectful: critique the work, not the person.", r2: "No spam, and no ads without permission.",
       r3: "Don't post personal or client information, API keys or passwords.", r4: "Credit your sources when sharing data or other people's content.",
       r5: "Give context and name the tools you use, so people can help in the right place.",
@@ -134,30 +136,72 @@
     $("#spot").hidden = false;
   }
 
-  // sự kiện đã tổ chức trong nhóm (EVENTS trong community-data.js); ảnh nhúng từ Drive công khai
-  const driveImg = (id, w) => (/^[\w-]{10,}$/.test(id) ? `https://drive.google.com/thumbnail?id=${id}&sz=w${w}` : "");
-  const driveView = (id) => (/^[\w-]{10,}$/.test(id) ? `https://drive.google.com/file/d/${id}/view` : "");
+  // sự kiện đã tổ chức trong nhóm (EVENTS trong community-data.js): lưới thẻ, mới nhất trước, bấm mở bộ ảnh trong dialog.
+  // Ảnh chỉ lấy từ assets/ trong repo (okImg), không link ra ngoài.
+  const EV_LIMIT = 6;
+  let evOpen = false;
   const fmtDate = (d) => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d || ""); if (!m) return d || ""; return lang === "en" ? new Date(+m[1], +m[2] - 1, +m[3]).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) : `${m[3]}/${m[2]}/${m[1]}`; };
+  const evAll = () => (window.EVENTS || []).filter((e) => e.id && e.name).map((e) => ({ ...e, photos: (e.photos || []).filter((p) => okImg(p.src) && !/^https?:/i.test(p.src)) })).sort((a, b) => (b.date || "").localeCompare(a.date || ""));
   function renderEvents() {
-    const evs = (window.EVENTS || []).filter((e) => e.name && (e.photos || []).length);
     const sec = $("#events"); if (!sec) return;
+    const evs = evAll();
     if (!evs.length) { sec.hidden = true; return; }
-    $("#evList").innerHTML = evs.map((e) => {
-      const g = list.find((x) => x.id === e.group);
-      const photos = (e.photos || []).filter((p) => driveImg(p.id, 10)).slice(0, 5); // 1 ảnh lớn 2×2 + 4 ảnh nhỏ = kín 2 hàng
-      return `<article class="cm-ev">
-        <div class="cm-ev-info reveal">
-          ${g ? `<span class="cm-plat">${esc(L(g, "name"))}</span>` : ""}
-          <h3>${esc(L(e, "name"))}</h3>
-          <p class="cm-ev-meta">${esc(fmtDate(e.date))}${L(e, "place") ? ` · ${esc(L(e, "place"))}` : ""}</p>
-          ${L(e, "desc") ? `<p>${esc(L(e, "desc"))}</p>` : ""}
-          ${okUrl(e.album) ? `<a class="btn dark" href="${esc(e.album)}" target="_blank" rel="noopener">${T("ev_album")}</a>` : ""}
+    const [hero, ...rest] = evs;
+    const g = list.find((x) => x.id === hero.group), cover = hero.photos[0];
+    const nPhotos = evs.reduce((s, e) => s + e.photos.length, 0), nPeople = evs.reduce((s, e) => s + (+e.attendees || 0), 0);
+    const stat = (n, k) => `<div class="cm-evh-stat reveal"><b>${esc(n)}</b><span>${T(k)}</span></div>`;
+    $("#evHero").innerHTML = `
+      <div class="cm-evh-side" aria-hidden="true"><span>${esc(T("ev_side"))}</span><span>${esc(T("ev_side"))}</span></div>
+      <div class="cm-evh-main">
+        <div class="cm-evh-text reveal">
+          <div class="cm-evc-chips">${g ? `<span class="cm-plat">${esc(L(g, "name"))}</span>` : ""}<span class="cm-evc-date">${esc(fmtDate(hero.date))}${L(hero, "place") ? ` · ${esc(L(hero, "place"))}` : ""}</span></div>
+          <h3>${esc(L(hero, "name"))}</h3>
+          ${L(hero, "quote") ? `<p class="cm-evh-quote">“${esc(L(hero, "quote"))}”</p>` : ""}
+          ${L(hero, "desc") ? `<p>${esc(L(hero, "desc"))}</p>` : ""}
+          ${(L(hero, "topics") || []).length ? `<ul class="cm-evh-topics">${L(hero, "topics").map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
+          <p class="cm-evh-host">${(L(hero, "speakers") || []).length ? `${T("ev_speaker")}: <b>${esc(L(hero, "speakers").join(", "))}</b> · ` : ""}${L(hero, "host") ? `${T("ev_host")}: <b>${esc(L(hero, "host"))}</b>` : ""}${hero.time ? ` · ${esc(hero.time)}` : ""}</p>
+          <div class="cm-evh-act">${hero.photos.length ? `<button class="cm-evh-btn" type="button" data-ev="${esc(hero.id)}">${T("ev_view")}</button>` : `<span class="cm-evh-soon">${esc(T("ev_soon"))}</span>`}${okUrl(hero.map) ? `<a class="cm-evh-link" href="${esc(hero.map)}" target="_blank" rel="noopener">${T("ev_map")}</a>` : ""}</div>
         </div>
-        <div class="cm-ev-grid">${photos.map((p, i) => `<a class="cm-ev-ph reveal${i === 0 ? " big" : ""}" href="${esc(driveView(p.id))}" target="_blank" rel="noopener" aria-label="${T("ev_open")}" style="--d:${i * 60}ms"><img src="${esc(driveImg(p.id, i === 0 ? 1200 : 800))}" alt="${esc(L(p, "alt") || T("ev_photo"))}" loading="lazy" onerror="this.closest('.cm-ev-ph').remove()"></a>`).join("")}</div>
+        <div class="cm-evh-poster reveal" ${hero.photos.length ? `data-ev="${esc(hero.id)}" role="button" tabindex="0" aria-label="${esc(L(hero, "name"))}"` : ""}>
+          <div class="cm-evh-tag"><small>${T("ev_latest")}</small><b>${esc(fmtDate(hero.date))}</b></div>
+          <div class="cm-evh-frame">${cover ? `<img src="${esc(cover.src)}" alt="${esc(L(cover, "alt") || "")}" loading="lazy">` : `<span class="cm-evc-blank" aria-hidden="true">★</span>`}
+            ${hero.photos.length ? `<span class="cm-evh-count">${esc(T("ev_photos")(hero.photos.length))}</span>` : ""}</div>
+        </div>
+      </div>
+      <div class="cm-evh-stats">${stat(evs.length, "st_events")}${nPeople ? stat(nPeople + "+", "st_people") : ""}${nPhotos ? stat(nPhotos, "st_photos") : ""}</div>`;
+    const shown = evOpen ? rest : rest.slice(0, EV_LIMIT);
+    $("#evPrev").hidden = !rest.length;
+    $("#evList").innerHTML = shown.map((e, i) => {
+      const gg = list.find((x) => x.id === e.group), cv = e.photos[0];
+      return `<article class="cm-evc reveal" data-ev="${esc(e.id)}" role="button" tabindex="0" aria-label="${esc(L(e, "name"))}" style="--d:${(i % 3) * 80}ms">
+        <div class="cm-evc-cover">${cv ? `<img src="${esc(cv.src)}" alt="${esc(L(cv, "alt") || "")}" loading="lazy">` : `<span class="cm-evc-blank" aria-hidden="true">★</span>`}
+          <div class="cm-evc-chips">${gg ? `<span class="cm-plat">${esc(L(gg, "name"))}</span>` : ""}<span class="cm-evc-date">${esc(fmtDate(e.date))}</span></div></div>
+        <div class="cm-evc-body"><h3>${esc(L(e, "name"))}</h3>${L(e, "place") ? `<p class="cm-evc-place">${esc(L(e, "place"))}</p>` : ""}${L(e, "desc") ? `<p class="cm-evc-desc">${esc(L(e, "desc"))}</p>` : ""}
+          ${L(e, "host") || e.attendees ? `<p class="cm-evc-meta">${L(e, "host") ? `<span>${T("ev_host")}: <b>${esc(L(e, "host"))}</b></span>` : ""}${e.attendees ? `<span>${esc(T("ev_att")(e.attendees))}</span>` : ""}</p>` : ""}
+          <p class="cm-evc-foot"><span>${e.photos.length ? esc(T("ev_photos")(e.photos.length)) : esc(T("ev_soon"))}</span>${e.photos.length ? `<b>${T("ev_view")}</b>` : ""}</p></div>
       </article>`;
     }).join("");
+    const more = $("#evMore"), extra = rest.length - EV_LIMIT;
+    more.hidden = extra <= 0; if (extra > 0) $("#evMoreBtn").textContent = evOpen ? T("ev_less") : T("ev_more")(extra);
     sec.hidden = false;
   }
+  function openEvent(id) {
+    const e = evAll().find((x) => x.id === id), dlg = $("#evDlg"); if (!e || !dlg) return;
+    const g = list.find((x) => x.id === e.group);
+    dlg.innerHTML = `<button class="cm-ev-x" type="button" data-ev-close aria-label="${T("ev_close")}">×</button>
+      <div class="cm-ev-head"><div class="cm-evc-chips">${g ? `<span class="cm-plat">${esc(L(g, "name"))}</span>` : ""}<span class="cm-evc-date">${esc(fmtDate(e.date))}${L(e, "place") ? ` · ${esc(L(e, "place"))}` : ""}</span></div>
+        <h2 id="evDlgTitle">${esc(L(e, "name"))}</h2>${L(e, "desc") ? `<p>${esc(L(e, "desc"))}</p>` : ""}
+        <dl class="cm-ev-facts">${(L(e, "speakers") || []).length ? `<div><dt>${T("ev_speaker")}</dt><dd>${esc(L(e, "speakers").join(", "))}</dd></div>` : ""}${L(e, "host") ? `<div><dt>${T("ev_host")}</dt><dd>${esc(L(e, "host"))}</dd></div>` : ""}${e.time ? `<div><dt>${T("ev_time")}</dt><dd>${esc(fmtDate(e.date))} · ${esc(e.time)}</dd></div>` : ""}${L(e, "place") ? `<div><dt>${lang === "en" ? "Venue" : "Địa điểm"}</dt><dd>${esc(L(e, "place"))}${okUrl(e.map) ? ` <a href="${esc(e.map)}" target="_blank" rel="noopener">${T("ev_map")}</a>` : ""}</dd></div>` : ""}${e.attendees ? `<div><dt>${lang === "en" ? "Attendees" : "Số người"}</dt><dd>${esc(String(e.attendees))}</dd></div>` : ""}</dl></div>
+      ${e.photos.length ? `<div class="cm-ev-gal">${e.photos.map((p, i) => `<figure${i === 0 ? ' class="big"' : ""}><img src="${esc(p.src)}" alt="${esc(L(p, "alt") || T("ev_photo"))}" loading="${i < 3 ? "eager" : "lazy"}">${L(p, "alt") ? `<figcaption>${esc(L(p, "alt"))}</figcaption>` : ""}</figure>`).join("")}</div>` : `<p class="cm-ev-empty">${esc(T("ev_soon"))}</p>`}`;
+    dlg.showModal();
+  }
+  document.addEventListener("click", (e) => {
+    const c = e.target.closest("[data-ev]"); if (c) { openEvent(c.dataset.ev); return; }
+    if (e.target.closest("[data-ev-close]")) { $("#evDlg").close(); return; }
+    const dlg = $("#evDlg"); if (dlg && e.target === dlg) dlg.close(); // bấm ra ngoài hộp
+    if (e.target.closest("#evMoreBtn")) { evOpen = !evOpen; renderEvents(); reveal(true); }
+  });
+  document.addEventListener("keydown", (e) => { const c = e.target.closest && e.target.closest("[data-ev]"); if (c && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); openEvent(c.dataset.ev); } });
 
   // hiện dần khi cuộn (lần đầu); khi đổi ngôn ngữ thì hiện ngay, không chạy lại hiệu ứng
   let io = null;
