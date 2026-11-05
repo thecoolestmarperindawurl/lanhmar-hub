@@ -11,7 +11,8 @@
   // công tắc "Hiệu ứng" (gợn sóng khi bấm, ánh sáng theo chuột, vệt sao theo con trỏ); nhớ trên trình duyệt này; mặc định bật, trừ khi máy chọn giảm chuyển động
   const getLS = (k, d) => { try { return localStorage.getItem(k) ?? d; } catch { return d; } };
   const setLS = (k, v) => { try { localStorage.setItem(k, v); } catch {} };
-  let fxOn = !reduce && getLS("lm-fx-on", "1") === "1";
+  // máy chọn "giảm chuyển động": mặc định tắt nhưng người xem vẫn bật được bằng công tắc
+  let fxOn = getLS("lm-fx-on", reduce ? "0" : "1") === "1";
   document.body.classList.toggle("fx-off", !fxOn);
 
   // màu nhấn theo loại thẻ: p = tím, o = cam, m = tím + cam
@@ -48,7 +49,7 @@
   document.querySelectorAll(".card").forEach(prep);
 
   // ánh sáng theo chuột trên thẻ
-  if (hover && !reduce) {
+  if (hover) {
     let raf = 0;
     document.addEventListener("pointermove", (e) => {
       if (!fxOn) return;
@@ -58,7 +59,7 @@
   }
 
   // gợn sóng khi bấm
-  if (!reduce) {
+  {
     document.addEventListener("pointerdown", (e) => {
       if (!fxOn) return;
       const t = e.target.closest && e.target.closest(".btn,.tab,.gpill,.chip,.card");
@@ -71,7 +72,7 @@
 
 
   // vệt sao ★ theo con trỏ (màu brand, thưa, tự tan) và bung sao nhỏ khi bấm — chỉ khi công tắc Hiệu ứng bật
-  if (hover && !reduce) {
+  if (hover) {
     const layer = document.createElement("div"); layer.className = "fx-stars"; layer.setAttribute("aria-hidden", "true"); document.body.appendChild(layer);
     const COLORS = ["#FF7A45", "#6A5CFF", "#FFD8C2", "#B2A4EF"];
     let last = 0, n = 0;
@@ -100,7 +101,7 @@
       const cb = wrap.querySelector("#fxToggle"), lb = wrap.querySelector('[data-fx="label"]');
       const fxLang = () => { const T = (v, e) => (window.LM ? LM.t(v, e) : v); lb.textContent = T("Hiệu ứng", "Effects"); wrap.querySelector(".neu-sw").title = T("Gợn sóng khi bấm, ánh sáng theo chuột, vệt sao theo con trỏ", "Click ripples, hover glow, star trail behind the cursor"); };
       fxLang(); document.addEventListener("lm:lang", fxLang);
-      cb.checked = fxOn; cb.disabled = reduce;
+      cb.checked = fxOn;
       cb.addEventListener("change", () => { fxOn = cb.checked; setLS("lm-fx-on", fxOn ? "1" : "0"); document.body.classList.toggle("fx-off", !fxOn); });
     }
   }

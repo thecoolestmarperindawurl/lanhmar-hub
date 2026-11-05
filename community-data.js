@@ -139,7 +139,17 @@ window.EVENTS = [
     desc: "Buổi workshop trực tiếp của cộng đồng Đi làm với AI tại Sài Gòn: diễn giả Hưng Kescy nói về cách xây một skill tốt cho AI và quy trình 6 bước giải quyết vấn đề, kèm thực hành ngay tại chỗ.",
     desc_en: "The Đi làm với AI community's in-person workshop in Saigon: speaker Hưng Kescy on what makes a good AI skill and a 6-step problem-solving process, with hands-on practice on the spot.",
     // Ảnh đầu = ảnh bìa/poster. Ảnh chụp tại sự kiện: chạy tools/event-photos.py rồi thêm vào sau standee.
-    // Mẫu: { src: "assets/img/events/workshop-di-lam-voi-ai-2026-10/01.webp", alt: "Standee workshop: diễn giả Hưng Kescy, 14h–18h ngày 17/10", alt_en: "Workshop standee: speaker Hưng Kescy, 2–6 pm, 17 Oct" }
-    photos: [] // đang chờ file standee + ảnh chụp từ chủ nhóm
+    photos: [
+      { src: "assets/img/events/workshop-di-lam-voi-ai-2026-10/01.webp", alt: "Standee workshop Đi làm với AI: diễn giả Hưng Kescy, 14h–18h ngày 17/10", alt_en: "Workshop standee: speaker Hưng Kescy, 2–6 pm on 17 Oct" },
+      { src: "assets/img/events/workshop-di-lam-voi-ai-2026-10/02.webp", alt: "Diễn giả Hưng Kescy mở phần Showcase thực chiến trước màn chiếu", alt_en: "Speaker Hưng Kescy opening the hands-on showcase in front of the screen" },
+      { src: "assets/img/events/workshop-di-lam-voi-ai-2026-10/03.webp", alt: "Diễn giả cầm mic chia sẻ với người tham dự", alt_en: "The speaker sharing with attendees" },
+      { src: "assets/img/events/workshop-di-lam-voi-ai-2026-10/04.webp", alt: "Diễn giả xuống từng bàn trao đổi trực tiếp", alt_en: "The speaker going table to table for direct discussion" },
+      { src: "assets/img/events/workshop-di-lam-voi-ai-2026-10/05.webp", alt: "Người tham dự chăm chú theo dõi phần trình bày", alt_en: "Attendees following the talk closely" },
+      { src: "assets/img/events/workshop-di-lam-voi-ai-2026-10/06.webp", alt: "Khán phòng Bamos Coffee với sơ đồ Known / Unknown trên màn chiếu", alt_en: "The room at Bamos Coffee with the Known / Unknown diagram on screen" },
+      { src: "assets/img/events/workshop-di-lam-voi-ai-2026-10/07.webp", alt: "Người tham dự trình bày bài làm của mình tại laptop", alt_en: "An attendee presenting their own work at the laptop" },
+      { src: "assets/img/events/workshop-di-lam-voi-ai-2026-10/08.webp", alt: "Phần trao đổi và đặt câu hỏi giữa buổi", alt_en: "Discussion and questions during the session" },
+      { src: "assets/img/events/workshop-di-lam-voi-ai-2026-10/09.webp", alt: "Check-in cùng standee và bảng #Sài Gòn", alt_en: "Checking in with the standee and the #Sài Gòn sign" },
+      { src: "assets/img/events/workshop-di-lam-voi-ai-2026-10/10.webp", alt: "Phần hỏi đáp sôi nổi cuối buổi", alt_en: "A lively Q&A at the end of the session" }
+    ]
   }
 ];

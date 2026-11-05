@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+# Trang riêng của chủ web, không cần lên Google
+Disallow: /kho.html
+Disallow: /storage.html
+
+Sitemap: https://lanhmar.id.vn/sitemap.xml
