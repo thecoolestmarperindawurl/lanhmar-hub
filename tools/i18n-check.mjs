@@ -87,7 +87,7 @@ const miss = (file, key, hint) => missing.push({ file, key, hint });
       if (k.endsWith("_en")) continue;
       const v = o[k];
       if (T.has(k) && (typeof v === "string" || Array.isArray(v) && v.every((x) => typeof x === "string"))) {
-        if (filled(v) && !filled(o[k + "_en"])) miss("community-data.js", `${p}.${k}`, Array.isArray(v) ? JSON.stringify(v) : v);
+        if (needsEn(v) && !filled(o[k + "_en"])) miss("community-data.js", `${p}.${k}`, Array.isArray(v) ? JSON.stringify(v) : v);
       } else if (v && typeof v === "object") walk(v, p + "." + k);
     }
   };
