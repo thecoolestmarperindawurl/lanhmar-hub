@@ -14,6 +14,7 @@ window.COMMUNITIES = [
   {
     id: "di-lam-voi-ai",
     name: "Đi làm với AI",
+    name_en: "Đi làm với AI", // tên riêng, giữ nguyên
     platform: "Facebook",
     url: "https://www.facebook.com/groups/dilamvoiai",
     members: "",
@@ -113,5 +114,32 @@ window.COMMUNITIES = [
     desc_en: "The Zalo group of the Saigon AI Agent community: a place to share how to build, \"raise\" and run AI agents in daily work, get quick answers and meet up offline.",
     topics: ["AI Agent", "Tự động hoá", "Hỏi đáp nhanh", "Gặp mặt Sài Gòn"],
     topics_en: ["AI Agents", "Automation", "Quick Q&A", "Saigon meetups"]
+  }
+];
+
+/* Sự kiện đã tổ chức trong nhóm — hiện ở mục "Sự kiện trong nhóm" của community.html.
+   Ảnh lấy thẳng từ thư mục Drive công khai (ảnh phải ở chế độ "Bất kỳ ai có link"): photos[].id là id file trên Drive.
+   Đổi ảnh: thay id (lấy từ link https://drive.google.com/file/d/<id>/view). Ảnh đầu tiên là ảnh lớn.
+   Thêm sự kiện mới: thêm một mục, nhớ kèm name_en, desc_en, alt_en (node tools/i18n-check.mjs sẽ nhắc). */
+window.EVENTS = [
+  {
+    id: "workshop-di-lam-voi-ai-2026-10",
+    group: "di-lam-voi-ai",
+    name: "Workshop \"Đi làm với AI\"",
+    name_en: "\"Đi làm với AI\" Workshop",
+    date: "2026-10-17", // theo dấu thời gian ảnh chụp (IMG20261017…); địa điểm và số người tham dự chờ chủ nhóm bổ sung
+    place: "",
+    place_en: "",
+    desc: "Buổi gặp mặt trực tiếp đầu tiên của nhóm: chia sẻ cách dùng AI Agent và skill cho Claude Code vào việc hằng ngày, kèm phần thực hành ngay tại chỗ.",
+    desc_en: "The group's first in-person meetup: how to put AI agents and Claude Code skills to work day to day, with hands-on practice on the spot.",
+    album: "https://drive.google.com/drive/folders/1t7CiRVJx4V4pTrqeOuB46cotK6jgvDV8",
+    photos: [
+      { id: "1GEIC3V8rWtrSd3wh0YZcqVnSLCufg8Y-", alt: "Diễn giả trình bày trước màn chiếu tại workshop", alt_en: "Speaker presenting in front of the screen at the workshop" },
+      { id: "1vXyqcu8KxolCr1xWB-C0DNFtFF8D6Zds", alt: "Không khí buổi workshop", alt_en: "The workshop in progress" },
+      { id: "1_BVG7DRadTsVRDXfs_vyB5p18GideAH9", alt: "Người tham dự theo dõi phần trình bày", alt_en: "Attendees following the talk" },
+      { id: "1l1pH_qqzg2Jmr1IG8KWJ1Wnvg7dDjgua", alt: "Trao đổi tại workshop", alt_en: "Discussion at the workshop" },
+      { id: "1lmu1S8xz3_JfbQ-0Vf2iSe1IZH5mbKbT", alt: "Thực hành cùng nhau", alt_en: "Hands-on practice together" },
+      { id: "1xeNxCBKjv6ZGomVs9u-xG6BAUxkwyEhv", alt: "Khung cảnh buổi workshop", alt_en: "A view of the workshop" }
+    ]
   }
 ];

@@ -26,6 +26,7 @@
       s2_h: "Bấm tham gia", s2_p: "Nút sẽ mở nhóm trên nền tảng của nhóm. Bạn có thể cần trả lời vài câu hỏi để được duyệt.",
       s3_h: "Giới thiệu và hỏi", s3_p: "Chào mọi người một câu, nói bạn đang làm gì và muốn dùng AI vào việc nào.",
       rules_k: "NỘI QUY CHUNG", rules_h: "Để nhóm luôn dễ chịu.",
+      events_k: "SỰ KIỆN TRONG NHÓM", events_h: "Đã gặp nhau ngoài đời.", ev_album: "Xem toàn bộ ảnh trên Drive →", ev_photo: "Ảnh", ev_open: "Mở ảnh gốc",
       r1: "Tôn trọng nhau, góp ý vào việc chứ không vào người.", r2: "Không spam, không quảng cáo khi chưa được phép.",
       r3: "Không đăng thông tin cá nhân, khách hàng hay khoá API, mật khẩu.", r4: "Nêu rõ nguồn khi chia sẻ số liệu hoặc nội dung của người khác.",
       r5: "Hỏi rõ bối cảnh, nêu công cụ đang dùng để mọi người giúp đúng chỗ.",
@@ -52,6 +53,7 @@
       s2_h: "Hit join", s2_p: "The button opens the group on its platform. You may need to answer a few questions to be approved.",
       s3_h: "Say hi and ask", s3_p: "Greet everyone, say what you do and where you'd like to use AI.",
       rules_k: "GROUND RULES", rules_h: "Keeping the group a good place.",
+      events_k: "GROUP EVENTS", events_h: "We met in real life.", ev_album: "See all photos on Drive →", ev_photo: "Photo", ev_open: "Open full-size photo",
       r1: "Be respectful: critique the work, not the person.", r2: "No spam, and no ads without permission.",
       r3: "Don't post personal or client information, API keys or passwords.", r4: "Credit your sources when sharing data or other people's content.",
       r5: "Give context and name the tools you use, so people can help in the right place.",
@@ -115,8 +117,7 @@
   }
 
   function renderGroups() {
-    const add = `<article class="cm-card add reveal"><div class="cm-plus">+</div><h3>${T("add_h")}</h3><p>${T("add_p")}</p><a class="btn dark" href="index.html#contact">${T("msg_me")}</a></article>`;
-    $("#cmGrid").innerHTML = list.map(card).join("") + add;
+    $("#cmGrid").innerHTML = list.map(card).join("");
     $("#cmCount").innerHTML = T("count")(list.filter((g) => g.status !== "soon").length);
 
     // phần giới thiệu chi tiết cho nhóm nổi bật
@@ -133,6 +134,31 @@
     $("#spot").hidden = false;
   }
 
+  // sự kiện đã tổ chức trong nhóm (EVENTS trong community-data.js); ảnh nhúng từ Drive công khai
+  const driveImg = (id, w) => (/^[\w-]{10,}$/.test(id) ? `https://drive.google.com/thumbnail?id=${id}&sz=w${w}` : "");
+  const driveView = (id) => (/^[\w-]{10,}$/.test(id) ? `https://drive.google.com/file/d/${id}/view` : "");
+  const fmtDate = (d) => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d || ""); if (!m) return d || ""; return lang === "en" ? new Date(+m[1], +m[2] - 1, +m[3]).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) : `${m[3]}/${m[2]}/${m[1]}`; };
+  function renderEvents() {
+    const evs = (window.EVENTS || []).filter((e) => e.name && (e.photos || []).length);
+    const sec = $("#events"); if (!sec) return;
+    if (!evs.length) { sec.hidden = true; return; }
+    $("#evList").innerHTML = evs.map((e) => {
+      const g = list.find((x) => x.id === e.group);
+      const photos = (e.photos || []).filter((p) => driveImg(p.id, 10)).slice(0, 6);
+      return `<article class="cm-ev">
+        <div class="cm-ev-info reveal">
+          ${g ? `<span class="cm-plat">${esc(L(g, "name"))}</span>` : ""}
+          <h3>${esc(L(e, "name"))}</h3>
+          <p class="cm-ev-meta">${esc(fmtDate(e.date))}${L(e, "place") ? ` · ${esc(L(e, "place"))}` : ""}</p>
+          ${L(e, "desc") ? `<p>${esc(L(e, "desc"))}</p>` : ""}
+          ${okUrl(e.album) ? `<a class="btn dark" href="${esc(e.album)}" target="_blank" rel="noopener">${T("ev_album")}</a>` : ""}
+        </div>
+        <div class="cm-ev-grid">${photos.map((p, i) => `<a class="cm-ev-ph reveal${i === 0 ? " big" : ""}" href="${esc(driveView(p.id))}" target="_blank" rel="noopener" aria-label="${T("ev_open")}" style="--d:${i * 60}ms"><img src="${esc(driveImg(p.id, i === 0 ? 1200 : 800))}" alt="${esc(L(p, "alt") || T("ev_photo"))}" loading="lazy" onerror="this.closest('.cm-ev-ph').remove()"></a>`).join("")}</div>
+      </article>`;
+    }).join("");
+    sec.hidden = false;
+  }
+
   // hiện dần khi cuộn (lần đầu); khi đổi ngôn ngữ thì hiện ngay, không chạy lại hiệu ứng
   let io = null;
   function reveal(instant) {
@@ -142,14 +168,14 @@
     els.forEach((x, i) => { x.style.setProperty("--d", (i % 4) * 80 + "ms"); io.observe(x); });
   }
 
-  renderStatic(); renderGroups(); reveal(false);
+  renderStatic(); renderGroups(); renderEvents(); reveal(false);
 
   document.addEventListener("click", async (e) => {
     const lb = e.target.closest(".lang button");
     if (lb) {
       const next = lb.dataset.lang === "en" ? "en" : "vi"; if (next === lang) return;
       lang = next; try { localStorage.setItem("lm_lang", lang); } catch {}
-      renderStatic(); renderGroups(); reveal(true);
+      renderStatic(); renderGroups(); renderEvents(); reveal(true);
       return;
     }
     // sao chép link
