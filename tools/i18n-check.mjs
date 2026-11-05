@@ -45,8 +45,10 @@ const hasEn = (o, k) => { const e = o[k + "_en"]; return typeof e === "string" ?
 const isPerson = (o) => o && typeof o === "object" && ("role" in o || "bio" in o || "photo" in o);
 
 // Duyệt dữ liệu kiểu "x" / "x_en"
+// Phần tử mảng có "id" thì nhận diện theo id (chèn/xoá ở giữa không làm lệch baseline), không có thì theo chỉ số
+const seg = (x, i) => (x && typeof x === "object" && typeof x.id === "string" && x.id ? "{" + x.id + "}" : i);
 function walk(o, keys, out) {
-  if (Array.isArray(o)) { o.forEach((x, i) => walk(x, keys.concat(i), out)); return; }
+  if (Array.isArray(o)) { o.forEach((x, i) => walk(x, keys.concat(seg(x, i)), out)); return; }
   if (!o || typeof o !== "object") return;
   for (const k of Object.keys(o)) {
     if (k.endsWith("_en") || k.endsWith("_vi") || SKIP.has(k)) continue;
@@ -60,7 +62,7 @@ function walk(o, keys, out) {
 }
 // Duyệt dữ liệu kiểu "x_vi" / "x_en" (assets/content.json)
 function walkVi(o, keys, out) {
-  if (Array.isArray(o)) { o.forEach((x, i) => walkVi(x, keys.concat(i), out)); return; }
+  if (Array.isArray(o)) { o.forEach((x, i) => walkVi(x, keys.concat(seg(x, i)), out)); return; }
   if (!o || typeof o !== "object") return;
   for (const k of Object.keys(o)) {
     const v = o[k];
@@ -82,7 +84,7 @@ const SOURCES = [
   { file: "community-data.js", get: (f) => loadJs(f, "COMMUNITIES"), root: ["COMMUNITIES"], walk },
   { file: "assets/content.json", get: (f) => JSON.parse(fs.readFileSync(f, "utf8")), root: [], walk: walkVi }
 ];
-const pathStr = (keys) => keys.map((k) => (typeof k === "number" ? "[" + k + "]" : "." + k)).join("").replace(/^\./, "");
+const pathStr = (keys) => keys.map((k) => (typeof k === "number" || /^\{.*\}$/.test(k) ? "[" + k + "]" : "." + k)).join("").replace(/^\./, "");
 const key = (m) => m.file + " › " + pathStr(m.keys);
 
 // ---------- Thu thập ----------
@@ -113,7 +115,7 @@ if (val("--apply")) {
     let n = 0;
     byFile[file].forEach((x) => {
       let o = data;
-      for (const k of x.keys.slice(0, -1)) { o = o?.[k]; }
+      for (const k of x.keys.slice(0, -1)) { o = Array.isArray(o) && /^\{.*\}$/.test(k) ? o.find((e) => e && e.id === k.slice(1, -1)) : o?.[k]; }
       if (!o || typeof o !== "object") return;
       o[x.keys[x.keys.length - 1] + "_en"] = x.en; n++;
     });

@@ -98,5 +98,20 @@ window.COMMUNITIES = [
         ]
       }
     ]
+  },
+  {
+    // Mô tả và chủ đề viết dựa trên tên nhóm (chủ nhóm chưa gửi mô tả chính thức, 05/11/2026) — cập nhật khi có. Không ghi số thành viên vì chưa xác minh.
+    id: "ai-agent-hub-sai-gon",
+    name: "AI Agent Hub | Hội nuôi AI Sài Gòn",
+    name_en: "AI Agent Hub | Hội nuôi AI Sài Gòn", // tên riêng, giữ nguyên
+    platform: "Zalo",
+    url: "https://zalo.me/g/eu82fyffympy6gnevcxe",
+    members: "",
+    status: "open",
+    feature: false,
+    desc: "Nhóm Zalo của cộng đồng AI Agent tại Sài Gòn: nơi trao đổi cách dựng, \"nuôi\" và vận hành AI Agent trong công việc hằng ngày, hỏi đáp nhanh và hẹn gặp offline.",
+    desc_en: "The Zalo group of the Saigon AI Agent community: a place to share how to build, \"raise\" and run AI agents in daily work, get quick answers and meet up offline.",
+    topics: ["AI Agent", "Tự động hoá", "Hỏi đáp nhanh", "Gặp mặt Sài Gòn"],
+    topics_en: ["AI Agents", "Automation", "Quick Q&A", "Saigon meetups"]
   }
 ];
