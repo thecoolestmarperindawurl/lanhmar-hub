@@ -103,8 +103,8 @@ window.COMMUNITIES = [
   {
     // Mô tả và chủ đề viết dựa trên tên nhóm (chủ nhóm chưa gửi mô tả chính thức, 05/11/2026) — cập nhật khi có. Không ghi số thành viên vì chưa xác minh.
     id: "ai-agent-hub-sai-gon",
-    name: "AI Agent Hub | Hội nuôi AI Sài Gòn",
-    name_en: "AI Agent Hub | Hội nuôi AI Sài Gòn", // tên riêng, giữ nguyên
+    name: "SG Agent Hub | Hội nuôi AI Agent Sài Gòn",
+    name_en: "SG Agent Hub | Hội nuôi AI Agent Sài Gòn", // tên riêng, giữ nguyên
     platform: "Zalo",
     url: "https://zalo.me/g/eu82fyffympy6gnevcxe",
     members: "",
@@ -128,7 +128,7 @@ window.EVENTS = [
     name: "Workshop \"Đi làm với AI\"",
     name_en: "\"Đi làm với AI\" Workshop",
     date: "2026-10-17", time: "14:00–18:00", // theo standee sự kiện
-    host: "AI Agent Hub × KesFlow", host_en: "AI Agent Hub × KesFlow",
+    host: "SG Agent Hub × KesFlow", host_en: "SG Agent Hub × KesFlow",
     speakers: ["Hưng Kescy"], speakers_en: ["Hưng Kescy"],
     quote: "Cái gì máy làm tốt thì người đừng làm", quote_en: "What a machine does well, a person shouldn't do",
     topics: ["Thế nào là một \"skill\" tốt?", "6 bước giải quyết vấn đề (nâng cao)"],
