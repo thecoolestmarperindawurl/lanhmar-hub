@@ -78,7 +78,7 @@ const miss = (file, key, hint) => missing.push({ file, key, hint });
 
 // ---------- 3. community-data.js: x ↔ x_en ở mọi độ sâu ----------
 {
-  const T = new Set(["desc", "topics", "role", "bio", "points", "tags", "t", "d", "members", "sub", "note", "label"]);
+  const T = new Set(["desc", "topics", "role", "bio", "points", "tags", "t", "d", "members", "sub", "note", "label", "name", "place", "alt"]);
   const seg = (x, i) => (x && typeof x === "object" && typeof x.id === "string" && x.id ? `{${x.id}}` : i);
   const walk = (o, p) => {
     if (Array.isArray(o)) return o.forEach((x, i) => walk(x, p + "[" + seg(x, i) + "]"));
@@ -86,12 +86,14 @@ const miss = (file, key, hint) => missing.push({ file, key, hint });
     for (const k of Object.keys(o)) {
       if (k.endsWith("_en")) continue;
       const v = o[k];
-      if (T.has(k) && (typeof v === "string" || Array.isArray(v) && v.every((x) => typeof x === "string"))) {
+      const person = k === "name" && o && ("role" in o || "bio" in o || "photo" in o || "alias" in o); // tên người: không bắt buộc dịch
+      if (!person && T.has(k) && (typeof v === "string" || Array.isArray(v) && v.every((x) => typeof x === "string"))) {
         if (needsEn(v) && !filled(o[k + "_en"])) miss("community-data.js", `${p}.${k}`, Array.isArray(v) ? JSON.stringify(v) : v);
       } else if (v && typeof v === "object") walk(v, p + "." + k);
     }
   };
   walk(loadJs("community-data.js", "COMMUNITIES") || [], "COMMUNITIES");
+  walk(loadJs("community-data.js", "EVENTS") || [], "EVENTS"); // sự kiện trong nhóm: name/desc/place/alt cần _en
 }
 
 // ---------- 4. assets/content.json: x_vi ↔ x_en ----------
