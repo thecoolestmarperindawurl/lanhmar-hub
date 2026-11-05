@@ -8973,13 +8973,11 @@
       "sections": [
         {
           "k": "callout",
-          "t": "AI đọc Markdown tốt hơn PDF hay Word: giữ được tiêu đề, danh sách, bảng mà không kèm rác định dạng. Công cụ này chuyển tài liệu sang Markdown ngay trong trình duyệt, không tải file lên máy chủ nào.",
-          "t_en": "AI reads Markdown better than PDF or Word: headings, lists and tables survive without formatting junk. This tool converts documents to Markdown right in the browser, with no upload to any server."
+          "t": "AI đọc Markdown tốt hơn PDF hay Word: giữ được tiêu đề, danh sách, bảng mà không kèm rác định dạng. Công cụ này chuyển tài liệu sang Markdown ngay trong trình duyệt, không tải file lên máy chủ nào."
         },
         {
           "k": "h",
-          "t": "Đọc được những gì",
-          "t_en": "What it reads"
+          "t": "Đọc được những gì"
         },
         {
           "k": "table",
@@ -9008,66 +9006,32 @@
               "HTML, TXT, JSON, code",
               "Bỏ menu/script của trang web; file code được bọc đúng ngôn ngữ"
             ]
-          ],
-          "head_en": [
-            "File type",
-            "What the tool does"
-          ],
-          "rows_en": [
-            [
-              "PDF",
-              "Joins text into paragraphs, detects headings by font size, removes repeated headers/footers and page numbers. Warns when the PDF is a scan with no text"
-            ],
-            [
-              "Word (.docx)",
-              "Keeps headings, lists and tables; drops images"
-            ],
-            [
-              "Excel, CSV",
-              "Each sheet becomes a Markdown table, empty rows/columns removed, row limit"
-            ],
-            [
-              "PowerPoint (.pptx)",
-              "One section per slide, keeps bullet levels, tables and speaker notes"
-            ],
-            [
-              "HTML, TXT, JSON, code",
-              "Strips web menus/scripts; code files are fenced with the right language"
-            ]
           ]
         },
         {
           "k": "h",
-          "t": "Cách dùng",
-          "t_en": "How to use"
+          "t": "Cách dùng"
         },
         {
           "k": "steps",
           "items": [
             {
               "t": "Thả file",
-              "d": "Kéo nhiều file một lúc vào ô, chỉnh tuỳ chọn làm sạch nếu cần.",
-              "t_en": "Drop files",
-              "d_en": "Drag several files into the box at once, adjust clean-up options if needed."
+              "d": "Kéo nhiều file một lúc vào ô, chỉnh tuỳ chọn làm sạch nếu cần."
             },
             {
               "t": "Xem kết quả",
-              "d": "Mỗi file hiện loại, số trang/slide/sheet và ước tính token. Bấm Xem để kiểm tra nhanh.",
-              "t_en": "Check results",
-              "d_en": "Each file shows its type, page/slide/sheet count and token estimate. Click View for a quick look."
+              "d": "Mỗi file hiện loại, số trang/slide/sheet và ước tính token. Bấm Xem để kiểm tra nhanh."
             },
             {
               "t": "Lấy ra",
-              "d": "Copy tất cả để dán vào chat, tải context.md, hoặc tải .zip gồm từng file kèm INDEX.md.",
-              "t_en": "Export",
-              "d_en": "Copy all to paste into chat, download context.md, or download a .zip with every file plus INDEX.md."
+              "d": "Copy tất cả để dán vào chat, tải context.md, hoặc tải .zip gồm từng file kèm INDEX.md."
             }
           ]
         },
         {
           "k": "h",
-          "t": "Dùng trong vibe code",
-          "t_en": "Using it for vibe coding"
+          "t": "Dùng trong vibe code"
         },
         {
           "k": "list",
@@ -9076,43 +9040,23 @@
             "Thêm vào CLAUDE.md (hoặc .cursorrules): \"Tài liệu tham khảo ở docs/context/, đọc INDEX.md trước.\" Agent sẽ chỉ mở đúng file cần.",
             "Tài liệu dài: bật Chia đoạn để mỗi phần vừa cửa sổ ngữ cảnh.",
             "Ảnh, sơ đồ, bản scan: gửi thẳng ảnh cho AI sẽ chính xác hơn."
-          ],
-          "items_en": [
-            "Unzip the .zip into your project's docs/context/.",
-            "Add to CLAUDE.md (or .cursorrules): \"Reference docs live in docs/context/, read INDEX.md first.\" The agent then opens only the file it needs.",
-            "Long documents: turn on Split so each part fits the context window.",
-            "Images, diagrams, scans: sending the image itself to the AI is more accurate."
           ]
         },
         {
           "k": "code",
           "cap": "Bản dòng lệnh để chuyển cả thư mục (trong repo lanhmar-hub)",
-          "t": "pip install 'markitdown[pdf,docx,xlsx,pptx]'\npython3 tools/to-md.py tai-lieu/ -o docs/context",
-          "cap_en": "Command-line version to convert a whole folder (in the lanhmar-hub repo)"
+          "t": "pip install 'markitdown[pdf,docx,xlsx,pptx]'\npython3 tools/to-md.py tai-lieu/ -o docs/context"
         },
         {
           "k": "callout",
-          "t": "Số token chỉ là ước tính thô (ký tự ÷ 4, tiếng Việt có dấu ÷ 3) để so sánh; số thật tuỳ tokenizer của từng model.",
-          "t_en": "Token counts are rough estimates (characters ÷ 4, accented Vietnamese ÷ 3) for comparison only; real counts depend on each model's tokenizer."
+          "t": "Số token chỉ là ước tính thô (ký tự ÷ 4, tiếng Việt có dấu ÷ 3) để so sánh; số thật tuỳ tokenizer của từng model."
         }
       ],
       "cta": {
         "title": "Mở AI Convert",
         "url": "https://lanhmar.id.vn/ai-convert.html",
-        "btn": "Mở công cụ",
-        "title_en": "Open AI Convert",
-        "btn_en": "Open tool"
-      },
-      "title_en": "AI Convert: turn PDF, Word, Excel, PowerPoint into Markdown for AI",
-      "type_en": "Tool",
-      "status_en": "In use",
-      "note_en": "Drag in documents, get clean Markdown that Claude, ChatGPT and Cursor read faster with fewer tokens. Runs in your browser, files never leave your device.",
-      "tags_en": [
-        "markdown",
-        "vibe code",
-        "ai agent",
-        "tokens"
-      ]
+        "btn": "Mở công cụ"
+      }
     }
   ]
 }

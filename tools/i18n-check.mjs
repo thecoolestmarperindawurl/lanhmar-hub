@@ -1,16 +1,19 @@
 #!/usr/bin/env node
-/* Kiểm tra song ngữ VI/EN cho dữ liệu của web LANHMAR.
+/* Kiểm tra song ngữ VI/EN cho dữ liệu của web LANHMAR. Không cần cài gì thêm (Node 18+).
 
-   Quy ước: trường chữ "x" phải có bản tiếng Anh "x_en" (kho-featured.json, kho-data.js, community-data.js);
-   riêng assets/content.json dùng cặp "x_vi" / "x_en". Web tự hiện bản _en khi người xem chọn EN.
+   Hệ song ngữ đang chạy (lang.js):
+     kho-featured.json  (VI)  ↔  kho-en.js  KHO_EN.items[id] {title, note, type, status}   : phần hiện trên THẺ
+                               ↔  i18n/featured-en.json [id] = bản sao thẻ đã dịch (sections, cta…) : NỘI DUNG CHI TIẾT
+     kho-data.js  KHO (VI)    ↔  kho-en.js  KHO_EN.kho[id] {name, desc, headline, groups{}, shelves{}, intro{}}
+     community-data.js        : trường x có bản x_en cạnh nó (desc_en, topics_en, role_en, bio_en, t_en, d_en…)
+     assets/content.json      : cặp x_vi / x_en
 
    Cách dùng:
-     node tools/i18n-check.mjs              # liệt kê trường MỚI thiếu _en (bỏ qua tồn đọng trong tools/i18n-baseline.json); thiếu → exit 1
+     node tools/i18n-check.mjs              # báo mục MỚI còn thiếu (bỏ qua tồn đọng trong tools/i18n-baseline.json); thiếu → exit 1
      node tools/i18n-check.mjs --all        # liệt kê cả tồn đọng
-     node tools/i18n-check.mjs --todo i18n-todo.json   # xuất danh sách cần dịch (có chỗ điền "en")
-     node tools/i18n-check.mjs --apply i18n-todo.json  # ghi bản dịch đã điền vào file .json (file .js thì in ra để sửa tay)
-     node tools/i18n-check.mjs --baseline   # ghi lại tồn đọng hiện tại (chạy sau khi dịch bớt để thu nhỏ danh sách)
-   Không cần cài gì thêm. Chạy tự động trên GitHub Actions ở mỗi push/PR (.github/workflows/i18n-check.yml). */
+     node tools/i18n-check.mjs --baseline   # ghi lại tồn đọng hiện tại (chạy sau khi dịch bớt)
+     node tools/i18n-check.mjs --warn       # chỉ cảnh báo, không exit 1
+   Chạy tự động trên GitHub Actions ở mỗi push/PR (.github/workflows/i18n-check.yml). */
 import fs from "node:fs";
 import path from "node:path";
 import vm from "node:vm";
@@ -19,142 +22,114 @@ import { fileURLToPath } from "node:url";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const args = process.argv.slice(2);
 const flag = (f) => args.includes(f);
-const val = (f) => { const i = args.indexOf(f); return i >= 0 ? args[i + 1] : null; };
 const BASELINE = path.join(ROOT, "tools", "i18n-baseline.json");
-
-// Trường chứa chữ cần dịch (ở mọi độ sâu). Trường khác chỉ được duyệt xuống nếu là object/mảng.
-const TRANSLATABLE = new Set(["title", "note", "note2", "desc", "sub", "t", "d", "cap", "text", "head", "rows", "items", "status", "type",
-  "badge", "btn", "label", "headline", "intro", "name", "ctasTitle", "lb", "tag", "tags", "role", "bio", "points", "topics", "n", "s", "members"]);
-// Trường không bao giờ dịch (id, link, ảnh, ngày, mã…)
-const SKIP = new Set(["id", "url", "u", "src", "thumb", "cover", "date", "asof", "k", "kho", "group", "shelf", "feed", "icon", "c", "fam", "w", "v",
-  "hide", "photo", "logo", "platform", "email", "file", "companies", "growth", "valuation", "alias", "org", "sources"]);
-
+const read = (f) => fs.readFileSync(path.join(ROOT, f), "utf8");
+const loadJs = (file, name) => { const ctx = { window: {} }; vm.runInNewContext(read(file), ctx, { filename: file }); return ctx.window[name]; };
+const filled = (v) => (typeof v === "string" ? v.trim() !== "" : Array.isArray(v) ? v.length > 0 : v != null);
+// Chuỗi VI không có dấu tiếng Việt (vd "Skill", "Plugin", "GitHub repo") đã là tiếng Anh → không cần bản _en
 const VI = /[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]/i;
-// Chuỗi cần dịch: có chữ cái, không phải link/đường dẫn/mã màu/ngày, và không phải một từ ASCII đơn (PDF, GitHub, 2026-10-22…)
-function needs(s) {
-  if (typeof s !== "string") return false;
-  const x = s.trim();
-  if (x.length < 2 || !/\p{L}/u.test(x)) return false;
-  if (/^(https?:\/\/|assets\/|docs\/|#[0-9a-f]{3,8}$|\d{4}-\d{2}-\d{2}$)/i.test(x)) return false;
-  if (VI.test(x)) return true;
-  return !/^[\w.\-+#@/&]+$/.test(x);
-}
-const strList = (a) => Array.isArray(a) && a.length > 0 && a.every((x) => typeof x === "string" || (Array.isArray(x) && x.every((y) => typeof y === "string" || typeof y === "number")));
-const listNeeds = (a) => a.some((x) => (Array.isArray(x) ? x.some(needs) : needs(x)));
-const hasEn = (o, k) => { const e = o[k + "_en"]; return typeof e === "string" ? e.trim() !== "" : Array.isArray(e) ? e.length > 0 : false; };
-const isPerson = (o) => o && typeof o === "object" && ("role" in o || "bio" in o || "photo" in o);
+const needsEn = (v) => (typeof v === "string" ? VI.test(v) : Array.isArray(v) ? v.some((x) => typeof x === "string" && VI.test(x)) : false);
 
-// Duyệt dữ liệu kiểu "x" / "x_en"
-// Phần tử mảng có "id" thì nhận diện theo id (chèn/xoá ở giữa không làm lệch baseline), không có thì theo chỉ số
-const seg = (x, i) => (x && typeof x === "object" && typeof x.id === "string" && x.id ? "{" + x.id + "}" : i);
-function walk(o, keys, out) {
-  if (Array.isArray(o)) { o.forEach((x, i) => walk(x, keys.concat(seg(x, i)), out)); return; }
-  if (!o || typeof o !== "object") return;
-  for (const k of Object.keys(o)) {
-    if (k.endsWith("_en") || k.endsWith("_vi") || SKIP.has(k)) continue;
-    const v = o[k];
-    if (TRANSLATABLE.has(k) && !(k === "name" && isPerson(o))) {
-      if (typeof v === "string") { if (needs(v) && !hasEn(o, k)) out.push({ keys: keys.concat(k), vi: v }); continue; }
-      if (strList(v)) { if (listNeeds(v) && !hasEn(o, k)) out.push({ keys: keys.concat(k), vi: v }); continue; }
+const missing = []; // { file, key, hint }
+const miss = (file, key, hint) => missing.push({ file, key, hint });
+
+// ---------- 1. Thẻ nổi bật: kho-featured.json ↔ kho-en.js items ↔ featured-en.json ----------
+{
+  const items = JSON.parse(read("kho-featured.json")).items || [];
+  const EN = loadJs("kho-en.js", "KHO_EN") || {};
+  const full = fs.existsSync(path.join(ROOT, "i18n/featured-en.json")) ? JSON.parse(read("i18n/featured-en.json")) : {};
+  for (const it of items) {
+    const e = (EN.items || {})[it.id];
+    if (!e) { miss("kho-en.js", `items["${it.id}"]`, `thêm dòng { title, note, type } cho thẻ "${it.title}"`); }
+    else {
+      for (const k of ["title", "note", "type", "status"]) if (needsEn(it[k]) && !filled(e[k])) miss("kho-en.js", `items["${it.id}"].${k}`, it[k]);
     }
-    if (v && typeof v === "object") walk(v, keys.concat(k), out);
-  }
-}
-// Duyệt dữ liệu kiểu "x_vi" / "x_en" (assets/content.json)
-function walkVi(o, keys, out) {
-  if (Array.isArray(o)) { o.forEach((x, i) => walkVi(x, keys.concat(seg(x, i)), out)); return; }
-  if (!o || typeof o !== "object") return;
-  for (const k of Object.keys(o)) {
-    const v = o[k];
-    if (k.endsWith("_vi")) {
-      const base = k.slice(0, -3), filled = typeof v === "string" ? v.trim() !== "" : Array.isArray(v) && v.length > 0;
-      if (filled && !hasEn(o, base)) out.push({ keys: keys.concat(base), vi: v });
-    } else if (v && typeof v === "object") walkVi(v, keys.concat(k), out);
-  }
-}
-
-function loadJs(file, name) {
-  const ctx = { window: {} };
-  vm.runInNewContext(fs.readFileSync(file, "utf8"), ctx, { filename: file });
-  return ctx.window[name];
-}
-const SOURCES = [
-  { file: "kho-featured.json", get: (f) => JSON.parse(fs.readFileSync(f, "utf8")).items, root: ["items"], walk },
-  { file: "kho-data.js", get: (f) => loadJs(f, "KHO"), root: ["KHO"], walk },
-  { file: "community-data.js", get: (f) => loadJs(f, "COMMUNITIES"), root: ["COMMUNITIES"], walk },
-  { file: "assets/content.json", get: (f) => JSON.parse(fs.readFileSync(f, "utf8")), root: [], walk: walkVi }
-];
-const pathStr = (keys) => keys.map((k) => (typeof k === "number" || /^\{.*\}$/.test(k) ? "[" + k + "]" : "." + k)).join("").replace(/^\./, "");
-const key = (m) => m.file + " › " + pathStr(m.keys);
-
-// ---------- Thu thập ----------
-let missing = [];
-for (const s of SOURCES) {
-  const f = path.join(ROOT, s.file);
-  if (!fs.existsSync(f)) continue;
-  let data;
-  try { data = s.get(f); } catch (e) { console.error("✗ Không đọc được " + s.file + ": " + e.message); process.exitCode = 1; continue; }
-  const out = [];
-  s.walk(data, [], out);
-  out.forEach((m) => missing.push({ file: s.file, keys: s.root.concat(m.keys), vi: m.vi }));
-}
-
-// ---------- --apply: ghi bản dịch vào file ----------
-if (val("--apply")) {
-  const todo = JSON.parse(fs.readFileSync(val("--apply"), "utf8")).filter((x) => x.en && String(x.en).trim());
-  const byFile = {};
-  todo.forEach((x) => (byFile[x.file] = byFile[x.file] || []).push(x));
-  for (const file of Object.keys(byFile)) {
-    const f = path.join(ROOT, file);
-    if (!file.endsWith(".json")) {
-      console.log("\n" + file + " là file .js, hãy thêm tay các trường sau:");
-      byFile[file].forEach((x) => console.log("  " + pathStr(x.keys) + "_en = " + JSON.stringify(x.en)));
-      continue;
+    const f = full[it.id];
+    if (!f) { miss("i18n/featured-en.json", `["${it.id}"]`, `thêm bản dịch đầy đủ (cùng cấu trúc thẻ VI) cho "${it.title}"`); }
+    else {
+      const nv = (it.sections || []).length, ne = (f.sections || []).length;
+      if (nv !== ne) miss("i18n/featured-en.json", `["${it.id}"].sections`, `VI có ${nv} khối, EN có ${ne} — bản dịch đã lệch, cập nhật lại`);
     }
-    const data = JSON.parse(fs.readFileSync(f, "utf8"));
-    let n = 0;
-    byFile[file].forEach((x) => {
-      let o = data;
-      for (const k of x.keys.slice(0, -1)) { o = Array.isArray(o) && /^\{.*\}$/.test(k) ? o.find((e) => e && e.id === k.slice(1, -1)) : o?.[k]; }
-      if (!o || typeof o !== "object") return;
-      o[x.keys[x.keys.length - 1] + "_en"] = x.en; n++;
-    });
-    fs.writeFileSync(f, JSON.stringify(data, null, 2));
-    console.log("✓ " + file + ": đã ghi " + n + " bản dịch");
+    for (const k of Object.keys(it)) if (k.endsWith("_en")) miss("kho-featured.json", `["${it.id}"].${k}`, "hệ đang chạy không đọc trường _en ở file này — chuyển sang kho-en.js / featured-en.json rồi xoá");
   }
-  process.exit(0);
+  // mục trong featured-en.json không còn thẻ VI tương ứng
+  for (const id of Object.keys(full)) if (!items.some((i) => i.id === id)) miss("i18n/featured-en.json", `["${id}"]`, "thẻ VI không còn — xoá bản dịch mồ côi");
+
+  // ---------- 2. Tên kho / mục con / kệ / intro: kho-data.js ↔ KHO_EN.kho ----------
+  const KHO = loadJs("kho-data.js", "KHO") || [];
+  for (const k of KHO) {
+    const e = (EN.kho || {})[k.id] || {};
+    for (const f of ["name", "desc", "headline"]) if (needsEn(k[f]) && !filled(e[f])) miss("kho-en.js", `kho.${k.id}.${f}`, k[f]);
+    for (const g of k.groups || []) {
+      if (!filled((e.groups || {})[g.id])) miss("kho-en.js", `kho.${k.id}.groups.${g.id}`, g.name);
+      if (g.intro) {
+        const ie = e.intro || {};
+        if (!filled(ie.text)) miss("kho-en.js", `kho.${k.id}.intro.text`, g.intro.text);
+        if ((g.intro.rows || []).length !== (ie.rows || []).length) miss("kho-en.js", `kho.${k.id}.intro.rows`, `VI ${(g.intro.rows || []).length} dòng, EN ${(ie.rows || []).length}`);
+        if (g.intro.btn && !filled(ie.btn)) miss("kho-en.js", `kho.${k.id}.intro.btn`, g.intro.btn);
+      }
+    }
+    for (const s of k.shelves || []) {
+      const se = (e.shelves || {})[s.id];
+      if (!se || !filled(se[0]) || (s.sub && !filled(se[1]))) miss("kho-en.js", `kho.${k.id}.shelves.${s.id}`, s.name + (s.sub ? " / " + s.sub : ""));
+    }
+  }
 }
 
-// ---------- Baseline (tồn đọng đã biết) ----------
-let base = new Set();
-try { base = new Set(JSON.parse(fs.readFileSync(BASELINE, "utf8"))); } catch { /* chưa có baseline */ }
-if (flag("--baseline")) {
-  fs.writeFileSync(BASELINE, JSON.stringify(missing.map(key), null, 2) + "\n");
-  console.log("✓ Đã ghi " + missing.length + " mục tồn đọng vào tools/i18n-baseline.json");
-  process.exit(0);
+// ---------- 3. community-data.js: x ↔ x_en ở mọi độ sâu ----------
+{
+  const T = new Set(["desc", "topics", "role", "bio", "points", "tags", "t", "d", "members", "sub", "note", "label"]);
+  const seg = (x, i) => (x && typeof x === "object" && typeof x.id === "string" && x.id ? `{${x.id}}` : i);
+  const walk = (o, p) => {
+    if (Array.isArray(o)) return o.forEach((x, i) => walk(x, p + "[" + seg(x, i) + "]"));
+    if (!o || typeof o !== "object") return;
+    for (const k of Object.keys(o)) {
+      if (k.endsWith("_en")) continue;
+      const v = o[k];
+      if (T.has(k) && (typeof v === "string" || Array.isArray(v) && v.every((x) => typeof x === "string"))) {
+        if (filled(v) && !filled(o[k + "_en"])) miss("community-data.js", `${p}.${k}`, Array.isArray(v) ? JSON.stringify(v) : v);
+      } else if (v && typeof v === "object") walk(v, p + "." + k);
+    }
+  };
+  walk(loadJs("community-data.js", "COMMUNITIES") || [], "COMMUNITIES");
 }
-const fresh = missing.filter((m) => !base.has(key(m)));
-const old = missing.filter((m) => base.has(key(m)));
-const show = flag("--all") ? missing : fresh;
 
-// ---------- --todo: xuất danh sách cần dịch ----------
-if (val("--todo")) {
-  fs.writeFileSync(val("--todo"), JSON.stringify(show.map((m) => ({ file: m.file, keys: m.keys, vi: m.vi, en: "" })), null, 2) + "\n");
-  console.log("✓ Đã xuất " + show.length + " mục cần dịch ra " + val("--todo") + " — điền trường \"en\" rồi chạy --apply");
-  process.exit(0);
+// ---------- 4. assets/content.json: x_vi ↔ x_en ----------
+{
+  const walk = (o, p) => {
+    if (Array.isArray(o)) return o.forEach((x, i) => walk(x, p + "[" + i + "]"));
+    if (!o || typeof o !== "object") return;
+    for (const k of Object.keys(o)) {
+      const v = o[k];
+      if (k.endsWith("_vi")) { if (filled(v) && !filled(o[k.slice(0, -3) + "_en"])) miss("assets/content.json", `${p}.${k.slice(0, -3)}`, Array.isArray(v) ? JSON.stringify(v) : v); }
+      else if (v && typeof v === "object") walk(v, p + "." + k);
+    }
+  };
+  walk(JSON.parse(read("assets/content.json")), "");
 }
 
 // ---------- Báo cáo ----------
-if (!show.length) {
-  console.log("✓ Song ngữ đủ: không có trường mới thiếu _en" + (old.length ? " (tồn đọng cũ: " + old.length + ", xem --all)" : "") + ".");
-  process.exit(process.exitCode || 0);
+const key = (m) => m.file + " › " + m.key;
+let base = new Set();
+try { base = new Set(JSON.parse(read("tools/i18n-baseline.json"))); } catch { /* chưa có */ }
+if (flag("--baseline")) {
+  fs.writeFileSync(BASELINE, JSON.stringify(missing.map(key), null, 2) + "\n");
+  console.log(`✓ Đã ghi ${missing.length} mục tồn đọng vào tools/i18n-baseline.json`);
+  process.exit(0);
 }
-console.log((flag("--all") ? "Thiếu bản tiếng Anh: " : "Trường MỚI thiếu bản tiếng Anh: ") + show.length + (old.length && !flag("--all") ? " (tồn đọng cũ: " + old.length + ", xem --all)" : ""));
+const fresh = missing.filter((m) => !base.has(key(m)));
+const show = flag("--all") ? missing : fresh;
+const oldN = missing.length - fresh.length;
+if (!show.length) {
+  console.log(`✓ Song ngữ đủ: không có mục mới thiếu bản tiếng Anh${oldN ? ` (tồn đọng cũ: ${oldN}, xem --all)` : ""}.`);
+  process.exit(0);
+}
+console.log(`${flag("--all") ? "Thiếu bản tiếng Anh" : "Mục MỚI thiếu bản tiếng Anh"}: ${show.length}${oldN && !flag("--all") ? ` (tồn đọng cũ: ${oldN}, xem --all)` : ""}`);
 let cur = "";
 for (const m of show) {
   if (m.file !== cur) { cur = m.file; console.log("\n" + cur); }
-  const vi = Array.isArray(m.vi) ? JSON.stringify(m.vi) : m.vi;
-  console.log("  " + pathStr(m.keys) + "  ←  " + (vi.length > 90 ? vi.slice(0, 87) + "…" : vi));
+  const h = String(m.hint || "");
+  console.log("  " + m.key + "  ←  " + (h.length > 100 ? h.slice(0, 97) + "…" : h));
 }
-console.log("\nThêm trường <tên>_en cạnh mỗi trường trên (xem CLAUDE.md, mục Song ngữ). Xuất danh sách để dịch: --todo i18n-todo.json");
+console.log("\nXem CLAUDE.md, mục Song ngữ, để biết thêm vào đâu.");
 process.exit(flag("--warn") ? 0 : 1);

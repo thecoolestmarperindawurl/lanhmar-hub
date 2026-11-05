@@ -4,6 +4,7 @@ const safe = (u) => { const v = String(u ?? "").replace(/[\x00-\x1f]/g, "").trim
 
 const I18N = {
   vi: {
+    don_h: "Ủng hộ Lan Anh để mở Storage", don_p: "Data Storage lưu các tài nguyên mình đã dùng, xây dựng và phát triển. Để mở truy cập, mình rất mong nhận một khoản ủng hộ nhỏ. Bạn đăng ký trước, hệ thống tạo mã QR VietQR có nội dung chuyển khoản riêng cho bạn, rồi mình duyệt.", don_btn: "Đăng ký và nhận mã QR →", don_owner: "Mình là chủ kho:", don_owner_a: "vào Kho cá nhân", close: "Đóng",
     nav_services: "Dịch vụ", svc_k: "DỊCH VỤ", svc_h: "Mình có thể đồng hành cùng bạn ở những việc này.", svc_p: "Chọn mảng bạn cần, mình bắt đầu từ bối cảnh của bạn. Mỗi mảng đều có dự án thật để xem.",
     svc_not: "Chưa thấy đúng nhu cầu?", svc_ask: "Nhắn mình →", svc_view: "Xem dự án →",
     title: "LANHMAR — Dương Thị Lan Anh | Digital Marketer", foot: "© 2026 Dương Thị Lan Anh — LANHMAR", photo_alt: "Dương Thị Lan Anh",
@@ -20,6 +21,7 @@ const I18N = {
     certs_k: "HỌC & THỰC HÀNH", certs_h: "Chứng chỉ & khoá đào tạo.", contact_h: "Có bài toán marketing? Cùng mình lên chiến lược.", contact_p: "Cảm ơn đã ghé qua! Mình luôn sẵn sàng trò chuyện về cơ hội hợp tác hoặc công việc Digital Marketing.",
     edu: "Học vấn", phone: "Điện thoại / Zalo", reveal: "Bấm để hiện số", copy: "COPY", copied: "ĐÃ COPY", s1: "Khoá luận tốt nghiệp", s2: "Tăng lưu lượng truy cập", s3: "Mảng thực hành", s4: "Chứng chỉ & khoá học", plan: "Xem kế hoạch đầy đủ trên Canva" },
   en: {
+    don_h: "Support Lan Anh to open the Storage", don_p: "Data Storage holds the resources I've used, built and developed. To get access, I'd really appreciate a small contribution. Sign up first, the system creates a VietQR code with a transfer note unique to you, then I approve.", don_btn: "Sign up and get the QR code →", don_owner: "I own this library:", don_owner_a: "open my personal library", close: "Close",
     nav_services: "Services", svc_k: "SERVICES", svc_h: "Where I can work alongside you.", svc_p: "Pick the area you need and I'll start from your context. Every area has real projects to look at.",
     svc_not: "Don't see your need?", svc_ask: "Message me →", svc_view: "See projects →",
     title: "LANHMAR — Lana Duong | Digital Marketer", foot: "© 2026 Lana Duong — LANHMAR", photo_alt: "Lana Duong",
@@ -77,6 +79,7 @@ function renderStatic() {
   document.title = T("title");
   document.querySelectorAll("[data-i]").forEach((e) => { e.textContent = T(e.dataset.i); });
   document.querySelectorAll("[data-alt]").forEach((e) => { e.alt = T(e.dataset.alt); });
+  document.querySelectorAll("[data-il]").forEach((e) => { e.setAttribute("aria-label", T(e.dataset.il)); });
   document.querySelectorAll(".lang button").forEach((b) => b.classList.toggle("on", b.dataset.lang === lang));
 }
 

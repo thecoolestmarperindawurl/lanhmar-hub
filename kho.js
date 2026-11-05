@@ -1,6 +1,7 @@
 /* Kho cá nhân — dữ liệu được mã hoá AES-GCM bằng mật khẩu của chủ site.
    Trên web chỉ có bản mã (kho.enc.json); không có mật khẩu thì không đọc được. */
 const KEY = "kho-vault-v1";
+const L = (v, e) => (window.LM ? LM.t(v, e) : v); // song ngữ (lang.js)
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const b64 = (buf) => btoa(String.fromCharCode(...new Uint8Array(buf)));
@@ -26,7 +27,7 @@ async function seal() {
   pushCloud();
 }
 function saveLocal() {
-  try { localStorage.setItem(KEY, JSON.stringify(vault)); } catch { alert("Không lưu được vào trình duyệt."); }
+  try { localStorage.setItem(KEY, JSON.stringify(vault)); } catch { alert(L("Không lưu được vào trình duyệt.", "Couldn't save to this browser.")); }
 }
 const plain = (v) => ({ v: 1, salt: v.salt, iv: v.iv, ct: v.ct }); // đúng định dạng kho.enc.json
 async function openVault(pass) {
@@ -57,22 +58,22 @@ async function call(action, extra) {
 }
 async function adoptRemote(rv, rev) {
   if (unlocked) { // đang mở: chỉ nhận nếu cùng muối (cùng một kho) để giải mã bằng khoá hiện có
-    if (rv.salt !== vault.salt) { alert("Kho trên đám mây dùng mật khẩu/muối khác với kho đang mở nên không thể gộp."); return false; }
+    if (rv.salt !== vault.salt) { alert(L("Kho trên đám mây dùng mật khẩu/muối khác với kho đang mở nên không thể gộp.", "The cloud library uses a different password/salt from the one open here, so they can't be merged.")); return false; }
     try {
       const pt = await crypto.subtle.decrypt({ name: "AES-GCM", iv: unb64(rv.iv) }, cryptoKey, unb64(rv.ct));
       items = JSON.parse(dec.decode(pt));
-    } catch { alert("Không giải mã được bản trên đám mây."); return false; }
+    } catch { alert(L("Không giải mã được bản trên đám mây.", "Couldn't decrypt the cloud copy.")); return false; }
     vault = { ...plain(rv), rev, dirty: false }; saveLocal(); render();
   } else { vault = { ...plain(rv), rev, dirty: false }; saveLocal(); }
   return true;
 }
 async function afterSignIn() {
-  setState("Đang kiểm tra kho trên đám mây…");
+  setState(L("Đang kiểm tra kho trên đám mây…", "Checking the cloud library…"));
   let res;
-  try { res = await call("vault_get"); } catch { setState("Không kết nối được máy chủ."); return; }
+  try { res = await call("vault_get"); } catch { setState(L("Không kết nối được máy chủ.", "Couldn't reach the server.")); return; }
   if (!res.ok) {
     cloud.token = ""; cloud.ready = false;
-    setState(res.error === "denied" ? "Mail này không phải chủ kho (hoặc máy chủ chưa cấu hình OWNER_EMAIL / GOOGLE_CLIENT_ID)." : "Không lấy được kho từ đám mây.");
+    setState(res.error === "denied" ? L("Mail này không phải chủ kho (hoặc máy chủ chưa cấu hình OWNER_EMAIL / GOOGLE_CLIENT_ID).", "This email isn't the library owner (or the server hasn't set OWNER_EMAIL / GOOGLE_CLIENT_ID).") : L("Không lấy được kho từ đám mây.", "Couldn't fetch the library from the cloud."));
     return;
   }
   cloud.ready = true; cloud.rev = res.rev || 0;
@@ -80,27 +81,27 @@ async function afterSignIn() {
   if (rv) {
     if (!vault || (!vault.dirty && (vault.rev || 0) < cloud.rev)) await adoptRemote(rv, cloud.rev);
     else if (vault.dirty && (vault.rev || 0) !== cloud.rev) {
-      if (confirm("Kho trên đám mây khác với kho trên máy này.\nOK = dùng bản trên đám mây (bỏ thay đổi chưa lưu trên máy này).\nHuỷ = giữ bản trên máy này và ghi đè lên đám mây.")) await adoptRemote(rv, cloud.rev);
+      if (confirm(L("Kho trên đám mây khác với kho trên máy này.\nOK = dùng bản trên đám mây (bỏ thay đổi chưa lưu trên máy này).\nHuỷ = giữ bản trên máy này và ghi đè lên đám mây.", "The cloud library differs from the one on this device.\nOK = use the cloud copy (discard unsaved changes here).\nCancel = keep this device's copy and overwrite the cloud."))) await adoptRemote(rv, cloud.rev);
       else { vault.rev = cloud.rev; saveLocal(); }
     }
-    setState("Đã đăng nhập Google. Kho trên đám mây: bản " + cloud.rev + ".");
-  } else setState(vault ? "Đã đăng nhập Google. Kho sẽ được lưu lên đám mây khi bạn mở kho." : "Đã đăng nhập Google. Chưa có kho trên đám mây.");
+    setState(L("Đã đăng nhập Google. Kho trên đám mây: bản ", "Signed in with Google. Cloud library: version ") + cloud.rev + ".");
+  } else setState(vault ? L("Đã đăng nhập Google. Kho sẽ được lưu lên đám mây khi bạn mở kho.", "Signed in with Google. The library will be saved to the cloud when you open it.") : L("Đã đăng nhập Google. Chưa có kho trên đám mây.", "Signed in with Google. No library in the cloud yet."));
   if (unlocked) pushCloud(); else renderLock();
 }
 async function pushCloud() {
   if (!API() || !GCID() || !vault || !vault.dirty) return;
-  if (!tokenOk() || !cloud.ready) { if (cloud.ready || unlocked) setState("Chưa lưu lên đám mây — bấm “Đồng bộ đám mây”."); return; }
+  if (!tokenOk() || !cloud.ready) { if (cloud.ready || unlocked) setState(L("Chưa lưu lên đám mây — bấm “Đồng bộ đám mây”.", "Not saved to the cloud yet. Click “Sync to cloud”.")); return; }
   if (pushing) { again = true; return; }
-  pushing = true; setState("Đang lưu lên đám mây…");
+  pushing = true; setState(L("Đang lưu lên đám mây…", "Saving to the cloud…"));
   try {
     const sent = vault;
     const res = await call("vault_put", { baseRev: sent.rev || 0, vault: plain(sent) });
-    if (res.ok) { vault = { ...vault, rev: res.rev, dirty: vault === sent ? false : true }; cloud.rev = res.rev; saveLocal(); setState("Đã đồng bộ lên đám mây ✓ (bản " + res.rev + ")"); }
+    if (res.ok) { vault = { ...vault, rev: res.rev, dirty: vault === sent ? false : true }; cloud.rev = res.rev; saveLocal(); setState(L("Đã đồng bộ lên đám mây ✓ (bản ", "Synced to the cloud ✓ (version ") + res.rev + ")"); }
     else if (res.error === "conflict") {
-      if (confirm("Kho trên đám mây đã được sửa từ thiết bị khác.\nOK = ghi đè bằng bản trên máy này.\nHuỷ = không lưu lên đám mây (nên tải lại và đăng nhập Google để lấy bản mới).")) { vault.rev = res.rev; saveLocal(); again = true; }
-      else setState("Chưa đồng bộ: bản trên đám mây mới hơn.");
-    } else setState(res.error === "denied" ? "Phiên Google không hợp lệ, hãy đăng nhập lại." : "Lưu lên đám mây thất bại (" + (res.error || "lỗi") + ").");
-  } catch { setState("Không kết nối được máy chủ, đã lưu trên máy này."); }
+      if (confirm(L("Kho trên đám mây đã được sửa từ thiết bị khác.\nOK = ghi đè bằng bản trên máy này.\nHuỷ = không lưu lên đám mây (nên tải lại và đăng nhập Google để lấy bản mới).", "The cloud library was changed on another device.\nOK = overwrite it with this device's copy.\nCancel = don't save to the cloud (reload and sign in with Google to get the latest)."))) { vault.rev = res.rev; saveLocal(); again = true; }
+      else setState(L("Chưa đồng bộ: bản trên đám mây mới hơn.", "Not synced: the cloud copy is newer."));
+    } else setState(res.error === "denied" ? L("Phiên Google không hợp lệ, hãy đăng nhập lại.", "Google session expired, please sign in again.") : L("Lưu lên đám mây thất bại (", "Saving to the cloud failed (") + (res.error || L("lỗi", "error")) + ").");
+  } catch { setState(L("Không kết nối được máy chủ, đã lưu trên máy này.", "Couldn't reach the server; saved on this device.")); }
   pushing = false;
   if (again) { again = false; pushCloud(); }
 }
@@ -112,11 +113,43 @@ function onGoogle(r) {
 function initGoogle(n = 0) {
   if (!GCID() || !API()) return;
   $("#gBox").hidden = false; $("#cloudSync").hidden = false;
-  if (!window.google?.accounts?.id) { if (n < 50) setTimeout(() => initGoogle(n + 1), 300); else setState("Không tải được Google Sign-In."); return; }
+  if (!window.google?.accounts?.id) { if (n < 50) setTimeout(() => initGoogle(n + 1), 300); else setState(L("Không tải được Google Sign-In.", "Couldn't load Google Sign-In.")); return; }
   google.accounts.id.initialize({ client_id: GCID(), callback: onGoogle, auto_select: false });
   for (const id of ["gBtn", "gBtn2"]) google.accounts.id.renderButton($("#" + id), { theme: "outline", size: "large", text: "signin_with", locale: "vi" });
 }
 
+
+/* ---------- chữ cố định trên trang theo ngôn ngữ ---------- */
+const UI = {
+  kicker: ["★ Kho cá nhân", "★ Personal library"], lock_h: ["Khu <em>riêng</em> tư", "Private <em>area</em>"],
+  pass: ["Mật khẩu", "Password"], pass2: ["Nhập lại mật khẩu", "Repeat password"],
+  g_hint: ["Chủ kho: đăng nhập Google để mở kho trên mọi thiết bị, rồi nhập mật khẩu.", "Owner: sign in with Google to open the library on any device, then enter the password."],
+  import_bk: ["Nhập bản sao lưu (kho.enc.json)", "Import backup (kho.enc.json)"], back_port: ["← Về portfolio", "← Back to portfolio"],
+  to_storage: ["Truy cập Data Storage →", "Go to Data Storage →"], no_access: ["Chưa có quyền? Đăng ký ở đó, Lan Anh duyệt xong bạn sẽ xem được phần được chia sẻ.", "No access? Sign up there; once Lan Anh approves you, you can see the shared part."],
+  app_h: ["Kho <em>tool</em> của mình", "My <em>toolbox</em>"], app_p: ["Nơi gom AI, thiết kế, dựng video, repo hay và kiến thức khoá học — cập nhật liên tục.", "AI, design, video editing, great repos and course notes in one place, always updated."],
+  search: ["Tìm trong kho…", "Search the library…"], add: ["+ Thêm", "+ Add"],
+  foot: ["★ Dữ liệu được mã hoá trong trình duyệt — nhớ Xuất bản mã để sao lưu.", "★ Data is encrypted in your browser. Remember to export the encrypted copy as a backup."],
+  export: ["Xuất bản mã", "Export encrypted copy"], import: ["Nhập bản mã", "Import encrypted copy"], cloud: ["Đồng bộ đám mây", "Sync to cloud"],
+  sync_st: ["Đồng bộ Storage", "Sync Storage"], lock: ["Khoá lại", "Lock"],
+  f_kho: ["Kho", "Library"], f_grp: ["Mục con", "Section"], f_title: ["Tiêu đề *", "Title *"], f_type: ["Loại", "Type"], type: ["Repo, Template, Bài viết, Khoá học…", "Repo, Template, Article, Course…"],
+  f_tags: ["Tag (cách nhau bằng dấu phẩy)", "Tags (comma separated)"], f_note: ["Ghi chú", "Note"], f_share: ["Chia sẻ mục này trong Data Storage", "Share this item in Data Storage"],
+  marquee: ["★ KHO AI ★ KHO DESIGN ★ KHO EDIT ★ KHO TOOL ★ KHO KNOWLEDGE ★ KHO ỨNG DỤNG ★ KHO AI ★ KHO DESIGN ★ KHO EDIT ★ KHO TOOL ★ KHO KNOWLEDGE ★ KHO ỨNG DỤNG", "★ AI LIBRARY ★ DESIGN LIBRARY ★ EDIT LIBRARY ★ TOOL LIBRARY ★ KNOWLEDGE LIBRARY ★ APP LIBRARY ★ AI LIBRARY ★ DESIGN LIBRARY ★ EDIT LIBRARY ★ TOOL LIBRARY ★ KNOWLEDGE LIBRARY ★ APP LIBRARY"],
+  cancel: ["Huỷ", "Cancel"], save: ["Lưu", "Save"], g_h: ["Đăng nhập Google", "Sign in with Google"],
+  g_p: ["Đăng nhập lại bằng mail chủ kho để lưu/đồng bộ lên đám mây.", "Sign in again with the owner email to save/sync to the cloud."], close: ["Đóng", "Close"]
+};
+function applyUI() {
+  const U = (k) => L(UI[k][0], UI[k][1]);
+  document.querySelectorAll("[data-ku]").forEach((e) => { if (UI[e.dataset.ku]) e.textContent = U(e.dataset.ku); });
+  document.querySelectorAll("[data-kh]").forEach((e) => { if (UI[e.dataset.kh]) e.innerHTML = U(e.dataset.kh); }); // chuỗi cố định trong UI
+  document.querySelectorAll("[data-kp]").forEach((e) => { if (UI[e.dataset.kp]) e.placeholder = U(e.dataset.kp); });
+  document.title = L("Kho cá nhân", "Personal library");
+}
+applyUI();
+document.addEventListener("lm:content", () => { if (unlocked) render(); }); // bản dịch nội dung chi tiết vừa tải xong
+document.addEventListener("lm:lang", () => {
+  applyUI();
+  if (unlocked) { $("#kho").innerHTML = KHO.map((k) => `<option value="${k.id}">${k.name}</option>`).join(""); render(); } else renderLock();
+});
 /* ---------- màn hình khoá ---------- */
 async function boot() {
   try { vault = JSON.parse(localStorage.getItem(KEY)); } catch { vault = null; }
@@ -132,27 +165,27 @@ function renderLock() {
   const first = !vault && setup;
   const none = !vault && !setup;
   $("#lockMsg").textContent = first
-    ? "Thiết lập lần đầu: tạo mật khẩu cho kho. Mật khẩu không thể khôi phục — hãy ghi nhớ."
-    : none ? "Kho riêng tư. Chỉ chủ trang truy cập được." : "Kho riêng tư. Nhập mật khẩu để mở.";
+    ? L("Thiết lập lần đầu: tạo mật khẩu cho kho. Mật khẩu không thể khôi phục — hãy ghi nhớ.", "First-time setup: create a password for the library. It can't be recovered, so remember it.")
+    : none ? L("Kho riêng tư. Chỉ chủ trang truy cập được.", "Private library. Only the site owner can access it.") : L("Kho riêng tư. Nhập mật khẩu để mở.", "Private library. Enter the password to open it.");
   $("#pass").hidden = none; $("#unlock").hidden = none;
   $("#pass2").hidden = !first;
-  $("#unlock").textContent = first ? "Tạo kho" : "Mở kho";
+  $("#unlock").textContent = first ? L("Tạo kho", "Create library") : L("Mở kho", "Open library");
   $("#lockForm").onsubmit = async (e) => {
     e.preventDefault();
     const p = $("#pass").value, err = $("#lockErr");
     err.textContent = "";
-    if (none) { err.textContent = "Không mở được kho."; return; }
+    if (none) { err.textContent = L("Không mở được kho.", "Couldn't open the library."); return; }
     try {
       if (first) {
-        if (p.length < 10) { err.textContent = "Mật khẩu tối thiểu 10 ký tự."; return; }
-        if (p !== $("#pass2").value) { err.textContent = "Hai mật khẩu chưa khớp."; return; }
+        if (p.length < 10) { err.textContent = L("Mật khẩu tối thiểu 10 ký tự.", "Password must be at least 10 characters."); return; }
+        if (p !== $("#pass2").value) { err.textContent = L("Hai mật khẩu chưa khớp.", "The passwords don't match."); return; }
         await createVault(p);
       } else await openVault(p);
       $("#pass").value = $("#pass2").value = "";
       $("#lock").hidden = true; $("#app").hidden = false;
       unlocked = true;
       start();
-    } catch { err.textContent = "Sai mật khẩu hoặc dữ liệu bị lỗi."; }
+    } catch { err.textContent = L("Sai mật khẩu hoặc dữ liệu bị lỗi.", "Wrong password or corrupted data."); }
   };
 }
 
@@ -175,7 +208,7 @@ function render() {
   let shown = tagsOpen ? tags : tags.slice(0, TAG_LIMIT);
   if (tag && !shown.includes(tag)) shown = [tag, ...shown.slice(0, TAG_LIMIT - 1)];
   $("#tags").innerHTML = shown.map((t) => `<span class="chip ${t === tag ? "on" : ""}" data-t="${esc(t)}">#${esc(t)}</span>`).join("") +
-    (tags.length > TAG_LIMIT ? `<button class="chip more" type="button" data-more>${tagsOpen ? Res.t("collapse") : Res.t("more_tags")(tags.length - TAG_LIMIT)}</button>` : "");
+    (tags.length > TAG_LIMIT ? `<button class="chip more" type="button" data-more>${tagsOpen ? L("Thu gọn ▴", "Show less ▴") : "+" + (tags.length - TAG_LIMIT) + L(" thẻ ▾", " more ▾")}</button>` : "");
   const needle = q.trim().toLowerCase();
   const list = inKho
     .filter((i) => !tag || (i.tags || []).includes(tag))
@@ -183,22 +216,22 @@ function render() {
     .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
   const cardOf = (i) => i.featured ? Res.card(i) : `
     <article class="card">
-      ${i.type ? `<span class="badge">${esc(i.type)}</span>` : ""}${i.shared ? `<span class="badge shared">${Res.t("shared")}</span>` : ""}
+      ${i.type ? `<span class="badge">${esc(i.type)}</span>` : ""}${i.shared ? `<span class="badge shared">${L("Chia sẻ", "Shared")}</span>` : ""}
       <h3>${/^https?:\/\//i.test(i.url) ? `<a href="${esc(i.url)}" target="_blank" rel="noopener noreferrer">${esc(i.title)} ↗</a>` : esc(i.title)}</h3>
       <p>${esc(i.note)}</p>
       <div class="card-tags">${(i.tags || []).slice(0, 3).map((t) => `<span class="chip" data-t="${esc(t)}">#${esc(t)}</span>`).join(" ")}${(i.tags || []).length > 3 ? `<span class="chip dim">+${i.tags.length - 3}</span>` : ""}</div>
-      <div class="meta"><span>${esc(i.date)}</span><span class="acts"><button data-edit="${i.id}">${Res.t("edit")}</button><button data-del="${i.id}">${Res.t("del")}</button></span></div>
+      <div class="meta"><span>${esc(i.date)}</span><span class="acts"><button data-edit="${i.id}">${L("Sửa", "Edit")}</button><button data-del="${i.id}">${L("Xoá", "Delete")}</button></span></div>
     </article>`;
   $("#grid").classList.toggle("is-apps", cur === "idea");
   if (cur === "idea") { // Kho Ứng dụng: trình bày kiểu thư viện
     $("#groups").innerHTML = ""; $("#tags").innerHTML = "";
-    const acts = (i) => i.featured ? "" : `<div class="meta"><span>${esc(i.date)}</span><span class="acts"><button data-edit="${i.id}">${Res.t("edit")}</button><button data-del="${i.id}">${Res.t("del")}</button></span></div>`;
-    $("#grid").innerHTML = list.length ? Res.appShelf(list, acts) : `<div class="empty">${Res.t("empty_apps")}</div>`;
+    const acts = (i) => i.featured ? "" : `<div class="meta"><span>${esc(i.date)}</span><span class="acts"><button data-edit="${i.id}">${L("Sửa", "Edit")}</button><button data-del="${i.id}">${L("Xoá", "Delete")}</button></span></div>`;
+    $("#grid").innerHTML = list.length ? Res.appShelf(list, acts) : `<div class="empty">${L("Chưa có ứng dụng nào. Bấm “+ Thêm” để bắt đầu.", "No apps yet. Click “+ Add” to start.")}</div>`;
     return;
   }
   $("#groups").innerHTML = Res.groupPills(cur, inKho, grp);
   requestAnimationFrame(() => document.querySelectorAll(".tab.on,.gpill.on").forEach((b) => { const c = b.parentElement; if (c && c.scrollWidth > c.clientWidth) c.scrollTo({ left: b.offsetLeft - c.clientWidth / 2 + b.offsetWidth / 2, behavior: "smooth" }); }));
-  $("#grid").innerHTML = Res.group(list, cur, grp, cardOf) || `<div class="empty">${Res.t("empty")}</div>`;
+  $("#grid").innerHTML = Res.group(list, cur, grp, cardOf) || `<div class="empty">${L("Chưa có mục nào. Bấm “+ Thêm” để bắt đầu.", "Nothing here yet. Click “+ Add” to start.")}</div>`;
 }
 
 const dlg = $("#dlg"), f = $("#form");
@@ -211,7 +244,7 @@ function openForm(it) {
   f.reset();
   f.id.value = it?.id || ""; f.kho.value = it?.kho || cur; fillGroups(it?.group); f.title.value = it?.title || "";
   f.url.value = it?.url || ""; f.type.value = it?.type || ""; f.tags.value = (it?.tags || []).join(", "); f.note.value = it?.note || ""; f.shared.checked = !!it?.shared;
-  $("#dlgTitle").textContent = it ? "Sửa mục" : "Thêm mục mới";
+  $("#dlgTitle").textContent = it ? L("Sửa mục", "Edit item") : L("Thêm mục mới", "Add new item");
   dlg.showModal();
 }
 f.addEventListener("submit", async (e) => {
@@ -225,33 +258,6 @@ f.addEventListener("submit", async (e) => {
   if (idx >= 0) items[idx] = rec; else items.push(rec);
   await seal(); dlg.close(); cur = rec.kho; render();
 });
-
-// Nút VI/EN: đổi ngôn ngữ nội dung thẻ (mục có bản _en trong kho-featured.json / kho-data.js) và khung trang, dùng chung "lm_lang" với trang chủ
-const KHO_UI = {
-  vi: { back: "← Về portfolio", kicker: "★ Kho cá nhân", h1: "Kho <em>tool</em> của mình", lead: "Nơi gom AI, thiết kế, dựng video, repo hay và kiến thức khoá học — cập nhật liên tục.",
-    search: "Tìm trong kho…", add: "+ Thêm", foot: "★ Dữ liệu được mã hoá trong trình duyệt — nhớ Xuất bản mã để sao lưu.", export: "Xuất bản mã", import: "Nhập bản mã",
-    cloud: "Đồng bộ đám mây", sync: "Đồng bộ Storage", lock: "Khoá lại" },
-  en: { back: "← Back to portfolio", kicker: "★ Personal Library", h1: "My <em>tool</em> library", lead: "AI, design, video editing, great repos and course notes in one place — updated all the time.",
-    search: "Search the library…", add: "+ Add", foot: "★ Data is encrypted in your browser — remember to Export a backup.", export: "Export backup", import: "Import backup",
-    cloud: "Cloud sync", sync: "Sync Storage", lock: "Lock" }
-};
-function paintLang() {
-  let l = "vi"; try { l = localStorage.getItem("lm_lang") === "en" ? "en" : "vi"; } catch {}
-  const U = (k) => KHO_UI[l][k] ?? KHO_UI.vi[k];
-  document.documentElement.lang = l;
-  document.querySelectorAll(".lang button").forEach((b) => { const on = b.dataset.lang === l; b.classList.toggle("on", on); b.setAttribute("aria-pressed", on); });
-  document.querySelectorAll("#app [data-i]").forEach((e) => { e.textContent = U(e.dataset.i); });
-  document.querySelectorAll("#app [data-ih]").forEach((e) => { e.innerHTML = U(e.dataset.ih); }); // chuỗi cố định trong KHO_UI
-  document.querySelectorAll("#app [data-ph]").forEach((e) => { e.placeholder = U(e.dataset.ph); });
-  return l;
-}
-paintLang();
-document.querySelectorAll(".lang button").forEach((b) => b.addEventListener("click", async () => {
-  if (b.dataset.lang === paintLang()) return;
-  try { localStorage.setItem("lm_lang", b.dataset.lang === "en" ? "en" : "vi"); } catch {}
-  paintLang();
-  featured = await Res.load(); render();
-}));
 
 async function start() {
   featured = await Res.load();
@@ -269,22 +275,22 @@ document.addEventListener("click", async (e) => {
   else if (t.dataset.k) { cur = t.dataset.k; tag = ""; grp = ""; tagsOpen = false; render(); }
   else if (t.dataset.t !== undefined) { tag = tag === t.dataset.t ? "" : t.dataset.t; render(); }
   else if (t.dataset.edit) openForm(items.find((i) => i.id === t.dataset.edit));
-  else if (t.dataset.del && confirm("Xoá mục này?")) { items = items.filter((i) => i.id !== t.dataset.del); await seal(); render(); }
+  else if (t.dataset.del && confirm(L("Xoá mục này?", "Delete this item?"))) { items = items.filter((i) => i.id !== t.dataset.del); await seal(); render(); }
 });
 $("#q").addEventListener("input", (e) => { q = e.target.value; render(); });
 $("#add").onclick = () => openForm();
 $("#syncStorage").onclick = async () => {
   const api = (window.STORAGE_API || "").trim();
-  if (!api) { alert("Chưa cấu hình Data Storage (storage-config.js)."); return; }
+  if (!api) { alert(L("Chưa cấu hình Data Storage (storage-config.js).", "Data Storage isn't configured (storage-config.js).")); return; }
   let key = ""; try { key = sessionStorage.getItem("lm-admin") || ""; } catch {}
-  key = prompt("Admin key của Data Storage (chỉ bạn biết):", key); if (!key) return;
+  key = prompt(L("Admin key của Data Storage (chỉ bạn biết):", "Data Storage admin key (only you know it):"), key); if (!key) return;
   const shared = items.filter((i) => i.shared).map(({ id, kho, title, url, note, tags, type, date }) => ({ id, kho, title, url, note, tags, type, date }));
   try {
     const r = await fetch(api, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ action: "sync", adminKey: key, items: shared }) });
     const res = await r.json();
-    if (res.ok) { try { sessionStorage.setItem("lm-admin", key); } catch {} alert("Đã đồng bộ " + res.count + " mục lên Data Storage."); }
-    else alert("Không đồng bộ được: sai admin key hoặc lỗi máy chủ.");
-  } catch { alert("Không kết nối được tới Data Storage."); }
+    if (res.ok) { try { sessionStorage.setItem("lm-admin", key); } catch {} alert(L("Đã đồng bộ ", "Synced ") + res.count + L(" mục lên Data Storage.", " items to Data Storage.")); }
+    else alert(L("Không đồng bộ được: sai admin key hoặc lỗi máy chủ.", "Couldn't sync: wrong admin key or server error."));
+  } catch { alert(L("Không kết nối được tới Data Storage.", "Couldn't connect to Data Storage.")); }
 };
 $("#cloudSync").onclick = () => { if (tokenOk() && cloud.ready) afterSignIn(); else $("#gDlg").showModal(); };
 $("#gClose").onclick = () => $("#gDlg").close();
@@ -300,7 +306,7 @@ $("#import").onchange = async (e) => {
     if (!v.salt || !v.iv || !v.ct) throw 0;
     localStorage.setItem(KEY, JSON.stringify(plain(v)));
     location.reload();
-  } catch { alert("File kho.enc.json không hợp lệ."); }
+  } catch { alert(L("File kho.enc.json không hợp lệ.", "Invalid kho.enc.json file.")); }
 };
 if ((window.STORAGE_API || "").trim()) $("#storageBox").hidden = false; // chỉ hiện nút khi Data Storage đã được kích hoạt
 $("#importLock").onchange = async (e) => {
@@ -309,6 +315,6 @@ $("#importLock").onchange = async (e) => {
     if (!v.salt || !v.iv || !v.ct) throw 0;
     localStorage.setItem(KEY, JSON.stringify(plain(v)));
     location.hash = ""; location.reload();
-  } catch { alert("File kho.enc.json không hợp lệ."); }
+  } catch { alert(L("File kho.enc.json không hợp lệ.", "Invalid kho.enc.json file.")); }
 };
 boot();

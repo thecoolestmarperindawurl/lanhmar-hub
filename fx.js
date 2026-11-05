@@ -12,9 +12,9 @@
   // màu nhấn theo loại thẻ: p = tím, o = cam, m = tím + cam
   const accentOf = (c) => {
     const t = ((c.querySelector(".badge") || {}).textContent || "").toLowerCase();
-    if (/khoá|khóa|workshop|lms|ebook|web/.test(t)) return "p";
-    if (/skill|hướng dẫn|lý thuyết|tổng hợp|research|bài viết|tin|live/.test(t)) return "o";
-    if (/repo|tool|công cụ|plugin|lut|font|drive|vps|adobe|dji|bảng|template|tài liệu/.test(t)) return "m";
+    if (/khoá|khóa|course|workshop|lms|ebook|web|site/.test(t)) return "p";
+    if (/skill|hướng dẫn|guide|lý thuyết|theory|tổng hợp|roundup|research|bài viết|tin|live|map/.test(t)) return "o";
+    if (/repo|tool|công cụ|plugin|lut|font|drive|vps|adobe|dji|bảng|ranking|template|tài liệu|extension|app/.test(t)) return "m";
     let h = 0; for (const ch of t) h = (h * 31 + ch.charCodeAt(0)) | 0;
     return ["p", "o", "m"][Math.abs(h) % 3];
   };
@@ -63,23 +63,23 @@
   }
 
 
-  // điều khiển cách xem (kiểu neumorphism), nhớ lựa chọn trên trình duyệt này:
-  //  - công tắc "Gọn" (mọi trang)
-  //  - thanh trượt "Cỡ thẻ": chỉ ở Kho cá nhân, vì nó đổi độ rộng cột lưới cho thẻ tự thêm; Storage toàn thẻ nổi bật
-  //    chiếm trọn hàng nên kéo không đổi gì → thay bằng nút VI/EN (.bar có data-ctl="lang"; storage.js xử lý bấm)
+  // điều khiển cách xem (công tắc và thanh trượt kiểu neumorphism): Gọn / Cỡ thẻ, nhớ lựa chọn trên trình duyệt này.
+  // Thanh trượt Cỡ thẻ chỉ đổi độ rộng cột lưới cho thẻ tự thêm; Storage toàn thẻ nổi bật chiếm trọn hàng nên kéo không đổi gì
+  // → .bar có data-ctl="nosize" thì không vẽ thanh trượt (Storage), chỉ còn công tắc Gọn.
   {
     const bar = document.querySelector(".bar");
     const grid = document.getElementById("grid");
     if (bar && grid && !document.querySelector(".neu-ctl")) {
       const get = (k, d) => { try { return localStorage.getItem(k) ?? d; } catch { return d; } };
       const set = (k, v) => { try { localStorage.setItem(k, v); } catch {} };
-      const en = get("lm_lang", "vi") === "en";
       const wrap = document.createElement("div"); wrap.className = "neu-ctl";
-      wrap.innerHTML = `<label class="neu-sw"><input type="checkbox" id="neuCompact" role="switch"><i></i><span>${en ? "Compact" : "Gọn"}</span></label>` +
-        (bar.dataset.ctl === "lang"
-          ? `<div class="lang neu-lang" role="group" aria-label="${en ? "Language" : "Ngôn ngữ"}"><button type="button" data-lang="vi" aria-pressed="${!en}" class="${en ? "" : "on"}">VI</button><button type="button" data-lang="en" aria-pressed="${en}" class="${en ? "on" : ""}">EN</button></div>`
-          : `<label class="neu-rg"><span>${en ? "Card size" : "Cỡ thẻ"}</span><input type="range" id="neuSize" min="240" max="420" step="20" aria-label="${en ? "Card size" : "Cỡ thẻ"}"></label>`);
+      wrap.innerHTML = `<label class="neu-sw"><input type="checkbox" id="neuCompact" role="switch"><i></i><span data-fx="compact">Gọn</span></label>` + (bar.dataset.ctl === "nosize" ? "" : `<label class="neu-rg"><span data-fx="size">Cỡ thẻ</span><input type="range" id="neuSize" min="240" max="420" step="20" aria-label="Cỡ thẻ"></label>`);
       bar.appendChild(wrap);
+      const fxLang = () => { const T = (v, e) => (window.LM ? LM.t(v, e) : v);
+        wrap.querySelector('[data-fx="compact"]').textContent = T("Gọn", "Compact");
+        const sz = wrap.querySelector('[data-fx="size"]'); if (sz) sz.textContent = T("Cỡ thẻ", "Card size");
+        const rgEl = wrap.querySelector("#neuSize"); if (rgEl) rgEl.setAttribute("aria-label", T("Cỡ thẻ", "Card size")); };
+      fxLang(); document.addEventListener("lm:lang", fxLang);
       const cb = wrap.querySelector("#neuCompact"), rg = wrap.querySelector("#neuSize");
       const apply = () => { document.body.classList.toggle("neu-compact", cb.checked); if (rg) grid.style.setProperty("--gmin", rg.value + "px"); };
       cb.checked = get("lm-neu-compact", "0") === "1"; if (rg) rg.value = get("lm-neu-size", "300"); apply();

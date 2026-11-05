@@ -2,9 +2,9 @@ name: Kiểm tra song ngữ VI/EN
 
 on:
   push:
-    paths: ["kho-featured.json", "kho-data.js", "community-data.js", "assets/content.json", "tools/i18n-*"]
+    paths: ["kho-featured.json", "kho-data.js", "kho-en.js", "i18n/**", "community-data.js", "assets/content.json", "tools/i18n-*"]
   pull_request:
-    paths: ["kho-featured.json", "kho-data.js", "community-data.js", "assets/content.json", "tools/i18n-*"]
+    paths: ["kho-featured.json", "kho-data.js", "kho-en.js", "i18n/**", "community-data.js", "assets/content.json", "tools/i18n-*"]
 
 jobs:
   i18n:

@@ -11,6 +11,7 @@
   let msgs = []; try { msgs = JSON.parse(LS("lm-chat-msgs") || "[]"); } catch {}
   let seenAdmin = Number(LS("lm-chat-seen") || 0), openState = false, timer = null, lastSend = 0;
 
+  const T = (v, e) => (window.LM ? LM.t(v, e) : v); // trang có lang.js (Data Storage) mới song ngữ; Kho cá nhân giữ tiếng Việt
   const el = (t, c, txt) => { const e = document.createElement(t); if (c) e.className = c; if (txt != null) e.textContent = txt; return e; };
   // Sticker hỏi đáp: bong bóng chat có mặt cười, huy hiệu "?" và các ngôi sao lấp lánh (SVG tự vẽ, màu LANHMAR)
   const STICKER = `<svg class="chat-svg" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
@@ -27,30 +28,40 @@
     <path class="chat-star s2" d="M108 70l2.5 5.5 5.5 2.5-5.5 2.5-2.5 5.5-2.5-5.5-5.5-2.5 5.5-2.5z" fill="#FF7A45" stroke="#241F45" stroke-width="2"/>
     <path class="chat-star s3" d="M22 96l2 4.5 4.5 2-4.5 2-2 4.5-2-4.5-4.5-2 4.5-2z" fill="#fff" stroke="#241F45" stroke-width="2"/>
   </svg>`;
-  const btn = el("button", "chat-fab"); btn.type = "button"; btn.setAttribute("aria-label", "Hỏi Lan Anh: mở khung chat"); btn.title = "Hỏi Lan Anh";
+  const btn = el("button", "chat-fab"); btn.type = "button"; 
   btn.innerHTML = STICKER;
   const tip = el("span", "chat-tip"); tip.setAttribute("aria-hidden", "true"); btn.appendChild(tip);
   const badge = el("b", "chat-dot"); badge.hidden = true; btn.appendChild(badge);
-  const box = el("section", "chat-box"); box.hidden = true; box.setAttribute("aria-label", "Chat với Lan Anh");
-  const head = el("div", "chat-head"); head.appendChild(el("b", "", "💬 Hỏi Lan Anh"));
-  const x = el("button", "chat-x", "×"); x.type = "button"; x.setAttribute("aria-label", "Đóng"); head.appendChild(x);
-  const note = el("p", "chat-note", "Tin nhắn của bạn được gửi tới Telegram của Lan Anh. Câu trả lời sẽ hiện ngay trong khung này (có thể mất vài phút), hoặc Lan Anh liên hệ qua cách bạn để lại.");
+  const box = el("section", "chat-box"); box.hidden = true; 
+  const head = el("div", "chat-head"); const headT = el("b", "", ""); head.appendChild(headT);
+  const x = el("button", "chat-x", "×"); x.type = "button";  head.appendChild(x);
+  const note = el("p", "chat-note", "");
   const list = el("div", "chat-list"); list.setAttribute("aria-live", "polite");
   const form = el("form", "chat-form"); form.autocomplete = "off";
-  const name = el("input"); name.placeholder = "Tên của bạn"; name.maxLength = 60; name.value = LS("lm-chat-name") || "";
-  const contact = el("input"); contact.placeholder = "Email / Zalo (không bắt buộc)"; contact.maxLength = 120; contact.value = LS("lm-chat-contact") || "";
+  const name = el("input");  name.maxLength = 60; name.value = LS("lm-chat-name") || "";
+  const contact = el("input");  contact.maxLength = 120; contact.value = LS("lm-chat-contact") || "";
   const trap = el("input"); trap.name = "website"; trap.tabIndex = -1; trap.autocomplete = "off"; trap.setAttribute("aria-hidden", "true"); trap.className = "chat-trap";
-  const text = el("textarea"); text.placeholder = "Nhập câu hỏi…"; text.rows = 3; text.maxLength = 1000; text.required = true;
-  const send = el("button", "btn primary", "Gửi"); send.type = "submit";
+  const text = el("textarea");  text.rows = 3; text.maxLength = 1000; text.required = true;
+  const send = el("button", "btn primary", ""); send.type = "submit";
   const err = el("p", "chat-err");
   form.append(name, contact, trap, text, err, send);
   box.append(head, note, list, form);
   document.body.append(btn, box);
+  // nhãn theo ngôn ngữ, đổi ngay khi bấm VI/EN
+  function labels() {
+    btn.setAttribute("aria-label", T("Hỏi Lan Anh: mở khung chat", "Ask Lan Anh: open chat")); btn.title = T("Hỏi Lan Anh", "Ask Lan Anh");
+    box.setAttribute("aria-label", T("Chat với Lan Anh", "Chat with Lan Anh")); headT.textContent = T("💬 Hỏi Lan Anh", "💬 Ask Lan Anh");
+    x.setAttribute("aria-label", T("Đóng", "Close"));
+    note.textContent = T("Tin nhắn của bạn được gửi tới Telegram của Lan Anh. Câu trả lời sẽ hiện ngay trong khung này (có thể mất vài phút), hoặc Lan Anh liên hệ qua cách bạn để lại.", "Your message goes to Lan Anh's Telegram. The reply will show up right here (it may take a few minutes), or Lan Anh will reach out the way you leave.");
+    name.placeholder = T("Tên của bạn", "Your name"); contact.placeholder = T("Email / Zalo (không bắt buộc)", "Email / Zalo (optional)");
+    text.placeholder = T("Nhập câu hỏi…", "Type your question…"); if (!send.disabled) send.textContent = T("Gửi", "Send");
+  }
+  labels(); document.addEventListener("lm:lang", () => { labels(); render(); });
 
   const adminCount = () => msgs.filter((m) => m.w === "a").length;
   function render() {
     list.textContent = "";
-    if (!msgs.length) list.appendChild(el("p", "chat-empty", "Chưa có tin nhắn. Hãy đặt câu hỏi đầu tiên."));
+    if (!msgs.length) list.appendChild(el("p", "chat-empty", T("Chưa có tin nhắn. Hãy đặt câu hỏi đầu tiên.", "No messages yet. Ask the first question.")));
     msgs.forEach((m) => { const b = el("div", "chat-msg " + (m.w === "a" ? "adm" : "me")); b.appendChild(el("span", "", m.t)); list.appendChild(b); });
     list.scrollTop = list.scrollHeight;
     const unread = Math.max(0, adminCount() - seenAdmin);
@@ -69,22 +80,22 @@
   }
   btn.onclick = () => { btn.classList.add("pop"); tip.classList.remove("on"); setTimeout(() => btn.classList.remove("pop"), 400); toggle(true); }; x.onclick = () => toggle(false);
   // Lời chào nhấp nháy định kỳ để thu hút (chỉ khi khung đóng và tab đang xem)
-  const HELLO = ["Hỏi mình nhé! 💬", "Có thắc mắc gì không? ✨", "Mình trả lời liền! 🚀", "Bí khoá học nào? Hỏi đi 👋"]; let hi = 0;
-  const hello = () => { if (openState || document.visibilityState !== "visible" || !badge.hidden) return; tip.textContent = HELLO[hi++ % HELLO.length]; tip.classList.add("on"); setTimeout(() => tip.classList.remove("on"), 4200); };
+  const HELLO = { vi: ["Hỏi mình nhé! 💬", "Có thắc mắc gì không? ✨", "Mình trả lời liền! 🚀", "Bí khoá học nào? Hỏi đi 👋"], en: ["Ask me anything! 💬", "Got a question? ✨", "I'll reply fast! 🚀", "Stuck on a course? Ask away 👋"] }; let hi = 0;
+  const hello = () => { if (openState || document.visibilityState !== "visible" || !badge.hidden) return; const H = HELLO[T("vi", "en")]; tip.textContent = H[hi++ % H.length]; tip.classList.add("on"); setTimeout(() => tip.classList.remove("on"), 4200); };
   setTimeout(() => { hello(); setInterval(hello, 14000); }, 3500);
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && openState) toggle(false); });
   form.onsubmit = async (e) => {
     e.preventDefault(); err.textContent = "";
     const t = text.value.trim(); if (!t) return;
-    if (Date.now() - lastSend < 8000) { err.textContent = "Bạn gửi hơi nhanh, đợi vài giây nhé."; return; }
-    send.disabled = true; send.textContent = "Đang gửi…";
+    if (Date.now() - lastSend < 8000) { err.textContent = T("Bạn gửi hơi nhanh, đợi vài giây nhé.", "You're sending a bit fast, wait a few seconds."); return; }
+    send.disabled = true; send.textContent = T("Đang gửi…", "Sending…");
     LS("lm-chat-name", name.value.trim()); LS("lm-chat-contact", contact.value.trim());
     try {
       const j = await post({ action: "chat_send", vid, name: name.value.trim(), contact: contact.value.trim(), text: t, page, website: trap.value });
-      if (j.ok) { lastSend = Date.now(); msgs.push({ w: "k", t }); text.value = ""; render(); if (j.tg === false) err.textContent = "Đã lưu tin nhắn nhưng chưa gửi được tới Telegram, Lan Anh vẫn xem được trong bảng."; }
-      else err.textContent = j.error === "rate" ? "Bạn đã gửi quá nhiều tin, thử lại sau ít phút." : "Chưa gửi được, thử lại nhé.";
-    } catch { err.textContent = "Không kết nối được, thử lại sau."; }
-    send.disabled = false; send.textContent = "Gửi";
+      if (j.ok) { lastSend = Date.now(); msgs.push({ w: "k", t }); text.value = ""; render(); if (j.tg === false) err.textContent = T("Đã lưu tin nhắn nhưng chưa gửi được tới Telegram, Lan Anh vẫn xem được trong bảng.", "Message saved but not delivered to Telegram yet; Lan Anh can still see it in the dashboard."); }
+      else err.textContent = j.error === "rate" ? T("Bạn đã gửi quá nhiều tin, thử lại sau ít phút.", "Too many messages, try again in a few minutes.") : T("Chưa gửi được, thử lại nhé.", "Couldn't send, please try again.");
+    } catch { err.textContent = T("Không kết nối được, thử lại sau.", "Couldn't connect, please try again later."); }
+    send.disabled = false; send.textContent = T("Gửi", "Send");
   };
   render(); schedule(); if (msgs.length) pull();
 })();
