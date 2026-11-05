@@ -56,4 +56,5 @@ jobs:
           for d in assets/img/events tools/.event-review; do if [ -d "$d" ]; then git add -A "$d"; fi; done
           git diff --cached --quiet && echo "Không có gì mới" && exit 0
           git commit -m "Ảnh sự kiện ${{ inputs.event_id }} (${{ inputs.mode }}) tải từ Drive qua GitHub Actions"
+          git pull --rebase origin "${{ github.ref_name }}"   # nhánh có thể đã nhận commit khác trong lúc tải ảnh
           git push
