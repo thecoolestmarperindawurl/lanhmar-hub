@@ -54,19 +54,20 @@ def build(path, url, org, status, group="vuonuom"):
     title, learn, updated, total, parts = parse(read_lines(path))
     if not parts: sys.exit("Không tìm thấy phần/bài nào: file có thể thiếu nội dung (trang dựng bằng JavaScript). Hãy lưu lại sau khi trang tải xong.")
     n = sum(len(p["lessons"]) for p in parts)
-    sec = [{"k": "callout", "t": f"{title}{' · ' + org if org else ''}. {n} bài học chia thành {len(parts)} phần." + (f" {updated}." if updated else "")}]
+    sec = [{"k": "callout", "t": f"{title}{' · ' + org if org else ''}. {n} bài học chia thành {len(parts)} phần." + (f" {updated}." if updated else ""),
+            "t_en": f"{title}{' · ' + org if org else ''}. {n} lessons in {len(parts)} parts." + (f" {updated}." if updated else "")}]
     if learn:
-        sec += [{"k": "h", "t": "Bạn sẽ học được gì"}, {"k": "list", "items": learn}]
-    sec.append({"k": "h", "t": f"Nội dung {len(parts)} phần"})
+        sec += [{"k": "h", "t": "Bạn sẽ học được gì", "t_en": "What you'll learn"}, {"k": "list", "items": learn}]
+    sec.append({"k": "h", "t": f"Nội dung {len(parts)} phần", "t_en": f"Course content: {len(parts)} parts"})
     for p in parts:
         sec.append({"k": "h", "t": p["t"] + (f" ({p['sub']})" if p["sub"] else "")})
         sec.append({"k": "steps", "items": [{"t": a, "d": d} for a, d in p["lessons"]]})
     item = {"id": "knowledge-" + slug(title), "kho": "knowledge", "group": GROUP, "guide": True,
-            "date": __import__("datetime").date.today().isoformat(), "title": title, "type": "Khoá học",
-            "badge": status or "Khoá học", "tags": ["khoá học"] + ([slug(org)] if org else []),
+            "date": __import__("datetime").date.today().isoformat(), "title": title, "title_en": title, "type": "Khoá học", "type_en": "Course",
+            "badge": status or "Khoá học", "tags": ["khoá học"] + ([slug(org)] if org else []), "tags_en": ["course"] + ([slug(org)] if org else []),
             "thumb": "assets/res/knowledge-courses.jpg",
-            "note": f"{len(parts)} phần, {n} bài." + (f" Đơn vị: {org}." if org else ""), "sections": sec}
-    if url: item["cta"] = {"title": title, "url": url, "btn": "Mở khoá học (cần đăng nhập)"}
+            "note": f"{len(parts)} phần, {n} bài." + (f" Đơn vị: {org}." if org else ""), "note_en": f"{len(parts)} parts, {n} lessons." + (f" Provider: {org}." if org else ""), "sections": sec}
+    if url: item["cta"] = {"title": title, "url": url, "btn": "Mở khoá học (cần đăng nhập)", "btn_en": "Open course (login required)"}
     return item
 
 if __name__ == "__main__":

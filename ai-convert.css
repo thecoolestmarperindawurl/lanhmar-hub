@@ -39,3 +39,9 @@ label.inline input{width:100px;padding:6px 10px}
 /* Font dự phòng khi Montserrat chưa tải xong */
 .cv .btn,.cv .badge,.cv button,.cv input,.res-acts .btn,footer .btn,.btn.back{font-family:Montserrat,system-ui,sans-serif}
 label.inline{flex-wrap:wrap}
+/* Thanh đầu trang + nút VI/EN của AI Convert (trang này không dùng lang.js) */
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.topbar .btn.back{margin:0}
+.lang{display:flex;gap:4px;align-items:center;font:700 13px Montserrat,system-ui,sans-serif;color:var(--ink-soft)}
+.lang button{background:#fff;border:2px solid var(--lav-300);border-radius:999px;font:700 13px Montserrat,system-ui,sans-serif;color:var(--ink-soft);cursor:pointer;padding:4px 12px}
+.lang button.on{background:var(--purple-deep);border-color:var(--purple-deep);color:#fff}

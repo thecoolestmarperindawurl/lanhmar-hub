@@ -72,6 +72,7 @@ window.KHO_EN = {
     "buy-ovh-hermes": { title: "OVH VPS for Hermes Agent: picking a plan and a setup checklist", note: "Compares OVH VPS-1 to VPS-5, Hermes Agent requirements, which plan to pick and a VPS setup checklist.", type: "Guide" },
     "tool-cloakbrowser": { title: "CloakBrowser: a Chromium drop-in for Playwright with C++-level fingerprint patches", note: "A custom Chromium that drops straight into Playwright, 87 C++-level patches, with humanize and proxy. Wrapper code is MIT, the binary needs a licence key.", type: "GitHub repo" },
     "tool-camoufox": { title: "Camoufox: an open-source anti-detect Firefox for scraping and AI agents", note: "A Firefox build that spoofs fingerprints, driven by Playwright, with humanize, geoip and proxy. Browser MPL-2.0, package MIT. In development.", type: "GitHub repo" },
-    "app-lanhmar-haus": { title: "LanhMar-haus: command centre for tasks, bots, payroll and VPS", note: "A PWA that brings tasks, bot monitoring, payroll and VPS servers together. An Owner edition for the owner and a Connector edition for collaborators.", type: "App", status: "In use" }
+    "app-lanhmar-haus": { title: "LanhMar-haus: command centre for tasks, bots, payroll and VPS", note: "A PWA that brings tasks, bot monitoring, payroll and VPS servers together. An Owner edition for the owner and a Connector edition for collaborators.", type: "App", status: "In use" },
+    "tool-ai-convert": { title: "AI Convert: turn PDF, Word, Excel, PowerPoint into Markdown for AI", note: "Drag in documents, get clean Markdown that Claude, ChatGPT and Cursor read faster with fewer tokens. Runs in your browser, files never leave your device.", type: "Tool", status: "In use" }
   }
 };

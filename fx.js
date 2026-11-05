@@ -63,7 +63,9 @@
   }
 
 
-  // điều khiển cách xem (công tắc và thanh trượt kiểu neumorphism): Gọn / Cỡ thẻ, nhớ lựa chọn trên trình duyệt này
+  // điều khiển cách xem (công tắc và thanh trượt kiểu neumorphism): Gọn / Cỡ thẻ, nhớ lựa chọn trên trình duyệt này.
+  // Thanh trượt Cỡ thẻ chỉ đổi độ rộng cột lưới cho thẻ tự thêm; Storage toàn thẻ nổi bật chiếm trọn hàng nên kéo không đổi gì
+  // → .bar có data-ctl="nosize" thì không vẽ thanh trượt (Storage), chỉ còn công tắc Gọn.
   {
     const bar = document.querySelector(".bar");
     const grid = document.getElementById("grid");
@@ -71,18 +73,18 @@
       const get = (k, d) => { try { return localStorage.getItem(k) ?? d; } catch { return d; } };
       const set = (k, v) => { try { localStorage.setItem(k, v); } catch {} };
       const wrap = document.createElement("div"); wrap.className = "neu-ctl";
-      wrap.innerHTML = `<label class="neu-sw"><input type="checkbox" id="neuCompact" role="switch"><i></i><span data-fx="compact">Gọn</span></label><label class="neu-rg"><span data-fx="size">Cỡ thẻ</span><input type="range" id="neuSize" min="240" max="420" step="20" aria-label="Cỡ thẻ"></label>`;
+      wrap.innerHTML = `<label class="neu-sw"><input type="checkbox" id="neuCompact" role="switch"><i></i><span data-fx="compact">Gọn</span></label>` + (bar.dataset.ctl === "nosize" ? "" : `<label class="neu-rg"><span data-fx="size">Cỡ thẻ</span><input type="range" id="neuSize" min="240" max="420" step="20" aria-label="Cỡ thẻ"></label>`);
       bar.appendChild(wrap);
       const fxLang = () => { const T = (v, e) => (window.LM ? LM.t(v, e) : v);
         wrap.querySelector('[data-fx="compact"]').textContent = T("Gọn", "Compact");
-        wrap.querySelector('[data-fx="size"]').textContent = T("Cỡ thẻ", "Card size");
-        wrap.querySelector("#neuSize").setAttribute("aria-label", T("Cỡ thẻ", "Card size")); };
+        const sz = wrap.querySelector('[data-fx="size"]'); if (sz) sz.textContent = T("Cỡ thẻ", "Card size");
+        const rgEl = wrap.querySelector("#neuSize"); if (rgEl) rgEl.setAttribute("aria-label", T("Cỡ thẻ", "Card size")); };
       fxLang(); document.addEventListener("lm:lang", fxLang);
       const cb = wrap.querySelector("#neuCompact"), rg = wrap.querySelector("#neuSize");
-      const apply = () => { document.body.classList.toggle("neu-compact", cb.checked); grid.style.setProperty("--gmin", rg.value + "px"); };
-      cb.checked = get("lm-neu-compact", "0") === "1"; rg.value = get("lm-neu-size", "300"); apply();
+      const apply = () => { document.body.classList.toggle("neu-compact", cb.checked); if (rg) grid.style.setProperty("--gmin", rg.value + "px"); };
+      cb.checked = get("lm-neu-compact", "0") === "1"; if (rg) rg.value = get("lm-neu-size", "300"); apply();
       cb.addEventListener("change", () => { set("lm-neu-compact", cb.checked ? "1" : "0"); apply(); });
-      rg.addEventListener("input", () => { set("lm-neu-size", rg.value); apply(); });
+      if (rg) rg.addEventListener("input", () => { set("lm-neu-size", rg.value); apply(); });
     }
   }
 

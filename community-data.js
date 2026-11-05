@@ -23,7 +23,7 @@ window.COMMUNITIES = [
     desc_en: "A Facebook group for working professionals bringing AI into their daily workflow: AI and automation experts, business owners and employees share what actually works.",
     topics: ["AI trong workflow", "AI Agent", "Tự động hoá", "Vận hành SME với AI", "Hỏi đáp"],
     topics_en: ["AI in your workflow", "AI Agents", "Automation", "Running an SME with AI", "Q&A"],
-    moderator: { name: "Dương Thị Lan Anh", alias: "LANHMAR", role: "Moderator nhóm Đi làm với AI · Digital Marketer", role_en: "Moderator of Đi làm với AI · Digital Marketer", photo: "assets/img/experts/lan-anh.webp", org: { name: "", logo: "assets/img/logo-lanhmar.png", logoOnly: true }, u: "index.html" },
+    moderator: { name: "Dương Thị Lan Anh", name_en: "Lana Duong", alias: "LANHMAR", role: "Moderator nhóm Đi làm với AI · Digital Marketer", role_en: "Moderator of Đi làm với AI · Digital Marketer", photo: "assets/img/experts/lan-anh.webp", org: { name: "", logo: "assets/img/logo-lanhmar.png", logoOnly: true }, u: "index.html" },
     members_kinds: [
       { t: "Chuyên gia AI và tự động hoá", d: "Những người làm nghề tư vấn, đào tạo và xây hệ thống AI, chia sẻ phương pháp và công cụ.",
         t_en: "AI and automation experts", d_en: "People who consult, train and build AI systems, sharing their methods and tools." },
@@ -98,5 +98,20 @@ window.COMMUNITIES = [
         ]
       }
     ]
+  },
+  {
+    // Mô tả và chủ đề viết dựa trên tên nhóm (chủ nhóm chưa gửi mô tả chính thức, 05/11/2026) — cập nhật khi có. Không ghi số thành viên vì chưa xác minh.
+    id: "ai-agent-hub-sai-gon",
+    name: "AI Agent Hub | Hội nuôi AI Sài Gòn",
+    name_en: "AI Agent Hub | Hội nuôi AI Sài Gòn", // tên riêng, giữ nguyên
+    platform: "Zalo",
+    url: "https://zalo.me/g/eu82fyffympy6gnevcxe",
+    members: "",
+    status: "open",
+    feature: false,
+    desc: "Nhóm Zalo của cộng đồng AI Agent tại Sài Gòn: nơi trao đổi cách dựng, \"nuôi\" và vận hành AI Agent trong công việc hằng ngày, hỏi đáp nhanh và hẹn gặp offline.",
+    desc_en: "The Zalo group of the Saigon AI Agent community: a place to share how to build, \"raise\" and run AI agents in daily work, get quick answers and meet up offline.",
+    topics: ["AI Agent", "Tự động hoá", "Hỏi đáp nhanh", "Gặp mặt Sài Gòn"],
+    topics_en: ["AI Agents", "Automation", "Quick Q&A", "Saigon meetups"]
   }
 ];

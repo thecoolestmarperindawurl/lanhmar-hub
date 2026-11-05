@@ -4,19 +4,25 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AI Convert — LANHMAR</title>
-<meta name="description" content="Chuyển PDF, Word, Excel, PowerPoint, HTML sang Markdown sạch để AI Agent đọc nhanh và tốn ít token hơn. Chạy 100% trong trình duyệt.">
-<link rel="icon" href="assets/img/logo-lanhmar.png">
-<link rel="stylesheet" href="kho.css?v=20261104x">
-<link rel="stylesheet" href="ai-convert.css?v=20261104a">
+<meta name="description" content="Chuyển PDF, Word, Excel, PowerPoint, HTML sang Markdown sạch để AI Agent đọc nhanh và tốn ít token hơn. Convert PDF, Word, Excel, PowerPoint, HTML to clean Markdown for AI agents. Runs 100% in your browser.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<meta name="theme-color" content="#2D2FEF">
+<link rel="stylesheet" href="kho.css?v=20261104z">
+<link rel="stylesheet" href="ai-convert.css?v=20261105c">
 </head>
 <body>
-<div class="marquee"><span>★ FILE → MARKDOWN ★ AI-READY ★ VIBE CODE ★ ÍT TOKEN HƠN ★ FILE → MARKDOWN ★ AI-READY ★ VIBE CODE ★ ÍT TOKEN HƠN</span></div>
+<div class="marquee"><span data-i="marquee">★ FILE → MARKDOWN ★ AI-READY ★ VIBE CODE ★ ÍT TOKEN HƠN ★ FILE → MARKDOWN ★ AI-READY ★ VIBE CODE ★ ÍT TOKEN HƠN</span></div>
 
 <header class="hero"><div class="wrap">
-  <a class="btn back" href="index.html">← Về portfolio</a>
+  <div class="topbar">
+    <a class="btn back" href="index.html" data-i="back">← Về portfolio</a>
+    <div class="lang"><button type="button" data-lang="vi">VI</button><span>/</span><button type="button" data-lang="en">EN</button></div>
+  </div>
   <div class="kicker">★ Tool · AI Convert</div>
-  <h1>File → <em>Markdown</em> cho AI</h1>
-  <p>Thả PDF, Word, Excel, PowerPoint, HTML hay file code vào đây. Mình chuyển hết sang Markdown sạch để Claude, ChatGPT, Cursor… đọc nhanh hơn, hiểu cấu trúc tốt hơn và tốn ít token hơn. <b>File được xử lý ngay trong trình duyệt của bạn, không tải lên máy chủ nào.</b></p>
+  <h1 data-ih="h1">File → <em>Markdown</em> cho AI</h1>
+  <p data-ih="lead">Thả PDF, Word, Excel, PowerPoint, HTML hay file code vào đây. Mình chuyển hết sang Markdown sạch để Claude, ChatGPT, Cursor… đọc nhanh hơn, hiểu cấu trúc tốt hơn và tốn ít token hơn. <b>File được xử lý ngay trong trình duyệt của bạn, không tải lên máy chủ nào.</b></p>
 </div></header>
 
 <main class="wrap cv">
@@ -25,33 +31,33 @@
       <input id="files" type="file" multiple hidden
         accept=".pdf,.docx,.xlsx,.xls,.csv,.tsv,.pptx,.html,.htm,.txt,.md,.json,.yaml,.yml,.xml,.js,.ts,.jsx,.tsx,.py,.css,.sql,.sh,.gs,.java,.go,.rb,.php">
       <span class="drop-ico">★</span>
-      <b>Kéo thả file vào đây</b>
-      <span>hoặc bấm để chọn (chọn được nhiều file)</span>
-      <small>PDF · DOCX · XLSX/XLS/CSV · PPTX · HTML · TXT/MD · JSON/YAML/XML · file code</small>
+      <b data-i="drop_b">Kéo thả file vào đây</b>
+      <span data-i="drop_s">hoặc bấm để chọn (chọn được nhiều file)</span>
+      <small data-i="drop_f">PDF · DOCX · XLSX/XLS/CSV · PPTX · HTML · TXT/MD · JSON/YAML/XML · file code</small>
     </label>
 
     <details class="opts" open>
-      <summary>Tuỳ chọn làm sạch</summary>
+      <summary data-i="opts">Tuỳ chọn làm sạch</summary>
       <div class="opt-grid">
-        <label class="chk"><input type="checkbox" id="oFront" checked> Thêm metadata đầu file (nguồn, loại, ước tính token)</label>
-        <label class="chk"><input type="checkbox" id="oPages" checked> Đánh dấu số trang / số slide</label>
-        <label class="chk"><input type="checkbox" id="oHeadFoot" checked> PDF: bỏ header/footer lặp lại & số trang</label>
-        <label class="chk"><input type="checkbox" id="oNotes" checked> PPTX: lấy cả ghi chú người thuyết trình</label>
-        <label class="chk"><input type="checkbox" id="oSpace" checked> Gộp dòng trống thừa</label>
-        <label class="inline">Excel: tối đa <input type="number" id="oRows" value="1000" min="10" step="10"> dòng/sheet</label>
-        <label class="inline">Chia đoạn khi vượt <input type="number" id="oChunk" value="0" min="0" step="1000"> token <small>(0 = không chia)</small></label>
+        <label class="chk"><input type="checkbox" id="oFront" checked> <span data-i="o_front">Thêm metadata đầu file (nguồn, loại, ước tính token)</span></label>
+        <label class="chk"><input type="checkbox" id="oPages" checked> <span data-i="o_pages">Đánh dấu số trang / số slide</span></label>
+        <label class="chk"><input type="checkbox" id="oHeadFoot" checked> <span data-i="o_hf">PDF: bỏ header/footer lặp lại &amp; số trang</span></label>
+        <label class="chk"><input type="checkbox" id="oNotes" checked> <span data-i="o_notes">PPTX: lấy cả ghi chú người thuyết trình</span></label>
+        <label class="chk"><input type="checkbox" id="oSpace" checked> <span data-i="o_space">Gộp dòng trống thừa</span></label>
+        <label class="inline"><span data-i="o_rows1">Excel: tối đa</span> <input type="number" id="oRows" value="1000" min="10" step="10"> <span data-i="o_rows2">dòng/sheet</span></label>
+        <label class="inline"><span data-i="o_chunk1">Chia đoạn khi vượt</span> <input type="number" id="oChunk" value="0" min="0" step="1000"> <span>token</span> <small data-i="o_chunk2">(0 = không chia)</small></label>
       </div>
     </details>
   </section>
 
   <section class="panel" id="resPanel" hidden>
     <div class="res-head">
-      <h2>Kết quả</h2>
+      <h2 data-i="res_h">Kết quả</h2>
       <div class="res-acts">
-        <button class="btn" id="copyAll">Copy tất cả</button>
-        <button class="btn" id="dlBundle">Tải 1 file context.md</button>
-        <button class="btn primary" id="dlZip">Tải .zip (từng file + INDEX.md)</button>
-        <button class="btn danger" id="clear">Xoá</button>
+        <button class="btn" id="copyAll" data-i="copy_all">Copy tất cả</button>
+        <button class="btn" id="dlBundle" data-i="dl_bundle">Tải 1 file context.md</button>
+        <button class="btn primary" id="dlZip" data-i="dl_zip">Tải .zip (từng file + INDEX.md)</button>
+        <button class="btn danger" id="clear" data-i="clear">Xoá</button>
       </div>
     </div>
     <p class="sum" id="sum"></p>
@@ -59,22 +65,22 @@
   </section>
 
   <section class="panel tips">
-    <h2>Dùng trong vibe code thế nào?</h2>
+    <h2 data-i="tips_h">Dùng trong vibe code thế nào?</h2>
     <ol>
-      <li><b>Bỏ vào repo:</b> giải nén .zip vào thư mục <code>docs/context/</code>. Trong <code>CLAUDE.md</code> (hoặc <code>.cursorrules</code>) ghi một dòng: <i>“Tài liệu tham khảo nằm ở docs/context/, đọc INDEX.md trước.”</i> Agent sẽ chỉ mở đúng file cần, thay vì nhai cả PDF.</li>
-      <li><b>Dán thẳng vào chat:</b> dùng “Copy tất cả” hoặc file <code>context.md</code>. Mỗi tài liệu được bọc trong thẻ <code>&lt;document&gt;</code> để AI phân biệt nguồn.</li>
-      <li><b>Tài liệu dài:</b> bật “Chia đoạn” để mỗi phần vừa cửa sổ ngữ cảnh, đưa lần lượt từng phần.</li>
-      <li><b>Ảnh, sơ đồ, bản scan:</b> công cụ này chỉ lấy chữ. Với ảnh, gửi thẳng ảnh cho AI (các model hiện nay đọc được ảnh) sẽ chính xác hơn.</li>
+      <li data-ih="tip1"></li>
+      <li data-ih="tip2"></li>
+      <li data-ih="tip3"></li>
+      <li data-ih="tip4"></li>
     </ol>
-    <p class="note">Ước tính token là con số thô (≈ số ký tự ÷ 4 với tiếng Anh, ÷ 3 với tiếng Việt có dấu), chỉ để so sánh. Số thật phụ thuộc tokenizer của từng model.</p>
+    <p class="note" data-i="tok_note"></p>
   </section>
 </main>
 
 <footer><div class="wrap" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between">
-  <span>★ LANHMAR · AI Convert — xử lý cục bộ trong trình duyệt</span>
+  <span data-i="foot">★ LANHMAR · AI Convert — xử lý cục bộ trong trình duyệt</span>
   <a class="btn" href="index.html">← Portfolio</a>
 </div></footer>
 
-<script src="ai-convert.js?v=20261104a"></script>
+<script src="ai-convert.js?v=20261104b"></script>
 </body>
 </html>

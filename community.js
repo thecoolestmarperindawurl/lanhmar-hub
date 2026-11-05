@@ -8,7 +8,7 @@
   /* ---------- song ngữ: dùng chung lựa chọn với trang chủ (localStorage "lm_lang") ---------- */
   const I18N = {
     vi: {
-      title: "Cộng đồng | LANHMAR",
+      title: "Cộng đồng | LANHMAR", foot: "© 2026 Dương Thị Lan Anh — LANHMAR",
       nav_story: "Hành trình", nav_work: "Dự án", nav_services: "Dịch vụ", nav_community: "Cộng đồng", nav_contact: "Liên hệ", cta_talk: "Liên hệ mình",
       hero_k: "★ CỘNG ĐỒNG · LANHMAR", hero_h: "Cùng nhau <em>đi làm với AI.</em>",
       hero_p: "Nơi những người đi làm trao đổi cách dùng AI vào công việc thật: công cụ, quy trình, bài học và cả những lần làm chưa ra. Chọn một nhóm bên dưới để tham gia.",
@@ -34,7 +34,7 @@
       back_home: "← Về trang chủ", copied: "Đã sao chép link nhóm", copy_fail: "Không sao chép được, hãy bấm giữ vào link"
     },
     en: {
-      title: "Community | LANHMAR",
+      title: "Community | LANHMAR", foot: "© 2026 Lana Duong — LANHMAR",
       nav_story: "Journey", nav_work: "Projects", nav_services: "Services", nav_community: "Community", nav_contact: "Contact", cta_talk: "Get in touch",
       hero_k: "★ COMMUNITY · LANHMAR", hero_h: "Working with <em>AI, together.</em>",
       hero_p: "A place where working professionals swap how they use AI in real work: tools, workflows, lessons, and the attempts that didn't pan out. Pick a group below to join.",
@@ -92,11 +92,11 @@
       <div class="cm-kv">
         <span class="cm-kv-mark" aria-hidden="true">${esc(x.alias || x.name)}</span>
         <div class="cm-kv-top"><span class="cm-badge">★ ${esc(badge)}</span>${x.org ? `<span class="cm-org${x.org.logoOnly ? " logo-only" : ""}">${logo ? `<img src="${esc(logo)}" alt="${x.org.logoOnly ? esc(x.alias || "") : ""}">` : ""}${esc(x.org.name || "")}</span>` : ""}</div>
-        ${photo ? `<figure class="cm-photo"><img src="${esc(photo)}" alt="${T("portrait")} ${esc(x.name)}" width="480" height="600"></figure>`
+        ${photo ? `<figure class="cm-photo"><img src="${esc(photo)}" alt="${T("portrait")} ${esc(L(x, "name"))}" width="480" height="600"></figure>`
                 : `<div class="cm-av big" aria-hidden="true">${esc(initials(x.name))}</div>`}
       </div>
       <div class="cm-pro-b">
-        <h3>${esc(x.name)}${x.alias ? ` <small>${esc(x.alias)}</small>` : ""}</h3>
+        <h3>${esc(L(x, "name"))}${x.alias ? ` <small>${esc(x.alias)}</small>` : ""}</h3>
         ${x.role ? `<p class="cm-role">${esc(L(x, "role"))}</p>` : ""}
         ${x.bio ? `<p class="cm-bio">${esc(L(x, "bio"))}</p>` : ""}
         ${stats.length ? `<dl class="cm-stats">${stats.slice(0, 3).map((s) => `<div><dt>${esc(s.n)}</dt><dd>${esc(L(s, "t"))}</dd></div>`).join("")}</dl>` : ""}
@@ -122,13 +122,11 @@
     // phần giới thiệu chi tiết cho nhóm nổi bật
     const f = list.find((g) => g.feature);
     if (!f) return;
-    const url = okUrl(f.url), ex = (f.experts || []).filter((x) => x.show !== false && x.name), mod = f.moderator, kinds = f.members_kinds || [];
+    // (mô tả, nền tảng, chủ đề, nút tham gia đã có trên thẻ nhóm ở trên nên không lặp lại ở đây)
+    const ex = (f.experts || []).filter((x) => x.show !== false && x.name), mod = f.moderator, kinds = f.members_kinds || [];
     $("#spotBody").innerHTML = `
       <p class="kicker">${T("spot_k")}</p>
       <h2>${esc(T("spot_h")(L(f, "name")))}</h2>
-      <div class="cm-about reveal"><p>${esc(L(f, "desc"))}</p>
-        <dl class="cm-facts"><div><dt>${T("platform")}</dt><dd>${esc(f.platform)}</dd></div>${mod ? `<div><dt>${T("moderator")}</dt><dd>${esc(mod.name)}</dd></div>` : ""}<div><dt>${T("topics")}</dt><dd>${(L(f, "topics") || []).map(esc).join(", ")}</dd></div></dl>
-        ${url ? `<div class="cm-act"><a class="cm-join" href="${esc(url)}" target="_blank" rel="noopener">${esc(T("join_on")(f.platform))}</a></div>` : ""}</div>
       ${kinds.length ? `<h3 class="cm-sub">${T("kinds_h")}</h3><div class="cm-kinds">${kinds.map((k, i) => `<div class="cm-kind reveal"><b class="n">${i + 1}</b><h4>${esc(L(k, "t"))}</h4><p>${esc(L(k, "d"))}</p></div>`).join("")}</div>` : ""}
       ${ex.length ? `<h3 class="cm-sub">${T("experts_h")}</h3><div class="cm-exs">${ex.map((x) => proCard(x, T("badge_expert"))).join("")}</div>` : ""}
       ${mod ? `<h3 class="cm-sub">${T("mod_h")}</h3>${proCard({ ...mod, links: [{ t: I18N.vi.profile, t_en: I18N.en.profile, u: mod.u || "index.html" }] }, T("badge_mod"), true)}` : ""}`;
