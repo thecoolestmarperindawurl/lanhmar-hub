@@ -1,0 +1,59 @@
+name: Lấy ảnh sự kiện từ Drive
+
+# Tải ảnh từ thư mục / file Drive CÔNG KHAI (Bất kỳ ai có link) trên runner của GitHub, chuyển WebP, commit vào nhánh.
+# Chạy tay: Actions → "Lấy ảnh sự kiện từ Drive" → Run workflow.
+#  - mode "review": tải mọi ảnh trong thư mục, ghi bảng độ sáng + ảnh ghép (contact sheet) vào tools/.event-review/<event_id>/ để chọn ảnh.
+#  - mode "final" : chỉ tải các file_ids đã chọn (theo thứ tự), ghi assets/img/events/<event_id>/NN.webp (ảnh đầu = ảnh bìa).
+# Ảnh lưu trong repo, trang web không liên kết tới Drive.
+
+on:
+  workflow_dispatch:
+    inputs:
+      event_id:
+        description: "id sự kiện (thư mục đích), vd workshop-di-lam-voi-ai-2026-10"
+        required: true
+      mode:
+        description: "review | final"
+        required: true
+        default: review
+      folder_id:
+        description: "id thư mục Drive (mode review)"
+        required: false
+      file_ids:
+        description: "id file Drive, cách nhau bằng dấu cách, theo thứ tự muốn hiện (mode final)"
+        required: false
+      max_px:
+        description: "cạnh dài tối đa"
+        required: false
+        default: "1600"
+
+permissions:
+  contents: write
+
+jobs:
+  photos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -q pillow requests
+      - name: Tải và xử lý ảnh
+        env:
+          EVENT_ID: ${{ inputs.event_id }}
+          MODE: ${{ inputs.mode }}
+          FOLDER_ID: ${{ inputs.folder_id }}
+          FILE_IDS: ${{ inputs.file_ids }}
+          MAX_PX: ${{ inputs.max_px }}
+        run: python3 tools/drive-event-photos.py
+      - name: Commit kết quả
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A assets/img/events tools/.event-review
+          git diff --cached --quiet && echo "Không có gì mới" && exit 0
+          git commit -m "Ảnh sự kiện ${{ inputs.event_id }} (${{ inputs.mode }}) tải từ Drive qua GitHub Actions"
+          git push
