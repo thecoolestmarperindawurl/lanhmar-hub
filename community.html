@@ -12,7 +12,7 @@
 <link rel="canonical" href="https://lanhmar.id.vn/community.html">
 <link rel="stylesheet" href="site.css?v=20261104v">
 <link rel="stylesheet" href="motion.css?v=20261104n">
-<link rel="stylesheet" href="community.css?v=20261105d">
+<link rel="stylesheet" href="community.css?v=20261105e">
 <link rel="stylesheet" href="mascot.css?v=20261104z">
 </head>
 <body>
@@ -54,10 +54,12 @@
 
 <section class="cm-sec" id="events" hidden>
   <div class="wrap">
-    <div class="cm-head"><div><p class="kicker" data-i="events_k">SỰ KIỆN TRONG NHÓM</p><h2 data-i="events_h">Đã gặp nhau ngoài đời.</h2></div></div>
-    <div id="evList"></div>
+    <div class="cm-head"><div><p class="kicker" data-i="events_k">SỰ KIỆN TRONG NHÓM</p><h2 data-i="events_h">Đã gặp nhau ngoài đời.</h2></div><p class="cm-ev-sub" data-i="events_p">Những buổi gặp, workshop đã tổ chức trong cộng đồng. Bấm vào một sự kiện để xem bộ ảnh.</p></div>
+    <div class="cm-evs" id="evList"></div>
+    <div class="cm-ev-more" id="evMore" hidden><button class="btn dark" type="button" id="evMoreBtn"></button></div>
   </div>
 </section>
+<dialog class="cm-ev-dlg" id="evDlg" aria-labelledby="evDlgTitle"></dialog>
 
 <section class="cm-sec">
   <div class="wrap">
@@ -92,8 +94,8 @@
   <div class="wrap foot"><span data-i="foot">© 2026 Dương Thị Lan Anh — LANHMAR</span><a href="index.html" class="open-storage" data-i="back_home">← Về trang chủ</a></div>
 </footer>
 <div class="cm-toast" id="cmToast" role="status"></div>
-<script src="community-data.js?v=20261105d"></script>
-<script src="community.js?v=20261105d"></script>
+<script src="community-data.js?v=20261105e"></script>
+<script src="community.js?v=20261105e"></script>
 <script src="motion.js?v=20261104n"></script>
 <script src="mascot.js?v=20261104z"></script>
 </body>

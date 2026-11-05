@@ -28,6 +28,11 @@ Tồn đọng cũ (nếu có) nằm trong `tools/i18n-baseline.json`; `--all` đ
 
 Mục trong `kho-featured.json` với `kho: "idea"`, `shelf` (id kệ trong `KHO.idea.shelves`), `status`, `thumb` (ảnh 960×504 trong `assets/res/`), `sections` (khối `callout`, `h`, `p`, `table`, `steps`, `list`, `cards`, `code`, `links`), `cta`. Rồi thêm EN theo bảng trên.
 
+## Thêm sự kiện vào trang Cộng đồng
+
+`community-data.js` → `window.EVENTS`: `{ id, group, name/name_en, date (YYYY-MM-DD), place/place_en, desc/desc_en, photos: [{ src, alt, alt_en }] }`. Mới nhất tự lên đầu; quá 6 sự kiện thì có nút "Xem thêm".
+Ảnh **phải nằm trong repo** (`assets/img/events/<id>/NN.webp`), không nhúng hay liên kết tới Drive/nguồn ngoài. Chuẩn bị bằng `python3 tools/event-photos.py <thư mục ảnh gốc> --id <id>` (chấm độ sáng, chọn ảnh sáng rõ) rồi `--write --pick …` (WebP ≤1600px, bỏ EXIF). Ảnh đầu là ảnh bìa.
+
 ## Khoá học LMS
 
 `python3 tools/lms-to-card.py file.html --url … --add` sinh thẻ khoá học vào `kho-featured.json`; sau đó thêm EN vào `kho-en.js` và `i18n/featured-en.json`.
