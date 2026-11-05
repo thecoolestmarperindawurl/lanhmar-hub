@@ -119,7 +119,7 @@ window.COMMUNITIES = [
 
 /* Sự kiện đã tổ chức trong nhóm — hiện ở mục "Sự kiện trong nhóm" của community.html.
    Ảnh lấy thẳng từ thư mục Drive công khai (ảnh phải ở chế độ "Bất kỳ ai có link"): photos[].id là id file trên Drive.
-   Đổi ảnh: thay id (lấy từ link https://drive.google.com/file/d/<id>/view). Ảnh đầu tiên là ảnh lớn.
+   Đổi ảnh: thay id (lấy từ link https://drive.google.com/file/d/<id>/view). Ảnh đầu tiên là ảnh lớn; trang hiện tối đa 5 ảnh đầu.
    Thêm sự kiện mới: thêm một mục, nhớ kèm name_en, desc_en, alt_en (node tools/i18n-check.mjs sẽ nhắc). */
 window.EVENTS = [
   {

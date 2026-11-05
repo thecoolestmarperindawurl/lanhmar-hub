@@ -144,7 +144,7 @@
     if (!evs.length) { sec.hidden = true; return; }
     $("#evList").innerHTML = evs.map((e) => {
       const g = list.find((x) => x.id === e.group);
-      const photos = (e.photos || []).filter((p) => driveImg(p.id, 10)).slice(0, 6);
+      const photos = (e.photos || []).filter((p) => driveImg(p.id, 10)).slice(0, 5); // 1 ảnh lớn 2×2 + 4 ảnh nhỏ = kín 2 hàng
       return `<article class="cm-ev">
         <div class="cm-ev-info reveal">
           ${g ? `<span class="cm-plat">${esc(L(g, "name"))}</span>` : ""}
