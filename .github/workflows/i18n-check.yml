@@ -6,6 +6,9 @@ on:
   pull_request:
     paths: ["kho-featured.json", "kho-data.js", "kho-en.js", "i18n/**", "community-data.js", "assets/content.json", "tools/i18n-*"]
 
+permissions:
+  contents: read
+
 jobs:
   i18n:
     name: Dữ liệu mới phải có bản _en
