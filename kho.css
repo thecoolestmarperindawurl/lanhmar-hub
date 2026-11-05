@@ -527,3 +527,9 @@ body.neu-compact .card{padding:14px}
 .lang{display:flex;gap:4px;align-items:center;font:700 13px Montserrat,system-ui,sans-serif;color:var(--ink-soft)}
 .lang button{background:#fff;border:2px solid var(--lav-300);border-radius:999px;font:700 13px Montserrat,system-ui,sans-serif;color:var(--ink-soft);cursor:pointer;padding:4px 12px}
 .lang button.on{background:var(--purple-deep);border-color:var(--purple-deep);color:#fff}
+/* Nút VI/EN kiểu neumorphism trong thanh điều khiển (Storage thay cho thanh trượt Cỡ thẻ) */
+.neu-lang{display:inline-flex;gap:0;padding:4px;border-radius:999px;background:var(--neu-bg);box-shadow:var(--neu-dn-s)}
+.neu-lang button{border:0;background:transparent;box-shadow:none;color:var(--ink-soft);font:800 12px Montserrat,system-ui,sans-serif;letter-spacing:.06em;padding:5px 14px;border-radius:999px;cursor:pointer;transition:background .25s,color .2s,box-shadow .25s}
+.neu-lang button.on{background:linear-gradient(135deg,var(--purple-deep),var(--purple-mid));color:#fff;box-shadow:3px 3px 7px rgba(45,47,239,.35),-2px -2px 5px var(--neu-hi)}
+.neu-lang button:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+.gate-lang{justify-content:center;margin:0 0 2px}

@@ -63,21 +63,28 @@
   }
 
 
-  // điều khiển cách xem (công tắc và thanh trượt kiểu neumorphism): Gọn / Cỡ thẻ, nhớ lựa chọn trên trình duyệt này
+  // điều khiển cách xem (kiểu neumorphism), nhớ lựa chọn trên trình duyệt này:
+  //  - công tắc "Gọn" (mọi trang)
+  //  - thanh trượt "Cỡ thẻ": chỉ ở Kho cá nhân, vì nó đổi độ rộng cột lưới cho thẻ tự thêm; Storage toàn thẻ nổi bật
+  //    chiếm trọn hàng nên kéo không đổi gì → thay bằng nút VI/EN (.bar có data-ctl="lang"; storage.js xử lý bấm)
   {
     const bar = document.querySelector(".bar");
     const grid = document.getElementById("grid");
     if (bar && grid && !document.querySelector(".neu-ctl")) {
       const get = (k, d) => { try { return localStorage.getItem(k) ?? d; } catch { return d; } };
       const set = (k, v) => { try { localStorage.setItem(k, v); } catch {} };
+      const en = get("lm_lang", "vi") === "en";
       const wrap = document.createElement("div"); wrap.className = "neu-ctl";
-      wrap.innerHTML = `<label class="neu-sw"><input type="checkbox" id="neuCompact" role="switch"><i></i><span>Gọn</span></label><label class="neu-rg"><span>Cỡ thẻ</span><input type="range" id="neuSize" min="240" max="420" step="20" aria-label="Cỡ thẻ"></label>`;
+      wrap.innerHTML = `<label class="neu-sw"><input type="checkbox" id="neuCompact" role="switch"><i></i><span>${en ? "Compact" : "Gọn"}</span></label>` +
+        (bar.dataset.ctl === "lang"
+          ? `<div class="lang neu-lang" role="group" aria-label="${en ? "Language" : "Ngôn ngữ"}"><button type="button" data-lang="vi" aria-pressed="${!en}" class="${en ? "" : "on"}">VI</button><button type="button" data-lang="en" aria-pressed="${en}" class="${en ? "on" : ""}">EN</button></div>`
+          : `<label class="neu-rg"><span>${en ? "Card size" : "Cỡ thẻ"}</span><input type="range" id="neuSize" min="240" max="420" step="20" aria-label="${en ? "Card size" : "Cỡ thẻ"}"></label>`);
       bar.appendChild(wrap);
       const cb = wrap.querySelector("#neuCompact"), rg = wrap.querySelector("#neuSize");
-      const apply = () => { document.body.classList.toggle("neu-compact", cb.checked); grid.style.setProperty("--gmin", rg.value + "px"); };
-      cb.checked = get("lm-neu-compact", "0") === "1"; rg.value = get("lm-neu-size", "300"); apply();
+      const apply = () => { document.body.classList.toggle("neu-compact", cb.checked); if (rg) grid.style.setProperty("--gmin", rg.value + "px"); };
+      cb.checked = get("lm-neu-compact", "0") === "1"; if (rg) rg.value = get("lm-neu-size", "300"); apply();
       cb.addEventListener("change", () => { set("lm-neu-compact", cb.checked ? "1" : "0"); apply(); });
-      rg.addEventListener("input", () => { set("lm-neu-size", rg.value); apply(); });
+      if (rg) rg.addEventListener("input", () => { set("lm-neu-size", rg.value); apply(); });
     }
   }
 
