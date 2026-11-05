@@ -23,7 +23,7 @@ window.COMMUNITIES = [
     desc_en: "A Facebook group for working professionals bringing AI into their daily workflow: AI and automation experts, business owners and employees share what actually works.",
     topics: ["AI trong workflow", "AI Agent", "Tự động hoá", "Vận hành SME với AI", "Hỏi đáp"],
     topics_en: ["AI in your workflow", "AI Agents", "Automation", "Running an SME with AI", "Q&A"],
-    moderator: { name: "Dương Thị Lan Anh", alias: "LANHMAR", role: "Moderator nhóm Đi làm với AI · Digital Marketer", role_en: "Moderator of Đi làm với AI · Digital Marketer", photo: "assets/img/experts/lan-anh.webp", org: { name: "", logo: "assets/img/logo-lanhmar.png", logoOnly: true }, u: "index.html" },
+    moderator: { name: "Dương Thị Lan Anh", name_en: "Lana Duong", alias: "LANHMAR", role: "Moderator nhóm Đi làm với AI · Digital Marketer", role_en: "Moderator of Đi làm với AI · Digital Marketer", photo: "assets/img/experts/lan-anh.webp", org: { name: "", logo: "assets/img/logo-lanhmar.png", logoOnly: true }, u: "index.html" },
     members_kinds: [
       { t: "Chuyên gia AI và tự động hoá", d: "Những người làm nghề tư vấn, đào tạo và xây hệ thống AI, chia sẻ phương pháp và công cụ.",
         t_en: "AI and automation experts", d_en: "People who consult, train and build AI systems, sharing their methods and tools." },
