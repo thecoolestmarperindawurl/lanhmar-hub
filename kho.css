@@ -450,10 +450,6 @@ dialog{background:var(--neu-bg);box-shadow:var(--neu-up-l)}
 .neu-sw input:focus-visible+i{outline:3px solid var(--orange);outline-offset:3px}
 .neu-sw:active i::after{width:26px}
 .grid{grid-template-columns:repeat(auto-fill,minmax(var(--gmin,300px),1fr))}
-body.neu-compact .res-info p,body.neu-compact .card>p{display:none}
-body.neu-compact .res-thumb{width:84px;height:48px}
-body.neu-compact .res-card{padding:10px 14px;grid-template-columns:96px 1fr}
-body.neu-compact .card{padding:14px}
 @media(max-width:560px){.neu-ctl{gap:14px}}
 @media (prefers-reduced-motion:reduce){.neu-sw i::after,.card,.res-card,.tab,.gpill,.chip,.btn{transition:none!important}}
 
@@ -525,3 +521,12 @@ body.neu-compact .card{padding:14px}
 .lockcard .st-lang{justify-self:start;margin:-6px 0 4px -6px}
 .st-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .res-vi-note{background:var(--lav-100);border:1px dashed var(--lav-400);border-radius:12px;padding:8px 12px;font-size:13px}
+
+/* Vệt sao theo con trỏ (công tắc Hiệu ứng) */
+.fx-stars{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}
+.fx-stars i{position:absolute;font-style:normal;line-height:1;transform:translate(-50%,-50%);animation:fxStar .9s ease-out forwards;text-shadow:0 0 6px rgba(255,255,255,.6)}
+@keyframes fxStar{0%{opacity:1;transform:translate(-50%,-50%) scale(.4) rotate(0)}100%{opacity:0;transform:translate(calc(-50% + var(--dx,0px)),calc(-50% + var(--dy,0px))) scale(1) rotate(var(--rot,0deg))}}
+/* tắt hiệu ứng: thẻ không nhấc/không sáng theo chuột */
+body.fx-off .card:hover,body.fx-off .res-card:hover{transform:none;box-shadow:var(--neu-up)}
+body.fx-off .card::after{display:none}
+@media (prefers-reduced-motion:reduce){.fx-stars{display:none}}
