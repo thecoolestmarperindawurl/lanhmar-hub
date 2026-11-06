@@ -9189,7 +9189,8 @@
             "Gỡ băng tự động có thể sai thuật ngữ. Chỗ Claude không chắc được đánh dấu “Cần kiểm tra”. Bạn vẫn cần đọc lại trước khi dùng.",
             "Claude chỉ dùng lời giảng và chữ trên slide, không thêm kiến thức ngoài. Thấy chỗ lệch ý giảng viên thì đối chiếu mục lời giảng gốc trong recap.html.",
             "Notion không giữ hộp ghi nhớ và cột khi import Markdown, hộp ghi nhớ thành khối trích dẫn.",
-            "Chỉ dùng với video bạn có quyền sử dụng."
+            "Chỉ dùng với video bạn có quyền sử dụng.",
+            "Có thể dừng giữa chừng bằng Ctrl+C rồi chạy lại đúng lệnh cũ: tool lưu phần video đã tải, kết quả dò slide, gỡ băng (mỗi 30 giây) và kết quả các bước Claude, nên chỉ làm tiếp phần còn lại."
           ]
         },
         {

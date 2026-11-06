@@ -66,17 +66,65 @@ DRIVE_HELP = ("Drive chỉ cho tải ẩn danh khi file công khai (“Bất k�
               "\nHoặc tải video về máy bằng trình duyệt (nếu chủ file cho phép tải xuống) rồi chạy với đường dẫn file.")
 
 
-def fetch_drive_public(fid, dst):
-    """Tải file Drive công khai (có trang xác nhận virus-scan cho file lớn), ghi theo khối, in tiến độ."""
+DRIVE_PUBLIC_URL = "https://drive.usercontent.google.com/download"
+
+
+def _download_resumable(dst, url, get_headers, refresh=None, total=0, tries=5):
+    """Tải url về dst qua file .part. Đã có phần dở (hoặc đứt mạng giữa chừng) thì tiếp tục bằng Range thay vì tải lại từ đầu."""
     dst = Path(dst)
-    if dst.is_file() and dst.stat().st_size > 1_000_000:
-        print(f"Dùng bản đã tải: {dst}")
-        return dst
-    url = "https://drive.usercontent.google.com/download?" + urllib.parse.urlencode({"id": fid, "export": "download", "confirm": "t"})
-    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (lanhmar-hub course-recap)"})
     tmp = dst.with_suffix(dst.suffix + ".part")
+    t0, last, fails = time.time(), 0, 0
+    while True:
+        have = tmp.stat().st_size if tmp.is_file() else 0
+        if total and have >= total:
+            break
+        hdr = dict(get_headers())
+        if have:
+            hdr["Range"] = f"bytes={have}-"
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, headers=hdr), timeout=120) as r:
+                if "text/html" in r.headers.get("content-type", ""):
+                    sys.exit("Drive trả về trang đăng nhập/HTML thay vì video: file không công khai (hoặc đã hết lượt tải).\n" + DRIVE_HELP)
+                if have and r.status != 206:          # máy chủ bỏ qua Range: tải lại từ đầu cho chắc
+                    have = 0
+                m = re.search(r"/(\d+)$", r.headers.get("Content-Range", ""))
+                if m:
+                    total = int(m.group(1))
+                elif not total and r.headers.get("content-length") and not have:
+                    total = int(r.headers["content-length"])
+                if have:
+                    print(f"  tiếp tục tải từ {have / 1e6:,.0f} MB")
+                with open(tmp, "ab" if have else "wb") as f:
+                    while chunk := r.read(8 << 20):
+                        f.write(chunk); have += len(chunk)
+                        if time.time() - last > 5:
+                            last = time.time()
+                            print(f"  tải {have / 1e6:,.0f} MB" + (f" / {total / 1e6:,.0f} MB" if total else "") + f" ({have / 1e6 / max(last - t0, 1):.1f} MB/s)", end="\r", flush=True)
+            if not total or have >= total:
+                break
+        except urllib.error.HTTPError as e:
+            if e.code == 416:                          # đã đủ byte
+                break
+            if e.code == 401 and refresh and fails < 3:
+                refresh()
+            else:
+                raise
+        except (urllib.error.URLError, OSError, http.client.HTTPException) as e:
+            if fails >= tries:
+                sys.exit(f"Mạng chập chờn, đã thử lại {tries} lần mà chưa tải xong ({e}). Phần đã tải được giữ lại: chạy lại đúng lệnh cũ để tiếp tục.")
+        fails += 1
+        print(f"\n  (đứt kết nối, thử tiếp tục lần {fails}…)")
+        time.sleep(2 * fails)
+    os.replace(tmp, dst)
+    print(f"\nĐã tải {dst} ({dst.stat().st_size / 1e6:,.0f} MB)")
+    return dst
+
+
+def fetch_drive_public(fid, dst):
+    """Tải file Drive công khai (ẩn danh), tiếp tục được từ chỗ dở."""
+    url = DRIVE_PUBLIC_URL + "?" + urllib.parse.urlencode({"id": fid, "export": "download", "confirm": "t"})
     try:
-        r = urllib.request.urlopen(req, timeout=120)
+        return _download_resumable(dst, url, lambda: {"User-Agent": "Mozilla/5.0 (lanhmar-hub course-recap)"})
     except urllib.error.HTTPError as e:
         why = {404: "không tìm thấy file (sai link/ID, hoặc file không chia sẻ cho bạn)",
                403: "Drive từ chối (file không công khai, hoặc đã hết lượt tải trong ngày)",
@@ -84,19 +132,6 @@ def fetch_drive_public(fid, dst):
         sys.exit(f"Không tải được video từ Drive: {why}.\n" + DRIVE_HELP)
     except (urllib.error.URLError, OSError) as e:
         sys.exit(f"Không kết nối được tới Drive ({e}). Kiểm tra mạng/proxy, hoặc tải video về máy rồi chạy với đường dẫn file.")
-    with r, open(tmp, "wb") as f:
-        if "text/html" in r.headers.get("content-type", ""):
-            sys.exit("Drive trả về trang đăng nhập/HTML thay vì video: file không công khai (hoặc đã hết lượt tải).\n" + DRIVE_HELP)
-        size, got, t0, last = int(r.headers.get("content-length") or 0), 0, time.time(), 0
-        while chunk := r.read(8 << 20):
-            f.write(chunk); got += len(chunk)
-            if time.time() - last > 5:
-                last = time.time()
-                print(f"  tải {got / 1e6:,.0f} MB" + (f" / {size / 1e6:,.0f} MB" if size else "") +
-                      f" ({got / 1e6 / max(last - t0, 1):.1f} MB/s)", end="\r", flush=True)
-    tmp.rename(dst)
-    print(f"\nĐã tải {dst} ({dst.stat().st_size / 1e6:,.0f} MB)")
-    return dst
 
 
 def _http_json(req, timeout=60):
@@ -248,44 +283,14 @@ def fetch_drive_auth(fid, dst, tok):
         sys.exit("Chủ file đã tắt quyền tải xuống, tool không tải được. Hãy xin chủ file cho phép tải hoặc xin bản video khác.")
     total = int(meta.get("size") or 0)
     print(f"Tải từ Drive{(' bằng ' + who) if who else ''}: {meta.get('name', fid)} ({total / 1e6:,.0f} MB)")
-    tmp = dst.with_suffix(dst.suffix + ".part")
-    t0, last, tries = time.time(), 0, 0
-    while True:
-        have = tmp.stat().st_size if tmp.is_file() else 0
-        if total and have >= total:
-            break
-        hdr = {"Authorization": "Bearer " + tok}
-        if have:
-            hdr["Range"] = f"bytes={have}-"
-        try:
-            with urllib.request.urlopen(urllib.request.Request(f"{DRIVE_API}/files/{fid}?alt=media&supportsAllDrives=true", headers=hdr), timeout=120) as r:
-                if have and r.status != 206:      # máy chủ bỏ qua Range: tải lại từ đầu
-                    have = 0
-                with open(tmp, "ab" if have else "wb") as f:
-                    while chunk := r.read(8 << 20):
-                        f.write(chunk); have += len(chunk)
-                        if time.time() - last > 5:
-                            last = time.time()
-                            print(f"  tải {have / 1e6:,.0f} MB" + (f" / {total / 1e6:,.0f} MB" if total else "") + f" ({have / 1e6 / max(last - t0, 1):.1f} MB/s)", end="\r", flush=True)
-            if not total or have >= total:
-                break
-        except urllib.error.HTTPError as e:
-            if e.code == 401 and tries < 3:
-                tok = get_access_token(force_refresh=True)
-            elif e.code == 416:
-                break
-            else:
-                sys.exit(f"Drive từ chối khi tải ({e.code}). Có thể file đã hết lượt tải trong ngày, thử lại sau.")
-        except (urllib.error.URLError, OSError, http.client.HTTPException) as e:
-            if tries >= 5:
-                sys.exit(f"Mạng chập chờn, đã thử lại 5 lần mà không tải xong ({e}). Chạy lại đúng lệnh cũ để tiếp tục từ chỗ đã tải.")
-        tries += 1
-        print(f"\n  (đứt kết nối, thử tiếp tục lần {tries}…)")
-        time.sleep(2 * tries)
-        tok = get_access_token(force_refresh=True)
-    tmp.rename(dst)
-    print(f"\nĐã tải {dst} ({dst.stat().st_size / 1e6:,.0f} MB)")
-    return dst
+    box = {"tok": tok}
+    def refresh():
+        box["tok"] = get_access_token(force_refresh=True)
+    try:
+        return _download_resumable(dst, f"{DRIVE_API}/files/{fid}?alt=media&supportsAllDrives=true",
+                                   lambda: {"Authorization": "Bearer " + box["tok"]}, refresh=refresh, total=total)
+    except urllib.error.HTTPError as e:
+        sys.exit(f"Drive từ chối khi tải ({e.code}). Có thể file đã hết lượt tải trong ngày, thử lại sau; phần đã tải được giữ lại.")
 
 
 def fetch_drive(fid, dst):
@@ -369,9 +374,13 @@ def parse_subs(path):
 
 def whisper_cues(video, lang, model_name, cache, prompt=None, beam=5):
     cache = Path(cache)
+    key = f"{Path(video).stat().st_size}|{model_name}|{beam}|{lang}"   # khác video/model/beam/ngôn ngữ thì không dùng lại kết quả cũ
     if cache.is_file():
-        print(f"Dùng lời giảng đã gỡ băng: {cache}")
-        return [tuple(c) for c in json.loads(cache.read_text(encoding="utf-8"))]
+        d = json.loads(cache.read_text(encoding="utf-8"))
+        if isinstance(d, list) or d.get("key") == key:    # list = định dạng cũ, vẫn dùng được
+            print(f"Dùng lời giảng đã gỡ băng: {cache}")
+            return [tuple(c) for c in (d if isinstance(d, list) else d["cues"])]
+        print(f"Lời giảng đã lưu ({cache.name}) thuộc video/cấu hình khác: bỏ qua và gỡ băng lại.")
     try:
         from faster_whisper import WhisperModel
     except ImportError:
@@ -394,9 +403,12 @@ def whisper_cues(video, lang, model_name, cache, prompt=None, beam=5):
     cues, start = [], 0.0
     if part.is_file():
         d = json.loads(part.read_text(encoding="utf-8"))
-        cues, start = [tuple(c) for c in d["cues"]], float(d["until"])
-        print(f"Tiếp tục gỡ băng từ {hms(start)} (đã có {len(cues)} câu từ lần trước).")
-    save = lambda: part.write_text(json.dumps({"until": cues[-1][1] if cues else start, "cues": cues}, ensure_ascii=False), encoding="utf-8")
+        if d.get("key") == key:
+            cues, start = [tuple(c) for c in d["cues"]], float(d["until"])
+            print(f"Tiếp tục gỡ băng từ {hms(start)} (đã có {len(cues)} câu từ lần trước).")
+        else:
+            print("Tiến độ gỡ băng dở thuộc video/cấu hình khác: bỏ qua và gỡ băng lại từ đầu.")
+    save = lambda: part.write_text(json.dumps({"key": key, "until": cues[-1][1] if cues else start, "cues": cues}, ensure_ascii=False), encoding="utf-8")
     segs, info = model.transcribe(audio[int(start * SR):], language=lang, initial_prompt=prompt or None, vad_filter=True,
                                   beam_size=beam, condition_on_previous_text=False)
     t0, last_print, last_save = time.time(), 0, time.time()
@@ -414,7 +426,7 @@ def whisper_cues(video, lang, model_name, cache, prompt=None, beam=5):
         save()
         print(f"\nĐã dừng và lưu tiến độ tới {hms(cues[-1][1] if cues else start)} / {hms(total)}. Chạy lại đúng lệnh cũ để làm tiếp.")
         sys.exit(130)
-    cache.write_text(json.dumps(cues, ensure_ascii=False), encoding="utf-8")
+    cache.write_text(json.dumps({"key": key, "cues": cues}, ensure_ascii=False), encoding="utf-8")
     part.unlink(missing_ok=True)
     wav.unlink(missing_ok=True)
     print(f"\nXong gỡ băng: {len(cues)} câu")
@@ -449,6 +461,27 @@ def paragraphs(cues, pause=2.5, maxlen=420):
 
 
 # ---------- Xuất ----------
+def resume_report(out):
+    """In những gì đã được lưu từ lần chạy trước để người dùng biết tool sẽ tiếp tục từ đâu."""
+    out, found = Path(out), []
+    try:
+        if (out / "video.mp4").is_file():
+            found.append(f"video đã tải ({(out / 'video.mp4').stat().st_size / 1e6:,.0f} MB)")
+        elif (out / "video.mp4.part").is_file():
+            found.append(f"video tải dở ({(out / 'video.mp4.part').stat().st_size / 1e6:,.0f} MB, sẽ tải tiếp)")
+        if (out / "segments.json").is_file():
+            found.append("kết quả dò slide")
+        for f in out.glob("transcript-*.json"):
+            if f.name.endswith(".partial.json"):
+                found.append(f"gỡ băng dở tới {hms(json.loads(f.read_text(encoding='utf-8')).get('until', 0))} (sẽ làm tiếp)")
+            else:
+                found.append("lời giảng đã gỡ băng xong")
+    except (OSError, ValueError):
+        return
+    if found:
+        print("Đã lưu từ lần trước, sẽ dùng lại: " + "; ".join(found) + ".")
+
+
 def hms(t):
     t = int(t)
     return f"{t // 3600:02d}:{t % 3600 // 60:02d}:{t % 60:02d}" if t >= 3600 else f"{t // 60:02d}:{t % 60:02d}"
@@ -548,6 +581,7 @@ def main():
             sys.exit(f"Không thấy file {video}")
         out = Path(a.out or f"recap-{video.stem}")
     (out / "slides").mkdir(parents=True, exist_ok=True)
+    resume_report(out)
     glossary = [l.strip() for l in Path(a.glossary).read_text(encoding="utf-8-sig").splitlines() if l.strip()] if a.glossary else []
     prompt = " ".join(x for x in [a.context, ", ".join(glossary)] if x)[:600] or None
     title = a.title or video.stem.replace("-", " ").replace("_", " ")
@@ -599,4 +633,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\nĐã dừng. Phần đã làm được lưu lại: chạy lại đúng lệnh cũ để làm tiếp phần còn lại.")
+        sys.exit(130)

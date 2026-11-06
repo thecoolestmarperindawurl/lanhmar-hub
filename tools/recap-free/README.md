@@ -84,7 +84,37 @@ python recap.py "https://drive.google.com/file/d/<ID>/view" --title "Buổi 1"
 
 ## Thời gian / How long it takes
 
-Một lần đo thực tế: video **2 giờ 03 phút**, laptop Windows, model `small` — dò slide ~3 phút, gỡ băng ~51 phút, ra 88 slide. Máy khác sẽ khác. Gỡ băng là bước lâu nhất; bấm `Ctrl+C` bất cứ lúc nào rồi chạy lại **đúng lệnh cũ** để làm tiếp từ chỗ dừng.
+Một lần đo thực tế: video **2 giờ 03 phút**, laptop Windows, model `small` — dò slide ~3 phút, gỡ băng ~51 phút, ra 88 slide. Máy khác sẽ khác. Gỡ băng là bước lâu nhất; bấm `Ctrl+C` bất cứ lúc nào rồi chạy lại **đúng lệnh cũ** để làm tiếp từ chỗ dừng (xem mục “Dừng và chạy tiếp”).
+
+## Dừng và chạy tiếp / Stop and resume
+
+**VI** — Video dài chạy hàng chục phút đến hàng giờ, nên bạn có thể **dừng bất cứ lúc nào rồi chạy tiếp sau**.
+
+- **Dừng:** bấm `Ctrl+C` **một lần** trong cửa sổ dòng lệnh, chờ dòng “Đã dừng”. Nếu lỡ tắt cửa sổ hoặc mất điện, bạn chỉ mất tối đa khoảng 30 giây gỡ băng.
+- **Chạy tiếp:** chạy lại **đúng lệnh cũ** (giữ nguyên `--out` nếu bạn có đặt). Tool in dòng “Đã lưu từ lần trước, sẽ dùng lại: …” cho biết nó nhớ những gì.
+
+| Bước | Nếu dừng giữa chừng |
+|---|---|
+| Tải video từ Drive | Giữ phần đã tải, lần sau tải tiếp (không tải lại từ đầu) |
+| Dò slide | Lưu khi xong. Nếu dừng giữa bước này thì làm lại bước này |
+| Gỡ băng (lâu nhất) | Lưu mỗi ~30 giây, lần sau tiếp tục từ chỗ dừng |
+| Chụp slide, xuất recap | Không lưu dở, làm lại mỗi lần chạy |
+
+**Khi nào tool làm lại từ đầu (cố ý):** đổi sang **video khác** trong cùng thư mục (tool tự phát hiện, không dùng nhầm lời giảng cũ); đổi `--model`, `--beam` hoặc `--lang` (gỡ băng lại); đổi `--scene`, `--crop` hoặc `--min-gap` (dò slide lại). Đổi `--context` / `--glossary` **không** gỡ băng lại; muốn áp dụng cho lời giảng thì xoá file `transcript-*.json` trong thư mục kết quả.
+
+**EN** — Long videos take tens of minutes to hours, so you can **stop any time and resume later**.
+
+- **Stop:** press `Ctrl+C` **once** and wait for “Đã dừng” (stopped). If you close the window or lose power you lose at most ~30 seconds of transcription.
+- **Resume:** rerun the **exact same command** (keep `--out` if you used it). The tool prints “Đã lưu từ lần trước, sẽ dùng lại: …” (saved from last time, will reuse) to show what it remembers.
+
+| Step | If interrupted |
+|---|---|
+| Downloading from Drive | The partial file is kept and the download continues next time |
+| Slide detection | Saved when finished. If interrupted midway, this step is redone |
+| Transcription (the slowest) | Saved about every 30 s, resumes where it stopped |
+| Slide images, writing the recap | Not saved midway, redone on every run |
+
+**When it deliberately starts over:** a **different video** in the same folder (detected automatically, so an old transcript is never reused by mistake); a changed `--model`, `--beam` or `--lang` (retranscribes); a changed `--scene`, `--crop` or `--min-gap` (redoes slide detection). Changing `--context` / `--glossary` does **not** retranscribe; delete the `transcript-*.json` file in the output folder to apply it.
 
 ## Giới hạn / Limits
 
