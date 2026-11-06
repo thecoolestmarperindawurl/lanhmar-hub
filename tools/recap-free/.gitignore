@@ -5,3 +5,10 @@ recap-*/
 *.mov
 *.wav
 __pycache__/
+
+# thông tin đăng nhập Google: TUYỆT ĐỐI không đưa lên repo
+google-client.json
+client_secret*.json
+*.token
+google-token.json
+.course-recap/

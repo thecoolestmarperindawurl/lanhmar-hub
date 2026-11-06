@@ -21,11 +21,7 @@ Video trên Google Drive **công khai** — file chia sẻ **"Bất kỳ ai có 
 python recap.py "https://drive.google.com/file/d/<ID>/view" --title "Buổi 1"
 ```
 
-**Drive chỉ chia sẻ cho một số email? / Drive shared only with specific people?**
-
-**VI** — Tool không đăng nhập Google nên **không tải được** file kiểu này, dù tài khoản của bạn có quyền xem. Cách làm: mở link bằng tài khoản được cấp quyền, bấm **Tải xuống** để lưu video về máy, rồi chạy tool với đường dẫn file (lệnh bên dưới). Nếu không có nút Tải xuống, chủ file đã tắt quyền tải: hãy xin chủ file cho phép hoặc xin bản video khác.
-
-**EN** — The tool does not sign in to Google, so it **cannot download** such files even if your account can view them. Open the link with the account that has access, click **Download** to save the video, then run the tool on the file path (command below). If there is no Download option, the owner has disabled downloads: ask them to allow it or to share another copy.
+**Drive chỉ chia sẻ cho một số email? / Drive shared only with specific people?** → đăng nhập Google một lần, xem mục [Đăng nhập Google](#đăng-nhập-google--sign-in-with-google) bên dưới. / Sign in with Google once, see [Sign in with Google](#đăng-nhập-google--sign-in-with-google) below.
 
 Video đã có trên máy / a local file:
 
@@ -34,6 +30,44 @@ python recap.py bai-giang.mp4 --title "Buổi 1"
 ```
 
 Mở `recap-<tên>/recap.html` bằng trình duyệt. Thư mục kết quả gồm `recap.html` (xem), `recap.md`, `recap.json`, `slides/` (ảnh). Muốn chia sẻ kết quả, gửi cả thư mục, không chỉ riêng file html.
+
+## Đăng nhập Google / Sign in with Google
+
+**VI** — Với video Drive chỉ chia sẻ cho một danh sách email, đăng nhập Google **một lần** rồi dán link như thường. Quyền chỉ **đọc Drive** (`drive.readonly`): tool không sửa hay xoá gì. **Mỗi người tự tạo thông tin đăng nhập của mình** (miễn phí, khoảng 10 phút, một lần), vì Google giới hạn và kiểm duyệt quyền đọc Drive nên không thể dùng chung.
+
+**EN** — For Drive videos shared only with specific emails, sign in to Google **once**, then paste links as usual. The permission is **read-only Drive** (`drive.readonly`): the tool never edits or deletes anything. **Everyone creates their own credentials** (free, about 10 minutes, one time), because Google restricts and reviews Drive-read access so one shared credential is not possible.
+
+### 1. Tạo thông tin đăng nhập (một lần) / Create credentials (once)
+
+Tên menu của Google Cloud Console hay đổi; nếu khác, tìm theo từ khoá in đậm. / Menu names change; search by the bold keywords.
+
+1. Vào https://console.cloud.google.com bằng tài khoản **đã được cấp quyền xem video**, tạo một project mới (hoặc dùng lại project cũ). / Sign in with the account **that can view the video** and create a project.
+2. **APIs & Services → Library** → **Google Drive API** → **Enable**.
+3. **OAuth consent screen** (hoặc **Google Auth Platform**): **External**, điền tên ứng dụng tuỳ ý và email của bạn. Ở **Audience / Test users**, **thêm chính email của bạn**, để chế độ **Testing**. / Choose **External**, add **your own email under Test users**, keep **Testing**.
+4. **Clients → Create client** → **Application type: Desktop app** → **Download JSON**. / Choose **Desktop app** and download the JSON.
+5. Đổi tên file thành `google-client.json`, đặt cạnh `recap.py` (hoặc dùng `--google-client đường-dẫn`). / Rename it `google-client.json` next to `recap.py` (or use `--google-client path`).
+
+### 2. Đăng nhập (một lần) / Sign in (once)
+
+```bash
+python recap.py --google-login
+```
+
+Trình duyệt mở ra: chọn **đúng tài khoản được cấp quyền xem video**. Vì ứng dụng ở chế độ Testing, Google hiện **“Google hasn’t verified this app”**: bấm **Advanced → Go to … (unsafe)**, rồi cho phép quyền chỉ đọc Drive. Đây là ứng dụng do chính bạn tạo nên cảnh báo này là bình thường. / The browser opens: pick **the account that can view the video**. Because the app is in Testing, Google shows **“Google hasn’t verified this app”**: click **Advanced → Go to … (unsafe)** and allow read-only Drive access. It is your own app, so this warning is expected.
+
+Sau đó dùng bình thường / Then use it as usual:
+
+```bash
+python recap.py "https://drive.google.com/file/d/<ID>/view" --title "Buổi 1"
+```
+
+### Lưu ý an toàn / Safety notes
+
+- **Không chia sẻ `google-client.json` và file token**, không đưa lên GitHub (`.gitignore` đã chặn các tên phổ biến). Token lưu ở `~/.course-recap/google-token.json` (Windows: `C:\Users\<tên>\.course-recap\`); ai có file này đọc được Drive của bạn. / Never share `google-client.json` or the token file and never commit them. Anyone with the token file can read your Drive.
+- `python recap.py --google-logout` xoá token trên máy; thu hồi hẳn tại https://myaccount.google.com/permissions. / `--google-logout` deletes the local token; revoke fully at that URL.
+- **Token hết hạn sau 7 ngày** khi ứng dụng ở chế độ Testing (quy định của Google): chạy lại `--google-login`. / **The token expires after 7 days** while the app is in Testing (Google's rule): rerun `--google-login`.
+- Chủ file **tắt quyền tải xuống** thì tool không tải được (giới hạn của Drive): xin chủ file cho phép. / If the owner **disabled downloads**, the tool cannot download it (a Drive limit): ask the owner to allow it.
+- Đổi tài khoản: `--google-logout` rồi `--google-login`. Tải đứt mạng thì tự tiếp tục từ chỗ đã tải. / Switch account with logout then login. Interrupted downloads resume automatically.
 
 ## Tuỳ chọn hay dùng / Handy options
 
@@ -55,14 +89,14 @@ Một lần đo thực tế: video **2 giờ 03 phút**, laptop Windows, model `
 ## Giới hạn / Limits
 
 - **Chữ là gỡ băng tự động** nên có thể sai thuật ngữ, tên riêng, số liệu. Hãy đọc lại trước khi dùng; dùng `--glossary` và `--model medium` để giảm lỗi.
-- Dán trực tiếp link Drive chỉ hoạt động với file công khai ("Bất kỳ ai có link"). File giới hạn theo email: tải về máy rồi dùng đường dẫn file (xem mục trên). Drive đôi khi tạm khoá file có quá nhiều lượt tải.
+- Link Drive công khai ("Bất kỳ ai có link") dùng được ngay. File riêng tư cần **đăng nhập Google một lần** (mục trên) và chủ file không tắt quyền tải. Drive đôi khi tạm khoá file có quá nhiều lượt tải. / Public links work immediately. Private files need a **one-time Google sign-in** (above) and downloads must not be disabled by the owner.
 - Slide được nhận biết khi hình đổi mạnh. Video có webcam chiếm khung, hoặc slide chỉ đổi chữ, cần chỉnh `--crop` / `--scene`.
 - Recap giữ nguyên lời giảng, **không tóm tắt hay viết lại**.
 - Chỉ dùng với video bạn có quyền sử dụng (khoá học của bạn, hoặc được người sở hữu cho phép).
 
 ## Quyền riêng tư / Privacy
 
-Gỡ băng chạy bằng `faster-whisper` ngay trên máy bạn. Mạng chỉ dùng để tải video từ Drive và tải model whisper về lần đầu. Không có gì được gửi đi đâu khác.
+Gỡ băng chạy bằng `faster-whisper` ngay trên máy bạn. Mạng chỉ dùng để tải video từ Drive (và đăng nhập Google nếu bạn chọn) và tải model whisper về lần đầu. Không có gì được gửi đi đâu khác; token đăng nhập chỉ nằm trên máy bạn. / The network is only used to download the video from Drive (and for Google sign-in if you choose it) and to fetch the whisper model once. Nothing else is sent anywhere; the sign-in token stays on your machine.
 
 ## Giấy phép / License
 
