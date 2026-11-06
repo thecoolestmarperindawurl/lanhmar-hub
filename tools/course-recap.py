@@ -220,28 +220,44 @@ Nhiệm vụ: viết lại lời giảng cho đúng ngữ cảnh, dễ đọc, n
 Chỉ trả về JSON hợp lệ, không thêm chữ nào khác: {"paragraphs": ["..."], "uncertain": ["trích đoạn nghi ngờ + lý do ngắn"]}"""
 
 
-def polish_slide(client, model, img_path, raw, context, glossary):
+POLISH_TOOL = {
+    "name": "submit_recap",
+    "description": "Nộp lời giảng đã biên tập của slide này.",
+    "input_schema": {"type": "object", "properties": {
+        "paragraphs": {"type": "array", "items": {"type": "string"}, "description": "Các đoạn lời giảng đã sửa, theo đúng thứ tự"},
+        "uncertain": {"type": "array", "items": {"type": "string"}, "description": "Đoạn nghi ngờ + lý do ngắn; để trống nếu không có"}},
+        "required": ["paragraphs", "uncertain"]},
+}
+
+
+def polish_slide(client, model, img_path, raw, context, glossary, label="?"):
     img = base64.standard_b64encode(Path(img_path).read_bytes()).decode()
     extra = (f"Bối cảnh bài giảng: {context}\n" if context else "") + (f"Thuật ngữ/tên riêng chuẩn: {', '.join(glossary)}\n" if glossary else "")
     text = f"{extra}\nLời giảng thô của slide này:\n" + "\n\n".join(raw)
     last = None
     for attempt in range(3):
         try:
+            # tool_choice ép Claude trả đúng khuôn JSON (không còn lỗi "không tìm thấy JSON" khi trả lời văn xuôi)
             r = client.messages.create(
-                model=model, max_tokens=4096, system=POLISH_RULES,
+                model=model, max_tokens=8192, system=POLISH_RULES.split("Chỉ trả về JSON")[0].rstrip(),
+                tools=[POLISH_TOOL], tool_choice={"type": "tool", "name": POLISH_TOOL["name"]},
                 messages=[{"role": "user", "content": [
                     {"type": "image", "source": {"type": "base64", "media_type": "image/jpeg", "data": img}},
                     {"type": "text", "text": text}]}])
-            out = "".join(b.text for b in r.content if getattr(b, "type", "") == "text")
-            data = json.loads(out[out.index("{"): out.rindex("}") + 1])
+            blk = next((b for b in r.content if getattr(b, "type", "") == "tool_use"), None)
+            if blk is None:
+                raise ValueError(f"không có kết quả (stop_reason={getattr(r, 'stop_reason', '?')})")
+            if getattr(r, "stop_reason", "") == "max_tokens":
+                raise ValueError("bị cắt giữa chừng (max_tokens)")
+            data = blk.input
             paras = [str(x).strip() for x in data.get("paragraphs", []) if str(x).strip()]
             if paras:
                 return paras, [str(x) for x in data.get("uncertain", [])]
-            last = "trả về rỗng"
-        except Exception as e:  # lỗi mạng / JSON hỏng: thử lại
-            last = e
+            raise ValueError("trả về rỗng")
+        except Exception as e:  # lỗi mạng / trả thiếu: thử lại
+            last = f"{type(e).__name__}: {e}"
             time.sleep(2 * (attempt + 1))
-    print(f"\n  ! Slide: không làm sạch được ({last}); giữ lời giảng gốc")
+    print(f"\n  ! Slide {label}: không làm sạch được ({last}); giữ lời giảng gốc — chạy lại --polish-only để thử lại riêng slide này")
     return raw, []
 
 
@@ -260,7 +276,7 @@ def polish_all(slides, out, model, context, glossary, workers=4):
     print(f"Làm sạch lời giảng bằng {model}: {len(todo)} slide cần xử lý ({sum(1 for s in slides if s['raw']) - len(todo)} đã làm sạch từ trước, dùng lại)")
     done = 0
     with concurrent.futures.ThreadPoolExecutor(workers) as ex:
-        futs = {ex.submit(polish_slide, client, model, out / s["image"], s["raw"], context, glossary): s for s in todo}
+        futs = {ex.submit(polish_slide, client, model, out / s["image"], s["raw"], context, glossary, s["n"]): s for s in todo}
         for f in concurrent.futures.as_completed(futs):
             s = futs[f]
             paras, unsure = f.result()
