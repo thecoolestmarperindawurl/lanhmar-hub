@@ -237,20 +237,25 @@ POLISH_TOOL = {
 
 
 def call_tool(client, model, system, content, tool, max_tokens=8192, label="?", tries=3):
-    """Gọi Claude ép trả đúng khuôn của `tool` (tool use). Thử lại khi lỗi mạng/trả thiếu; hết lượt trả None."""
+    """Gọi Claude để lấy kết quả đúng khuôn của `tool`. Một số model không cho ép tool_choice nên dùng chế độ tự động:
+    dặn bắt buộc gọi công cụ; nếu model vẫn trả chữ thì tách JSON trong chữ. Thử lại khi lỗi; hết lượt trả None."""
+    system = system + f"\n\nBạn PHẢI trả kết quả bằng cách gọi công cụ `{tool['name']}`, không trả lời bằng văn bản thường."
     last = None
     for attempt in range(tries):
         try:
             r = client.messages.create(
                 model=model, max_tokens=max_tokens, system=system, tools=[tool],
-                tool_choice={"type": "tool", "name": tool["name"]},
                 messages=[{"role": "user", "content": content}])
-            blk = next((b for b in r.content if getattr(b, "type", "") == "tool_use"), None)
-            if blk is None:
-                raise ValueError(f"không có kết quả (stop_reason={getattr(r, 'stop_reason', '?')})")
             if getattr(r, "stop_reason", "") == "max_tokens":
                 raise ValueError("bị cắt giữa chừng (max_tokens)")
-            return blk.input
+            blk = next((b for b in r.content if getattr(b, "type", "") == "tool_use"), None)
+            if blk is not None:
+                return blk.input
+            txt = "".join(getattr(b, "text", "") for b in r.content if getattr(b, "type", "") == "text")
+            try:
+                return json.loads(txt[txt.index("{"): txt.rindex("}") + 1])
+            except ValueError:
+                raise ValueError(f"không có kết quả (stop_reason={getattr(r, 'stop_reason', '?')}; trả lời: {txt[:120]!r})")
         except Exception as e:
             last = f"{type(e).__name__}: {e}"
             time.sleep(2 * (attempt + 1))
