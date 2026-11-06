@@ -16,8 +16,8 @@ Làm sạch lời giảng (khi gỡ băng sai nhiều thuật ngữ/tên riêng)
 Bản gốc chưa chỉnh luôn được giữ (recap.json: "raw"; recap.html: mục "Xem lời giảng gốc"). Chỗ Claude không chắc được đánh dấu "Cần kiểm tra".
 
 Video dài (>2 giờ): dò slide ở 1 khung/giây độ phân giải thấp nên nhanh; gỡ băng là bước lâu nhất (thường ~0.5–1x thời lượng
-trên CPU, model `small`). Kết quả gỡ băng được lưu `transcript.json` trong thư mục xuất — chạy lại sẽ dùng luôn, không gỡ lại.
-Mở `sample.jpg` trong thư mục xuất để chọn --crop nếu khung hình có webcam giảng viên.
+trên CPU, model `small`). Kết quả gỡ băng được lưu `transcript-<model>-b<beam>.json` trong thư mục xuất — chạy lại sẽ dùng luôn, không gỡ lại.
+Chữ gỡ băng sai nhiều: dùng `--model medium` hoặc `large-v3` (đổi model/beam sẽ tự gỡ lại; chậm hơn). Mở `sample.jpg` trong thư mục xuất để chọn --crop nếu khung hình có webcam giảng viên.
 
 Cần: ffmpeg/ffprobe (bắt buộc). Gỡ băng tự động cần `pip install faster-whisper` (chỉ khi không có --transcript).
 
@@ -146,7 +146,7 @@ def parse_subs(path):
     return cues
 
 
-def whisper_cues(video, lang, model_name, cache, prompt=None):
+def whisper_cues(video, lang, model_name, cache, prompt=None, beam=5):
     cache = Path(cache)
     if cache.is_file():
         print(f"Dùng lời giảng đã gỡ băng: {cache}")
@@ -167,7 +167,7 @@ def whisper_cues(video, lang, model_name, cache, prompt=None):
     import numpy as np
     with wave.open(str(wav), "rb") as w:
         audio = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float32) / 32768.0
-    segs, info = model.transcribe(audio, language=lang, initial_prompt=prompt or None, vad_filter=True, beam_size=1, condition_on_previous_text=False)
+    segs, info = model.transcribe(audio, language=lang, initial_prompt=prompt or None, vad_filter=True, beam_size=beam, condition_on_previous_text=False)
     cues, t0, last = [], time.time(), 0
     for s_ in segs:
         if s_.text.strip():
@@ -216,7 +216,9 @@ Nhiệm vụ: viết lại lời giảng cho đúng ngữ cảnh, dễ đọc, n
 - Sửa lỗi nhận dạng giọng nói: tên riêng, thuật ngữ, từ tiếng Anh, tên công cụ/thương hiệu, con số, dấu câu, viết hoa. Dùng chữ trên slide và danh sách thuật ngữ để chuẩn hoá cách viết.
 - Bỏ từ đệm và câu lặp (ừ, à, thì là, nói lại...) nhưng GIỮ mọi ý, ví dụ, con số, lời dặn của giảng viên. Giữ giọng giảng viên (xưng hô như trong lời gốc), văn nói tự nhiên, rõ ràng; chia đoạn theo ý.
 - TUYỆT ĐỐI không thêm thông tin, số liệu, ví dụ hay kết luận mà lời giảng và slide không có. Không tóm tắt cho ngắn đi.
-- Chỗ không chắc (từ nghe không ra, tên riêng không đối chiếu được): giữ nguyên từ gốc, KHÔNG đoán, và ghi đoạn nghi ngờ vào "uncertain".
+- Chỗ nghe không ra nghĩa (từ gốc vô nghĩa, tên riêng không đối chiếu được): giữ nguyên từ gốc, KHÔNG đoán nghĩa, và ghi vào "uncertain" kèm trích đoạn ngắn.
+- CHỈ ghi vào "uncertain" những chỗ bạn KHÔNG giải quyết được. Chỗ đã sửa chắc chắn nhờ chữ trên slide, thuật ngữ hoặc ngữ cảnh (ví dụ "slime" -> "slide" khi đang chiếu slide) thì sửa luôn và KHÔNG ghi. Nếu không có gì nghi ngờ, để "uncertain" rỗng. Tối đa 3 mục mỗi slide, chọn chỗ ảnh hưởng nội dung nhất.
+- Lời nói xã giao/chờ người vào lớp/xử lý kỹ thuật (ví dụ "đợi mình một chút", "mọi người nghe rõ không") không phải nội dung bài: giữ ngắn gọn một câu, không suy diễn thêm.
 Chỉ trả về JSON hợp lệ, không thêm chữ nào khác: {"paragraphs": ["..."], "uncertain": ["trích đoạn nghi ngờ + lý do ngắn"]}"""
 
 
@@ -341,6 +343,7 @@ def main():
     ap.add_argument("--out", help="Thư mục xuất (mặc định: recap-<tên file>)")
     ap.add_argument("--lang", default="vi", help="Ngôn ngữ lời giảng khi gỡ băng (mặc định vi)")
     ap.add_argument("--model", default="small", help="Model whisper: tiny/base/small/medium/large-v3")
+    ap.add_argument("--beam", type=int, default=5, help="Độ kỹ khi gỡ băng (1 = nhanh nhưng dễ sai; 5 = chính xác hơn, mặc định)")
     ap.add_argument("--scene", type=float, default=0.3, help="Ngưỡng dò đổi slide 0–1; nhỏ hơn = nhạy hơn (mặc định 0.3)")
     ap.add_argument("--min-gap", type=float, default=5.0, help="Mỗi slide tối thiểu bao nhiêu giây (mặc định 5)")
     ap.add_argument("--crop", help="Chỉ xét vùng slide khi dò/chụp, cú pháp ffmpeg w:h:x:y, vd \"iw*0.78:ih:0:0\" (bỏ webcam)")
@@ -387,7 +390,7 @@ def main():
     segments = build_segments(detect_changes(video, a.scene, a.crop), total, a.min_gap)
     print(f"  {len(segments)} đoạn slide (mất {hms(time.time() - t0)}). Xem khung đang xét: {out}/sample.jpg")
 
-    cues = parse_subs(a.transcript) if a.transcript else whisper_cues(video, a.lang, a.model, out / "transcript.json", prompt)
+    cues = parse_subs(a.transcript) if a.transcript else whisper_cues(video, a.lang, a.model, out / f"transcript-{a.model}-b{a.beam}.json", prompt, a.beam)
     cues = dedupe(sorted(cues))
     print(f"  {len(cues)} câu lời giảng")
 
