@@ -36,9 +36,16 @@ os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")  # Windows không 
 from pathlib import Path
 
 
+def _interrupted(p):
+    """ffmpeg/ffprobe bị ngắt bởi Ctrl+C (tín hiệu đi tới cả tiến trình con): coi là người dùng dừng, không phải lỗi."""
+    return p.returncode in (-2, 130) or "received signal" in (p.stderr or "")
+
+
 def run(cmd):
     p = subprocess.run(cmd, capture_output=True, text=True)
     if p.returncode != 0:
+        if _interrupted(p):
+            raise KeyboardInterrupt
         sys.exit(f"Lỗi khi chạy {cmd[0]}:\n{p.stderr[-800:]}")
     return p
 
@@ -308,6 +315,8 @@ def detect_changes(video, thr, crop=None):
     vf = ([f"crop={crop}"] if crop else []) + ["fps=1", "scale=480:-2", f"select='gt(scene,{thr})'", "showinfo"]
     p = subprocess.run(["ffmpeg", "-hide_banner", "-nostats", "-i", str(video), "-an", "-sn", "-vf", ",".join(vf), "-f", "null", "-"],
                        capture_output=True, text=True)
+    if _interrupted(p):          # dò dở dang vì bị ngắt: tuyệt đối không dùng/lưu kết quả thiếu này
+        raise KeyboardInterrupt
     return [float(m.group(1)) for m in re.finditer(r"pts_time:([\d.]+)", p.stderr)]
 
 
