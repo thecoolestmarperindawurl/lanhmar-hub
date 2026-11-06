@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Required Notice: Copyright 2026 Dương Thị Lan Anh (LANHMAR) (https://lanhmar.id.vn)
+# License: PolyForm Noncommercial License 1.0.0 — https://polyformproject.org/licenses/noncommercial/1.0.0 (xem file LICENSE)
 """Course Recap (bản miễn phí) — recap bài giảng: lời giảng của giảng viên + ảnh slide, theo đúng mốc thời gian.
 Chạy hoàn toàn trên máy bạn, không cần tài khoản hay API trả phí.
 

@@ -57,3 +57,19 @@ Một lần đo thực tế: video **2 giờ 03 phút**, laptop Windows, model `
 ## Quyền riêng tư / Privacy
 
 Gỡ băng chạy bằng `faster-whisper` ngay trên máy bạn. Mạng chỉ dùng để tải video từ Drive và tải model whisper về lần đầu. Không có gì được gửi đi đâu khác.
+
+## Giấy phép / License
+
+**VI** — [PolyForm Noncommercial License 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0) (xem file `LICENSE`). Tóm tắt dễ hiểu, **văn bản giấy phép mới là bản chuẩn**:
+
+- **Được dùng** cho mục đích phi thương mại: học tập, nghiên cứu, dự án cá nhân, trường học, tổ chức nghiên cứu và tổ chức phi lợi nhuận. Được chỉnh sửa và chia sẻ lại, miễn là giữ nguyên giấy phép và dòng `Required Notice`.
+- **Không được dùng** cho mục đích thương mại (kinh doanh, bán dịch vụ, đưa vào sản phẩm thu phí). Cần dùng thương mại: liên hệ tác giả để xin phép riêng.
+- Đây **không phải** giấy phép mã nguồn mở theo định nghĩa của OSI vì có giới hạn phi thương mại. Đây không phải tư vấn pháp lý.
+
+**EN** — [PolyForm Noncommercial License 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0) (see `LICENSE`). Plain-language summary; **the license text is authoritative**:
+
+- **Allowed** for noncommercial purposes: study, research, personal projects, schools, research bodies and non-profits. You may modify and share it as long as you keep the license and the `Required Notice` line.
+- **Not allowed** for commercial purposes (business use, selling services, building it into a paid product). For commercial use, contact the author for separate permission.
+- It is **not** an OSI-approved open-source license because of the noncommercial limit. This is not legal advice.
+
+Copyright 2026 Dương Thị Lan Anh (LANHMAR) · https://lanhmar.id.vn
