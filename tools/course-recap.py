@@ -13,6 +13,8 @@ Làm sạch lời giảng (khi gỡ băng sai nhiều thuật ngữ/tên riêng)
   pip install anthropic ; đặt biến môi trường ANTHROPIC_API_KEY
   python3 tools/course-recap.py bai-1.mp4 --polish --context "Khoá Performance Marketing, giảng viên nói về Meta Ads, CPA, ROAS" --glossary thuat-ngu.txt
   python3 tools/course-recap.py bai-1.mp4 --polish-only      # chỉ chạy lại bước làm sạch trên recap.json có sẵn (không dò slide/gỡ băng lại)
+Mặc định ghi chú CHỈ giữ kiến thức + bài tập thực hành, tự bỏ giới thiệu lớp/nội quy (danh sách slide bị bỏ: recap-notes-skipped.txt;
+  chỉnh tay bằng --skip-slides "1-3,9" hoặc --skip-until 05:30).
 Ghi chú học tập theo chủ đề (format giống bài recap mẫu: phần <I>/<II>…, mục đánh số, hộp 📌, ảnh slide, SUM UP):
   python3 tools/course-recap.py bai-1.mp4 --notes --lecturer "Ms. ..." --context "..." --glossary thuat-ngu.txt
   python3 tools/course-recap.py bai-1.mp4 --notes-only            # viết lại ghi chú từ recap.json có sẵn (kết quả từng bước được cache)
@@ -325,6 +327,19 @@ NOTES_STYLE = """Phong cách (theo bài recap mẫu của khoá học):
 - Ảnh slide: chèn bằng đúng cú pháp {{slide:N}} (N là số slide có trong ảnh được cung cấp) trên một dòng riêng, đặt NGAY SAU đoạn giải thích slide đó. Chỉ chèn slide thật sự có thông tin (sơ đồ, bảng, khung, ví dụ); bỏ slide chỉ có tiêu đề/trang trí. Không chèn trùng.
 - Dùng tiêu đề nhỏ (### ...) khi mục dài; KHÔNG viết tiêu đề cấp # hoặc ## (tool đã tự thêm tên phần/mục)."""
 
+SKIP_RULES = """QUY TẮC LOẠI BỎ (bắt buộc): recap CHỈ tập trung vào kiến thức và bài tập thực hành. Đưa vào "skipped" (kèm lý do ngắn) các slide thuộc:
+(a) chào hỏi, giới thiệu lớp/giảng viên/học viên/khoá học/lộ trình/chương trình, điểm danh, ôn lại buổi trước chỉ để nhắc lịch;
+(b) nội quy, quy định lớp, cách học/nộp bài/chấm điểm, hướng dẫn kỹ thuật (Zoom, link, nhóm chat), thông báo lịch học;
+(c) quảng bá/tư vấn khoá khác, cảm ơn và chào kết thúc xã giao, thời gian chờ.
+GIỮ LẠI: kiến thức, khái niệm, ví dụ/case, và bài tập thực hành (đề bài, hướng dẫn làm, chữa bài, nhận xét) — kể cả khi nằm cuối buổi. Slide trộn lẫn (vừa nội quy vừa kiến thức) thì GIỮ. Không chắc thì GIỮ."""
+
+NOTES_PRACTICE = """Mục THỰC HÀNH: trình bày theo khuôn sau (bỏ khối nào mà lời giảng không có):
+- **Yêu cầu bài tập:** đề bài, đầu vào/tư liệu, thời lượng/tiêu chí nếu giảng viên nêu.
+- **Các bước thực hiện:** đánh số 1., 2., 3.… theo đúng thao tác giảng viên làm hoặc hướng dẫn; GIỮ nguyên tên công cụ/menu/phím tắt/thông số/giá trị.
+- **Lưu ý / lỗi thường gặp:** chỉ những gì giảng viên nói.
+- **Nhận xét, chữa bài:** nếu có chữa bài hoặc nhận xét bài học viên.
+Chèn ảnh slide/màn hình minh hoạ từng bước khi có."""
+
 NOTES_FAITHFUL = """Nguyên tắc trung thực (bắt buộc):
 - Chỉ dùng thông tin có trong lời giảng và chữ/hình trên slide. TUYỆT ĐỐI không thêm kiến thức bên ngoài, số liệu, ví dụ, lời khuyên hay kết luận giảng viên không nói.
 - Lời giảng đến từ gỡ băng tự động nên có thể sai tên riêng/thuật ngữ: sửa theo chữ trên slide, thuật ngữ cho trước và ngữ cảnh khi chắc chắn; nếu không chắc thì giữ nguyên từ gốc và ghi vào "uncertain" (tối đa 3 mục, kèm trích đoạn ngắn).
@@ -339,10 +354,13 @@ OUTLINE_TOOL = {
             "title": {"type": "string"},
             "sections": {"type": "array", "items": {"type": "object", "properties": {
                 "title": {"type": "string"},
+                "kind": {"type": "string", "enum": ["kien_thuc", "thuc_hanh"], "description": "thuc_hanh = bài tập/thực hành (đề bài, hướng dẫn làm, chữa bài); còn lại là kien_thuc"},
                 "slides": {"type": "array", "items": {"type": "integer"}}},
-                "required": ["title", "slides"]}}},
+                "required": ["title", "kind", "slides"]}}},
             "required": ["title", "sections"]}},
-        "skipped": {"type": "array", "items": {"type": "integer"}, "description": "Số slide không có nội dung bài"}},
+        "skipped": {"type": "array", "items": {"type": "object", "properties": {
+            "slide": {"type": "integer"}, "reason": {"type": "string", "description": "Lý do ngắn, vd: giới thiệu lớp, nội quy"}},
+            "required": ["slide", "reason"]}, "description": "Slide bị loại theo quy tắc loại bỏ"}},
         "required": ["objectives", "parts", "skipped"]},
 }
 SECTION_TOOL = {
@@ -368,7 +386,12 @@ def slide_text(s):
 def normalize_outline(outline, slides):
     """Mỗi slide có lời giảng thuộc đúng một mục (hoặc bị bỏ): khử trùng, gán slide sót vào mục liền trước."""
     have = {s["n"] for s in slides if s["paras"]}
-    skipped = {n for n in outline.get("skipped", []) if n in have}
+    info = {}
+    for x in outline.get("skipped", []):
+        n, why = (x.get("slide"), x.get("reason", "")) if isinstance(x, dict) else (x, "")
+        if n in have:
+            info[n] = why
+    skipped = set(info)
     seen, parts = set(), []
     for p in outline.get("parts", []):
         secs = []
@@ -376,7 +399,7 @@ def normalize_outline(outline, slides):
             ns = sorted({n for n in sec.get("slides", []) if n in have and n not in seen and n not in skipped})
             seen.update(ns)
             if ns:
-                secs.append({"title": sec["title"].strip(), "slides": ns})
+                secs.append({"title": sec["title"].strip(), "slides": ns, "kind": sec.get("kind", "kien_thuc")})
         if secs:
             parts.append({"title": p["title"].strip(), "sections": secs})
     if not parts:
@@ -385,10 +408,28 @@ def normalize_outline(outline, slides):
         best = max((sec for p in parts for sec in p["sections"] if sec["slides"] and sec["slides"][0] <= n), key=lambda x: x["slides"][0], default=None) \
             or parts[0]["sections"][0]
         best["slides"] = sorted(best["slides"] + [n])
-    return {"objectives": outline.get("objectives", []), "parts": parts, "skipped": sorted(skipped)}
+    return {"objectives": outline.get("objectives", []), "parts": parts, "skipped": sorted(skipped), "skipped_info": info}
 
 
-def make_notes(slides, out, title, model, context, glossary, lecturer=None, background=None, workers=4, max_imgs=10):
+NOTES_VERSION = 3  # tăng khi đổi prompt/format để bỏ cache cũ
+
+
+def parse_skips(spec, until, slides):
+    """--skip-slides "1-3,9" và --skip-until "05:30" -> tập số slide bị loại thủ công."""
+    out = set()
+    for part in (spec or "").split(","):
+        part = part.strip()
+        if "-" in part:
+            a, b = part.split("-", 1); out.update(range(int(a), int(b) + 1))
+        elif part:
+            out.add(int(part))
+    if until:
+        sec = sum(int(x) * 60 ** i for i, x in enumerate(reversed(until.split(":"))))
+        out.update(s["n"] for s in slides if s["start"] < sec)
+    return out
+
+
+def make_notes(slides, out, title, model, context, glossary, lecturer=None, background=None, skip=(), workers=4, max_imgs=10):
     try:
         import anthropic
     except ImportError:
@@ -400,7 +441,10 @@ def make_notes(slides, out, title, model, context, glossary, lecturer=None, back
     cache_f = out / "notes-cache.json"
     cache = json.loads(cache_f.read_text(encoding="utf-8")) if cache_f.is_file() else {}
     ctx = (f"Bối cảnh bài giảng: {context}\n" if context else "") + (f"Thuật ngữ/tên riêng chuẩn: {', '.join(glossary)}\n" if glossary else "")
-    h = lambda *a: hashlib.sha1("|".join(map(str, a)).encode()).hexdigest()
+    h = lambda *a: hashlib.sha1("|".join(map(str, (NOTES_VERSION,) + a)).encode()).hexdigest()
+    forced = {n for n in skip if n in by_n}
+    slides = [dict(s, paras=[]) if s["n"] in forced else s for s in slides]   # slide bị loại thủ công coi như không có lời giảng
+    by_n = {s["n"]: s for s in slides}
 
     # B1. Dàn ý: đọc lời giảng cả buổi (mỗi slide cắt 900 ký tự) -> phần / mục / slide
     body = "\n\n".join(f"[Slide {s['n']} · {hms(s['start'])}] {slide_text(s)[:900]}" for s in slides if s["paras"])
@@ -410,7 +454,7 @@ def make_notes(slides, out, title, model, context, glossary, lecturer=None, back
         sysmsg = ("Bạn là biên tập viên ghi chú học tập. Bên dưới là lời giảng (gỡ băng tự động, có thể sai chữ) của từng slide trong một buổi học. "
                   "Hãy lập dàn ý bài recap:\n- Chia thành 3–8 PHẦN lớn theo mạch nội dung, mỗi phần gồm các MỤC; mỗi mục gồm 1–10 slide liên quan. "
                   "Giữ đúng thứ tự giảng. Tiêu đề phần/mục ngắn, nêu đúng chủ đề, tiếng Việt, giữ thuật ngữ như giảng viên dùng.\n"
-                  "- Mỗi slide có lời giảng thuộc đúng một mục. Slide chỉ có chào hỏi/chờ vào lớp/xử lý kỹ thuật/không có nội dung bài thì đưa vào skipped.\n"
+                  "- Mỗi slide có lời giảng thuộc đúng một mục hoặc nằm trong skipped. Gán kind: thuc_hanh cho mục bài tập/thực hành, kien_thuc cho các mục còn lại.\n" + SKIP_RULES + "\n"
                   "- objectives: 3–5 gạch đầu dòng 'Nội dung buổi học' dựa đúng trên nội dung đã giảng, không thêm.\n" + NOTES_FAITHFUL)
         data = call_tool(client, model, sysmsg, [{"type": "text", "text": ctx + "\n" + body}], OUTLINE_TOOL, 8192, "Dàn ý")
         if not data:
@@ -419,7 +463,12 @@ def make_notes(slides, out, title, model, context, glossary, lecturer=None, back
         cache_f.write_text(json.dumps(cache, ensure_ascii=False), encoding="utf-8")
     outline = normalize_outline(cache[k], slides)
     secs = [(pi, sec) for pi, p in enumerate(outline["parts"]) for sec in p["sections"]]
-    print(f"  {len(outline['parts'])} phần, {len(secs)} mục")
+    print(f"  {len(outline['parts'])} phần, {len(secs)} mục ({sum(1 for _, x in secs if x.get('kind') == 'thuc_hanh')} mục thực hành)")
+    skipped = [(n, outline["skipped_info"].get(n, "")) for n in outline["skipped"]] + [(n, "bỏ thủ công") for n in sorted(forced)]
+    if skipped:
+        lines = [f"Slide {n} ({hms(by_n[n]['start'])}): {why or 'không có nội dung bài'}" for n, why in sorted(skipped)]
+        (out / "recap-notes-skipped.txt").write_text("\n".join(lines), encoding="utf-8")
+        print(f"  Bỏ qua {len(skipped)} slide (giới thiệu/nội quy…) — xem danh sách: {out / 'recap-notes-skipped.txt'}")
 
     # B2. Viết từng mục (lời giảng đầy đủ + ảnh slide của mục)
     def write_section(sec):
@@ -429,10 +478,12 @@ def make_notes(slides, out, title, model, context, glossary, lecturer=None, back
         key = "sec-" + h(sec["title"], text, shown, model, ctx)
         if key in cache:
             return key, cache[key]
-        content = [{"type": "text", "text": f"{ctx}\nMục cần viết: {sec['title']}\nSlide có ảnh kèm theo (được phép chèn {{{{slide:N}}}}): {', '.join(map(str, shown))}\n\nLời giảng theo slide:\n{text}"}]
+        kind = sec.get("kind", "kien_thuc")
+        content = [{"type": "text", "text": f"{ctx}\nMục cần viết: {sec['title']} (loại: {'thực hành' if kind == 'thuc_hanh' else 'kiến thức'})\nSlide có ảnh kèm theo (được phép chèn {{{{slide:N}}}}): {', '.join(map(str, shown))}\n\nLời giảng theo slide:\n{text}"}]
         for n in shown:
             content += [{"type": "text", "text": f"Ảnh slide {n}:"}, img_block(out / by_n[n]["image"])]
-        sysmsg = ("Bạn viết một mục trong bài recap buổi học từ lời giảng và ảnh slide.\n\n" + NOTES_STYLE + "\n\n" + NOTES_FAITHFUL)
+        sysmsg = ("Bạn viết một mục trong bài recap buổi học từ lời giảng và ảnh slide.\n\n" + NOTES_STYLE + "\n\n"
+                  + (NOTES_PRACTICE + "\n\n" if kind == "thuc_hanh" else "") + NOTES_FAITHFUL)
         data = call_tool(client, model, sysmsg, content, SECTION_TOOL, 12000, f"Mục \"{sec['title']}\"")
         if not data:
             data = {"markdown": "\n\n".join(p for n in ns for p in by_n[n]["paras"]) + "\n\n" + "\n".join(f"{{{{slide:{n}}}}}" for n in shown),
@@ -619,6 +670,8 @@ def main():
     ap.add_argument("--polish-only", action="store_true", help="Chỉ chạy bước làm sạch trên recap.json có sẵn trong thư mục --out")
     ap.add_argument("--notes", action="store_true", help="Xuất thêm ghi chú học tập theo chủ đề (phần/mục, hộp ghi nhớ, ảnh slide) + zip import Notion; cần ANTHROPIC_API_KEY")
     ap.add_argument("--notes-only", action="store_true", help="Chỉ chạy bước ghi chú trên recap.json có sẵn trong thư mục --out")
+    ap.add_argument("--skip-slides", help="Loại thủ công khỏi ghi chú, vd \"1-3,9\" (số slide trong recap.html)")
+    ap.add_argument("--skip-until", help="Loại mọi slide bắt đầu trước mốc này, vd 05:30 (bỏ phần mở đầu)")
     ap.add_argument("--lecturer", help="Tên giảng viên (hiện ở đầu ghi chú)")
     ap.add_argument("--background", help="Giới thiệu ngắn về giảng viên (hiện ở đầu ghi chú)")
     ap.add_argument("--polish-model", default="claude-sonnet-5-5", help="Model Claude dùng để làm sạch (mặc định claude-sonnet-5-5)")
@@ -654,7 +707,7 @@ def main():
             polish_all(slides, out, a.polish_model, a.context, glossary)
             write_outputs(out, a.title or data["title"], Path(data["video"]), slides)
         if a.notes or a.notes_only:
-            make_notes(slides, out, a.title or data["title"], a.polish_model, a.context, glossary, a.lecturer, a.background)
+            make_notes(slides, out, a.title or data["title"], a.polish_model, a.context, glossary, a.lecturer, a.background, parse_skips(a.skip_slides, a.skip_until, slides))
         print(f"Xong -> {out}/")
         return
 
@@ -696,7 +749,7 @@ def main():
         polish_all(slides, out, a.polish_model, a.context, glossary)
     write_outputs(out, title, video, slides)
     if a.notes:
-        make_notes(slides, out, title, a.polish_model, a.context, glossary, a.lecturer, a.background)
+        make_notes(slides, out, title, a.polish_model, a.context, glossary, a.lecturer, a.background, parse_skips(a.skip_slides, a.skip_until, slides))
     print(f"Xong -> {out}/recap.html (mở bằng trình duyệt), recap.md, recap.json")
 
 
