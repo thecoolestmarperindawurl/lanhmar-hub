@@ -1,0 +1,7 @@
+# kết quả recap và video tải về — không đưa lên repo
+recap-*/
+*.mp4
+*.mkv
+*.mov
+*.wav
+__pycache__/
