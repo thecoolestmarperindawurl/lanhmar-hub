@@ -381,6 +381,28 @@ def parse_subs(path):
     return cues
 
 
+def load_whisper(WhisperModel, model_name):
+    """Ưu tiên model đã có sẵn trên máy (không cần mạng); chưa có thì mới tải, có thử lại khi mạng chập chờn."""
+    try:
+        return WhisperModel(model_name, compute_type="int8", local_files_only=True)
+    except Exception:
+        pass                                   # chưa có sẵn (hoặc thư viện cũ không có tuỳ chọn này): chuyển sang tải
+    last = None
+    for i in range(3):
+        print("Tải model whisper về máy (lần đầu, cần mạng)…" if i == 0 else f"  thử lại tải model, lần {i + 1}…")
+        try:
+            return WhisperModel(model_name, compute_type="int8")
+        except Exception as e:
+            last = e
+            time.sleep(3 * (i + 1))
+    sys.exit(f"Không tải được model whisper “{model_name}” từ Hugging Face ({type(last).__name__}: {str(last)[:140]}).\n"
+             "Thường do mạng, VPN, tường lửa hoặc phần mềm diệt virus chặn kết nối. Cách làm:\n"
+             "  1. Thử lại sau ít phút, hoặc đổi mạng / tắt VPN.\n"
+             "  2. Nếu trước đây bạn đã chạy tool thành công trên máy này (model đã có sẵn), đặt biến HF_HUB_OFFLINE=1 rồi chạy lại. "
+             "PowerShell: $env:HF_HUB_OFFLINE=\"1\"\n"
+             "  3. Phần đã làm (video, dò slide) được giữ lại: chạy lại đúng lệnh cũ sẽ tiếp tục.")
+
+
 def whisper_cues(video, lang, model_name, cache, prompt=None, beam=5):
     cache = Path(cache)
     key = f"{Path(video).stat().st_size}|{model_name}|{beam}|{lang}"   # khác video/model/beam/ngôn ngữ thì không dùng lại kết quả cũ
@@ -400,7 +422,7 @@ def whisper_cues(video, lang, model_name, cache, prompt=None, beam=5):
         print("Tách âm thanh (16 kHz mono)…")
         run(["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-i", str(video), "-vn", "-ac", "1", "-ar", "16000", str(wav)])
     print(f"Gỡ băng bằng faster-whisper ({model_name}) — bài dài có thể mất hàng chục phút; lần đầu còn tải model.")
-    model = WhisperModel(model_name, compute_type="int8")
+    model = load_whisper(WhisperModel, model_name)
     # condition_on_previous_text=False: tránh lặp câu / trôi chữ khi bài rất dài
     # Tự đọc wav thành mảng số rồi đưa thẳng cho whisper -> không phụ thuộc phiên bản PyAV (`av`) của máy
     import numpy as np
