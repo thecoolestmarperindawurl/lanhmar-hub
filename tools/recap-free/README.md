@@ -15,11 +15,17 @@ pip install -r requirements.txt
 
 ## Dùng / Usage
 
-Video trên Google Drive — file phải chia sẻ **"Bất kỳ ai có đường liên kết" – Người xem** (Anyone with the link – Viewer):
+Video trên Google Drive **công khai** — file chia sẻ **"Bất kỳ ai có đường liên kết"** (Anyone with the link):
 
 ```bash
 python recap.py "https://drive.google.com/file/d/<ID>/view" --title "Buổi 1"
 ```
+
+**Drive chỉ chia sẻ cho một số email? / Drive shared only with specific people?**
+
+**VI** — Tool không đăng nhập Google nên **không tải được** file kiểu này, dù tài khoản của bạn có quyền xem. Cách làm: mở link bằng tài khoản được cấp quyền, bấm **Tải xuống** để lưu video về máy, rồi chạy tool với đường dẫn file (lệnh bên dưới). Nếu không có nút Tải xuống, chủ file đã tắt quyền tải: hãy xin chủ file cho phép hoặc xin bản video khác.
+
+**EN** — The tool does not sign in to Google, so it **cannot download** such files even if your account can view them. Open the link with the account that has access, click **Download** to save the video, then run the tool on the file path (command below). If there is no Download option, the owner has disabled downloads: ask them to allow it or to share another copy.
 
 Video đã có trên máy / a local file:
 
@@ -49,7 +55,7 @@ Một lần đo thực tế: video **2 giờ 03 phút**, laptop Windows, model `
 ## Giới hạn / Limits
 
 - **Chữ là gỡ băng tự động** nên có thể sai thuật ngữ, tên riêng, số liệu. Hãy đọc lại trước khi dùng; dùng `--glossary` và `--model medium` để giảm lỗi.
-- Link Drive phải công khai ở mức "Bất kỳ ai có link". File giới hạn người xem theo email thì **không tải được** — hãy tải về máy rồi dùng đường dẫn file. Drive đôi khi tạm khoá file có quá nhiều lượt tải.
+- Dán trực tiếp link Drive chỉ hoạt động với file công khai ("Bất kỳ ai có link"). File giới hạn theo email: tải về máy rồi dùng đường dẫn file (xem mục trên). Drive đôi khi tạm khoá file có quá nhiều lượt tải.
 - Slide được nhận biết khi hình đổi mạnh. Video có webcam chiếm khung, hoặc slide chỉ đổi chữ, cần chỉnh `--crop` / `--scene`.
 - Recap giữ nguyên lời giảng, **không tóm tắt hay viết lại**.
 - Chỉ dùng với video bạn có quyền sử dụng (khoá học của bạn, hoặc được người sở hữu cho phép).

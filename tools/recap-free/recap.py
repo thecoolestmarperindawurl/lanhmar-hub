@@ -5,7 +5,7 @@
 Chạy hoàn toàn trên máy bạn, không cần tài khoản hay API trả phí.
 
 Cách dùng:
-  python recap.py "https://drive.google.com/file/d/<ID>/view" --title "Buổi 3"   # video trên Drive (chia sẻ "Bất kỳ ai có link" – Người xem)
+  python recap.py "https://drive.google.com/file/d/<ID>/view" --title "Buổi 3"   # video trên Drive CÔNG KHAI ("Bất kỳ ai có link"); Drive chia sẻ theo email thì tải về máy trước
   python recap.py bai-1.mp4 --title "Bài 1"                                       # file video trên máy
   python recap.py bai-1.mp4 --transcript bai-1.vtt                                # dùng phụ đề có sẵn (khỏi gỡ băng)
   python recap.py bai-1.mp4 --glossary thuat-ngu.txt --context "Khoá Photoshop"   # gợi ý thuật ngữ cho gỡ băng chính xác hơn
@@ -48,6 +48,9 @@ def drive_id(src):
     return m.group(1) if m else (src if re.fullmatch(r"[\w-]{25,}", src) else None)
 
 
+DRIVE_HELP = ("Drive chỉ cho tải khi file ở chế độ công khai (“Bất kỳ ai có link”). File chia sẻ cho một danh sách email cố định thì tool KHÔNG tải được vì không đăng nhập Google, dù tài khoản của bạn có quyền xem.\nCách làm: mở link trên trình duyệt bằng tài khoản được cấp quyền, tải video về máy (Tải xuống), rồi chạy lại với đường dẫn file. Nếu không thấy nút Tải xuống, chủ file đã tắt quyền tải: hãy xin chủ file cho phép hoặc bản video khác.")
+
+
 def fetch_drive(fid, dst):
     """Tải file Drive công khai (có trang xác nhận virus-scan cho file lớn), ghi theo khối, in tiến độ."""
     dst = Path(dst)
@@ -61,15 +64,14 @@ def fetch_drive(fid, dst):
         r = urllib.request.urlopen(req, timeout=120)
     except urllib.error.HTTPError as e:
         why = {404: "không tìm thấy file (sai link/ID, hoặc file không chia sẻ cho bạn)",
-               403: "Drive từ chối (file chưa chia sẻ 'Bất kỳ ai có link – Người xem', hoặc đã hết lượt tải trong ngày)",
+               403: "Drive từ chối (file không công khai, hoặc đã hết lượt tải trong ngày)",
                429: "Drive đang giới hạn lượt tải, thử lại sau"}.get(e.code, f"mã lỗi {e.code}")
-        sys.exit(f"Không tải được video từ Drive: {why}.\nCách khác: tải video về máy bằng trình duyệt rồi chạy lệnh với đường dẫn file.")
+        sys.exit(f"Không tải được video từ Drive: {why}.\n" + DRIVE_HELP)
     except (urllib.error.URLError, OSError) as e:
         sys.exit(f"Không kết nối được tới Drive ({e}). Kiểm tra mạng/proxy, hoặc tải video về máy rồi chạy với đường dẫn file.")
     with r, open(tmp, "wb") as f:
         if "text/html" in r.headers.get("content-type", ""):
-            sys.exit("Drive trả về trang HTML: file chưa chia sẻ 'Bất kỳ ai có link' hoặc đã hết lượt tải. "
-                     "Tải tay về máy rồi truyền đường dẫn file.")
+            sys.exit("Drive trả về trang đăng nhập/HTML thay vì video: file không công khai (hoặc đã hết lượt tải).\n" + DRIVE_HELP)
         size, got, t0, last = int(r.headers.get("content-length") or 0), 0, time.time(), 0
         while chunk := r.read(8 << 20):
             f.write(chunk); got += len(chunk)
@@ -289,7 +291,7 @@ def write_outputs(out, title, video, segs):
 
 def main():
     ap = argparse.ArgumentParser(description="Recap bài giảng: lời giảng + ảnh slide theo mốc thời gian")
-    ap.add_argument("video", help="Đường dẫn file video HOẶC link/ID Google Drive (chia sẻ 'Bất kỳ ai có link')")
+    ap.add_argument("video", help="Đường dẫn file video HOẶC link/ID Google Drive công khai ('Bất kỳ ai có link'); Drive chia sẻ theo email: tải video về máy rồi dùng đường dẫn file")
     ap.add_argument("--title", help="Tiêu đề recap (mặc định: tên file)")
     ap.add_argument("--transcript", help="File phụ đề .srt/.vtt (không có thì gỡ băng bằng faster-whisper)")
     ap.add_argument("--out", help="Thư mục xuất (mặc định: recap-<tên file>)")

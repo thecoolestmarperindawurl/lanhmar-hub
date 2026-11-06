@@ -8,16 +8,16 @@ window.TREASURES = [
     status: "soon",
     url: "https://github.com/thecoolestmarperindawurl/course-recap-in-detailed",
     kind: "Python · CLI",
-    desc: "Biến video bài giảng có chiếu slide thành một trang recap: ảnh từng slide kèm lời giảng của giảng viên ở đúng slide đó. Dán link Google Drive là chạy.",
-    desc_en: "Turns a lecture video with slides on screen into a recap page: each slide image with what the lecturer said during it. Paste a Google Drive link and go.",
+    desc: "Biến video bài giảng có chiếu slide thành một trang recap: ảnh từng slide kèm lời giảng của giảng viên ở đúng slide đó. Dán link Drive công khai hoặc chọn file video là chạy.",
+    desc_en: "Turns a lecture video with slides on screen into a recap page: each slide image with what the lecturer said during it. Paste a public Drive link or pick a video file and go.",
     points: [
-      "Nhận link Google Drive (chia sẻ “Bất kỳ ai có link”) hoặc file video trên máy",
+      "Nhận link Google Drive công khai hoặc file video trên máy (Drive chia sẻ theo email: tải về trước)",
       "Chạy hoàn toàn trên máy bạn, không cần tài khoản hay API trả phí",
       "Bỏ phần giới thiệu và nội quy bằng một tuỳ chọn",
       "Dừng giữa chừng rồi chạy tiếp được, hợp video dài hàng giờ"
     ],
     points_en: [
-      "Takes a Google Drive link (shared as “Anyone with the link”) or a local video file",
+      "Takes a public Google Drive link or a local video file (Drive shared by email: download it first)",
       "Runs entirely on your computer, no account or paid API needed",
       "Skip the intro and class rules with one option",
       "Stop midway and resume later, built for multi-hour videos"

@@ -9096,7 +9096,7 @@
           "rows": [
             [
               "Đầu vào",
-              "Link Google Drive hoặc file video",
+              "Link Google Drive công khai hoặc file video (Drive chia sẻ theo email: tải về máy trước)",
               "Giống bản miễn phí"
             ],
             [
@@ -9156,7 +9156,7 @@
           "items": [
             {
               "t": "Chạy một lệnh",
-              "d": "Đưa link Google Drive (chia sẻ “Bất kỳ ai có link”) hoặc đường dẫn file video, thêm --notes để xuất ghi chú theo chủ đề."
+              "d": "Đưa link Google Drive công khai (“Bất kỳ ai có link”) hoặc đường dẫn file video đã tải về máy, thêm --notes để xuất ghi chú theo chủ đề. Drive chia sẻ theo email thì tải video về máy trước."
             },
             {
               "t": "Cho tool biết ngữ cảnh",
