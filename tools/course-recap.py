@@ -13,6 +13,10 @@ Làm sạch lời giảng (khi gỡ băng sai nhiều thuật ngữ/tên riêng)
   pip install anthropic ; đặt biến môi trường ANTHROPIC_API_KEY
   python3 tools/course-recap.py bai-1.mp4 --polish --context "Khoá Performance Marketing, giảng viên nói về Meta Ads, CPA, ROAS" --glossary thuat-ngu.txt
   python3 tools/course-recap.py bai-1.mp4 --polish-only      # chỉ chạy lại bước làm sạch trên recap.json có sẵn (không dò slide/gỡ băng lại)
+Ghi chú học tập theo chủ đề (format giống bài recap mẫu: phần <I>/<II>…, mục đánh số, hộp 📌, ảnh slide, SUM UP):
+  python3 tools/course-recap.py bai-1.mp4 --notes --lecturer "Ms. ..." --context "..." --glossary thuat-ngu.txt
+  python3 tools/course-recap.py bai-1.mp4 --notes-only            # viết lại ghi chú từ recap.json có sẵn (kết quả từng bước được cache)
+  -> recap-notes.html (xem), recap-notes.md, recap-notes.zip (Notion: Import → Text & Markdown → chọn file zip, ảnh đi kèm)
 Bản gốc chưa chỉnh luôn được giữ (recap.json: "raw"; recap.html: mục "Xem lời giảng gốc"). Chỗ Claude không chắc được đánh dấu "Cần kiểm tra".
 
 Video dài (>2 giờ): dò slide ở 1 khung/giây độ phân giải thấp nên nhanh; gỡ băng là bước lâu nhất (thường ~0.5–1x thời lượng
@@ -232,34 +236,42 @@ POLISH_TOOL = {
 }
 
 
-def polish_slide(client, model, img_path, raw, context, glossary, label="?"):
-    img = base64.standard_b64encode(Path(img_path).read_bytes()).decode()
-    extra = (f"Bối cảnh bài giảng: {context}\n" if context else "") + (f"Thuật ngữ/tên riêng chuẩn: {', '.join(glossary)}\n" if glossary else "")
-    text = f"{extra}\nLời giảng thô của slide này:\n" + "\n\n".join(raw)
+def call_tool(client, model, system, content, tool, max_tokens=8192, label="?", tries=3):
+    """Gọi Claude ép trả đúng khuôn của `tool` (tool use). Thử lại khi lỗi mạng/trả thiếu; hết lượt trả None."""
     last = None
-    for attempt in range(3):
+    for attempt in range(tries):
         try:
-            # tool_choice ép Claude trả đúng khuôn JSON (không còn lỗi "không tìm thấy JSON" khi trả lời văn xuôi)
             r = client.messages.create(
-                model=model, max_tokens=8192, system=POLISH_RULES.split("Chỉ trả về JSON")[0].rstrip(),
-                tools=[POLISH_TOOL], tool_choice={"type": "tool", "name": POLISH_TOOL["name"]},
-                messages=[{"role": "user", "content": [
-                    {"type": "image", "source": {"type": "base64", "media_type": "image/jpeg", "data": img}},
-                    {"type": "text", "text": text}]}])
+                model=model, max_tokens=max_tokens, system=system, tools=[tool],
+                tool_choice={"type": "tool", "name": tool["name"]},
+                messages=[{"role": "user", "content": content}])
             blk = next((b for b in r.content if getattr(b, "type", "") == "tool_use"), None)
             if blk is None:
                 raise ValueError(f"không có kết quả (stop_reason={getattr(r, 'stop_reason', '?')})")
             if getattr(r, "stop_reason", "") == "max_tokens":
                 raise ValueError("bị cắt giữa chừng (max_tokens)")
-            data = blk.input
-            paras = [str(x).strip() for x in data.get("paragraphs", []) if str(x).strip()]
-            if paras:
-                return paras, [str(x) for x in data.get("uncertain", [])]
-            raise ValueError("trả về rỗng")
-        except Exception as e:  # lỗi mạng / trả thiếu: thử lại
+            return blk.input
+        except Exception as e:
             last = f"{type(e).__name__}: {e}"
             time.sleep(2 * (attempt + 1))
-    print(f"\n  ! Slide {label}: không làm sạch được ({last}); giữ lời giảng gốc — chạy lại --polish-only để thử lại riêng slide này")
+    print(f"\n  ! {label}: không gọi được Claude ({last})")
+    return None
+
+
+def img_block(path):
+    return {"type": "image", "source": {"type": "base64", "media_type": "image/jpeg",
+                                         "data": base64.standard_b64encode(Path(path).read_bytes()).decode()}}
+
+
+def polish_slide(client, model, img_path, raw, context, glossary, label="?"):
+    extra = (f"Bối cảnh bài giảng: {context}\n" if context else "") + (f"Thuật ngữ/tên riêng chuẩn: {', '.join(glossary)}\n" if glossary else "")
+    text = f"{extra}\nLời giảng thô của slide này:\n" + "\n\n".join(raw)
+    data = call_tool(client, model, POLISH_RULES.split("Chỉ trả về JSON")[0].rstrip(),
+                     [img_block(img_path), {"type": "text", "text": text}], POLISH_TOOL, 8192, f"Slide {label}")
+    paras = [str(x).strip() for x in (data or {}).get("paragraphs", []) if str(x).strip()]
+    if paras:
+        return paras, [str(x) for x in data.get("uncertain", [])]
+    print(f"  (giữ lời giảng gốc cho slide {label}; chạy lại --polish-only để thử lại riêng slide này)")
     return raw, []
 
 
@@ -292,6 +304,257 @@ def polish_all(slides, out, model, context, glossary, workers=4):
         if c:
             s["paras"], s["notes"] = c["paras"], c["uncertain"]
     print()
+
+
+# ---------- Ghi chú học tập theo chủ đề (format giống bài recap mẫu trên Notion) ----------
+NOTES_STYLE = """Phong cách (theo bài recap mẫu của khoá học):
+- Là GHI CHÚ HỌC TẬP viết mạch lạc, văn viết trung tính (không dùng "mình/bạn" của lời nói; dùng "người làm marketing", "học viên", "thương hiệu"... theo ngữ cảnh), giải thích theo kiểu "Hiểu đơn giản, X là...", "Điểm cốt lõi là...", "Nói cách khác, ...".
+- In đậm **thuật ngữ/khái niệm chính** ở lần xuất hiện đầu. Liệt kê ý bằng gạch đầu dòng dạng "- **Khái niệm:** giải thích". Dùng "→" để nối hệ quả/ý nghĩa.
+- Khi giảng viên chốt ý hoặc có bộ ba/bộ bốn ý cần nhớ: thêm hộp ghi nhớ dạng
+  > 📌 **Có thể ghi nhớ ngắn gọn:**
+  >
+  > - **...** ...
+  (tối đa 1–2 hộp mỗi mục, chỉ khi thật sự có ý chốt trong lời giảng).
+- Câu hỏi dẫn dắt/checklist giảng viên đưa ra: trình bày bằng khối trích dẫn "> - ...". So sánh nhiều khái niệm/đối tượng: dùng bảng Markdown.
+- Ví dụ, case study, con số, ngày tháng, tên riêng: GIỮ ĐẦY ĐỦ như giảng viên và slide nêu.
+- Ảnh slide: chèn bằng đúng cú pháp {{slide:N}} (N là số slide có trong ảnh được cung cấp) trên một dòng riêng, đặt NGAY SAU đoạn giải thích slide đó. Chỉ chèn slide thật sự có thông tin (sơ đồ, bảng, khung, ví dụ); bỏ slide chỉ có tiêu đề/trang trí. Không chèn trùng.
+- Dùng tiêu đề nhỏ (### ...) khi mục dài; KHÔNG viết tiêu đề cấp # hoặc ## (tool đã tự thêm tên phần/mục)."""
+
+NOTES_FAITHFUL = """Nguyên tắc trung thực (bắt buộc):
+- Chỉ dùng thông tin có trong lời giảng và chữ/hình trên slide. TUYỆT ĐỐI không thêm kiến thức bên ngoài, số liệu, ví dụ, lời khuyên hay kết luận giảng viên không nói.
+- Lời giảng đến từ gỡ băng tự động nên có thể sai tên riêng/thuật ngữ: sửa theo chữ trên slide, thuật ngữ cho trước và ngữ cảnh khi chắc chắn; nếu không chắc thì giữ nguyên từ gốc và ghi vào "uncertain" (tối đa 3 mục, kèm trích đoạn ngắn).
+- Bỏ lời xã giao, chờ vào lớp, xử lý kỹ thuật, nói lặp; không bỏ ý nội dung."""
+
+OUTLINE_TOOL = {
+    "name": "submit_outline",
+    "description": "Nộp dàn ý recap của buổi học.",
+    "input_schema": {"type": "object", "properties": {
+        "objectives": {"type": "array", "items": {"type": "string"}, "description": "3–5 gạch đầu dòng 'Nội dung buổi học', động từ đầu câu"},
+        "parts": {"type": "array", "items": {"type": "object", "properties": {
+            "title": {"type": "string"},
+            "sections": {"type": "array", "items": {"type": "object", "properties": {
+                "title": {"type": "string"},
+                "slides": {"type": "array", "items": {"type": "integer"}}},
+                "required": ["title", "slides"]}}},
+            "required": ["title", "sections"]}},
+        "skipped": {"type": "array", "items": {"type": "integer"}, "description": "Số slide không có nội dung bài"}},
+        "required": ["objectives", "parts", "skipped"]},
+}
+SECTION_TOOL = {
+    "name": "submit_section",
+    "description": "Nộp ghi chú của một mục.",
+    "input_schema": {"type": "object", "properties": {
+        "markdown": {"type": "string", "description": "Nội dung mục bằng Markdown (không có tiêu đề # hoặc ##)"},
+        "uncertain": {"type": "array", "items": {"type": "string"}}},
+        "required": ["markdown", "uncertain"]},
+}
+SUMUP_TOOL = {
+    "name": "submit_sumup",
+    "description": "Nộp phần SUM UP.",
+    "input_schema": {"type": "object", "properties": {"markdown": {"type": "string"}}, "required": ["markdown"]},
+}
+ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"]
+
+
+def slide_text(s):
+    return "\n\n".join(s["paras"])
+
+
+def normalize_outline(outline, slides):
+    """Mỗi slide có lời giảng thuộc đúng một mục (hoặc bị bỏ): khử trùng, gán slide sót vào mục liền trước."""
+    have = {s["n"] for s in slides if s["paras"]}
+    skipped = {n for n in outline.get("skipped", []) if n in have}
+    seen, parts = set(), []
+    for p in outline.get("parts", []):
+        secs = []
+        for sec in p.get("sections", []):
+            ns = sorted({n for n in sec.get("slides", []) if n in have and n not in seen and n not in skipped})
+            seen.update(ns)
+            if ns:
+                secs.append({"title": sec["title"].strip(), "slides": ns})
+        if secs:
+            parts.append({"title": p["title"].strip(), "sections": secs})
+    if not parts:
+        parts = [{"title": "NỘI DUNG BUỔI HỌC", "sections": [{"title": "Nội dung chính", "slides": []}]}]
+    for n in sorted(have - seen - skipped):
+        best = max((sec for p in parts for sec in p["sections"] if sec["slides"] and sec["slides"][0] <= n), key=lambda x: x["slides"][0], default=None) \
+            or parts[0]["sections"][0]
+        best["slides"] = sorted(best["slides"] + [n])
+    return {"objectives": outline.get("objectives", []), "parts": parts, "skipped": sorted(skipped)}
+
+
+def make_notes(slides, out, title, model, context, glossary, lecturer=None, background=None, workers=4, max_imgs=10):
+    try:
+        import anthropic
+    except ImportError:
+        sys.exit("Cần `pip install anthropic` để dùng --notes.")
+    if not os.environ.get("ANTHROPIC_API_KEY"):
+        sys.exit("Chưa đặt ANTHROPIC_API_KEY. PowerShell: $env:ANTHROPIC_API_KEY=\"sk-ant-...\"")
+    client = anthropic.Anthropic()
+    by_n = {s["n"]: s for s in slides}
+    cache_f = out / "notes-cache.json"
+    cache = json.loads(cache_f.read_text(encoding="utf-8")) if cache_f.is_file() else {}
+    ctx = (f"Bối cảnh bài giảng: {context}\n" if context else "") + (f"Thuật ngữ/tên riêng chuẩn: {', '.join(glossary)}\n" if glossary else "")
+    h = lambda *a: hashlib.sha1("|".join(map(str, a)).encode()).hexdigest()
+
+    # B1. Dàn ý: đọc lời giảng cả buổi (mỗi slide cắt 900 ký tự) -> phần / mục / slide
+    body = "\n\n".join(f"[Slide {s['n']} · {hms(s['start'])}] {slide_text(s)[:900]}" for s in slides if s["paras"])
+    k = "outline-" + h(body, model, ctx)
+    if k not in cache:
+        print("Lập dàn ý recap…")
+        sysmsg = ("Bạn là biên tập viên ghi chú học tập. Bên dưới là lời giảng (gỡ băng tự động, có thể sai chữ) của từng slide trong một buổi học. "
+                  "Hãy lập dàn ý bài recap:\n- Chia thành 3–8 PHẦN lớn theo mạch nội dung, mỗi phần gồm các MỤC; mỗi mục gồm 1–10 slide liên quan. "
+                  "Giữ đúng thứ tự giảng. Tiêu đề phần/mục ngắn, nêu đúng chủ đề, tiếng Việt, giữ thuật ngữ như giảng viên dùng.\n"
+                  "- Mỗi slide có lời giảng thuộc đúng một mục. Slide chỉ có chào hỏi/chờ vào lớp/xử lý kỹ thuật/không có nội dung bài thì đưa vào skipped.\n"
+                  "- objectives: 3–5 gạch đầu dòng 'Nội dung buổi học' dựa đúng trên nội dung đã giảng, không thêm.\n" + NOTES_FAITHFUL)
+        data = call_tool(client, model, sysmsg, [{"type": "text", "text": ctx + "\n" + body}], OUTLINE_TOOL, 8192, "Dàn ý")
+        if not data:
+            sys.exit("Không lập được dàn ý (xem lỗi ở trên). Chạy lại: kết quả các bước trước được lưu, không tốn lại.")
+        cache[k] = data
+        cache_f.write_text(json.dumps(cache, ensure_ascii=False), encoding="utf-8")
+    outline = normalize_outline(cache[k], slides)
+    secs = [(pi, sec) for pi, p in enumerate(outline["parts"]) for sec in p["sections"]]
+    print(f"  {len(outline['parts'])} phần, {len(secs)} mục")
+
+    # B2. Viết từng mục (lời giảng đầy đủ + ảnh slide của mục)
+    def write_section(sec):
+        ns = sec["slides"]
+        shown = ns if len(ns) <= max_imgs else [ns[round(i * (len(ns) - 1) / (max_imgs - 1))] for i in range(max_imgs)]
+        text = "\n\n".join(f"[Slide {n} · {hms(by_n[n]['start'])}]\n{slide_text(by_n[n])}" for n in ns)
+        key = "sec-" + h(sec["title"], text, shown, model, ctx)
+        if key in cache:
+            return key, cache[key]
+        content = [{"type": "text", "text": f"{ctx}\nMục cần viết: {sec['title']}\nSlide có ảnh kèm theo (được phép chèn {{{{slide:N}}}}): {', '.join(map(str, shown))}\n\nLời giảng theo slide:\n{text}"}]
+        for n in shown:
+            content += [{"type": "text", "text": f"Ảnh slide {n}:"}, img_block(out / by_n[n]["image"])]
+        sysmsg = ("Bạn viết một mục trong bài recap buổi học từ lời giảng và ảnh slide.\n\n" + NOTES_STYLE + "\n\n" + NOTES_FAITHFUL)
+        data = call_tool(client, model, sysmsg, content, SECTION_TOOL, 12000, f"Mục \"{sec['title']}\"")
+        if not data:
+            data = {"markdown": "\n\n".join(p for n in ns for p in by_n[n]["paras"]) + "\n\n" + "\n".join(f"{{{{slide:{n}}}}}" for n in shown),
+                    "uncertain": ["Không viết được mục này bằng Claude; đang hiện lời giảng gốc"], "_failed": True}
+            return None, data
+        return key, data
+
+    done, results = 0, {}
+    with concurrent.futures.ThreadPoolExecutor(workers) as ex:
+        futs = {ex.submit(write_section, sec): i for i, (_, sec) in enumerate(secs)}
+        for f in concurrent.futures.as_completed(futs):
+            i = futs[f]; key, data = f.result(); results[i] = data
+            if key and key not in cache:
+                cache[key] = data
+                cache_f.write_text(json.dumps(cache, ensure_ascii=False), encoding="utf-8")
+            done += 1
+            print(f"  viết mục {done}/{len(secs)}", end="\r", flush=True)
+    print()
+
+    # B3. SUM UP từ các mục đã viết
+    digest = "\n\n".join(f"## {sec['title']}\n{results[i]['markdown'][:700]}" for i, (_, sec) in enumerate(secs))
+    k = "sumup-" + h(digest, model)
+    if k not in cache:
+        data = call_tool(client, model, "Viết phần SUM UP cuối bài recap: nhắc lại mạch logic của cả buổi học (2–4 đoạn ngắn hoặc gạch đầu dòng, in đậm ý chính, có thể dùng 'Qua ... có thể thấy'). "
+                         "Chỉ dựa trên các mục bên dưới; không thêm kiến thức mới. KHÔNG chèn {{slide:N}}.\n\n" + NOTES_FAITHFUL,
+                         [{"type": "text", "text": digest}], SUMUP_TOOL, 4096, "SUM UP")
+        cache[k] = data or {"markdown": ""}
+        if data:
+            cache_f.write_text(json.dumps(cache, ensure_ascii=False), encoding="utf-8")
+    sumup = cache[k].get("markdown", "").strip()
+
+    # B4. Ghép tài liệu
+    md = [f"# {title}", ""]
+    if lecturer: md += [f"**Giảng viên:** {lecturer}", ""]
+    if background: md += [f"**Chi tiết background:** {background}", ""]
+    if outline["objectives"]:
+        md += ["**Nội dung buổi học**", ""] + [f"- {o.strip().lstrip('-•· ').strip()}" for o in outline["objectives"]] + [""]
+    md += ["---", ""]
+    used, notes_unsure, si = [], [], 0
+    for pi, p in enumerate(outline["parts"]):
+        md += [f"# \\<{ROMAN[pi] if pi < len(ROMAN) else pi + 1}> {p['title'].upper()}", ""]
+        for j, sec in enumerate(p["sections"], 1):
+            data = results[si]; si += 1
+            md += [f"## {j}. {sec['title'].upper()}", ""]
+            valid = set(sec["slides"])
+            def sub(m):
+                n = int(m.group(1))
+                if n in valid and n not in used:
+                    used.append(n)
+                    return f"![Slide {n}]({by_n[n]['image']})"
+                return ""
+            body_md = re.sub(r"\{\{slide:(\d+)\}\}", sub, data["markdown"]).strip()
+            md += [body_md, ""]
+            for u in data.get("uncertain", []):
+                md += [f"> ⚠ Cần kiểm tra: {u}", ""]
+    if sumup:
+        md += [f"# \\<{ROMAN[len(outline['parts'])] if len(outline['parts']) < len(ROMAN) else len(outline['parts']) + 1}> SUM UP", "", sumup, ""]
+    text = "\n".join(md)
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    (out / "recap-notes.md").write_text(text, encoding="utf-8")
+    (out / "recap-notes.html").write_text(notes_html(title, text), encoding="utf-8")
+    import zipfile
+    with zipfile.ZipFile(out / "recap-notes.zip", "w", zipfile.ZIP_DEFLATED) as z:
+        z.writestr("recap-notes.md", text)
+        for n in used:
+            z.write(out / by_n[n]["image"], by_n[n]["image"])
+    print(f"Xong ghi chú -> {out}/recap-notes.html (xem), recap-notes.md, recap-notes.zip (import vào Notion)")
+
+
+def inline_md(t):
+    t = html.escape(t).replace("\\&lt;", "&lt;")
+    t = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", t)
+    t = re.sub(r"!\[([^\]]*)\]\(([^)]+)\)", r"<img loading='lazy' src='\2' alt='\1'>", t)
+    return t
+
+
+def md_to_html(md):
+    lines, out, i = md.split("\n"), [], 0
+    while i < len(lines):
+        l = lines[i]
+        if not l.strip():
+            i += 1
+        elif l.startswith("#"):
+            n = len(l) - len(l.lstrip("#")); out.append(f"<h{min(n, 4)}>{inline_md(l[n:].strip())}</h{min(n, 4)}>"); i += 1
+        elif l.strip() == "---":
+            out.append("<hr>"); i += 1
+        elif l.startswith(">"):
+            blk = []
+            while i < len(lines) and lines[i].startswith(">"):
+                blk.append(lines[i][1:].lstrip(" ") if lines[i][1:2] == " " else lines[i][1:]); i += 1
+            inner = "\n".join(blk)
+            cls = "callout" if re.match(r"\s*(📌|⭐|💡|✅)", inner) else ("warn" if inner.lstrip().startswith("⚠") else "quote")
+            out.append(f"<div class='{cls}'>{md_to_html(inner)}</div>")
+        elif l.lstrip().startswith("- "):
+            items = []
+            while i < len(lines) and lines[i].lstrip().startswith("- "):
+                items.append(f"<li>{inline_md(lines[i].lstrip()[2:])}</li>"); i += 1
+            out.append("<ul>" + "".join(items) + "</ul>")
+        elif l.startswith("|"):
+            rows = []
+            while i < len(lines) and lines[i].startswith("|"):
+                if not re.fullmatch(r"\|[\s:\-|]+\|?", lines[i]):
+                    rows.append([c.strip() for c in lines[i].strip().strip("|").split("|")])
+                i += 1
+            t = "".join("<tr>" + "".join(f"<{'th' if r is rows[0] else 'td'}>{inline_md(c)}</{'th' if r is rows[0] else 'td'}>" for c in r) + "</tr>" for r in rows)
+            out.append(f"<table>{t}</table>")
+        elif l.startswith("!["):
+            out.append(f"<p>{inline_md(l)}</p>"); i += 1
+        else:
+            para = []
+            while i < len(lines) and lines[i].strip() and not re.match(r"(#|>|- |\||!\[|---$)", lines[i].lstrip() if lines[i].lstrip().startswith("- ") else lines[i]):
+                para.append(lines[i]); i += 1
+            out.append(f"<p>{inline_md(' '.join(para))}</p>")
+    return "\n".join(out)
+
+
+NOTES_CSS_EXTRA = """
+main{max-width:820px}h1{margin:36px 0 8px;font-size:1.45rem}h2{color:var(--ink);font-size:1.15rem;margin:28px 0 8px}h3,h4{font-size:1rem;margin:18px 0 6px}
+main>p,main>ul,main>div,main>table{background:none}ul{padding-left:22px}li{margin:4px 0}img{max-width:100%;height:auto;border-radius:12px;border:1px solid #e6e6fb;margin:8px 0;display:block}
+.callout{background:#fff8d6;border-radius:12px;padding:6px 16px;margin:14px 0}.quote{border-left:4px solid var(--p);padding:2px 14px;margin:14px 0;color:var(--ink)}
+.warn{background:#fff3ec;border-left:4px solid var(--o);border-radius:8px;padding:2px 12px;margin:12px 0;font-size:.88rem}
+table{border-collapse:collapse;width:100%;margin:14px 0;background:#fff}td,th{border:1px solid #dcdcf5;padding:8px 10px;vertical-align:top;font-size:.92rem}th{background:#eeeeff}hr{border:0;border-top:1px solid #dcdcf5;margin:24px 0}"""
+
+
+def notes_html(title, md):
+    return ("<!doctype html><html lang='vi'><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>"
+            f"<title>{html.escape(title)}</title><style>{CSS + NOTES_CSS_EXTRA}</style><main>{md_to_html(md)}</main></html>")
 
 
 def hms(t):
@@ -349,6 +612,10 @@ def main():
     ap.add_argument("--crop", help="Chỉ xét vùng slide khi dò/chụp, cú pháp ffmpeg w:h:x:y, vd \"iw*0.78:ih:0:0\" (bỏ webcam)")
     ap.add_argument("--polish", action="store_true", help="Làm sạch/viết lại lời giảng đúng ngữ cảnh bằng Claude (cần ANTHROPIC_API_KEY)")
     ap.add_argument("--polish-only", action="store_true", help="Chỉ chạy bước làm sạch trên recap.json có sẵn trong thư mục --out")
+    ap.add_argument("--notes", action="store_true", help="Xuất thêm ghi chú học tập theo chủ đề (phần/mục, hộp ghi nhớ, ảnh slide) + zip import Notion; cần ANTHROPIC_API_KEY")
+    ap.add_argument("--notes-only", action="store_true", help="Chỉ chạy bước ghi chú trên recap.json có sẵn trong thư mục --out")
+    ap.add_argument("--lecturer", help="Tên giảng viên (hiện ở đầu ghi chú)")
+    ap.add_argument("--background", help="Giới thiệu ngắn về giảng viên (hiện ở đầu ghi chú)")
     ap.add_argument("--polish-model", default="claude-sonnet-5-5", help="Model Claude dùng để làm sạch (mặc định claude-sonnet-5-5)")
     ap.add_argument("--context", help="Mô tả bài giảng + thuật ngữ chính; dùng gợi ý cho gỡ băng và cho bước làm sạch")
     ap.add_argument("--glossary", help="File .txt: mỗi dòng một thuật ngữ/tên riêng cần viết đúng")
@@ -373,14 +640,17 @@ def main():
     prompt = " ".join(x for x in [a.context, ", ".join(glossary)] if x)[:600] or None
     title = a.title or video.stem.replace("-", " ").replace("_", " ")
 
-    if a.polish_only:
+    if a.polish_only or a.notes_only:
         data = json.loads((out / "recap.json").read_text(encoding="utf-8"))
         slides = data["slides"]
         for sl in slides:
             sl["raw"] = sl.get("raw") or sl["paras"]
-        polish_all(slides, out, a.polish_model, a.context, glossary)
-        write_outputs(out, a.title or data["title"], Path(data["video"]), slides)
-        print(f"Xong -> {out}/recap.html")
+        if a.polish_only:
+            polish_all(slides, out, a.polish_model, a.context, glossary)
+            write_outputs(out, a.title or data["title"], Path(data["video"]), slides)
+        if a.notes or a.notes_only:
+            make_notes(slides, out, a.title or data["title"], a.polish_model, a.context, glossary, a.lecturer, a.background)
+        print(f"Xong -> {out}/")
         return
 
     total = duration(video)
@@ -420,6 +690,8 @@ def main():
     if a.polish:
         polish_all(slides, out, a.polish_model, a.context, glossary)
     write_outputs(out, title, video, slides)
+    if a.notes:
+        make_notes(slides, out, title, a.polish_model, a.context, glossary, a.lecturer, a.background)
     print(f"Xong -> {out}/recap.html (mở bằng trình duyệt), recap.md, recap.json")
 
 
