@@ -173,15 +173,34 @@ def whisper_cues(video, lang, model_name, cache, prompt=None, beam=5):
     import numpy as np
     with wave.open(str(wav), "rb") as w:
         audio = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float32) / 32768.0
-    segs, info = model.transcribe(audio, language=lang, initial_prompt=prompt or None, vad_filter=True, beam_size=beam, condition_on_previous_text=False)
-    cues, t0, last = [], time.time(), 0
-    for s_ in segs:
-        if s_.text.strip():
-            cues.append((s_.start, s_.end, s_.text.strip()))
-        if time.time() - last > 20:
-            last = time.time()
-            print(f"  đã gỡ tới {hms(s_.end)} / {hms(info.duration)}  (đã chạy {hms(last - t0)})", end="\r", flush=True)
+    total, SR = len(audio) / 16000.0, 16000
+    # Tiếp tục từ chỗ đã dừng: tiến độ lưu ở file .partial.json (mỗi ~30 giây và khi bấm Ctrl+C)
+    part = cache.with_suffix(".partial.json")
+    cues, start = [], 0.0
+    if part.is_file():
+        d = json.loads(part.read_text(encoding="utf-8"))
+        cues, start = [tuple(c) for c in d["cues"]], float(d["until"])
+        print(f"Tiếp tục gỡ băng từ {hms(start)} (đã có {len(cues)} câu từ lần trước).")
+    save = lambda: part.write_text(json.dumps({"until": cues[-1][1] if cues else start, "cues": cues}, ensure_ascii=False), encoding="utf-8")
+    segs, info = model.transcribe(audio[int(start * SR):], language=lang, initial_prompt=prompt or None, vad_filter=True,
+                                  beam_size=beam, condition_on_previous_text=False)
+    t0, last_print, last_save = time.time(), 0, time.time()
+    try:
+        for s_ in segs:
+            if s_.text.strip():
+                cues.append((s_.start + start, s_.end + start, s_.text.strip()))
+            now = time.time()
+            if now - last_save > 30:
+                last_save = now; save()
+            if now - last_print > 20:
+                last_print = now
+                print(f"  đã gỡ tới {hms(s_.end + start)} / {hms(total)}  (đã chạy {hms(now - t0)})", end="\r", flush=True)
+    except KeyboardInterrupt:
+        save()
+        print(f"\nĐã dừng và lưu tiến độ tới {hms(cues[-1][1] if cues else start)} / {hms(total)}. Chạy lại đúng lệnh cũ để làm tiếp.")
+        sys.exit(130)
     cache.write_text(json.dumps(cues, ensure_ascii=False), encoding="utf-8")
+    part.unlink(missing_ok=True)
     wav.unlink(missing_ok=True)
     print(f"\nXong gỡ băng: {len(cues)} câu")
     return cues
@@ -715,7 +734,13 @@ def main():
     print(f"Video dài {hms(total)} — dò đổi slide (1 khung/giây)…")
     t0 = time.time()
     sample_frame(video, total, out / "sample.jpg", a.crop)
-    segments = build_segments(detect_changes(video, a.scene, a.crop), total, a.min_gap)
+    seg_f, seg_key = out / "segments.json", f"{video.stat().st_size}|{a.scene}|{a.crop}|{a.min_gap}"
+    if seg_f.is_file() and json.loads(seg_f.read_text(encoding="utf-8")).get("key") == seg_key:
+        segments = [tuple(x) for x in json.loads(seg_f.read_text(encoding="utf-8"))["segments"]]
+        print("  Dùng kết quả dò slide đã lưu.")
+    else:
+        segments = build_segments(detect_changes(video, a.scene, a.crop), total, a.min_gap)
+        seg_f.write_text(json.dumps({"key": seg_key, "segments": segments}), encoding="utf-8")
     print(f"  {len(segments)} đoạn slide (mất {hms(time.time() - t0)}). Xem khung đang xét: {out}/sample.jpg")
 
     cues = parse_subs(a.transcript) if a.transcript else whisper_cues(video, a.lang, a.model, out / f"transcript-{a.model}-b{a.beam}.json", prompt, a.beam)
