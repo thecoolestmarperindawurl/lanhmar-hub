@@ -6,7 +6,7 @@ window.TREASURES = [
     id: "course-recap",
     name: "Course Recap",
     status: "soon",
-    url: "https://github.com/thecoolestmarperindawurl/course-recap-free",
+    url: "https://github.com/thecoolestmarperindawurl/course-recap-in-detailed",
     kind: "Python · CLI",
     desc: "Biến video bài giảng có chiếu slide thành một trang recap: ảnh từng slide kèm lời giảng của giảng viên ở đúng slide đó. Dán link Google Drive là chạy.",
     desc_en: "Turns a lecture video with slides on screen into a recap page: each slide image with what the lecturer said during it. Paste a Google Drive link and go.",
