@@ -717,7 +717,7 @@ def main():
         tmp.rename(out / name)
         mine = [c for c in cues if t0 <= (c[0] + c[1]) / 2 < t1 or (n == len(merged) and c[0] >= t1)]
         slides.append({"n": n, "start": round(t0, 2), "end": round(t1, 2), "image": name, "paras": paragraphs(mine)})
-        parts = None if getattr(a, "polish", False) else split_parts(mine, t0, t1, a.split_long)   # làm sạch bằng Claude viết lại cả slide nên không chia phần
+        parts = split_parts(mine, t0, t1, a.split_long)
         if parts:
             slides[-1]["parts"] = parts
     print(f"\n  {len(slides)} slide sau khi gộp trùng")
