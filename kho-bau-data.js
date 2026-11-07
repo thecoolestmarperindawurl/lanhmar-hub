@@ -3,6 +3,7 @@
    - shelf: id kệ trong TREASURE_SHELVES. featured: true để hiện ở khối "Mới và nổi bật".
    - status: "open" (đã mở, có url) | "soon" (sắp mở, nút bị khoá). url nhận https hoặc trang trong site (vd ai-convert.html).
    - detail: có thì nút chính mở hộp chi tiết trong trang (course-recap dùng mẫu riêng; mục có `sections` dùng nội dung dạng khối callout/h/p/list/steps/table/code giống thẻ Kho Ứng dụng); bỏ trống thì nút chính đi thẳng tới url. direct: true thêm nút mở thẳng công cụ. meta/note/links: thông tin phụ trong hộp chi tiết.
+   - demo: ví dụ kết quả hiện trong hộp chi tiết. kind "recap" (slides: [{ n, time, title, bullets[], speech }]) hoặc "convert" (before/after: { label, text }). Chỉ dùng dữ liệu mẫu tự soạn, ghi rõ là mẫu; có cặp x_en cho chữ.
    - thumb: ảnh 960×504 trong assets/res/. install: các dòng lệnh cài (nút Copy lệnh cài).
    Kệ có soon: true hiện "Sắp có" và không có mục nào. */
 window.TREASURE_SHELVES = [
@@ -40,6 +41,21 @@ window.TREASURES = [
       "Skip the intro and class rules with one option",
       "Stop midway and resume later, built for multi-hour videos"
     ],
+    demo: {
+      kind: "recap",
+      slides: [
+        { n: 3, time: "00:12:40",
+          title: "Phễu marketing", title_en: "Marketing funnel",
+          bullets: ["Nhận biết", "Cân nhắc", "Mua hàng"], bullets_en: ["Awareness", "Consideration", "Purchase"],
+          speech: "Ở slide này, phễu có ba tầng. Tầng trên cùng là nhận biết: người ta mới biết đến thương hiệu. Tầng giữa là cân nhắc: họ so sánh với lựa chọn khác. Tầng cuối mới là mua hàng. Mỗi tầng cần một loại nội dung khác nhau.",
+          speech_en: "On this slide the funnel has three layers. The top is awareness: people have just heard of the brand. The middle is consideration: they compare it with other options. Only the bottom is purchase. Each layer needs a different kind of content." },
+        { n: 4, time: "00:15:05",
+          title: "Bài tập: vẽ phễu của bạn", title_en: "Exercise: draw your own funnel",
+          bullets: ["Chọn một sản phẩm", "Ghi nội dung cho từng tầng"], bullets_en: ["Pick one product", "Write the content for each layer"],
+          speech: "Bây giờ các bạn chọn một sản phẩm của mình và vẽ phễu ra giấy. Mỗi tầng ghi một ý nội dung. Mười phút nhé, xong thì chụp ảnh gửi lên nhóm.",
+          speech_en: "Now pick one of your own products and draw its funnel on paper. Write one content idea for each layer. You have ten minutes, then post a photo to the group." }
+      ]
+    },
     license: "PolyForm Noncommercial 1.0.0",
     note: "Thực đo trên laptop của mình: video 2 giờ 03 phút, gỡ băng khoảng 51 phút, ra 88 slide. Máy khác sẽ khác.",
     note_en: "Measured on my own laptop: a 2h03 video took about 51 minutes to transcribe and produced 88 slides. Your machine will differ.",
@@ -71,6 +87,13 @@ window.TREASURES = [
     ],
     note: "Trình duyệt tải các thư viện đọc file (pdf.js, mammoth, SheetJS…) từ CDN công khai. Nội dung file của bạn không được gửi đi đâu.",
     note_en: "Your browser loads the file-reading libraries (pdf.js, mammoth, SheetJS…) from public CDNs. The contents of your files are not sent anywhere.",
+    demo: {
+      kind: "convert",
+      before: { label: "Chữ copy ra từ PDF (rối)", label_en: "Text copied out of a PDF (messy)",
+        text: "BÁO CÁO QUÝ 3\nTrang 1\nDoanh thu   tăng 12%   so với quý 2\nKênh | Chi phí | Đơn\nFacebook | 20 | 140\nGoogle | 15 | 90\nTrang 1" },
+      after: { label: "Markdown sau khi chuyển", label_en: "Markdown after converting",
+        text: "# Báo cáo quý 3\n\nDoanh thu tăng 12% so với quý 2.\n\n| Kênh | Chi phí | Đơn |\n| --- | --- | --- |\n| Facebook | 20 | 140 |\n| Google | 15 | 90 |" }
+    },
     detail: "ai-convert",
     direct: true,
     links: [{ t: "Bản dòng lệnh trên GitHub ↗", t_en: "Command-line version on GitHub ↗", u: "https://github.com/thecoolestmarperindawurl/lanhmar-hub/blob/main/tools/to-md.py" }],

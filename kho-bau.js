@@ -25,6 +25,7 @@
       detail_btn: "Xem & cách cài →", detail_more: "Xem chi tiết →", d_open: "Mở công cụ →", copy_install: "Copy lệnh cài", copied: "Đã copy lệnh", copy_fail: "Không copy được, bấm giữ vào lệnh để chép tay",
       m_lic: "Giấy phép", m_cost: "Chi phí", free_w: "Miễn phí",
       d_points: "Điểm chính", d_how: "Cài và dùng", d_how_more: "Hướng dẫn đầy đủ, tuỳ chọn và giới hạn nằm trong README của repo.",
+      demo_h: "Ví dụ kết quả", demo_note: "Nội dung mẫu tự soạn cho dễ hình dung, không phải khoá học hay tài liệu thật.", demo_slide: "Slide", demo_speech: "Lời giảng ở slide này",
       d_install: "Lệnh cài", d_run: "Lệnh chạy", d_repo: "Xem trên GitHub ↗", d_close: "Đóng",
       s1_h: "Cài một lần", s1_p: "Cần Python và ffmpeg, rồi cài thư viện theo file requirements trong repo.",
       s2_h: "Dán link Drive", s2_p: "Dán link Drive. Link công khai chạy ngay; file chia sẻ theo email thì đăng nhập Google một lần (chỉ đọc Drive). Hoặc đưa đường dẫn file trên máy.",
@@ -70,6 +71,7 @@
       detail_btn: "Details & install →", detail_more: "See details →", d_open: "Open tool →", copy_install: "Copy install command", copied: "Command copied", copy_fail: "Couldn't copy, press and hold the command to copy by hand",
       m_lic: "License", m_cost: "Cost", free_w: "Free",
       d_points: "Highlights", d_how: "Install and use", d_how_more: "Full instructions, options and limits are in the repo README.",
+      demo_h: "Example result", demo_note: "Sample content written for illustration, not a real course or document.", demo_slide: "Slide", demo_speech: "What was said on this slide",
       d_install: "Install command", d_run: "Run command", d_repo: "View on GitHub ↗", d_close: "Close",
       s1_h: "Install once", s1_p: "You need Python and ffmpeg, then install the libraries from the requirements file in the repo.",
       s2_h: "Paste a Drive link", s2_p: "Paste a Drive link. Public links work right away; files shared by email need a one-time Google sign-in (read-only Drive). Or give a path to a file on your computer.",
@@ -134,9 +136,21 @@
     if (b.k === "code") return `${L(b, "cap") ? `<p class="kb-lab">${esc(L(b, "cap"))}</p>` : ""}<pre class="kb-code" tabindex="0">${esc(b.t)}</pre>`;
     return "";
   }).join("");
+  // ví dụ kết quả: dữ liệu mẫu (demo) hiện ngay dưới phần giới thiệu trong hộp chi tiết
+  function demoHtml(x) {
+    const d = x.demo; if (!d) return "";
+    let body = "";
+    if (d.kind === "recap") {
+      body = `<div class="kb-rcp">${(d.slides || []).map((sl) => `<div class="kb-rc"><div class="kb-slide"><small>${esc(T("demo_slide"))} ${esc(sl.n)}</small><b>${esc(L(sl, "title"))}</b><ul>${(L(sl, "bullets") || []).map((t) => `<li>${esc(t)}</li>`).join("")}</ul></div><div class="kb-rt"><span class="kb-time">${esc(sl.time)}</span><p>${esc(L(sl, "speech"))}</p></div></div>`).join("")}</div>`;
+    } else if (d.kind === "convert") {
+      body = `<div class="kb-ba"><div><p class="kb-lab">${esc(L(d.before, "label"))}</p><pre class="kb-code kb-before" tabindex="0">${esc(d.before.text)}</pre></div><span class="kb-arrow" aria-hidden="true">→</span><div><p class="kb-lab">${esc(L(d.after, "label"))}</p><pre class="kb-code" tabindex="0">${esc(d.after.text)}</pre></div></div>`;
+    }
+    return body ? `<div class="kb-demo"><h3>★ ${esc(T("demo_h"))}</h3>${body}<p class="kb-dnote">${esc(T("demo_note"))}</p></div>` : "";
+  }
   function genericDetail(x) {
     const url = okUrl(x.url), meta = x.meta || [], links = (x.links || []).filter((l) => okUrl(l.u));
     return `<div class="kb-dtop">${chips(x)}<h2 id="kbDlgT">${esc(x.name)}</h2><p>${esc(L(x, "desc"))}</p></div>
+      ${demoHtml(x)}
       ${meta.length ? `<dl class="kb-meta">${meta.map((m) => `<dt>${esc(L(m, "l"))}</dt><dd>${esc(L(m, "v"))}</dd>`).join("")}</dl>` : ""}
       ${L(x, "note") ? `<p class="kb-dnote">${esc(L(x, "note"))}</p>` : ""}
       ${blocks(x.sections)}
@@ -149,6 +163,7 @@
     const url = okUrl(x.url), pts = L(x, "points") || [];
     const code = 'python recap.py "https://drive.google.com/file/d/<ID>/view" --title "Buổi 1"';
     return `<div class="kb-dtop">${chips(x)}<h2 id="kbDlgT">${esc(x.name)}</h2><p>${esc(L(x, "desc"))}</p></div>
+      ${demoHtml(x)}
       ${pts.length ? `<h3>${esc(T("d_points"))}</h3><ul class="kb-dpts">${pts.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
       <dl class="kb-meta">${x.license ? `<dt>${esc(T("m_lic"))}</dt><dd>${esc(x.license)}</dd>` : ""}<dt>${esc(T("m_cost"))}</dt><dd>${esc(T("free_w"))}</dd></dl>
       ${L(x, "note") ? `<p class="kb-dnote">${esc(L(x, "note"))}</p>` : ""}
