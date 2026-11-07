@@ -9,7 +9,7 @@
   const I18N = {
     vi: {
       title: "Cộng đồng | LANHMAR", foot: "© 2026 Dương Thị Lan Anh — LANHMAR",
-      nav_story: "Hành trình", nav_work: "Dự án", nav_services: "Dịch vụ", nav_community: "Cộng đồng", nav_contact: "Liên hệ", cta_talk: "Liên hệ mình",
+      nav_story: "Hành trình", nav_work: "Dự án", nav_services: "Dịch vụ", nav_community: "Cộng đồng", nav_treasure: "Kho báu", nav_contact: "Liên hệ", cta_talk: "Liên hệ mình",
       hero_k: "★ CỘNG ĐỒNG · LANHMAR", hero_h: "Cùng nhau <em>đi làm với AI.</em>",
       hero_p: "Nơi những người đi làm trao đổi cách dùng AI vào công việc thật: công cụ, quy trình, bài học và cả những lần làm chưa ra. Chọn một nhóm bên dưới để tham gia.",
       hero_cta1: "Xem các nhóm →", hero_cta2: "Đề xuất nhóm mới", pill1: "★ Chia sẻ <b>thực tế</b>", pill2: "★ Hỏi đáp <b>thân thiện</b>",
@@ -37,7 +37,7 @@
     },
     en: {
       title: "Community | LANHMAR", foot: "© 2026 Lana Duong — LANHMAR",
-      nav_story: "Journey", nav_work: "Projects", nav_services: "Services", nav_community: "Community", nav_contact: "Contact", cta_talk: "Get in touch",
+      nav_story: "Journey", nav_work: "Projects", nav_services: "Services", nav_community: "Community", nav_treasure: "Treasure", nav_contact: "Contact", cta_talk: "Get in touch",
       hero_k: "★ COMMUNITY · LANHMAR", hero_h: "Working with <em>AI, together.</em>",
       hero_p: "A place where working professionals swap how they use AI in real work: tools, workflows, lessons, and the attempts that didn't pan out. Pick a group below to join.",
       hero_cta1: "See the groups →", hero_cta2: "Suggest a new group", pill1: "★ Real-world <b>sharing</b>", pill2: "★ Friendly <b>Q&amp;A</b>",

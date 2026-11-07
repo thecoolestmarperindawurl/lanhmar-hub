@@ -9057,6 +9057,156 @@
         "url": "https://lanhmar.id.vn/ai-convert.html",
         "btn": "Mở công cụ"
       }
+    },
+    {
+      "id": "tool-course-recap-full",
+      "kho": "idea",
+      "shelf": "tool",
+      "status": "Đang dùng",
+      "guide": true,
+      "date": "2026-11-06",
+      "title": "Course Recap (bản đầy đủ): recap bài giảng có ảnh slide, viết lại bằng Claude",
+      "type": "Công cụ",
+      "badge": "Python CLI",
+      "tags": [
+        "recap",
+        "khoá học",
+        "claude api",
+        "whisper",
+        "vibe code"
+      ],
+      "thumb": "assets/res/tool-course-recap-full.jpg",
+      "note": "Biến video bài giảng dài hàng giờ thành bài recap theo chủ đề: ảnh từng slide, lời giảng đã được Claude làm sạch, tự bỏ phần giới thiệu và nội quy. Bản đầy đủ dành cho người ủng hộ Storage.",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Course Recap có hai bản. Bản miễn phí (công khai trên GitHub, xem ở trang Kho báu) cho ra recap theo từng slide và chạy hoàn toàn trên máy bạn. Bản đầy đủ này thêm bước nối Claude API để chỉnh lời giảng đúng ngữ cảnh và viết thành ghi chú học tập theo chủ đề."
+        },
+        {
+          "k": "h",
+          "t": "Khác gì bản miễn phí"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Nội dung",
+            "Bản miễn phí",
+            "Bản đầy đủ"
+          ],
+          "rows": [
+            [
+              "Đầu vào",
+              "Link Google Drive (công khai, hoặc riêng tư sau khi đăng nhập Google một lần, chỉ đọc) hoặc file video",
+              "Giống bản miễn phí"
+            ],
+            [
+              "Lời giảng",
+              "Gỡ băng tự động, giữ nguyên, gom thành đoạn",
+              "Thêm bước Claude đọc ảnh slide, sửa thuật ngữ và tên riêng, bỏ từ đệm, đánh dấu chỗ không chắc"
+            ],
+            [
+              "Cách trình bày",
+              "Theo từng slide",
+              "Thêm ghi chú theo chủ đề: phần <I>, mục đánh số, hộp ghi nhớ, ảnh slide, phần tổng kết"
+            ],
+            [
+              "Phần giới thiệu, nội quy",
+              "Bỏ thủ công bằng --skip-until hoặc --skip-slides",
+              "Tự nhận biết và bỏ, ghi danh sách slide bị bỏ kèm lý do để bạn kiểm tra, chỉnh tay được"
+            ],
+            [
+              "Bài tập thực hành",
+              "Như các slide khác",
+              "Nhận biết riêng và viết theo khuôn: yêu cầu, các bước, lưu ý, nhận xét"
+            ],
+            [
+              "Chi phí",
+              "Không tốn API",
+              "Cần API key Claude của bạn, bạn tự chịu chi phí API"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Một lần chạy thật"
+        },
+        {
+          "k": "p",
+          "t": "Video bài giảng 2 giờ 03 phút, laptop Windows, model whisper small: dò slide khoảng 3 phút 22 giây, gỡ băng khoảng 51 phút, ra 88 slide, ghi chú gồm 8 phần và 19 mục. Thời gian và chi phí của bước Claude mình chưa ghi lại nên không nêu số. Máy và bài giảng khác sẽ cho kết quả khác."
+        },
+        {
+          "k": "h",
+          "t": "Cần chuẩn bị"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Python 3.9 trở lên và ffmpeg",
+            "Thư viện: pillow, faster-whisper, anthropic",
+            "API key Claude (biến môi trường ANTHROPIC_API_KEY), tính phí theo lượng dùng",
+            "Video bài giảng bạn có quyền sử dụng",
+            "Nếu muốn tải video Drive chia sẻ theo email: file OAuth client Google (Desktop app) do bạn tự tạo, README có hướng dẫn từng bước"
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cách dùng"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Chạy một lệnh",
+              "d": "Đưa link Google Drive (công khai, hoặc đã đăng nhập bằng --google-login) hay đường dẫn file video đã tải về máy, thêm --notes để xuất ghi chú theo chủ đề."
+            },
+            {
+              "t": "Cho tool biết ngữ cảnh",
+              "d": "--context mô tả khoá hoặc bài học, --glossary là file thuật ngữ và tên riêng để chữ chính xác hơn."
+            },
+            {
+              "t": "Đọc danh sách slide bị bỏ",
+              "d": "Mở recap-notes-skipped.txt, kiểm tra tool bỏ có đúng phần giới thiệu và nội quy. Chỉnh bằng --skip-until hoặc --skip-slides rồi chạy lại với --notes-only."
+            },
+            {
+              "t": "Xem và đưa vào Notion",
+              "d": "Mở recap-notes.html để xem. File recap-notes.zip import được vào Notion (Import, Text & Markdown), ảnh đi kèm."
+            }
+          ]
+        },
+        {
+          "k": "code",
+          "cap": "Ví dụ",
+          "t": "python course-recap.py \"https://drive.google.com/file/d/<ID>/view\" --title \"BUỔI 1\" --context \"Khoá Photoshop Cơ bản\" --notes\npython course-recap.py bai-1.mp4 --notes-only --skip-until 02:30   # viết lại ghi chú, không gỡ băng lại"
+        },
+        {
+          "k": "h",
+          "t": "Lưu ý khi dùng"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Lời giảng và ảnh slide được gửi tới Anthropic API khi dùng bước Claude. Đừng dùng với video có thông tin cá nhân hoặc nội bộ nếu chưa được phép.",
+            "Gỡ băng tự động có thể sai thuật ngữ. Chỗ Claude không chắc được đánh dấu “Cần kiểm tra”. Bạn vẫn cần đọc lại trước khi dùng.",
+            "Claude chỉ dùng lời giảng và chữ trên slide, không thêm kiến thức ngoài. Thấy chỗ lệch ý giảng viên thì đối chiếu mục lời giảng gốc trong recap.html.",
+            "Notion không giữ hộp ghi nhớ và cột khi import Markdown, hộp ghi nhớ thành khối trích dẫn.",
+            "Chỉ dùng với video bạn có quyền sử dụng.",
+            "Có thể dừng giữa chừng bằng Ctrl+C rồi chạy lại đúng lệnh cũ: tool lưu phần video đã tải, kết quả dò slide, gỡ băng (mỗi 30 giây) và kết quả các bước Claude, nên chỉ làm tiếp phần còn lại."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Nhận bản đầy đủ"
+        },
+        {
+          "k": "p",
+          "t": "Bản đầy đủ nằm trong Data Storage, dành cho người ủng hộ. Bạn đăng ký bằng họ tên và email, nhận mã QR chuyển khoản riêng (số tiền tuỳ tâm), mình duyệt thủ công. Sau khi được duyệt, bạn tải bản đầy đủ trong Storage."
+        }
+      ],
+      "cta": {
+        "title": "Data Storage",
+        "url": "https://lanhmar.id.vn/storage.html",
+        "btn": "Ủng hộ để mở Storage"
+      }
     }
   ]
 }
