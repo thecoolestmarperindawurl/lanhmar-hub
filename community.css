@@ -133,7 +133,9 @@
 .cm-evh-side{position:absolute;left:30px;top:18px;bottom:18px;display:flex;flex-direction:column;gap:12px;pointer-events:none}
 .cm-evh-side span{writing-mode:vertical-rl;transform:rotate(180deg);background:var(--orange);color:var(--ink);font:800 12px Montserrat;letter-spacing:.22em;padding:16px 7px;border-radius:6px;white-space:nowrap}
 .cm-evh-side span:nth-child(2){background:var(--purple-mid);color:#fff;opacity:.9}
-.cm-evh-main{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(240px,.7fr);gap:30px;align-items:center}
+.cm-evh-main{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(220px,.7fr);gap:30px;align-items:stretch}
+.cm-evh-text{display:flex;flex-direction:column;justify-content:space-between;gap:10px;padding-top:26px}
+.cm-evh-text>*{margin-top:0!important}
 .cm-evh-text .cm-evc-chips{position:static;margin-bottom:14px}
 .cm-evh-text .cm-evc-date{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25)}
 .cm-evh-text h3{margin:0 0 14px;font-size:clamp(28px,4.2vw,46px);line-height:1.05;color:#fff;letter-spacing:-.01em}
@@ -149,7 +151,7 @@
 .cm-evh-link{color:var(--orange-soft);font:700 14px Montserrat;text-decoration:none}
 .cm-evh-link:hover{text-decoration:underline}
 .cm-evh-soon{color:var(--lav-300);font:600 14px Montserrat;border:1px dashed rgba(178,164,239,.6);padding:10px 16px;border-radius:999px}
-.cm-evh-poster{position:relative;justify-self:end;width:100%;max-width:300px;padding-top:26px;cursor:pointer}
+.cm-evh-poster{position:relative;justify-self:end;width:100%;max-width:230px;padding-top:26px;cursor:pointer}
 .cm-evh-poster[role="button"]:focus-visible{outline:3px solid var(--orange);outline-offset:4px;border-radius:12px}
 .cm-evh-frame{position:relative;aspect-ratio:auto;min-height:220px;border:2px solid var(--lav-400);border-radius:10px;overflow:hidden;background:linear-gradient(160deg,var(--purple-deep),var(--purple-mid) 60%,#1a1540);box-shadow:0 20px 50px rgba(0,0,0,.45);transition:transform .4s cubic-bezier(.2,.8,.2,1)}
 .cm-evh-poster:hover .cm-evh-frame{transform:translateY(-4px) rotate(-.6deg)}
