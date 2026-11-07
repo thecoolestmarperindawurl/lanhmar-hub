@@ -139,10 +139,11 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--purple-mid);outline
 
 /* bản đầy đủ + ủng hộ: khối tím đặc */
 .kb-end{padding:38px 0 18px}
-.kb-full{position:relative;overflow:hidden;background:var(--purple-deep);color:#fff;border:3px solid var(--ink);border-radius:30px;padding:clamp(26px,5vw,46px);box-shadow:0 22px 50px rgba(45,47,239,.35),8px 8px 0 var(--ink)}
-.kb-full::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(500px 260px at 100% 100%,rgba(255,122,69,.4),transparent),radial-gradient(rgba(255,255,255,.14) 1.4px,transparent 1.7px) 0 0/22px 22px}
+.kb-full{position:relative;overflow:hidden;background:linear-gradient(160deg,#2a2bd0,#1f1fa8);color:#fff;border:3px solid var(--ink);border-radius:30px;padding:clamp(26px,5vw,46px);box-shadow:0 22px 50px rgba(45,47,239,.35),8px 8px 0 var(--ink)}
+.kb-full::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(500px 260px at 100% 100%,rgba(255,122,69,.26),transparent),radial-gradient(rgba(255,255,255,.08) 1.4px,transparent 1.7px) 0 0/22px 22px}
 .kb-full>*{position:relative}
 .kb-flabel{display:inline-block;background:var(--orange-soft);color:var(--orange-text);font:800 12px Montserrat;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:999px;margin:0 0 12px!important}
+.kb-full .kb-flabel{color:var(--orange-text);background:var(--orange-soft);max-width:none}
 .kb-full h2{color:#fff;margin-bottom:12px}
 .kb-full p{color:var(--lav-200);max-width:680px;font-size:15.5px}
 .kb-full ul:not(.don-steps){margin:0 0 14px;padding:0;list-style:none;display:grid;gap:8px;max-width:680px}
