@@ -83,7 +83,8 @@ window.TREASURES = [
     cta_en: "Open tool →",
     meta: [
       { l: "Truy cập", l_en: "Access", v: "Mở ngay trên web, không cần đăng nhập", v_en: "Opens right on the web, no sign-in needed" },
-      { l: "Dữ liệu", l_en: "Your data", v: "Xử lý ngay trong trình duyệt, file không rời máy", v_en: "Processed in your browser, files never leave your device" }
+      { l: "Dữ liệu", l_en: "Your data", v: "Xử lý ngay trong trình duyệt, file không rời máy", v_en: "Processed in your browser, files never leave your device" },
+      { l: "Mã nguồn", l_en: "Source code", v: "Có trên GitHub: tải về, mở index.html là chạy, không cần Internet", v_en: "On GitHub: download, open index.html and it runs, no Internet needed" }
     ],
     note: "Trình duyệt tải các thư viện đọc file (pdf.js, mammoth, SheetJS…) từ CDN công khai. Nội dung file của bạn không được gửi đi đâu.",
     note_en: "Your browser loads the file-reading libraries (pdf.js, mammoth, SheetJS…) from public CDNs. The contents of your files are not sent anywhere.",
@@ -96,7 +97,7 @@ window.TREASURES = [
     },
     detail: "ai-convert",
     direct: true,
-    links: [{ t: "Bản dòng lệnh trên GitHub ↗", t_en: "Command-line version on GitHub ↗", u: "https://github.com/thecoolestmarperindawurl/lanhmar-hub/blob/main/tools/to-md.py" }],
+    links: [{ t: "Tải về chạy offline (GitHub) ↗", t_en: "Download to run offline (GitHub) ↗", u: "https://github.com/thecoolestmarperindawurl/ai-convert" }, { t: "Bản dòng lệnh trên GitHub ↗", t_en: "Command-line version on GitHub ↗", u: "https://github.com/thecoolestmarperindawurl/ai-convert/blob/main/to-md.py" }],
     sections: [
       {
         "k": "callout",

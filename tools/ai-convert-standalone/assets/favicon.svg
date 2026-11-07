@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Favicon LANHMAR: nền tím purple-deep, chữ L cam lấy từ logo, ngôi sao ★ là dấu phân cách đặc trưng của brand. Vẽ bằng hình học, không phụ thuộc font. -->
+  <rect width="64" height="64" rx="14" fill="#2D2FEF"/>
+  <path d="M15 14h12v26h16v10H15z" fill="#FF7A45"/>
+  <path d="M47 11l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.7z" fill="#FFFFFF"/>
+</svg>
