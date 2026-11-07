@@ -3,7 +3,7 @@
    - shelf: id kệ trong TREASURE_SHELVES. featured: true để hiện ở khối "Mới và nổi bật".
    - status: "open" (đã mở, có url) | "soon" (sắp mở, nút bị khoá). url nhận https hoặc trang trong site (vd ai-convert.html).
    - detail: có thì nút chính mở hộp chi tiết trong trang (course-recap dùng mẫu riêng; mục có `sections` dùng nội dung dạng khối callout/h/p/list/steps/table/code giống thẻ Kho Ứng dụng); bỏ trống thì nút chính đi thẳng tới url. direct: true thêm nút mở thẳng công cụ. meta/note/links: thông tin phụ trong hộp chi tiết.
-   - demo: ví dụ kết quả hiện trong hộp chi tiết. kind "recap" (slides: [{ n, time, title, bullets[], speech }]) hoặc "convert" (before/after: { label, text }). Chỉ dùng dữ liệu mẫu tự soạn, ghi rõ là mẫu; có cặp x_en cho chữ.
+   - demo: ví dụ kết quả hiện trong hộp chi tiết. kind "recap" (slides: [{ n, img (+img_en: ảnh slide mẫu 800×450 trong assets/res/), time, title, bullets[], speech }]) hoặc "convert" (before/after: { label, text }). Chỉ dùng dữ liệu mẫu tự soạn, ghi rõ là mẫu; có cặp x_en cho chữ.
    - thumb: ảnh 960×504 trong assets/res/. install: các dòng lệnh cài (nút Copy lệnh cài).
    Kệ có soon: true hiện "Sắp có" và không có mục nào. */
 window.TREASURE_SHELVES = [
@@ -44,12 +44,12 @@ window.TREASURES = [
     demo: {
       kind: "recap",
       slides: [
-        { n: 3, time: "00:12:40",
+        { n: 3, img: "assets/res/demo-recap-1-vi.webp", img_en: "assets/res/demo-recap-1-en.webp", time: "00:12:40",
           title: "Phễu marketing", title_en: "Marketing funnel",
           bullets: ["Nhận biết", "Cân nhắc", "Mua hàng"], bullets_en: ["Awareness", "Consideration", "Purchase"],
           speech: "Ở slide này, phễu có ba tầng. Tầng trên cùng là nhận biết: người ta mới biết đến thương hiệu. Tầng giữa là cân nhắc: họ so sánh với lựa chọn khác. Tầng cuối mới là mua hàng. Mỗi tầng cần một loại nội dung khác nhau.",
           speech_en: "On this slide the funnel has three layers. The top is awareness: people have just heard of the brand. The middle is consideration: they compare it with other options. Only the bottom is purchase. Each layer needs a different kind of content." },
-        { n: 4, time: "00:15:05",
+        { n: 4, img: "assets/res/demo-recap-2-vi.webp", img_en: "assets/res/demo-recap-2-en.webp", time: "00:15:05",
           title: "Bài tập: vẽ phễu của bạn", title_en: "Exercise: draw your own funnel",
           bullets: ["Chọn một sản phẩm", "Ghi nội dung cho từng tầng"], bullets_en: ["Pick one product", "Write the content for each layer"],
           speech: "Bây giờ các bạn chọn một sản phẩm của mình và vẽ phễu ra giấy. Mỗi tầng ghi một ý nội dung. Mười phút nhé, xong thì chụp ảnh gửi lên nhóm.",
@@ -83,7 +83,8 @@ window.TREASURES = [
     cta_en: "Open tool →",
     meta: [
       { l: "Truy cập", l_en: "Access", v: "Mở ngay trên web, không cần đăng nhập", v_en: "Opens right on the web, no sign-in needed" },
-      { l: "Dữ liệu", l_en: "Your data", v: "Xử lý ngay trong trình duyệt, file không rời máy", v_en: "Processed in your browser, files never leave your device" }
+      { l: "Dữ liệu", l_en: "Your data", v: "Xử lý ngay trong trình duyệt, file không rời máy", v_en: "Processed in your browser, files never leave your device" },
+      { l: "Mã nguồn", l_en: "Source code", v: "Có trên GitHub: tải về, mở index.html là chạy, không cần Internet", v_en: "On GitHub: download, open index.html and it runs, no Internet needed" }
     ],
     note: "Trình duyệt tải các thư viện đọc file (pdf.js, mammoth, SheetJS…) từ CDN công khai. Nội dung file của bạn không được gửi đi đâu.",
     note_en: "Your browser loads the file-reading libraries (pdf.js, mammoth, SheetJS…) from public CDNs. The contents of your files are not sent anywhere.",
@@ -96,7 +97,7 @@ window.TREASURES = [
     },
     detail: "ai-convert",
     direct: true,
-    links: [{ t: "Bản dòng lệnh trên GitHub ↗", t_en: "Command-line version on GitHub ↗", u: "https://github.com/thecoolestmarperindawurl/lanhmar-hub/blob/main/tools/to-md.py" }],
+    links: [{ t: "Tải về chạy offline (GitHub) ↗", t_en: "Download to run offline (GitHub) ↗", u: "https://github.com/thecoolestmarperindawurl/ai-convert" }, { t: "Bản dòng lệnh trên GitHub ↗", t_en: "Command-line version on GitHub ↗", u: "https://github.com/thecoolestmarperindawurl/ai-convert/blob/main/to-md.py" }],
     sections: [
       {
         "k": "callout",

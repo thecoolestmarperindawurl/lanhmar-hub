@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Convert — LANHMAR</title>
+<meta name="description" content="Chuyển PDF, Word, Excel, PowerPoint, HTML sang Markdown sạch để AI Agent đọc nhanh và tốn ít token hơn. Convert PDF, Word, Excel, PowerPoint, HTML to clean Markdown for AI agents. Runs 100% in your browser.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#2D2FEF">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="marquee"><span data-i="marquee">★ FILE → MARKDOWN ★ AI-READY ★ VIBE CODE ★ ÍT TOKEN HƠN ★ FILE → MARKDOWN ★ AI-READY ★ VIBE CODE ★ ÍT TOKEN HƠN</span></div>
+
+<header class="hero"><div class="wrap">
+  <div class="topbar">
+    <a class="btn back" href="https://lanhmar.id.vn" data-i="back">← Về portfolio</a>
+    <div class="lang"><button type="button" data-lang="vi">VI</button><span>/</span><button type="button" data-lang="en">EN</button></div>
+  </div>
+  <div class="kicker">★ Tool · AI Convert</div>
+  <h1 data-ih="h1">File → <em>Markdown</em> cho AI</h1>
+  <p data-ih="lead">Thả PDF, Word, Excel, PowerPoint, HTML hay file code vào đây. Mình chuyển hết sang Markdown sạch để Claude, ChatGPT, Cursor… đọc nhanh hơn, hiểu cấu trúc tốt hơn và tốn ít token hơn. <b>File được xử lý ngay trong trình duyệt của bạn, không tải lên máy chủ nào.</b></p>
+</div></header>
+
+<main class="wrap cv">
+  <section class="panel">
+    <label class="drop" id="drop" tabindex="0">
+      <input id="files" type="file" multiple hidden
+        accept=".pdf,.docx,.xlsx,.xls,.csv,.tsv,.pptx,.html,.htm,.txt,.md,.json,.yaml,.yml,.xml,.js,.ts,.jsx,.tsx,.py,.css,.sql,.sh,.gs,.java,.go,.rb,.php">
+      <span class="drop-ico">★</span>
+      <b data-i="drop_b">Kéo thả file vào đây</b>
+      <span data-i="drop_s">hoặc bấm để chọn (chọn được nhiều file)</span>
+      <small data-i="drop_f">PDF · DOCX · XLSX/XLS/CSV · PPTX · HTML · TXT/MD · JSON/YAML/XML · file code</small>
+    </label>
+
+    <details class="opts" open>
+      <summary data-i="opts">Tuỳ chọn làm sạch</summary>
+      <div class="opt-grid">
+        <label class="chk"><input type="checkbox" id="oFront" checked> <span data-i="o_front">Thêm metadata đầu file (nguồn, loại, ước tính token)</span></label>
+        <label class="chk"><input type="checkbox" id="oPages" checked> <span data-i="o_pages">Đánh dấu số trang / số slide</span></label>
+        <label class="chk"><input type="checkbox" id="oHeadFoot" checked> <span data-i="o_hf">PDF: bỏ header/footer lặp lại &amp; số trang</span></label>
+        <label class="chk"><input type="checkbox" id="oNotes" checked> <span data-i="o_notes">PPTX: lấy cả ghi chú người thuyết trình</span></label>
+        <label class="chk"><input type="checkbox" id="oSpace" checked> <span data-i="o_space">Gộp dòng trống thừa</span></label>
+        <label class="inline"><span data-i="o_rows1">Excel: tối đa</span> <input type="number" id="oRows" value="1000" min="10" step="10"> <span data-i="o_rows2">dòng/sheet</span></label>
+        <label class="inline"><span data-i="o_chunk1">Chia đoạn khi vượt</span> <input type="number" id="oChunk" value="0" min="0" step="1000"> <span>token</span> <small data-i="o_chunk2">(0 = không chia)</small></label>
+      </div>
+    </details>
+  </section>
+
+  <section class="panel" id="resPanel" hidden>
+    <div class="res-head">
+      <h2 data-i="res_h">Kết quả</h2>
+      <div class="res-acts">
+        <button class="btn" id="copyAll" data-i="copy_all">Copy tất cả</button>
+        <button class="btn" id="dlBundle" data-i="dl_bundle">Tải 1 file context.md</button>
+        <button class="btn primary" id="dlZip" data-i="dl_zip">Tải .zip (từng file + INDEX.md)</button>
+        <button class="btn danger" id="clear" data-i="clear">Xoá</button>
+      </div>
+    </div>
+    <p class="sum" id="sum"></p>
+    <div class="list" id="list"></div>
+  </section>
+
+  <section class="panel tips">
+    <h2 data-i="tips_h">Dùng trong vibe code thế nào?</h2>
+    <ol>
+      <li data-ih="tip1"></li>
+      <li data-ih="tip2"></li>
+      <li data-ih="tip3"></li>
+      <li data-ih="tip4"></li>
+    </ol>
+    <p class="note" data-i="tok_note"></p>
+  </section>
+</main>
+
+<footer><div class="wrap" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between">
+  <span data-i="foot">★ LANHMAR · AI Convert — xử lý cục bộ trong trình duyệt</span>
+  <a class="btn" href="https://lanhmar.id.vn" rel="noopener">lanhmar.id.vn ↗</a>
+</div></footer>
+
+<script src="app.js"></script>
+</body>
+</html>
