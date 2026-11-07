@@ -514,6 +514,37 @@ def paragraphs(cues, pause=2.5, maxlen=420):
 
 
 # ---------- Xuất ----------
+def split_parts(cues, t0, t1, minutes):
+    """Slide dài hơn ~`minutes` phút: chia lời giảng thành các phần có mốc giờ. Cắt ở chỗ ngừng nghỉ dài nhất gần mốc, không cắt giữa câu."""
+    lim = float(minutes or 0) * 60
+    if lim <= 0 or t1 - t0 <= lim * 1.25 or not cues:
+        return None
+    cs = sorted(cues)
+    cuts, pos = [], t0
+    while t1 - pos > lim * 1.25:
+        target = pos + lim
+        cand = [k for k in range(1, len(cs)) if target - 0.3 * lim <= cs[k - 1][1] <= target + 0.15 * lim]
+        if cand:
+            k = max(cand, key=lambda k: cs[k][0] - cs[k - 1][1])      # chỗ nghỉ dài nhất
+        else:
+            k = next((k for k in range(1, len(cs)) if cs[k][0] >= target), None)
+            if k is None:
+                break
+        if cuts and k <= cuts[-1]:
+            break
+        cuts.append(k); pos = cs[k][0]
+    if not cuts:
+        return None
+    bounds = [0] + cuts + [len(cs)]
+    parts = []
+    for i in range(len(bounds) - 1):
+        g = cs[bounds[i]:bounds[i + 1]]
+        start = t0 if i == 0 else g[0][0]
+        end = t1 if i == len(bounds) - 2 else cs[bounds[i + 1]][0]
+        parts.append({"start": round(start, 2), "end": round(end, 2), "paras": paragraphs(g)})
+    return parts
+
+
 def resume_report(out):
     """In những gì đã được lưu từ lần chạy trước để người dùng biết tool sẽ tiếp tục từ đâu."""
     out, found = Path(out), []
@@ -546,7 +577,7 @@ main{max-width:860px;margin:0 auto;padding:32px 16px 80px}h1{color:var(--p);font
 .meta{color:var(--mut);margin:0 0 28px}.card{background:#fff;border-radius:20px;padding:18px;margin:0 0 22px;box-shadow:0 8px 28px rgba(45,47,239,.10)}
 .card img{width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e6e6fb}
 .tag{display:inline-block;background:var(--o);color:#fff;border-radius:999px;padding:2px 12px;font-size:.78rem;font-weight:700;margin:0 0 10px}
-.card p{margin:12px 0 0}.empty{color:var(--mut);font-style:italic}details{margin:12px 0 0;color:var(--mut);font-size:.9rem}details p{margin:8px 0 0}.warn{background:#fff3ec;border-left:4px solid var(--o);border-radius:8px;padding:8px 12px;margin:12px 0 0;font-size:.88rem}nav.toc{margin:0 0 28px;display:flex;flex-wrap:wrap;gap:8px}
+.card p{margin:12px 0 0}.part{margin:18px 0 0;font-size:.82rem;font-weight:700;color:var(--p);letter-spacing:.04em}.part+p{margin-top:6px}.empty{color:var(--mut);font-style:italic}details{margin:12px 0 0;color:var(--mut);font-size:.9rem}details p{margin:8px 0 0}.warn{background:#fff3ec;border-left:4px solid var(--o);border-radius:8px;padding:8px 12px;margin:12px 0 0;font-size:.88rem}nav.toc{margin:0 0 28px;display:flex;flex-wrap:wrap;gap:8px}
 nav.toc a{background:#fff;color:var(--p);border-radius:999px;padding:4px 12px;font-size:.82rem;font-weight:600;text-decoration:none}"""
 
 
@@ -577,7 +608,13 @@ def write_outputs(out, title, video, segs):
         md += [f"## Slide {s['n']} · {hms(s['start'])}–{hms(s['end'])}", "", f"![Slide {s['n']}]({s['image']})", ""]
         h.append(f"<section class='card' id='s{s['n']}'><span class='tag'>Slide {s['n']} · {hms(s['start'])}–{hms(s['end'])}</span>"
                  f"<img loading='lazy' src='{s['image']}' alt='Slide {s['n']}'>")
-        if s["paras"]:
+        if s.get("parts") and len(s["parts"]) > 1:       # slide dài: chia phần có mốc giờ (--split-long)
+            for pt in s["parts"]:
+                lab = f"{hms(pt['start'])}–{hms(pt['end'])}"
+                md += [f"**⏱ {lab}**", ""]; h.append(f"<h4 class='part'>⏱ {lab}</h4>")
+                for p in pt["paras"]:
+                    md += [p, ""]; h.append(f"<p>{html.escape(p)}</p>")
+        elif s["paras"]:
             for p in s["paras"]:
                 md += [p, ""]; h.append(f"<p>{html.escape(p)}</p>")
         else:
@@ -608,6 +645,7 @@ def main():
     ap.add_argument("--google-login", action="store_true", help="Đăng nhập Google một lần (chỉ đọc Drive) để tải video Drive chia sẻ theo email")
     ap.add_argument("--google-logout", action="store_true", help="Xoá token đăng nhập Google trên máy này")
     ap.add_argument("--google-client", help="File OAuth client (Desktop app) tải từ Google Cloud Console (mặc định google-client.json)")
+    ap.add_argument("--split-long", type=float, default=0, metavar="PHÚT", help="Slide dài hơn ngần này phút thì chia lời giảng thành các phần có mốc giờ (0 = tắt; gợi ý 4)")
     ap.add_argument("--width", type=int, default=1280, help="Chiều rộng ảnh slide (mặc định 1280)")
     a = ap.parse_args()
 
@@ -679,6 +717,9 @@ def main():
         tmp.rename(out / name)
         mine = [c for c in cues if t0 <= (c[0] + c[1]) / 2 < t1 or (n == len(merged) and c[0] >= t1)]
         slides.append({"n": n, "start": round(t0, 2), "end": round(t1, 2), "image": name, "paras": paragraphs(mine)})
+        parts = None if getattr(a, "polish", False) else split_parts(mine, t0, t1, a.split_long)   # làm sạch bằng Claude viết lại cả slide nên không chia phần
+        if parts:
+            slides[-1]["parts"] = parts
     print(f"\n  {len(slides)} slide sau khi gộp trùng")
 
     skip = parse_skips(a.skip_slides, a.skip_until, slides)

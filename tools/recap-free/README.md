@@ -81,6 +81,7 @@ python recap.py "https://drive.google.com/file/d/<ID>/view" --title "Buổi 1"
 | `--crop "iw*0.78:ih:0:0"` | Chỉ xét vùng slide, bỏ khung webcam. Xem `sample.jpg` để chọn vùng |
 | `--scene 0.1` | Nhạy hơn khi các slide chung một mẫu nền (mặc định 0.3) |
 | `--min-gap 10` | Mỗi slide tối thiểu 10 giây, giảm slide thừa |
+| `--split-long 4` | Slide dài hơn 4 phút: chia lời giảng thành các phần có mốc giờ cho dễ đọc / split long slides into timed parts |
 
 ## Video quay Zoom / Zoom recordings
 
