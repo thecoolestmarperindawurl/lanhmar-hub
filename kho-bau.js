@@ -141,7 +141,7 @@
     const d = x.demo; if (!d) return "";
     let body = "";
     if (d.kind === "recap") {
-      body = `<div class="kb-rcp">${(d.slides || []).map((sl) => `<div class="kb-rc"><div class="kb-slide"><small>${esc(T("demo_slide"))} ${esc(sl.n)}</small><b>${esc(L(sl, "title"))}</b><ul>${(L(sl, "bullets") || []).map((t) => `<li>${esc(t)}</li>`).join("")}</ul></div><div class="kb-rt"><span class="kb-time">${esc(sl.time)}</span><p>${esc(L(sl, "speech"))}</p></div></div>`).join("")}</div>`;
+      body = `<div class="kb-rcp">${(d.slides || []).map((sl) => `<div class="kb-rc"><figure class="kb-slide"><img src="${esc(L(sl, "img"))}" alt="${esc(T("demo_slide"))} ${esc(sl.n)}: ${esc(L(sl, "title"))}" width="800" height="450" loading="lazy"><figcaption>${esc(T("demo_slide"))} ${esc(sl.n)}</figcaption></figure><div class="kb-rt"><span class="kb-time">${esc(sl.time)}</span><p>${esc(L(sl, "speech"))}</p></div></div>`).join("")}</div>`;
     } else if (d.kind === "convert") {
       body = `<div class="kb-ba"><div><p class="kb-lab">${esc(L(d.before, "label"))}</p><pre class="kb-code kb-before" tabindex="0">${esc(d.before.text)}</pre></div><span class="kb-arrow" aria-hidden="true">→</span><div><p class="kb-lab">${esc(L(d.after, "label"))}</p><pre class="kb-code" tabindex="0">${esc(d.after.text)}</pre></div></div>`;
     }
