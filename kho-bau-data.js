@@ -5,7 +5,7 @@ window.TREASURES = [
   {
     id: "course-recap",
     name: "Course Recap",
-    status: "soon",
+    status: "open",
     url: "https://github.com/thecoolestmarperindawurl/course-recap-in-detailed",
     kind: "Python · CLI",
     desc: "Biến video bài giảng có chiếu slide thành một trang recap: ảnh từng slide kèm lời giảng của giảng viên ở đúng slide đó. Dán link Drive hoặc chọn file video là chạy.",
