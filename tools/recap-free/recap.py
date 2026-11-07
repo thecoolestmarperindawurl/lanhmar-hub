@@ -434,7 +434,7 @@ def whisper_cues(video, lang, model_name, cache, prompt=None, beam=5):
     cues, start = [], 0.0
     if part.is_file():
         d = json.loads(part.read_text(encoding="utf-8"))
-        if d.get("key") == key:
+        if d.get("key") in (None, key):      # None = file do bản tool cũ ghi (chưa có khoá): vẫn dùng để không mất tiến độ
             cues, start = [tuple(c) for c in d["cues"]], float(d["until"])
             print(f"Tiếp tục gỡ băng từ {hms(start)} (đã có {len(cues)} câu từ lần trước).")
         else:
