@@ -1,0 +1,8 @@
+# Tự mở PR khi các action dùng trong workflow có bản mới (vá lỗi bảo mật). Repo không có npm/pip trong mã nguồn web nên chỉ theo dõi Actions.
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels: ["dependencies"]
