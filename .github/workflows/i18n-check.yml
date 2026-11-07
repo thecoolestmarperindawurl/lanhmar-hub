@@ -3,8 +3,9 @@ name: Kiểm tra song ngữ VI/EN
 on:
   push:
     paths: ["kho-featured.json", "kho-data.js", "kho-en.js", "i18n/**", "community-data.js", "assets/content.json", "tools/i18n-*"]
+  # Không giới hạn paths ở pull_request: kiểm tra này là "required", nếu PR không đụng file dữ liệu mà workflow không chạy thì check
+  # kẹt ở "Expected" và PR không merge được. Script chạy rất nhẹ nên cho chạy trên mọi PR.
   pull_request:
-    paths: ["kho-featured.json", "kho-data.js", "kho-en.js", "i18n/**", "community-data.js", "assets/content.json", "tools/i18n-*"]
 
 permissions:
   contents: read
