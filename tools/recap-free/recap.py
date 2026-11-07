@@ -310,14 +310,36 @@ def fetch_drive(fid, dst):
     return fetch_drive_auth(fid, dst, tok) if tok else fetch_drive_public(fid, dst)
 
 
-def detect_changes(video, thr, crop=None):
-    """Mốc (giây) hình đổi mạnh = sang slide mới. Dò ở 1 khung/giây, thu nhỏ -> nhanh với video nhiều giờ."""
-    vf = ([f"crop={crop}"] if crop else []) + ["fps=1", "scale=480:-2", f"select='gt(scene,{thr})'", "showinfo"]
+def detect_scores(video, crop=None):
+    """Điểm đổi cảnh (0–1) của từng giây. Dò MỘT lần rồi lưu: đổi --scene / --min-gap sau đó không phải dò lại (dò mất vài phút)."""
+    vf = ([f"crop={crop}"] if crop else []) + ["fps=1", "scale=480:-2", "select='gte(scene,0)'", "metadata=print:file=-"]
     p = subprocess.run(["ffmpeg", "-hide_banner", "-nostats", "-i", str(video), "-an", "-sn", "-vf", ",".join(vf), "-f", "null", "-"],
                        capture_output=True, text=True)
     if _interrupted(p):          # dò dở dang vì bị ngắt: tuyệt đối không dùng/lưu kết quả thiếu này
         raise KeyboardInterrupt
-    return [float(m.group(1)) for m in re.finditer(r"pts_time:([\d.]+)", p.stderr)]
+    return [[float(t), float(sc)] for t, sc in re.findall(r"pts_time:([\d.]+)\s*\nlavfi\.scene_score=([\d.]+)", p.stdout)]
+
+
+def changes_from_scores(scores, thr):
+    return [t for t, sc in scores if sc > thr]
+
+
+def detect_changes(video, thr, crop=None):
+    return changes_from_scores(detect_scores(video, crop), thr)
+
+
+def scene_table(scores, total, cur_thr, cur_gap):
+    """Bảng số đoạn slide theo --scene (hàng) và --min-gap (cột) để chọn giá trị mà không phải dò lại."""
+    gaps = sorted({5, 10, 15, 20, 30, cur_gap}); thrs = sorted({0.2, 0.3, 0.4, 0.5, 0.6, cur_thr})
+    lines = ["  Số đoạn slide theo --scene (hàng) và --min-gap giây (cột); dấu * là giá trị đang dùng:",
+             "    scene \\ gap " + "".join(f"{g:>7g}" for g in gaps)]
+    for t in thrs:
+        row = []
+        for g in gaps:
+            n = len(build_segments(changes_from_scores(scores, t), total, g))
+            row.append(f"{n:>6d}" + ("*" if (t == cur_thr and g == cur_gap) else " "))
+        lines.append(f"    {t:>10.2f} " + "".join(row))
+    return "\n".join(lines)
 
 
 def sample_frame(video, total, dst, crop=None):
@@ -500,7 +522,7 @@ def resume_report(out):
             found.append(f"video đã tải ({(out / 'video.mp4').stat().st_size / 1e6:,.0f} MB)")
         elif (out / "video.mp4.part").is_file():
             found.append(f"video tải dở ({(out / 'video.mp4.part').stat().st_size / 1e6:,.0f} MB, sẽ tải tiếp)")
-        if (out / "segments.json").is_file():
+        if (out / "scene-scores.json").is_file() or (out / "segments.json").is_file():
             found.append("kết quả dò slide")
         for f in out.glob("transcript-*.json"):
             if f.name.endswith(".partial.json"):
@@ -621,14 +643,17 @@ def main():
     print(f"Video dài {hms(total)} — dò đổi slide (1 khung/giây)…")
     t0 = time.time()
     sample_frame(video, total, out / "sample.jpg", a.crop)
-    seg_f, seg_key = out / "segments.json", f"{video.stat().st_size}|{a.scene}|{a.crop}|{a.min_gap}"
-    if seg_f.is_file() and json.loads(seg_f.read_text(encoding="utf-8")).get("key") == seg_key:
-        segments = [tuple(x) for x in json.loads(seg_f.read_text(encoding="utf-8"))["segments"]]
-        print("  Dùng kết quả dò slide đã lưu.")
+    sc_f, sc_key = out / "scene-scores.json", f"{video.stat().st_size}|{a.crop}"
+    cached = json.loads(sc_f.read_text(encoding="utf-8")) if sc_f.is_file() else {}
+    if cached.get("key") == sc_key and cached.get("scores"):
+        scores = cached["scores"]
+        print("  Dùng điểm đổi cảnh đã lưu (đổi --scene / --min-gap không cần dò lại).")
     else:
-        segments = build_segments(detect_changes(video, a.scene, a.crop), total, a.min_gap)
-        seg_f.write_text(json.dumps({"key": seg_key, "segments": segments}), encoding="utf-8")
+        scores = detect_scores(video, a.crop)
+        sc_f.write_text(json.dumps({"key": sc_key, "scores": scores}), encoding="utf-8")
+    segments = build_segments(changes_from_scores(scores, a.scene), total, a.min_gap)
     print(f"  {len(segments)} đoạn slide (mất {hms(time.time() - t0)}). Xem khung đang xét: {out}/sample.jpg")
+    print(scene_table(scores, total, a.scene, a.min_gap))
 
     cues = parse_subs(a.transcript) if a.transcript else whisper_cues(video, a.lang, a.model, out / f"transcript-{a.model}-b{a.beam}.json", prompt, a.beam)
     cues = dedupe(sorted(cues))
