@@ -15,7 +15,8 @@
       hero_k: "★ KHO BÁU · LANHMAR",
       hero_h: "Kho báu <em>của mình.</em>",
       hero_p: "Những công cụ mình tự vibe-code rồi chia sẻ miễn phí để hỗ trợ việc học. Mỗi công cụ có điều kiện sử dụng riêng, ghi rõ ở phần chi tiết.",
-      hero_cta1: "Xem công cụ →", hero_cta2: "Bản mình đang dùng", hero_donate: "Ủng hộ mình",
+      hero_cta1: "Xem công cụ →", hero_cta2: "Bản mình đang dùng", hero_cta3: "Khoá học mình giới thiệu", hero_donate: "Ủng hộ mình",
+      ribbon: "★ KHO BÁU ★ CÔNG CỤ MIỄN PHÍ ★ VIBE CODE ★ DÀNH CHO NGƯỜI ĐI HỌC ★ CHẠY TRÊN MÁY BẠN ", stamp: "Nổi bật",
       pill2: "★ Chạy <b>trên máy bạn</b>", count: (n) => `★ <b>${n}</b> công cụ`, free: "★ <b>Miễn phí</b> để dùng",
       feat_k: "NỔI BẬT", feat_h: "Mới và nổi bật",
       lib_k: "THƯ VIỆN", lib_h: "Tất cả công cụ", tab_all: "Tất cả", tab_soon: "Sắp có", shelf_label: "Kệ",
@@ -44,11 +45,13 @@
       comm_k: "CỘNG ĐỒNG", comm_h: "Cùng nhau đi làm với AI",
       comm_p: "Hỏi đáp về công cụ, báo lỗi, xin tính năng mới và xem mọi người đang dùng ra sao ở các nhóm bên dưới.",
       join: "Tham gia", comm_all: "Xem trang cộng đồng →",
-      course_k: "KHOÁ HỌC MÌNH GIỚI THIỆU", course_h: "Biết dùng AI là một chuyện. Biết giao việc cho AI mới ra kết quả.",
+      course_k: "★ KHOÁ HỌC MÌNH GIỚI THIỆU", course_h: "Biết dùng AI là một chuyện. Biết giao việc cho AI mới ra kết quả.",
       course_p: "Mình giới thiệu lớp “Teamwork với AI” của KesFlow, nơi mình cũng đang làm cộng tác viên cộng đồng. Bạn học cách chia việc cho một đội AI, có AI kiểm tra, rồi bạn duyệt.",
       course_scan: "Quét bằng camera điện thoại", course_btn: "Xem khoá học", course_ref: "Link giới thiệu",
       course_note: "Khi đăng ký khoá học qua trang này, bạn sẽ được cấp quyền truy cập Storage lưu trữ các tài nguyên mình đã sử dụng, xây dựng và phát triển.",
       course_storage: "Đăng ký truy cập Storage →",
+      course_name: "Teamwork với AI · KesFlow",
+      course_pts: ["6 buổi học online, 2 buổi mỗi tuần (tối thứ 3 và thứ 6)", "Không cần biết code, không cần kinh nghiệm dùng AI", "Có video, tài liệu và trợ giảng đồng hành"],
       foot: "© 2026 Dương Thị Lan Anh — LANHMAR"
     },
     en: {
@@ -57,7 +60,8 @@
       hero_k: "★ TREASURE · LANHMAR",
       hero_h: "My <em>treasure chest.</em>",
       hero_p: "Tools I vibe-code and share for free to support learning. Each tool has its own terms of use, spelled out in its details.",
-      hero_cta1: "See the tools →", hero_cta2: "The version I use", hero_donate: "Support me",
+      hero_cta1: "See the tools →", hero_cta2: "The version I use", hero_cta3: "A course I recommend", hero_donate: "Support me",
+      ribbon: "★ TREASURE ★ FREE TOOLS ★ VIBE CODE ★ MADE FOR LEARNERS ★ RUNS ON YOUR COMPUTER ", stamp: "Featured",
       pill2: "★ Runs <b>on your computer</b>", count: (n) => `★ <b>${n}</b> ${n === 1 ? "tool" : "tools"}`, free: "★ <b>Free</b> to use",
       feat_k: "FEATURED", feat_h: "New and featured",
       lib_k: "LIBRARY", lib_h: "All tools", tab_all: "All", tab_soon: "Coming soon", shelf_label: "Shelf",
@@ -86,11 +90,13 @@
       comm_k: "COMMUNITY", comm_h: "Using AI at work, together",
       comm_p: "Ask about the tools, report bugs, request features and see how others use them in the groups below.",
       join: "Join", comm_all: "See the community page →",
-      course_k: "A COURSE I RECOMMEND", course_h: "Using AI is one thing. Knowing how to brief it is what gets results.",
+      course_k: "★ A COURSE I RECOMMEND", course_h: "Using AI is one thing. Knowing how to brief it is what gets results.",
       course_p: "I'm recommending KesFlow's “Teamwork with AI” class, where I also help run the community. You learn to split work across a team of AIs, have one check it, then you approve.",
       course_scan: "Scan with your phone camera", course_btn: "See the course", course_ref: "Referral link",
       course_note: "When you sign up for the course through this page, you get access to the Storage that holds the resources I have used, built and developed.",
       course_storage: "Request Storage access →",
+      course_name: "Teamwork with AI · KesFlow",
+      course_pts: ["6 online sessions, 2 a week (Tuesday and Friday evenings)", "No coding and no prior AI experience needed", "Videos, materials and teaching assistants stay with you"],
       foot: "© 2026 Dương Thị Lan Anh — LANHMAR"
     }
   };
@@ -113,7 +119,7 @@
     return main + direct + copy;
   };
   const thumb = (x) => (x.thumb && /^assets\/[\w\-./]+$/.test(x.thumb) ? `<img src="${esc(x.thumb)}" alt="" width="960" height="504" loading="lazy">` : `<span class="kb-blank" aria-hidden="true">★</span>`);
-  const featCard = (x) => `<article class="kb-fcard reveal"><div class="kb-fimg">${thumb(x)}</div><div class="kb-fbody">${chips(x)}<h3>${esc(x.name)}</h3><p>${esc(L(x, "desc"))}</p><div class="kb-act">${actions(x)}</div></div></article>`;
+  const featCard = (x) => `<article class="kb-fcard reveal"><div class="kb-fimg">${thumb(x)}<span class="kb-stamp">★ ${esc(T("stamp"))}</span></div><div class="kb-fbody">${chips(x)}<h3>${esc(x.name)}</h3><p>${esc(L(x, "desc"))}</p><div class="kb-act">${actions(x)}</div></div></article>`;
   const card = (x) => `<article class="kb-card reveal" id="${esc(x.id)}"><div class="kb-cimg">${thumb(x)}</div><div class="kb-cbody">${chips(x)}<h3>${esc(x.name)}</h3><p>${esc(L(x, "desc"))}</p><div class="kb-act">${actions(x)}</div></div></article>`;
 
   // ---- hộp chi tiết dựng từ dữ liệu: khối callout / h / p / list / steps / table / code (giống thẻ Kho Ứng dụng) ----
@@ -183,14 +189,72 @@
     const gs = (window.COMMUNITIES || []).filter((g) => g.status !== "soon" && okUrl(g.url) && external(g.url)).slice(0, 3);
     $("#kbComm").innerHTML = gs.map((g) => `<a class="btn dark" href="${esc(g.url)}" target="_blank" rel="noopener">${esc(T("join"))} ${esc(g.platform || "")}: ${esc(L(g, "name"))} ↗</a>`).join("") + `<a class="btn" href="community.html">${esc(T("comm_all"))}</a>`;
   }
-  function renderCourse() {
-    const url = (window.AFFILIATE || {}).url, sec = $("#course");
-    if (!url || !/^https:\/\/[^\s"'<>]+$/i.test(url)) { sec.hidden = true; return; }
-    $("#kbCourseBtn").href = url; sec.hidden = false;
+  // ---- khoá học giới thiệu (chuyển từ trang chủ sang đây): link affiliate, QR, điểm nổi bật, huy hiệu giảm giá,
+  //      và tự lấy khoá mới nhất của KesFlow (TA06 → TA07…) qua Apps Script để link luôn đúng ----
+  const courseUrl = (base, slug) => { try { const u = new URL(base); const ref = u.searchParams.get("a"); return "https://kesflow.vn/khoa-hoc/" + slug + (ref ? "?a=" + encodeURIComponent(ref) : ""); } catch { return base; } };
+  function setCourseLink(url) {
+    $("#kbCourseBtn").href = url;
     const box = $("#kbQr"); if (box.dataset.url === url) return;
     try { const qr = qrcode(0, "M"); qr.addData(url); qr.make(); box.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true }); box.dataset.url = url; } catch { box.textContent = ""; }
   }
+  async function loadCourseInfo(baseUrl) {
+    const api = String(window.STORAGE_API || "").trim(); if (!api) return;
+    let info = null;
+    try { const c = JSON.parse(sessionStorage.getItem("lm-course")); if (c && Date.now() - c.t < 6 * 3600e3) info = c.v; } catch {}
+    if (!info) {
+      try {
+        const r = await fetch(api, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ action: "course" }) });
+        const j = await r.json();
+        if (j.ok && /^[a-z0-9-]+$/.test(j.slug || "")) { info = j; try { sessionStorage.setItem("lm-course", JSON.stringify({ t: Date.now(), v: j })); } catch {} }
+      } catch {}
+    }
+    if (!info) return;
+    courseInfo = info; applyCourseInfo(baseUrl);
+  }
+  let courseInfo = null;
+  function applyCourseInfo(baseUrl) {
+    const info = courseInfo, el = $("#kbCourseInfo"); if (!info) return;
+    setCourseLink(courseUrl(baseUrl, info.slug));
+    if (lang === "en") {
+      // Trang KesFlow chỉ có tiếng Việt: bản tiếng Anh dựng lại tên khoá và ngày khai giảng, không dùng nguyên văn
+      const no = (String(info.slug).match(/ta-?0*(\d+)$/i) || [])[1];
+      $("#kbCourseName").textContent = "Teamwork with AI" + (no ? " (cohort " + String(no).padStart(2, "0") + ")" : "") + " · KesFlow";
+      const d = String(info.description || "").match(/khai giảng[^0-9]*(\d{1,2})\/(\d{1,2})(?:\/(\d{4}))?/i);
+      if (d) {
+        const dt = new Date(Number(d[3] || new Date().getFullYear()), Number(d[2]) - 1, Number(d[1]));
+        el.textContent = "📅 Next cohort starts " + dt.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) + "."; el.hidden = false;
+      } else el.hidden = true;
+      return;
+    }
+    const nm = String(info.title || "").split("·")[0].trim();
+    if (nm) $("#kbCourseName").textContent = nm + " · KesFlow";
+    if (info.description) { el.textContent = "📅 " + info.description; el.hidden = false; } else el.hidden = true;
+  }
+  function renderCourse() {
+    const cfg = window.AFFILIATE || {}, url = String(cfg.url || ""), sec = $("#course");
+    const ok = /^https:\/\/[^\s"'<>]+$/i.test(url);
+    sec.hidden = !ok; $("#kbHeroCourse").hidden = !ok;
+    if (!ok) return;
+    setCourseLink(url);
+    $("#kbCourseName").textContent = T("course_name");
+    $("#kbCourseInfo").hidden = true;
+    $("#kbCoursePts").innerHTML = (T("course_pts") || []).map((x) => `<li>${esc(x)}</li>`).join("");
+    const bd = $("#kbCourseBadge"); bd.hidden = !cfg.discount; bd.textContent = cfg.discount || "";
+    if (courseInfo) applyCourseInfo(url); else loadCourseInfo(url);
+  }
 
+  // collage ở hero: thư mục tím + ảnh bìa của hai công cụ đầu tiên (lấy từ dữ liệu)
+  function renderHeroStack() {
+    const th = list.filter((x) => x.thumb && /^assets\/[\w\-./]+$/.test(x.thumb)).slice(0, 2);
+    $("#kbStack").innerHTML = `<img class="kb-s-folder" src="assets/img/deco-folder.jpg" alt="" width="1400" height="970">` +
+      th.map((x, i) => `<img class="kb-s-${i ? "b" : "a"}" src="${esc(x.thumb)}" alt="" width="960" height="504">`).join("") +
+      `<span class="kb-star s1">★</span><span class="kb-star s2">★</span><span class="kb-star s3">★</span>`;
+  }
+  // ruy băng chạy: hai bản giống hệt nhau để vòng lặp liền mạch (CSS dịch -50%)
+  function renderRibbon() {
+    const unit = (T("ribbon") + " ").repeat(3).split("★").filter((t) => t.trim()).map((t) => `<span>★ ${esc(t.trim())}</span>`).join("");
+    $("#kbRibbon").innerHTML = unit + unit;
+  }
   function render() {
     document.documentElement.lang = lang;
     document.title = T("title");
@@ -202,7 +266,7 @@
     $("#kbFeat").innerHTML = list.filter((x) => x.featured).slice(0, 2).map(featCard).join("");
     $("#featured").hidden = !list.some((x) => x.featured);
     $("#kbTabs").setAttribute("aria-label", T("shelf_label"));
-    renderTabs(); renderGrid(); renderCommunity(); renderCourse();
+    renderTabs(); renderGrid(); renderCommunity(); renderCourse(); renderHeroStack(); renderRibbon();
     $("#kbDon").innerHTML = typeof window.donateHtml === "function" ? window.donateHtml({}) : "";
   }
 

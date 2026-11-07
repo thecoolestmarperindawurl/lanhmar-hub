@@ -8,11 +8,6 @@ const I18N = {
     nav_services: "Dịch vụ", svc_k: "DỊCH VỤ", svc_h: "Mình có thể đồng hành cùng bạn ở những việc này.", svc_p: "Chọn mảng bạn cần, mình bắt đầu từ bối cảnh của bạn. Mỗi mảng đều có dự án thật để xem.",
     svc_not: "Chưa thấy đúng nhu cầu?", svc_ask: "Nhắn mình →", svc_view: "Xem dự án →",
     title: "LANHMAR — Dương Thị Lan Anh | Digital Marketer", foot: "© 2026 Dương Thị Lan Anh — LANHMAR", photo_alt: "Dương Thị Lan Anh",
-    course_k: "KHOÁ HỌC MÌNH GIỚI THIỆU", course_h: "Biết dùng AI là một chuyện. Biết giao việc cho AI mới ra kết quả.",
-    course_p: "Mình giới thiệu lớp “Teamwork với AI” của KesFlow, nơi mình cũng đang làm cộng tác viên cộng đồng. Bạn học cách chia việc cho một đội AI, có AI kiểm tra, rồi bạn duyệt.",
-    course_scan: "Quét bằng camera điện thoại", course_btn: "Xem khoá học", course_ref: "Link giới thiệu",
-    course_note: "Khi đăng ký khoá học qua trang này, bạn sẽ được cấp quyền truy cập Storage lưu trữ các tài nguyên mình đã sử dụng, xây dựng và phát triển.",
-    course_storage: "Đăng ký truy cập Storage →",
     nav_story: "Hành trình", nav_menu: "Năng lực", nav_work: "Dự án", nav_certs: "Chứng chỉ", nav_contact: "Liên hệ", nav_community: "Cộng đồng", nav_treasure: "Kho báu", cta_talk: "Liên hệ mình", cta_work: "Xem dự án",
     badge_open: "Sẵn sàng cho cơ hội mới", badge_school: "Tân cử nhân UFM 2026", h1a: "Mỗi chiến dịch bắt đầu từ một insight.", h1b: "Để “Ranh Ma” tìm ra.", onmenu: "ĐANG CHẠY",
     story_k: "HÀNH TRÌNH", story_h: "Mỗi vai trò là một chiến dịch.", menu_k: "NĂNG LỰC", menu_h: "Marketing toolkit của mình.", about: "Về mình", goal: "Mục tiêu", skills: "Kỹ năng", tools: "Phần mềm",
@@ -25,11 +20,6 @@ const I18N = {
     nav_services: "Services", svc_k: "SERVICES", svc_h: "Where I can work alongside you.", svc_p: "Pick the area you need and I'll start from your context. Every area has real projects to look at.",
     svc_not: "Don't see your need?", svc_ask: "Message me →", svc_view: "See projects →",
     title: "LANHMAR — Lana Duong | Digital Marketer", foot: "© 2026 Lana Duong — LANHMAR", photo_alt: "Lana Duong",
-    course_k: "A COURSE I RECOMMEND", course_h: "Using AI is one thing. Knowing how to brief it is what gets results.",
-    course_p: "I'm recommending KesFlow's “Teamwork with AI” class, where I also help run the community. You learn to split work across a team of AIs, have one check it, then you approve.",
-    course_scan: "Scan with your phone camera", course_btn: "See the course", course_ref: "Referral link",
-    course_note: "When you sign up for the course through this page, you get access to the Storage that holds the resources I have used, built and developed.",
-    course_storage: "Request Storage access →",
     nav_story: "Journey", nav_menu: "Skills", nav_work: "Projects", nav_certs: "Certificates", nav_contact: "Contact", nav_community: "Community", nav_treasure: "Treasure", cta_talk: "Get in touch", cta_work: "See my work",
     badge_open: "Open to new opportunities", badge_school: "UFM graduate 2026", h1a: "Every campaign starts with an insight.", h1b: "Let “Ranh Ma” find it.", onmenu: "NOW RUNNING",
     story_k: "JOURNEY", story_h: "Every role was a campaign.", menu_k: "SKILLS", menu_h: "My marketing toolkit.", about: "About me", goal: "Goal", skills: "Skills", tools: "Software",
@@ -61,10 +51,6 @@ const SERVICES = [
     { key: "planning", vi: ["Planning & Account", "Lên proposal, kế hoạch IMC, pitching và đồng hành tới nghiệm thu dự án.", "AGENCY · CHIẾN DỊCH"], en: ["Planning & Account", "Proposals, IMC plans and pitching, through to project sign-off.", "AGENCIES · CAMPAIGNS"] }
   ] }
 ];
-const COURSE_POINTS = {
-  vi: ["6 buổi học online, 2 buổi mỗi tuần (tối thứ 3 và thứ 6)", "Không cần biết code, không cần kinh nghiệm dùng AI", "Có video, tài liệu và trợ giảng đồng hành"],
-  en: ["6 online sessions, 2 a week (Tuesday and Friday evenings)", "No coding and no prior AI experience needed", "Videos, materials and teaching assistants stay with you"]
-};
 let D, lang = "vi";
 try { lang = localStorage.getItem("lm_lang") || "vi"; } catch {}
 const T = (k) => I18N[lang][k] ?? k;
@@ -113,7 +99,7 @@ function render() {
   $("#projects").innerHTML = D.projects.map((pr, i) => `<button class="pcard" data-proj="${i}"><div class="ph${pr.image ? "" : " thumbs"}">${pr.image ? `<img loading="lazy" src="${esc(safe(pr.image))}" alt="">` : pr.videos.slice(0, 3).map((v) => `<img loading="lazy" src="${esc(safe(v.thumb))}" alt="">`).join("")}<span class="num">${String(i + 1).padStart(2, "0")}</span></div><div class="tx"><h3>${esc(L(pr, "title"))}</h3><p>${esc(L(pr, "desc"))}</p></div></button>`).join("");
   $("#certList").innerHTML = D.certificates.map((c, i) => `<button class="ccard" data-cert="${i}"><img loading="lazy" src="${esc(safe(c.images[0]))}" alt=""><div><b>${esc(L(c, "name"))}</b><small>${esc(c.org)}</small></div></button>`).join("");
   requestAnimationFrame(railBtns);
-  renderServices(); renderCourse(); watchStats();
+  renderServices(); watchStats();
   // Email hiện sẵn + COPY; số điện thoại chỉ hiện khi bấm (không nằm trong HTML/JSON công khai).
   $("#contacts").innerHTML = `
     <li><span class="lbl">Email</span><a href="mailto:${esc(p.email)}">${esc(p.email)}</a><button class="btn" data-copy="${esc(p.email)}">${T("copy")}</button></li>
@@ -135,62 +121,6 @@ function renderServices() {
     return `<article class="svc"><span class="svc-n">${String(i + 1).padStart(2, "0")}</span><div><h4>${esc(t[0])}</h4><p>${esc(t[1])}</p><span class="svc-tag">${esc(t[2])}</span>${has ? ` <button class="svc-link" data-open="${it.key}">${esc(T("svc_view"))}</button>` : ""}</div></article>`;
   }).join("")}</div>`).join("");
   observeReveal();
-}
-
-function courseUrl(base, slug) {
-  try { const u = new URL(base); const ref = u.searchParams.get("a"); return "https://kesflow.vn/khoa-hoc/" + slug + (ref ? "?a=" + encodeURIComponent(ref) : ""); } catch { return base; }
-}
-function setCourseLink(url) {
-  $("#courseBtn").href = url;
-  const box = $("#qrBox");
-  if (box.dataset.url === url) return;
-  try { const qr = qrcode(0, "M"); qr.addData(url); qr.make(); box.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true }); box.dataset.url = url; } catch { box.textContent = ""; }
-}
-// Lấy khoá mới nhất của KesFlow (TA06 → TA07…) qua Apps Script để link giới thiệu tự cập nhật; lỗi thì dùng link trong site-config.js
-async function loadCourseInfo(cfg) {
-  const api = (window.STORAGE_API || "").trim();
-  if (!api) return;
-  let info = null;
-  try { const c = JSON.parse(sessionStorage.getItem("lm-course")); if (c && Date.now() - c.t < 6 * 3600e3) info = c.v; } catch {}
-  if (!info) {
-    try {
-      const r = await fetch(api, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ action: "course" }) });
-      const j = await r.json();
-      if (j.ok && /^[a-z0-9-]+$/.test(j.slug || "")) { info = j; try { sessionStorage.setItem("lm-course", JSON.stringify({ t: Date.now(), v: j })); } catch {} }
-    } catch {}
-  }
-  if (!info) return;
-  setCourseLink(courseUrl(cfg.url, info.slug));
-  const el = $("#courseInfo");
-  if (lang === "en") {
-    // Trang KesFlow chỉ có tiếng Việt: bản tiếng Anh dựng lại tên khoá và ngày khai giảng, không dùng nguyên văn
-    const no = (String(info.slug).match(/ta-?0*(\d+)$/i) || [])[1];
-    $("#courseName").textContent = "Teamwork with AI" + (no ? " (cohort " + String(no).padStart(2, "0") + ")" : "") + " · KesFlow";
-    const d = String(info.description || "").match(/khai giảng[^0-9]*(\d{1,2})\/(\d{1,2})(?:\/(\d{4}))?/i);
-    if (d) {
-      const dt = new Date(Number(d[3] || new Date().getFullYear()), Number(d[2]) - 1, Number(d[1]));
-      el.textContent = "📅 Next cohort starts " + dt.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) + ".";
-      el.hidden = false;
-    } else el.hidden = true;
-    return;
-  }
-  const nm = String(info.title || "").split("·")[0].trim();
-  if (nm) $("#courseName").textContent = nm + " · KesFlow";
-  if (info.description) { el.textContent = "📅 " + info.description; el.hidden = false; } else el.hidden = true;
-}
-
-function renderCourse() {
-  const sec = $("#course"), cfg = window.AFFILIATE || {};
-  const url = safe(cfg.url);
-  if (!sec || !/^https?:/i.test(url)) { if (sec) sec.hidden = true; return; }
-  sec.hidden = false;
-  setCourseLink(url);
-  $("#courseName").textContent = (lang === "en" ? "Teamwork with AI" : "Teamwork với AI") + " · KesFlow";
-  $("#courseInfo").hidden = true;
-  $("#coursePoints").innerHTML = COURSE_POINTS[lang].map((x) => `<li>${esc(x)}</li>`).join("");
-  const b = $("#courseBadge"); b.hidden = !cfg.discount; b.textContent = cfg.discount || "";
-  observeReveal();
-  loadCourseInfo({ url });
 }
 
 // hiệu ứng hiện dần khi cuộn + đếm số

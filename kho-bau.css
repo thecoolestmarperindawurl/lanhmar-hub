@@ -1,20 +1,78 @@
-/* Trang Kho báu: dùng token và font của site.css (LANHMAR). Cấu trúc: hero → nổi bật → tab + lưới → ủng hộ → cộng đồng → khoá học */
-.kb-hero{padding:130px 0 26px;position:relative;overflow:hidden}
-.kb-hero .lead{max-width:640px;font-size:16.5px}
-.kb-hero .cta-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:22px}
-.kb-mini{display:inline-flex;align-items:center;gap:6px;background:var(--orange-soft);color:var(--orange-text);font:700 13px Montserrat;padding:8px 18px;border-radius:999px;text-decoration:none;transition:.2s}
-.kb-mini:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
-.kb-mascots{position:absolute;right:max(24px,calc((100vw - 1080px)/2 - 40px));top:190px;display:flex;align-items:flex-end;gap:4px;pointer-events:none}
-.kb-mascots .lm-mascot{--size:130px}
-.kb-mascots .lm-mascot:nth-child(2){--size:170px;margin-bottom:16px}
-.kb-strip{display:flex;gap:10px;flex-wrap:wrap;margin:26px 0 0}
-.kb-pill{background:var(--paper);border:2px solid var(--lav-300);border-radius:999px;padding:6px 16px;font:700 13px Montserrat;color:var(--ink)}
-.kb-pill b{color:var(--purple-deep)}
-.kb-sec{padding:34px 0 20px}
-.kb-sec h2{margin-bottom:14px}
-a:focus-visible,button:focus-visible,.kb-tab:focus-visible{outline:3px solid var(--purple-mid);outline-offset:3px}
+/* Trang Kho báu: "két báu". Ngôn ngữ thị giác riêng, khác trang Cộng đồng: hero tím đặc + collage, ruy băng cam, banner khoá học cam,
+   thẻ dạng vé có bóng cứng, tab thanh trượt, thẻ dạng hàng, số mục lớn. Dùng token của site.css (LANHMAR). */
+a:focus-visible,button:focus-visible{outline:3px solid var(--purple-mid);outline-offset:3px}
 
-/* chip, badge dùng chung */
+/* hero: khối tím đặc, chữ trắng, collage bên phải */
+.kb-hero{padding:100px 0 22px}
+.kb-panel{position:relative;overflow:hidden;display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center;border-radius:36px;padding:clamp(26px,5vw,56px);background:radial-gradient(520px 300px at 100% 0,rgba(255,122,69,.38),transparent),linear-gradient(135deg,var(--purple-deep) 0%,#4b3df5 62%,var(--purple-mid) 100%);box-shadow:0 26px 60px rgba(45,47,239,.35)}
+.kb-panel::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,.18) 1.4px,transparent 1.7px);background-size:22px 22px;-webkit-mask-image:linear-gradient(120deg,transparent 25%,#000 100%);mask-image:linear-gradient(120deg,transparent 25%,#000 100%)}
+.kb-panel>*{position:relative}
+.kb-tag{display:inline-block;background:var(--orange-soft);color:var(--orange-text);font:800 12px Montserrat;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:999px}
+.kb-panel h1{color:#fff;margin:14px 0 12px}
+.kb-panel h1 em{color:var(--orange-soft);text-decoration-color:rgba(255,255,255,.3)}
+.kb-lead{color:var(--lav-200);max-width:520px;font-size:16px;margin:0}
+.kb-cta{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:22px}
+.kb-b{display:inline-block;font:800 14px Montserrat;padding:12px 22px;border-radius:999px;text-decoration:none;border:2px solid transparent;cursor:pointer;transition:.2s}
+.kb-b:hover{transform:translateY(-3px) scale(1.03)}
+.kb-b[hidden]{display:none}
+.kb-b-or{background:var(--orange);color:var(--ink);border-color:var(--orange)}
+.kb-b-or:hover{box-shadow:0 0 0 5px rgba(255,122,69,.38)}
+.kb-b-ol{background:transparent;color:#fff;border-color:rgba(255,255,255,.7)}
+.kb-b-ol:hover{background:rgba(255,255,255,.16)}
+.kb-mini{display:inline-flex;align-items:center;gap:6px;background:var(--orange-soft);color:var(--orange-text);font:700 13px Montserrat;padding:9px 18px;border-radius:999px;text-decoration:none;transition:.2s}
+.kb-mini:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.2)}
+.kb-stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.kb-stat{background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.35);color:#fff;border-radius:999px;padding:6px 16px;font:700 13px Montserrat}
+.kb-stat b{color:var(--orange-soft)}
+.kb-stack{position:relative;min-height:340px}
+.kb-stack img{position:absolute;border:4px solid #fff;border-radius:18px;box-shadow:0 16px 36px rgba(20,16,70,.45);background:#fff;object-fit:cover}
+.kb-s-folder{top:0;right:0;width:54%;aspect-ratio:1400/970;transform:rotate(7deg)}
+.kb-s-a{left:0;top:16%;width:68%;aspect-ratio:960/504;transform:rotate(-6deg)}
+.kb-s-b{left:20%;bottom:0;width:66%;aspect-ratio:960/504;transform:rotate(4deg)}
+.kb-star{position:absolute;color:var(--orange-soft);font-size:26px;line-height:1;animation:kbFloat 5s ease-in-out infinite}
+.kb-star.s1{left:2%;top:0}.kb-star.s2{right:6%;bottom:12%;font-size:20px;animation-delay:-1.7s}.kb-star.s3{left:46%;top:4%;font-size:16px;animation-delay:-3.2s}
+@keyframes kbFloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-12px) rotate(25deg)}}
+
+/* ruy băng chạy */
+.kb-ribbon{overflow:hidden;background:var(--orange);color:var(--ink);border-block:3px solid var(--ink);margin-top:26px}
+.kb-ribbon-track{display:flex;width:max-content;animation:kbRun 40s linear infinite;font:800 14px Montserrat;letter-spacing:.14em;text-transform:uppercase;padding:9px 0}
+.kb-ribbon-track span{padding:0 22px;white-space:nowrap}
+@keyframes kbRun{to{transform:translateX(-50%)}}
+
+/* khoá học: banner cam nổi bật ngay dưới hero */
+.kb-spot{padding:34px 0 6px}
+.kb-spot[hidden]{display:none}
+.kb-course{position:relative;overflow:hidden;display:grid;grid-template-columns:150px 1fr 250px;gap:28px;align-items:center;background:var(--orange);color:var(--ink);border:3px solid var(--ink);border-radius:34px;padding:clamp(24px,4vw,40px);box-shadow:0 22px 54px rgba(255,122,69,.45),8px 8px 0 var(--ink)}
+.kb-course::before{content:"";position:absolute;right:-70px;top:-90px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,.22);pointer-events:none}
+.kb-course>*{position:relative}
+.kb-course-mascot{width:150px;height:150px;border-radius:50%;border:5px solid #fff;object-fit:cover;box-shadow:0 10px 26px rgba(36,31,69,.3);animation:bob 4s ease-in-out infinite}
+.kb-course-tag{display:inline-block;background:var(--ink);color:#fff;font:800 12px Montserrat;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:999px}
+.kb-course h2{color:var(--ink);font-size:clamp(24px,3.4vw,38px);margin:12px 0 10px}
+.kb-course p{color:var(--ink);font-size:15px;font-weight:500;margin:0 0 10px}
+.kb-course-pts{list-style:none;padding:0;margin:14px 0 12px;display:grid;gap:8px}
+.kb-course-pts li{position:relative;padding-left:30px;font-size:14.5px;font-weight:700;color:var(--ink)}
+.kb-course-pts li::before{content:"✓";position:absolute;left:0;top:0;width:22px;height:22px;border-radius:50%;background:#fff;color:var(--purple-deep);display:grid;place-items:center;font-size:13px;font-weight:800}
+.kb-course-info{background:rgba(255,255,255,.6);border-radius:14px;padding:8px 14px;font-weight:700;font-size:14px}
+.kb-course p.kb-course-note{font-size:12.5px;margin:6px 0 0}
+.kb-course-note a{color:var(--ink);font-weight:800;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.kb-course-cta{background:#fff;border:3px solid var(--ink);border-radius:24px;padding:20px;text-align:center;display:grid;gap:10px;justify-items:center;box-shadow:6px 6px 0 var(--ink)}
+.kb-course-cta b{font-size:14px;line-height:1.3;color:var(--ink)}
+.kb-course-cta small{color:var(--ink-soft);font-size:12px}
+.kb-course-badge{background:var(--orange);color:var(--ink);font:800 12px Montserrat;padding:4px 12px;border-radius:999px}
+.kb-qr{width:150px;height:150px;padding:8px;background:#fff;border:2px solid var(--lav-300);border-radius:14px}
+.kb-qr svg{width:100%;height:100%;display:block}
+.kb-go{display:block;width:100%;background:var(--purple-deep);color:#fff;font:800 15px Montserrat;padding:13px 18px;border-radius:999px;text-decoration:none;transition:.2s}
+.kb-go:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(45,47,239,.45)}
+.kb-ref{font:700 10px Montserrat;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-text);background:var(--orange-soft);padding:3px 12px;border-radius:999px}
+@media(max-width:900px){.kb-course{grid-template-columns:1fr;box-shadow:0 18px 40px rgba(255,122,69,.4),5px 5px 0 var(--ink)}.kb-course-mascot{width:96px;height:96px}.kb-course-cta{justify-self:stretch}}
+
+/* tiêu đề mục: số lớn viền + gạch chân đậm */
+.kb-sec{padding:38px 0 18px}
+.kb-head{display:flex;align-items:baseline;gap:16px;border-bottom:3px solid var(--ink);padding-bottom:10px;margin:0 0 22px}
+.kb-no{font:800 clamp(34px,5vw,54px)/1 Montserrat;color:transparent;-webkit-text-stroke:2px var(--purple-mid)}
+.kb-head h2{margin:0}
+
+/* chip, badge, nút dùng chung */
 .kb-top{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .kb-chip{background:var(--orange);color:var(--ink);font:800 11px Montserrat;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:999px}
 .kb-badge{background:var(--lav-200);color:var(--purple-deep);border:1px solid var(--lav-400);font:700 11px Montserrat;letter-spacing:.04em;padding:3px 12px;border-radius:999px}
@@ -23,80 +81,63 @@ a:focus-visible,button:focus-visible,.kb-tab:focus-visible{outline:3px solid var
 .kb-join{display:inline-flex;align-items:center;background:transparent;color:var(--ink-soft);border:2px dashed var(--lav-400);font:700 14px Montserrat;padding:9px 20px;border-radius:999px;cursor:default}
 .kb-blank{display:grid;place-items:center;height:100%;color:var(--orange);font-size:44px;background:var(--lav-200)}
 
-/* Mới và nổi bật: thẻ lớn nền tối, ảnh bìa giữ nguyên tỉ lệ 960×504 ở trên (không cắt chữ), nội dung ở dưới */
-.kb-feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:20px}
-.kb-fcard{display:flex;flex-direction:column;background:var(--ink);color:#fff;border-radius:26px;overflow:hidden;box-shadow:0 18px 44px rgba(36,31,69,.28);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
-.kb-fimg{aspect-ratio:960/504;background:var(--lav-200)}
+/* mới và nổi bật: thẻ dạng vé (viền đậm, bóng cứng, đường đục lỗ giữa ảnh và nội dung) */
+.kb-feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:28px;padding:4px 10px 10px 4px}
+.kb-fcard{position:relative;display:flex;flex-direction:column;background:var(--paper);border:3px solid var(--ink);border-radius:26px;overflow:hidden;box-shadow:8px 8px 0 var(--purple-mid);transition:transform .25s,box-shadow .25s}
+.kb-fcard:nth-child(odd){transform:rotate(-.6deg)}.kb-fcard:nth-child(even){transform:rotate(.6deg)}
+.kb-fimg{position:relative;aspect-ratio:960/504;background:var(--lav-200);border-bottom:3px dashed var(--ink)}
 .kb-fimg img{width:100%;height:100%;object-fit:cover}
-.kb-fbody{position:relative;display:flex;flex-direction:column;gap:10px;padding:22px 24px 24px;flex:1}
-.kb-fbody::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(360px 200px at 100% 100%,rgba(255,122,69,.3),transparent),radial-gradient(320px 200px at 0 100%,rgba(106,92,255,.35),transparent)}
-.kb-fbody>*{position:relative}
-.kb-fbody h3{font-size:24px;margin:0;color:#fff}
-.kb-fbody p{margin:0;font-size:14.5px;color:var(--lav-200)}
-.kb-fcard .kb-badge{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.3)}
-.kb-fcard .btn{background:transparent;color:#fff;border-color:rgba(255,255,255,.55)}
-.kb-fcard .btn.dark{background:var(--orange);border-color:var(--orange);color:var(--ink);font-weight:800}
-.kb-fcard a:focus-visible,.kb-fcard button:focus-visible{outline-color:var(--orange-soft)}
-@media (hover:hover){.kb-fcard:hover{transform:translateY(-5px);box-shadow:0 24px 54px rgba(45,47,239,.35)}.kb-card:hover{transform:translateY(-5px);box-shadow:0 18px 44px rgba(45,47,239,.2)}}
+.kb-stamp{position:absolute;top:12px;right:12px;background:var(--orange);color:var(--ink);font:800 11px Montserrat;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:999px;border:2px solid var(--ink);transform:rotate(4deg)}
+.kb-fbody{display:flex;flex-direction:column;gap:10px;padding:20px 22px 22px;flex:1}
+.kb-fbody h3{font-size:24px;margin:0;color:var(--purple-deep)}
+.kb-fbody p{margin:0;font-size:14.5px;color:var(--ink-soft)}
+@media (hover:hover){.kb-fcard:hover{transform:rotate(0) translateY(-5px);box-shadow:12px 12px 0 var(--purple-mid)}.kb-card:hover{transform:translateY(-4px);box-shadow:8px 8px 0 var(--lav-400)}}
 
-/* tab lọc (có số đếm, kệ chưa có đồ ghi "Sắp có") */
-.kb-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 20px}
-.kb-tab{display:inline-flex;align-items:center;gap:8px;background:var(--paper);border:2px solid var(--lav-300);color:var(--ink);font:700 13.5px Montserrat;padding:8px 16px;border-radius:999px;cursor:pointer;transition:.2s}
-.kb-tab small{background:var(--lav-200);color:var(--purple-deep);font:800 11px Montserrat;min-width:22px;text-align:center;padding:1px 7px;border-radius:999px}
+/* tab lọc: thanh trượt */
+.kb-tabs{display:flex;gap:4px;background:var(--lav-200);border:2px solid var(--lav-300);padding:5px;border-radius:999px;width:max-content;max-width:100%;overflow-x:auto;margin:0 0 22px}
+.kb-tab{flex:none;display:inline-flex;align-items:center;gap:8px;background:transparent;border:0;color:var(--ink);font:700 13.5px Montserrat;padding:9px 16px;border-radius:999px;cursor:pointer;transition:.2s}
+.kb-tab small{background:#fff;color:var(--purple-deep);font:800 11px Montserrat;min-width:22px;text-align:center;padding:1px 7px;border-radius:999px}
 .kb-tab i{font-style:normal;font:700 10.5px Montserrat;letter-spacing:.06em;text-transform:uppercase;color:var(--orange-text)}
-.kb-tab:hover{border-color:var(--purple-mid)}
-.kb-tab.on{background:var(--purple-deep);border-color:var(--purple-deep);color:#fff}
+.kb-tab:hover{background:rgba(255,255,255,.7)}
+.kb-tab.on{background:var(--purple-deep);color:#fff;box-shadow:0 6px 14px rgba(45,47,239,.35)}
 .kb-tab.on small{background:#fff;color:var(--purple-deep)}.kb-tab.on i{color:var(--orange-soft)}
-.kb-tab.soon:not(.on){border-style:dashed;color:var(--ink-soft)}
-@media(max-width:600px){.kb-tabs{flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px;margin-right:-24px;padding-right:24px}.kb-tab{flex:none}}
+.kb-tab.soon:not(.on){color:var(--ink-soft)}
 
-/* lưới thẻ */
-.kb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:20px}
-.kb-card{display:flex;flex-direction:column;background:var(--paper);border:2px solid var(--lav-300);border-radius:22px;overflow:hidden;box-shadow:var(--shadow);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+/* thư viện: thẻ dạng hàng (ảnh trái, nội dung phải) */
+.kb-grid{display:grid;gap:18px}
+.kb-card{display:grid;grid-template-columns:minmax(200px,32%) 1fr;align-items:center;background:#fff;border:2px solid var(--lav-300);border-radius:22px;overflow:hidden;box-shadow:5px 5px 0 var(--lav-300);transition:transform .25s,box-shadow .25s}
 .kb-cimg{aspect-ratio:960/504;background:var(--lav-200)}
 .kb-cimg img{width:100%;height:100%;object-fit:cover}
-.kb-cbody{display:flex;flex-direction:column;gap:10px;padding:18px 20px 20px;flex:1}
-.kb-cbody h3{font-size:20px;margin:0}.kb-cbody p{margin:0;font-size:14px}
+.kb-cbody{display:flex;flex-direction:column;gap:10px;padding:18px 22px 20px;height:100%}
+.kb-cbody h3{font-size:21px;margin:0}.kb-cbody p{margin:0;font-size:14.5px}
 .kb-soonbox{background:var(--paper);border:2px dashed var(--lav-400);border-radius:22px;padding:28px;text-align:center}
 .kb-soonbox b{display:block;color:var(--purple-deep);font-size:19px;margin-bottom:6px}
 .kb-soonbox p{margin:0 auto 14px;max-width:460px}
+@media(max-width:640px){.kb-card{grid-template-columns:1fr}.kb-cbody{height:auto}}
 
-/* ủng hộ + bản đầy đủ */
-.kb-end{padding:34px 0 20px}
-.kb-full{position:relative;overflow:hidden;background:var(--ink);color:#fff;border-radius:28px;padding:clamp(26px,5vw,44px);box-shadow:0 18px 44px rgba(36,31,69,.28)}
-.kb-full::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(520px 280px at 100% 0,rgba(255,122,69,.38),transparent),radial-gradient(440px 280px at 0 100%,rgba(106,92,255,.45),transparent)}
+/* bản đầy đủ + ủng hộ: khối tím đặc */
+.kb-end{padding:38px 0 18px}
+.kb-full{position:relative;overflow:hidden;background:var(--purple-deep);color:#fff;border:3px solid var(--ink);border-radius:30px;padding:clamp(26px,5vw,46px);box-shadow:0 22px 50px rgba(45,47,239,.35),8px 8px 0 var(--ink)}
+.kb-full::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(500px 260px at 100% 100%,rgba(255,122,69,.4),transparent),radial-gradient(rgba(255,255,255,.14) 1.4px,transparent 1.7px) 0 0/22px 22px}
 .kb-full>*{position:relative}
+.kb-flabel{display:inline-block;background:var(--orange-soft);color:var(--orange-text);font:800 12px Montserrat;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:999px;margin:0 0 12px!important}
 .kb-full h2{color:#fff;margin-bottom:12px}
 .kb-full p{color:var(--lav-200);max-width:680px;font-size:15.5px}
 .kb-full ul:not(.don-steps){margin:0 0 14px;padding:0;list-style:none;display:grid;gap:8px;max-width:680px}
 .kb-full ul:not(.don-steps) li{position:relative;padding-left:24px;color:#fff;font-size:14.5px;font-weight:500}
-.kb-full ul:not(.don-steps) li::before{content:"★";position:absolute;left:0;color:var(--orange)}
-.kb-full .small{font-size:13px;color:var(--lav-300)}
+.kb-full ul:not(.don-steps) li::before{content:"★";position:absolute;left:0;color:var(--orange-soft)}
+.kb-full .small{font-size:13px;color:var(--lav-200)}
 .kb-full .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:18px}
-.kb-full .btn.orange{background:var(--orange);border-color:var(--orange);color:var(--ink);font-weight:800}
 .kb-ghost{color:var(--orange-soft);font:700 14px Montserrat;text-decoration:underline;text-underline-offset:4px}
 .kb-don{max-width:680px;margin:2px 0 12px}
 .kb-don .don{display:block}
 .kb-don .don-steps{padding-left:22px;color:var(--lav-200);font-size:14px}
 .kb-don .don-steps li{margin:6px 0}.kb-don .don-steps b{color:#fff}
 
-/* cộng đồng */
-.kb-comm{display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap;background:var(--paper);border:2px solid var(--lav-300);border-radius:26px;padding:clamp(22px,4vw,34px);box-shadow:var(--shadow)}
-.kb-comm h2{margin-bottom:8px}.kb-comm p{margin:0;max-width:520px}
+/* cộng đồng: dải gọn, viền đứt */
+.kb-comm{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;background:var(--paper);border:2px dashed var(--lav-400);border-radius:24px;padding:22px 26px}
+.kb-comm p{margin:0;max-width:520px}
 .kb-comm-btns{display:flex;gap:10px;flex-wrap:wrap}
-
-/* khoá học giới thiệu */
-.kb-course{display:grid;grid-template-columns:1fr auto;gap:26px;align-items:center;background:var(--ink);color:#fff;border-radius:28px;padding:clamp(24px,4vw,38px);box-shadow:0 18px 44px rgba(36,31,69,.28);position:relative;overflow:hidden}
-.kb-course::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(480px 260px at 100% 100%,rgba(255,122,69,.3),transparent)}
-.kb-course>*{position:relative}
-.kb-course h2{color:#fff;font-size:clamp(22px,3.2vw,30px)}
-.kb-course p{color:var(--lav-200);max-width:600px}.kb-course .small{font-size:13px;color:var(--lav-300)}.kb-course .small a{color:var(--orange-soft);font-weight:700}
-.kb-course-cta{display:flex;flex-direction:column;align-items:center;gap:8px;background:#fff;color:var(--ink);border-radius:22px;padding:18px 20px;text-align:center;min-width:200px}
-.kb-course-cta .qr{width:140px;height:140px}.kb-course-cta .qr svg{width:100%;height:100%}
-.kb-course-cta small{color:var(--ink-soft);font-size:12px}
-.kb-course-cta .btn.orange{background:var(--orange-deep);border-color:var(--orange-deep);color:#fff}
-.kb-ref{font:700 11px Montserrat;letter-spacing:.08em;text-transform:uppercase;color:var(--orange-text);background:var(--orange-soft);padding:3px 12px;border-radius:999px}
-@media(max-width:720px){.kb-course{grid-template-columns:1fr}.kb-course-cta{justify-self:start}}
 
 /* hộp chi tiết */
 #kbDlg{border:0;border-radius:26px;padding:0;max-width:min(760px,calc(100vw - 24px));width:100%;max-height:calc(100vh - 32px);background:var(--paper);color:var(--ink-soft);box-shadow:0 30px 80px rgba(36,31,69,.4);overflow:auto}
@@ -138,5 +179,6 @@ a:focus-visible,button:focus-visible,.kb-tab:focus-visible{outline:3px solid var
 .kb-toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--ink);color:#fff;border-left:5px solid var(--orange);border-radius:14px;padding:10px 18px;font:600 14px Montserrat;z-index:60;max-width:calc(100vw - 32px);transition:.25s}
 .kb-toast.on{opacity:1;transform:translate(-50%,0)}
 
-@media(max-width:700px){.kb-hero{padding-top:110px}.kb-mascots{display:none}.kb-fbody{padding:18px}}
-@media (prefers-reduced-motion:reduce){.kb-fcard,.kb-card,.kb-tab,.kb-toast{transition:none}}
+@media(max-width:860px){.kb-panel{grid-template-columns:1fr}.kb-stack{min-height:270px;max-width:440px}}
+@media(max-width:700px){.kb-hero{padding-top:96px}.kb-fbody{padding:18px}.kb-head{gap:12px}}
+@media (prefers-reduced-motion:reduce){.kb-fcard,.kb-card,.kb-tab,.kb-toast,.kb-b,.kb-go{transition:none}.kb-ribbon-track,.kb-star,.kb-course-mascot{animation:none}.kb-fcard:nth-child(odd),.kb-fcard:nth-child(even){transform:none}}
