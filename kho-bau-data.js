@@ -2,7 +2,7 @@
    Thêm công cụ: thêm một mục vào window.TREASURES. Trường tiếng Anh là x_en cạnh x (desc_en, points_en, note_en, type_en, badge_en…).
    - shelf: id kệ trong TREASURE_SHELVES. featured: true để hiện ở khối "Mới và nổi bật".
    - status: "open" (đã mở, có url) | "soon" (sắp mở, nút bị khoá). url nhận https hoặc trang trong site (vd ai-convert.html).
-   - detail: "course-recap" mở hộp chi tiết trong trang; bỏ trống thì nút chính đi thẳng tới url.
+   - detail: có thì nút chính mở hộp chi tiết trong trang (course-recap dùng mẫu riêng; mục có `sections` dùng nội dung dạng khối callout/h/p/list/steps/table/code giống thẻ Kho Ứng dụng); bỏ trống thì nút chính đi thẳng tới url. direct: true thêm nút mở thẳng công cụ. meta/note/links: thông tin phụ trong hộp chi tiết.
    - thumb: ảnh 960×504 trong assets/res/. install: các dòng lệnh cài (nút Copy lệnh cài).
    Kệ có soon: true hiện "Sắp có" và không có mục nào. */
 window.TREASURE_SHELVES = [
@@ -64,6 +64,149 @@ window.TREASURES = [
     desc: "Kéo thả PDF, Word, Excel, PowerPoint, nhận Markdown sạch để Claude, ChatGPT, Cursor đọc nhanh hơn và tốn ít token hơn. Xử lý ngay trong trình duyệt, file không rời máy.",
     desc_en: "Drag in PDF, Word, Excel or PowerPoint files and get clean Markdown that Claude, ChatGPT and Cursor read faster with fewer tokens. Runs in your browser, files never leave your device.",
     cta: "Mở công cụ →",
-    cta_en: "Open tool →"
+    cta_en: "Open tool →",
+    meta: [
+      { l: "Truy cập", l_en: "Access", v: "Mở ngay trên web, không cần đăng nhập", v_en: "Opens right on the web, no sign-in needed" },
+      { l: "Dữ liệu", l_en: "Your data", v: "Xử lý ngay trong trình duyệt, file không rời máy", v_en: "Processed in your browser, files never leave your device" }
+    ],
+    note: "Trình duyệt tải các thư viện đọc file (pdf.js, mammoth, SheetJS…) từ CDN công khai. Nội dung file của bạn không được gửi đi đâu.",
+    note_en: "Your browser loads the file-reading libraries (pdf.js, mammoth, SheetJS…) from public CDNs. The contents of your files are not sent anywhere.",
+    detail: "ai-convert",
+    direct: true,
+    links: [{ t: "Bản dòng lệnh trên GitHub ↗", t_en: "Command-line version on GitHub ↗", u: "https://github.com/thecoolestmarperindawurl/lanhmar-hub/blob/main/tools/to-md.py" }],
+    sections: [
+      {
+        "k": "callout",
+        "t": "AI đọc Markdown tốt hơn PDF hay Word: giữ được tiêu đề, danh sách, bảng mà không kèm rác định dạng. Công cụ này chuyển tài liệu sang Markdown ngay trong trình duyệt, không tải file lên máy chủ nào.",
+        "t_en": "AI reads Markdown better than PDF or Word: headings, lists and tables survive without formatting junk. This tool converts documents to Markdown right in the browser, with no upload to any server."
+      },
+      {
+        "k": "h",
+        "t": "Đọc được những gì",
+        "t_en": "What it reads"
+      },
+      {
+        "k": "table",
+        "head": [
+          "Loại file",
+          "Công cụ làm gì"
+        ],
+        "head_en": [
+          "File type",
+          "What the tool does"
+        ],
+        "rows": [
+          [
+            "PDF",
+            "Ghép chữ thành đoạn, nhận tiêu đề theo cỡ chữ, bỏ header/footer lặp lại và số trang. Báo khi PDF là bản scan không có chữ"
+          ],
+          [
+            "Word (.docx)",
+            "Giữ tiêu đề, danh sách, bảng; bỏ ảnh"
+          ],
+          [
+            "Excel, CSV",
+            "Mỗi sheet thành một bảng Markdown, bỏ dòng/cột trống, giới hạn số dòng"
+          ],
+          [
+            "PowerPoint (.pptx)",
+            "Mỗi slide một mục, giữ cấp ý, bảng và ghi chú người thuyết trình"
+          ],
+          [
+            "HTML, TXT, JSON, code",
+            "Bỏ menu/script của trang web; file code được bọc đúng ngôn ngữ"
+          ]
+        ],
+        "rows_en": [
+          [
+            "PDF",
+            "Joins text into paragraphs, detects headings by font size, removes repeated headers/footers and page numbers. Warns when the PDF is a scan with no text"
+          ],
+          [
+            "Word (.docx)",
+            "Keeps headings, lists and tables; drops images"
+          ],
+          [
+            "Excel, CSV",
+            "Each sheet becomes a Markdown table, empty rows/columns removed, row limit"
+          ],
+          [
+            "PowerPoint (.pptx)",
+            "One section per slide, keeps bullet levels, tables and speaker notes"
+          ],
+          [
+            "HTML, TXT, JSON, code",
+            "Strips web menus/scripts; code files are fenced with the right language"
+          ]
+        ]
+      },
+      {
+        "k": "h",
+        "t": "Cách dùng",
+        "t_en": "How to use"
+      },
+      {
+        "k": "steps",
+        "items": [
+          {
+            "t": "Thả file",
+            "d": "Kéo nhiều file một lúc vào ô, chỉnh tuỳ chọn làm sạch nếu cần."
+          },
+          {
+            "t": "Xem kết quả",
+            "d": "Mỗi file hiện loại, số trang/slide/sheet và ước tính token. Bấm Xem để kiểm tra nhanh."
+          },
+          {
+            "t": "Lấy ra",
+            "d": "Copy tất cả để dán vào chat, tải context.md, hoặc tải .zip gồm từng file kèm INDEX.md."
+          }
+        ],
+        "items_en": [
+          {
+            "t": "Drop files",
+            "d": "Drag several files into the box at once, adjust clean-up options if needed."
+          },
+          {
+            "t": "Check results",
+            "d": "Each file shows its type, page/slide/sheet count and token estimate. Click View for a quick look."
+          },
+          {
+            "t": "Export",
+            "d": "Copy all to paste into chat, download context.md, or download a .zip with every file plus INDEX.md."
+          }
+        ]
+      },
+      {
+        "k": "h",
+        "t": "Dùng trong vibe code",
+        "t_en": "Using it for vibe coding"
+      },
+      {
+        "k": "list",
+        "items": [
+          "Giải nén .zip vào docs/context/ của dự án.",
+          "Thêm vào CLAUDE.md (hoặc .cursorrules): \"Tài liệu tham khảo ở docs/context/, đọc INDEX.md trước.\" Agent sẽ chỉ mở đúng file cần.",
+          "Tài liệu dài: bật Chia đoạn để mỗi phần vừa cửa sổ ngữ cảnh.",
+          "Ảnh, sơ đồ, bản scan: gửi thẳng ảnh cho AI sẽ chính xác hơn."
+        ],
+        "items_en": [
+          "Unzip the .zip into your project's docs/context/.",
+          "Add to CLAUDE.md (or .cursorrules): \"Reference docs live in docs/context/, read INDEX.md first.\" The agent then opens only the file it needs.",
+          "Long documents: turn on Split so each part fits the context window.",
+          "Images, diagrams, scans: sending the image itself to the AI is more accurate."
+        ]
+      },
+      {
+        "k": "code",
+        "t": "pip install 'markitdown[pdf,docx,xlsx,pptx]'\npython3 tools/to-md.py tai-lieu/ -o docs/context",
+        "cap": "Bản dòng lệnh để chuyển cả thư mục (trong repo lanhmar-hub)",
+        "cap_en": "Command-line version to convert a whole folder (in the lanhmar-hub repo)"
+      },
+      {
+        "k": "callout",
+        "t": "Số token chỉ là ước tính thô (ký tự ÷ 4, tiếng Việt có dấu ÷ 3) để so sánh; số thật tuỳ tokenizer của từng model.",
+        "t_en": "Token counts are rough estimates (characters ÷ 4, accented Vietnamese ÷ 3) for comparison only; real counts depend on each model's tokenizer."
+      }
+    ]
   }
 ];
