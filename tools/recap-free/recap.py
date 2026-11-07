@@ -310,14 +310,36 @@ def fetch_drive(fid, dst):
     return fetch_drive_auth(fid, dst, tok) if tok else fetch_drive_public(fid, dst)
 
 
-def detect_changes(video, thr, crop=None):
-    """Mốc (giây) hình đổi mạnh = sang slide mới. Dò ở 1 khung/giây, thu nhỏ -> nhanh với video nhiều giờ."""
-    vf = ([f"crop={crop}"] if crop else []) + ["fps=1", "scale=480:-2", f"select='gt(scene,{thr})'", "showinfo"]
+def detect_scores(video, crop=None):
+    """Điểm đổi cảnh (0–1) của từng giây. Dò MỘT lần rồi lưu: đổi --scene / --min-gap sau đó không phải dò lại (dò mất vài phút)."""
+    vf = ([f"crop={crop}"] if crop else []) + ["fps=1", "scale=480:-2", "select='gte(scene,0)'", "metadata=print:file=-"]
     p = subprocess.run(["ffmpeg", "-hide_banner", "-nostats", "-i", str(video), "-an", "-sn", "-vf", ",".join(vf), "-f", "null", "-"],
                        capture_output=True, text=True)
     if _interrupted(p):          # dò dở dang vì bị ngắt: tuyệt đối không dùng/lưu kết quả thiếu này
         raise KeyboardInterrupt
-    return [float(m.group(1)) for m in re.finditer(r"pts_time:([\d.]+)", p.stderr)]
+    return [[float(t), float(sc)] for t, sc in re.findall(r"pts_time:([\d.]+)\s*\nlavfi\.scene_score=([\d.]+)", p.stdout)]
+
+
+def changes_from_scores(scores, thr):
+    return [t for t, sc in scores if sc > thr]
+
+
+def detect_changes(video, thr, crop=None):
+    return changes_from_scores(detect_scores(video, crop), thr)
+
+
+def scene_table(scores, total, cur_thr, cur_gap):
+    """Bảng số đoạn slide theo --scene (hàng) và --min-gap (cột) để chọn giá trị mà không phải dò lại."""
+    gaps = sorted({5, 10, 15, 20, 30, cur_gap}); thrs = sorted({0.2, 0.3, 0.4, 0.5, 0.6, cur_thr})
+    lines = ["  Số đoạn slide theo --scene (hàng) và --min-gap giây (cột); dấu * là giá trị đang dùng:",
+             "    scene \\ gap " + "".join(f"{g:>7g}" for g in gaps)]
+    for t in thrs:
+        row = []
+        for g in gaps:
+            n = len(build_segments(changes_from_scores(scores, t), total, g))
+            row.append(f"{n:>6d}" + ("*" if (t == cur_thr and g == cur_gap) else " "))
+        lines.append(f"    {t:>10.2f} " + "".join(row))
+    return "\n".join(lines)
 
 
 def sample_frame(video, total, dst, crop=None):
@@ -492,6 +514,37 @@ def paragraphs(cues, pause=2.5, maxlen=420):
 
 
 # ---------- Xuất ----------
+def split_parts(cues, t0, t1, minutes):
+    """Slide dài hơn ~`minutes` phút: chia lời giảng thành các phần có mốc giờ. Cắt ở chỗ ngừng nghỉ dài nhất gần mốc, không cắt giữa câu."""
+    lim = float(minutes or 0) * 60
+    if lim <= 0 or t1 - t0 <= lim * 1.25 or not cues:
+        return None
+    cs = sorted(cues)
+    cuts, pos = [], t0
+    while t1 - pos > lim * 1.25:
+        target = pos + lim
+        cand = [k for k in range(1, len(cs)) if target - 0.3 * lim <= cs[k - 1][1] <= target + 0.15 * lim]
+        if cand:
+            k = max(cand, key=lambda k: cs[k][0] - cs[k - 1][1])      # chỗ nghỉ dài nhất
+        else:
+            k = next((k for k in range(1, len(cs)) if cs[k][0] >= target), None)
+            if k is None:
+                break
+        if cuts and k <= cuts[-1]:
+            break
+        cuts.append(k); pos = cs[k][0]
+    if not cuts:
+        return None
+    bounds = [0] + cuts + [len(cs)]
+    parts = []
+    for i in range(len(bounds) - 1):
+        g = cs[bounds[i]:bounds[i + 1]]
+        start = t0 if i == 0 else g[0][0]
+        end = t1 if i == len(bounds) - 2 else cs[bounds[i + 1]][0]
+        parts.append({"start": round(start, 2), "end": round(end, 2), "paras": paragraphs(g)})
+    return parts
+
+
 def resume_report(out):
     """In những gì đã được lưu từ lần chạy trước để người dùng biết tool sẽ tiếp tục từ đâu."""
     out, found = Path(out), []
@@ -500,7 +553,7 @@ def resume_report(out):
             found.append(f"video đã tải ({(out / 'video.mp4').stat().st_size / 1e6:,.0f} MB)")
         elif (out / "video.mp4.part").is_file():
             found.append(f"video tải dở ({(out / 'video.mp4.part').stat().st_size / 1e6:,.0f} MB, sẽ tải tiếp)")
-        if (out / "segments.json").is_file():
+        if (out / "scene-scores.json").is_file() or (out / "segments.json").is_file():
             found.append("kết quả dò slide")
         for f in out.glob("transcript-*.json"):
             if f.name.endswith(".partial.json"):
@@ -524,7 +577,7 @@ main{max-width:860px;margin:0 auto;padding:32px 16px 80px}h1{color:var(--p);font
 .meta{color:var(--mut);margin:0 0 28px}.card{background:#fff;border-radius:20px;padding:18px;margin:0 0 22px;box-shadow:0 8px 28px rgba(45,47,239,.10)}
 .card img{width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e6e6fb}
 .tag{display:inline-block;background:var(--o);color:#fff;border-radius:999px;padding:2px 12px;font-size:.78rem;font-weight:700;margin:0 0 10px}
-.card p{margin:12px 0 0}.empty{color:var(--mut);font-style:italic}details{margin:12px 0 0;color:var(--mut);font-size:.9rem}details p{margin:8px 0 0}.warn{background:#fff3ec;border-left:4px solid var(--o);border-radius:8px;padding:8px 12px;margin:12px 0 0;font-size:.88rem}nav.toc{margin:0 0 28px;display:flex;flex-wrap:wrap;gap:8px}
+.card p{margin:12px 0 0}.part{margin:18px 0 0;font-size:.82rem;font-weight:700;color:var(--p);letter-spacing:.04em}.part+p{margin-top:6px}.empty{color:var(--mut);font-style:italic}details{margin:12px 0 0;color:var(--mut);font-size:.9rem}details p{margin:8px 0 0}.warn{background:#fff3ec;border-left:4px solid var(--o);border-radius:8px;padding:8px 12px;margin:12px 0 0;font-size:.88rem}nav.toc{margin:0 0 28px;display:flex;flex-wrap:wrap;gap:8px}
 nav.toc a{background:#fff;color:var(--p);border-radius:999px;padding:4px 12px;font-size:.82rem;font-weight:600;text-decoration:none}"""
 
 
@@ -555,7 +608,13 @@ def write_outputs(out, title, video, segs):
         md += [f"## Slide {s['n']} · {hms(s['start'])}–{hms(s['end'])}", "", f"![Slide {s['n']}]({s['image']})", ""]
         h.append(f"<section class='card' id='s{s['n']}'><span class='tag'>Slide {s['n']} · {hms(s['start'])}–{hms(s['end'])}</span>"
                  f"<img loading='lazy' src='{s['image']}' alt='Slide {s['n']}'>")
-        if s["paras"]:
+        if s.get("parts") and len(s["parts"]) > 1:       # slide dài: chia phần có mốc giờ (--split-long)
+            for pt in s["parts"]:
+                lab = f"{hms(pt['start'])}–{hms(pt['end'])}"
+                md += [f"**⏱ {lab}**", ""]; h.append(f"<h4 class='part'>⏱ {lab}</h4>")
+                for p in pt["paras"]:
+                    md += [p, ""]; h.append(f"<p>{html.escape(p)}</p>")
+        elif s["paras"]:
             for p in s["paras"]:
                 md += [p, ""]; h.append(f"<p>{html.escape(p)}</p>")
         else:
@@ -586,6 +645,7 @@ def main():
     ap.add_argument("--google-login", action="store_true", help="Đăng nhập Google một lần (chỉ đọc Drive) để tải video Drive chia sẻ theo email")
     ap.add_argument("--google-logout", action="store_true", help="Xoá token đăng nhập Google trên máy này")
     ap.add_argument("--google-client", help="File OAuth client (Desktop app) tải từ Google Cloud Console (mặc định google-client.json)")
+    ap.add_argument("--split-long", type=float, default=0, metavar="PHÚT", help="Slide dài hơn ngần này phút thì chia lời giảng thành các phần có mốc giờ (0 = tắt; gợi ý 4)")
     ap.add_argument("--width", type=int, default=1280, help="Chiều rộng ảnh slide (mặc định 1280)")
     a = ap.parse_args()
 
@@ -621,14 +681,17 @@ def main():
     print(f"Video dài {hms(total)} — dò đổi slide (1 khung/giây)…")
     t0 = time.time()
     sample_frame(video, total, out / "sample.jpg", a.crop)
-    seg_f, seg_key = out / "segments.json", f"{video.stat().st_size}|{a.scene}|{a.crop}|{a.min_gap}"
-    if seg_f.is_file() and json.loads(seg_f.read_text(encoding="utf-8")).get("key") == seg_key:
-        segments = [tuple(x) for x in json.loads(seg_f.read_text(encoding="utf-8"))["segments"]]
-        print("  Dùng kết quả dò slide đã lưu.")
+    sc_f, sc_key = out / "scene-scores.json", f"{video.stat().st_size}|{a.crop}"
+    cached = json.loads(sc_f.read_text(encoding="utf-8")) if sc_f.is_file() else {}
+    if cached.get("key") == sc_key and cached.get("scores"):
+        scores = cached["scores"]
+        print("  Dùng điểm đổi cảnh đã lưu (đổi --scene / --min-gap không cần dò lại).")
     else:
-        segments = build_segments(detect_changes(video, a.scene, a.crop), total, a.min_gap)
-        seg_f.write_text(json.dumps({"key": seg_key, "segments": segments}), encoding="utf-8")
+        scores = detect_scores(video, a.crop)
+        sc_f.write_text(json.dumps({"key": sc_key, "scores": scores}), encoding="utf-8")
+    segments = build_segments(changes_from_scores(scores, a.scene), total, a.min_gap)
     print(f"  {len(segments)} đoạn slide (mất {hms(time.time() - t0)}). Xem khung đang xét: {out}/sample.jpg")
+    print(scene_table(scores, total, a.scene, a.min_gap))
 
     cues = parse_subs(a.transcript) if a.transcript else whisper_cues(video, a.lang, a.model, out / f"transcript-{a.model}-b{a.beam}.json", prompt, a.beam)
     cues = dedupe(sorted(cues))
@@ -654,6 +717,9 @@ def main():
         tmp.rename(out / name)
         mine = [c for c in cues if t0 <= (c[0] + c[1]) / 2 < t1 or (n == len(merged) and c[0] >= t1)]
         slides.append({"n": n, "start": round(t0, 2), "end": round(t1, 2), "image": name, "paras": paragraphs(mine)})
+        parts = split_parts(mine, t0, t1, a.split_long)
+        if parts:
+            slides[-1]["parts"] = parts
     print(f"\n  {len(slides)} slide sau khi gộp trùng")
 
     skip = parse_skips(a.skip_slides, a.skip_until, slides)

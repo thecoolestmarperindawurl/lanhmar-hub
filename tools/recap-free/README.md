@@ -81,6 +81,21 @@ python recap.py "https://drive.google.com/file/d/<ID>/view" --title "Buổi 1"
 | `--crop "iw*0.78:ih:0:0"` | Chỉ xét vùng slide, bỏ khung webcam. Xem `sample.jpg` để chọn vùng |
 | `--scene 0.1` | Nhạy hơn khi các slide chung một mẫu nền (mặc định 0.3) |
 | `--min-gap 10` | Mỗi slide tối thiểu 10 giây, giảm slide thừa |
+| `--split-long 4` | Slide dài hơn 4 phút: chia lời giảng thành các phần có mốc giờ cho dễ đọc / split long slides into timed parts |
+
+## Video quay Zoom / Zoom recordings
+
+**VI** — Khung hình Zoom có khung chat và ảnh người tham gia quanh slide. Hai hệ quả: (1) ảnh slide trong recap chứa **tên, tin nhắn và gương mặt của người khác**, nên đừng chia sẻ thư mục kết quả khi chưa cắt; (2) chat cuộn và ảnh người đổi làm tool nhầm là đổi slide. Dùng `--crop` để chỉ lấy vùng slide. Ví dụ với bố cục slide ở góc dưới bên trái, chat bên phải (vùng đo trên một buổi học cụ thể, **hãy mở `sample.jpg` kiểm tra và chỉnh theo video của bạn**):
+
+```bash
+python recap.py "LINK-HOẶC-FILE" --crop "iw*0.74:ih*0.73:0:ih*0.265"
+```
+
+Sau khi cắt, thay đổi nhỏ trên slide (hiện thêm một dòng, một hình) có thể bị tính là đổi slide, nên **số slide có thể tăng**. Tool in bảng "Số đoạn slide theo `--scene` và `--min-gap`" ngay sau khi dò: bạn chọn giá trị cho ra số slide hợp lý (thường là tăng `--scene` lên 0.4–0.6 và `--min-gap` lên 15–20, hãy thử). Điểm đổi cảnh được lưu (`scene-scores.json`), nên **đổi `--scene` hoặc `--min-gap` rồi chạy lại không phải dò lại** (đổi `--crop` thì phải dò lại).
+
+**EN** — Zoom frames have a chat panel and participant thumbnails around the slide. Two consequences: (1) the slide images in the recap contain **other people's names, messages and faces**, so do not share the output folder uncropped; (2) scrolling chat and changing thumbnails make the tool think the slide changed. Use `--crop` to keep only the slide area (example above; it was measured on one specific session, **open `sample.jpg` to check it and adjust for your video**).
+
+After cropping, small changes on a slide (a line or a picture appearing) can count as a slide change, so **the slide count may go up**. Right after detection the tool prints a table of slide counts by `--scene` and `--min-gap`: pick values that give a sensible count (usually raise `--scene` to 0.4–0.6 and `--min-gap` to 15–20; try them). Scene scores are saved (`scene-scores.json`), so **changing `--scene` or `--min-gap` and rerunning does not redo detection** (changing `--crop` does).
 
 ## Thời gian / How long it takes
 
