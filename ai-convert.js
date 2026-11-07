@@ -163,7 +163,7 @@
   }
   function cell(v) {
     if (v === null || v === undefined) return "";
-    return String(v).replace(/\|/g, "\\|").replace(/\r?\n/g, "<br>").trim();
+    return String(v).replace(/\\/g, "\\\\").replace(/\|/g, "\\|").replace(/\r?\n/g, "<br>").trim();
   }
   function mdTable(rows) {
     var w = rows.reduce(function (m, r) { return Math.max(m, r.length); }, 0);
