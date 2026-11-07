@@ -8,6 +8,7 @@ Không có --add thì chỉ in JSON ra màn hình. Có --add thì ghi vào kho-f
 Script chỉ lấy tên khoá, mục "Bạn sẽ học được gì", các phần/module và bài kèm thời lượng. Email tài khoản, đường dẫn video không được đưa vào.
 """
 import argparse, html, json, re, sys, unicodedata
+from html.parser import HTMLParser
 
 GROUP = "vuonuom"
 DUR = re.compile(r"^\d{1,2}:\d{2}(:\d{2})?$")
@@ -20,11 +21,25 @@ def slug(s):
     s = "".join(c for c in s if unicodedata.category(c) != "Mn").lower()
     return re.sub(r"[^a-z0-9]+", "-", s).strip("-")
 
+class _Text(HTMLParser):
+    """Lấy chữ hiển thị: bỏ script/style, mỗi thẻ là một lần xuống dòng (không dùng regex lọc HTML)."""
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.out, self.skip = [], 0
+    def handle_starttag(self, tag, attrs):
+        if tag in ("script", "style"): self.skip += 1
+        self.out.append("\n")
+    def handle_endtag(self, tag):
+        if tag in ("script", "style") and self.skip: self.skip -= 1
+        self.out.append("\n")
+    def handle_data(self, data):
+        if not self.skip: self.out.append(data)
+
 def read_lines(path):
-    s = open(path, encoding="utf-8", errors="replace").read()
-    s = re.sub(r"<script[\s\S]*?</script>|<style[\s\S]*?</style>", "", s)
-    s = html.unescape(re.sub(r"<[^>]+>", "\n", s))
-    return [l.strip() for l in s.split("\n") if l.strip()]
+    p = _Text()
+    p.feed(open(path, encoding="utf-8", errors="replace").read())
+    p.close()
+    return [l.strip() for l in "".join(p.out).split("\n") if l.strip()]
 
 def parse(lines):
     title = next((lines[i + 1] for i, l in enumerate(lines) if l == "Trang chủ" and i + 1 < len(lines)), "Khoá học")
