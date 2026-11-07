@@ -20,9 +20,14 @@
  * Chạy hàm setup() (hoặc formatSheets()) để tạo và định dạng lại toàn bộ Sheet.
  */
 
-// ID của Google Sheet "LANHMAR Storage Access" (lấy từ đường dẫn của Sheet)
-var SHEET_ID = '1znlZQDBYj0aScVwcc21vnI1m2IBYo5_hfdGDahziJPQ';
-var SHEET_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/edit';
+// ID của Google Sheet "LANHMAR Storage Access": đặt trong Cài đặt dự án → Thuộc tính tập lệnh, tên SHEET_ID
+// (không ghi cứng trong mã vì file này nằm trong repo công khai). Thiếu thì mọi hàm báo lỗi rõ ràng thay vì chạy sai.
+function sheetId_() {
+  var id = String(PropertiesService.getScriptProperties().getProperty('SHEET_ID') || '').trim();
+  if (!id) throw new Error('Chưa đặt thuộc tính tập lệnh SHEET_ID (ID của Google Sheet). Xem storage-backend/HUONG-DAN.md mục 2.');
+  return id;
+}
+function sheetUrl_() { return 'https://docs.google.com/spreadsheets/d/' + sheetId_() + '/edit'; }
 var REQ = 'Requests';
 var ITEMS = 'Items';
 var MAX_REQUESTS = 2000;
@@ -39,7 +44,7 @@ var CHAT_HEADERS = ['Thời gian', 'Mã hội thoại', 'Khách', 'Liên hệ', 
 var ITEM_HEADERS = ['id', 'kho', 'title', 'url', 'note', 'tags', 'type', 'date'];
 
 function sheet_(name, headers) {
-  var ss = SpreadsheetApp.openById(SHEET_ID);
+  var ss = SpreadsheetApp.openById(sheetId_());
   var sh = ss.getSheetByName(name);
   if (!sh) {
     sh = ss.insertSheet(name);
@@ -379,7 +384,7 @@ function register_(b) {
   sh.getRange(next, 1, 1, 6).setValues([[new Date(), safeCell_(name), email, safeCell_(note), code, 'Pending']]);
   notify_('🔔 Yêu cầu truy cập Data Storage mới\nTên: ' + name + '\nEmail: ' + email + (note ? '\nLời nhắn: ' + note : '') +
           '\nNội dung CK cần tìm trong sao kê: ' + CK_PREFIX + ' ' + code +
-          '\n\n👉 Duyệt ngay: ' + SHEET_URL + '#gid=' + sh.getSheetId() +
+          '\n\n👉 Duyệt ngay: ' + sheetUrl_() + '#gid=' + sh.getSheetId() +
           '\nĐã nhận donate → chọn Donate = Đã nhận (cột J), rồi đổi Trạng thái thành Approved.');
   return json_({ ok: true, existing: false, code: code, status: 'Pending' });
 }
@@ -462,7 +467,7 @@ function vaultMeta_(sh) {
 
 function vaultGet_(b) {
   if (!verifyOwner_(b.idToken)) return json_({ ok: false, error: 'denied' });
-  var sh = SpreadsheetApp.openById(SHEET_ID).getSheetByName(VAULT);
+  var sh = SpreadsheetApp.openById(sheetId_()).getSheetByName(VAULT);
   if (!sh) return json_({ ok: true, rev: 0, vault: null });
   var m = vaultMeta_(sh);
   if (!m.rev || !m.chunks) return json_({ ok: true, rev: 0, vault: null });
@@ -480,7 +485,7 @@ function vaultPut_(b) {
   if (!v || typeof v.salt !== 'string' || typeof v.iv !== 'string' || typeof v.ct !== 'string') return json_({ ok: false, error: 'invalid' });
   var text = JSON.stringify({ v: 1, salt: v.salt, iv: v.iv, ct: v.ct });
   if (text.length > VAULT_MAX) return json_({ ok: false, error: 'too_big' });
-  var ss = SpreadsheetApp.openById(SHEET_ID);
+  var ss = SpreadsheetApp.openById(sheetId_());
   var sh = ss.getSheetByName(VAULT);
   if (!sh) { sh = ss.insertSheet(VAULT); sh.hideSheet(); }
   var cur = vaultMeta_(sh);
@@ -518,7 +523,7 @@ function threadOf_(vid) { return 'T' + String(vid).slice(0, 8).toUpperCase(); }
 
 // Lấy tab Chat; lần đầu tạo thì định dạng theo template chung của Storage.
 function chatSheet_() {
-  var ss = SpreadsheetApp.openById(SHEET_ID), had = !!ss.getSheetByName(CHAT);
+  var ss = SpreadsheetApp.openById(sheetId_()), had = !!ss.getSheetByName(CHAT);
   var sh = sheet_(CHAT, CHAT_HEADERS);
   if (!had) { try { formatChat_(sh); } catch (e) {} }
   return sh;
@@ -547,7 +552,7 @@ function chatGet_(b) {
   var vid = String(b.vid || '').replace(/[^A-Za-z0-9]/g, '').slice(0, 40);
   if (vid.length < 16) return json_({ ok: false, error: 'invalid' });
   var thread = threadOf_(vid);
-  var sh = SpreadsheetApp.openById(SHEET_ID).getSheetByName(CHAT);
+  var sh = SpreadsheetApp.openById(sheetId_()).getSheetByName(CHAT);
   if (!sh) return json_({ ok: true, msgs: [] });
   var rows = sh.getDataRange().getValues(), out = [];
   for (var i = 1; i < rows.length; i++) {
@@ -600,7 +605,7 @@ var C = {
 };
 
 function formatSheets() {
-  var ss = SpreadsheetApp.openById(SHEET_ID);
+  var ss = SpreadsheetApp.openById(sheetId_());
   ss.setSpreadsheetLocale('en_US'); // công thức dùng dấu phẩy, định dạng ngày/số nhất quán
   var req = sheet_(REQ, REQ_HEADERS), items = sheet_(ITEMS, ITEM_HEADERS), chat = sheet_(CHAT, CHAT_HEADERS);
   var dash = ss.getSheetByName('Dashboard') || ss.insertSheet('Dashboard');

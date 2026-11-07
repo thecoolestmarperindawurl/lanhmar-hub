@@ -12,11 +12,14 @@ Trong Apps Script: biểu tượng bánh răng **Cài đặt dự án → Thuộ
 
 | Tên | Giá trị |
 |---|---|
+| `SHEET_ID` | ID của Google Sheet "LANHMAR Storage Access": phần giữa `/d/` và `/edit` trong đường dẫn Sheet. **Bắt buộc**; thiếu thì backend báo lỗi "Chưa đặt thuộc tính tập lệnh SHEET_ID" |
 | `ADMIN_KEY` | một chuỗi dài, khó đoán (≥ 20 ký tự). Bạn nhập khi bấm “Đồng bộ Storage” |
 | `TELEGRAM_BOT_TOKEN` | (tuỳ chọn) token bot |
 | `TELEGRAM_CHAT_ID` | (tuỳ chọn) chat id của bạn |
 
-Không gửi các giá trị này cho ai, kể cả trong chat.
+Không gửi các giá trị này cho ai, kể cả trong chat. Sheet nên để chế độ chia sẻ **Hạn chế** (chỉ bạn) vì chứa tên và email người đăng ký.
+
+> **Cập nhật từ bản cũ** (mã trước ghi cứng `SHEET_ID`): thêm thuộc tính `SHEET_ID` **trước**, rồi mới dán `Code.gs` mới và **Deploy → Manage deployments → Edit → Version: New version → Deploy**. Làm ngược thứ tự thì Data Storage ngưng hoạt động cho tới khi thêm thuộc tính.
 
 ### Tạo bot Telegram để nhận thông báo
 1. Mở Telegram, chat với **@BotFather**, gõ `/newbot`, làm theo hướng dẫn, nhận **token**.
