@@ -15,6 +15,7 @@
       hero_k: "★ KHO BÁU · LANHMAR",
       hero_h: "Kho báu của mình<em>Học và làm cùng AI</em>",
       hero_p: "Những công cụ mình tự vibe-code và chia sẻ miễn phí, cùng kho tài nguyên mình dùng hằng ngày để học và làm việc.",
+      hero2_k: "★ KHO BÁU · BAN ĐÊM", hero2_h: "Đêm xuống, <em>công cụ vẫn sáng đèn.</em>",
       hero_cta1: "Xem công cụ", hero_cta2: "Tài nguyên mình đang dùng", hero_cta3: "Khoá học mình giới thiệu", hero_donate: "Ủng hộ mình",
       ribbon: "★ KHO BÁU ★ CÔNG CỤ MIỄN PHÍ ★ VIBE CODE ★ DÀNH CHO NGƯỜI ĐI HỌC ★ CHẠY TRÊN MÁY BẠN ", stamp: "Nổi bật",
       pill2: "★ Chạy <b>trên máy bạn</b>", count: (n) => `★ <b>${n}</b> công cụ`, free: "★ <b>Miễn phí</b> để dùng",
@@ -62,6 +63,7 @@
       hero_k: "★ TREASURE · LANHMAR",
       hero_h: "My treasure chest<em>Learn and work with AI</em>",
       hero_p: "Tools I vibe-code and share for free, plus the resources I use every day to learn and work.",
+      hero2_k: "★ TREASURE · AFTER HOURS", hero2_h: "Lights out, <em>the tools stay on.</em>",
       hero_cta1: "See the tools", hero_cta2: "Resources I use", hero_cta3: "A course I recommend", hero_donate: "Support me",
       ribbon: "★ TREASURE ★ FREE TOOLS ★ VIBE CODE ★ MADE FOR LEARNERS ★ RUNS ON YOUR COMPUTER ", stamp: "Featured",
       pill2: "★ Runs <b>on your computer</b>", count: (n) => `★ <b>${n}</b> ${n === 1 ? "tool" : "tools"}`, free: "★ <b>Free</b> to use",
@@ -267,13 +269,6 @@
     const res = `<a class="kb-hc" href="#donate"><span class="kb-hc-ic" aria-hidden="true">★</span><h3>${esc(T("hc_res_h"))}</h3><p>${esc(T("hc_res_p"))}</p><span class="kb-hc-go">${esc(T("hc_go"))}</span></a>`;
     $("#kbHCards").innerHTML = [tools[0] && tc(tools[0], 0), res, tools[1] && tc(tools[1], 1)].filter(Boolean).join("");
   }
-  // hiệu ứng chuyển động ở hero: đèn theo chuột và thẻ trượt theo cuộn (tắt khi người dùng chọn giảm chuyển động)
-  function heroMotion() {
-    const hero = $("#kbHero"); if (!hero || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    hero.addEventListener("pointermove", (e) => { const r = hero.getBoundingClientRect(); hero.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%"); hero.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100).toFixed(1) + "%"); });
-    let raf = 0;
-    addEventListener("scroll", () => { if (raf) return; raf = requestAnimationFrame(() => { raf = 0; hero.style.setProperty("--sy", Math.min(scrollY, 700)); }); }, { passive: true });
-  }
   // ruy băng chạy: hai bản giống hệt nhau để vòng lặp liền mạch (CSS dịch -50%)
   function renderRibbon() {
     const unit = (T("ribbon") + " ").repeat(3).split("★").filter((t) => t.trim()).map((t) => `<span>★ ${esc(t.trim())}</span>`).join("");
@@ -316,7 +311,7 @@
       const r = c.getBoundingClientRect(); c.style.setProperty("--x", (e.clientX - r.left) + "px"); c.style.setProperty("--y", (e.clientY - r.top) + "px");
     }, { passive: true });
   }
-  render(); reveal(false); heroMotion(); cardGlow();
+  render(); reveal(false); cardGlow();
 
   document.addEventListener("click", async (e) => {
     const lb = e.target.closest(".lang button");
