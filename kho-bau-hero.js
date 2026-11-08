@@ -78,7 +78,7 @@
       let u = UB[k] + ro; u -= Math.floor(u);
       const ti = (VI[k] * TW + ((u * TW) | 0)) * 3;
       const dot = NX[k] * Lx + NY[k] * Ly + NZ[k] * Lz, d = ss(-0.1, 0.65, dot), rl = ss(-0.35, 0.7, dot), rf = RM[k];
-      const a0 = 0.05, a1 = 0.07, a2 = 0.16;
+      const a0 = 0.08, a1 = 0.1, a2 = 0.22;
       let r = TEX[ti] / 255 * (a0 + d * 1.2 * lc[0] / 255) + rf * (rl * rc[0] / 255 * 0.95 + 0.06);
       let g = TEX[ti + 1] / 255 * (a1 + d * 1.2 * lc[1] / 255) + rf * (rl * rc[1] / 255 * 0.95 + 0.1);
       let b = TEX[ti + 2] / 255 * (a2 + d * 1.2 * lc[2] / 255) + rf * (rl * rc[2] / 255 * 0.95 + 0.28);
@@ -119,9 +119,10 @@
   function progress() { const r = hero.getBoundingClientRect(), span = hero.offsetHeight - innerHeight; return span > 0 ? clamp(-r.top / span) : 1; }
   function scrub() {
     const p = progress(), eo = (x) => 1 - Math.pow(1 - x, 3);
-    state.p = p; state.n = ss(0.08, 0.7, p); state.warm = ss(0.25, 0.8, p); state.theta = 0.25 + 2.35 * ss(0, 0.9, p);
-    const c1 = 1 - ss(0.2, 0.38, p), c2 = ss(0.5, 0.66, p), cp = ss(0.62, 0.88, p), ex = ss(0.86, 1, p);
-    setVars({ n: state.n.toFixed(3), rise: (0.27 + 0.23 * eo(ss(0, 0.8, p))).toFixed(3), c1: c1.toFixed(3), c2: c2.toFixed(3), cp: cp.toFixed(3), ex: ex.toFixed(3) });
+    state.p = p; state.n = ss(0.08, 0.62, p); state.warm = ss(0.2, 0.7, p); state.theta = 0.25 + 2.35 * ss(0, 0.8, p);
+    // c1: chữ mở đầu mờ đi · c2: chữ thứ hai hiện · cp: ba thẻ hiện · giữ nguyên rõ nhất trong khoảng 0.72–0.88 · ex: cảnh thoát
+    const c1 = 1 - ss(0.16, 0.32, p), c2 = ss(0.4, 0.54, p), cp = ss(0.5, 0.68, p), ex = ss(0.9, 1, p);
+    setVars({ n: state.n.toFixed(3), rise: (0.27 + 0.23 * eo(ss(0, 0.62, p))).toFixed(3), c1: c1.toFixed(3), c2: c2.toFixed(3), cp: cp.toFixed(3), ex: ex.toFixed(3) });
     if (copy1) copy1.style.visibility = c1 < 0.02 ? "hidden" : "visible";
     if (copy2) copy2.style.visibility = c2 < 0.02 ? "hidden" : "visible";
     hero.classList.toggle("kb-live", cp > 0.3);
