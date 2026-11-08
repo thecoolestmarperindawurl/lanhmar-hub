@@ -221,3 +221,76 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--purple-mid);outline
 
 @media(max-width:700px){.kb-hero{padding-top:96px}.kb-fbody{padding:18px}.kb-head{gap:12px}}
 @media (prefers-reduced-motion:reduce){.kb-fcard,.kb-card,.kb-tab,.kb-toast,.kb-b,.kb-go{transition:none}.kb-ribbon-track,.kb-course-mascot,.kb-arc,.kb-pill,.kb-hero h1,.kb-hero h1 em,.kb-lead,.kb-cta,.kb-hc{animation:none}.kb-hc{translate:none}.kb-arc{translate:-50% 0}.kb-fcard:nth-child(odd),.kb-fcard:nth-child(even){transform:none}}
+
+/* ====== Giao diện tối kiểu Redsun: nền đêm, ánh cam, thẻ kính viền cam, đèn rọi theo chuột, chữ khổng lồ chân trang ====== */
+@property --kba{syntax:"<angle>";inherits:false;initial-value:0deg}
+body.kb-dark{background:#060910;color:#cfcbe8}
+body.kb-dark::before,body.kb-dark::after{content:"";position:fixed;z-index:-1;pointer-events:none;border-radius:50%;filter:blur(90px);opacity:.5}
+body.kb-dark::before{left:-12vw;top:30vh;width:46vw;height:46vw;background:rgba(255,122,69,.28);animation:kbDrift 22s ease-in-out infinite alternate}
+body.kb-dark::after{right:-14vw;top:70vh;width:50vw;height:50vw;background:rgba(106,92,255,.3);animation:kbDrift 28s ease-in-out -9s infinite alternate-reverse}
+@keyframes kbDrift{to{transform:translate(8vw,-12vh) scale(1.15)}}
+.kb-dark .kb-sec h2,.kb-dark .kb-sec h3,.kb-dark .kb-end h2{color:#fff}
+.kb-dark .kb-sec p{color:var(--lav-300)}
+
+/* hiện dần: trượt lên + hết mờ, so le theo thẻ */
+.kb-dark .reveal{opacity:0;transform:translateY(34px) scale(.98);filter:blur(8px);transition:opacity .9s cubic-bezier(.2,.8,.2,1) var(--d,0ms),transform .9s cubic-bezier(.2,.8,.2,1) var(--d,0ms),filter .9s ease var(--d,0ms)}
+.kb-dark .reveal.in{opacity:1;transform:none;filter:none}
+
+/* tiêu đề mục */
+.kb-dark .kb-head{border-bottom:1px solid rgba(255,255,255,.12);position:relative}
+.kb-dark .kb-head::after{content:"";position:absolute;left:0;bottom:-1px;height:2px;width:0;background:linear-gradient(90deg,var(--orange),#ffb08a,transparent);transition:width 1.1s cubic-bezier(.2,.8,.2,1) .25s}
+.kb-dark .kb-head.in::after{width:min(320px,60%)}
+.kb-dark .kb-no{-webkit-text-stroke:2px var(--orange);filter:drop-shadow(0 0 14px rgba(255,122,69,.55))}
+
+/* thẻ kính: nền mờ, viền cam nhạt, bóng trong ánh cam, vệt sáng theo chuột */
+.kb-dark .kb-fcard,.kb-dark .kb-card,.kb-dark .kb-comm,.kb-dark .kb-soonbox{position:relative;overflow:hidden;background:rgba(255,255,255,.04);border:1px solid rgba(255,122,69,.22);box-shadow:inset 0 0 44px rgba(255,122,69,.07),0 20px 50px rgba(0,0,0,.35);transform:none;backdrop-filter:blur(6px)}
+.kb-dark .kb-fcard::before,.kb-dark .kb-card::before,.kb-dark .kb-comm::before,.kb-dark .kb-hc::before,.kb-dark .kb-soonbox::before{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;opacity:0;transition:opacity .35s;background:radial-gradient(360px circle at var(--x,50%) var(--y,0),rgba(255,122,69,.2),transparent 65%)}
+.kb-dark .kb-fcard:hover::before,.kb-dark .kb-card:hover::before,.kb-dark .kb-comm:hover::before,.kb-dark .kb-hc:hover::before,.kb-dark .kb-soonbox:hover::before{opacity:1}
+.kb-dark .kb-fcard>*,.kb-dark .kb-card>*{position:relative}
+.kb-dark .kb-fcard:nth-child(odd),.kb-dark .kb-fcard:nth-child(even){transform:none}
+@media (hover:hover){.kb-dark .kb-fcard:hover,.kb-dark .kb-card:hover{transform:translateY(-6px);border-color:rgba(255,122,69,.55);box-shadow:inset 0 0 60px rgba(255,122,69,.12),0 26px 60px rgba(255,122,69,.18)}}
+.kb-dark .kb-fimg{border-bottom:1px dashed rgba(255,122,69,.4);background:rgba(255,255,255,.04)}
+.kb-dark .kb-fimg img,.kb-dark .kb-cimg img{transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.kb-dark .kb-fcard:hover .kb-fimg img,.kb-dark .kb-card:hover .kb-cimg img{transform:scale(1.05)}
+.kb-dark .kb-cimg{background:rgba(255,255,255,.04);overflow:hidden}
+.kb-dark .kb-fbody h3,.kb-dark .kb-cbody h3{color:#fff}
+.kb-dark .kb-fbody p,.kb-dark .kb-cbody p{color:var(--lav-300)}
+.kb-dark .kb-badge{background:rgba(255,255,255,.08);color:var(--lav-200);border-color:rgba(255,255,255,.2)}
+.kb-dark .kb-stamp{border-color:var(--orange);box-shadow:0 0 22px rgba(255,122,69,.5)}
+.kb-dark .kb-join{color:var(--lav-300);border-color:rgba(255,255,255,.25)}
+
+/* nút trong thẻ: chính = cam sáng, phụ = viền mờ */
+.kb-dark .kb-sec .kb-act .btn,.kb-dark .kb-comm-btns .btn{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.35)}
+.kb-dark .kb-sec .kb-act .btn:hover,.kb-dark .kb-comm-btns .btn:hover{background:rgba(255,255,255,.1);border-color:#fff}
+.kb-dark .kb-sec .kb-act .btn.dark,.kb-dark .kb-comm-btns .btn.dark{background:linear-gradient(180deg,#FFA77F,#FF7A45);color:var(--ink);border-color:#FF7A45;box-shadow:0 8px 24px rgba(255,122,69,.4)}
+.kb-dark .kb-sec .kb-act .btn.dark:hover,.kb-dark .kb-comm-btns .btn.dark:hover{box-shadow:0 12px 34px rgba(255,122,69,.65)}
+
+/* tab lọc */
+.kb-dark .kb-tabs{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.14)}
+.kb-dark .kb-tab{color:var(--lav-200)}
+.kb-dark .kb-tab small{background:rgba(255,255,255,.12);color:#fff}
+.kb-dark .kb-tab:hover{background:rgba(255,255,255,.1)}
+.kb-dark .kb-tab.on{background:linear-gradient(180deg,#FFA77F,#FF7A45);color:var(--ink);box-shadow:0 6px 20px rgba(255,122,69,.45)}
+.kb-dark .kb-tab.on small{background:var(--ink);color:#fff}.kb-dark .kb-tab.on i{color:var(--ink)}
+.kb-dark .kb-tab.soon:not(.on){color:var(--lav-400)}
+.kb-dark .kb-soonbox b{color:#fff}
+
+/* khoá học: banner cam toả sáng trên nền tối */
+.kb-dark .kb-course{border:1px solid rgba(255,255,255,.35);box-shadow:0 0 90px rgba(255,122,69,.38),0 24px 60px rgba(0,0,0,.45)}
+.kb-dark .kb-course-cta{border:1px solid rgba(36,31,69,.25);box-shadow:0 14px 34px rgba(36,31,69,.35)}
+.kb-dark .kb-course::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:radial-gradient(420px circle at var(--x,80%) var(--y,0),rgba(255,255,255,.28),transparent 60%);opacity:0;transition:opacity .4s}
+.kb-dark .kb-course:hover::after{opacity:1}
+
+/* ủng hộ: thẻ giữa nổi bật, viền sáng chạy quanh */
+.kb-dark .kb-full{background:linear-gradient(160deg,rgba(45,47,239,.32),rgba(20,16,56,.8) 55%,rgba(255,122,69,.12));border:1px solid rgba(255,122,69,.4);box-shadow:inset 0 0 70px rgba(255,122,69,.1),0 0 80px rgba(255,122,69,.18),0 24px 60px rgba(0,0,0,.45)}
+.kb-dark .kb-full::before{background:radial-gradient(500px 260px at 100% 100%,rgba(255,122,69,.22),transparent),radial-gradient(rgba(255,255,255,.07) 1.4px,transparent 1.7px) 0 0/22px 22px}
+.kb-dark .kb-full::after{content:"";position:absolute;inset:0;padding:2px;border-radius:inherit;pointer-events:none;background:conic-gradient(from var(--kba),transparent 0 70%,rgba(255,170,120,.95) 85%,transparent 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:kbBeam 6s linear infinite}
+@keyframes kbBeam{to{--kba:360deg}}
+.kb-dark .kb-comm{border-style:solid}
+
+/* chữ khổng lồ ở chân trang */
+.kb-mark{overflow:hidden;text-align:center;line-height:.8;margin:30px 0 -.1em;user-select:none}
+.kb-mark span{display:block;font:800 clamp(64px,19vw,260px)/.85 Montserrat;letter-spacing:-.04em;background:linear-gradient(180deg,rgba(255,170,120,.9),rgba(255,122,69,.25) 55%,transparent);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;padding-bottom:.08em}
+body.kb-dark footer{background:#03050a;border-top:1px solid rgba(255,122,69,.18)}
+
+@media (prefers-reduced-motion:reduce){body.kb-dark::before,body.kb-dark::after,.kb-dark .kb-full::after{animation:none}.kb-dark .reveal{opacity:1;transform:none;filter:none;transition:none}.kb-dark .kb-head::after{width:min(320px,60%);transition:none}}
