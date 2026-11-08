@@ -184,6 +184,11 @@
       <p class="kb-lnote">${esc(T("lic_note"))} <a href="index.html#contact">${esc(T("lic_ask"))}</a> · <a href="https://polyformproject.org/licenses/noncommercial/1.0.0" target="_blank" rel="noopener">${esc(T("lic_full"))}</a></p>
       <div class="kb-act kb-dact">${url ? `<a class="btn dark" href="${esc(url)}" target="_blank" rel="noopener">${esc(T("d_repo"))}</a>` : ""}${x.install ? `<button class="btn" type="button" data-copy="${esc(x.id)}">${esc(T("copy_install"))}</button>` : ""}</div>`;
   }
+  function closeDlg() {
+    const dlg = $("#kbDlg"); if (!dlg.open) return;
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) { dlg.close(); return; }
+    dlg.classList.add("closing"); setTimeout(() => { dlg.close(); dlg.classList.remove("closing"); }, 240);
+  }
   function openDetail(id) {
     const x = byId(id), dlg = $("#kbDlg"); if (!x || !dlg) return;
     $("#kbDlgBody").innerHTML = detailHtml(x);
@@ -274,6 +279,13 @@
     const unit = (T("ribbon") + " ").repeat(3).split("★").filter((t) => t.trim()).map((t) => `<span>★ ${esc(t.trim())}</span>`).join("");
     $("#kbRibbon").innerHTML = unit + unit;
   }
+  // tiêu đề mục: bọc từng chữ để CSS cho trồi lên lần lượt (chữ lấy từ I18N cố định, đã qua textContent)
+  function splitHeads() {
+    document.querySelectorAll(".kb-head h2").forEach((h) => {
+      const words = h.textContent.trim().split(/\s+/); h.setAttribute("aria-label", words.join(" "));
+      h.innerHTML = words.map((w, i) => `<span class="w" aria-hidden="true"><span style="--i:${i}">${esc(w)}</span></span>`).join(" ");
+    });
+  }
   function render() {
     document.documentElement.lang = lang;
     document.title = T("title");
@@ -283,7 +295,7 @@
     $("#kbFeat").innerHTML = list.filter((x) => x.featured).slice(0, 2).map(featCard).join("");
     $("#featured").hidden = !list.some((x) => x.featured);
     $("#kbTabs").setAttribute("aria-label", T("shelf_label"));
-    renderTabs(); renderGrid(); renderCommunity(); renderCourse(); renderHeroCards(); renderRibbon();
+    renderTabs(); renderGrid(); renderCommunity(); renderCourse(); renderHeroCards(); renderRibbon(); splitHeads();
     $("#kbDon").innerHTML = typeof window.donateHtml === "function" ? window.donateHtml({}) : "";
   }
 
@@ -317,13 +329,14 @@
     const lb = e.target.closest(".lang button");
     if (lb) { const next = lb.dataset.lang === "en" ? "en" : "vi"; if (next === lang) return; lang = next; try { localStorage.setItem("lm_lang", lang); } catch {} render(); reveal(true); return; }
     const tab = e.target.closest("[data-shelf]");
-    if (tab) { shelf = tab.dataset.shelf; renderTabs(); renderGrid(); reveal(true); return; }
+    if (tab) { shelf = tab.dataset.shelf; renderTabs(); renderGrid(); reveal(true); document.querySelectorAll("#kbGrid .kb-card").forEach((c, i) => { c.style.setProperty("--d", i * 90 + "ms"); c.classList.add("kb-swap"); }); return; }
     const dt = e.target.closest("[data-detail]");
     if (dt) { openDetail(dt.dataset.detail); return; }
     const cp = e.target.closest("[data-copy]");
     if (cp) { const x = byId(cp.dataset.copy); if (x && x.install) toast((await copyText(x.install.join("\n"))) ? T("copied") : T("copy_fail")); return; }
-    if (e.target.closest("#kbDlgX") || e.target === $("#kbDlg")) $("#kbDlg").close();
+    if (e.target.closest("#kbDlgX") || e.target === $("#kbDlg")) closeDlg();
   });
+  $("#kbDlg").addEventListener("cancel", (e) => { e.preventDefault(); closeDlg(); });
   // bàn phím cho tab: mũi tên trái/phải
   $("#kbTabs").addEventListener("keydown", (e) => {
     if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
@@ -331,6 +344,13 @@
     const n = tabs[(i + (e.key === "ArrowRight" ? 1 : tabs.length - 1)) % tabs.length]; n.click(); $("#kbTabs .kb-tab.on").focus(); e.preventDefault();
   });
 
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest('a[href^="#"]'); if (!a || a.getAttribute("href") === "#") return;
+    const t = document.querySelector(a.getAttribute("href")); if (!t) return;
+    const box = t.matches("section") ? t.querySelector(".kb-course,.kb-full,.kb-comm,.kb-feat,.kb-tabs") : t;
+    if (!box || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    setTimeout(() => { box.classList.remove("kb-landed"); void box.offsetWidth; box.classList.add("kb-landed"); }, 700);
+  });
   // menu điện thoại
   const burger = $("#burger"), nav = $("#navlinks");
   const setMenu = (o) => { nav.classList.toggle("open", o); burger.setAttribute("aria-expanded", o); burger.textContent = o ? "✕" : "☰"; };
