@@ -8,7 +8,7 @@ body::after{width:520px;height:520px;right:-160px;top:55vh;background:rgba(106,9
 #moProg{position:fixed;left:0;top:0;height:5px;width:100%;z-index:80;background:rgba(178,164,239,.3);pointer-events:none}
 #moProg i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--orange),var(--purple-mid));transform:scaleX(0);transform-origin:left;border-radius:0 999px 999px 0;box-shadow:0 0 10px rgba(255,122,69,.6)}
 .pill-nav{transition:box-shadow .3s,background .3s}
-.pill-nav.mo-scrolled{box-shadow:0 14px 40px rgba(45,47,239,.28);background:rgba(255,253,249,.94)}
+.pill-nav.mo-scrolled{box-shadow:0 14px 40px rgba(10,8,34,.5);background:rgba(18,14,46,.92)}
 
 /* tiêu đề hero: hai dòng trồi lên lần lượt, có vệt sáng lấp lánh */
 .hero h1>span,.hero h1>em{display:inline-block;animation:moRise .8s var(--mo-ease) both}
