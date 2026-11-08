@@ -53,6 +53,7 @@
       course_storage: "Đăng ký truy cập Storage →",
       course_name: "Teamwork với AI · KesFlow",
       course_pts: ["6 buổi học online, 2 buổi mỗi tuần (tối thứ 3 và thứ 6)", "Không cần biết code, không cần kinh nghiệm dùng AI", "Có video, tài liệu và trợ giảng đồng hành"],
+      mark: "KHO BÁU",
       foot: "© 2026 Dương Thị Lan Anh — LANHMAR"
     },
     en: {
@@ -99,6 +100,7 @@
       course_storage: "Request Storage access →",
       course_name: "Teamwork with AI · KesFlow",
       course_pts: ["6 online sessions, 2 a week (Tuesday and Friday evenings)", "No coding and no prior AI experience needed", "Videos, materials and teaching assistants stay with you"],
+      mark: "TREASURE",
       foot: "© 2026 Dương Thị Lan Anh — LANHMAR"
     }
   };
@@ -305,7 +307,16 @@
     try { const ta = document.createElement("textarea"); ta.value = text; ta.style.cssText = "position:fixed;opacity:0"; document.body.appendChild(ta); ta.select(); const ok = document.execCommand("copy"); ta.remove(); return ok; } catch { return false; }
   }
 
-  render(); reveal(false); heroMotion();
+  // đèn rọi theo chuột trên các thẻ kính (đặt biến --x/--y, CSS vẽ vệt sáng)
+  function cardGlow() {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches || !matchMedia("(hover:hover)").matches) return;
+    const SEL = ".kb-fcard,.kb-card,.kb-hc,.kb-comm,.kb-full,.kb-course,.kb-soonbox";
+    document.addEventListener("pointermove", (e) => {
+      const c = e.target.closest && e.target.closest(SEL); if (!c) return;
+      const r = c.getBoundingClientRect(); c.style.setProperty("--x", (e.clientX - r.left) + "px"); c.style.setProperty("--y", (e.clientY - r.top) + "px");
+    }, { passive: true });
+  }
+  render(); reveal(false); heroMotion(); cardGlow();
 
   document.addEventListener("click", async (e) => {
     const lb = e.target.closest(".lang button");
