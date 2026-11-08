@@ -15,6 +15,7 @@
       hero_k: "★ KHO BÁU · LANHMAR",
       hero_h: "Kho báu của mình<em>Học và làm cùng AI</em>",
       hero_p: "Những công cụ mình tự vibe-code và chia sẻ miễn phí, cùng kho tài nguyên mình dùng hằng ngày để học và làm việc.",
+      hero2_k: "★ KHO BÁU · BAN ĐÊM", hero2_h: "Đêm xuống, <em>công cụ vẫn sáng đèn.</em>",
       hero_cta1: "Xem công cụ", hero_cta2: "Tài nguyên mình đang dùng", hero_cta3: "Khoá học mình giới thiệu", hero_donate: "Ủng hộ mình",
       ribbon: "★ KHO BÁU ★ CÔNG CỤ MIỄN PHÍ ★ VIBE CODE ★ DÀNH CHO NGƯỜI ĐI HỌC ★ CHẠY TRÊN MÁY BẠN ", stamp: "Nổi bật",
       pill2: "★ Chạy <b>trên máy bạn</b>", count: (n) => `★ <b>${n}</b> công cụ`, free: "★ <b>Miễn phí</b> để dùng",
@@ -62,6 +63,7 @@
       hero_k: "★ TREASURE · LANHMAR",
       hero_h: "My treasure chest<em>Learn and work with AI</em>",
       hero_p: "Tools I vibe-code and share for free, plus the resources I use every day to learn and work.",
+      hero2_k: "★ TREASURE · AFTER HOURS", hero2_h: "Lights out, <em>the tools stay on.</em>",
       hero_cta1: "See the tools", hero_cta2: "Resources I use", hero_cta3: "A course I recommend", hero_donate: "Support me",
       ribbon: "★ TREASURE ★ FREE TOOLS ★ VIBE CODE ★ MADE FOR LEARNERS ★ RUNS ON YOUR COMPUTER ", stamp: "Featured",
       pill2: "★ Runs <b>on your computer</b>", count: (n) => `★ <b>${n}</b> ${n === 1 ? "tool" : "tools"}`, free: "★ <b>Free</b> to use",
@@ -182,6 +184,11 @@
       <p class="kb-lnote">${esc(T("lic_note"))} <a href="index.html#contact">${esc(T("lic_ask"))}</a> · <a href="https://polyformproject.org/licenses/noncommercial/1.0.0" target="_blank" rel="noopener">${esc(T("lic_full"))}</a></p>
       <div class="kb-act kb-dact">${url ? `<a class="btn dark" href="${esc(url)}" target="_blank" rel="noopener">${esc(T("d_repo"))}</a>` : ""}${x.install ? `<button class="btn" type="button" data-copy="${esc(x.id)}">${esc(T("copy_install"))}</button>` : ""}</div>`;
   }
+  function closeDlg() {
+    const dlg = $("#kbDlg"); if (!dlg.open) return;
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) { dlg.close(); return; }
+    dlg.classList.add("closing"); setTimeout(() => { dlg.close(); dlg.classList.remove("closing"); }, 240);
+  }
   function openDetail(id) {
     const x = byId(id), dlg = $("#kbDlg"); if (!x || !dlg) return;
     $("#kbDlgBody").innerHTML = detailHtml(x);
@@ -267,17 +274,17 @@
     const res = `<a class="kb-hc" href="#donate"><span class="kb-hc-ic" aria-hidden="true">★</span><h3>${esc(T("hc_res_h"))}</h3><p>${esc(T("hc_res_p"))}</p><span class="kb-hc-go">${esc(T("hc_go"))}</span></a>`;
     $("#kbHCards").innerHTML = [tools[0] && tc(tools[0], 0), res, tools[1] && tc(tools[1], 1)].filter(Boolean).join("");
   }
-  // hiệu ứng chuyển động ở hero: đèn theo chuột và thẻ trượt theo cuộn (tắt khi người dùng chọn giảm chuyển động)
-  function heroMotion() {
-    const hero = $("#kbHero"); if (!hero || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    hero.addEventListener("pointermove", (e) => { const r = hero.getBoundingClientRect(); hero.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%"); hero.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100).toFixed(1) + "%"); });
-    let raf = 0;
-    addEventListener("scroll", () => { if (raf) return; raf = requestAnimationFrame(() => { raf = 0; hero.style.setProperty("--sy", Math.min(scrollY, 700)); }); }, { passive: true });
-  }
   // ruy băng chạy: hai bản giống hệt nhau để vòng lặp liền mạch (CSS dịch -50%)
   function renderRibbon() {
     const unit = (T("ribbon") + " ").repeat(3).split("★").filter((t) => t.trim()).map((t) => `<span>★ ${esc(t.trim())}</span>`).join("");
     $("#kbRibbon").innerHTML = unit + unit;
+  }
+  // tiêu đề mục: bọc từng chữ để CSS cho trồi lên lần lượt (chữ lấy từ I18N cố định, đã qua textContent)
+  function splitHeads() {
+    document.querySelectorAll(".kb-head h2").forEach((h) => {
+      const words = h.textContent.trim().split(/\s+/); h.setAttribute("aria-label", words.join(" "));
+      h.innerHTML = words.map((w, i) => `<span class="w" aria-hidden="true"><span style="--i:${i}">${esc(w)}</span></span>`).join(" ");
+    });
   }
   function render() {
     document.documentElement.lang = lang;
@@ -288,7 +295,7 @@
     $("#kbFeat").innerHTML = list.filter((x) => x.featured).slice(0, 2).map(featCard).join("");
     $("#featured").hidden = !list.some((x) => x.featured);
     $("#kbTabs").setAttribute("aria-label", T("shelf_label"));
-    renderTabs(); renderGrid(); renderCommunity(); renderCourse(); renderHeroCards(); renderRibbon();
+    renderTabs(); renderGrid(); renderCommunity(); renderCourse(); renderHeroCards(); renderRibbon(); splitHeads();
     $("#kbDon").innerHTML = typeof window.donateHtml === "function" ? window.donateHtml({}) : "";
   }
 
@@ -316,19 +323,20 @@
       const r = c.getBoundingClientRect(); c.style.setProperty("--x", (e.clientX - r.left) + "px"); c.style.setProperty("--y", (e.clientY - r.top) + "px");
     }, { passive: true });
   }
-  render(); reveal(false); heroMotion(); cardGlow();
+  render(); reveal(false); cardGlow();
 
   document.addEventListener("click", async (e) => {
     const lb = e.target.closest(".lang button");
     if (lb) { const next = lb.dataset.lang === "en" ? "en" : "vi"; if (next === lang) return; lang = next; try { localStorage.setItem("lm_lang", lang); } catch {} render(); reveal(true); return; }
     const tab = e.target.closest("[data-shelf]");
-    if (tab) { shelf = tab.dataset.shelf; renderTabs(); renderGrid(); reveal(true); return; }
+    if (tab) { shelf = tab.dataset.shelf; renderTabs(); renderGrid(); reveal(true); document.querySelectorAll("#kbGrid .kb-card").forEach((c, i) => { c.style.setProperty("--d", i * 90 + "ms"); c.classList.add("kb-swap"); }); return; }
     const dt = e.target.closest("[data-detail]");
     if (dt) { openDetail(dt.dataset.detail); return; }
     const cp = e.target.closest("[data-copy]");
     if (cp) { const x = byId(cp.dataset.copy); if (x && x.install) toast((await copyText(x.install.join("\n"))) ? T("copied") : T("copy_fail")); return; }
-    if (e.target.closest("#kbDlgX") || e.target === $("#kbDlg")) $("#kbDlg").close();
+    if (e.target.closest("#kbDlgX") || e.target === $("#kbDlg")) closeDlg();
   });
+  $("#kbDlg").addEventListener("cancel", (e) => { e.preventDefault(); closeDlg(); });
   // bàn phím cho tab: mũi tên trái/phải
   $("#kbTabs").addEventListener("keydown", (e) => {
     if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
@@ -336,6 +344,13 @@
     const n = tabs[(i + (e.key === "ArrowRight" ? 1 : tabs.length - 1)) % tabs.length]; n.click(); $("#kbTabs .kb-tab.on").focus(); e.preventDefault();
   });
 
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest('a[href^="#"]'); if (!a || a.getAttribute("href") === "#") return;
+    const t = document.querySelector(a.getAttribute("href")); if (!t) return;
+    const box = t.matches("section") ? t.querySelector(".kb-course,.kb-full,.kb-comm,.kb-feat,.kb-tabs") : t;
+    if (!box || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    setTimeout(() => { box.classList.remove("kb-landed"); void box.offsetWidth; box.classList.add("kb-landed"); }, 700);
+  });
   // menu điện thoại
   const burger = $("#burger"), nav = $("#navlinks");
   const setMenu = (o) => { nav.classList.toggle("open", o); burger.setAttribute("aria-expanded", o); burger.textContent = o ? "✕" : "☰"; };

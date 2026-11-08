@@ -248,3 +248,12 @@ dialog::backdrop{background:rgba(36,31,69,.6)}
 .bye-wrap .bye{display:block}
 .bye-mascot{position:absolute!important;left:-54px;bottom:-26px;--size:120px}
 @media(max-width:900px){.bye-mascot{left:-14px;bottom:-20px;--size:96px}}
+
+/* chuyển cảnh giữa các trang (View Transitions): thanh điều hướng đứng yên, nội dung mờ ra rồi trượt vào. Trình duyệt chưa hỗ trợ thì bỏ qua. */
+@view-transition{navigation:auto}
+.pill-nav{view-transition-name:lm-nav}
+::view-transition-old(root){animation:vtOut .32s ease both}
+::view-transition-new(root){animation:vtIn .6s cubic-bezier(.2,.8,.2,1) both}
+@keyframes vtOut{to{opacity:0;filter:blur(8px);transform:scale(.985)}}
+@keyframes vtIn{from{opacity:0;filter:blur(8px);transform:translateY(22px) scale(1.01)}}
+@media (prefers-reduced-motion:reduce){@view-transition{navigation:none}}
