@@ -1,5 +1,7 @@
 # Hồ sơ Publish app + xác minh OAuth với Google — Drive Ebook Reader
 
+> **Đường đã chọn (11/2026): miễn phí, công khai cho mọi người.** Extension dùng scope `drive.file` + Google Picker, không cần xác minh scope, không cần CASA. Việc cần làm nằm ở **`docs/huong-dan-publish-nontech.md`** (7 bước, không tốn phí). Phần dưới đây giữ lại cho trường hợp sau này muốn quay về `drive.readonly` (mở thẳng mọi file, liệt kê thư mục) và chấp nhận chi phí xác minh.
+
 Tài liệu này gom mọi thứ cần để bấm **Publish app** và nộp **xác minh OAuth** cho scope `drive.readonly` (nhóm *restricted*). Phần bấm nút phải do chủ project Google Cloud làm; chữ cần điền đã soạn sẵn bên dưới, cứ copy.
 
 > Nguồn: quy trình dựa trên trang **Google Cloud Console → Google Auth Platform** và tài liệu *OAuth App Verification* của Google tính tới thời điểm soạn. Giao diện Google đổi thường xuyên; tên mục có thể lệch đôi chút. Những chỗ ghi **[cần xác minh]** là điểm mình không mở được tài liệu gốc trong lúc soạn, hãy đối chiếu trên màn hình thật.

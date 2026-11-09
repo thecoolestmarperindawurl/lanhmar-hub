@@ -9077,7 +9077,7 @@
         "epub"
       ],
       "thumb": "assets/res/tool-drive-ebook-reader.jpg",
-      "note": "Extension Chrome/Edge chỉ nạp đúng phần đang đọc qua Drive API, nên file vài trăm MB mở ngay dù Drive báo không xem trước được. Dữ liệu đi thẳng từ Google về trình duyệt, không qua máy chủ nào.",
+      "note": "Extension Chrome/Edge chỉ nạp đúng phần đang đọc qua Drive API, nên file vài trăm MB mở ngay dù Drive báo không xem trước được. Chọn sách một lần trong cửa sổ Drive; dữ liệu đi thẳng từ Google về trình duyệt, không qua máy chủ nào.",
       "sections": [
         {
           "k": "callout",
@@ -9107,8 +9107,8 @@
               "Xuất PDF qua Drive API rồi đọc"
             ],
             [
-              "Thư mục Drive",
-              "Dán link thư mục để thấy danh sách sách bên trong, mở thư mục con"
+              "Tủ sách",
+              "Sách đã chọn được nhớ lại trên máy bạn; chọn nhiều cuốn một lúc trong cửa sổ Drive"
             ],
             [
               "File trên máy",
@@ -9132,14 +9132,14 @@
               "d": "Mở chrome://extensions (Edge: edge://extensions), bật Developer mode, bấm Load unpacked, chọn thư mục vừa giải nén. ID extension luôn là bijcnaofiojlemmbghgcljfekdaoghbf."
             },
             {
-              "t": "Cấp quyền Google",
-              "d": "Mở một file trên Drive, bấm nút tím \"Đọc không cần tải\" góc dưới phải, chọn tài khoản Google và cho phép quyền chỉ đọc Drive."
+              "t": "Chọn sách",
+              "d": "Bấm icon extension → “Chọn sách từ Google Drive”, đăng nhập và chọn một hay nhiều cuốn trong cửa sổ Drive. Sách vào Tủ sách và mở ngay; lần sau bấm nút tím “Đọc không cần tải” trên trang Drive của cuốn đó là đọc luôn."
             }
           ]
         },
         {
           "k": "callout",
-          "t": "Về đăng nhập Google: bản ZIP gắn với project Google Cloud của LANHMAR đang ở chế độ thử nghiệm, nên Google chỉ cho tài khoản trong danh sách thử nghiệm đăng nhập. Bạn có hai cách: nhắn Gmail của bạn cho mình để được thêm vào danh sách, hoặc tự tạo OAuth Client ID riêng trong 10 phút theo README (miễn phí, chỉ cần tài khoản Google)."
+          "t": "Về quyền truy cập: extension chỉ xin quyền drive.file của Google, nghĩa là chỉ đọc được đúng những cuốn bạn tự chọn trong cửa sổ Google Drive, không đọc được gì khác. Bấm “Chọn sách từ Google Drive” một lần (chọn nhiều cuốn cùng lúc cũng được), sách vào Tủ sách và từ đó mở thẳng, kể cả từ nút tím trên trang Drive. Không cần danh sách thử nghiệm, không tải gì xuống máy."
         },
         {
           "k": "h",
@@ -9148,7 +9148,7 @@
         {
           "k": "list",
           "items": [
-            "Đăng nhập bằng chrome.identity với scope chỉ đọc drive.readonly; không có máy chủ trung gian, extension chỉ nói chuyện với www.googleapis.com.",
+            "Đăng nhập bằng chrome.identity với quyền drive.file: Google chỉ cấp quyền với file bạn chọn trong Google Picker (đặt tại lanhmar.id.vn/drive-picker.html), không gì khác; extension chỉ nói chuyện với www.googleapis.com.",
             "PDF.js nhận một PDFDataRangeTransport tuỳ biến: mỗi lần cần dữ liệu nó gửi header Range tới Drive API và nhận 206 Partial Content, đoạn 1 MB, tắt tự tải nốt phần còn lại.",
             "Chỉ render trang gần vùng nhìn, trang ở xa được giải phóng để tiết kiệm RAM; thanh trên cùng hiện đúng lượng dữ liệu đã nạp.",
             "Thử nghiệm với PDF 24 MB: mở lấy khoảng 3 MB, nhảy tới trang 20 lấy thêm khoảng 4 MB. PDF có từ điển trang rải khắp file có thể phải chạm gần hết file ngay lần mở.",
@@ -9158,6 +9158,10 @@
         {
           "k": "links",
           "items": [
+            {
+              "t": "Trang giới thiệu và chính sách quyền riêng tư",
+              "u": "https://lanhmar.id.vn/drive-ebook-reader.html"
+            },
             {
               "t": "README chi tiết: cài đặt, tạo OAuth Client ID, giới hạn",
               "u": "https://github.com/thecoolestmarperindawurl/lanhmar-hub/tree/main/extensions/drive-ebook-reader#readme"

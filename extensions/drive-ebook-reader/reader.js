@@ -9,6 +9,13 @@ const BASE = HAS_EXT ? chrome.runtime.getURL('') : new URL('./', location.href).
 pdfjsLib.GlobalWorkerOptions.workerSrc = BASE + 'vendor/pdfjs/pdf.worker.min.mjs';
 
 const CHUNK = 1 << 20; // 1 MiB mỗi lần lấy / per range request
+// Trang Google Picker đặt trên lanhmar.id.vn (MV3 không cho nạp apis.google.com trong extension).
+// Google Picker page hosted on lanhmar.id.vn (MV3 forbids loading apis.google.com inside the extension).
+const PICKER_URL = 'https://lanhmar.id.vn/drive-picker.html';
+const PICKER_ORIGIN = new URL(PICKER_URL).origin;
+const SCOPES = (HAS_EXT && chrome.runtime.getManifest().oauth2 && chrome.runtime.getManifest().oauth2.scopes) || [];
+// drive.readonly: mở thẳng mọi file; drive.file: chỉ file người dùng đã chọn qua Picker.
+const FULL_SCOPE = SCOPES.some((x) => /drive(\.readonly)?$/.test(x) && !/drive\.file$/.test(x));
 const API = 'https://www.googleapis.com/drive/v3/';
 const FOLDER = 'application/vnd.google-apps.folder';
 const DOC_EXPORT = new Set([
@@ -29,19 +36,27 @@ const el = {
   title: $('title'), ctrlPdf: $('ctrlPdf'), ctrlEpub: $('ctrlEpub'), net: $('net'),
   home: $('home'), err: $('err'), status: $('status'), statusMsg: $('statusMsg'), statusSub: $('statusSub'),
   pdfView: $('pdfView'), epubWrap: $('epubWrap'), epubView: $('epubView'), toc: $('toc'),
-  driveLink: $('driveLink'), setup: $('setup'), folder: $('folder'), folderList: $('folderList'),
+  driveLink: $('driveLink'), setup: $('setup'), folder: $('folder'), folderList: $('folderList'), needPick: $('needPick'),
 };
 
 function applyStaticText() {
   $('hTitle').textContent = T('Đọc ebook trên Google Drive, không cần tải về', 'Read Google Drive ebooks without downloading');
   $('hLead').textContent = T(
-    'Dán link hoặc ID file PDF/EPUB trên Drive. Mình chỉ nạp phần đang đọc, nên file vài trăm MB vẫn mở được dù Drive không xem trước nổi.',
-    'Paste a Drive link or file ID for a PDF/EPUB. Only the part you are reading is fetched, so files of several hundred MB open even when Drive cannot preview them.');
+    'Chọn PDF/EPUB trong Google Drive của bạn. Mình chỉ nạp phần đang đọc, nên file vài trăm MB vẫn mở được dù Drive không xem trước nổi. Sách đã chọn được nhớ trong Tủ sách để lần sau mở ngay.',
+    'Pick a PDF/EPUB from your Google Drive. Only the part you are reading is fetched, so files of several hundred MB open even when Drive cannot preview them. Picked books are remembered in your Library for next time.');
+  $('pickBtn').textContent = T('Chọn sách từ Google Drive', 'Pick books from Google Drive');
+  $('libLab').textContent = T('Tủ sách của bạn', 'Your library');
+  $('linkSum').textContent = T('Hoặc dán link Drive', 'Or paste a Drive link');
   $('linkIn').placeholder = 'https://drive.google.com/file/d/…/view';
   $('linkBtn').textContent = T('Mở', 'Open');
-  $('hHint').textContent = T('Mẹo: trên trang Drive của file, bấm nút tím “Đọc không cần tải” ở góc dưới phải.', 'Tip: on the Drive page of a file, click the purple “Read without downloading” button at the bottom right.');
-  $('hOr').textContent = T('hoặc', 'or');
-  $('fileLbl').textContent = T('Mở file PDF/EPUB từ máy', 'Open a PDF/EPUB from this computer');
+  $('hHint').textContent = FULL_SCOPE
+    ? T('Mẹo: trên trang Drive của file, bấm nút tím “Đọc không cần tải” ở góc dưới phải.', 'Tip: on the Drive page of a file, click the purple “Read without downloading” button at the bottom right.')
+    : T('Link chỉ mở được với sách đã chọn qua Google Drive một lần (extension chỉ xin quyền với file bạn tự chọn). Chưa chọn thì mình sẽ mở cửa sổ chọn giúp bạn.', 'A link opens directly only for books you have picked once through Google Drive (the extension only gets access to files you choose). Otherwise the picker opens for you.');
+  $('fileLbl').textContent = T('Mở file từ máy', 'Open a local file');
+  $('npTitle').textContent = T('Cần chọn file này một lần', 'Pick this file once');
+  $('npBtn').textContent = T('Chọn trong Google Drive', 'Pick in Google Drive');
+  $('npHome').textContent = T('Mở file khác', 'Open another file');
+  $('npHint').textContent = T('Extension chỉ xin quyền với những file bạn tự chọn trong cửa sổ Google (quyền drive.file), không đọc được gì khác trong Drive của bạn. Chọn xong, lần sau mở thẳng từ Tủ sách hoặc từ nút trên Drive.', 'The extension only gets access to files you choose in the Google window (drive.file scope) and cannot read anything else in your Drive. Once picked, the book opens directly next time from your Library or from the Drive button.');
   $('errRetry').textContent = T('Thử lại', 'Retry');
   $('errHome').textContent = T('Mở file khác', 'Open another file');
   $('prev').title = $('ePrev').title = T('Trang trước', 'Previous page');
@@ -81,7 +96,7 @@ const storage = {
 const debounce = (fn, ms) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
 
 function show(which) {
-  for (const k of ['home', 'err', 'folder', 'pdfView', 'epubWrap']) el[k].hidden = k !== which;
+  for (const k of ['home', 'err', 'folder', 'needPick', 'pdfView', 'epubWrap']) el[k].hidden = k !== which;
   el.ctrlPdf.hidden = which !== 'pdfView';
   el.ctrlEpub.hidden = which !== 'epubWrap';
 }
@@ -104,7 +119,9 @@ function explain(e) {
   if (e instanceof DriveError) {
     if (e.status === 401) return T('Phiên đăng nhập Google hết hạn. Bấm Thử lại để đăng nhập.', 'Google sign-in expired. Click Retry to sign in again.');
     if (e.status === 403) return T('Google từ chối truy cập: kiểm tra Drive API đã bật trong Google Cloud, tài khoản đã được thêm làm “Test user”, và bạn có quyền xem file này.', 'Google refused access: check that the Drive API is enabled in Google Cloud, your account is added as a “Test user”, and you can view this file.');
-    if (e.status === 404) return T('Không tìm thấy file. Link sai, hoặc tài khoản Google đang đăng nhập không có quyền xem.', 'File not found. The link is wrong, or the signed-in Google account cannot view it.');
+    if (e.status === 404) return FULL_SCOPE
+      ? T('Không tìm thấy file. Link sai, hoặc tài khoản Google đang đăng nhập không có quyền xem.', 'File not found. The link is wrong, or the signed-in Google account cannot view it.')
+      : T('Extension chưa được cấp quyền với file này. Hãy chọn nó một lần trong cửa sổ Google Drive.', 'The extension has no access to this file yet. Pick it once in the Google Drive window.');
     return T('Drive API trả lỗi', 'Drive API error') + ' ' + e.status + '.';
   }
   const m = String(e && e.message || e);
@@ -545,6 +562,85 @@ $('theme').onclick = () => {
   if (epub.rendition) epub.rendition.themes.select(t);
 };
 
+// ---------- Google Picker (qua trang lanhmar.id.vn) ----------
+let pickerWin = null, pickerResolve = null, pickerToken = '', pickerQuery = '';
+window.addEventListener('message', (ev) => {
+  if (ev.origin !== PICKER_ORIGIN || !ev.data || !pickerWin) return;
+  if (ev.data.type === 'picker-ready') {
+    ev.source.postMessage({ type: 'picker-init', token: pickerToken, query: pickerQuery, multiple: true, lang: VI ? 'vi' : 'en' }, PICKER_ORIGIN);
+  } else if (ev.data.type === 'picked') {
+    const docs = Array.isArray(ev.data.docs) ? ev.data.docs.filter((d) => d && /^[a-zA-Z0-9_-]{10,}$/.test(d.id)) : [];
+    const r = pickerResolve; pickerResolve = null; try { pickerWin.close(); } catch { /* ignore */ } pickerWin = null;
+    r && r(docs);
+  } else if (ev.data.type === 'picker-cancel') {
+    const r = pickerResolve; pickerResolve = null; try { pickerWin.close(); } catch { /* ignore */ } pickerWin = null;
+    r && r(null);
+  }
+});
+async function openPicker(query) {
+  if (clientIdMissing()) { showSetup(); return null; }
+  let token;
+  try { token = await getToken(true); } catch (e) { showError(e); return null; }
+  if (pickerWin && !pickerWin.closed) { pickerWin.focus(); return null; }
+  const w = Math.min(1100, screen.availWidth - 40), h = Math.min(760, screen.availHeight - 60);
+  const url = PICKER_URL + '?lang=' + (VI ? 'vi' : 'en') + '&ext=' + encodeURIComponent(HAS_EXT ? chrome.runtime.id : '');
+  pickerWin = window.open(url, 'lm-picker', `popup=yes,width=${w},height=${h},left=${(screen.availWidth - w) / 2},top=${(screen.availHeight - h) / 2}`);
+  if (!pickerWin) { showError(new Error(T('Trình duyệt chặn cửa sổ bật lên. Cho phép pop-up cho extension rồi thử lại.', 'The browser blocked the pop-up. Allow pop-ups for the extension and try again.'))); return null; }
+  pickerToken = token; pickerQuery = query || '';
+  return new Promise((resolve) => {
+    pickerResolve = resolve;
+    const t = setInterval(() => { if (!pickerWin || pickerWin.closed) { clearInterval(t); if (pickerResolve) { pickerResolve = null; pickerWin = null; resolve(null); } } }, 500);
+  });
+}
+async function pickAndOpen(query) {
+  const docs = await openPicker(query);
+  if (!docs || !docs.length) return;
+  await libAdd(docs);
+  if (docs.length === 1) { navigateTo(docs[0].id); return; }
+  goHome();
+}
+
+// ---------- Tủ sách / library ----------
+async function libGet() { return (await storage.get('lib')) || []; }
+async function libAdd(docs) {
+  const lib = await libGet();
+  for (const d of docs) {
+    const i = lib.findIndex((x) => x.id === d.id);
+    const item = { id: d.id, name: d.name || d.id, mimeType: d.mimeType || '', size: d.size ? +d.size : (lib[i] && lib[i].size) || 0, at: Date.now() };
+    if (i >= 0) lib.splice(i, 1);
+    lib.unshift(item);
+  }
+  await storage.set('lib', lib.slice(0, 200));
+}
+async function libRemove(id) { await storage.set('lib', (await libGet()).filter((x) => x.id !== id)); renderLib(); }
+async function renderLib() {
+  const lib = await libGet();
+  $('libWrap').hidden = !lib.length;
+  const box = $('lib'); box.innerHTML = '';
+  const ICON = { folder: '📁', pdf: '📄', epub: '📚', gdoc: '📝' };
+  for (const f of lib) {
+    const kind = f.mimeType === FOLDER ? 'folder' : kindOf(f.mimeType, f.name);
+    const row = document.createElement('a'); row.href = '#';
+    const ico = document.createElement('span'); ico.className = 'ico'; ico.textContent = ICON[kind] || '📄';
+    const nm = document.createElement('span'); nm.className = 'nm'; nm.textContent = f.name; nm.title = f.name;
+    const sz = document.createElement('span'); sz.className = 'sz'; sz.textContent = f.size ? fmtBytes(f.size) : '';
+    const rm = document.createElement('button'); rm.type = 'button'; rm.className = 'rm'; rm.textContent = '×'; rm.title = T('Bỏ khỏi Tủ sách', 'Remove from library');
+    rm.onclick = (e) => { e.preventDefault(); e.stopPropagation(); libRemove(f.id); };
+    row.append(ico, nm, sz, rm);
+    row.onclick = (e) => { e.preventDefault(); navigateTo(f.id); };
+    box.appendChild(row);
+  }
+}
+function showNeedPick(id, nameHint) {
+  status(null); show('needPick');
+  $('npMsg').textContent = nameHint
+    ? T(`“${nameHint}” chưa nằm trong Tủ sách. Chọn nó trong cửa sổ Google Drive (mình đã điền sẵn tên để tìm), rồi sách sẽ mở ngay.`, `“${nameHint}” is not in your library yet. Pick it in the Google Drive window (the name is pre-filled in the search) and it opens right away.`)
+    : T('File này chưa nằm trong Tủ sách. Chọn nó trong cửa sổ Google Drive, rồi sách sẽ mở ngay.', 'This file is not in your library yet. Pick it in the Google Drive window and it opens right away.');
+  $('npBtn').onclick = () => pickAndOpen(nameHint || '');
+}
+$('npHome').onclick = () => goHome();
+$('pickBtn').onclick = () => pickAndOpen('');
+
 // ---------- Mở file / open ----------
 function extractId(s) {
   s = (s || '').trim();
@@ -569,7 +665,13 @@ async function openDrive(id) {
     show('pdfView'); el.pdfView.hidden = true; el.ctrlPdf.hidden = true;
     if (clientIdMissing()) { showSetup(); return; }
     status(T('Đang kết nối Google Drive…', 'Connecting to Google Drive…'));
-    const meta = await driveMeta(id);
+    let meta;
+    try { meta = await driveMeta(id); }
+    catch (e) {
+      if (e instanceof DriveError && (e.status === 404 || e.status === 403) && !FULL_SCOPE) { showNeedPick(id, params.get('name') || ''); return; }
+      throw e;
+    }
+    libAdd([meta]);
     el.title.textContent = meta.name || id; el.title.title = meta.name || '';
     document.title = (meta.name || 'Ebook') + ' — Drive Ebook Reader';
     if (meta.webViewLink) { el.driveLink.href = meta.webViewLink; el.driveLink.hidden = false; }
@@ -612,8 +714,8 @@ function showSetup() {
   status(null); show('home');
   el.setup.hidden = false;
   el.setup.innerHTML = T(
-    '<b>Cần cài đặt một lần:</b> extension chưa có OAuth Client ID nên chưa gọi được Google Drive.<ol><li>Mở <code>chrome://extensions</code>, bật Developer mode, copy <b>ID</b> của extension này.</li><li>Vào Google Cloud Console → tạo project → bật <b>Google Drive API</b> → OAuth consent screen (External, Testing, thêm email của bạn làm Test user).</li><li>Credentials → Create OAuth client ID → loại <b>Chrome Extension</b> → dán Item ID ở bước 1.</li><li>Dán Client ID vào <code>oauth2.client_id</code> trong <code>manifest.json</code>, rồi bấm Reload extension.</li></ol>Chi tiết ở README trong thư mục extension.',
-    '<b>One-time setup:</b> the extension has no OAuth Client ID yet, so it cannot call Google Drive.<ol><li>Open <code>chrome://extensions</code>, enable Developer mode, copy this extension\'s <b>ID</b>.</li><li>In Google Cloud Console create a project → enable the <b>Google Drive API</b> → OAuth consent screen (External, Testing, add your email as a Test user).</li><li>Credentials → Create OAuth client ID → type <b>Chrome Extension</b> → paste the Item ID from step 1.</li><li>Paste the Client ID into <code>oauth2.client_id</code> in <code>manifest.json</code>, then reload the extension.</li></ol>Details in the README inside the extension folder.');
+    '<b>Cần cài đặt một lần:</b> extension chưa có OAuth Client ID nên chưa gọi được Google Drive.<ol><li>Mở <code>chrome://extensions</code>, bật Developer mode, copy <b>ID</b> của extension này.</li><li>Vào Google Cloud Console → tạo project → bật <b>Google Drive API</b> → OAuth consent screen (External).</li><li>Credentials → Create OAuth client ID → loại <b>Chrome Extension</b> → dán Item ID ở bước 1.</li><li>Dán Client ID vào <code>oauth2.client_id</code> trong <code>manifest.json</code>, rồi bấm Reload extension.</li></ol>Chi tiết ở README trong thư mục extension.',
+    '<b>One-time setup:</b> the extension has no OAuth Client ID yet, so it cannot call Google Drive.<ol><li>Open <code>chrome://extensions</code>, enable Developer mode, copy this extension\'s <b>ID</b>.</li><li>In Google Cloud Console create a project → enable the <b>Google Drive API</b> → OAuth consent screen (External).</li><li>Credentials → Create OAuth client ID → type <b>Chrome Extension</b> → paste the Item ID from step 1.</li><li>Paste the Client ID into <code>oauth2.client_id</code> in <code>manifest.json</code>, then reload the extension.</li></ol>Details in the README inside the extension folder.');
 }
 function goHome() {
   closeCurrent();
@@ -621,7 +723,7 @@ function goHome() {
   status(null); show('home');
   el.setup.hidden = !clientIdMissing();
   if (!el.setup.hidden) showSetup();
-  $('linkIn').focus();
+  renderLib();
 }
 $('linkForm').addEventListener('submit', (e) => {
   e.preventDefault();
@@ -641,4 +743,4 @@ if (startId && /^[a-zA-Z0-9_-]{10,}$/.test(startId)) openDrive(startId);
 else goHome();
 
 // Cho trang thử nghiệm / for tests
-window.__reader = { pdf, epub, openLocal, extractId, kindOf };
+window.__reader = { pdf, epub, openLocal, extractId, kindOf, openPicker, libGet, FULL_SCOPE, PICKER_URL };

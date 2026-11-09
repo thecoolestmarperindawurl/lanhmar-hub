@@ -46,16 +46,35 @@
   <section class="panel" id="home" hidden>
     <h1 id="hTitle"></h1>
     <p class="lead" id="hLead"></p>
-    <form id="linkForm" class="row">
-      <input id="linkIn" type="text" autocomplete="off" spellcheck="false">
-      <button class="btn" id="linkBtn" type="submit"></button>
-    </form>
-    <p class="hint" id="hHint"></p>
-    <div class="or" id="hOr"></div>
-    <label class="btn ghost" for="fileIn" id="fileLbl"></label>
-    <input id="fileIn" type="file" accept=".pdf,.epub,application/pdf,application/epub+zip" hidden>
+    <div class="row">
+      <button class="btn" id="pickBtn" type="button"></button>
+      <label class="btn ghost" for="fileIn" id="fileLbl"></label>
+      <input id="fileIn" type="file" accept=".pdf,.epub,application/pdf,application/epub+zip" hidden>
+    </div>
+    <div id="libWrap" hidden>
+      <p class="lab" id="libLab"></p>
+      <div class="flist lib" id="lib"></div>
+    </div>
+    <details class="more">
+      <summary id="linkSum"></summary>
+      <form id="linkForm" class="row">
+        <input id="linkIn" type="text" autocomplete="off" spellcheck="false">
+        <button class="btn" id="linkBtn" type="submit"></button>
+      </form>
+      <p class="hint" id="hHint"></p>
+    </details>
     <div class="setup" id="setup" hidden></div>
     <p class="hint foot"><a id="privacyLink" href="https://lanhmar.id.vn/drive-ebook-reader-privacy.html" target="_blank" rel="noopener"></a> · <a id="homeLink" href="https://lanhmar.id.vn/drive-ebook-reader.html" target="_blank" rel="noopener"></a></p>
+  </section>
+
+  <section class="panel" id="needPick" hidden>
+    <h2 id="npTitle"></h2>
+    <p class="lead" id="npMsg"></p>
+    <div class="row">
+      <button class="btn" id="npBtn" type="button"></button>
+      <button class="btn ghost" id="npHome" type="button"></button>
+    </div>
+    <p class="hint" id="npHint"></p>
   </section>
 
   <section class="panel folder" id="folder" hidden>

@@ -31,13 +31,13 @@ window.TREASURES = [
     "points": [
       "PDF nạp theo đoạn 1 MB (HTTP Range), render lười, bôi đen copy chữ, nhớ trang đang đọc",
       "EPUB có mục lục, đổi cỡ chữ, nhớ vị trí; Google Docs/Slides xuất PDF rồi đọc",
-      "Dán link thư mục Drive để chọn sách; nút tím ngay trên trang Drive",
+      "Tủ sách nhớ những cuốn đã chọn; nút tím ngay trên trang Drive",
       "Không máy chủ trung gian: dữ liệu đi thẳng từ Google về trình duyệt, quyền chỉ đọc"
     ],
     "points_en": [
       "PDF fetched in 1 MB chunks (HTTP Range), lazy rendering, text selection and copy, remembers your page",
       "EPUB with table of contents, font size and saved position; Google Docs/Slides exported to PDF",
-      "Paste a Drive folder link to pick a book; purple button right on the Drive page",
+      "A Library remembers picked books; purple button right on the Drive page",
       "No middle server: data flows straight from Google to your browser, read-only access"
     ],
     "cta": "Tải ZIP cho Chrome/Edge →",
@@ -62,11 +62,16 @@ window.TREASURES = [
         "v_en": "Folder extensions/drive-ebook-reader in the lanhmar-hub repo on GitHub"
       }
     ],
-    "note": "Đăng nhập Google: bản ZIP gắn với project Google Cloud của LANHMAR đang ở chế độ thử nghiệm, nên chỉ Gmail trong danh sách thử nghiệm đăng nhập được. Nhắn Gmail của bạn cho mình để được thêm, hoặc tự tạo OAuth Client ID riêng trong 10 phút theo README.",
-    "note_en": "Google sign-in: the ZIP is tied to LANHMAR's Google Cloud project, which is in testing mode, so only listed test Gmail accounts can sign in. Send me your Gmail to be added, or create your own OAuth Client ID in 10 minutes following the README.",
+    "note": "Quyền truy cập: extension chỉ xin quyền drive.file của Google, nên chỉ đọc được đúng những cuốn bạn tự chọn trong cửa sổ Google Drive, không gì khác. Chọn một lần, sách vào Tủ sách và mở thẳng từ đó, kể cả từ nút tím trên trang Drive. Ai cũng đăng nhập được, không cần danh sách thử nghiệm.",
+    "note_en": "Access: the extension only requests Google's drive.file scope, so it can read exactly the books you pick in the Google Drive window and nothing else. Pick once, the book joins your Library and opens directly from then on, including from the purple button on the Drive page. Anyone can sign in, no test-user list.",
     "detail": "drive-ebook-reader",
     "direct": true,
     "links": [
+      {
+        "t": "Trang giới thiệu và chính sách quyền riêng tư ↗",
+        "t_en": "Homepage and privacy policy ↗",
+        "u": "https://lanhmar.id.vn/drive-ebook-reader.html"
+      },
       {
         "t": "README: cài đặt, tạo OAuth Client ID, giới hạn ↗",
         "t_en": "README: install, create an OAuth Client ID, limitations ↗",
@@ -113,8 +118,8 @@ window.TREASURES = [
             "Xuất PDF qua Drive API rồi đọc"
           ],
           [
-            "Thư mục Drive",
-            "Dán link thư mục để thấy danh sách sách bên trong, mở thư mục con"
+            "Tủ sách",
+            "Sách đã chọn được nhớ lại trên máy bạn; chọn nhiều cuốn một lúc trong cửa sổ Drive"
           ],
           [
             "File trên máy",
@@ -135,8 +140,8 @@ window.TREASURES = [
             "Exported to PDF through the Drive API, then read"
           ],
           [
-            "Drive folders",
-            "Paste a folder link to list the books inside and open sub-folders"
+            "Library",
+            "Picked books are remembered on your device; select several at once in the Drive window"
           ],
           [
             "Local files",
@@ -161,8 +166,8 @@ window.TREASURES = [
             "d": "Mở chrome://extensions (Edge: edge://extensions), bật Developer mode, bấm Load unpacked, chọn thư mục vừa giải nén. ID extension luôn là bijcnaofiojlemmbghgcljfekdaoghbf."
           },
           {
-            "t": "Cấp quyền Google",
-            "d": "Mở một file trên Drive, bấm nút tím \"Đọc không cần tải\" góc dưới phải, chọn tài khoản Google và cho phép quyền chỉ đọc Drive."
+            "t": "Chọn sách",
+            "d": "Bấm icon extension → “Chọn sách từ Google Drive”, đăng nhập và chọn một hay nhiều cuốn trong cửa sổ Drive. Sách vào Tủ sách và mở ngay; lần sau bấm nút tím “Đọc không cần tải” trên trang Drive của cuốn đó là đọc luôn."
           }
         ],
         "items_en": [
@@ -175,8 +180,8 @@ window.TREASURES = [
             "d": "Open chrome://extensions (Edge: edge://extensions), turn on Developer mode, click Load unpacked and pick the unzipped folder. The extension ID is always bijcnaofiojlemmbghgcljfekdaoghbf."
           },
           {
-            "t": "Grant Google access",
-            "d": "Open a file on Drive, click the purple \"Read without downloading\" button at the bottom right, pick your Google account and allow read-only Drive access."
+            "t": "Pick your books",
+            "d": "Click the extension icon → “Pick books from Google Drive”, sign in and select one or more books in the Drive window. They land in your Library and open at once; next time the purple “Read without downloading” button on that book's Drive page opens it directly."
           }
         ]
       },
@@ -188,13 +193,13 @@ window.TREASURES = [
       {
         "k": "list",
         "items": [
-          "Đăng nhập bằng chrome.identity với scope chỉ đọc drive.readonly; extension chỉ nói chuyện với www.googleapis.com.",
+          "Đăng nhập bằng chrome.identity với quyền drive.file: Google chỉ cấp quyền với file bạn chọn trong Google Picker (đặt tại lanhmar.id.vn/drive-picker.html), không gì khác; extension chỉ nói chuyện với www.googleapis.com.",
           "PDF.js nhận một PDFDataRangeTransport tuỳ biến: mỗi lần cần dữ liệu nó gửi header Range tới Drive API và nhận 206 Partial Content, đoạn 1 MB, tắt tự tải nốt phần còn lại.",
           "Chỉ render trang gần vùng nhìn, trang ở xa được giải phóng để tiết kiệm RAM; thanh trên cùng hiện đúng lượng dữ liệu đã nạp.",
           "Thử nghiệm với PDF 24 MB: mở lấy khoảng 3 MB, nhảy tới trang 20 lấy thêm khoảng 4 MB. PDF có từ điển trang rải khắp file có thể phải chạm gần hết file ngay lần mở."
         ],
         "items_en": [
-          "Signs in with chrome.identity using the read-only drive.readonly scope; the extension only talks to www.googleapis.com.",
+          "Signs in with chrome.identity using the drive.file scope: Google grants access only to the files you pick in the Google Picker (hosted at lanhmar.id.vn/drive-picker.html), nothing else; the extension only talks to www.googleapis.com.",
           "PDF.js gets a custom PDFDataRangeTransport: whenever it needs data it sends a Range header to the Drive API and receives 206 Partial Content, 1 MB at a time, with background auto-fetch turned off.",
           "Only pages near the viewport are rendered and far pages are released to save RAM; the top bar shows exactly how much data has been fetched.",
           "Tested with a 24 MB PDF: opening fetched about 3 MB, jumping to page 20 another 4 MB. PDFs whose page dictionaries are scattered through the file may need most of the file on first open."

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chọn sách từ Google Drive – Drive Ebook Reader</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<style>
+  :root { --tim: #2D2FEF; --cam: #FF7A45; --chu: #1a1a2e; --nen: #F4F5FF; --muted: #6b6f8a; }
+  html, body { height: 100%; margin: 0; }
+  body { font-family: Montserrat, "Segoe UI", system-ui, sans-serif; background: var(--nen); color: var(--chu); display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; box-sizing: border-box; }
+  .box { max-width: 520px; background: #fff; border-radius: 18px; padding: 28px; box-shadow: 0 10px 30px rgba(45,47,239,.12); }
+  h1 { color: var(--tim); font-size: 1.25rem; margin: 0 0 8px; }
+  p { color: var(--muted); font-size: 14px; line-height: 1.6; margin: 8px 0; }
+  .spin { width: 34px; height: 34px; margin: 6px auto 14px; border-radius: 50%; border: 4px solid #e3e4f5; border-top-color: var(--tim); animation: s .9s linear infinite; }
+  @keyframes s { to { transform: rotate(360deg); } }
+  .btn { display: inline-block; margin-top: 10px; padding: 10px 18px; border-radius: 12px; background: var(--tim); color: #fff; font-weight: 700; border: 0; font: inherit; cursor: pointer; }
+  .btn:hover { background: var(--cam); }
+  code { background: #f0f0ff; padding: 1px 6px; border-radius: 6px; }
+  .err { color: #b42318; }
+</style>
+</head>
+<body>
+<div class="box">
+  <div class="spin" id="spin"></div>
+  <h1 id="h"></h1>
+  <p id="p"></p>
+  <button class="btn" id="again" type="button" hidden></button>
+</div>
+<script>
+// ====== CẤU HÌNH: lấy từ Google Cloud Console của project Drive Ebook Reader ======
+// API key: APIs & Services → Credentials → Create credentials → API key (giới hạn: HTTP referrer https://lanhmar.id.vn/*, API: Google Picker API)
+const API_KEY = 'PASTE_PICKER_API_KEY';
+// Project number (App ID): trang Dashboard / Project settings của project, dòng "Project number" (toàn số)
+const APP_ID = 'PASTE_PROJECT_NUMBER';
+// ID extension được phép nhận kết quả
+const EXT_IDS = ['bijcnaofiojlemmbghgcljfekdaoghbf'];
+// =================================================================================
+
+const q = new URLSearchParams(location.search);
+const VI = (q.get('lang') || navigator.language || '').toLowerCase().startsWith('vi');
+const T = (vi, en) => (VI ? vi : en);
+const $ = (id) => document.getElementById(id);
+document.documentElement.lang = VI ? 'vi' : 'en';
+const extId = (q.get('ext') || '').trim();
+const target = /^[a-p]{32}$/.test(extId) && EXT_IDS.includes(extId) ? 'chrome-extension://' + extId : null;
+
+let init = null, pickerLoaded = false;
+function show(h, p, err) { $('spin').hidden = !!err; $('h').textContent = h; $('p').textContent = p || ''; $('p').classList.toggle('err', !!err); }
+show(T('Đang mở cửa sổ chọn file…', 'Opening the file picker…'), T('Cửa sổ Google Drive sẽ hiện ra trong giây lát.', 'The Google Drive window appears in a moment.'));
+
+function fail(msg) { show(T('Không mở được cửa sổ chọn', 'Could not open the picker'), msg, true); $('again').hidden = false; }
+$('again').textContent = T('Thử lại', 'Retry');
+$('again').onclick = () => location.reload();
+
+if (!target) {
+  fail(T('Trang này chỉ dùng cho extension Drive Ebook Reader. Hãy mở từ trong extension.', 'This page is only used by the Drive Ebook Reader extension. Open it from the extension.'));
+} else if (!window.opener) {
+  fail(T('Thiếu cửa sổ gọi. Hãy bấm “Chọn sách từ Google Drive” trong extension.', 'No opener window. Click “Pick books from Google Drive” inside the extension.'));
+} else if (/^PASTE/.test(API_KEY) || /^PASTE/.test(APP_ID)) {
+  fail(T('Trang chưa được cấu hình API key và Project number (xem docs/google-verification.md).', 'The page has no API key and project number yet (see docs/google-verification.md).'));
+} else {
+  window.addEventListener('message', (ev) => {
+    if (ev.origin !== target || !ev.data || ev.data.type !== 'picker-init') return;
+    init = ev.data; maybeBuild();
+  });
+  // xin dữ liệu khởi tạo từ extension / ask the extension for the token
+  window.opener.postMessage({ type: 'picker-ready' }, target);
+  const s = document.createElement('script');
+  s.src = 'https://apis.google.com/js/api.js';
+  s.onload = () => gapi.load('picker', () => { pickerLoaded = true; maybeBuild(); });
+  s.onerror = () => fail(T('Không tải được thư viện Google Picker. Kiểm tra mạng rồi thử lại.', 'Could not load the Google Picker library. Check your connection and retry.'));
+  document.head.appendChild(s);
+  setTimeout(() => { if (!init) fail(T('Extension không trả lời. Đóng cửa sổ này và bấm lại trong extension.', 'The extension did not respond. Close this window and click again in the extension.')); }, 15000);
+}
+
+function maybeBuild() {
+  if (!init || !pickerLoaded) return;
+  const mimes = 'application/pdf,application/epub+zip,application/vnd.google-apps.document,application/vnd.google-apps.presentation,application/vnd.google-apps.folder';
+  const mine = new google.picker.DocsView(google.picker.ViewId.DOCS).setIncludeFolders(true).setSelectFolderEnabled(false).setMimeTypes(mimes).setLabel(T('Drive của tôi', 'My Drive'));
+  if (init.query) mine.setQuery(init.query);
+  const shared = new google.picker.DocsView(google.picker.ViewId.DOCS).setOwnedByMe(false).setIncludeFolders(true).setSelectFolderEnabled(false).setMimeTypes(mimes).setLabel(T('Được chia sẻ với tôi', 'Shared with me'));
+  if (init.query) shared.setQuery(init.query);
+  const b = new google.picker.PickerBuilder()
+    .setAppId(APP_ID)
+    .setDeveloperKey(API_KEY)
+    .setOAuthToken(init.token)
+    .setOrigin(location.protocol + '//' + location.host)
+    .setLocale(init.lang === 'vi' ? 'vi' : 'en')
+    .setTitle(T('Chọn sách để đọc', 'Pick books to read'))
+    .addView(mine)
+    .addView(shared)
+    .addView(new google.picker.DocsView(google.picker.ViewId.DOCS).setEnableDrives(true).setIncludeFolders(true).setMimeTypes(mimes).setLabel(T('Drive chung', 'Shared drives')))
+    .enableFeature(google.picker.Feature.SUPPORT_DRIVES)
+    .setSize(Math.min(1050, innerWidth - 10), Math.min(680, innerHeight - 10))
+    .setCallback((data) => {
+      if (data.action === google.picker.Action.PICKED) {
+        const docs = (data.docs || []).map((d) => ({ id: d.id, name: d.name, mimeType: d.mimeType, size: d.sizeBytes || 0 }));
+        window.opener.postMessage({ type: 'picked', docs }, target);
+        show(T('Đã chọn xong', 'Done'), T('Cửa sổ này tự đóng.', 'This window closes itself.'));
+        setTimeout(() => window.close(), 400);
+      } else if (data.action === google.picker.Action.CANCEL) {
+        window.opener.postMessage({ type: 'picker-cancel' }, target);
+        setTimeout(() => window.close(), 200);
+      }
+    });
+  if (init.multiple) b.enableFeature(google.picker.Feature.MULTISELECT_ENABLED);
+  b.build().setVisible(true);
+  show(T('Chọn sách trong cửa sổ Google', 'Pick books in the Google window'), T('Có thể chọn nhiều cuốn cùng lúc (giữ Ctrl/⌘). Chọn xong, sách vào Tủ sách của extension.', 'You can select several at once (hold Ctrl/⌘). Picked books go to the extension library.'));
+}
+</script>
+</body>
+</html>

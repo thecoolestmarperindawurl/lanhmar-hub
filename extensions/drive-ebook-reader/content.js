@@ -23,7 +23,8 @@
       btn.title = TITLE;
       btn.innerHTML = '<span class="lm-reader-ico" aria-hidden="true">📖</span><span class="lm-reader-txt"></span>';
       btn.addEventListener('click', () => {
-        chrome.runtime.sendMessage({ type: 'open-reader', id: btn.dataset.id });
+        const name = (document.title || '').replace(/\s[-–]\s*Google Drive\s*$/i, '').trim();
+        chrome.runtime.sendMessage({ type: 'open-reader', id: btn.dataset.id, name });
       });
       document.documentElement.appendChild(btn);
     }

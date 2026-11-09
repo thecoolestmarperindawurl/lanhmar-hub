@@ -73,7 +73,7 @@
         <tr><td>PDF</td><td>Nạp theo đoạn 1 MB qua HTTP Range, render lười từng trang, phóng to, vừa chiều rộng, bôi đen và copy chữ, nhớ trang đang đọc</td></tr>
         <tr><td>EPUB</td><td>Mục lục, lật trang, đổi cỡ chữ, nhớ vị trí; file nạp vào bộ nhớ, không ghi xuống đĩa</td></tr>
         <tr><td>Google Docs, Slides</td><td>Xuất PDF qua Drive API rồi đọc</td></tr>
-        <tr><td>Thư mục Drive</td><td>Dán link thư mục để thấy danh sách sách bên trong, mở thư mục con</td></tr>
+        <tr><td>Tủ sách</td><td>Sách đã chọn được nhớ lại trên máy bạn; chọn nhiều cuốn một lúc trong cửa sổ Drive</td></tr>
         <tr><td>File trên máy</td><td>Mở PDF/EPUB trong máy, không cần đăng nhập Google</td></tr>
       </table>
     </section>
@@ -83,15 +83,15 @@
       <ol>
         <li>Tải ZIP ở nút trên, giải nén vào một thư mục cố định (ví dụ <code>D:\lanhmar\drive-ebook-reader</code>).</li>
         <li>Mở <code>chrome://extensions</code> (Edge: <code>edge://extensions</code>), bật <b>Developer mode</b>, bấm <b>Load unpacked</b>, chọn thư mục vừa giải nén. ID extension luôn là <code>bijcnaofiojlemmbghgcljfekdaoghbf</code>.</li>
-        <li>Mở một file PDF/EPUB trên <a href="https://drive.google.com">drive.google.com</a>, bấm nút tím <b>“Đọc không cần tải”</b> ở góc dưới phải, đăng nhập Google và cho phép quyền chỉ xem Drive.</li>
+        <li>Bấm icon extension → <b>Chọn sách từ Google Drive</b>, đăng nhập Google, chọn một hay nhiều cuốn trong cửa sổ Drive. Sách vào <b>Tủ sách</b> và mở ngay; lần sau bấm nút tím <b>“Đọc không cần tải”</b> trên trang Drive của cuốn đó là đọc luôn.</li>
       </ol>
-      <p class="note">Lần đầu đăng nhập, nếu Google hiện “ứng dụng chưa được xác minh”, bấm <b>Advanced</b> rồi <b>Go to Drive Ebook Reader</b>. Hồ sơ xác minh với Google đang được nộp; trong lúc chờ, bạn cũng có thể nhắn Gmail cho mình để được thêm vào danh sách thử nghiệm.</p>
+      <p class="note">Extension chỉ xin quyền <code>drive.file</code>: Google chỉ cho nó đọc đúng những file bạn tự chọn trong cửa sổ Drive, không đọc được gì khác. Vì vậy cuốn nào chưa chọn thì extension sẽ mở cửa sổ chọn giúp bạn (đã điền sẵn tên để tìm), chọn một lần là xong.</p>
     </section>
 
     <section class="the">
       <h2>Extension dùng dữ liệu Google của bạn như thế nào</h2>
       <ul>
-        <li>Xin duy nhất quyền <code>drive.readonly</code> (chỉ xem). Chỉ đọc thông tin và nội dung của file bạn chủ động mở, hoặc danh sách file trong thư mục bạn mở. Không tạo, sửa, xoá, chia sẻ file; không duyệt toàn bộ Drive.</li>
+        <li>Xin duy nhất quyền <code>drive.file</code>: Google chỉ cấp quyền đọc với những file bạn chọn trong cửa sổ Google Picker. Extension không thể thấy hay đọc file nào khác trong Drive của bạn, không tạo, sửa, xoá hay chia sẻ file.</li>
         <li>Dữ liệu đi thẳng từ <code>www.googleapis.com</code> về trình duyệt của bạn. Không có máy chủ của LANHMAR hay bên thứ ba, không phân tích, không quảng cáo.</li>
         <li>Nội dung file chỉ nằm trong bộ nhớ tab khi đang đọc. Trên máy chỉ lưu vị trí đọc, cỡ chữ, giao diện.</li>
         <li>Thu hồi quyền bất cứ lúc nào tại <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</li>
@@ -132,7 +132,7 @@
         <tr><td>PDF</td><td>Fetched in 1 MB chunks over HTTP Range, lazy page rendering, zoom, fit width, text selection and copy, remembers your page</td></tr>
         <tr><td>EPUB</td><td>Table of contents, page turns, font size, remembers position; loaded in memory, never written to disk</td></tr>
         <tr><td>Google Docs, Slides</td><td>Exported to PDF through the Drive API, then read</td></tr>
-        <tr><td>Drive folders</td><td>Paste a folder link to list the books inside and open sub-folders</td></tr>
+        <tr><td>Library</td><td>Picked books are remembered on your device; select several at once in the Drive window</td></tr>
         <tr><td>Local files</td><td>Opens PDF/EPUB from your computer, no Google sign-in needed</td></tr>
       </table>
     </section>
@@ -142,15 +142,15 @@
       <ol>
         <li>Download the ZIP above and unzip it into a permanent folder (for example <code>D:\lanhmar\drive-ebook-reader</code>).</li>
         <li>Open <code>chrome://extensions</code> (Edge: <code>edge://extensions</code>), turn on <b>Developer mode</b>, click <b>Load unpacked</b> and pick the unzipped folder. The extension ID is always <code>bijcnaofiojlemmbghgcljfekdaoghbf</code>.</li>
-        <li>Open a PDF/EPUB on <a href="https://drive.google.com">drive.google.com</a>, click the purple <b>“Read without downloading”</b> button at the bottom right, sign in with Google and allow view-only Drive access.</li>
+        <li>Click the extension icon → <b>Pick books from Google Drive</b>, sign in with Google and pick one or more books in the Drive window. They land in your <b>Library</b> and open at once; next time, the purple <b>“Read without downloading”</b> button on that book's Drive page opens it directly.</li>
       </ol>
-      <p class="note">On first sign-in, if Google shows “this app isn't verified”, click <b>Advanced</b> and then <b>Go to Drive Ebook Reader</b>. Verification with Google is in progress; meanwhile you can also send me your Gmail to be added to the test list.</p>
+      <p class="note">The extension only requests the <code>drive.file</code> scope: Google lets it read exactly the files you pick in the Drive window and nothing else. So for a book you have not picked yet, the extension opens the picker for you (with the name pre-filled); picking it once is enough.</p>
     </section>
 
     <section class="the">
       <h2>How the extension uses your Google data</h2>
       <ul>
-        <li>Requests only the <code>drive.readonly</code> scope (view-only). Reads only the metadata and content of the file you deliberately open, or the file list of a folder you open. Never creates, edits, deletes or shares files; never crawls your Drive.</li>
+        <li>Requests only the <code>drive.file</code> scope: Google grants read access solely to the files you select in the Google Picker window. The extension cannot see or read any other file in your Drive, and never creates, edits, deletes or shares files.</li>
         <li>Data flows directly from <code>www.googleapis.com</code> to your browser. No LANHMAR or third-party server, no analytics, no ads.</li>
         <li>File content stays in the tab's memory only while you read. Only reading position, font size and theme are stored on your device.</li>
         <li>Revoke access at any time at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</li>

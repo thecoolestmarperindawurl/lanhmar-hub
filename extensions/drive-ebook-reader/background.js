@@ -16,8 +16,8 @@ function extractId(url) {
   return null;
 }
 
-function openReader(id, openerTabId) {
-  const url = chrome.runtime.getURL('reader.html') + (id ? '?id=' + encodeURIComponent(id) : '');
+function openReader(id, openerTabId, name) {
+  const url = chrome.runtime.getURL('reader.html') + (id ? '?id=' + encodeURIComponent(id) + (name ? '&name=' + encodeURIComponent(String(name).slice(0, 200)) : '') : '');
   const opts = { url };
   if (openerTabId != null) opts.openerTabId = openerTabId;
   return chrome.tabs.create(opts);
@@ -25,12 +25,13 @@ function openReader(id, openerTabId) {
 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg && msg.type === 'open-reader') {
-    openReader(msg.id, sender.tab && sender.tab.id).then(() => sendResponse({ ok: true }));
+    openReader(msg.id, sender.tab && sender.tab.id, msg.name).then(() => sendResponse({ ok: true }));
     return true; // trả lời bất đồng bộ / async response
   }
   return false;
 });
 
 chrome.action.onClicked.addListener((tab) => {
-  openReader(extractId(tab && tab.url), tab && tab.id);
+  const name = tab && tab.title ? tab.title.replace(/\s[-–]\s*Google Drive\s*$/i, '').trim() : '';
+  openReader(extractId(tab && tab.url), tab && tab.id, name);
 });
