@@ -42,3 +42,7 @@ Mục trong `kho-featured.json` với `kho: "idea"`, `shelf` (id kệ trong `KHO
 - `node --check` cho file JS đã sửa; `node tools/i18n-check.mjs`.
 - Mở thử bằng Playwright/Chromium khi đổi giao diện. Kho/Storage cần đăng nhập nên test qua trang thử gọi `Res.appShelf` / `Res.open`, hoặc mở `#app` bằng `evaluate`.
 - Favicon dùng chung: `assets/img/favicon.svg` (+ PNG 32/192, apple-touch 180).
+
+## Extension trình duyệt: `extensions/drive-ebook-reader/`
+
+Extension Chrome/Edge (MV3) đọc PDF/EPUB lớn trên Google Drive không cần tải về: `reader.js` nạp PDF theo đoạn qua Drive API (`Range` + `PDFDataRangeTransport` của PDF.js), EPUB qua epub.js; `content.js` thêm nút trên drive.google.com. Không liên quan tới site tĩnh và `i18n-check`; chữ giao diện dùng `T(vi, en)` ngay trong `reader.js`. Thư viện nằm sẵn trong `vendor/` (không tải từ CDN vì MV3 cấm mã từ xa). Người dùng tự tạo OAuth Client ID (xem README). Kiểm tra: `node --check`, rồi nạp extension vào Chromium bằng Playwright (`launchPersistentContext` với `--load-extension`, `channel: 'chromium'`) và mở `reader.html` với file qua `#fileIn`.

@@ -1,0 +1,5 @@
+{
+  "extName": { "message": "Drive Ebook Reader — LANHMAR" },
+  "extDesc": { "message": "Read large PDF/EPUB files stored on Google Drive right in the browser, streamed in chunks, with no download to disk." },
+  "actionTitle": { "message": "Read Google Drive ebooks without downloading" }
+}

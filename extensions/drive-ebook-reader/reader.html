@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drive Ebook Reader — LANHMAR</title>
+<link rel="icon" href="icons/icon32.png">
+<link rel="stylesheet" href="reader.css">
+</head>
+<body data-theme="light">
+<header class="bar" id="bar">
+  <a class="brand" href="https://lanhmar.id.vn" target="_blank" rel="noopener" title="LANHMAR">
+    <img src="icons/icon32.png" alt="" width="24" height="24">
+    <span>Drive Ebook Reader</span>
+  </a>
+  <div class="title" id="title" title=""></div>
+  <div class="ctrl" id="ctrlPdf" hidden>
+    <button class="ib" id="prev" title="Trang trước">‹</button>
+    <input class="pg" id="pageIn" type="number" min="1" value="1" aria-label="Trang">
+    <span class="of" id="pageOf">/ –</span>
+    <button class="ib" id="next" title="Trang sau">›</button>
+    <span class="sep"></span>
+    <button class="ib" id="zoomOut" title="Thu nhỏ">−</button>
+    <span class="zoom" id="zoomLabel">100%</span>
+    <button class="ib" id="zoomIn" title="Phóng to">+</button>
+    <button class="tb" id="fitW" title="Vừa chiều rộng">⇔</button>
+  </div>
+  <div class="ctrl" id="ctrlEpub" hidden>
+    <button class="tb" id="tocBtn" title="Mục lục">☰</button>
+    <button class="ib" id="ePrev" title="Trang trước">‹</button>
+    <span class="of" id="eWhere"></span>
+    <button class="ib" id="eNext" title="Trang sau">›</button>
+    <span class="sep"></span>
+    <button class="ib" id="fontDown" title="Chữ nhỏ hơn">A−</button>
+    <button class="ib" id="fontUp" title="Chữ lớn hơn">A+</button>
+  </div>
+  <div class="right">
+    <span class="net" id="net" title=""></span>
+    <button class="tb" id="theme" title="Giao diện sáng/sepia/tối">◐</button>
+    <a class="tb" id="driveLink" href="#" target="_blank" rel="noopener" hidden title="Mở trên Google Drive">Drive ↗</a>
+    <button class="tb" id="openOther" title="Mở file khác">⧉</button>
+  </div>
+</header>
+
+<main id="main">
+  <section class="panel" id="home" hidden>
+    <h1 id="hTitle"></h1>
+    <p class="lead" id="hLead"></p>
+    <form id="linkForm" class="row">
+      <input id="linkIn" type="text" autocomplete="off" spellcheck="false">
+      <button class="btn" id="linkBtn" type="submit"></button>
+    </form>
+    <p class="hint" id="hHint"></p>
+    <div class="or" id="hOr"></div>
+    <label class="btn ghost" for="fileIn" id="fileLbl"></label>
+    <input id="fileIn" type="file" accept=".pdf,.epub,application/pdf,application/epub+zip" hidden>
+    <div class="setup" id="setup" hidden></div>
+  </section>
+
+  <section class="panel err" id="err" hidden>
+    <h2 id="errTitle"></h2>
+    <p id="errMsg"></p>
+    <pre id="errDetail" hidden></pre>
+    <div class="row">
+      <button class="btn" id="errRetry"></button>
+      <button class="btn ghost" id="errHome"></button>
+    </div>
+  </section>
+
+  <div class="status" id="status" hidden>
+    <div class="spin"></div>
+    <div id="statusMsg"></div>
+    <div class="small" id="statusSub"></div>
+  </div>
+
+  <div id="pdfView" class="pdfView" hidden tabindex="0"></div>
+
+  <div id="epubWrap" class="epubWrap" hidden>
+    <aside id="toc" class="toc" hidden></aside>
+    <div id="epubView" class="epubView"></div>
+  </div>
+</main>
+
+<script src="vendor/jszip.min.js"></script>
+<script src="vendor/epub.min.js"></script>
+<script type="module" src="reader.js"></script>
+</body>
+</html>
