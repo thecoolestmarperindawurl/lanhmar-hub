@@ -54,7 +54,8 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--purple-mid);outline
 .kb-hc:hover{transform:translateY(-6px);border-color:rgba(255,255,255,.4)}
 .kb-hc:nth-child(2):hover{border-color:var(--orange)}
 .kb-hc-ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:rgba(255,122,69,.16);color:var(--orange);font:800 16px Montserrat;box-shadow:0 0 22px rgba(255,122,69,.35)}
-.kb-hc h3{margin:2px 0 0;font-size:16px;color:#fff}
+.kb-hc-k{font:800 11px/1 Montserrat;letter-spacing:.12em;color:var(--orange-soft);opacity:.9;margin-top:2px}
+.kb-hc h3{margin:0;font-size:16px;color:#fff}
 .kb-hc p{margin:0;font-size:13px;line-height:1.5;color:var(--lav-200);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .kb-hc-go{margin-top:4px;font:800 12px Montserrat;color:var(--orange-soft)}
 @media(max-width:760px){.kb-planet{width:min(1180px,200vw)}.kb-hcards{grid-template-columns:1fr;width:min(420px,calc(100% - 40px))}.kb-hc:nth-child(1),.kb-hc:nth-child(3){display:none}.kb-hc:nth-child(2){margin-bottom:0}}
