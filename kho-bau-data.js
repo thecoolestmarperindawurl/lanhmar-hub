@@ -15,6 +15,194 @@ window.TREASURE_SHELVES = [
 
 window.TREASURES = [
   {
+    "id": "drive-ebook-reader",
+    "shelf": "code",
+    "featured": true,
+    "status": "open",
+    "url": "https://lanhmar.id.vn/assets/dl/drive-ebook-reader.zip",
+    "thumb": "assets/res/tool-drive-ebook-reader.jpg",
+    "name": "Drive Ebook Reader",
+    "type": "Extension Chrome/Edge",
+    "type_en": "Chrome/Edge extension",
+    "badge": "Miễn phí · Mã nguồn mở",
+    "badge_en": "Free · Open source",
+    "desc": "Đọc PDF/EPUB dung lượng lớn trên Google Drive ngay trong trình duyệt, không cần tải về. Extension chỉ nạp đúng phần đang đọc qua Drive API, nên file vài trăm MB mở ngay dù Drive báo không xem trước được.",
+    "desc_en": "Read large PDF/EPUB files on Google Drive right in the browser, with no download. The extension fetches only the part you are reading through the Drive API, so multi-hundred-MB files open at once even when Drive cannot preview them.",
+    "points": [
+      "PDF nạp theo đoạn 1 MB (HTTP Range), render lười, bôi đen copy chữ, nhớ trang đang đọc",
+      "EPUB có mục lục, đổi cỡ chữ, nhớ vị trí; Google Docs/Slides xuất PDF rồi đọc",
+      "Dán link thư mục Drive để chọn sách; nút tím ngay trên trang Drive",
+      "Không máy chủ trung gian: dữ liệu đi thẳng từ Google về trình duyệt, quyền chỉ đọc"
+    ],
+    "points_en": [
+      "PDF fetched in 1 MB chunks (HTTP Range), lazy rendering, text selection and copy, remembers your page",
+      "EPUB with table of contents, font size and saved position; Google Docs/Slides exported to PDF",
+      "Paste a Drive folder link to pick a book; purple button right on the Drive page",
+      "No middle server: data flows straight from Google to your browser, read-only access"
+    ],
+    "cta": "Tải ZIP cho Chrome/Edge →",
+    "cta_en": "Download ZIP for Chrome/Edge →",
+    "meta": [
+      {
+        "l": "Cài đặt",
+        "l_en": "Install",
+        "v": "Giải nén ZIP, Load unpacked trong chrome://extensions (Developer mode)",
+        "v_en": "Unzip, then Load unpacked in chrome://extensions (Developer mode)"
+      },
+      {
+        "l": "Dữ liệu",
+        "l_en": "Your data",
+        "v": "Chỉ nói chuyện với www.googleapis.com bằng token của bạn, không ghi file xuống đĩa",
+        "v_en": "Talks only to www.googleapis.com with your own token, writes nothing to disk"
+      },
+      {
+        "l": "Mã nguồn",
+        "l_en": "Source code",
+        "v": "Thư mục extensions/drive-ebook-reader trong repo lanhmar-hub trên GitHub",
+        "v_en": "Folder extensions/drive-ebook-reader in the lanhmar-hub repo on GitHub"
+      }
+    ],
+    "note": "Đăng nhập Google: bản ZIP gắn với project Google Cloud của LANHMAR đang ở chế độ thử nghiệm, nên chỉ Gmail trong danh sách thử nghiệm đăng nhập được. Nhắn Gmail của bạn cho mình để được thêm, hoặc tự tạo OAuth Client ID riêng trong 10 phút theo README.",
+    "note_en": "Google sign-in: the ZIP is tied to LANHMAR's Google Cloud project, which is in testing mode, so only listed test Gmail accounts can sign in. Send me your Gmail to be added, or create your own OAuth Client ID in 10 minutes following the README.",
+    "detail": "drive-ebook-reader",
+    "direct": true,
+    "links": [
+      {
+        "t": "README: cài đặt, tạo OAuth Client ID, giới hạn ↗",
+        "t_en": "README: install, create an OAuth Client ID, limitations ↗",
+        "u": "https://github.com/thecoolestmarperindawurl/lanhmar-hub/tree/main/extensions/drive-ebook-reader#readme"
+      },
+      {
+        "t": "Mã nguồn trên GitHub ↗",
+        "t_en": "Source code on GitHub ↗",
+        "u": "https://github.com/thecoolestmarperindawurl/lanhmar-hub/tree/main/extensions/drive-ebook-reader"
+      }
+    ],
+    "sections": [
+      {
+        "k": "callout",
+        "t": "Drive hay báo \"không xem trước được\" với PDF dày và không mở nổi EPUB, buộc bạn tải cả file về máy. Extension này mở sách ngay trong tab trình duyệt: PDF được xin theo từng đoạn 1 MB đúng chỗ bạn đang đọc, nên ổ cứng không nhận thêm byte nào.",
+        "t_en": "Drive often says \"preview unavailable\" for thick PDFs and cannot open EPUB at all, forcing you to download the whole file. This extension opens the book right in a browser tab: the PDF is requested in 1 MB pieces exactly where you are reading, so not a single byte lands on your disk."
+      },
+      {
+        "k": "h",
+        "t": "Làm được gì",
+        "t_en": "What it does"
+      },
+      {
+        "k": "table",
+        "head": [
+          "Loại",
+          "Extension làm gì"
+        ],
+        "head_en": [
+          "Type",
+          "What the extension does"
+        ],
+        "rows": [
+          [
+            "PDF",
+            "Nạp theo đoạn qua HTTP Range, render lười từng trang, phóng to, vừa chiều rộng, bôi đen và copy chữ, nhớ trang đang đọc"
+          ],
+          [
+            "EPUB",
+            "Mục lục, lật trang, đổi cỡ chữ, nhớ vị trí; file nạp vào bộ nhớ, không ghi xuống đĩa"
+          ],
+          [
+            "Google Docs, Slides",
+            "Xuất PDF qua Drive API rồi đọc"
+          ],
+          [
+            "Thư mục Drive",
+            "Dán link thư mục để thấy danh sách sách bên trong, mở thư mục con"
+          ],
+          [
+            "File trên máy",
+            "Mở PDF/EPUB trong máy, PDF cũng đọc theo đoạn"
+          ]
+        ],
+        "rows_en": [
+          [
+            "PDF",
+            "Fetched in chunks over HTTP Range, lazy page rendering, zoom, fit width, text selection and copy, remembers your page"
+          ],
+          [
+            "EPUB",
+            "Table of contents, page turns, font size, remembers position; loaded in memory, never written to disk"
+          ],
+          [
+            "Google Docs, Slides",
+            "Exported to PDF through the Drive API, then read"
+          ],
+          [
+            "Drive folders",
+            "Paste a folder link to list the books inside and open sub-folders"
+          ],
+          [
+            "Local files",
+            "Opens PDF/EPUB from your computer; PDFs are read in slices too"
+          ]
+        ]
+      },
+      {
+        "k": "h",
+        "t": "Cài đặt",
+        "t_en": "Install"
+      },
+      {
+        "k": "steps",
+        "items": [
+          {
+            "t": "Tải và giải nén",
+            "d": "Tải ZIP ở nút bên dưới, giải nén vào một thư mục cố định (ví dụ D:\\lanhmar\\drive-ebook-reader)."
+          },
+          {
+            "t": "Nạp vào trình duyệt",
+            "d": "Mở chrome://extensions (Edge: edge://extensions), bật Developer mode, bấm Load unpacked, chọn thư mục vừa giải nén. ID extension luôn là bijcnaofiojlemmbghgcljfekdaoghbf."
+          },
+          {
+            "t": "Cấp quyền Google",
+            "d": "Mở một file trên Drive, bấm nút tím \"Đọc không cần tải\" góc dưới phải, chọn tài khoản Google và cho phép quyền chỉ đọc Drive."
+          }
+        ],
+        "items_en": [
+          {
+            "t": "Download and unzip",
+            "d": "Download the ZIP with the button below and unzip it into a permanent folder (for example D:\\lanhmar\\drive-ebook-reader)."
+          },
+          {
+            "t": "Load into the browser",
+            "d": "Open chrome://extensions (Edge: edge://extensions), turn on Developer mode, click Load unpacked and pick the unzipped folder. The extension ID is always bijcnaofiojlemmbghgcljfekdaoghbf."
+          },
+          {
+            "t": "Grant Google access",
+            "d": "Open a file on Drive, click the purple \"Read without downloading\" button at the bottom right, pick your Google account and allow read-only Drive access."
+          }
+        ]
+      },
+      {
+        "k": "h",
+        "t": "Cách hoạt động",
+        "t_en": "How it works"
+      },
+      {
+        "k": "list",
+        "items": [
+          "Đăng nhập bằng chrome.identity với scope chỉ đọc drive.readonly; extension chỉ nói chuyện với www.googleapis.com.",
+          "PDF.js nhận một PDFDataRangeTransport tuỳ biến: mỗi lần cần dữ liệu nó gửi header Range tới Drive API và nhận 206 Partial Content, đoạn 1 MB, tắt tự tải nốt phần còn lại.",
+          "Chỉ render trang gần vùng nhìn, trang ở xa được giải phóng để tiết kiệm RAM; thanh trên cùng hiện đúng lượng dữ liệu đã nạp.",
+          "Thử nghiệm với PDF 24 MB: mở lấy khoảng 3 MB, nhảy tới trang 20 lấy thêm khoảng 4 MB. PDF có từ điển trang rải khắp file có thể phải chạm gần hết file ngay lần mở."
+        ],
+        "items_en": [
+          "Signs in with chrome.identity using the read-only drive.readonly scope; the extension only talks to www.googleapis.com.",
+          "PDF.js gets a custom PDFDataRangeTransport: whenever it needs data it sends a Range header to the Drive API and receives 206 Partial Content, 1 MB at a time, with background auto-fetch turned off.",
+          "Only pages near the viewport are rendered and far pages are released to save RAM; the top bar shows exactly how much data has been fetched.",
+          "Tested with a 24 MB PDF: opening fetched about 3 MB, jumping to page 20 another 4 MB. PDFs whose page dictionaries are scattered through the file may need most of the file on first open."
+        ]
+      }
+    ]
+  },
+  {
     id: "course-recap",
     shelf: "code",
     featured: true,

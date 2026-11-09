@@ -1,0 +1,25 @@
+.lm-reader-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 2147483647;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: #2D2FEF;
+  color: #fff;
+  font: 600 14px/1 Montserrat, "Segoe UI", Roboto, Arial, sans-serif;
+  box-shadow: 0 8px 24px rgba(45, 47, 239, 0.35);
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.lm-reader-btn:hover {
+  background: #FF7A45;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(255, 122, 69, 0.4);
+}
+.lm-reader-btn[hidden] { display: none; }
+.lm-reader-ico { font-size: 16px; }
