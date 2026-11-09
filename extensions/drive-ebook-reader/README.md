@@ -22,9 +22,7 @@ Extension chưa đưa lên Chrome Web Store, nên cài theo kiểu "Load unpacke
 1. Tải thư mục này về máy (Code → Download ZIP rồi giải nén, hoặc `git clone`). / Get this folder onto your computer.
 2. Mở `chrome://extensions` (Edge: `edge://extensions`), bật **Developer mode**. / Open the extensions page and turn on **Developer mode**.
 3. Bấm **Load unpacked** → chọn thư mục `extensions/drive-ebook-reader`. / Click **Load unpacked** → pick this folder.
-4. Ghi lại **ID** của extension (chuỗi 32 chữ cái dưới tên extension). Cần cho bước OAuth. / Note the extension **ID** (32 letters under its name). Needed for OAuth.
-
-> Giữ nguyên vị trí thư mục sau khi cài: ID extension được tính từ đường dẫn thư mục, đổi chỗ là đổi ID và phải làm lại OAuth. / Keep the folder where it is: the extension ID is derived from the folder path; moving it changes the ID and breaks OAuth.
+4. ID của extension luôn là **`bijcnaofiojlemmbghgcljfekdaoghbf`** (cố định nhờ trường `key` trong `manifest.json`, không phụ thuộc thư mục đặt ở đâu). Kiểm tra lại dưới tên extension. / The extension ID is always **`bijcnaofiojlemmbghgcljfekdaoghbf`** (pinned by the `key` field in `manifest.json`, independent of the folder location). Check it under the extension's name.
 
 ## Cài đặt OAuth (một lần, ~10 phút) / OAuth setup (once, ~10 min)
 
@@ -33,7 +31,7 @@ Extension gọi Google Drive API bằng tài khoản Google của chính bạn. 
 1. Vào [Google Cloud Console](https://console.cloud.google.com/) → tạo project mới (tên tuỳ ý, ví dụ `drive-ebook-reader`). / Create a new project.
 2. **APIs & Services → Library** → tìm **Google Drive API** → **Enable**.
 3. **APIs & Services → OAuth consent screen** → User type **External** → điền tên app + email → Save. Ở mục **Test users** thêm địa chỉ Gmail bạn sẽ dùng để đọc. Để trạng thái **Testing** là đủ cho dùng cá nhân. / Choose **External**, fill in name + email, add your own Gmail under **Test users**. Leaving it in **Testing** is enough for personal use.
-4. **APIs & Services → Credentials → Create credentials → OAuth client ID** → Application type **Chrome Extension** → **Item ID** = ID extension ghi ở bước cài đặt → Create. Copy **Client ID** (dạng `xxxx.apps.googleusercontent.com`). / Application type **Chrome Extension**, Item ID = the extension ID, then copy the Client ID.
+4. **APIs & Services → Credentials → Create credentials → OAuth client ID** → Application type **Chrome Extension** → **Item ID** = `bijcnaofiojlemmbghgcljfekdaoghbf` → Create. Copy **Client ID** (dạng `xxxx.apps.googleusercontent.com`). / Application type **Chrome Extension**, Item ID = the extension ID, then copy the Client ID.
 5. Mở `manifest.json`, thay `PASTE_YOUR_CLIENT_ID.apps.googleusercontent.com` bằng Client ID vừa copy, lưu, rồi bấm **Reload** (↻) ở trang extensions. / Paste the Client ID into `manifest.json` and reload the extension.
 6. Lần đầu mở một file, Google hỏi cấp quyền "Xem các tệp trên Google Drive" (scope `drive.readonly`) → Cho phép. / The first time you open a file Google asks for read-only Drive access → Allow.
 

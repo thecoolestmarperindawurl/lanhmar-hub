@@ -3,6 +3,7 @@
   "name": "__MSG_extName__",
   "description": "__MSG_extDesc__",
   "version": "1.0.0",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwfT1dKCd3AoXCQlFzOXFzU8SAHO29Rt7wHBt2YQvq+s6bmuCxRx06z23oabtdLFFwTT5W0h5xPpfAUKaDcevIiifJtDWOS8tLuJ2aHdtvsYptBt3PwvjgGxrjg3fGcDNbFyA7NOECxyCSJsDACDL9uMvIJ2UPFZaTaNcyybNKoxex7uBknxvl6ZxaTq0rs67s509UZnGtH1Keuh5gmVGjZ6AG138/hDM48RvDbk4cV8FaT84p2kKDkx58B4woMZdrXpx7MiFembwY+5Dv+dUhhZ/VdkLFZsHdKBV7GKeIf12VQAYv0P2tLFMWhgXIlfzgwRTxHbxb1wDEboWqRSMtwIDAQAB",
   "default_locale": "vi",
   "minimum_chrome_version": "116",
   "icons": {
@@ -22,18 +23,31 @@
   "background": {
     "service_worker": "background.js"
   },
-  "permissions": ["identity", "storage"],
-  "host_permissions": ["https://www.googleapis.com/*"],
+  "permissions": [
+    "identity",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://www.googleapis.com/*"
+  ],
   "content_scripts": [
     {
-      "matches": ["https://drive.google.com/*"],
-      "js": ["content.js"],
-      "css": ["content.css"],
+      "matches": [
+        "https://drive.google.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ],
       "run_at": "document_idle"
     }
   ],
   "oauth2": {
     "client_id": "PASTE_YOUR_CLIENT_ID.apps.googleusercontent.com",
-    "scopes": ["https://www.googleapis.com/auth/drive.readonly"]
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.readonly"
+    ]
   }
 }
