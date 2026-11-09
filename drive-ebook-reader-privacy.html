@@ -45,19 +45,18 @@
       <p>Drive Ebook Reader là extension cho Chrome, Edge và các trình duyệt Chromium, do Dương Thị Lan Anh (LANHMAR) phát triển và phát hành miễn phí, mã nguồn mở tại <a href="https://github.com/thecoolestmarperindawurl/lanhmar-hub/tree/main/extensions/drive-ebook-reader">GitHub</a>. Extension cho phép bạn đọc file PDF, EPUB và tài liệu Google Docs/Slides lưu trên Google Drive của bạn ngay trong trình duyệt, nạp theo từng đoạn, không cần tải cả file về máy.</p>
 
       <h2>Dữ liệu Google được truy cập</h2>
-      <p>Extension xin quyền <code>https://www.googleapis.com/auth/drive.readonly</code> (chỉ xem file trên Google Drive). Quyền này được dùng cho đúng ba việc, và chỉ khi bạn chủ động thao tác:</p>
+      <p>Extension xin quyền <code>https://www.googleapis.com/auth/drive.file</code>: Google chỉ cấp cho extension quyền với những file bạn tự chọn trong cửa sổ Google Picker. Quyền này được dùng cho đúng hai việc, và chỉ khi bạn chủ động thao tác:</p>
       <ul>
-        <li>Đọc thông tin cơ bản (tên, loại, kích thước, thư mục cha, liên kết) của file hoặc thư mục mà bạn mở bằng cách bấm nút trong Drive, dán liên kết, hoặc chọn trong danh sách.</li>
+        <li>Đọc thông tin cơ bản (tên, loại, kích thước, liên kết) của file bạn đã chọn.</li>
         <li>Đọc nội dung file đó theo từng đoạn để hiển thị trang bạn đang xem. Với Google Docs/Slides, file được xuất sang PDF qua Drive API rồi hiển thị.</li>
-        <li>Liệt kê các file trong một thư mục khi bạn mở liên kết thư mục, để bạn chọn sách.</li>
       </ul>
-      <p>Extension không đọc file nào khác ngoài file bạn chọn, không duyệt toàn bộ Drive, không tạo, sửa, xoá hay chia sẻ file, không truy cập Gmail, Danh bạ, Lịch hay dữ liệu Google khác.</p>
+      <p>Extension không thể thấy hay đọc file nào khác trong Drive của bạn, không duyệt Drive, không tạo, sửa, xoá hay chia sẻ file, không truy cập Gmail, Danh bạ, Lịch hay dữ liệu Google khác. Cửa sổ chọn file là thành phần của Google (Google Picker) chạy trên trang lanhmar.id.vn/drive-picker.html; trang này chỉ chuyển mã định danh của file bạn chọn về extension, không lưu gì.</p>
 
       <h2>Dữ liệu được dùng và lưu như thế nào</h2>
       <ul>
         <li>Nội dung file chỉ nằm trong bộ nhớ của tab trình duyệt trong lúc bạn đọc và không được ghi xuống đĩa. Đóng tab là hết.</li>
         <li>Dữ liệu đi thẳng từ máy chủ Google (<code>www.googleapis.com</code>) về trình duyệt của bạn. Không có máy chủ nào của LANHMAR hay bên thứ ba đứng giữa; không có công cụ phân tích, quảng cáo hay theo dõi.</li>
-        <li>Trên máy bạn, extension lưu trong <code>chrome.storage.local</code>: mã định danh file cùng vị trí đọc gần nhất (số trang hoặc vị trí trong EPUB), cỡ chữ và giao diện đã chọn. Gỡ extension là xoá hết.</li>
+        <li>Trên máy bạn, extension lưu trong <code>chrome.storage.local</code>: danh sách Tủ sách (mã định danh, tên, loại, kích thước của file bạn đã chọn), vị trí đọc gần nhất (số trang hoặc vị trí trong EPUB), cỡ chữ và giao diện đã chọn. Bạn xoá từng cuốn khỏi Tủ sách bằng nút ×; gỡ extension là xoá hết.</li>
         <li>Mã truy cập OAuth do trình duyệt Chrome quản lý và chỉ dùng để gọi Google Drive API thay mặt bạn.</li>
       </ul>
       <p>LANHMAR không thu thập, không nhận, không lưu trữ, không bán và không chia sẻ dữ liệu Google của bạn với bất kỳ ai. Không ai đọc nội dung file của bạn. Dữ liệu không được dùng để quảng cáo, không dùng để huấn luyện mô hình AI, không dùng cho mục đích nào ngoài việc hiển thị file bạn chọn cho chính bạn.</p>
@@ -84,19 +83,18 @@
       <p>Drive Ebook Reader is an extension for Chrome, Edge and other Chromium browsers, developed and released free of charge by Dương Thị Lan Anh (LANHMAR), with source code on <a href="https://github.com/thecoolestmarperindawurl/lanhmar-hub/tree/main/extensions/drive-ebook-reader">GitHub</a>. It lets you read PDF, EPUB and Google Docs/Slides files stored in your Google Drive right in the browser, fetched in chunks, without downloading the whole file to your computer.</p>
 
       <h2>Google user data we access</h2>
-      <p>The extension requests the <code>https://www.googleapis.com/auth/drive.readonly</code> scope (view-only access to Google Drive files). It is used for exactly three things, and only when you take an action:</p>
+      <p>The extension requests the <code>https://www.googleapis.com/auth/drive.file</code> scope: Google grants the extension access only to the files you select yourself in the Google Picker window. It is used for exactly two things, and only when you take an action:</p>
       <ul>
-        <li>Reading basic metadata (name, type, size, parent folder, link) of the file or folder you open by clicking the button in Drive, pasting a link, or picking it from a list.</li>
+        <li>Reading basic metadata (name, type, size, link) of a file you picked.</li>
         <li>Reading the content of that file in byte ranges to render the page you are looking at. Google Docs/Slides are exported to PDF through the Drive API and then rendered.</li>
-        <li>Listing the files inside a folder when you open a folder link, so you can pick a book.</li>
       </ul>
-      <p>The extension does not read any file other than the one you chose, does not crawl your Drive, does not create, modify, delete or share files, and does not access Gmail, Contacts, Calendar or any other Google data.</p>
+      <p>The extension cannot see or read any other file in your Drive, does not crawl your Drive, does not create, modify, delete or share files, and does not access Gmail, Contacts, Calendar or any other Google data. The picker window is a Google component (Google Picker) running on lanhmar.id.vn/drive-picker.html; that page only hands the identifiers of the files you picked back to the extension and stores nothing.</p>
 
       <h2>How data is used and stored</h2>
       <ul>
         <li>File content lives only in the memory of the browser tab while you read and is never written to disk. Closing the tab discards it.</li>
         <li>Data flows directly from Google's servers (<code>www.googleapis.com</code>) to your browser. No LANHMAR or third-party server sits in between; there are no analytics, ads or tracking.</li>
-        <li>On your device the extension stores in <code>chrome.storage.local</code>: the file identifier with your last reading position (page number or EPUB location), and your chosen font size and theme. Uninstalling the extension deletes all of it.</li>
+        <li>On your device the extension stores in <code>chrome.storage.local</code>: your Library list (identifier, name, type and size of the files you picked), the last reading position (page number or EPUB location), and your chosen font size and theme. Remove a book from the Library with its × button; uninstalling the extension deletes everything.</li>
         <li>The OAuth access token is managed by the Chrome browser and is used only to call the Google Drive API on your behalf.</li>
       </ul>
       <p>LANHMAR does not collect, receive, store, sell or share your Google user data with anyone. No human reads your files. The data is not used for advertising, not used to train AI models, and not used for any purpose other than displaying the file you selected to you.</p>
