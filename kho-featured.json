@@ -9059,6 +9059,127 @@
       }
     },
     {
+      "id": "tool-drive-ebook-reader",
+      "kho": "idea",
+      "shelf": "tool",
+      "status": "Đang dùng",
+      "guide": true,
+      "date": "2026-11-09",
+      "title": "Drive Ebook Reader: đọc PDF/EPUB dung lượng lớn trên Google Drive, không cần tải về",
+      "type": "Công cụ",
+      "badge": "Extension Chrome",
+      "tags": [
+        "extension",
+        "chrome",
+        "drive",
+        "ebook",
+        "pdf",
+        "epub"
+      ],
+      "thumb": "assets/res/tool-drive-ebook-reader.jpg",
+      "note": "Extension Chrome/Edge chỉ nạp đúng phần đang đọc qua Drive API, nên file vài trăm MB mở ngay dù Drive báo không xem trước được. Dữ liệu đi thẳng từ Google về trình duyệt, không qua máy chủ nào.",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Drive hay báo \"không xem trước được\" với PDF dày hoặc không mở nổi EPUB, buộc bạn tải cả file về máy. Extension này mở sách ngay trong tab trình duyệt: PDF được xin theo từng đoạn 1 MB đúng chỗ bạn đang đọc, nên ổ cứng không nhận thêm byte nào."
+        },
+        {
+          "k": "h",
+          "t": "Làm được gì"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Loại",
+            "Extension làm gì"
+          ],
+          "rows": [
+            [
+              "PDF",
+              "Nạp theo đoạn qua HTTP Range, render lười từng trang, phóng to, vừa chiều rộng, bôi đen và copy chữ, nhớ trang đang đọc"
+            ],
+            [
+              "EPUB",
+              "Mục lục, lật trang, đổi cỡ chữ, nhớ vị trí; file nạp vào bộ nhớ, không ghi xuống đĩa"
+            ],
+            [
+              "Google Docs, Slides",
+              "Xuất PDF qua Drive API rồi đọc"
+            ],
+            [
+              "Thư mục Drive",
+              "Dán link thư mục để thấy danh sách sách bên trong, mở thư mục con"
+            ],
+            [
+              "File trên máy",
+              "Mở PDF/EPUB trong máy, PDF cũng đọc theo đoạn"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cài đặt"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Tải và giải nén",
+              "d": "Tải file ZIP ở nút bên dưới, giải nén vào một thư mục cố định (ví dụ D:\\lanhmar\\drive-ebook-reader)."
+            },
+            {
+              "t": "Nạp vào trình duyệt",
+              "d": "Mở chrome://extensions (Edge: edge://extensions), bật Developer mode, bấm Load unpacked, chọn thư mục vừa giải nén. ID extension luôn là bijcnaofiojlemmbghgcljfekdaoghbf."
+            },
+            {
+              "t": "Cấp quyền Google",
+              "d": "Mở một file trên Drive, bấm nút tím \"Đọc không cần tải\" góc dưới phải, chọn tài khoản Google và cho phép quyền chỉ đọc Drive."
+            }
+          ]
+        },
+        {
+          "k": "callout",
+          "t": "Về đăng nhập Google: bản ZIP gắn với project Google Cloud của LANHMAR đang ở chế độ thử nghiệm, nên Google chỉ cho tài khoản trong danh sách thử nghiệm đăng nhập. Bạn có hai cách: nhắn Gmail của bạn cho mình để được thêm vào danh sách, hoặc tự tạo OAuth Client ID riêng trong 10 phút theo README (miễn phí, chỉ cần tài khoản Google)."
+        },
+        {
+          "k": "h",
+          "t": "Cách hoạt động"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Đăng nhập bằng chrome.identity với scope chỉ đọc drive.readonly; không có máy chủ trung gian, extension chỉ nói chuyện với www.googleapis.com.",
+            "PDF.js nhận một PDFDataRangeTransport tuỳ biến: mỗi lần cần dữ liệu nó gửi header Range tới Drive API và nhận 206 Partial Content, đoạn 1 MB, tắt tự tải nốt phần còn lại.",
+            "Chỉ render trang gần vùng nhìn, trang ở xa được giải phóng để tiết kiệm RAM; thanh trên cùng hiện đúng lượng dữ liệu đã nạp.",
+            "Thử nghiệm với PDF 24 MB: mở lấy khoảng 3 MB, nhảy tới trang 20 lấy thêm khoảng 4 MB. PDF có từ điển trang rải khắp file có thể phải chạm gần hết file ngay lần mở.",
+            "Vị trí đọc, cỡ chữ, giao diện sáng/sepia/tối lưu trong chrome.storage.local trên máy bạn."
+          ]
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "README chi tiết: cài đặt, tạo OAuth Client ID, giới hạn",
+              "u": "https://github.com/thecoolestmarperindawurl/lanhmar-hub/tree/main/extensions/drive-ebook-reader#readme"
+            },
+            {
+              "t": "Mã nguồn trên GitHub (thư mục extensions/drive-ebook-reader)",
+              "u": "https://github.com/thecoolestmarperindawurl/lanhmar-hub/tree/main/extensions/drive-ebook-reader"
+            },
+            {
+              "t": "Google Cloud Console (tạo Client ID riêng)",
+              "u": "https://console.cloud.google.com/"
+            }
+          ]
+        }
+      ],
+      "cta": {
+        "title": "Tải extension",
+        "url": "https://lanhmar.id.vn/assets/dl/drive-ebook-reader.zip",
+        "btn": "Tải ZIP cho Chrome/Edge"
+      }
+    },
+    {
       "id": "tool-course-recap-full",
       "kho": "idea",
       "shelf": "tool",
