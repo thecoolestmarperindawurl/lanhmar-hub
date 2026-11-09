@@ -53,6 +53,10 @@ function applyStaticText() {
   $('theme').title = T('Giao diện sáng / sepia / tối', 'Light / sepia / dark');
   $('openOther').title = T('Mở file khác', 'Open another file');
   el.driveLink.title = T('Mở trên Google Drive', 'Open in Google Drive');
+  $('privacyLink').textContent = T('Chính sách quyền riêng tư', 'Privacy policy');
+  $('privacyLink').href += VI ? '' : '?lang=en';
+  $('homeLink').textContent = T('Trang giới thiệu', 'Homepage');
+  $('homeLink').href += VI ? '' : '?lang=en';
 }
 applyStaticText();
 
