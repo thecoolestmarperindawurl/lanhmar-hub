@@ -1,5 +1,7 @@
 # Hướng dẫn Publish app miễn phí, cho mọi người dùng — dành cho người không chuyên
 
+> ✅ **Đã hoàn tất ngày 09/11/2026**: scope `drive.file`, Picker API + API key, Search Console, Branding, Publish app; đã thử bằng Gmail ngoài danh sách thử nghiệm và đọc ebook thành công. Giữ tài liệu này để làm lại khi cần (đổi project, thêm logo, hoặc một extension mới).
+
 Extension dùng quyền **`drive.file`** của Google: chỉ đọc được những file người dùng tự chọn trong cửa sổ Google Drive. Google xếp quyền này vào nhóm **không nhạy cảm**, nên:
 
 - **không** phải nộp hồ sơ xác minh scope, **không** cần video demo, **không** cần đánh giá bảo mật CASA, **không tốn phí**;
