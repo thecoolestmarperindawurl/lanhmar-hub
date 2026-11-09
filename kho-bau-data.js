@@ -1,5 +1,6 @@
 /* Kho báu: các công cụ mình tự vibe-code và chia sẻ miễn phí.
-   Thêm công cụ: thêm một mục vào window.TREASURES. Trường tiếng Anh là x_en cạnh x (desc_en, points_en, note_en, type_en, badge_en…).
+   Thêm công cụ: thêm một mục vào window.TREASURES, mục MỚI NHẤT đặt ĐẦU danh sách (thẻ "Mới ra lò" ở hero lấy mục đầu). Trường tiếng Anh là x_en cạnh x (desc_en, points_en, note_en, type_en, badge_en…).
+   - hook/hook_en: một câu móc ≤ 90 ký tự cho thẻ hero; thiếu thì lấy câu đầu của desc.
    - shelf: id kệ trong TREASURE_SHELVES. featured: true để hiện ở khối "Mới và nổi bật".
    - status: "open" (đã mở, có url) | "soon" (sắp mở, nút bị khoá). url nhận https hoặc trang trong site (vd ai-convert.html).
    - detail: có thì nút chính mở hộp chi tiết trong trang (course-recap dùng mẫu riêng; mục có `sections` dùng nội dung dạng khối callout/h/p/list/steps/table/code giống thẻ Kho Ứng dụng); bỏ trống thì nút chính đi thẳng tới url. direct: true thêm nút mở thẳng công cụ. meta/note/links: thông tin phụ trong hộp chi tiết.
@@ -22,6 +23,8 @@ window.TREASURES = [
     "url": "https://lanhmar.id.vn/assets/dl/drive-ebook-reader.zip",
     "thumb": "assets/res/tool-drive-ebook-reader.jpg",
     "name": "Drive Ebook Reader",
+    "hook": "Đọc PDF/EPUB vài trăm MB trên Drive ngay trong tab, không tải về.",
+    "hook_en": "Read multi-hundred-MB PDF/EPUB from Drive in a tab, no download.",
     "type": "Extension Chrome/Edge",
     "type_en": "Chrome/Edge extension",
     "badge": "Miễn phí · Mã nguồn mở",
@@ -216,6 +219,8 @@ window.TREASURES = [
     detail: "course-recap",
     thumb: "assets/res/tool-course-recap-free.jpg",
     name: "Course Recap",
+    hook: "Biến video bài giảng thành trang recap từng slide kèm lời giảng.",
+    hook_en: "Turn a lecture video into a slide-by-slide recap with what was said.",
     type: "Công cụ & mã nguồn",
     type_en: "Tool & source code",
     badge: "Miễn phí · Phi thương mại",
@@ -266,6 +271,8 @@ window.TREASURES = [
     url: "ai-convert.html",
     thumb: "assets/res/tool-ai-convert.jpg",
     name: "AI Convert",
+    hook: "Thả PDF, Word, Excel… nhận Markdown sạch cho AI đọc ít token hơn.",
+    hook_en: "Drop PDF, Word, Excel… get clean Markdown that AI reads with fewer tokens.",
     type: "Công cụ online",
     type_en: "Online tool",
     badge: "Chạy ngay trên web",

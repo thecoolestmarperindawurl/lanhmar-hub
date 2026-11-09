@@ -42,7 +42,9 @@
       f2: "Là quyền xem để học hỏi và tham khảo cách mình làm",
       full_scope: "Đây là quyền xem tài nguyên, không phải quyền dùng bản tool đầy đủ.",
       full_p2: "Để mở quyền xem, mình rất mong nhận một khoản ủng hộ nhỏ (số tiền tuỳ tâm). Các công cụ miễn phí ở trên luôn dùng được, không cần ủng hộ.",
-      hc_res_h: "Tài nguyên học và làm việc", hc_res_p: "Kho mình dùng hằng ngày. Xem toàn bộ khi ủng hộ mình.", hc_go: "Xem →",
+      hc_tools_k: "CÔNG CỤ MIỄN PHÍ", hc_tools_h: "{n} công cụ mình tự vibe-code", hc_tools_p: "Mỗi món giải một việc mình gặp thật khi học và làm. Mở lên là dùng, mã nguồn mở, cập nhật đều.", hc_tools_go: "Xem tất cả →",
+      hc_new_k: "MỚI RA LÒ", hc_new_go: "Thử ngay →",
+      hc_res_k: "TÀI NGUYÊN & KHOÁ HỌC", hc_res_h: "Thứ mình dùng mỗi ngày", hc_res_p: "Kho tài nguyên học và làm việc, cộng đồng, và lớp Teamwork với AI mình giới thiệu.", hc_res_go: "Khám phá →", hc_go: "Xem →",
       full_btn: "Đăng ký và nhận mã QR →", full_open: "Đã có quyền? Mở Storage ↗",
       comm_k: "CỘNG ĐỒNG", comm_h: "Cùng nhau đi làm với AI",
       comm_p: "Hỏi đáp về công cụ, báo lỗi, xin tính năng mới và xem mọi người đang dùng ra sao ở các nhóm bên dưới.",
@@ -90,7 +92,9 @@
       f2: "View access, to learn from and reference how I work",
       full_scope: "This is view access to resources, not access to the full version of the tool.",
       full_p2: "To open view access I'd be very grateful for a small donation (any amount). The free tools above always work and never need a donation.",
-      hc_res_h: "Learning & work resources", hc_res_p: "The collection I use every day. See all of it when you support me.", hc_go: "See →",
+      hc_tools_k: "FREE TOOLS", hc_tools_h: "{n} tools I vibe-coded myself", hc_tools_p: "Each one solves a real problem from my own studying and work. Open and use, open source, updated often.", hc_tools_go: "See them all →",
+      hc_new_k: "FRESH OUT", hc_new_go: "Try it →",
+      hc_res_k: "RESOURCES & COURSE", hc_res_h: "What I use every day", hc_res_p: "The learning and work resources, the community, and the Teamwork-with-AI course I recommend.", hc_res_go: "Explore →", hc_go: "See →",
       full_btn: "Sign up and get your QR code →", full_open: "Already approved? Open Storage ↗",
       comm_k: "COMMUNITY", comm_h: "Using AI at work, together",
       comm_p: "Ask about the tools, report bugs, request features and see how others use them in the groups below.",
@@ -267,12 +271,16 @@
     if (courseInfo) applyCourseInfo(url); else loadCourseInfo(url);
   }
 
-  // ba thẻ nổi ở hero: hai công cụ đầu (lấy từ dữ liệu) và thẻ giữa dẫn tới khối tài nguyên/ủng hộ
+  // ba thẻ nổi ở hero: "cửa" dẫn xuống các khối bên dưới, không mô tả từng sản phẩm để không lỗi thời khi kho lớn dần.
+  // Trái: tổng số công cụ (đếm tự động) · Giữa: món mới nhất (mục đầu danh sách, câu móc ngắn `hook`/`hook_en`, thiếu thì cắt từ desc) · Phải: tài nguyên & khoá học.
   function renderHeroCards() {
-    const tools = list.slice(0, 2), glyph = ["▶", "⇄"];
-    const tc = (x, i) => `<a class="kb-hc" href="#${esc(x.id)}"><span class="kb-hc-ic" aria-hidden="true">${glyph[i]}</span><h3>${esc(x.name)}</h3><p>${esc(L(x, "desc"))}</p><span class="kb-hc-go">${esc(T("hc_go"))}</span></a>`;
-    const res = `<a class="kb-hc" href="#donate"><span class="kb-hc-ic" aria-hidden="true">★</span><h3>${esc(T("hc_res_h"))}</h3><p>${esc(T("hc_res_p"))}</p><span class="kb-hc-go">${esc(T("hc_go"))}</span></a>`;
-    $("#kbHCards").innerHTML = [tools[0] && tc(tools[0], 0), res, tools[1] && tc(tools[1], 1)].filter(Boolean).join("");
+    const open = list.filter((x) => x.status !== "soon"), newest = list[0];
+    const hook = (x) => { const h = L(x, "hook"); if (h) return h; const d = String(L(x, "desc") || ""); const m = d.match(/^[^.!?]{20,110}[.!?]/); return m ? m[0] : d.slice(0, 110).replace(/\s+\S*$/, "") + "…"; };
+    const hc = (href, ic, k, h, p, go) => `<a class="kb-hc" href="${esc(href)}"><span class="kb-hc-ic" aria-hidden="true">${ic}</span><span class="kb-hc-k">${esc(k)}</span><h3>${esc(h)}</h3><p>${esc(p)}</p><span class="kb-hc-go">${esc(go)}</span></a>`;
+    const a = hc("#library", "▶", T("hc_tools_k"), T("hc_tools_h").replace("{n}", open.length), T("hc_tools_p"), T("hc_tools_go"));
+    const b = newest ? hc("#" + newest.id, "⚡", T("hc_new_k"), newest.name, hook(newest), T("hc_new_go")) : "";
+    const c = hc("#donate", "★", T("hc_res_k"), T("hc_res_h"), T("hc_res_p"), T("hc_res_go"));
+    $("#kbHCards").innerHTML = a + b + c;
   }
   // ruy băng chạy: hai bản giống hệt nhau để vòng lặp liền mạch (CSS dịch -50%)
   function renderRibbon() {
