@@ -4,6 +4,8 @@
 
 **EN** — A Chrome/Edge extension (Manifest V3) to **read large PDF/EPUB files stored on Google Drive right in the browser, with no download to disk**. For PDFs it fetches **only the byte ranges of the pages you are looking at** (HTTP Range requests through the Drive API), so multi-hundred-MB, thousand-page files open quickly even when Drive says it cannot preview them. No middle server: data flows straight from Google to your browser.
 
+> **Trạng thái 09/11/2026:** OAuth app đã **Publish (In production)** với scope `drive.file`, Google Picker đã cấu hình trên lanhmar.id.vn, đã thử thành công bằng tài khoản Google ngoài danh sách thử nghiệm. Ai tải ZIP về cũng đăng nhập và đọc được ngay. / **Status 9 Nov 2026:** the OAuth app is published (In production) with the `drive.file` scope, Google Picker is configured on lanhmar.id.vn, and the flow was verified with a Google account outside the test list. Anyone who installs the ZIP can sign in and read right away.
+
 ## Tính năng / Features
 
 | | VI | EN |
