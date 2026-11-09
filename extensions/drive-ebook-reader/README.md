@@ -70,6 +70,8 @@ drive.google.com  ──nút/button──▶  reader.html  ──Range: bytes=a-
 
 ## Quyền riêng tư / Privacy
 
+Trang giới thiệu: https://lanhmar.id.vn/drive-ebook-reader.html · Chính sách quyền riêng tư: https://lanhmar.id.vn/drive-ebook-reader-privacy.html / Homepage and privacy policy at those links.
+
 Không có máy chủ của LANHMAR ở giữa, không theo dõi, không gửi nội dung đi đâu. Extension chỉ nói chuyện với `www.googleapis.com` bằng token của bạn. / No LANHMAR server, no tracking, nothing is sent anywhere. The extension only talks to `www.googleapis.com` with your own token.
 
 ## Phát triển / Development

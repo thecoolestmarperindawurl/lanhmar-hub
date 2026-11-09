@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Drive Ebook Reader – đọc PDF/EPUB lớn trên Google Drive không cần tải về | LANHMAR</title>
+<meta name="description" content="Extension Chrome/Edge đọc PDF, EPUB dung lượng lớn trên Google Drive ngay trong trình duyệt, nạp theo từng đoạn, không tải về máy. Chrome/Edge extension to read large PDF/EPUB files on Google Drive without downloading.">
+<link rel="canonical" href="https://lanhmar.id.vn/drive-ebook-reader.html">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Drive Ebook Reader – LANHMAR">
+<meta property="og:description" content="Đọc PDF/EPUB dung lượng lớn trên Google Drive, không cần tải về.">
+<meta property="og:image" content="https://lanhmar.id.vn/assets/res/tool-drive-ebook-reader.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --tim: #2D2FEF; --cam: #FF7A45; --chu: #1a1a2e; --nen: #F4F5FF; --muted: #6b6f8a; --line: #e3e4f5; }
+  body { margin: 0; font-family: Montserrat, system-ui, sans-serif; color: var(--chu); background: var(--nen); line-height: 1.7; }
+  main { max-width: 860px; margin: 0 auto; padding: 32px 16px 64px; }
+  .top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+  .brand { display: inline-flex; align-items: center; gap: 8px; color: var(--tim); font-weight: 800; text-decoration: none; }
+  .brand img { width: 28px; height: 28px; border-radius: 8px; }
+  .lang button { border: 1.5px solid var(--tim); background: #fff; color: var(--tim); font: inherit; font-weight: 700; font-size: 13px; padding: 4px 12px; border-radius: 999px; cursor: pointer; }
+  .lang button.on { background: var(--tim); color: #fff; }
+  .hero { background: #fff; border-radius: 22px; padding: 30px 30px 26px; box-shadow: 0 10px 30px rgba(45,47,239,.12); display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px; align-items: center; }
+  .hero img { width: 100%; height: auto; border-radius: 14px; box-shadow: 0 8px 24px rgba(45,47,239,.18); }
+  .kicker { color: #c2410c; font-weight: 800; font-size: 13px; letter-spacing: 1.5px; }
+  h1 { color: var(--tim); font-size: 2rem; line-height: 1.2; margin: 6px 0 10px; }
+  h1 em { color: var(--cam); font-style: normal; }
+  .lead { color: var(--muted); margin: 0 0 18px; }
+  .btns { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; height: 44px; padding: 0 20px; border-radius: 12px; background: var(--tim); color: #fff; font-weight: 700; text-decoration: none; box-shadow: 0 8px 18px rgba(45,47,239,.25); }
+  .btn:hover { background: var(--cam); }
+  .btn.ghost { background: #fff; color: var(--tim); border: 1.5px solid var(--tim); box-shadow: none; }
+  .the { background: #fff; border-radius: 18px; padding: 26px 28px; box-shadow: 0 10px 30px rgba(45,47,239,.10); margin-top: 22px; }
+  h2 { color: var(--tim); font-size: 1.2rem; margin: 0 0 10px; }
+  table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--tim); font-size: .8rem; letter-spacing: 1px; text-transform: uppercase; }
+  ol, ul { padding-left: 20px; } li { margin: 4px 0; }
+  code { background: #f0f0ff; padding: 1px 6px; border-radius: 6px; font-size: .92em; }
+  a { color: var(--cam); }
+  .note { border-left: 4px solid var(--cam); background: #fff4ee; padding: 10px 14px; border-radius: 10px; }
+  .foot { color: var(--muted); font-size: .9rem; text-align: center; margin-top: 28px; }
+  [data-l] { display: none; }
+  html[data-lang="vi"] [data-l="vi"], html[data-lang="en"] [data-l="en"] { display: block; }
+  @media (max-width: 720px) { .hero { grid-template-columns: 1fr; } h1 { font-size: 1.6rem; } }
+</style>
+</head>
+<body>
+<main>
+  <div class="top">
+    <a class="brand" href="https://lanhmar.id.vn"><img src="extensions/drive-ebook-reader/icons/icon48.png" alt="">LANHMAR · Drive Ebook Reader</a>
+    <div class="lang"><button type="button" data-set="vi">VI</button><button type="button" data-set="en">EN</button></div>
+  </div>
+
+  <div data-l="vi">
+    <section class="hero">
+      <div>
+        <div class="kicker">★ EXTENSION CHROME · EDGE · MIỄN PHÍ</div>
+        <h1>Đọc ebook <em>lớn</em> trên Google Drive, <em>không</em> cần tải về</h1>
+        <p class="lead">PDF, EPUB và Google Docs/Slides lưu trên Drive mở ngay trong tab trình duyệt. Extension chỉ nạp đúng đoạn dữ liệu của trang bạn đang xem, nên file vài trăm MB mở nhanh dù Drive báo “không xem trước được”, và ổ cứng không nhận thêm byte nào.</p>
+        <div class="btns">
+          <a class="btn" href="assets/dl/drive-ebook-reader.zip">Tải ZIP cho Chrome/Edge</a>
+          <a class="btn ghost" href="https://github.com/thecoolestmarperindawurl/lanhmar-hub/tree/main/extensions/drive-ebook-reader">Mã nguồn trên GitHub</a>
+        </div>
+      </div>
+      <img src="assets/res/tool-drive-ebook-reader.jpg" alt="Drive Ebook Reader" width="960" height="504">
+    </section>
+
+    <section class="the">
+      <h2>Làm được gì</h2>
+      <table>
+        <tr><th>Loại</th><th>Extension làm gì</th></tr>
+        <tr><td>PDF</td><td>Nạp theo đoạn 1 MB qua HTTP Range, render lười từng trang, phóng to, vừa chiều rộng, bôi đen và copy chữ, nhớ trang đang đọc</td></tr>
+        <tr><td>EPUB</td><td>Mục lục, lật trang, đổi cỡ chữ, nhớ vị trí; file nạp vào bộ nhớ, không ghi xuống đĩa</td></tr>
+        <tr><td>Google Docs, Slides</td><td>Xuất PDF qua Drive API rồi đọc</td></tr>
+        <tr><td>Thư mục Drive</td><td>Dán link thư mục để thấy danh sách sách bên trong, mở thư mục con</td></tr>
+        <tr><td>File trên máy</td><td>Mở PDF/EPUB trong máy, không cần đăng nhập Google</td></tr>
+      </table>
+    </section>
+
+    <section class="the">
+      <h2>Cài đặt</h2>
+      <ol>
+        <li>Tải ZIP ở nút trên, giải nén vào một thư mục cố định (ví dụ <code>D:\lanhmar\drive-ebook-reader</code>).</li>
+        <li>Mở <code>chrome://extensions</code> (Edge: <code>edge://extensions</code>), bật <b>Developer mode</b>, bấm <b>Load unpacked</b>, chọn thư mục vừa giải nén. ID extension luôn là <code>bijcnaofiojlemmbghgcljfekdaoghbf</code>.</li>
+        <li>Mở một file PDF/EPUB trên <a href="https://drive.google.com">drive.google.com</a>, bấm nút tím <b>“Đọc không cần tải”</b> ở góc dưới phải, đăng nhập Google và cho phép quyền chỉ xem Drive.</li>
+      </ol>
+      <p class="note">Lần đầu đăng nhập, nếu Google hiện “ứng dụng chưa được xác minh”, bấm <b>Advanced</b> rồi <b>Go to Drive Ebook Reader</b>. Hồ sơ xác minh với Google đang được nộp; trong lúc chờ, bạn cũng có thể nhắn Gmail cho mình để được thêm vào danh sách thử nghiệm.</p>
+    </section>
+
+    <section class="the">
+      <h2>Extension dùng dữ liệu Google của bạn như thế nào</h2>
+      <ul>
+        <li>Xin duy nhất quyền <code>drive.readonly</code> (chỉ xem). Chỉ đọc thông tin và nội dung của file bạn chủ động mở, hoặc danh sách file trong thư mục bạn mở. Không tạo, sửa, xoá, chia sẻ file; không duyệt toàn bộ Drive.</li>
+        <li>Dữ liệu đi thẳng từ <code>www.googleapis.com</code> về trình duyệt của bạn. Không có máy chủ của LANHMAR hay bên thứ ba, không phân tích, không quảng cáo.</li>
+        <li>Nội dung file chỉ nằm trong bộ nhớ tab khi đang đọc. Trên máy chỉ lưu vị trí đọc, cỡ chữ, giao diện.</li>
+        <li>Thu hồi quyền bất cứ lúc nào tại <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</li>
+      </ul>
+      <p>Chi tiết trong <a href="drive-ebook-reader-privacy.html">Chính sách quyền riêng tư</a>.</p>
+    </section>
+
+    <section class="the">
+      <h2>Cách hoạt động</h2>
+      <ul>
+        <li>Đăng nhập bằng <code>chrome.identity</code>, token do Chrome quản lý.</li>
+        <li>PDF.js nhận một <code>PDFDataRangeTransport</code> tuỳ biến: mỗi lần cần dữ liệu nó gửi header <code>Range</code> tới Drive API và nhận <code>206 Partial Content</code>, đoạn 1 MB, tắt tự tải nốt phần còn lại.</li>
+        <li>Chỉ render trang gần vùng nhìn, trang ở xa được giải phóng; thanh trên cùng hiện đúng lượng dữ liệu đã nạp.</li>
+        <li>Thử nghiệm với PDF 24 MB: mở lấy khoảng 3 MB, nhảy tới trang 20 lấy thêm khoảng 4 MB.</li>
+      </ul>
+    </section>
+    <p class="foot">Tác giả: Dương Thị Lan Anh (LANHMAR) · <a href="kho-bau.html">Kho báu</a> · <a href="drive-ebook-reader-privacy.html">Chính sách quyền riêng tư</a> · <a href="https://lanhmar.id.vn/#contact">Liên hệ</a></p>
+  </div>
+
+  <div data-l="en">
+    <section class="hero">
+      <div>
+        <div class="kicker">★ CHROME · EDGE EXTENSION · FREE</div>
+        <h1>Read <em>large</em> ebooks on Google Drive <em>without</em> downloading</h1>
+        <p class="lead">PDF, EPUB and Google Docs/Slides stored in Drive open right in a browser tab. The extension fetches only the byte ranges of the page you are looking at, so files of several hundred MB open quickly even when Drive says “preview unavailable”, and nothing lands on your disk.</p>
+        <div class="btns">
+          <a class="btn" href="assets/dl/drive-ebook-reader.zip">Download ZIP for Chrome/Edge</a>
+          <a class="btn ghost" href="https://github.com/thecoolestmarperindawurl/lanhmar-hub/tree/main/extensions/drive-ebook-reader">Source code on GitHub</a>
+        </div>
+      </div>
+      <img src="assets/res/tool-drive-ebook-reader.jpg" alt="Drive Ebook Reader" width="960" height="504">
+    </section>
+
+    <section class="the">
+      <h2>What it does</h2>
+      <table>
+        <tr><th>Type</th><th>What the extension does</th></tr>
+        <tr><td>PDF</td><td>Fetched in 1 MB chunks over HTTP Range, lazy page rendering, zoom, fit width, text selection and copy, remembers your page</td></tr>
+        <tr><td>EPUB</td><td>Table of contents, page turns, font size, remembers position; loaded in memory, never written to disk</td></tr>
+        <tr><td>Google Docs, Slides</td><td>Exported to PDF through the Drive API, then read</td></tr>
+        <tr><td>Drive folders</td><td>Paste a folder link to list the books inside and open sub-folders</td></tr>
+        <tr><td>Local files</td><td>Opens PDF/EPUB from your computer, no Google sign-in needed</td></tr>
+      </table>
+    </section>
+
+    <section class="the">
+      <h2>Install</h2>
+      <ol>
+        <li>Download the ZIP above and unzip it into a permanent folder (for example <code>D:\lanhmar\drive-ebook-reader</code>).</li>
+        <li>Open <code>chrome://extensions</code> (Edge: <code>edge://extensions</code>), turn on <b>Developer mode</b>, click <b>Load unpacked</b> and pick the unzipped folder. The extension ID is always <code>bijcnaofiojlemmbghgcljfekdaoghbf</code>.</li>
+        <li>Open a PDF/EPUB on <a href="https://drive.google.com">drive.google.com</a>, click the purple <b>“Read without downloading”</b> button at the bottom right, sign in with Google and allow view-only Drive access.</li>
+      </ol>
+      <p class="note">On first sign-in, if Google shows “this app isn't verified”, click <b>Advanced</b> and then <b>Go to Drive Ebook Reader</b>. Verification with Google is in progress; meanwhile you can also send me your Gmail to be added to the test list.</p>
+    </section>
+
+    <section class="the">
+      <h2>How the extension uses your Google data</h2>
+      <ul>
+        <li>Requests only the <code>drive.readonly</code> scope (view-only). Reads only the metadata and content of the file you deliberately open, or the file list of a folder you open. Never creates, edits, deletes or shares files; never crawls your Drive.</li>
+        <li>Data flows directly from <code>www.googleapis.com</code> to your browser. No LANHMAR or third-party server, no analytics, no ads.</li>
+        <li>File content stays in the tab's memory only while you read. Only reading position, font size and theme are stored on your device.</li>
+        <li>Revoke access at any time at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</li>
+      </ul>
+      <p>Details in the <a href="drive-ebook-reader-privacy.html?lang=en">Privacy Policy</a>.</p>
+    </section>
+
+    <section class="the">
+      <h2>How it works</h2>
+      <ul>
+        <li>Signs in with <code>chrome.identity</code>; the token is managed by Chrome.</li>
+        <li>PDF.js gets a custom <code>PDFDataRangeTransport</code>: whenever it needs data it sends a <code>Range</code> header to the Drive API and receives <code>206 Partial Content</code>, 1 MB at a time, with background auto-fetch turned off.</li>
+        <li>Only pages near the viewport are rendered and far pages are released; the top bar shows exactly how much data has been fetched.</li>
+        <li>Tested with a 24 MB PDF: opening fetched about 3 MB, jumping to page 20 another 4 MB.</li>
+      </ul>
+    </section>
+    <p class="foot">Author: Dương Thị Lan Anh (LANHMAR) · <a href="kho-bau.html">Treasure</a> · <a href="drive-ebook-reader-privacy.html?lang=en">Privacy Policy</a> · <a href="https://lanhmar.id.vn/#contact">Contact</a></p>
+  </div>
+</main>
+<script>
+(() => {
+  const q = new URLSearchParams(location.search).get('lang');
+  let l = q || null;
+  if (!l) { try { l = localStorage.getItem('lm_lang'); } catch {} }
+  if (!l) l = (navigator.language || '').toLowerCase().startsWith('vi') ? 'vi' : 'en';
+  const apply = (x) => { l = x === 'en' ? 'en' : 'vi'; document.documentElement.dataset.lang = l; document.documentElement.lang = l;
+    document.querySelectorAll('.lang button').forEach((b) => b.classList.toggle('on', b.dataset.set === l)); };
+  apply(l);
+  document.querySelectorAll('.lang button').forEach((b) => b.addEventListener('click', () => { apply(b.dataset.set); try { localStorage.setItem('lm_lang', l); } catch {} }));
+})();
+</script>
+</body>
+</html>
