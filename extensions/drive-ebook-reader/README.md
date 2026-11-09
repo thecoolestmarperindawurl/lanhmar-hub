@@ -13,6 +13,7 @@
 | 📝 Google Docs/Slides | Xuất PDF qua Drive API rồi đọc | Exported to PDF through the Drive API, then read |
 | 🎨 Giao diện | Sáng / sepia / tối; brand LANHMAR | Light / sepia / dark; LANHMAR brand |
 | 🔘 Nút trên Drive | Mở file trên drive.google.com → nút tím "Đọc không cần tải" ở góc dưới phải | Open a file on drive.google.com → purple "Read without downloading" button bottom right |
+| 📁 Thư mục Drive | Dán link thư mục (hoặc bấm nút trên trang thư mục Drive) → danh sách sách bên trong, mở thư mục con, quay lại thư mục cha | Paste a folder link (or click the button on a Drive folder page) → list of books inside, sub-folders, parent folder |
 | 💻 File trên máy | Cũng mở được PDF/EPUB từ máy (PDF đọc theo đoạn bằng `File.slice`) | Also opens local PDF/EPUB (PDF read in slices with `File.slice`) |
 
 ## Cài đặt / Install
@@ -40,6 +41,7 @@ Chưa làm bước này thì trang đọc hiện hộp cam hướng dẫn, vẫn
 ## Cách dùng / How to use
 
 - Trên Drive, mở file PDF/EPUB (kể cả khi Drive báo không xem trước được) → bấm nút tím **Đọc không cần tải** góc dưới phải. / On Drive open the file (even when preview fails) → click the purple **Read without downloading** button.
+- Link thư mục Drive cũng dùng được: extension liệt kê PDF/EPUB bên trong để bạn chọn. / Folder links work too: the extension lists the PDF/EPUB files inside.
 - Hoặc bấm icon extension trên thanh công cụ: nếu tab hiện tại là một file Drive thì mở luôn, không thì hiện ô dán link. / Or click the toolbar icon: it opens the current Drive file, or shows a paste-link box.
 - Phím tắt / keys: `←` `→` chuyển trang, `+` `−` phóng to/thu nhỏ (PDF), `Space`/`→` lật trang (EPUB).
 - Thanh trên cùng hiện **"Đã nạp x MB / y MB"**: đó là lượng dữ liệu thật sự đã lấy về bộ nhớ, để bạn thấy mình không tải cả file. / The top bar shows how much has actually been fetched, so you can see the whole file is not downloaded.

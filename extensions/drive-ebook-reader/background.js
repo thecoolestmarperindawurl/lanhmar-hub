@@ -1,6 +1,7 @@
 // Service worker: mở trang đọc cho một file Drive. / Opens the reader page for a Drive file.
 const ID_PATTERNS = [
   /\/file\/d\/([a-zA-Z0-9_-]{10,})/,
+  /\/folders\/([a-zA-Z0-9_-]{10,})/,
   /[?&]id=([a-zA-Z0-9_-]{10,})/,
   /\/document\/d\/([a-zA-Z0-9_-]{10,})/,
   /\/presentation\/d\/([a-zA-Z0-9_-]{10,})/,

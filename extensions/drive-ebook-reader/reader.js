@@ -10,6 +10,7 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = BASE + 'vendor/pdfjs/pdf.worker.min.mjs
 
 const CHUNK = 1 << 20; // 1 MiB mỗi lần lấy / per range request
 const API = 'https://www.googleapis.com/drive/v3/';
+const FOLDER = 'application/vnd.google-apps.folder';
 const DOC_EXPORT = new Set([
   'application/vnd.google-apps.document',
   'application/vnd.google-apps.presentation',
@@ -28,7 +29,7 @@ const el = {
   title: $('title'), ctrlPdf: $('ctrlPdf'), ctrlEpub: $('ctrlEpub'), net: $('net'),
   home: $('home'), err: $('err'), status: $('status'), statusMsg: $('statusMsg'), statusSub: $('statusSub'),
   pdfView: $('pdfView'), epubWrap: $('epubWrap'), epubView: $('epubView'), toc: $('toc'),
-  driveLink: $('driveLink'), setup: $('setup'),
+  driveLink: $('driveLink'), setup: $('setup'), folder: $('folder'), folderList: $('folderList'),
 };
 
 function applyStaticText() {
@@ -76,7 +77,7 @@ const storage = {
 const debounce = (fn, ms) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
 
 function show(which) {
-  for (const k of ['home', 'err', 'pdfView', 'epubWrap']) el[k].hidden = k !== which;
+  for (const k of ['home', 'err', 'folder', 'pdfView', 'epubWrap']) el[k].hidden = k !== which;
   el.ctrlPdf.hidden = which !== 'pdfView';
   el.ctrlEpub.hidden = which !== 'epubWrap';
 }
@@ -146,9 +147,68 @@ async function driveFetch(path, init = {}, retry = true) {
   return res;
 }
 async function driveMeta(id) {
-  const res = await driveFetch(`files/${encodeURIComponent(id)}?fields=id,name,mimeType,size,webViewLink,fileExtension&supportsAllDrives=true`);
+  const res = await driveFetch(`files/${encodeURIComponent(id)}?fields=id,name,mimeType,size,webViewLink,fileExtension,parents&supportsAllDrives=true`);
   return res.json();
 }
+async function driveList(folderId) {
+  const files = []; let pageToken = '';
+  do {
+    const q = encodeURIComponent(`'${folderId}' in parents and trashed = false`);
+    const res = await driveFetch(`files?q=${q}&fields=nextPageToken,files(id,name,mimeType,size)&orderBy=folder,name_natural&pageSize=200&supportsAllDrives=true&includeItemsFromAllDrives=true` + (pageToken ? `&pageToken=${encodeURIComponent(pageToken)}` : ''));
+    const j = await res.json();
+    files.push(...(j.files || []));
+    pageToken = j.nextPageToken || '';
+  } while (pageToken && files.length < 2000);
+  return files;
+}
+
+// ---------- Thư mục / folder listing ----------
+function navigateTo(id) {
+  history.pushState(null, '', location.pathname + '?id=' + encodeURIComponent(id));
+  openDrive(id);
+}
+async function openFolder(meta) {
+  status(T('Đang đọc danh sách thư mục…', 'Listing the folder…'), meta.name);
+  const files = await driveList(meta.id);
+  status(null); show('folder');
+  $('folderTitle').textContent = '📁 ' + (meta.name || '');
+  const readable = files.filter((f) => f.mimeType === FOLDER || kindOf(f.mimeType, f.name));
+  $('folderLead').textContent = readable.length
+    ? T(`${files.length} mục · chọn một cuốn để đọc`, `${files.length} items · pick a book to read`)
+    : T('Thư mục này chưa có PDF/EPUB hay thư mục con nào đọc được.', 'No readable PDF/EPUB or sub-folder in this folder.');
+  const list = el.folderList; list.innerHTML = '';
+  const parent = meta.parents && meta.parents[0];
+  if (parent) {
+    const up = document.createElement('a'); up.href = '#'; up.className = 'up';
+    up.innerHTML = '<span class="ico">↰</span><span class="nm"></span>';
+    up.querySelector('.nm').textContent = T('Thư mục cha', 'Parent folder');
+    up.onclick = (e) => { e.preventDefault(); navigateTo(parent); };
+    list.appendChild(up);
+  }
+  const ICON = { folder: '📁', pdf: '📄', epub: '📚', gdoc: '📝' };
+  for (const f of files) {
+    const kind = f.mimeType === FOLDER ? 'folder' : kindOf(f.mimeType, f.name);
+    const row = document.createElement(kind ? 'a' : 'div');
+    row.className = kind ? '' : 'dim';
+    const ico = document.createElement('span'); ico.className = 'ico'; ico.textContent = ICON[kind] || '•';
+    const nm = document.createElement('span'); nm.className = 'nm'; nm.textContent = f.name; nm.title = f.name;
+    const sz = document.createElement('span'); sz.className = 'sz'; sz.textContent = f.size ? fmtBytes(+f.size) : '';
+    row.append(ico, nm, sz);
+    if (kind) {
+      row.href = '#';
+      row.onclick = (e) => { e.preventDefault(); navigateTo(f.id); };
+    } else {
+      const ext = document.createElement('a'); ext.className = 'ext'; ext.target = '_blank'; ext.rel = 'noopener';
+      ext.href = 'https://drive.google.com/file/d/' + encodeURIComponent(f.id) + '/view'; ext.textContent = 'Drive ↗';
+      row.appendChild(ext);
+    }
+    list.appendChild(row);
+  }
+}
+window.addEventListener('popstate', () => {
+  const id = new URLSearchParams(location.search).get('id');
+  if (id) openDrive(id); else goHome();
+});
 function driveRangeFetcher(id) {
   const path = `files/${encodeURIComponent(id)}?alt=media&supportsAllDrives=true`;
   return async (begin, end) => {
@@ -485,7 +545,9 @@ $('theme').onclick = () => {
 function extractId(s) {
   s = (s || '').trim();
   if (/^[a-zA-Z0-9_-]{10,}$/.test(s)) return s;
-  const m = s.match(/\/(?:file|document|presentation|spreadsheets)\/d\/([a-zA-Z0-9_-]{10,})/) || s.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);
+  const m = s.match(/\/(?:file|document|presentation|spreadsheets)\/d\/([a-zA-Z0-9_-]{10,})/)
+    || s.match(/\/folders\/([a-zA-Z0-9_-]{10,})/)
+    || s.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);
   return m ? m[1] : null;
 }
 function kindOf(mime, name) {
@@ -507,6 +569,7 @@ async function openDrive(id) {
     el.title.textContent = meta.name || id; el.title.title = meta.name || '';
     document.title = (meta.name || 'Ebook') + ' — Drive Ebook Reader';
     if (meta.webViewLink) { el.driveLink.href = meta.webViewLink; el.driveLink.hidden = false; }
+    if (meta.mimeType === FOLDER) { await openFolder(meta); return; }
     const kind = kindOf(meta.mimeType, meta.name);
     const size = +meta.size || 0;
     if (kind === 'pdf') {
