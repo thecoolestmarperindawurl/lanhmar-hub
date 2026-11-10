@@ -9059,6 +9059,123 @@
       }
     },
     {
+      "id": "tool-pdf-editor",
+      "kho": "idea",
+      "shelf": "tool",
+      "status": "Đang dùng",
+      "guide": true,
+      "date": "2026-11-10",
+      "title": "LANHMAR PDF Editor: sửa chữ gốc trong PDF ngay trên trình duyệt, miễn phí",
+      "type": "Công cụ",
+      "badge": "Web tool",
+      "tags": [
+        "pdf",
+        "sửa pdf",
+        "miễn phí",
+        "drive"
+      ],
+      "thumb": "assets/res/tool-pdf-editor.jpg",
+      "note": "Bấm vào dòng chữ bất kỳ trong PDF, gõ lại, nhấn Enter. Giữ phông, cỡ, màu, kiểu căn; chữ dài ra tự dàn xuống dòng sau. File không rời máy bạn.",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Sửa một con số trong báo cáo, đổi tên người nhận thư mời, cập nhật mốc thời gian trong CV mà không cần file Word gốc. Công cụ xoá thật chữ cũ trong PDF và viết chữ mới bằng phông gốc (hoặc phông cùng họ đủ dấu tiếng Việt), chạy hoàn toàn trên máy bạn."
+        },
+        {
+          "k": "h",
+          "t": "Làm được gì"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Tình huống",
+            "Công cụ làm gì"
+          ],
+          "rows": [
+            [
+              "Sửa chữ trong dòng",
+              "Bấm vào dòng, con trỏ đặt đúng chỗ bấm; giữ chữ đậm, nghiêng, màu trong dòng"
+            ],
+            [
+              "Phông thiếu dấu tiếng Việt",
+              "Dùng lại phông gốc nếu đủ chữ; nếu thiếu thì nhận dạng phông cùng họ và độ đậm (Times, Arial, Calibri, Inter…)"
+            ],
+            [
+              "Chữ dài ra hoặc ngắn đi",
+              "Dàn lại đoạn: đẩy từ xuống, kéo từ lên, giữ căn đều; tiêu đề căn giữa, căn phải giữ đúng vị trí"
+            ],
+            [
+              "Gạch chân, gạch ngang",
+              "Co giãn theo chữ mới"
+            ],
+            [
+              "Google Drive",
+              "Mở PDF từ Drive, lưu bản “(đã sửa)” cạnh file gốc; nút “Sửa PDF này” trong extension Drive Ebook Reader"
+            ],
+            [
+              "Tải về",
+              "Hoàn tác/làm lại, tải PDF đã cắt phông cho gọn; tìm kiếm và copy thấy đúng chữ mới"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cách dùng"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Mở file",
+              "d": "Kéo thả PDF vào trang, bấm “Chọn file PDF” hoặc “Mở từ Google Drive”. Có nút thử với file mẫu."
+            },
+            {
+              "t": "Bấm vào dòng cần sửa",
+              "d": "Ô sửa hiện đúng chỗ. Gõ lại rồi nhấn Enter để lưu, Esc để huỷ. Ctrl+Z để hoàn tác."
+            },
+            {
+              "t": "Tải về hoặc lưu vào Drive",
+              "d": "“Tải PDF” lưu file đã sửa về máy; với file mở từ Drive, “Lưu vào Drive” tạo bản sao cạnh file gốc."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Đã thử trên PDF thật"
+        },
+        {
+          "k": "list",
+          "items": [
+            "26/26 ca sửa đạt trên 7 PDF thật: 5 bài giảng xuất từ Notion, thư mời Word 2021, CV Canva 3 trang; không điểm ảnh nào ngoài chỗ sửa bị đổi.",
+            "Mỗi lần sửa mất khoảng 0,35–0,75 giây trong trình duyệt.",
+            "Chưa sửa được: bản scan/ảnh chụp (không có lớp chữ), nền tô màu sau chữ; sửa từng dòng một."
+          ]
+        },
+        {
+          "k": "callout",
+          "t": "Mã nguồn mở AGPL-3.0, dùng thư viện MuPDF.js chạy bằng WebAssembly: không có máy chủ, không tải file lên đâu, không cần tài khoản."
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "Mã nguồn và báo cáo thử chất lượng trên GitHub",
+              "u": "https://github.com/thecoolestmarperindawurl/lanhmar-pdf-editor"
+            },
+            {
+              "t": "Extension Drive Ebook Reader (có nút “Sửa PDF này”)",
+              "u": "https://lanhmar.id.vn/drive-ebook-reader.html"
+            }
+          ]
+        }
+      ],
+      "cta": {
+        "title": "Mở LANHMAR PDF Editor",
+        "url": "https://thecoolestmarperindawurl.github.io/lanhmar-pdf-editor/",
+        "btn": "Mở công cụ"
+      }
+    },
+    {
       "id": "tool-drive-ebook-reader",
       "kho": "idea",
       "shelf": "tool",

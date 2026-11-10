@@ -16,6 +16,111 @@ window.TREASURE_SHELVES = [
 
 window.TREASURES = [
   {
+    "id": "pdf-editor",
+    "shelf": "online",
+    "featured": true,
+    "status": "open",
+    "url": "https://thecoolestmarperindawurl.github.io/lanhmar-pdf-editor/",
+    "thumb": "assets/res/tool-pdf-editor.jpg",
+    "name": "LANHMAR PDF Editor",
+    "hook": "Bấm vào dòng chữ trong PDF, gõ lại, giữ nguyên phông và bố cục.",
+    "hook_en": "Click a line in a PDF, retype it, keep the font and layout.",
+    "type": "Công cụ online",
+    "type_en": "Online tool",
+    "badge": "Miễn phí · Mã nguồn mở",
+    "badge_en": "Free · Open source",
+    "desc": "Sửa chữ gốc trong PDF ngay trên trình duyệt: bấm vào dòng, gõ lại, nhấn Enter. Giữ phông, cỡ, màu, kiểu căn; chữ dài ra tự dàn xuống dòng sau. File không rời máy bạn.",
+    "desc_en": "Edit the original text of a PDF right in your browser: click a line, retype, press Enter. Font, size, colour and alignment are kept; longer text flows to the next lines. Your file never leaves your device.",
+    "points": [
+      "Dùng lại phông gốc, hoặc nhận dạng phông cùng họ và độ đậm đủ dấu tiếng Việt",
+      "Xoá thật chữ cũ; tìm kiếm và copy thấy đúng chữ mới",
+      "Dàn lại đoạn, giữ căn đều, căn giữa, gạch chân",
+      "Mở và lưu bản sao về Google Drive; hoàn tác, tải về"
+    ],
+    "points_en": [
+      "Reuses the original font, or detects a same-family font and weight with full Vietnamese support",
+      "Truly removes old text; search and copy return the new text",
+      "Reflows paragraphs, keeps justification, centring and underlines",
+      "Open from and save a copy to Google Drive; undo, download"
+    ],
+    "cta": "Mở công cụ →",
+    "cta_en": "Open tool →",
+    "meta": [
+      {
+        "l": "Truy cập",
+        "l_en": "Access",
+        "v": "Mở ngay trên web, không cần đăng nhập (Google chỉ khi dùng Drive)",
+        "v_en": "Opens right on the web, no sign-in (Google only for Drive)"
+      },
+      {
+        "l": "Dữ liệu",
+        "l_en": "Your data",
+        "v": "Xử lý trên máy bạn bằng WebAssembly, không tải file lên máy chủ",
+        "v_en": "Processed on your device with WebAssembly, no upload to any server"
+      },
+      {
+        "l": "Mã nguồn",
+        "l_en": "Source code",
+        "v": "AGPL-3.0 trên GitHub, kèm báo cáo thử chất lượng",
+        "v_en": "AGPL-3.0 on GitHub, with the quality test report"
+      }
+    ],
+    "note": "Đã thử 26/26 ca sửa trên PDF thật (Notion, Word, Canva). Chưa sửa được bản scan và nền tô màu sau chữ.",
+    "note_en": "Tested 26/26 edits on real PDFs (Notion, Word, Canva). Scans and background highlights are not supported yet.",
+    "detail": "pdf-editor",
+    "direct": true,
+    "links": [
+      {
+        "t": "Mã nguồn trên GitHub ↗",
+        "t_en": "Source code on GitHub ↗",
+        "u": "https://github.com/thecoolestmarperindawurl/lanhmar-pdf-editor"
+      }
+    ],
+    "sections": [
+      {
+        "k": "callout",
+        "t": "Sửa một con số trong báo cáo, đổi tên người nhận thư mời, cập nhật mốc thời gian trong CV mà không cần file gốc.",
+        "t_en": "Fix a figure in a report, change an invitation's recipient, update dates in a CV without the original file."
+      },
+      {
+        "k": "h",
+        "t": "Cách dùng",
+        "t_en": "How to use"
+      },
+      {
+        "k": "steps",
+        "items": [
+          {
+            "t": "Mở file",
+            "d": "Kéo thả PDF, chọn file hoặc mở từ Google Drive."
+          },
+          {
+            "t": "Bấm vào dòng",
+            "d": "Gõ lại, Enter lưu, Esc huỷ, Ctrl+Z hoàn tác."
+          },
+          {
+            "t": "Tải về",
+            "d": "Tải PDF hoặc lưu bản sao vào Drive."
+          }
+        ],
+        "items_en": [
+          {
+            "t": "Open a file",
+            "d": "Drop a PDF, pick a file or open from Google Drive."
+          },
+          {
+            "t": "Click a line",
+            "d": "Retype, Enter saves, Esc cancels, Ctrl+Z undoes."
+          },
+          {
+            "t": "Download",
+            "d": "Download the PDF or save a copy to Drive."
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "drive-ebook-reader",
     "shelf": "code",
     "featured": true,

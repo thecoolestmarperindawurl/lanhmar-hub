@@ -13,6 +13,8 @@ const CHUNK = 1 << 20; // 1 MiB mỗi lần lấy / per range request
 // Google Picker page hosted on lanhmar.id.vn (MV3 forbids loading apis.google.com inside the extension).
 const PICKER_URL = 'https://lanhmar.id.vn/drive-picker.html';
 const PICKER_ORIGIN = new URL(PICKER_URL).origin;
+// Trình sửa PDF của LANHMAR (repo lanhmar-pdf-editor). Địa chỉ github.io tự chuyển sang tên miền riêng khi đã gắn.
+const EDITOR_URL = 'https://thecoolestmarperindawurl.github.io/lanhmar-pdf-editor/';
 const SCOPES = (HAS_EXT && chrome.runtime.getManifest().oauth2 && chrome.runtime.getManifest().oauth2.scopes) || [];
 // drive.readonly: mở thẳng mọi file; drive.file: chỉ file người dùng đã chọn qua Picker.
 const FULL_SCOPE = SCOPES.some((x) => /drive(\.readonly)?$/.test(x) && !/drive\.file$/.test(x));
@@ -36,7 +38,7 @@ const el = {
   title: $('title'), ctrlPdf: $('ctrlPdf'), ctrlEpub: $('ctrlEpub'), net: $('net'),
   home: $('home'), err: $('err'), status: $('status'), statusMsg: $('statusMsg'), statusSub: $('statusSub'),
   pdfView: $('pdfView'), epubWrap: $('epubWrap'), epubView: $('epubView'), toc: $('toc'),
-  driveLink: $('driveLink'), setup: $('setup'), folder: $('folder'), folderList: $('folderList'), needPick: $('needPick'),
+  driveLink: $('driveLink'), editLink: $('editLink'), setup: $('setup'), folder: $('folder'), folderList: $('folderList'), needPick: $('needPick'),
 };
 
 function applyStaticText() {
@@ -68,6 +70,8 @@ function applyStaticText() {
   $('theme').title = T('Giao diện sáng / sepia / tối', 'Light / sepia / dark');
   $('openOther').title = T('Mở file khác', 'Open another file');
   el.driveLink.title = T('Mở trên Google Drive', 'Open in Google Drive');
+  el.editLink.textContent = T('✎ Sửa PDF này', '✎ Edit this PDF');
+  el.editLink.title = T('Mở trong trình sửa PDF của LANHMAR: sửa chữ gốc, lưu bản sao về Drive', 'Open in the LANHMAR PDF editor: edit the original text, save a copy to Drive');
   $('privacyLink').textContent = T('Chính sách quyền riêng tư', 'Privacy policy');
   $('privacyLink').href += VI ? '' : '?lang=en';
   $('homeLink').textContent = T('Trang giới thiệu', 'Homepage');
@@ -293,7 +297,7 @@ async function closeCurrent() {
   if (epub.book) { try { epub.book.destroy(); } catch { /* ignore */ } }
   epub.book = epub.rendition = null;
   el.epubView.innerHTML = ''; el.toc.innerHTML = ''; el.toc.hidden = true;
-  el.driveLink.hidden = true; setNet(0, 0, ''); el.title.textContent = ''; el.title.title = '';
+  el.driveLink.hidden = true; el.editLink.hidden = true; setNet(0, 0, ''); el.title.textContent = ''; el.title.title = '';
   document.title = 'Drive Ebook Reader — LANHMAR';
 }
 
@@ -675,6 +679,11 @@ async function openDrive(id) {
     el.title.textContent = meta.name || id; el.title.title = meta.name || '';
     document.title = (meta.name || 'Ebook') + ' — Drive Ebook Reader';
     if (meta.webViewLink) { el.driveLink.href = meta.webViewLink; el.driveLink.hidden = false; }
+    if (meta.mimeType === 'application/pdf') {
+      // "Sửa PDF này": mở file trong trình sửa PDF (sửa chữ gốc, lưu bản sao về Drive)
+      el.editLink.href = EDITOR_URL + '?id=' + encodeURIComponent(id) + '&name=' + encodeURIComponent(meta.name || '') + '&lang=' + (VI ? 'vi' : 'en');
+      el.editLink.hidden = false;
+    }
     if (meta.mimeType === FOLDER) { await openFolder(meta); return; }
     const kind = kindOf(meta.mimeType, meta.name);
     const size = +meta.size || 0;
