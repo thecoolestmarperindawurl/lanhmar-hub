@@ -23,7 +23,7 @@
       lib_k: "THƯ VIỆN", lib_h: "Tất cả công cụ", tab_all: "Tất cả", tab_soon: "Sắp có", shelf_label: "Kệ",
       soon_h: "Kệ này đang được chuẩn bị", soon_p: "Mình sẽ thêm khi sẵn sàng. Tham gia cộng đồng để nhận tin khi có đồ mới.", soon_btn: "Xem cộng đồng →",
       st_open: "Đã mở", st_soon: "Sắp mở", nolink: "Sắp mở trên GitHub", open_btn: "Mở →",
-      detail_btn: "Xem & cách cài →", detail_more: "Xem chi tiết →", d_open: "Mở công cụ →", copy_install: "Copy lệnh cài", copied: "Đã copy lệnh", copy_fail: "Không copy được, bấm giữ vào lệnh để chép tay",
+      video_btn: "▶ Xem video giới thiệu", detail_btn: "Xem & cách cài →", detail_more: "Xem chi tiết →", d_open: "Mở công cụ →", copy_install: "Copy lệnh cài", copied: "Đã copy lệnh", copy_fail: "Không copy được, bấm giữ vào lệnh để chép tay",
       m_lic: "Giấy phép", m_cost: "Chi phí", free_w: "Miễn phí",
       d_points: "Điểm chính", d_how: "Cài và dùng", d_how_more: "Hướng dẫn đầy đủ, tuỳ chọn và giới hạn nằm trong README của repo.",
       demo_h: "Ví dụ kết quả", demo_note: "Nội dung mẫu tự soạn cho dễ hình dung, không phải khoá học hay tài liệu thật.", demo_slide: "Slide", demo_speech: "Lời giảng ở slide này",
@@ -73,7 +73,7 @@
       lib_k: "LIBRARY", lib_h: "All tools", tab_all: "All", tab_soon: "Coming soon", shelf_label: "Shelf",
       soon_h: "This shelf is being prepared", soon_p: "I'll add things when they're ready. Join the community to hear when something new lands.", soon_btn: "See the community →",
       st_open: "Open", st_soon: "Coming soon", nolink: "Coming soon on GitHub", open_btn: "Open →",
-      detail_btn: "Details & install →", detail_more: "See details →", d_open: "Open tool →", copy_install: "Copy install command", copied: "Command copied", copy_fail: "Couldn't copy, press and hold the command to copy by hand",
+      video_btn: "▶ Watch the intro video", detail_btn: "Details & install →", detail_more: "See details →", d_open: "Open tool →", copy_install: "Copy install command", copied: "Command copied", copy_fail: "Couldn't copy, press and hold the command to copy by hand",
       m_lic: "License", m_cost: "Cost", free_w: "Free",
       d_points: "Highlights", d_how: "Install and use", d_how_more: "Full instructions, options and limits are in the repo README.",
       demo_h: "Example result", demo_note: "Sample content written for illustration, not a real course or document.", demo_slide: "Slide", demo_speech: "What was said on this slide",
@@ -126,11 +126,18 @@
       : `<a class="btn dark" href="${esc(url)}"${external(url) ? ' target="_blank" rel="noopener"' : ""}>${esc(L(x, "cta") || T("open_btn"))}</a>`;
     const copy = x.install ? `<button class="btn" type="button" data-copy="${esc(x.id)}">${esc(T("copy_install"))}</button>` : "";
     const direct = x.detail && x.direct ? `<a class="btn" href="${esc(url)}"${external(url) ? ' target="_blank" rel="noopener"' : ""}>${esc(L(x, "cta") || T("d_open"))}</a>` : "";
-    return main + direct + copy;
+    const vid = videoOk(x) ? `<button class="btn" type="button" data-video="${esc(x.id)}">${esc(T("video_btn"))}</button>` : "";
+    return main + vid + direct + copy;
   };
   const thumb = (x) => (x.thumb && /^assets\/[\w\-./]+$/.test(x.thumb) ? `<img src="${esc(x.thumb)}" alt="" width="960" height="504" loading="lazy">` : `<span class="kb-blank" aria-hidden="true">★</span>`);
   const featCard = (x) => `<article class="kb-fcard reveal"><div class="kb-fimg">${thumb(x)}<span class="kb-stamp">★ ${esc(T("stamp"))}</span></div><div class="kb-fbody">${chips(x)}<h3>${esc(x.name)}</h3><p>${esc(L(x, "desc"))}</p><div class="kb-act">${actions(x)}</div></div></article>`;
   const card = (x) => `<article class="kb-card reveal" id="${esc(x.id)}"><div class="kb-cimg">${thumb(x)}</div><div class="kb-cbody">${chips(x)}<h3>${esc(x.name)}</h3><p>${esc(L(x, "desc"))}</p><div class="kb-act">${actions(x)}</div></div></article>`;
+
+  // ---- video giới thiệu: chỉ nhận file trong assets/ của site ----
+  const videoOk = (x) => Boolean(x.video && /^assets\/[\w\-./]+\.mp4$/.test(x.video.src || ""));
+  const videoHtml = (x, autoplay) => videoOk(x)
+    ? `<video class="kb-video" controls playsinline preload="${autoplay ? "auto" : "none"}"${autoplay ? " autoplay" : ""}${/^assets\/[\w\-./]+$/.test(x.video.poster || "") ? ` poster="${esc(x.video.poster)}"` : ""} aria-label="${esc(L(x.video, "title") || x.name)}"><source src="${esc(x.video.src)}" type="video/mp4"></video>`
+    : "";
 
   // ---- hộp chi tiết dựng từ dữ liệu: khối callout / h / p / list / steps / table / code (giống thẻ Kho Ứng dụng) ----
   const blocks = (list_) => (list_ || []).map((b) => {
@@ -158,6 +165,7 @@
   function genericDetail(x) {
     const url = okUrl(x.url), meta = x.meta || [], links = (x.links || []).filter((l) => okUrl(l.u));
     return `<div class="kb-dtop">${chips(x)}<h2 id="kbDlgT">${esc(x.name)}</h2><p>${esc(L(x, "desc"))}</p></div>
+      ${videoHtml(x, false)}
       ${demoHtml(x)}
       ${meta.length ? `<dl class="kb-meta">${meta.map((m) => `<dt>${esc(L(m, "l"))}</dt><dd>${esc(L(m, "v"))}</dd>`).join("")}</dl>` : ""}
       ${L(x, "note") ? `<p class="kb-dnote">${esc(L(x, "note"))}</p>` : ""}
@@ -190,8 +198,15 @@
   }
   function closeDlg() {
     const dlg = $("#kbDlg"); if (!dlg.open) return;
+    dlg.querySelectorAll("video").forEach((v) => v.pause());
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) { dlg.close(); return; }
     dlg.classList.add("closing"); setTimeout(() => { dlg.close(); dlg.classList.remove("closing"); }, 240);
+  }
+  function openVideo(id) {
+    const x = byId(id), dlg = $("#kbDlg"); if (!x || !dlg || !videoOk(x)) return;
+    $("#kbDlgBody").innerHTML = `<div class="kb-dtop">${chips(x)}<h2 id="kbDlgT">${esc(L(x.video, "title") || x.name)}</h2></div>${videoHtml(x, true)}<div class="kb-act kb-dact">${x.detail ? `<button class="btn dark" type="button" data-detail="${esc(x.id)}">${esc(T(x.install ? "detail_btn" : "detail_more"))}</button>` : ""}</div>`;
+    $("#kbDlgX").setAttribute("aria-label", T("d_close"));
+    if (typeof dlg.showModal === "function") { if (!dlg.open) dlg.showModal(); } else dlg.setAttribute("open", "");
   }
   function openDetail(id) {
     const x = byId(id), dlg = $("#kbDlg"); if (!x || !dlg) return;
@@ -339,12 +354,15 @@
     const tab = e.target.closest("[data-shelf]");
     if (tab) { shelf = tab.dataset.shelf; renderTabs(); renderGrid(); reveal(true); document.querySelectorAll("#kbGrid .kb-card").forEach((c, i) => { c.style.setProperty("--d", i * 90 + "ms"); c.classList.add("kb-swap"); }); return; }
     const dt = e.target.closest("[data-detail]");
-    if (dt) { openDetail(dt.dataset.detail); return; }
+    if (dt) { $("#kbDlg").querySelectorAll("video").forEach((v) => v.pause()); openDetail(dt.dataset.detail); return; }
+    const vb = e.target.closest("[data-video]");
+    if (vb) { openVideo(vb.dataset.video); return; }
     const cp = e.target.closest("[data-copy]");
     if (cp) { const x = byId(cp.dataset.copy); if (x && x.install) toast((await copyText(x.install.join("\n"))) ? T("copied") : T("copy_fail")); return; }
     if (e.target.closest("#kbDlgX") || e.target === $("#kbDlg")) closeDlg();
   });
   $("#kbDlg").addEventListener("cancel", (e) => { e.preventDefault(); closeDlg(); });
+  $("#kbDlg").addEventListener("close", () => $("#kbDlg").querySelectorAll("video").forEach((v) => v.pause()));
   // bàn phím cho tab: mũi tên trái/phải
   $("#kbTabs").addEventListener("keydown", (e) => {
     if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
