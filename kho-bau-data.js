@@ -5,6 +5,7 @@
    - status: "open" (đã mở, có url) | "soon" (sắp mở, nút bị khoá). url nhận https hoặc trang trong site (vd ai-convert.html).
    - detail: có thì nút chính mở hộp chi tiết trong trang (course-recap dùng mẫu riêng; mục có `sections` dùng nội dung dạng khối callout/h/p/list/steps/table/code giống thẻ Kho Ứng dụng); bỏ trống thì nút chính đi thẳng tới url. direct: true thêm nút mở thẳng công cụ. meta/note/links: thông tin phụ trong hộp chi tiết.
    - demo: ví dụ kết quả hiện trong hộp chi tiết. kind "recap" (slides: [{ n, img (+img_en: ảnh slide mẫu 800×450 trong assets/res/), time, title, bullets[], speech }]) hoặc "convert" (before/after: { label, text }). Chỉ dùng dữ liệu mẫu tự soạn, ghi rõ là mẫu; có cặp x_en cho chữ.
+   - video: { src (mp4 trong assets/video/), poster, title, title_en }: thêm nút "▶ Xem video giới thiệu" trên thẻ và trình phát trong hộp chi tiết.
    - thumb: ảnh 960×504 trong assets/res/. install: các dòng lệnh cài (nút Copy lệnh cài).
    Kệ có soon: true hiện "Sắp có" và không có mục nào. */
 window.TREASURE_SHELVES = [
@@ -71,6 +72,12 @@ window.TREASURES = [
     ],
     "note": "Bản demo trên web chỉ diễn một buổi làm việc mẫu. Cài plugin để xem đội của bạn làm việc thật.",
     "note_en": "The web demo only plays a sample work session. Install the plugin to watch your own team work for real.",
+    "video": {
+      "src": "assets/video/t-outbox-intro.mp4",
+      "poster": "assets/res/t-outbox-intro-poster.jpg",
+      "title": "T-outbox: video giới thiệu 40 giây",
+      "title_en": "T-outbox: 40-second intro video"
+    },
     "detail": "t-outbox",
     "direct": true,
     "links": [
