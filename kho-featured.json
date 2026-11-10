@@ -8757,6 +8757,128 @@
       ]
     },
     {
+      "id": "app-t-outbox",
+      "kho": "idea",
+      "shelf": "bot",
+      "status": "Đang dùng",
+      "guide": true,
+      "date": "2026-11-10",
+      "title": "T-outbox: công ty AI trong Claude Code, có văn phòng 3D để xem đội làm việc",
+      "type": "Plugin Claude Code",
+      "badge": "Mã nguồn mở",
+      "tags": [
+        "claude code",
+        "ai agent",
+        "subagent",
+        "plugin"
+      ],
+      "thumb": "assets/res/app-t-outbox.jpg",
+      "note": "Plugin biến Claude Code thành một công ty: CEO, 5 phòng ban, 17 nhân viên AI. Bạn là sếp giao việc, cả đội chia việc, soát chéo rồi báo cáo; văn phòng 3D cho thấy ai đang làm gì.",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Bạn giao một đầu việc lớn, ví dụ \"lập kế hoạch ra mắt sản phẩm trong 30 ngày\". CEO chia việc theo phòng ban, trưởng phòng giao người, QA soát lại, rồi CEO báo cáo cho bạn. Mỗi nhân viên là một subagent của Claude Code; văn phòng 3D chạy trên trình duyệt để bạn nhìn cả đội làm việc theo thời gian thực."
+        },
+        {
+          "k": "h",
+          "t": "Cơ cấu công ty"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Phòng ban",
+            "Nhân sự"
+          ],
+          "rows": [
+            [
+              "Ban điều hành",
+              "CEO nhận việc từ bạn, chia việc và tổng hợp báo cáo"
+            ],
+            [
+              "Marketing",
+              "Trưởng phòng, content, design, performance ads"
+            ],
+            [
+              "Sản phẩm & Thiết kế",
+              "Trưởng phòng, nghiên cứu người dùng, UX/UI"
+            ],
+            [
+              "Kỹ thuật & Dữ liệu",
+              "Trưởng phòng, web, dữ liệu, QA"
+            ],
+            [
+              "Kinh doanh & CSKH",
+              "Trưởng phòng, chăm sóc khách hàng"
+            ],
+            [
+              "Vận hành",
+              "Trưởng phòng, tài chính, pháp chế, nhân sự"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Văn phòng 3D cho thấy gì"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Tòa nhà 9 tầng, mỗi phòng ban một tầng với nội thất riêng; canteen và trung tâm hội nghị ở tầng riêng; sảnh có lễ tân, bảo vệ; hầm đỗ xe B1.",
+            "Nhân viên mặc đồng phục theo màu brand bạn nạp vào (mặc định LanhMar). Đổi brand bằng lệnh /t-outbox:brand.",
+            "Nhân viên đi thang máy, thang bộ, vào phòng họp khi được giao việc, xuống canteen nghỉ, lái xe vào hầm.",
+            "Bảng công việc, nhật ký văn phòng, chế độ Sôi nổi, Theo việc, Ẩn chi tiết, Buổi tối, xem 2D trên điện thoại.",
+            "Dữ liệu chỉ nằm trên máy bạn: hook ghi sự kiện vào thư mục .t-outbox của dự án, server local không gửi đi đâu."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cài và dùng"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Cài plugin",
+              "d": "Trong Claude Code, chạy hai lệnh cài ở dưới."
+            },
+            {
+              "t": "Mở trụ sở",
+              "d": "Gõ /t-outbox:open, mở http://127.0.0.1:4747 trên trình duyệt."
+            },
+            {
+              "t": "Giao việc",
+              "d": "Gõ /t-outbox:brief kèm yêu cầu. Xem cả đội chia việc, họp, làm và báo cáo."
+            }
+          ]
+        },
+        {
+          "k": "code",
+          "cap": "Lệnh cài trong Claude Code",
+          "t": "/plugin marketplace add thecoolestmarperindawurl/t-outbox-office\n/plugin install t-outbox@t-outbox"
+        },
+        {
+          "k": "code",
+          "cap": "Ví dụ giao việc",
+          "t": "/t-outbox:brief Ra mắt khóa học mới trong 30 ngày, ngân sách 50 triệu: cần kế hoạch marketing, landing page và dự toán"
+        },
+        {
+          "k": "callout",
+          "t": "Bản demo trên web chỉ diễn một buổi làm việc mẫu. Muốn thấy đội của bạn làm việc thật thì cài plugin vào Claude Code. Cần Node.js 18 trở lên để chạy văn phòng 3D."
+        }
+      ],
+      "ctasTitle": "Xem thử hoặc lấy mã nguồn",
+      "ctas": [
+        {
+          "btn": "Xem demo văn phòng 3D",
+          "url": "https://lanhmar.id.vn/apps/t-outbox/"
+        },
+        {
+          "btn": "Mã nguồn trên GitHub",
+          "url": "https://github.com/thecoolestmarperindawurl/t-outbox-office"
+        }
+      ]
+    },
+    {
       "id": "app-lanhmar-haus",
       "kho": "idea",
       "shelf": "app",

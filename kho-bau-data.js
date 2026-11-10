@@ -16,6 +16,143 @@ window.TREASURE_SHELVES = [
 
 window.TREASURES = [
   {
+    "id": "t-outbox",
+    "shelf": "code",
+    "featured": true,
+    "status": "open",
+    "url": "https://lanhmar.id.vn/apps/t-outbox/",
+    "thumb": "assets/res/app-t-outbox.jpg",
+    "name": "T-outbox",
+    "hook": "Biến Claude Code thành công ty AI, xem cả đội làm việc trong văn phòng 3D.",
+    "hook_en": "Turn Claude Code into an AI company and watch the team work in a 3D office.",
+    "type": "Plugin Claude Code",
+    "type_en": "Claude Code plugin",
+    "badge": "Miễn phí · Mã nguồn mở",
+    "badge_en": "Free · Open source",
+    "desc": "Plugin cho Claude Code: CEO, 5 phòng ban, 17 nhân viên AI. Bạn giao việc, đội chia việc, họp, soát chéo rồi báo cáo; văn phòng 3D trên trình duyệt cho thấy ai đang làm gì.",
+    "desc_en": "A plugin for Claude Code: a CEO, 5 departments, 17 AI staff. You assign the work; the team splits it, meets, cross-checks and reports, while a 3D office in your browser shows who is doing what.",
+    "points": [
+      "Giao một đầu việc lớn bằng /t-outbox:brief, CEO tự chia theo phòng ban và tổng hợp báo cáo",
+      "Tòa nhà 9 tầng: mỗi phòng ban một tầng, phòng họp, canteen, sảnh lễ tân, hầm xe",
+      "Đồng phục và văn phòng đổi theo brand bạn nạp vào",
+      "Dữ liệu chỉ nằm trên máy bạn, server local không gửi đi đâu"
+    ],
+    "points_en": [
+      "Hand over a big job with /t-outbox:brief; the CEO splits it by department and compiles the report",
+      "A 9-floor tower: one floor per department, meeting rooms, canteen, reception lobby, car park",
+      "Uniforms and office follow the brand you load",
+      "Your data stays on your machine; the local server sends nothing anywhere"
+    ],
+    "cta": "Xem demo 3D →",
+    "cta_en": "See the 3D demo →",
+    "install": [
+      "/plugin marketplace add thecoolestmarperindawurl/t-outbox-office",
+      "/plugin install t-outbox@t-outbox"
+    ],
+    "meta": [
+      {
+        "l": "Cài đặt",
+        "l_en": "Install",
+        "v": "Hai lệnh /plugin trong Claude Code, cần Node.js 18+",
+        "v_en": "Two /plugin commands in Claude Code, needs Node.js 18+"
+      },
+      {
+        "l": "Dữ liệu",
+        "l_en": "Your data",
+        "v": "Sự kiện ghi trong thư mục .t-outbox của dự án, không gửi lên máy chủ nào",
+        "v_en": "Events are written to the project's .t-outbox folder, never sent to any server"
+      },
+      {
+        "l": "Mã nguồn",
+        "l_en": "Source code",
+        "v": "MIT trên GitHub; mô hình 3D của Kenney (CC0)",
+        "v_en": "MIT on GitHub; 3D models by Kenney (CC0)"
+      }
+    ],
+    "note": "Bản demo trên web chỉ diễn một buổi làm việc mẫu. Cài plugin để xem đội của bạn làm việc thật.",
+    "note_en": "The web demo only plays a sample work session. Install the plugin to watch your own team work for real.",
+    "detail": "t-outbox",
+    "direct": true,
+    "links": [
+      {
+        "t": "Mã nguồn và README trên GitHub ↗",
+        "t_en": "Source code and README on GitHub ↗",
+        "u": "https://github.com/thecoolestmarperindawurl/t-outbox-office"
+      }
+    ],
+    "sections": [
+      {
+        "k": "callout",
+        "t": "Bạn giao một đầu việc lớn, ví dụ \"lập kế hoạch ra mắt sản phẩm trong 30 ngày\". CEO chia việc theo phòng ban, trưởng phòng giao người, QA soát lại, rồi CEO báo cáo cho bạn. Mỗi nhân viên là một subagent của Claude Code; văn phòng 3D chạy trên trình duyệt để bạn nhìn cả đội làm việc theo thời gian thực.",
+        "t_en": "You hand over one big job, for example \"plan a product launch in 30 days\". The CEO splits it by department, leads assign people, QA reviews, and the CEO reports back to you. Each staff member is a Claude Code subagent; the 3D office runs in your browser so you can watch the whole team work in real time."
+      },
+      {
+        "k": "h",
+        "t": "Cài và dùng",
+        "t_en": "Install and use"
+      },
+      {
+        "k": "steps",
+        "items": [
+          {
+            "t": "Cài plugin",
+            "d": "Trong Claude Code, chạy hai lệnh cài ở dưới."
+          },
+          {
+            "t": "Mở trụ sở",
+            "d": "Gõ /t-outbox:open, mở http://127.0.0.1:4747 trên trình duyệt."
+          },
+          {
+            "t": "Giao việc",
+            "d": "Gõ /t-outbox:brief kèm yêu cầu. Xem cả đội chia việc, họp, làm và báo cáo."
+          }
+        ],
+        "items_en": [
+          {
+            "t": "Install the plugin",
+            "d": "In Claude Code, run the two install commands below."
+          },
+          {
+            "t": "Open the HQ",
+            "d": "Type /t-outbox:open, then open http://127.0.0.1:4747 in your browser."
+          },
+          {
+            "t": "Assign work",
+            "d": "Type /t-outbox:brief with your request. Watch the team split the work, meet, do it and report."
+          }
+        ]
+      },
+      {
+        "k": "code",
+        "cap": "Lệnh cài trong Claude Code",
+        "cap_en": "Install commands in Claude Code",
+        "t": "/plugin marketplace add thecoolestmarperindawurl/t-outbox-office\n/plugin install t-outbox@t-outbox"
+      },
+      {
+        "k": "h",
+        "t": "Văn phòng 3D cho thấy gì",
+        "t_en": "What the 3D office shows"
+      },
+      {
+        "k": "list",
+        "items": [
+          "Tòa nhà 9 tầng, mỗi phòng ban một tầng với nội thất riêng; canteen và trung tâm hội nghị ở tầng riêng; sảnh có lễ tân, bảo vệ; hầm đỗ xe B1.",
+          "Nhân viên mặc đồng phục theo màu brand bạn nạp vào (mặc định LanhMar). Đổi brand bằng lệnh /t-outbox:brand.",
+          "Nhân viên đi thang máy, thang bộ, vào phòng họp khi được giao việc, xuống canteen nghỉ, lái xe vào hầm.",
+          "Bảng công việc, nhật ký văn phòng, chế độ Sôi nổi, Theo việc, Ẩn chi tiết, Buổi tối, xem 2D trên điện thoại.",
+          "Dữ liệu chỉ nằm trên máy bạn: hook ghi sự kiện vào thư mục .t-outbox của dự án, server local không gửi đi đâu."
+        ],
+        "items_en": [
+          "A 9-floor tower, one floor per department with its own interior; canteen and conference centre on their own floors; a lobby with reception and security; B1 car park.",
+          "Staff wear uniforms in the brand colours you load (LanhMar by default). Change the brand with /t-outbox:brand.",
+          "Staff take the lifts and stairs, go to meeting rooms when given work, take breaks in the canteen and drive into the car park.",
+          "Task board, office log, Lively, Follow work, Hide details and Evening modes, and a 2D view on phones.",
+          "Your data stays on your machine: a hook writes events to the project's .t-outbox folder and the local server sends nothing anywhere."
+        ]
+      }
+    ]
+  },
+  {
     "id": "pdf-editor",
     "shelf": "online",
     "featured": true,

@@ -1,0 +1,42 @@
+{
+  "building": {"floorWidth": 16, "floorDepth": 7, "floorHeight": 3},
+  "floors": [
+    {"id": "lobby", "name": "Sảnh đón tiếp", "kind": "lobby"},
+    {"id": "canteen", "name": "Canteen", "kind": "canteen"},
+    {"id": "meeting", "name": "Trung tâm hội nghị", "kind": "meeting"},
+    {"id": "sales", "dept": "sales"},
+    {"id": "marketing", "dept": "marketing"},
+    {"id": "product", "dept": "product"},
+    {"id": "engineering", "dept": "engineering"},
+    {"id": "operations", "dept": "operations"},
+    {"id": "executive", "dept": "executive"}
+  ],
+  "departments": [
+    {"id": "executive", "name": "Ban điều hành", "color": "#1e2a4a", "head": "manager"},
+    {"id": "marketing", "name": "Marketing", "color": "#e4572e", "head": "marketing-lead"},
+    {"id": "product", "name": "Sản phẩm & Thiết kế", "color": "#7c5cbf", "head": "product-manager"},
+    {"id": "engineering", "name": "Kỹ thuật & Dữ liệu", "color": "#2f7fd1", "head": "tech-lead"},
+    {"id": "sales", "name": "Kinh doanh & CSKH", "color": "#2f9e6e", "head": "sales-lead"},
+    {"id": "operations", "name": "Vận hành", "color": "#b8860b", "head": "operations-lead"}
+  ],
+  "staff": [
+    {"id": "manager", "name": "CEO", "title": "Giám đốc điều hành (Claude chính)", "dept": "executive", "lead": true, "fixed": true, "gender": "m", "hair": "#2b2b30", "skin": "#e2ab85"},
+    {"id": "marketing-lead", "name": "TP Marketing", "title": "Trưởng phòng Marketing", "dept": "marketing", "lead": true, "gender": "f", "hair": "#2b2b30", "skin": "#f2c8a2", "match": ["*strateg*", "*marketing-lead*", "*mkt-strategy*"]},
+    {"id": "content-writer", "name": "Content", "title": "Chuyên viên nội dung", "dept": "marketing", "gender": "m", "hair": "#3d2b22", "skin": "#e2ab85", "match": ["*content*", "*writer*", "*copy*"]},
+    {"id": "seo-specialist", "name": "SEO", "title": "Chuyên viên SEO", "dept": "marketing", "gender": "f", "hair": "#6b3f26", "skin": "#f2c8a2", "match": ["*seo*"]},
+    {"id": "ads-specialist", "name": "Ads", "title": "Chuyên viên quảng cáo", "dept": "marketing", "gender": "m", "hair": "#4a3426", "skin": "#a9693f", "match": ["*ads*", "*performance*", "*media-buy*"]},
+    {"id": "product-manager", "name": "TP Sản phẩm", "title": "Trưởng phòng Sản phẩm", "dept": "product", "lead": true, "gender": "f", "hair": "#b5651d", "skin": "#c98b62", "match": ["*product*", "*pm-*"]},
+    {"id": "designer", "name": "Design", "title": "Thiết kế", "dept": "product", "gender": "m", "hair": "#5a5a62", "skin": "#e2ab85", "match": ["*design*", "*creative*", "*brand*"]},
+    {"id": "researcher", "name": "Research", "title": "Nghiên cứu thị trường & người dùng", "dept": "product", "gender": "f", "hair": "#d9a24a", "skin": "#f2c8a2", "match": ["*research*"]},
+    {"id": "tech-lead", "name": "TP Kỹ thuật", "title": "Trưởng phòng Kỹ thuật", "dept": "engineering", "lead": true, "gender": "m", "hair": "#2b2b30", "skin": "#e2ab85", "match": ["*tech-lead*", "*architect*"]},
+    {"id": "web-developer", "name": "Web", "title": "Lập trình viên", "dept": "engineering", "gender": "f", "hair": "#8a3b2e", "skin": "#f2c8a2", "match": ["*developer*", "*engineer*", "*frontend*", "*backend*", "*web*"]},
+    {"id": "data-analyst", "name": "Data", "title": "Phân tích dữ liệu", "dept": "engineering", "gender": "m", "hair": "#3d2b22", "skin": "#a9693f", "match": ["*data*", "*analyst*", "*analytics*", "*report*"]},
+    {"id": "qa-reviewer", "name": "QA", "title": "Kiểm định chất lượng", "dept": "engineering", "gender": "f", "hair": "#2b2b30", "skin": "#c98b62", "match": ["*qa*", "*review*", "*test*"]},
+    {"id": "sales-lead", "name": "TP Kinh doanh", "title": "Trưởng phòng Kinh doanh", "dept": "sales", "lead": true, "gender": "m", "hair": "#4a3426", "skin": "#e2ab85", "match": ["*sales*"]},
+    {"id": "customer-support", "name": "CSKH", "title": "Chăm sóc khách hàng", "dept": "sales", "gender": "f", "hair": "#6b3f26", "skin": "#f2c8a2", "match": ["*support*", "*cskh*", "*customer*"]},
+    {"id": "operations-lead", "name": "TP Vận hành", "title": "Trưởng phòng Vận hành", "dept": "operations", "lead": true, "gender": "m", "hair": "#5a5a62", "skin": "#e2ab85", "match": ["*operations*", "*ops-*"]},
+    {"id": "finance-analyst", "name": "Tài chính", "title": "Chuyên viên tài chính", "dept": "operations", "gender": "f", "hair": "#b5651d", "skin": "#f2c8a2", "match": ["*finance*", "*accounting*", "*budget*"]},
+    {"id": "legal-counsel", "name": "Pháp chế", "title": "Chuyên viên pháp chế", "dept": "operations", "gender": "m", "hair": "#2b2b30", "skin": "#a9693f", "match": ["*legal*", "*compliance*"]},
+    {"id": "hr-specialist", "name": "Nhân sự", "title": "Chuyên viên nhân sự", "dept": "operations", "gender": "f", "hair": "#d9a24a", "skin": "#c98b62", "match": ["*hr-*", "*people*", "*recruit*"]}
+  ]
+}
