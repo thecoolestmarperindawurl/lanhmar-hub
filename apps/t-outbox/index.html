@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="t-outbox-mode" content="web">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>T-outbox</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">{ "imports": { "three": "./vendor/three.module.min.js" } }</script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo" id="brand-logo" aria-hidden="true"></span>
+      <h1 id="brand-name">T-outbox</h1>
+      <span class="project" id="project"></span>
+    </div>
+    <div class="stats">
+      <span class="pill"><b id="stat-working">0</b> đang làm việc</span>
+      <span class="pill"><b id="stat-done">0</b> việc đã xong</span>
+      <span class="pill live" id="live"><i></i><span id="live-text">Đang kết nối</span></span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="office" aria-label="Văn phòng">
+      <div class="toolbar">
+        <button type="button" id="btn-customize" title="Đổi tên công ty, màu đồng phục, tên nhân viên">Tùy biến</button>
+        <button type="button" id="btn-lively" aria-pressed="true" title="Việc CEO tự làm cũng được nhân viên đúng chuyên môn hỗ trợ, để cả văn phòng chuyển động">Sôi nổi</button>
+        <button type="button" id="btn-follow" aria-pressed="true" title="Máy quay tự lướt tới người vừa nhận việc, xong lượt thì lùi về toàn cảnh">Theo việc</button>
+        <button type="button" id="btn-hide" aria-pressed="false" title="Ẩn tên file, câu lệnh và nội dung việc khi quay màn hình">Ẩn chi tiết</button>
+        <button type="button" id="btn-night" aria-pressed="false" title="Chuyển ánh sáng ban ngày và buổi tối">Buổi tối</button>
+        <button type="button" id="btn-camera" title="Đưa góc nhìn về mặc định">Góc nhìn mặc định</button>
+        <button type="button" id="btn-view">Xem 2D</button>
+      </div>
+      <p class="demo-note" id="demo-note" hidden>Đang diễn thử. Văn phòng chuyển sang việc thật ngay khi Claude Code bắt đầu làm việc.</p>
+      <div id="stage"></div>
+    </section>
+
+    <aside class="side">
+      <section class="panel">
+        <h2>Phòng ban</h2>
+        <ul class="depts" id="depts"></ul>
+      </section>
+      <section class="panel">
+        <h2>Nhật ký văn phòng</h2>
+        <ul class="feed" id="feed"></ul>
+      </section>
+    </aside>
+
+    <section class="panel board" id="board" aria-label="Bảng công việc">
+      <h2>Bảng công việc</h2>
+      <div class="columns">
+        <div class="column"><h3>Chờ nhận <span id="count-assigned">0</span></h3><ul class="tasks" id="col-assigned"></ul></div>
+        <div class="column"><h3>Đang làm <span id="count-working">0</span></h3><ul class="tasks" id="col-working"></ul></div>
+        <div class="column"><h3>Đã xong <span id="count-done">0</span></h3><ul class="tasks" id="col-done"></ul></div>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="customize">
+    <form method="dialog">
+      <h2>Tùy biến công ty</h2>
+      <div class="fields">
+        <label>Tên công ty <input name="name" maxlength="60" required></label>
+        <label>Khẩu hiệu <input name="tagline" maxlength="60"></label>
+        <label>Logo chữ <input name="logoText" maxlength="3" size="3"></label>
+        <label>Kiểu đồng phục
+          <select name="style"><option value="polo">Áo polo</option><option value="shirt">Sơ mi</option><option value="tshirt">Áo thun</option></select>
+        </label>
+        <label>Màu chính (áo) <input type="color" name="primary"></label>
+        <label>Màu phụ (áo khoác quản lý) <input type="color" name="secondary"></label>
+        <label>Màu nhấn (dây thẻ, cà vạt) <input type="color" name="accent"></label>
+      </div>
+      <h3>Nhân viên</h3>
+      <div class="staff-fields" id="staff-fields"></div>
+      <p class="error" id="customize-error" role="alert"></p>
+      <div class="actions">
+        <button type="button" id="customize-cancel">Hủy</button>
+        <button type="submit" class="primary">Lưu</button>
+      </div>
+      <p class="hint">Lưu vào thư mục <code>.t-outbox/</code> của dự án. Văn phòng tải lại ngay sau khi lưu.</p>
+    </form>
+  </dialog>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

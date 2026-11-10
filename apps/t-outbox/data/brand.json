@@ -1,0 +1,20 @@
+{
+  "name": "T-outbox",
+  "tagline": "LANHMAR ★ Digital Marketer",
+  "logoText": "T",
+  "colors": {
+    "primary": "#2D2FEF",
+    "secondary": "#241F45",
+    "accent": "#FF7A45"
+  },
+  "uniform": {
+    "trousers": "#241F45"
+  },
+  "theme": {
+    "bg": "#F3F1FD",
+    "panel": "#FFFDF9",
+    "ink": "#241F45",
+    "muted": "#55507A",
+    "line": "#D6CEF7"
+  }
+}
