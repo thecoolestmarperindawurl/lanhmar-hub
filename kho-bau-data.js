@@ -17,6 +17,145 @@ window.TREASURE_SHELVES = [
 
 window.TREASURES = [
   {
+    "id": "mograph",
+    "shelf": "code",
+    "featured": true,
+    "status": "open",
+    "url": "https://github.com/thecoolestmarperindawurl/mograph",
+    "thumb": "assets/res/tool-mograph.jpg",
+    "name": "mograph",
+    "hook": "Giao kịch bản cho Claude Code, nhận video motion graphic có nhạc khớp beat.",
+    "hook_en": "Hand Claude Code a script, get a motion graphic video with beat-synced music.",
+    "type": "Plugin Claude Code",
+    "type_en": "Claude Code plugin",
+    "badge": "Miễn phí · Mã nguồn mở",
+    "badge_en": "Free · Open source",
+    "desc": "Plugin cho Claude Code: agent chỉ viết một file kịch bản ngắn, engine lo bố cục, chuyển động, nhạc khớp beat, giọng đọc kèm phụ đề rồi xuất MP4 ngay trên máy bạn. Agent không phải viết code dựng hình nên tốn ít token.",
+    "desc_en": "A Claude Code plugin: the agent only writes a short script file, and the engine handles layout, motion, beat-synced music, voiceover with captions, then exports an MP4 on your own machine. The agent never writes animation code, so it uses few tokens.",
+    "points": [
+      "20 kiểu cảnh dựng sẵn: tiêu đề, sơ đồ quy trình, vòng lặp, so sánh, khung chat, ảnh và video footage",
+      "Nhạc gốc 5 phong cách, điểm cắt cảnh tự khớp beat; hoặc dùng nhạc của bạn, tự dò BPM",
+      "Lồng tiếng bằng trình đọc trên máy hoặc file bạn thu, phụ đề tự chạy theo lời",
+      "Một kịch bản xuất được cả video dọc 9:16 và ngang 16:9"
+    ],
+    "points_en": [
+      "20 ready-made scene types: titles, process flows, cycles, comparisons, chat windows, images and video footage",
+      "Original music in 5 styles with cuts snapped to the beat; or bring your own track and the BPM is detected",
+      "Voiceover from a speech engine on your machine or your own recording, with captions that follow the words",
+      "One script exports both a vertical 9:16 and a horizontal 16:9 video"
+    ],
+    "cta": "Xem trên GitHub →",
+    "cta_en": "View on GitHub →",
+    "install": [
+      "/plugin marketplace add thecoolestmarperindawurl/mograph",
+      "/plugin install mograph@mograph"
+    ],
+    "meta": [
+      {
+        "l": "Cài đặt",
+        "l_en": "Install",
+        "v": "Hai lệnh /plugin trong Claude Code; máy cần Node.js 18+, Chrome hoặc Edge, ffmpeg",
+        "v_en": "Two /plugin commands in Claude Code; your machine needs Node.js 18+, Chrome or Edge, and ffmpeg"
+      },
+      {
+        "l": "Dữ liệu",
+        "l_en": "Your data",
+        "v": "Video render ngay trên máy bạn; ảnh, footage và file thu âm không tải lên máy chủ nào",
+        "v_en": "Videos render on your machine; images, footage and recordings are not uploaded to any server"
+      },
+      {
+        "l": "Mã nguồn",
+        "l_en": "Source code",
+        "v": "MIT trên GitHub; font Montserrat (SIL OFL)",
+        "v_en": "MIT on GitHub; Montserrat font (SIL OFL)"
+      }
+    ],
+    "note": "Video giới thiệu trong thẻ này được dựng bằng chính mograph. Số lượt gọi model là một lần đo của mình ngày 11/11/2026 với Claude Sonnet; con số thực tế tuỳ máy và kịch bản.",
+    "note_en": "The intro video on this card was made with mograph itself. The model-call count comes from one measurement on 11/11/2026 with Claude Sonnet; real numbers depend on your setup and script.",
+    "video": {
+      "src": "assets/video/mograph-intro.mp4",
+      "poster": "assets/res/mograph-intro-poster.jpg",
+      "title": "mograph: video giới thiệu 47 giây",
+      "title_en": "mograph: 47-second intro video"
+    },
+    "detail": "mograph",
+    "direct": true,
+    "links": [
+      {
+        "t": "Mã nguồn và README trên GitHub ↗",
+        "t_en": "Source code and README on GitHub ↗",
+        "u": "https://github.com/thecoolestmarperindawurl/mograph"
+      }
+    ],
+    "sections": [
+      {
+        "k": "callout",
+        "t": "Bạn nói với Claude Code \"làm video 30 giây giới thiệu sản phẩm X\". Agent chốt kịch bản với bạn, chọn ảnh, chọn kiểu cảnh, viết một file kịch bản ngắn rồi tự kiểm tra và xuất MP4. Phần chuyển động, nhạc và khớp beat do engine lo, nên agent không phải viết code dựng hình.",
+        "t_en": "You tell Claude Code \"make a 30-second video introducing product X\". The agent agrees the script with you, picks images and scene types, writes a short script file, then checks it and exports an MP4. The engine handles motion, music and beat sync, so the agent never writes animation code."
+      },
+      {
+        "k": "h",
+        "t": "Cài và dùng",
+        "t_en": "Install and use"
+      },
+      {
+        "k": "steps",
+        "items": [
+          {
+            "t": "Cài plugin",
+            "d": "Trong Claude Code, chạy hai lệnh cài ở dưới."
+          },
+          {
+            "t": "Giao việc",
+            "d": "Nói bạn muốn video gì, dài bao lâu, dọc hay ngang, kèm thư mục ảnh hoặc footage nếu có."
+          },
+          {
+            "t": "Duyệt và xuất",
+            "d": "Agent gửi một ảnh tổng hợp các cảnh để bạn duyệt, rồi xuất file MP4."
+          }
+        ],
+        "items_en": [
+          {
+            "t": "Install the plugin",
+            "d": "In Claude Code, run the two install commands below."
+          },
+          {
+            "t": "Assign the work",
+            "d": "Say what video you want, how long, vertical or horizontal, plus a folder of images or footage if you have one."
+          },
+          {
+            "t": "Review and export",
+            "d": "The agent sends one contact sheet of all scenes for you to review, then exports the MP4."
+          }
+        ]
+      },
+      {
+        "k": "code",
+        "cap": "Lệnh cài trong Claude Code",
+        "cap_en": "Install commands in Claude Code",
+        "t": "/plugin marketplace add thecoolestmarperindawurl/mograph\n/plugin install mograph@mograph"
+      },
+      {
+        "k": "h",
+        "t": "Vì sao tốn ít token",
+        "t_en": "Why it uses few tokens"
+      },
+      {
+        "k": "list",
+        "items": [
+          "Agent chỉ viết kịch bản dạng YAML, không viết HTML, CSS hay code chuyển động.",
+          "Bước kiểm tra trả về chữ, không phải ảnh; cả video được duyệt bằng một ảnh tổng hợp.",
+          "Lần đo của mình: một video 33 giây, 6 cảnh, có nhạc, mất 7 lượt gọi model và 1 lần xem ảnh."
+        ],
+        "items_en": [
+          "The agent only writes a YAML script, never HTML, CSS or animation code.",
+          "Checks return text, not images; the whole video is reviewed from one contact sheet.",
+          "In my measurement, a 33-second, 6-scene video with music took 7 model calls and 1 image view."
+        ]
+      }
+    ]
+  },
+  {
     "id": "t-outbox",
     "shelf": "code",
     "featured": true,
