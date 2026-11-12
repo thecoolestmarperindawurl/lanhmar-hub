@@ -8893,15 +8893,27 @@
         {
           "k": "steps",
           "items": [
-            "Vào aitmpl.com, tìm theo việc cần làm (ví dụ: code review, frontend, SEO).",
-            "Mở trang thành phần, xem các file nó sẽ ghi và lệnh cài chính xác.",
-            "Chép lệnh, chạy trong thư mục dự án (cần Node.js, không phải cài toàn cục).",
-            "Mở lại Claude Code để nạp agent, skill, lệnh hoặc MCP vừa cài."
+            {
+              "t": "Tìm",
+              "d": "Vào aitmpl.com, tìm theo việc cần làm (ví dụ: code review, frontend, SEO)."
+            },
+            {
+              "t": "Xem trước",
+              "d": "Mở trang thành phần, xem các file nó sẽ ghi và lệnh cài chính xác."
+            },
+            {
+              "t": "Cài",
+              "d": "Chép lệnh, chạy trong thư mục dự án (cần Node.js, không phải cài toàn cục)."
+            },
+            {
+              "t": "Dùng",
+              "d": "Mở lại Claude Code để nạp agent, skill, lệnh hoặc MCP vừa cài."
+            }
           ]
         },
         {
           "k": "code",
-          "t": "npx claude-code-templates@latest\n\nnpx claude-code-templates@latest --skill creative-design/frontend-design\n\nnpx claude-code-templates@latest --agent development-team/frontend-developer --command testing/generate-tests --mcp integration/github-integration\n\nnpx claude-code-templates@latest --search \"code review\"",
+          "t": "npx claude-code-templates@latest\n\nnpx claude-code-templates@latest --skill creative-design/frontend-design\n\nnpx claude-code-templates@latest \\\n  --agent development-team/frontend-developer \\\n  --command testing/generate-tests \\\n  --mcp integration/github-integration\n\nnpx claude-code-templates@latest --search \"code review\"",
           "cap": "Duyệt và cài tương tác · cài một skill · cài cả bộ trong một lệnh · tìm từ terminal"
         },
         {
