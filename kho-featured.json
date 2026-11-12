@@ -8757,6 +8757,218 @@
       ]
     },
     {
+      "id": "tool-aitmpl",
+      "kho": "tool",
+      "guide": true,
+      "date": "2026-11-12",
+      "title": "Claude Code Templates (aitmpl.com): kho gần 2.000 agent, skill, lệnh, MCP, hook cho Claude Code",
+      "type": "Trang web",
+      "badge": "Web",
+      "tags": [
+        "claude code",
+        "agent",
+        "skill",
+        "mcp",
+        "hooks"
+      ],
+      "thumb": "assets/res/tool-aitmpl.jpg",
+      "note": "Danh mục mã nguồn mở: tìm, xem trước từng file rồi cài bằng một lệnh npx. Có thêm bảng theo dõi phiên, xem lại hội thoại, kiểm tra cài đặt. Giấy phép MIT, phần lớn thành phần do cộng đồng đóng góp.",
+      "cta": {
+        "title": "aitmpl.com",
+        "url": "https://www.aitmpl.com/",
+        "btn": "Mở aitmpl.com"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Phần lớn thành phần do bên thứ ba và cộng đồng đóng góp. Trước khi cài, bạn mở trang thành phần để xem nó ghi những file nào vào máy (nhất là hook, MCP và mod, vì chúng chạy lệnh hoặc đổi cách Claude Code hoạt động), và kiểm tra giấy phép riêng của từng thành phần. Đừng thêm --yes khi chưa đọc."
+        },
+        {
+          "k": "p",
+          "t": "Thông tin lấy từ README và trang GitHub của repo davila7/claude-code-templates, đọc ngày 12/11/2026 (trang aitmpl.com là nơi repo này đăng danh mục). Số sao và số lượng thành phần thay đổi liên tục."
+        },
+        {
+          "k": "h",
+          "t": "Là gì"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Mục",
+            "Chi tiết"
+          ],
+          "rows": [
+            [
+              "Trang web",
+              "aitmpl.com: tìm kiếm, xem trước mọi file một thành phần sẽ ghi, gộp nhiều thành phần thành một lệnh cài"
+            ],
+            [
+              "Repo",
+              "davila7/claude-code-templates"
+            ],
+            [
+              "Mô tả của tác giả",
+              "Open-source registry and CLI for Claude Code components: agents, commands, skills, hooks, MCPs, settings and mods"
+            ],
+            [
+              "Quy mô",
+              "README ghi hơn 1.980 thành phần"
+            ],
+            [
+              "Mức quan tâm (lúc đọc)",
+              "Khoảng 33,4 nghìn sao, 3,9 nghìn fork, 102 issue mở, 2.098 commit"
+            ],
+            [
+              "Giấy phép",
+              "Repo: MIT. Từng thành phần có thể theo giấy phép riêng của nguồn gốc"
+            ],
+            [
+              "Tài liệu",
+              "docs.aitmpl.com (hướng dẫn, tham chiếu CLI, API danh mục)"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Trong kho có gì"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Loại",
+            "Số lượng (lúc đọc)",
+            "Dùng để"
+          ],
+          "rows": [
+            [
+              "Skills",
+              "918",
+              "Năng lực dùng lại, nạp dần theo nhu cầu"
+            ],
+            [
+              "Agents",
+              "422",
+              "Subagent chuyên một mảng (frontend, bảo mật, dữ liệu…)"
+            ],
+            [
+              "Commands",
+              "288",
+              "Lệnh gạch chéo tự tạo (/generate-tests…)"
+            ],
+            [
+              "MCPs",
+              "119",
+              "Kết nối dịch vụ ngoài (GitHub, cơ sở dữ liệu…)"
+            ],
+            [
+              "Settings",
+              "80",
+              "Cấu hình Claude Code"
+            ],
+            [
+              "Hooks",
+              "63",
+              "Tự động chạy khi có sự kiện"
+            ],
+            [
+              "Mods",
+              "50",
+              "Đổi giao diện và hành vi của chính Claude Code"
+            ],
+            [
+              "Templates",
+              "14",
+              "Cấu hình trọn bộ cho một dự án"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Ngoài ra có Loops (18), Sandboxes (11, chỉ để tham khảo, chưa được kiểm thử tích hợp) và Plugins."
+        },
+        {
+          "k": "h",
+          "t": "Cách dùng"
+        },
+        {
+          "k": "steps",
+          "items": [
+            "Vào aitmpl.com, tìm theo việc cần làm (ví dụ: code review, frontend, SEO).",
+            "Mở trang thành phần, xem các file nó sẽ ghi và lệnh cài chính xác.",
+            "Chép lệnh, chạy trong thư mục dự án (cần Node.js, không phải cài toàn cục).",
+            "Mở lại Claude Code để nạp agent, skill, lệnh hoặc MCP vừa cài."
+          ]
+        },
+        {
+          "k": "code",
+          "t": "npx claude-code-templates@latest\n\nnpx claude-code-templates@latest --skill creative-design/frontend-design\n\nnpx claude-code-templates@latest --agent development-team/frontend-developer --command testing/generate-tests --mcp integration/github-integration\n\nnpx claude-code-templates@latest --search \"code review\"",
+          "cap": "Duyệt và cài tương tác · cài một skill · cài cả bộ trong một lệnh · tìm từ terminal"
+        },
+        {
+          "k": "h",
+          "t": "Công cụ đi kèm"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Lệnh",
+            "Tác dụng"
+          ],
+          "rows": [
+            [
+              "--analytics",
+              "Theo dõi phiên Claude Code theo thời gian thực tại localhost:3333"
+            ],
+            [
+              "--chats",
+              "Xem lại các cuộc hội thoại tại localhost:9876"
+            ],
+            [
+              "--health-check",
+              "Chẩn đoán cài đặt Claude Code và cấu hình dự án"
+            ]
+          ]
+        },
+        {
+          "k": "p",
+          "t": "Hai bảng điều khiển chỉ mở trên 127.0.0.1 vì chúng hiện lịch sử hội thoại; muốn xem từ xa thì dùng chuyển cổng SSH, đừng mở ra Internet."
+        },
+        {
+          "k": "h",
+          "t": "Gợi ý của mình"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Phù hợp nhất để tìm ý tưởng: xem người khác viết agent, skill, hook thế nào rồi chỉnh lại cho quy trình của mình.",
+            "Cài từng thành phần một, dùng thử rồi mới cài tiếp, thay vì cài cả bộ lớn một lần làm Claude Code nạp quá nhiều thứ.",
+            "Repo ghi pull request được kiểm bằng plugin validator của Claude Code và quét bằng NVIDIA SkillSpector; đó là bước kiểm trước khi gộp, không bảo đảm mọi thành phần đều an toàn."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Link"
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "aitmpl.com",
+              "u": "https://www.aitmpl.com/"
+            },
+            {
+              "t": "Tài liệu docs.aitmpl.com",
+              "u": "https://docs.aitmpl.com/"
+            },
+            {
+              "t": "Repo davila7/claude-code-templates",
+              "u": "https://github.com/davila7/claude-code-templates"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "app-t-outbox",
       "kho": "idea",
       "shelf": "bot",
