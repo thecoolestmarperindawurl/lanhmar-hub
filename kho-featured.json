@@ -8981,6 +8981,163 @@
       ]
     },
     {
+      "id": "tool-long-tieng-viet",
+      "kho": "tool",
+      "guide": true,
+      "date": "2026-11-12",
+      "title": "Lồng Tiếng Việt cho YouTube: tiện ích tự dịch phụ đề và đọc bằng giọng Việt",
+      "type": "Tiện ích Chrome / Edge",
+      "badge": "Extension",
+      "tags": [
+        "youtube",
+        "extension",
+        "edge",
+        "chrome"
+      ],
+      "thumb": "assets/res/tool-long-tieng-viet.jpg",
+      "note": "Mở video YouTube nước ngoài là tự dịch phụ đề sang tiếng Việt và đọc lên, âm gốc tự nhỏ lại. Miễn phí, không cần tài khoản hay API key. Cài thủ công từ thư mục Drive.",
+      "cta": {
+        "title": "Thư mục LongTiengViet trên Google Drive",
+        "url": "https://drive.google.com/drive/folders/1-BZlDElkV3_WKP8RDy5OevY9SLucoNGm?usp=drive_link",
+        "btn": "Mở thư mục tải về"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Tiện ích không có trên Chrome Web Store, cài bằng chế độ nhà phát triển (Load unpacked). Mình đã đọc mã nguồn bản 1.0.1 (file LongTiengViet.zip trong thư mục, ngày 3/11/2026): chỉ xin quyền lưu cài đặt, chỉ chạy trên youtube.com, chỉ gửi phụ đề tới Google Dịch và lấy giọng đọc của Google, không gửi dữ liệu đi nơi khác. Nếu thư mục được cập nhật bản mới, bạn nên tự kiểm tra lại."
+        },
+        {
+          "k": "h",
+          "t": "Là gì"
+        },
+        {
+          "k": "p",
+          "t": "Tiện ích giúp xem video YouTube nước ngoài có giọng đọc tiếng Việt: lấy phụ đề của video (kể cả phụ đề tự động), gộp thành câu, dịch sang tiếng Việt bằng Google Dịch rồi đọc khớp thời gian với video. Video đã có phụ đề tiếng Việt thì dùng luôn bản đó."
+        },
+        {
+          "k": "table",
+          "head": [
+            "Mục",
+            "Chi tiết"
+          ],
+          "rows": [
+            [
+              "Phiên bản",
+              "1.0.1 (Manifest V3)"
+            ],
+            [
+              "Trình duyệt",
+              "Microsoft Edge (khuyên dùng, có giọng HoaiMy / NamMinh tự nhiên) hoặc Chrome (dùng giọng Google Dịch, kém tự nhiên hơn)"
+            ],
+            [
+              "Quyền",
+              "storage (lưu cài đặt và bản dịch), chạy trên youtube.com, gọi translate.googleapis.com và translate.google.com"
+            ],
+            [
+              "Chi phí",
+              "Miễn phí, không cần tài khoản, không cần API key"
+            ],
+            [
+              "Bộ nhớ đệm",
+              "Lưu bản dịch của 40 video gần nhất trên máy, xem lại không phải dịch lại"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cài đặt"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Tải và giải nén",
+              "d": "Mở thư mục Drive, tải LongTiengViet.zip, giải nén rồi chép thư mục long-tieng-viet vào chỗ cố định (ví dụ Documents). Đừng xoá hay di chuyển nó sau khi cài."
+            },
+            {
+              "t": "Mở trang tiện ích",
+              "d": "Gõ edge://extensions (Chrome: chrome://extensions) và bật Developer mode / Chế độ dành cho nhà phát triển."
+            },
+            {
+              "t": "Load unpacked",
+              "d": "Bấm Load unpacked / Tải tiện ích đã giải nén, chọn thư mục long-tieng-viet (có file manifest.json bên trong)."
+            },
+            {
+              "t": "Ghim lên thanh công cụ",
+              "d": "Bấm biểu tượng mảnh ghép, ghim Lồng Tiếng Việt để tiện chỉnh cài đặt."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Sử dụng"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Mở video YouTube nước ngoài: góc trên trái hiện \"Đang lấy phụ đề...\" rồi \"Lồng tiếng Việt: BẬT\", giọng Việt bắt đầu đọc.",
+            "Bật/tắt: nút VI trên thanh điều khiển video hoặc Alt + V.",
+            "Bấm biểu tượng tiện ích để chỉnh giọng đọc, tốc độ, mức nhỏ của âm gốc, âm lượng giọng Việt, hiện phụ đề tiếng Việt."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Khi gặp lỗi"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Hiện tượng",
+            "Cách xử lý"
+          ],
+          "rows": [
+            [
+              "Không nghe giọng đọc",
+              "Bấm vào video một lần (trình duyệt chặn tự phát âm thanh khi chưa bấm vào trang)"
+            ],
+            [
+              "Báo \"Video này không có phụ đề\"",
+              "Video không có phụ đề nào, kể cả tự động, nên chưa lồng tiếng được"
+            ],
+            [
+              "Không thấy gì cả",
+              "Vào trang tiện ích xem đã bật chưa, bấm nút tải lại (⟳) của tiện ích rồi F5 trang video"
+            ],
+            [
+              "Edge đòi tắt tiện ích ở chế độ nhà phát triển",
+              "Bấm X / Giữ lại, đừng bấm Tắt"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Giới hạn"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Chưa hỗ trợ YouTube Shorts, chỉ trang xem video thường (/watch).",
+            "Cần có mạng: dịch bằng Google Dịch, giọng đọc dùng dịch vụ giọng nói online của Microsoft / Google. Chất lượng là máy dịch, câu dài sẽ được đọc nhanh hơn một chút để khớp thời gian.",
+            "Tiện ích dùng địa chỉ dịch và đọc miễn phí không chính thức của Google; nếu Google đổi hoặc giới hạn, tiện ích có thể ngừng chạy.",
+            "Thư mục không ghi giấy phép sử dụng; mình chỉ dẫn link tới thư mục gốc, không đăng lại file."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Link"
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "Thư mục LongTiengViet trên Google Drive",
+              "u": "https://drive.google.com/drive/folders/1-BZlDElkV3_WKP8RDy5OevY9SLucoNGm?usp=drive_link"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "app-t-outbox",
       "kho": "idea",
       "shelf": "bot",
