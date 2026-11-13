@@ -30,19 +30,19 @@ window.TREASURES = [
     "type_en": "Claude Code plugin",
     "badge": "Miễn phí · Mã nguồn mở",
     "badge_en": "Free · Open source",
-    "desc": "Plugin cho Claude Code: agent chỉ viết một file kịch bản ngắn, engine lo bố cục, chuyển động, nhạc khớp beat, giọng đọc kèm phụ đề rồi xuất MP4 ngay trên máy bạn. Agent không phải viết code dựng hình nên tốn ít token.",
-    "desc_en": "A Claude Code plugin: the agent only writes a short script file, and the engine handles layout, motion, beat-synced music, voiceover with captions, then exports an MP4 on your own machine. The agent never writes animation code, so it uses few tokens.",
+    "desc": "Plugin cho Claude Code: agent chỉ viết một file kịch bản ngắn, engine lo bố cục, chữ động, chuyển cảnh, nhạc khớp beat, giọng đọc kèm phụ đề rồi xuất MP4 ngay trên máy bạn. Đổi cả phong cách video chỉ bằng một từ.",
+    "desc_en": "A Claude Code plugin: the agent only writes a short script file, and the engine handles layout, animated text, transitions, beat-synced music, voiceover with captions, then exports an MP4 on your own machine. Change the whole style with one word.",
     "points": [
-      "20 kiểu cảnh dựng sẵn: tiêu đề, sơ đồ quy trình, vòng lặp, so sánh, khung chat, ảnh và video footage",
-      "Nhạc gốc 5 phong cách, điểm cắt cảnh tự khớp beat; hoặc dùng nhạc của bạn, tự dò BPM",
-      "Lồng tiếng bằng trình đọc trên máy hoặc file bạn thu, phụ đề tự chạy theo lời",
-      "Một kịch bản xuất được cả video dọc 9:16 và ngang 16:9"
+      "7 phong cách (bold, cinematic, editorial…): engine tự biến tấu chữ động và chuyển cảnh từng cảnh, nên hai video không giống nhau",
+      "26 kiểu cảnh: kinetic typography, mockup điện thoại, chia đôi khung hình, logo sting, timeline, lower third, footage, sơ đồ",
+      "Nhạc gốc 5 phong cách, điểm cắt cảnh tự khớp beat; lồng tiếng kèm phụ đề chạy theo lời",
+      "Một ảnh so sánh nhiều phong cách để chọn trước khi render; một kịch bản xuất được cả 9:16 và 16:9"
     ],
     "points_en": [
-      "20 ready-made scene types: titles, process flows, cycles, comparisons, chat windows, images and video footage",
-      "Original music in 5 styles with cuts snapped to the beat; or bring your own track and the BPM is detected",
-      "Voiceover from a speech engine on your machine or your own recording, with captions that follow the words",
-      "One script exports both a vertical 9:16 and a horizontal 16:9 video"
+      "7 styles (bold, cinematic, editorial…): the engine varies animated text and transitions per scene, so two videos never look the same",
+      "26 scene types: kinetic typography, phone mockups, split screen, logo sting, timeline, lower third, footage, diagrams",
+      "Original music in 5 styles with cuts snapped to the beat; voiceover with captions that follow the words",
+      "One image compares several styles before rendering; one script exports both 9:16 and 16:9"
     ],
     "cta": "Xem trên GitHub →",
     "cta_en": "View on GitHub →",
@@ -70,13 +70,13 @@ window.TREASURES = [
         "v_en": "MIT on GitHub; Montserrat font (SIL OFL)"
       }
     ],
-    "note": "Video giới thiệu trong thẻ này được dựng bằng chính mograph. Số lượt gọi model là một lần đo của mình ngày 11/11/2026 với Claude Sonnet; con số thực tế tuỳ máy và kịch bản.",
-    "note_en": "The intro video on this card was made with mograph itself. The model-call count comes from one measurement on 11/11/2026 with Claude Sonnet; real numbers depend on your setup and script.",
+    "note": "Video giới thiệu trong thẻ này được dựng bằng chính mograph, phong cách bold, nhạc upbeat. Engine chạy trên máy bạn; tốc độ render tuỳ máy và phong cách.",
+    "note_en": "The intro video on this card was made with mograph itself, bold look, upbeat music. The engine runs on your machine; render speed depends on your computer and the style.",
     "video": {
       "src": "assets/video/mograph-intro.mp4",
       "poster": "assets/res/mograph-intro-poster.jpg",
-      "title": "mograph: video giới thiệu 47 giây",
-      "title_en": "mograph: 47-second intro video"
+      "title": "mograph: video giới thiệu 46 giây",
+      "title_en": "mograph: 46-second intro video"
     },
     "detail": "mograph",
     "direct": true,
@@ -145,12 +145,12 @@ window.TREASURES = [
         "items": [
           "Agent chỉ viết kịch bản dạng YAML, không viết HTML, CSS hay code chuyển động.",
           "Bước kiểm tra trả về chữ, không phải ảnh; cả video được duyệt bằng một ảnh tổng hợp.",
-          "Lần đo của mình: một video 33 giây, 6 cảnh, có nhạc, mất 7 lượt gọi model và 1 lần xem ảnh."
+          "Chọn phong cách bằng một ảnh so sánh thay vì render thử nhiều lần."
         ],
         "items_en": [
           "The agent only writes a YAML script, never HTML, CSS or animation code.",
           "Checks return text, not images; the whole video is reviewed from one contact sheet.",
-          "In my measurement, a 33-second, 6-scene video with music took 7 model calls and 1 image view."
+          "Styles are chosen from one comparison image instead of several trial renders."
         ]
       }
     ]
