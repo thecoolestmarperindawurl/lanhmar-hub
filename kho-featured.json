@@ -9138,6 +9138,136 @@
       ]
     },
     {
+      "id": "app-mograph",
+      "kho": "idea",
+      "shelf": "tool",
+      "status": "Đang dùng",
+      "guide": true,
+      "date": "2026-11-13",
+      "title": "mograph: giao kịch bản cho Claude Code, nhận video motion graphic có nhạc khớp beat",
+      "type": "Plugin Claude Code",
+      "badge": "Mã nguồn mở",
+      "tags": [
+        "claude code",
+        "video",
+        "motion graphic",
+        "plugin"
+      ],
+      "thumb": "assets/res/tool-mograph.jpg",
+      "note": "Plugin dựng video motion graphic: agent chỉ viết một file kịch bản ngắn, engine lo chữ động, chuyển cảnh, nhạc khớp beat, giọng đọc kèm phụ đề rồi xuất MP4 trên máy bạn. Đổi cả phong cách video chỉ bằng một từ.",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Bạn nói với Claude Code \"làm video 30 giây giới thiệu sản phẩm X\". Agent chốt kịch bản, chọn ảnh, chọn kiểu cảnh và phong cách, viết một file kịch bản ngắn, tự kiểm tra rồi xuất MP4. Agent không phải viết code dựng hình nên tốn ít token."
+        },
+        {
+          "k": "h",
+          "t": "Cài và dùng"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Cài plugin",
+              "d": "Trong Claude Code, chạy hai lệnh cài ở dưới. Máy cần Node.js 18+, Chrome hoặc Edge, ffmpeg."
+            },
+            {
+              "t": "Giao việc",
+              "d": "Nói bạn muốn video gì, dài bao lâu, dọc hay ngang, kèm thư mục ảnh hoặc footage nếu có."
+            },
+            {
+              "t": "Chọn phong cách",
+              "d": "Agent gửi một ảnh so sánh vài phong cách để bạn chọn, rồi một ảnh tổng hợp các cảnh để duyệt."
+            },
+            {
+              "t": "Nhận video",
+              "d": "Agent xuất file MP4, có nhạc khớp beat; muốn thì thêm giọng đọc và phụ đề."
+            }
+          ]
+        },
+        {
+          "k": "code",
+          "cap": "Lệnh cài trong Claude Code",
+          "t": "/plugin marketplace add thecoolestmarperindawurl/mograph\n/plugin install mograph@mograph"
+        },
+        {
+          "k": "code",
+          "cap": "Ví dụ giao việc",
+          "t": "Làm video dọc 30 giây giới thiệu Kho báu của lanhmar.id.vn, phong cách trẻ trung, có nhạc. Ảnh trong thư mục ./assets"
+        },
+        {
+          "k": "h",
+          "t": "7 phong cách, đổi bằng một từ"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Look",
+            "Cảm giác"
+          ],
+          "rows": [
+            [
+              "clean",
+              "Chữ trồi lên, chuyển cảnh mờ dần: gọn, hợp video doanh nghiệp"
+            ],
+            [
+              "bold",
+              "Chữ bật và dập, zoom punch, nền sọc, hình khối: năng lượng mạng xã hội"
+            ],
+            [
+              "kinetic",
+              "Chữ là nhân vật chính, whip pan, chia đôi khung"
+            ],
+            [
+              "glitch",
+              "Chữ giải mã, chuyển cảnh nhiễu, scanline: công nghệ, AI"
+            ],
+            [
+              "cinematic",
+              "Chậm, nền aurora, vignette, grain, light leak: câu chuyện thương hiệu"
+            ],
+            [
+              "editorial",
+              "Mặt nạ trượt, tô marker, gạch chéo: kiểu tạp chí"
+            ],
+            [
+              "playful",
+              "Chữ sóng, mở tròn, flash, hình khối: vui, lifestyle"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Làm được gì"
+        },
+        {
+          "k": "list",
+          "items": [
+            "26 kiểu cảnh: kinetic typography, mockup điện thoại và laptop, chia đôi khung hình, lưới ảnh, logo sting, timeline, lower third, footage, sơ đồ, khung chat…",
+            "12 kiểu chữ động và 13 kiểu chuyển cảnh; engine tự biến tấu từng cảnh nên hai video không giống nhau.",
+            "Nhạc gốc 5 phong cách, điểm cắt cảnh khớp beat; hoặc dùng nhạc của bạn.",
+            "Lồng tiếng bằng trình đọc trên máy hoặc file bạn thu, phụ đề chạy theo lời.",
+            "Một kịch bản xuất được cả video dọc 9:16 và ngang 16:9."
+          ]
+        },
+        {
+          "k": "callout",
+          "t": "Engine render ngay trên máy bạn; ảnh, footage và file thu âm không tải lên máy chủ nào. Đã chạy thử tự động trên Windows, macOS và Linux."
+        }
+      ],
+      "ctasTitle": "Lấy plugin",
+      "ctas": [
+        {
+          "btn": "Mã nguồn và hướng dẫn trên GitHub",
+          "url": "https://github.com/thecoolestmarperindawurl/mograph"
+        },
+        {
+          "btn": "Xem video giới thiệu ở Kho báu",
+          "url": "https://lanhmar.id.vn/kho-bau.html"
+        }
+      ]
+    },
+    {
       "id": "app-t-outbox",
       "kho": "idea",
       "shelf": "bot",
