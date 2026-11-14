@@ -9491,7 +9491,7 @@
           "rows": [
             [
               "PDF",
-              "Ghép chữ thành đoạn, nhận tiêu đề theo cỡ chữ, bỏ header/footer lặp lại và số trang. Báo khi PDF là bản scan không có chữ"
+              "Ghép chữ thành đoạn, nhận tiêu đề theo cỡ chữ, dựng lại bảng không kẻ khung (hoá đơn, báo giá, biểu mẫu), bỏ header/footer lặp lại và số trang. Báo khi PDF là bản scan không có chữ"
             ],
             [
               "Word (.docx)",
@@ -9503,11 +9503,15 @@
             ],
             [
               "PowerPoint (.pptx)",
-              "Mỗi slide một mục, giữ cấp ý, bảng và ghi chú người thuyết trình"
+              "Mỗi slide một mục, đọc theo vị trí trên slide (cả nhóm hình), giữ cấp ý, bảng, biểu đồ thành bảng số liệu, chữ mô tả ảnh và ghi chú người thuyết trình"
             ],
             [
               "HTML, TXT, JSON, code",
-              "Bỏ menu/script của trang web; file code được bọc đúng ngôn ngữ"
+              "Bỏ menu/script của trang web và link rác (javascript:, neo nội trang); file code được bọc đúng ngôn ngữ; tự nhận bảng mã cũ (Windows-1258, Shift-JIS…) nên CSV/TXT không ra chữ lỗi"
+            ],
+            [
+              "EPUB, Jupyter (.ipynb), RSS/Atom, ZIP",
+              "Sách EPUB theo thứ tự chương kèm tác giả; notebook giữ ô chữ và ô code (bỏ output); RSS/Atom mỗi bài một mục; ZIP chuyển từng file bên trong. File sai đuôi hoặc mất đuôi vẫn được nhận theo nội dung"
             ]
           ]
         },
