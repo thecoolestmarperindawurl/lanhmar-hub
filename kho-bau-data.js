@@ -34,14 +34,14 @@ window.TREASURES = [
     "desc_en": "A Claude Code plugin: the agent only writes a short script file, and the engine handles layout, animated text, transitions, beat-synced music, voiceover with captions, then exports an MP4 on your own machine. Change the whole style with one word.",
     "points": [
       "7 phong cách (bold, cinematic, editorial…): engine tự biến tấu chữ động và chuyển cảnh từng cảnh, nên hai video không giống nhau",
-      "26 kiểu cảnh: kinetic typography, mockup điện thoại, chia đôi khung hình, logo sting, timeline, lower third, footage, sơ đồ",
-      "Nhạc gốc 5 phong cách, điểm cắt cảnh tự khớp beat; lồng tiếng kèm phụ đề chạy theo lời",
+      "28 kiểu cảnh, có cả 3D: kinetic typography, thẻ sản phẩm 3D, mockup điện thoại, chia đôi khung hình, logo sting, timeline, lower third, footage",
+      "Nhạc gốc 5 phong cách, cắt cảnh khớp beat, âm lượng chuẩn mạng xã hội; lồng tiếng kèm phụ đề, xuất file .srt",
       "Một ảnh so sánh nhiều phong cách để chọn trước khi render; một kịch bản xuất được cả 9:16 và 16:9"
     ],
     "points_en": [
       "7 styles (bold, cinematic, editorial…): the engine varies animated text and transitions per scene, so two videos never look the same",
-      "26 scene types: kinetic typography, phone mockups, split screen, logo sting, timeline, lower third, footage, diagrams",
-      "Original music in 5 styles with cuts snapped to the beat; voiceover with captions that follow the words",
+      "28 scene types, 3D included: kinetic typography, 3D product cards, phone mockups, split screen, logo sting, timeline, lower third, footage",
+      "Original music in 5 styles, cuts on the beat, social-ready loudness; voiceover with captions, exported as .srt",
       "One image compares several styles before rendering; one script exports both 9:16 and 16:9"
     ],
     "cta": "Xem trên GitHub →",
@@ -75,8 +75,8 @@ window.TREASURES = [
     "video": {
       "src": "assets/video/mograph-intro.mp4",
       "poster": "assets/res/mograph-intro-poster.jpg",
-      "title": "mograph: video giới thiệu 46 giây",
-      "title_en": "mograph: 46-second intro video"
+      "title": "mograph: video giới thiệu 41 giây",
+      "title_en": "mograph: 41-second intro video"
     },
     "detail": "mograph",
     "direct": true,
