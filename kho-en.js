@@ -2,13 +2,13 @@
    nội dung chi tiết trong cửa sổ (sections, intro...) vẫn là tiếng Việt và được ghi chú rõ khi xem bản EN.
    Thêm mục mới vào kho-featured.json thì thêm một dòng ở ITEMS bên dưới (id giống hệt). Thiếu thì thẻ hiện tiếng Việt. */
 // Phiên bản của i18n/featured-en.json (lang.js gắn vào ?v=). Sửa featured-en.json thì tăng số này và ?v= của kho-en.js trong HTML.
-window.__khoEnV = "20261115c";
+window.__khoEnV = "20261115d";
 window.KHO_EN = {
   kho: {
     ai: { name: "AI Library", desc: "Accounts, skills for AI agents, feature updates",
       groups: { news: "AI News", agent: "AI Agents", buy: "Where to buy AI", skill: "Skills", other: "Other" },
-      intro: { text: "A skill is an instruction pack that makes Claude do one kind of task the right way every time: type the command or say the trigger, Claude loads the process and does it. Below are 9 skills in the order you'd use them: frame the problem, plan, execute, reflect. Click a card to see how to use it and what you get.",
-        rows: ["The brief is still vague", "Have a brief, need a verified plan", "Need a quick action plan", "Want the agent to code with discipline: review, tests, proper bug fixing", "Just finished, want to keep the lessons", "Want a concept explained very simply", "Want to understand yourself from several sources", "Want to build a new skill", "Prepare DESIGN.md, PRODUCT.md for Claude Design"],
+      intro: { text: "A skill is an instruction pack that makes Claude do one kind of task the right way every time: type the command or say the trigger, Claude loads the process and does it. Below are 10 skills in the order you'd use them: frame the problem, plan, execute, reflect. Click a card to see how to use it and what you get.",
+        rows: ["The brief is still vague", "Have a brief, need a verified plan", "Need a quick action plan", "Want the agent to code with discipline: review, tests, proper bug fixing", "Need outgoing documents formatted to Decree 30", "Just finished, want to keep the lessons", "Want a concept explained very simply", "Want to understand yourself from several sources", "Want to build a new skill", "Prepare DESIGN.md, PRODUCT.md for Claude Design"],
         head: ["Situation", "Use skill"], btn: "Open the Skill-Hub folder on Drive" } },
     design: { name: "Design Library", desc: "Resources for Adobe, Canva, Figma…", groups: { adobe: "Adobe tool guides", tainguyen: "Resources" } },
     edit: { name: "Edit Library", desc: "Resources for CapCut, Premiere, After Effects…", groups: { quay: "Shooting", dung: "Editing", adobe: "Adobe tool guides" } },
@@ -69,6 +69,7 @@ window.KHO_EN = {
     "skill-create-skill": { title: "kes-create-skill: create, edit and review skills properly", note: "Interviews you into a 7-part brief, builds the skill at level L1/L2/L3, runs an independent review and a 20-prompt trigger test. Version 1.1.0, author KesFlow - Hưng Kescy.", badge: "Skill building" },
     "skill-design-init": { title: "kf-cl-design-init: prepare inputs for Claude Design", note: "Interviews you to create DESIGN.md, PRODUCT.md and UPLOAD.md for Claude Design: phase-1 questions, 3 style templates, the DESIGN.md format and Vietnamese fonts. Version 1.0.0, author Hưng Kescy.", badge: "Design" },
     "skill-coding-agent-standards": { title: "coding-agent-standards: a rulebook that keeps coding agents disciplined", note: "One skill bundling a role, 3 rule sets, 6 sub-skills and 3 workflows for AI that writes code: understand before changing, keep changes small, always verify, never push or delete on its own. Markdown only. Repo by danieldev23.", badge: "Coding" },
+    "skill-chuan-hoa-van-ban": { title: "chuan-hoa-van-ban: format documents to Decree 30 standards", note: "Reformats a .docx (quote, contract, official letter) to Appendix I of Decree 30/2020, keeps every word and number, exports .docx and .pdf.", badge: "Documents" },
     "edit-editornghiepdu": { title: "Editor Nghiệp Dư: plugins for Vietnamese editors", note: "A store of plugins and management apps for editors: CR Composer, CR CUT V2, CR SHOOT for Premiere Pro (some for After Effects), paid with a CUTO wallet." },
     "edit-tai-nguyen-drive": { title: "Video editing resource library", note: "hieule.havah's Drive folder with memes, sound effects, font packs, background search keywords and ChatGPT notes for video editors.", type: "Drive folder" },
     "edit-nguon-tai-nguyen": { title: "Where editors get sounds, memes and effects", note: "A list of sources for sound effects, music, memes, video overlays, LUTs and presets with licence notes, compiled from the web on 28/10/2026.", type: "Roundup" },
