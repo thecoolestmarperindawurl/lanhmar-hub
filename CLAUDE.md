@@ -20,7 +20,7 @@ Người xem chọn VI/EN một lần (localStorage `lm_lang`), mọi trang đ�
 | `assets/content.json` (trang chủ) | cặp `x_vi` / `x_en` | |
 | Chữ cố định của khung trang | từ điển trong `storage.js` (`STR`), `kho.js`, `resource.js` (`T(vi, en)`), `site.js`/`community.js`/`ai-convert.js` (`I18N`) | thêm chữ mới thì thêm cả hai ngôn ngữ |
 
-Quy trình: viết VI → viết EN (dịch tự nhiên, tên riêng giữ nguyên) → `node tools/i18n-check.mjs` phải báo "Song ngữ đủ" (GitHub Actions cũng chạy ở mỗi PR; thiếu là PR đỏ) → tăng `?v=` của file `.js`/`.css`/`.json` vừa sửa trong HTML.
+Quy trình: viết VI → viết EN (dịch tự nhiên, tên riêng giữ nguyên) → `node tools/i18n-check.mjs` phải báo "Song ngữ đủ" (GitHub Actions cũng chạy ở mỗi PR; thiếu là PR đỏ) → tăng `?v=` của file `.js`/`.css`/`.json` vừa sửa trong HTML (riêng `i18n/featured-en.json` không nằm trong HTML: tăng `window.__khoEnV` ở đầu `kho-en.js`).
 
 Tồn đọng cũ (nếu có) nằm trong `tools/i18n-baseline.json`; `--all` để xem, dịch xong chạy `--baseline` để thu nhỏ.
 

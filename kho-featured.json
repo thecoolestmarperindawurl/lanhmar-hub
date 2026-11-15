@@ -6595,6 +6595,11 @@
           "cap": "macOS, Linux, WSL: cài cho mọi dự án"
         },
         {
+          "k": "code",
+          "cap": "Windows PowerShell: chạy trong cùng một cửa sổ (PowerShell 5.1 không hiểu && và {a,b})",
+          "t": "git clone https://github.com/danieldev23/agent-skill.git\n$dest = \"$HOME\\.claude\\skills\\coding-agent-standards\"\nNew-Item -ItemType Directory -Force -Path $dest | Out-Null\nCopy-Item -Recurse -Force agent-skill\\SKILL.md, agent-skill\\AGENTS.md, agent-skill\\config.yaml, agent-skill\\rules, agent-skill\\skills, agent-skill\\workflows $dest\nGet-ChildItem $dest   # kiểm tra"
+        },
+        {
           "k": "p",
           "t": "Mở lại Claude Code, gõ / sẽ thấy coding-agent-standards. Muốn chỉ dùng trong một dự án, chép vào .claude/skills/coding-agent-standards/ trong thư mục dự án thay vì ~/.claude/skills/."
         },
