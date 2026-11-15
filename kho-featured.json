@@ -4235,7 +4235,7 @@
         "phỏng vấn"
       ],
       "thumb": "assets/res/skill-brainstorm.jpg",
-      "note": "Phỏng vấn từng câu để đóng khung bài toán thành brief 6 mục, cố ý không đưa giải pháp. Tác giả: Hưng Kescy.",
+      "note": "Phỏng vấn theo cụm, trả lời gọn nhẹ · Đọc trước dữ liệu có sẵn, không hỏi thừa · Đóng gói đề bài 6 mục, cố ý chưa đưa lời giải.",
       "date": "2026-10-28",
       "ctas": [
         {
@@ -4245,204 +4245,118 @@
         {
           "btn": "Thư mục Skill-Hub",
           "url": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
-        },
-        {
-          "btn": "Trang sản phẩm KesFlow",
-          "url": "https://kesflow.vn/skills/kes-brainstorm"
         }
       ],
       "ctasTitle": "Tải skill",
       "sections": [
         {
-          "k": "callout",
-          "t": "Nhiều việc hỏng không phải vì làm kém mà vì làm đúng một đề bài sai. Giao việc cho AI bằng một câu mơ hồ thì dễ nhận về kết quả lệch và phải làm lại. Mài rìu trước, đo hai lần rồi mới cắt."
+          "k": "h",
+          "t": "Nhiều việc hỏng chỉ vì làm đúng một đề bài sai"
+        },
+        {
+          "k": "p",
+          "t": "Giao việc cho AI hay đồng đội bằng một câu mơ hồ rất dễ nhận lại kết quả lệch và phải làm lại từ đầu. Thay vì vội lao vào làm, bạn cần mài rìu thật kỹ và đo hai lần cắt một lần."
+        },
+        {
+          "k": "list",
+          "items": [
+            "Phỏng vấn theo cụm, trả lời gọn nhẹ",
+            "Đọc trước dữ liệu có sẵn, không hỏi thừa",
+            "Đóng gói đề bài 6 mục, cố ý chưa đưa lời giải"
+          ]
         },
         {
           "k": "h",
-          "t": "Skill giúp bạn"
+          "t": "Biến AI thành người phỏng vấn tỉnh táo để chốt đúng đề bài"
         },
         {
           "k": "cards",
           "items": [
             {
-              "t": "Hỏi từng câu, có sẵn đáp án gợi ý",
-              "d": "Mỗi lượt Claude hỏi một câu kèm đáp án nó khuyến nghị. Bạn gật hoặc sửa, không phải nghĩ từ trang trắng."
+              "t": "Phỏng vấn theo cụm, trả lời gọn nhẹ",
+              "tag": "01",
+              "d": "AI chủ động hỏi bạn theo từng cụm 2-5 câu cùng chủ đề kèm bối cảnh, lựa chọn gợi ý và lý do. Bạn chỉ cần gõ vắn tắt kiểu '1: A - 2: ừ - 3: tuỳ bạn' là đủ."
             },
             {
-              "t": "Đọc tài liệu trước khi hỏi",
-              "d": "Claude đọc file, thư mục liên quan trước, rồi chỉ hỏi những gì tài liệu chưa trả lời."
+              "t": "Đọc trước dữ liệu có sẵn, không hỏi thừa",
+              "tag": "02",
+              "d": "Trước khi hỏi, AI đọc các file, tài liệu, bảng tính nó với tới được để nắm bối cảnh. Điều nguồn đã trả lời thì AI không hỏi lại; nguồn nào nó không mở được thì thành câu hỏi cho bạn."
             },
             {
-              "t": "Đề bài 6 mục, cố ý chưa có lời giải",
-              "d": "Mục tiêu, Hiện trạng, Vấn đề, Mong muốn, Ràng buộc, Ngoài phạm vi. Tách vấn đề khỏi giải pháp để không bị khoá sớm vào một hướng."
+              "t": "Đóng gói đề bài 6 mục, cố ý chưa đưa lời giải",
+              "tag": "03",
+              "d": "Kết quả cô đọng trong 6 phần: Mục tiêu, Hiện trạng, Vấn đề, Mong muốn, Ràng buộc và Ngoài phạm vi. Việc tách bạch và chưa vội chốt giải pháp giúp bạn không bị lệch hướng khi triển khai."
             },
             {
-              "t": "Rà soát độc lập, bạn gật mới chốt",
-              "d": "Một subagent đọc brief và hỏi thêm tới khi không còn lỗ hổng. Im lặng không tính là đồng ý."
+              "t": "Soát lạnh, chỉ chốt khi bạn gật đầu",
+              "tag": "04",
+              "d": "Một người đọc chưa nghe cuộc trò chuyện soát lại đề bài để tìm chỗ còn mơ hồ: trợ lý phụ nếu AI của bạn mở được, không thì chính AI tự soát và nói rõ với bạn. Chỉ khi bạn nói \"được\" rõ ràng, đề bài mới chốt; im lặng không tính."
             }
           ]
         },
         {
           "k": "h",
-          "t": "Ai dùng: trước và sau"
+          "t": "Làm rõ mọi bài toán mơ hồ trong công việc lẫn đời sống"
         },
         {
           "k": "table",
           "head": [
-            "Ai đang cần",
+            "Tình huống",
             "Trước",
             "Sau"
           ],
           "rows": [
             [
-              "Chủ quán cà phê tính mở cơ sở 2",
-              "Nghĩ tới đâu lo tới đó, chưa rõ nên ưu tiên dòng tiền hay thử mô hình mới.",
-              "Có đề bài ghi rõ mục tiêu, hiện trạng quán cũ và các giả định cần kiểm trước khi đi tìm mặt bằng."
+              "Chủ quán cà phê đang tính chuyện mở cơ sở 2",
+              "Nghĩ tới đâu lo tới đó, chưa rõ nên ưu tiên dòng tiền hay thử nghiệm concept mới, bàn với ai cũng thấy mông lung.",
+              "Được AI phỏng vấn bóc tách rõ ràng mục tiêu, hiện trạng quán cũ và các giả định cần kiểm tra thực tế trước khi tìm mặt bằng."
             ],
             [
-              "Chủ shop online muốn trả lời khách nhanh hơn",
-              "Định mua phần mềm ngay dù chưa biết khách hay tắc ở khâu báo giá hay chốt đơn.",
-              "Đề bài chỉ ra khâu tắc, thời gian phản hồi mong muốn và ngân sách, rồi mới tính chuyện phần mềm."
+              "Chủ shop online muốn giảm thời gian trả lời khách trên Zalo",
+              "Định mua phần mềm tự động hóa ngay nhưng chưa rõ khách hay tắc ở khâu tư vấn giá hay khâu chốt đơn, nguy cơ tốn tiền vô ích.",
+              "Đề bài ghi rõ khách hay tắc ở khâu nào, thời gian phản hồi mong muốn, ngân sách và chỗ còn là giả định cần kiểm. Có cái nền đó rồi mới tính có cần phần mềm hay không."
             ],
             [
-              "Người đi làm nhờ AI làm một công cụ nhỏ",
-              "Mô tả một câu, AI tự thêm tính năng linh tinh, sửa đi sửa lại.",
-              "Có đề bài 6 mục đủ rõ để chuyển sang bước lập kế hoạch với kf-plan hoặc plan trong kho."
+              "Trưởng nhóm thấy đội ngũ liên tục quá tải",
+              "Định xin tuyển thêm người vì áp lực dồn dập, chưa rõ gốc rễ vấn đề nằm ở năng lực, quy trình hay khối lượng công việc.",
+              "Đề bài ghi rõ hiện trạng khối việc, ràng buộc ngân sách và những điều còn là giả định cần kiểm. Quyết chuyện tuyển thêm người dựa trên bức tranh rõ ràng, không dựa trên cảm giác."
             ],
             [
-              "Gia đình bàn chuyện đổi nhà",
-              "Mỗi người một tiêu chí, bàn mãi không chốt.",
-              "Cả nhà có chung mục tiêu, ngân sách tối đa và danh sách những điều để ngoài phạm vi."
+              "Người đi làm định nhờ AI viết một công cụ nhỏ hoặc làm lại bộ nội dung",
+              "Mô tả một câu chung chung khiến AI tự vẽ tính năng linh tinh, kết quả làm ra không đúng ý và phải sửa đi sửa lại.",
+              "Có bản đề bài 6 mục đủ rõ để đưa cho AI lên kế hoạch mà hiếm khi phải quay lại hỏi bạn."
+            ],
+            [
+              "Gia đình đang bàn tính kế hoạch đổi nhà hoặc cho con chuyển trường",
+              "Mỗi người một ý kiến rồi tranh cãi, người lo tiền bạc, người lo địa điểm xa gần mà chưa có một tiêu chí thống nhất.",
+              "Đóng gói rõ ràng mục tiêu chung, ngân sách tối đa và những yếu tố ngoài phạm vi để cả nhà cùng đi tìm phương án phù hợp."
             ]
           ]
         },
         {
-          "k": "h",
-          "t": "Ví dụ"
-        },
-        {
           "k": "code",
-          "t": "Bạn: /brainstorm Mình muốn mở cơ sở 2 cho quán cà phê\nClaude: Câu 1: Mục tiêu chính của cơ sở 2 là gì? Gợi ý của mình: thử mô hình mới ở khu khác, vì bạn nói quán cũ đang ổn định. Bạn đồng ý hay muốn sửa?\nBạn: Đúng vậy.\nClaude: (...các câu tiếp theo...) Trích bản nháp đề bài:\n- Mục tiêu: Thử mô hình quán mới ở khu khác.\n- Vấn đề: Chưa biết khách khu mới có hợp mô hình không.\n- Ngoài phạm vi: Chưa nhượng quyền; chưa đổi menu cốt lõi; chưa vay vốn.\nBạn gõ \"đồng ý\" thì mình chốt và lưu vào docs/briefs/.",
-          "cap": "Ví dụ hư cấu"
-        },
-        {
-          "k": "callout",
-          "t": "Dùng khi đề bài còn thiếu rõ ràng và bạn chưa muốn nhảy vào làm. Kích hoạt bằng: brainstorm, thảo luận, làm rõ đề bài."
+          "t": "Bạn: Brainstorm giúp mình chuyện mở cơ sở 2.\n\nAI: Mình sẽ hỏi bạn cụm 3 câu về Mục tiêu trước nhé:\n1. Mục tiêu lớn nhất của cơ sở mới là gì? (Gợi ý: A. Tăng doanh thu / B. Thử nghiệm mô hình mới)\n2. Bạn có muốn giữ nguyên phong cách menu hiện tại không? (Gợi ý: Có / Không)\n3. Mốc thời gian bạn kỳ vọng bắt đầu vận hành? (Gợi ý: Trong 3 tháng / 6 tháng / Tuỳ bạn)\n\nBạn: 1: B - 2: ừ - 3: tuỳ bạn\n\nAI: Đã ghi nhận. Vì bạn chọn \"tuỳ bạn\" ở câu 3, mình tạm chọn mốc 6 tháng để chuẩn bị kỹ. (...vài cụm câu hỏi sau...) Trích đoạn bản nháp đề bài:\n- Mục tiêu: Thử nghiệm mô hình quán mới ở khu vực khác.\n- Hiện trạng: Cơ sở 1 đang vận hành ổn định.\n- Vấn đề: Cần xác thực tệp khách mới mà không ảnh hưởng quán cũ.\n- Mong muốn: Biết khách khu mới có hợp mô hình mới không trước khi đầu tư lớn.\n- Ràng buộc: Giữ nguyên phong cách menu cốt lõi.\n- Ngoài phạm vi: Chưa mở rộng nhượng quyền.\n* Giả định cần kiểm: Mặt bằng mới có tệp khách trẻ tương tự cơ sở 1.\nBạn xem qua nếu thấy ổn thì gõ \"được\" để mình chốt nhé!",
+          "cap": "Mẫu đoạn trao đổi làm rõ đề bài cùng AI"
         },
         {
           "k": "h",
-          "t": "Skill làm gì"
-        },
-        {
-          "k": "p",
-          "t": "Claude phỏng vấn bạn từng câu một về bất kỳ loại việc nào (vận hành, kinh doanh, nội dung, code), đóng khung thành brief 6 mục rồi để một subagent độc lập rà soát lỗ hổng cho tới khi không còn gì phải hỏi."
-        },
-        {
-          "k": "h",
-          "t": "3 nguyên tắc bất biến"
-        },
-        {
-          "k": "list",
-          "items": [
-            "Chỉ nói về vấn đề, không đưa giải pháp.",
-            "Mỗi lượt chỉ hỏi một câu, kèm đáp án Claude khuyến nghị để bạn gật hoặc sửa.",
-            "Không âm thầm tự điền chỗ trống thay bạn."
-          ]
-        },
-        {
-          "k": "h",
-          "t": "Cách dùng từng bước"
+          "t": "Cách dùng"
         },
         {
           "k": "steps",
           "items": [
             {
-              "t": "Đóng khung",
-              "d": "Nêu đề bài bằng một hai câu."
+              "t": "Bước 1",
+              "d": "Tải file zip về, đưa cho AI của bạn và nhắn: 'Cài skill trong file này theo hướng dẫn INSTALL.md bên trong' (nếu ứng dụng chat có mục tải skill thì bạn tự tải file zip lên)."
             },
             {
-              "t": "Nạp ngữ cảnh",
-              "d": "Claude đọc tài liệu, thư mục liên quan trước khi hỏi."
+              "t": "Bước 2",
+              "d": "Mở cuộc trò chuyện mới, nói: 'Brainstorm giúp mình chuyện...' hoặc 'Làm rõ đề bài:...'."
             },
             {
-              "t": "Phỏng vấn",
-              "d": "Trả lời từng câu. Câu nào chưa biết, nói thẳng."
-            },
-            {
-              "t": "Dừng ở mức rõ khoảng 95%",
-              "d": "Claude báo khi đủ."
-            },
-            {
-              "t": "Rà soát khoảng trống",
-              "d": "Subagent đọc brief và hỏi thêm, lặp lại tới khi trả về NO GAPS."
-            },
-            {
-              "t": "Xác nhận",
-              "d": "Bạn trả lời rõ là đồng ý mới chốt."
-            },
-            {
-              "t": "Lưu file",
-              "d": "Brief được ghi vào docs/briefs/{YYYY-MM-DD}-{slug}.md."
+              "t": "Bước 3",
+              "d": "Trả lời nhanh từng cụm câu hỏi, gõ 'được' khi bản đề bài đã rõ ràng và cầm tài liệu đó đi lên kế hoạch."
             }
-          ]
-        },
-        {
-          "k": "code",
-          "t": "/brainstorm Mình muốn tăng đăng ký cho khoá học nhưng chưa rõ nên tập trung vào đâu",
-          "cap": "Ví dụ kích hoạt"
-        },
-        {
-          "k": "h",
-          "t": "Brief gồm 6 mục"
-        },
-        {
-          "k": "table",
-          "head": [
-            "Mục",
-            "Nội dung"
-          ],
-          "rows": [
-            [
-              "Mục tiêu",
-              "Muốn đạt được điều gì"
-            ],
-            [
-              "Hiện trạng",
-              "Đang có gì, đang chạy thế nào"
-            ],
-            [
-              "Vấn đề",
-              "Điều gì đang cản trở"
-            ],
-            [
-              "Mong muốn",
-              "Kết quả ra sao thì coi là ổn"
-            ],
-            [
-              "Constraints",
-              "Giới hạn thời gian, ngân sách, công cụ"
-            ],
-            [
-              "Non-goals",
-              "Ít nhất 3 điều cố ý không làm"
-            ]
-          ]
-        },
-        {
-          "k": "h",
-          "t": "Kết quả đạt được khi dùng skill"
-        },
-        {
-          "k": "callout",
-          "t": "Kết quả dưới đây là sản phẩm đầu ra mà chính skill quy định (theo file SKILL.md), không phải số liệu đo lường từ dự án thực tế. Khi bạn dùng và có kết quả thật, hãy ghi lại để bổ sung vào đây."
-        },
-        {
-          "k": "list",
-          "items": [
-            "Có một file brief làm điểm xuất phát duy nhất cho bước lập kế hoạch.",
-            "Bài toán được viết bằng vấn đề, không lẫn giải pháp, nên không bị khoá sớm vào một hướng.",
-            "Các giả định và chỗ chưa rõ bị lộ ra trước khi tốn công thực hiện.",
-            "Phạm vi rõ nhờ mục Non-goals."
           ]
         },
         {
@@ -4457,35 +4371,42 @@
           ],
           "rows": [
             [
-              "Skill có lên luôn kế hoạch không?",
-              "Không. Skill chỉ làm rõ vấn đề. Có đề bài rồi, bạn dùng kf-plan hoặc plan trong kho để lập kế hoạch."
+              "Skill này có lên luôn kế hoạch thực thi chi tiết không?",
+              "Không bạn nhé. Skill này chỉ tập trung làm rõ đề bài và mô tả đúng vấn đề, cố ý chưa đưa ra lời giải hay lập kế hoạch. Khi có bản đề bài 6 mục đủ rõ rồi, bạn có thể tự làm hoặc đưa đề bài đó cho AI lên kế hoạch tiếp."
             ],
             [
-              "Gặp câu chưa biết trả lời thì sao?",
-              "Cứ nói \"chưa biết\". Claude ghi thành giả định cần kiểm, không tự điền thay bạn."
+              "Nếu gặp câu hỏi mà mình chưa biết trả lời thì sao?",
+              "Bạn cứ nói thẳng 'chưa biết'. AI sẽ ghi nhận điều đó thành giả định hoặc điểm cần kiểm tra lại sau. Chất lượng bản đề bài phụ thuộc trực tiếp vào câu trả lời của bạn."
             ],
             [
-              "Có dùng để nghĩ ý tưởng hay đặt tên không?",
-              "Không. Skill biến bài toán mơ hồ thành đề bài rõ, không liệt kê ý tưởng."
+              "Skill có dùng để nghĩ ra danh sách ý tưởng mới hay đặt tên không?",
+              "Không, skill không làm việc đó. Nhiệm vụ của skill là biến một bài toán còn mơ hồ thành đề bài rõ ràng, không dùng để liệt kê ý tưởng tản mạn."
             ],
             [
-              "Bản trong kho khác gì bản trên KesFlow?",
-              "Bản trong kho hỏi từng câu một. Bản kes-brainstorm trên KesFlow hỏi theo cụm và có thêm bước soát lạnh. Xem nút KesFlow bên dưới."
+              "Nếu AI trong ứng dụng của mình không hỗ trợ cài file zip thì làm thế nào?",
+              "Bạn chỉ cần gửi kèm file SKILL.md và assets/brief-template.md vào khung chat rồi nhắn 'Làm theo SKILL.md'. AI sẽ đọc hướng dẫn và kích hoạt quy trình làm việc ngay."
+            ],
+            [
+              "Sau này có bản cập nhật mới thì cập nhật ra sao?",
+              "Bạn chỉ cần tải file zip mới về và nhắn AI cài lại, AI sẽ hỏi bạn trước khi thay thế bản cũ."
+            ],
+            [
+              "Quy định sử dụng và chỉnh sửa skill này như thế nào?",
+              "Bạn được dùng và sửa skill trong công việc, kinh doanh của chính mình. Được chia sẻ nguyên bản cho mục đích phi thương mại, ghi rõ nguồn; không bán lại, không phát hành bản đã sửa."
             ]
           ]
         },
         {
           "k": "h",
-          "t": "Cài đặt chung"
+          "t": "Mài rìu thật kỹ trước khi chặt cây cùng nhân sự AI"
         },
         {
-          "k": "list",
-          "items": [
-            "Tải file về từ nút Drive bên dưới.",
-            "Claude Code: giải nén thư mục skill vào ~/.claude/skills/ (dùng cho mọi dự án) hoặc .claude/skills/ trong dự án. Mỗi skill là một thư mục chứa SKILL.md.",
-            "Claude trên web hoặc app: vào Cài đặt, mục Skills (Capabilities), tải file zip hoặc .skill lên rồi bật.",
-            "Mở phiên mới và gõ lệnh hoặc câu kích hoạt của skill."
-          ]
+          "k": "p",
+          "t": "Tải file zip về, đưa cho AI của bạn và nhắn một câu là AI tự cài; mở cuộc trò chuyện mới là dùng được."
+        },
+        {
+          "k": "callout",
+          "t": "Skill dùng cho công việc, kinh doanh của chính bạn, không bán lại."
         }
       ]
     },
@@ -4790,7 +4711,7 @@
         "retrospective"
       ],
       "thumb": "assets/res/skill-reflect.jpg",
-      "note": "Nhìn lại một phiên làm việc theo 5 phần và đề xuất cập nhật bền (skill, bộ nhớ, quy tắc). Do KesFlow phát triển.",
+      "note": "Bản nhìn lại 5 mục vừa vặn một màn hình · Cất bài học vào đúng ngăn cần nhớ · Bộ lọc 4 câu hỏi khắt khe, bạn duyệt mới ghi.",
       "date": "2026-10-28",
       "ctas": [
         {
@@ -4800,121 +4721,98 @@
         {
           "btn": "Thư mục Skill-Hub",
           "url": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
-        },
-        {
-          "btn": "Trang sản phẩm KesFlow",
-          "url": "https://kesflow.vn/skills/kes-reflect"
         }
       ],
       "ctasTitle": "Tải skill",
       "sections": [
         {
-          "k": "callout",
-          "t": "Xong một việc, bài học hay trôi theo khung chat vừa đóng. Mở phiên mới, AI quên sạch, lỗi cũ lặp lại và bạn lại phải dặn từ đầu."
+          "k": "h",
+          "t": "Đừng để nhân sự AI mỗi sáng lại mất trí nhớ"
+        },
+        {
+          "k": "p",
+          "t": "Xong một việc, bao nhiêu bài học hay lại trôi tuột theo khung chat vừa đóng. Mở phiên mới là AI quên sạch, lỗi cũ lặp lại và bạn lại phải cặm cụi dặn lại từ đầu."
+        },
+        {
+          "k": "list",
+          "items": [
+            "Bản nhìn lại 5 mục vừa vặn một màn hình",
+            "Cất bài học vào đúng ngăn cần nhớ",
+            "Bộ lọc 4 câu hỏi khắt khe, bạn duyệt mới ghi"
+          ]
         },
         {
           "k": "h",
-          "t": "Skill giúp bạn"
+          "t": "Sổ tay rút kinh nghiệm giúp bạn teamwork với AI mượt mà hơn"
         },
         {
           "k": "cards",
           "items": [
             {
-              "t": "Bản nhìn lại 5 phần",
-              "d": "Đã xảy ra gì, điều làm tốt, điều chưa tốt, cách cải thiện và đề xuất cập nhật bền, chỉ dựa trên việc thật trong phiên."
+              "t": "Bản nhìn lại 5 mục vừa vặn một màn hình",
+              "tag": "01",
+              "d": "AI nhìn lại đúng cuộc trò chuyện vừa xong để chốt 5 điểm: Chuyện đã xảy ra, Cái làm tốt, Cái chưa ổn, Lần sau làm tốt hơn và Đề xuất ghi lại. Tất cả chỉ dựa trên việc thật trong phiên làm việc, ngắn gọn và không nói suông."
             },
             {
-              "t": "Bài học viết thành hành động",
-              "d": "Mỗi cải thiện có dạng \"khi gặp X thì làm Y\", đọc là làm theo được."
+              "t": "Cất bài học vào đúng ngăn cần nhớ",
+              "tag": "02",
+              "d": "Instruction cho nguyên tắc áp mọi việc, Memory cho sự thật hay sở thích về bạn và dự án, Skill cho quy trình lặp lại kể cả chỗ dễ sai. Chuyện chỉ xảy ra một lần thì không ghi đâu cả, vì bản nhìn lại đã giữ."
             },
             {
-              "t": "Cất vào đúng chỗ",
-              "d": "Đề xuất ghi vào Skill, Memory hay Rule. Chuyện chỉ xảy ra một lần thì chọn Nothing, không ghi đâu cả."
+              "t": "Bộ lọc 4 câu hỏi khắt khe, bạn duyệt mới ghi",
+              "tag": "03",
+              "d": "Mỗi đề xuất phải qua 4 câu: đã có chưa (AI mở chính chỗ định ghi ra đọc), xảy ra mấy lần, ghi đúng chỗ chưa, có ca thật đi kèm không. Đề xuất bị loại vẫn hiện một dòng kèm lý do; bạn đồng ý cái nào AI mới ghi cái đó."
             },
             {
-              "t": "Bạn duyệt mới ghi",
-              "d": "Skill chỉ đề xuất. Không skill, bộ nhớ hay quy tắc nào bị sửa khi bạn chưa đồng ý."
+              "t": "Chuyển phiên không lo đứt đoạn nhờ bàn giao",
+              "tag": "04",
+              "d": "Nói \"reflect và bàn giao\" là có thêm một đoạn để dán vào cuộc trò chuyện mới: mục tiêu, đang ở đâu, file quan trọng, việc tiếp theo, bẫy đã gặp. AI đọc trạng thái thật lúc đó; phần nào không kiểm được thì ghi \"chưa kiểm\"."
             }
           ]
         },
         {
           "k": "h",
-          "t": "Ai dùng: trước và sau"
+          "t": "Biến từng phiên làm việc thành kinh nghiệm thực chiến cho AI"
         },
         {
           "k": "table",
           "head": [
-            "Ai đang cần",
+            "Tình huống",
             "Trước",
             "Sau"
           ],
           "rows": [
             [
-              "Kế toán vừa chốt bảng lương tháng",
-              "AI tính nhầm một khoản phụ cấp, sửa trong chat là xong, tháng sau lỗi cũ quay lại.",
-              "Bản nhìn lại ghi rõ nguyên nhân và đề xuất thêm một bước kiểm vào skill tính lương. Bạn duyệt thì mới ghi."
+              "Người thuê hoặc chủ nhà vừa soạn xong hợp đồng thuê nhà cùng AI",
+              "Lần sau soạn hợp đồng khác, AI lại quên các điều khoản cọc đặc thù khiến bạn mất công sửa lại từ đầu.",
+              "AI nhìn lại buổi làm, đề xuất ghi bước kiểm điều khoản cọc vào skill soạn hợp đồng bạn đang dùng (chưa có skill thì đưa sẵn các bước thành đoạn chữ để bạn dán khi làm lại)."
             ],
             [
-              "Người làm nội dung vừa có một phiên viết bài ưng giọng",
-              "Buổi sau AI lại viết chung chung, phải dặn lại những gì hôm trước đã chỉnh.",
-              "Điều làm tốt được đề xuất giữ lại thành quy tắc để lần sau khỏi dặn."
+              "Kế toán hoặc chủ doanh nghiệp vừa chốt xong bảng lương tháng",
+              "AI tính nhầm một khoản phụ cấp, sửa xong trong cuộc trò chuyện là thôi, tháng sau lỗi cũ quay lại.",
+              "Bản nhìn lại ghi rõ chỗ chưa ổn, kèm đề xuất thêm một bước kiểm vào skill tính lương bạn đang dùng. Bạn duyệt thì AI mới ghi."
             ],
             [
-              "Người lên kế hoạch du lịch cho gia đình",
-              "Lần nào AI cũng gợi ý món mặn dù cả nhà ăn chay.",
-              "Sở thích lặp lại được đề xuất lưu vào Memory."
+              "Người đi làm đang chạy một việc dài, cuộc trò chuyện đã quá dài phải sang cuộc mới",
+              "Mở cuộc trò chuyện mới thì AI không biết gì, bạn mất công gõ lại bối cảnh, tài liệu và các việc còn dang dở.",
+              "Nói \"reflect và bàn giao\", AI đưa một đoạn ghi việc đang ở đâu, file quan trọng, việc tiếp theo và bẫy đã gặp để bạn dán sang cuộc mới làm tiếp."
+            ],
+            [
+              "Người làm nội dung vừa có một phiên viết bài đăng fanpage đúng giọng ưng ý",
+              "Buổi sau nhờ viết tiếp lại ra giọng chung chung, phải dặn lại từ đầu những gì hôm trước đã chỉnh.",
+              "AI rút ra cái gì làm tốt lần này và đề xuất ghi lại đúng chỗ, để lần sau khỏi dặn lại."
+            ],
+            [
+              "Cá nhân lên kế hoạch du lịch hoặc tiệc sinh nhật gia đình",
+              "Mỗi lần hỏi chỗ ăn chơi, AI lại gợi ý món mặn và địa điểm xa dù nhà bạn ăn chay và ngại đi lại.",
+              "AI nhận ra thói quen lặp lại, đề xuất lưu sở thích ăn chay và yêu cầu di chuyển của gia đình vào Memory."
             ]
           ]
-        },
-        {
-          "k": "h",
-          "t": "Ví dụ"
         },
         {
           "k": "code",
-          "t": "Bạn: /reflect\nClaude: Bản nhìn lại phiên làm bảng lương\n1. Đã xảy ra gì: Làm xong bảng lương, phải tính lại một lần vì sót ngày nghỉ không lương của 2 người.\n2. Điều làm tốt: Đối chiếu bảng chấm công trước khi tính, bắt được 1 dòng trùng.\n3. Điều chưa tốt: Không đọc cột \"nghỉ không lương\".\n4. Cải thiện: Khi nhận bảng chấm công thì liệt kê mọi cột và hỏi lại cột chưa rõ.\n5. Cập nhật bền (chờ bạn duyệt): Skill tính lương, thêm bước liệt kê cột trước khi tính.",
-          "cap": "Ví dụ hư cấu"
-        },
-        {
-          "k": "callout",
-          "t": "Dùng cuối phiên, sau một việc làm tốt hoặc tệ rõ rệt. Kích hoạt bằng: /reflect, rút kinh nghiệm, nhìn lại, tổng kết hội thoại."
-        },
-        {
-          "k": "h",
-          "t": "Bản nhìn lại gồm 5 phần"
-        },
-        {
-          "k": "table",
-          "head": [
-            "Phần",
-            "Nội dung"
-          ],
-          "rows": [
-            [
-              "1. Đã xảy ra gì",
-              "Tóm tắt phiên làm việc"
-            ],
-            [
-              "2. Điều làm tốt",
-              "Giữ lại, lặp lại"
-            ],
-            [
-              "3. Điều chưa tốt",
-              "Nêu thẳng nguyên nhân"
-            ],
-            [
-              "4. Cách cải thiện",
-              "Viết dạng: khi gặp X thì làm Y"
-            ],
-            [
-              "5. Cập nhật bền",
-              "Đề xuất: Skill, Memory, Rule hoặc Nothing"
-            ]
-          ]
-        },
-        {
-          "k": "callout",
-          "t": "Skill chỉ đề xuất. Không sửa skill, bộ nhớ hay quy tắc nào nếu bạn chưa duyệt."
+          "t": "Bạn: Rút kinh nghiệm vụ làm bảng lương tháng này giúp mình.\n\nAI: Bản nhìn lại đã lưu ở docs/journals/.\n1. Chuyện gì đã xảy ra: Làm xong bảng lương tháng; phải tính lại một lần vì sót ngày nghỉ không lương của 2 người.\n2. Cái gì làm tốt: Đối chiếu bảng chấm công trước khi tính, bắt được 1 dòng trùng.\n3. Cái gì chưa ổn: Bảng chấm công có cột \"nghỉ không lương\" nhưng không ai dặn AI đọc cột đó.\n4. Lần sau làm tốt hơn: Đọc đủ các cột chấm công trước khi tính.\n5. Đề xuất ghi lại (chờ duyệt):\n- QUA LỌC - Skill tính lương bạn đang dùng - thêm bước: \"Trước khi tính, liệt kê mọi cột của bảng chấm công và hỏi lại cột nào chưa rõ cách tính.\"\n- LOẠI - \"Nhân viên B đổi số tài khoản\": chỉ xảy ra một lần, bản nhìn lại đã giữ.\nNgười lọc: mình tự lọc, không có người đọc độc lập.\n\nBạn duyệt đề xuất nào thì mình ghi đề xuất đó.",
+          "cap": "Trích bản nhìn lại sau buổi làm bảng lương (ví dụ hư cấu)"
         },
         {
           "k": "h",
@@ -4924,42 +4822,17 @@
           "k": "steps",
           "items": [
             {
-              "t": "Gõ lệnh",
-              "d": "/reflect ở cuối phiên."
+              "t": "Bước 1",
+              "d": "Tải file zip về, gửi file cho AI và nhắn: \"Cài skill trong file này theo hướng dẫn INSTALL.md bên trong.\""
             },
             {
-              "t": "Đọc bản nhìn lại",
-              "d": "Có thể hiện ngay trong chat hoặc lưu thành file trong docs/journals hoặc reflections."
+              "t": "Bước 2",
+              "d": "Xong việc, nhắn: \"Rút kinh nghiệm vụ [tên việc] giúp mình\" (thêm \"và bàn giao\" nếu cần mở phiên mới)."
             },
             {
-              "t": "Duyệt đề xuất",
-              "d": "Chọn mục nào đáng giữ thành quy tắc, bỏ mục không cần."
-            },
-            {
-              "t": "Áp dụng",
-              "d": "Sau khi bạn đồng ý, mới cập nhật."
+              "t": "Bước 3",
+              "d": "Xem bản nhìn lại và duyệt từng đề xuất, bạn đồng ý mục nào thì AI mới ghi nhận mục đó vào đúng chỗ."
             }
-          ]
-        },
-        {
-          "k": "code",
-          "t": "/reflect",
-          "cap": "Ví dụ kích hoạt"
-        },
-        {
-          "k": "h",
-          "t": "Kết quả đạt được khi dùng skill"
-        },
-        {
-          "k": "callout",
-          "t": "Kết quả dưới đây là sản phẩm đầu ra mà chính skill quy định (theo file SKILL.md), không phải số liệu đo lường từ dự án thực tế. Khi bạn dùng và có kết quả thật, hãy ghi lại để bổ sung vào đây."
-        },
-        {
-          "k": "list",
-          "items": [
-            "Bài học không biến mất khi đóng phiên, mà có chỗ để lưu.",
-            "Mỗi cải thiện có dạng hành động cụ thể (khi X thì Y).",
-            "Bạn kiểm soát việc gì được ghi nhớ lâu dài."
           ]
         },
         {
@@ -4974,35 +4847,42 @@
           ],
           "rows": [
             [
-              "AI có tự sửa hướng dẫn hay bộ nhớ của mình không?",
-              "Không. Bạn duyệt mục nào thì mới ghi mục đó, mục còn lại giữ nguyên."
+              "AI có tự ý sửa hướng dẫn hay bộ nhớ của bạn không?",
+              "Không. AI chỉ đưa đề xuất sau khi lọc kỹ. Bạn duyệt cái nào thì AI mới ghi cái đó, mục nào bạn không đồng ý sẽ giữ nguyên."
             ],
             [
-              "Dùng Claude trên web không ghi được file thì sao?",
-              "Bản nhìn lại hiện thẳng trong khung chat để bạn tự lưu."
+              "Skill có lục lọi lại các cuộc trò chuyện cũ trước đây không?",
+              "Không. Skill chỉ nhìn lại đúng phiên trò chuyện hiện tại đang mở, không lục lại các phiên cũ của bạn."
             ],
             [
-              "Cài rồi thì AI có bao giờ lặp lỗi cũ nữa không?",
-              "Không ai hứa được vậy. Skill giúp bài học được ghi đúng chỗ để lần sau AI có cái mà dựa vào."
+              "Skill này có tóm tắt cuộc họp, tài liệu hay tự viết skill mới không?",
+              "Không. Skill chỉ nhìn lại cuộc trò chuyện vừa xong; không tóm tắt cuộc họp hay tài liệu, không tự viết một skill mới từ đầu."
             ],
             [
-              "Bản trong kho khác gì bản trên KesFlow?",
-              "Bản kes-reflect trên KesFlow có thêm bộ lọc 4 câu hỏi cho từng đề xuất và đoạn bàn giao khi chuyển sang phiên mới. Xem nút KesFlow bên dưới."
+              "Nếu dùng ứng dụng chat trên web không hỗ trợ ghi file thì sao?",
+              "Bản nhìn lại sẽ hiển thị thẳng trong khung chat để bạn lưu. Với đề xuất được duyệt, AI đưa sẵn đoạn chữ để bạn tự dán vào đúng nơi."
+            ],
+            [
+              "Trường hợp AI không tự cài được skill từ file zip thì xử lý thế nào?",
+              "Giải nén file zip, rồi mỗi lần muốn rút kinh nghiệm thì gửi kèm SKILL.md, assets/journal-template.md và assets/handoff-template.md vào cuối cuộc trò chuyện đó và nhắn \"Làm theo SKILL.md\". Bản nhìn lại sẽ hiện ngay trong khung chat để bạn tự lưu."
+            ],
+            [
+              "Cài skill này rồi thì AI có bao giờ lặp lại lỗi cũ nữa không?",
+              "Bên mình không hứa vậy. Skill giúp bài học được ghi đúng chỗ để lần sau AI có cái mà dựa vào; AI vẫn cần chỗ ghi đó, không tự nhớ được. Đoạn bàn giao cũng chỉ chính xác tới đâu AI đọc được tới đó."
             ]
           ]
         },
         {
           "k": "h",
-          "t": "Cài đặt chung"
+          "t": "Trang bị sổ tay rút kinh nghiệm cho đồng đội AI của bạn"
         },
         {
-          "k": "list",
-          "items": [
-            "Tải file về từ nút Drive bên dưới.",
-            "Claude Code: giải nén thư mục skill vào ~/.claude/skills/ (dùng cho mọi dự án) hoặc .claude/skills/ trong dự án. Mỗi skill là một thư mục chứa SKILL.md.",
-            "Claude trên web hoặc app: vào Cài đặt, mục Skills (Capabilities), tải file zip hoặc .skill lên rồi bật.",
-            "Mở phiên mới và gõ lệnh hoặc câu kích hoạt của skill."
-          ]
+          "k": "p",
+          "t": "Tải file zip về, đưa cho AI của bạn và nhắn một câu là AI tự cài; xong việc nào thì gọi rút kinh nghiệm việc đó."
+        },
+        {
+          "k": "callout",
+          "t": "Bản nhìn lại được lưu tại docs/journals/ hoặc reflections/ nếu AI hỗ trợ ghi file, hoặc hiển thị trực tiếp trong khung chat."
         }
       ]
     },
@@ -5113,7 +4993,7 @@
         "essay"
       ],
       "thumb": "assets/res/skill-self-explorer.jpg",
-      "note": "Đối chiếu lá số, trắc nghiệm tính cách và trải nghiệm sống để ra báo cáo bản thân có dẫn chứng.",
+      "note": "AI thành người hỏi chuyện · Đời thật luôn được ưu tiên · Báo cáo chân dung 10 phần rõ ràng.",
       "date": "2026-10-28",
       "ctas": [
         {
@@ -5123,163 +5003,123 @@
         {
           "btn": "Thư mục Skill-Hub",
           "url": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
-        },
-        {
-          "btn": "Trang sản phẩm KesFlow",
-          "url": "https://kesflow.vn/skills/kes-explore-yourself"
         }
       ],
       "ctasTitle": "Tải skill",
       "sections": [
         {
-          "k": "callout",
-          "t": "MBTI nói một kiểu, lá số nói một kiểu, đọc xong nhiều bản giải mã vẫn chưa trả lời được mình thật sự là người thế nào và muốn sống vì điều gì."
+          "k": "h",
+          "t": "Khi trắc nghiệm và lá số mỗi nơi nói một kiểu"
+        },
+        {
+          "k": "p",
+          "t": "Bạn đã làm MBTI, xem thần số học hay Tử Vi mà mỗi nguồn chỉ ra một hướng khác nhau. Đọc xong nhiều bản giải mã, bạn vẫn chưa trả lời được mình thật sự là người thế nào và muốn sống vì điều gì."
+        },
+        {
+          "k": "list",
+          "items": [
+            "AI thành người hỏi chuyện",
+            "Đời thật luôn được ưu tiên",
+            "Báo cáo chân dung 10 phần rõ ràng"
+          ]
         },
         {
           "k": "h",
-          "t": "Skill giúp bạn"
+          "t": "Gom 3 góc nhìn và hỏi thẳng vào chỗ mâu thuẫn"
         },
         {
           "k": "cards",
           "items": [
             {
-              "t": "Gom 3 góc nhìn",
-              "d": "Lá số (Tử Vi, chiêm tinh, thần số học), trắc nghiệm (MBTI, DISC, Enneagram) và bài tự kể 500 đến 2000 từ của bạn."
+              "t": "AI thành người hỏi chuyện",
+              "tag": "01",
+              "d": "AI gom lá số, kết quả trắc nghiệm sẵn có và bài tự kể của bạn (khoảng 500-2000 từ), rồi hỏi lại từng câu một đúng những chỗ chúng nói ngược nhau; cả phần hỏi thêm và đối chiếu khoảng 10-12 câu. Trả lời chung chung thì AI xin một ví dụ cụ thể."
             },
             {
-              "t": "Đời thật được ưu tiên",
-              "d": "Khi các góc lệch nhau: trải nghiệm thật đứng trước, rồi tới lá số, cuối cùng là bài test."
+              "t": "Đời thật luôn được ưu tiên",
+              "tag": "02",
+              "d": "Mỗi kết luận đều trỏ về câu bạn kể hoặc kết quả trắc nghiệm, còn lá số chỉ là lăng kính tham khảo trong mục riêng. Khi lá số và đời thật lệch nhau, AI luôn ưu tiên trải nghiệm thực tế của bạn."
             },
             {
-              "t": "Hỏi thẳng vào chỗ mâu thuẫn",
-              "d": "Hỏi từng câu, khoảng 10 đến 12 lượt, xử lý mâu thuẫn mức Critical và High trước."
+              "t": "Báo cáo chân dung 10 phần rõ ràng",
+              "tag": "03",
+              "d": "Chân dung con người thật, tổng hợp 3 góc, chỗ khớp và chỗ còn mâu thuẫn, năng lực lõi, vết thương và điểm mù, giá trị sống, câu sứ mệnh, thẩm mỹ, điều đang rút cạn năng lượng, câu hỏi để ngẫm. Báo cáo là tấm gương, không phải kế hoạch."
             },
             {
-              "t": "Báo cáo 10 mục có dẫn chứng",
-              "d": "Dẫn lại chính lời bạn kể, có câu hỏi để ngẫm ở cuối. Kế hoạch hành động chỉ có khi bạn hỏi thêm."
+              "t": "Thẳng thắn và tôn trọng ranh giới",
+              "tag": "04",
+              "d": "Dữ liệu chưa đủ thì báo cáo nói thẳng câu sứ mệnh chưa rõ, không ép ra một câu cho có. Chỗ chưa muốn nói, bạn nói thẳng là AI không ép; \"mình không biết\" không bị tính là né."
             }
           ]
         },
         {
           "k": "h",
-          "t": "Ai dùng: trước và sau"
+          "t": "Tấm gương soi chiếu cho các ngã rẽ công việc và đời sống"
         },
         {
           "k": "table",
           "head": [
-            "Ai đang cần",
+            "Tình huống",
             "Trước",
             "Sau"
           ],
           "rows": [
             [
-              "Người đang ở ngã rẽ sự nghiệp",
-              "Mông lung giữa kỳ vọng của người xung quanh và sở thích của mình.",
-              "Một bản báo cáo chỉ ra chỗ các góc nhìn đồng thuận và chỗ mâu thuẫn, mỗi ý dẫn lại câu chuyện của chính bạn."
+              "Người đi làm đang ở ngã rẽ sự nghiệp, cân nhắc đổi việc hoặc chuyển ngành",
+              "Mông lung giữa kỳ vọng xung quanh và sở thích cá nhân, chưa nhìn rõ điểm tựa năng lực thực sự.",
+              "Có một bản chân dung chỉ ra năng lực lõi và điều đang rút cạn năng lượng, mỗi ý trỏ về câu chính bạn kể, làm nền khi bạn tự cân nhắc hướng đi."
             ],
             [
-              "Người có kết quả MBTI nhưng thấy không giống mình",
-              "Cố ép mình vào khuôn lý thuyết dù trực giác nói khác.",
-              "Thấy rõ chỗ lý thuyết khớp và chỗ lệch với trải nghiệm thật, không bị dán nhãn gượng ép."
+              "Người vừa trải qua biến cố hoặc bước vào chặng mới như ra trường, nghỉ việc, làm cha mẹ",
+              "Bị xáo trộn nhịp sống, thấy những định nghĩa cũ về bản thân không còn khớp với thực tại.",
+              "Một báo cáo đặt các góc nhìn cạnh nhau: chỗ còn khớp, chỗ đã khác, và những câu hỏi để bạn ngẫm tiếp theo nhịp của mình."
             ],
             [
-              "Bất kỳ ai muốn nhìn lại bản thân cuối năm",
-              "Một năm bộn bề, không rõ động lực nằm ở đâu.",
-              "Báo cáo kèm câu hỏi để tự ngẫm tiếp theo nhịp của mình."
+              "Người có kết quả MBTI, DISC hoặc lá số nhưng thấy không giống mình ngoài đời",
+              "Cố ép hành vi của mình vào khuôn mẫu lý thuyết dù trực giác mách bảo điều ngược lại.",
+              "Phân tách rõ chỗ khớp và chỗ mâu thuẫn giữa lý thuyết với trải nghiệm sống, không còn bị dán nhãn gượng ép."
+            ],
+            [
+              "Chủ doanh nghiệp nhỏ hoặc người làm thương hiệu cá nhân cần đúc kết giá trị cốt lõi",
+              "Tập hợp những câu khẩu hiệu hoa mỹ nghe cho hay nhưng thiếu dẫn chứng từ câu chuyện thật.",
+              "Viết ra giá trị sống có dẫn chứng từ chính câu chuyện của mình; dữ liệu chưa đủ thì báo cáo nói rõ chỗ còn thiếu."
+            ],
+            [
+              "Bất kỳ ai muốn tự nhìn lại bản thân vào dịp cuối năm",
+              "Thấy một năm trôi qua bộn bề mà không rõ động lực nằm ở đâu và điều gì đang âm thầm bào mòn mình.",
+              "Báo cáo có riêng mục \"điều đang rút cạn năng lượng\" và \"câu hỏi để ngẫm\", dựa trên chính những gì bạn kể."
             ]
           ]
-        },
-        {
-          "k": "h",
-          "t": "Ví dụ"
         },
         {
           "k": "code",
-          "t": "Claude: Trắc nghiệm của bạn nghiêng về hướng nội, nhưng bài tự kể có ba lần bạn đứng ra tổ chức cho cả nhóm. Lúc đó bạn thấy được tiếp năng lượng hay bị rút cạn? Kể một lần cụ thể.\nBạn: Lần làm sự kiện ra mắt, mình điều phối vì sốt ruột thấy trễ hạn. Xong thì kiệt sức, phải ở một mình hai ngày.\nClaude: Ghi nhận: khả năng tổ chức của bạn đến từ tinh thần trách nhiệm, không phải nhu cầu lấy năng lượng từ đám đông. Điểm này khớp với kết quả hướng nội.",
-          "cap": "Ví dụ hư cấu"
+          "t": "[T3 · Critical · open] Kết quả trắc nghiệm của bạn nghiêng về hướng nội, nhưng bài tự kể có ba lần bạn chủ động đứng ra tổ chức cho cả nhóm. Lúc đó bạn thấy được tiếp năng lượng hay bị rút cạn? Kể một lần cụ thể.\n\nBạn: Lần làm sự kiện ra mắt dự án, mình đứng ra điều phối vì sốt ruột thấy việc trễ hạn. Làm xong thì kiệt sức, phải ở một mình suốt hai ngày cuối tuần để hồi phục.\n\nAI: Ghi nhận tạm cho điểm T3, sẽ đối chiếu tiếp: năng lực tổ chức của bạn xuất phát từ tinh thần trách nhiệm và mong muốn kiểm soát tiến độ, không phải nhu cầu lấy năng lượng từ đám đông. Điểm này khớp với nét hướng nội trên bài trắc nghiệm nhưng thể hiện qua hành vi gánh vác trong thực tế.",
+          "cap": "Một câu hỏi đối chiếu mẫu (ví dụ hư cấu)"
         },
         {
-          "k": "callout",
-          "t": "Dùng khi muốn rõ bản thân, mục đích, giá trị, hoặc hoà giải mâu thuẫn giữa trắc nghiệm và trải nghiệm. Nên chạy trên Claude Opus. Skill đóng vai tấm gương đặt câu hỏi, không phải nhà trị liệu hay coach."
-        },
-        {
-          "k": "h",
-          "t": "3 góc nhìn"
-        },
-        {
-          "k": "table",
-          "head": [
-            "Góc",
-            "Nguồn",
-            "Ví dụ"
-          ],
-          "rows": [
-            [
-              "A: số mệnh",
-              "Lá số, thần số học",
-              "Tử Vi, chiêm tinh, numerology"
-            ],
-            [
-              "B: tự báo cáo",
-              "Trắc nghiệm",
-              "MBTI, DISC, Enneagram"
-            ],
-            [
-              "C: trải nghiệm",
-              "Bài viết của bạn",
-              "Essay 500 đến 2000 từ"
-            ]
-          ]
-        },
-        {
-          "k": "p",
-          "t": "Khi các góc mâu thuẫn, ưu tiên C hơn A hơn B (trải nghiệm thực hơn lá số, lá số hơn bài test)."
+          "k": "code",
+          "t": "Mục 6: GIÁ TRỊ SỐNG\n- Tự chủ: Bạn ưu tiên quyền tự quyết định nhịp làm việc hơn là chức danh lớn.\nDẫn chứng: câu bạn kể về việc từ chối lên vị trí quản lý để giữ quyền chủ động thời gian năm 2023.\n- Trách nhiệm trọn vẹn: Bạn chỉ an tâm khi công việc hoàn thành đúng chuẩn mực tự đặt ra.\nDẫn chứng: câu bạn kể về việc thức trắng đêm khắc phục sự cố hệ thống dù không ai phân công trực tiếp.\n\nMục 7: CÂU SỨ MỆNH\n- Tình trạng: Chưa đủ dữ liệu để chốt.\n- Nhận xét: Bài viết của bạn tập trung nhiều vào các biến cố quá khứ, chưa thể hiện rõ tác động dài hạn bạn muốn tạo ra cho cộng đồng xung quanh. Không ép ra một câu cho có; nếu muốn, bạn kể thêm về điều bạn mong để lại cho người khác rồi làm tiếp.",
+          "cap": "Trích báo cáo: giá trị sống có dẫn chứng, sứ mệnh chưa ép (ví dụ hư cấu)"
         },
         {
           "k": "h",
-          "t": "3 giai đoạn"
+          "t": "Cách dùng"
         },
         {
           "k": "steps",
           "items": [
             {
-              "t": "Thu thập",
-              "d": "Thông tin cơ bản, dữ liệu ba góc, một bài essay. Claude tạo file ghi chú phiên làm việc."
+              "t": "Bước 1",
+              "d": "Đưa file zip cho AI và nhắn: 'Cài skill trong file này theo hướng dẫn INSTALL.md bên trong.'"
             },
             {
-              "t": "Đối chiếu",
-              "d": "Rút đặc điểm, tìm điểm trùng và điểm lệch. Hỏi từng câu một, khoảng 10 đến 12 lượt, giải quyết mâu thuẫn mức Critical và High trước."
+              "t": "Bước 2",
+              "d": "Mở cuộc trò chuyện mới, nhắn: 'Mình muốn khám phá bản thân, giúp mình hiểu mình thật sự là ai.'"
             },
             {
-              "t": "Báo cáo",
-              "d": "Báo cáo 10 mục, có câu hỏi gợi suy ngẫm ở mục cuối và lời kết để tự dùng."
+              "t": "Bước 3",
+              "d": "Gửi thông tin cùng kết quả trắc nghiệm nếu có, viết bài tự kể và trả lời các câu đối chiếu. Bạn có thể nghỉ giữa chừng, chỉ cần giữ đường dẫn file ghi chú để tiếp tục."
             }
-          ]
-        },
-        {
-          "k": "callout",
-          "t": "Lưu ý: chiêm tinh, tử vi chỉ là lăng kính để suy ngẫm, không phải dự đoán. Gặp dấu hiệu căng thẳng nặng, nên gặp chuyên gia tâm lý."
-        },
-        {
-          "k": "code",
-          "t": "Mình muốn khám phá bản thân bằng self-explorer",
-          "cap": "Câu kích hoạt"
-        },
-        {
-          "k": "h",
-          "t": "Kết quả đạt được khi dùng skill"
-        },
-        {
-          "k": "callout",
-          "t": "Kết quả dưới đây là sản phẩm đầu ra mà chính skill quy định (theo file SKILL.md), không phải số liệu đo lường từ dự án thực tế. Khi bạn dùng và có kết quả thật, hãy ghi lại để bổ sung vào đây."
-        },
-        {
-          "k": "list",
-          "items": [
-            "Báo cáo 10 mục dẫn lại chính lời bạn nói.",
-            "Chỉ ra điểm các góc nhìn đồng thuận và điểm mâu thuẫn.",
-            "Có câu hỏi gợi suy ngẫm thay cho lời khuyên áp đặt.",
-            "Kế hoạch hành động chỉ có khi bạn yêu cầu thêm."
           ]
         },
         {
@@ -5294,35 +5134,42 @@
           ],
           "rows": [
             [
-              "Skill có phải trị liệu tâm lý không?",
-              "Không. Skill là tấm gương đặt câu hỏi. Gặp dấu hiệu căng thẳng nặng, nên tìm chuyên gia tâm lý."
+              "Skill này có phải là trị liệu tâm lý không?",
+              "Không. Skill không chẩn đoán, không tư vấn y tế, pháp lý, tài chính. Thấy bạn đang khủng hoảng, AI sẽ dừng và khuyên bạn tìm chuyên gia sức khoẻ tinh thần."
             ],
             [
-              "Skill có bói tương lai không?",
-              "Không. Chiêm tinh, Tử Vi chỉ là lăng kính để suy ngẫm, không phải dự đoán."
+              "Skill có tiên đoán tương lai hay bói toán vận mệnh không?",
+              "Không. Lá số chỉ là một lăng kính tham khảo trong mục riêng chứ không dùng để đoán vận hạn hay tương lai. Báo cáo là tấm gương soi chiếu hiện tại, không phải bản kế hoạch hay lời phán."
             ],
             [
-              "Nên chạy trên mô hình nào?",
-              "Skill khuyên dùng Claude Opus."
+              "Trong buổi có làm bài test MBTI hay DISC không?",
+              "Không. Bạn mang kết quả sẵn có; không có thì bỏ qua, AI không bắt bạn làm test. Báo cáo khi đó dựa trên bài tự kể và lá số, và nói rõ phần nào còn thiếu."
             ],
             [
-              "Bản trong kho khác gì bản trên KesFlow?",
-              "Bản tương ứng trên KesFlow tên là kes-explore-yourself. Xem nút KesFlow bên dưới để biết bản mới nhất."
+              "Báo cáo có đưa sẵn kế hoạch hành động hay lộ trình đổi việc không?",
+              "Không tự đưa. Báo cáo là tấm gương, không phải kế hoạch. Muốn có kế hoạch 30 ngày hay lộ trình 6 tháng thì đọc báo cáo xong bạn hỏi thêm AI."
+            ],
+            [
+              "Dữ liệu và câu chuyện của mình đi đâu?",
+              "Ngoài dịch vụ AI bạn đang trò chuyện, skill không gửi dữ liệu đi đâu khác, trừ khi bạn đồng ý tra lá số trên web (chỉ gửi ngày, giờ, nơi sinh, giới tính; không gửi tên). Xoá 2 file ghi chú và báo cáo là xoá bản lưu của skill; nội dung vẫn còn trong lịch sử trò chuyện của công cụ AI cho tới khi bạn xoá. App AI có tính năng ghi nhớ thì tắt trước buổi nếu bạn không muốn nó nhớ."
+            ],
+            [
+              "Không nhớ rõ giờ sinh thì có dùng được skill không?",
+              "Vẫn dùng được. Biết khoảng giờ (giờ Tý, giờ Sửu...) là đủ cho lá số Tử Vi; không biết giờ thì cung Mọc, các nhà và lá số Tử Vi để trống. Thần số học và cung Mặt Trời AI tự tính."
             ]
           ]
         },
         {
           "k": "h",
-          "t": "Cài đặt chung"
+          "t": "Nhìn rõ chính mình cùng đồng đội AI"
         },
         {
-          "k": "list",
-          "items": [
-            "Tải file về từ nút Drive bên dưới.",
-            "Claude Code: giải nén thư mục skill vào ~/.claude/skills/ (dùng cho mọi dự án) hoặc .claude/skills/ trong dự án. Mỗi skill là một thư mục chứa SKILL.md.",
-            "Claude trên web hoặc app: vào Cài đặt, mục Skills (Capabilities), tải file zip hoặc .skill lên rồi bật.",
-            "Mở phiên mới và gõ lệnh hoặc câu kích hoạt của skill."
-          ]
+          "k": "p",
+          "t": "Tải file zip về, đưa cho AI của bạn và nhắn một câu là AI tự cài; buổi có thể dài, nghỉ giữa chừng được."
+        },
+        {
+          "k": "callout",
+          "t": "Không phải trị liệu tâm lý, không tiên đoán tương lai. Skill chạy tốt nhất trên model AI suy luận mạnh."
         }
       ]
     },
@@ -5340,7 +5187,7 @@
         "trigger test"
       ],
       "thumb": "assets/res/skill-create-skill.jpg",
-      "note": "Phỏng vấn thành brief 7 mục, dựng skill theo cấp L1/L2/L3, review độc lập và test trigger 20 câu. Phiên bản 1.1.0, tác giả KesFlow - Hưng Kescy.",
+      "note": "Quản quy trình, không ép cứng kết quả · Phỏng vấn chống học vẹt và dẫn trọn đường · Bộ thử 20 câu và trợ lý soát lạnh.",
       "date": "2026-10-28",
       "ctas": [
         {
@@ -5350,759 +5197,123 @@
         {
           "btn": "Thư mục Skill-Hub",
           "url": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
-        },
-        {
-          "btn": "Trang sản phẩm KesFlow",
-          "url": "https://kesflow.vn/skills/kes-create-skill"
         }
       ],
       "ctasTitle": "Tải skill",
       "sections": [
         {
-          "k": "callout",
-          "t": "Nhờ AI xong việc, lần sau lại phải dặn lại từ đầu? AI như một bạn thực tập giỏi nhưng chưa có sổ tay quy trình nên mỗi lần làm một kiểu. Đóng gói cách làm thành skill để lần nào cũng đi đúng một quy trình."
+          "k": "h",
+          "t": "Chỉ AI xong việc, lần sau lại phải dặn lại từ đầu?"
+        },
+        {
+          "k": "p",
+          "t": "AI như một bạn intern giỏi việc nhưng chưa có sổ tay quy trình, dẫn đến mỗi lần làm một kiểu. Thay vì nhắc việc thủ công mỗi ngày, bạn có thể đóng gói cách làm thành một skill chuẩn."
+        },
+        {
+          "k": "list",
+          "items": [
+            "Quản quy trình, không ép cứng kết quả",
+            "Phỏng vấn chống học vẹt và dẫn trọn đường",
+            "Bộ thử 20 câu và trợ lý soát lạnh"
+          ]
         },
         {
           "k": "h",
-          "t": "Skill giúp bạn"
+          "t": "Ép AI đi đúng một quy trình, không để làm việc tuỳ hứng"
         },
         {
           "k": "cards",
           "items": [
             {
-              "t": "Ép quy trình, không ép kết quả",
-              "d": "Skill không bắt AI ra cùng một kết quả, mà bắt đi đúng các bước mỗi lần. Chữ có thể đổi, cách làm thì không."
+              "t": "Quản quy trình, không ép cứng kết quả",
+              "tag": "01",
+              "d": "Skill là một thư mục chứa file SKILL.md để AI đọc và đi đúng từng bước bạn đã định sẵn. Skill không ép AI ra cùng một kết quả, mà ép nó tuân thủ đúng một quy trình mỗi lần chạy."
             },
             {
-              "t": "Phỏng vấn chống học vẹt",
-              "d": "Hỏi theo cụm 3 đến 5 câu kèm đáp án gợi ý, có 5 câu bắt buộc để skill dùng được cho nhiều ca tương tự chứ không chỉ ca vừa làm."
+              "t": "Phỏng vấn chống học vẹt và dẫn trọn đường",
+              "tag": "02",
+              "d": "kes-create-skill hỏi bạn theo cụm 2-5 câu kèm gợi ý, bạn chỉ cần gật hoặc chọn nhanh. Quy trình có 5 câu bắt buộc để skill dùng được cho nhiều ca tương tự chứ không chỉ chạy đúng ca vừa làm."
             },
             {
-              "t": "Review độc lập và bộ thử 20 câu",
-              "d": "Một reviewer mới đọc lại skill, mỗi phát hiện phải được trả lời. Bộ 20 câu kiểm skill bật đúng lúc và im đúng lúc."
+              "t": "Bộ thử 20 câu và trợ lý soát lạnh",
+              "tag": "03",
+              "d": "AI soạn 20 câu thử (10 câu skill phải bật, 10 câu na ná phải im) để bạn duyệt trước khi chấm; mỗi bên phải đúng ít nhất 9/10. Một trợ lý phụ không biết gì về cuộc trò chuyện soát \"lạnh\", mỗi lỗi chỉ rõ file và dòng; AI không mở được trợ lý phụ thì tự soát và nói rõ là tự soát."
             },
             {
-              "t": "3 nhánh: tạo, sửa, review",
-              "d": "Tạo mới đóng gói bản 1.0.0. Sửa có bản chụp và tăng phiên bản. Review chỉ báo lỗi, không sửa."
+              "t": "4 nhánh: tạo mới, sửa, chấm điểm, tối ưu",
+              "tag": "04",
+              "d": "Sửa thì có bản sao lưu nằm ngoài thư mục skill và danh sách đã đổi gì, cố tình KHÔNG đổi gì. Chấm điểm thì chỉ báo lỗi, không sửa. Tối ưu thì có báo cáo trước/sau và sổ kiểm từng ý cũ còn hay đã cắt có lý do."
             }
           ]
         },
         {
           "k": "h",
-          "t": "Ai dùng: trước và sau"
+          "t": "Biến kinh nghiệm thực chiến thành tài sản dùng nhiều lần"
         },
         {
           "k": "table",
           "head": [
-            "Ai đang cần",
+            "Tình huống",
             "Trước",
             "Sau"
           ],
           "rows": [
             [
-              "Chủ tiệm gửi báo giá cho khách mỗi ngày",
-              "Lần nào cũng dán bảng giá và dặn AI giữ đúng mẫu.",
-              "Nói \"Tạo skill cho mình từ việc vừa làm\", lần sau gọi một câu là xong."
+              "Chủ tiệm kinh doanh, cần gửi báo giá chuẩn cho khách mỗi ngày",
+              "Mỗi lần báo giá lại phải copy paste bảng giá, dặn AI giữ đúng mẫu và tính tiền cẩn thận.",
+              "Chỉ cần bảo 'Tạo skill cho mình từ việc vừa làm: soạn báo giá theo mẫu của tiệm', lần sau gọi một câu là xong."
             ],
             [
-              "Người làm nội dung có skill viết caption bắt đầu sót bước",
-              "Sửa tay, không chắc có làm hỏng chỗ khác không.",
-              "Nhánh sửa đọc hết bản gốc, lưu bản chụp, sửa rồi tăng phiên bản."
+              "Người làm nội dung, đang viết bài và quản lý bài đăng",
+              "Skill viết caption dùng được một thời gian thì bắt đầu bỏ quên bước kiểm tra giá sản phẩm.",
+              "Nhắn \"Sửa skill viết caption của mình\": AI đọc hết bản gốc, sao lưu, sửa, chạy thử rồi tăng số phiên bản, kèm danh sách đã đổi gì và cố tình không đổi gì."
             ],
             [
-              "Trưởng nhóm sắp bàn giao skill cho đồng đội",
-              "Không chắc skill còn chữ thừa hay sót bước.",
-              "Nói \"Review skill này, đừng sửa\" để nhận danh sách phát hiện."
+              "Người bận rộn, cần lên thực đơn đi chợ tuần theo khẩu vị gia đình",
+              "Tuần nào cũng gõ lại danh sách món ăn, món kiêng của từng người và dặn AI phân loại theo quầy chợ.",
+              "Đóng gói cách nhà mình hay làm thành skill; đầu tuần gọi một câu là AI làm đúng các bước đó, khỏi dặn lại món kiêng của từng người."
+            ],
+            [
+              "Trưởng nhóm chuyên môn, chuẩn bị bàn giao tài liệu làm việc cho đồng đội",
+              "Tự viết xong một skill nhưng không chắc câu chữ có thừa thãi hay sót bước kỹ thuật nào không.",
+              "Nhắn \"Review skill này giúp mình, đừng sửa gì\" để nhận báo cáo theo khuôn, mỗi lỗi chỉ rõ file và dòng, trước khi đưa đồng đội."
+            ],
+            [
+              "Người dùng đã có skill nhưng gặp tình trạng AI đọc sót bước hoặc tự bật nhầm lúc",
+              "Skill dài lê thê khiến AI đọc sót bước, hoặc bạn hỏi chuyện khác mà skill vẫn tự bật.",
+              "Dùng nhánh tối ưu để cắt gọt chữ thừa, đồng thời chỉnh lại mô tả và kiểm tra qua bộ 20 câu thử."
             ]
           ]
-        },
-        {
-          "k": "h",
-          "t": "Ví dụ"
         },
         {
           "k": "code",
-          "t": "Claude: Mình cần làm rõ 3 điểm trước khi viết skill:\n1. Giữa các lần soạn báo giá, cái gì thay đổi? (Gợi ý: tên khách, hạng mục, số lượng)\n2. Câu nào na ná mà skill KHÔNG được bật? (Gợi ý: \"soạn hợp đồng\")\n3. Ai khác sẽ dùng skill này? (Gợi ý: nhân viên bán hàng)\nBạn: 1: ừ - 2: thêm \"xuất hoá đơn\" - 3: tuỳ bạn\nClaude: Đã ghi nhận. Mình soạn brief và bộ câu thử ngay sau đây.",
-          "cap": "Ví dụ hư cấu"
+          "t": "AI: Mình cần làm rõ 3 điểm trước khi viết skill:\n1. Giữa các lần soạn báo giá, cái gì thay đổi? (Gợi ý: tên khách, hạng mục, số lượng).\n2. Câu nào na ná mà skill KHÔNG được bật? (Gợi ý: 'soạn hợp đồng').\n3. Ai khác sẽ dùng skill này? (Gợi ý: nhân viên bán hàng).\n\nBạn: 1: ừ - 2: thêm 'xuất hoá đơn' - 3: tuỳ bạn.\n\nAI: Đã ghi nhận. Mình sẽ viết đề bài skill và chuẩn bị bộ câu thử ngay sau đây.",
+          "cap": "Trích phỏng vấn mẫu: 3 trong 5 câu bắt buộc"
         },
         {
-          "k": "callout",
-          "t": "Dùng khi muốn tạo, viết, sửa, nén hoặc review một skill của Claude Code, hoặc khi skill không chịu kích hoạt. Kích hoạt bằng: tạo skill, viết skill, sửa skill, cập nhật skill, review skill, nén skill, tối ưu skill, make this a skill."
-        },
-        {
-          "k": "h",
-          "t": "Mục tiêu: hành vi dự đoán được"
-        },
-        {
-          "k": "p",
-          "t": "Agent AI có tính ngẫu nhiên: cùng câu hỏi, mỗi lần có thể ra khác nhau. Skill không ép ra cùng một kết quả, mà ép đi theo đúng một quy trình mỗi lần. Chữ nghĩa có thể đổi, cách làm thì không. Mọi kỹ thuật trong bộ này phục vụ mục tiêu đó."
-        },
-        {
-          "k": "callout",
-          "t": "Không dùng để: chạy một skill đã cài, viết SOP hoặc tài liệu cho người đọc, hay dựng workflow tự động hoá."
+          "k": "code",
+          "t": "Đã tạo skill bao-gia-tiem, phiên bản 1.0.0:\nbao-gia-tiem/\n├── SKILL.md\n├── CHANGELOG.md\n└── assets/\n    └── bao-gia-template.md\nbao-gia-tiem.zip (để cài hoặc gửi đồng đội)\n\nKết quả kiểm:\n- Kiểm cơ học: đủ file, đúng giới hạn dòng, đủ tên, mô tả, phiên bản, tác giả\n- Soát lạnh bằng trợ lý phụ: 3 lỗi, đã sửa 3\n- Bộ 20 câu thử: phải bật 10/10 - phải im 9/10\n- Chạy thử một lần từ gói zip với câu mới: đạt\n(số liệu minh hoạ)\n\nCách cài để AI dùng được: đưa bao-gia-tiem.zip cho AI và nhắn câu cài đặt như lúc cài kes-create-skill.",
+          "cap": "Trích kết quả sau khi tạo skill (ví dụ hư cấu)"
         },
         {
           "k": "h",
-          "t": "Ba nhánh khi chạy"
-        },
-        {
-          "k": "table",
-          "head": [
-            "Bạn nói",
-            "Nhánh",
-            "Đường đi"
-          ],
-          "rows": [
-            [
-              "Tạo skill cho tôi…",
-              "Create",
-              "Phỏng vấn, brief, chốt cấp độ, dựng từ mẫu, review, test trigger, chạy thử, đóng gói 1.0.0"
-            ],
-            [
-              "Sửa hoặc nén skill này…",
-              "Update",
-              "Đọc hết bản gốc, lưu bản chụp, chốt ý định, sửa, review kèm sổ claims, tăng version"
-            ],
-            [
-              "Review skill này, đừng sửa",
-              "Review",
-              "Reviewer độc lập chấm theo checklist, chỉ báo phát hiện"
-            ]
-          ]
-        },
-        {
-          "k": "h",
-          "t": "Nhánh Create từng bước"
+          "t": "Cách dùng"
         },
         {
           "k": "steps",
           "items": [
             {
-              "t": "Phỏng vấn thành brief",
-              "d": "Hỏi theo cụm 3 đến 5 câu, mỗi câu kèm phương án đề xuất. Có 5 câu chống overfit: điều gì thay đổi giữa các lần chạy, 3 ca lân cận cần xử lý, 3 câu na ná không được kích hoạt, ai khác sẽ dùng và nói thế nào, sự kiện nào làm skill lỗi thời."
+              "t": "Bước 1",
+              "d": "Tải file zip về, đưa cho AI và nhắn: 'Cài skill trong file này theo hướng dẫn INSTALL.md bên trong.'"
             },
             {
-              "t": "Rà brief",
-              "d": "Một reviewer mới đọc brief và hỏi tiếp tới khi trả về NO GAPS. Sau đó bạn phải gật rõ ràng."
+              "t": "Bước 2",
+              "d": "Mở cuộc trò chuyện mới, nhắn: 'Tạo skill cho mình từ việc vừa làm: ...' (hoặc chọn sửa, review, tối ưu)."
             },
             {
-              "t": "Chốt cấp độ",
-              "d": "L1 hướng dẫn công cụ, L2 quy trình, L3 router. Chốt trước khi dựng."
-            },
-            {
-              "t": "Dựng từ mẫu",
-              "d": "Trình bày cây file và cấu trúc, được đồng ý thì dựng từ mẫu trong assets."
-            },
-            {
-              "t": "Review",
-              "d": "Mỗi phát hiện phải được trả lời: đã sửa hoặc không đồng ý kèm lý do."
-            },
-            {
-              "t": "Test trigger",
-              "d": "Kiểm tra description kích hoạt đúng và im lặng đúng."
-            },
-            {
-              "t": "Chạy thử và đóng gói",
-              "d": "Chạy sạch một lần, gắn version 1.0.0 và changelog có ngày."
+              "t": "Bước 3",
+              "d": "Trả lời phỏng vấn gọn gàng, duyệt đề bài và bộ câu thử để nhận về thư mục skill hoàn chỉnh kèm file zip."
             }
-          ]
-        },
-        {
-          "k": "h",
-          "t": "Cách phỏng vấn để ra brief"
-        },
-        {
-          "k": "p",
-          "t": "Mục tiêu: biến câu 'làm cho tôi một skill' mơ hồ thành brief đủ để một người lạ dựng skill mà không phải hỏi lại, và đủ tổng quát để không bị dính chặt vào đúng ca bạn vừa chạy."
-        },
-        {
-          "k": "list",
-          "items": [
-            "Hỏi theo nhóm nhỏ 3 đến 5 câu liên quan mỗi lượt, mỗi câu kèm lý do hỏi và đáp án Claude đề xuất cùng lý do, vì sửa một đoán sai nhanh hơn điền chỗ trống.",
-            "Đọc trước, hỏi sau: đọc cuộc trò chuyện, file và các skill hiện có. Nếu bạn nói 'biến việc vừa làm thành skill' thì trích từ chính lần chạy đó trước.",
-            "Khi bạn đưa cả tài liệu nguồn lẫn lời dặn (ví dụ 'đây là docs, tập trung vào xác thực và phân trang'), lời dặn là yêu cầu bắt buộc, không phải bình luận.",
-            "Khác với brief vấn đề, brief skill được phép nêu trigger, cấp độ, đầu ra và các bước.",
-            "Dừng khi dự đoán được 3 câu trả lời kế tiếp của bạn (khoảng 95%), rồi soạn brief.",
-            "Cần bạn đồng ý rõ ràng với brief, không chấp nhận 'tuỳ bạn' hay im lặng. Sửa xong thì xác nhận lại."
-          ]
-        },
-        {
-          "k": "h",
-          "t": "5 câu hỏi chống overfit (bắt buộc cả 5)"
-        },
-        {
-          "k": "p",
-          "t": "Lỗi mặc định là overfit: bạn mô tả đúng ca vừa làm, skill chỉ kích hoạt đúng ca đó."
-        },
-        {
-          "k": "table",
-          "head": [
-            "Câu hỏi",
-            "Để lộ ra"
-          ],
-          "rows": [
-            [
-              "Giữa các lần chạy, cái gì thay đổi?",
-              "Các nhánh"
-            ],
-            [
-              "Nêu 3 tình huống skill nên xử lý dù hôm nay chưa gặp",
-              "Các ca lân cận"
-            ],
-            [
-              "Nêu 3 câu hỏi trông giống nhưng KHÔNG được kích hoạt skill",
-              "Nửa câu phải-im của bộ trigger test"
-            ],
-            [
-              "Ai khác sẽ dùng và họ nói khác bạn thế nào?",
-              "Mở rộng cách diễn đạt trigger"
-            ],
-            [
-              "Sự kiện nào làm skill sai, và tín hiệu nào báo cần cập nhật?",
-              "Điều kiện cập nhật skill"
-            ]
-          ]
-        },
-        {
-          "k": "p",
-          "t": "Câu trả lời về near-miss và về sự kiện làm skill lỗi thời được ghi nguyên văn để dùng cho trigger test và điều kiện cập nhật."
-        },
-        {
-          "k": "h",
-          "t": "Vòng rà brief bằng reviewer độc lập"
-        },
-        {
-          "k": "p",
-          "t": "Một subagent không có ngữ cảnh buổi phỏng vấn đọc lạnh bản brief với yêu cầu: phải dựng skill từ brief mà không được hỏi người đề bài, soi hai góc là đủ chưa và có bị dính vào một ca duy nhất không. Mỗi lỗ hổng thành một câu hỏi, Claude hỏi bạn, sửa brief, rồi rà lại cho tới khi trả về đúng chữ NO GAPS."
-        },
-        {
-          "k": "h",
-          "t": "Brief gồm 7 mục (thứ tự cố định)"
-        },
-        {
-          "k": "table",
-          "head": [
-            "Mục",
-            "Nội dung"
-          ],
-          "rows": [
-            [
-              "1. Mục đích và phạm vi",
-              "Skill giúp agent làm được gì (1 dòng) và dừng ở đâu (1 dòng)"
-            ],
-            [
-              "2. Cấp độ",
-              "L1, L2 hoặc L3 kèm lý do; model tự gọi hay người dùng gọi, kèm lý do"
-            ],
-            [
-              "3. Bản đồ kích hoạt",
-              "Ít nhất 3 cách nói phải kích hoạt và 3 câu na ná phải im"
-            ],
-            [
-              "4. Nhánh và biến thiên",
-              "Cái gì thay đổi giữa các lần chạy; nhánh mọi lần cần thì để trong SKILL.md, nhánh ít ca thì đẩy ra references"
-            ],
-            [
-              "5. Đầu vào, đầu ra, DoD",
-              "Skill nhận gì, tạo gì, thế nào là xong kiểm tra được; nếu có tài liệu đầu ra thì chốt cấu trúc bắt buộc và viết bằng ngôn ngữ người dùng"
-            ],
-            [
-              "6. Bất biến",
-              "Thứ không đổi qua các lần chạy hay sửa: luật an toàn, giao kèo dữ liệu, chuỗi khách hàng thấy"
-            ],
-            [
-              "7. Ngoài phạm vi",
-              "Ít nhất 3 việc cố ý không làm, dạng 'Không làm việc gì vì lý do gì'"
-            ]
-          ]
-        },
-        {
-          "k": "p",
-          "t": "Brief viết toàn bộ bằng ngôn ngữ của người dùng, kể cả tiêu đề. Số thứ tự các mục là giao kèo, không đổi thứ tự."
-        },
-        {
-          "k": "h",
-          "t": "Ba cấp độ skill"
-        },
-        {
-          "k": "table",
-          "head": [
-            "Cấp",
-            "Là gì",
-            "Chọn khi",
-            "Chạy mặc định",
-            "Dòng (mục tiêu / tối đa)"
-          ],
-          "rows": [
-            [
-              "L1 Hướng dẫn công cụ",
-              "Dạy agent dùng đúng một công cụ hoặc API, gần như toàn tham chiếu, ít hoặc không có bước",
-              "Việc là dùng đúng một công cụ, không phải chạy một công việc nhiều bước",
-              "Model tự gọi",
-              "150 / 400"
-            ],
-            [
-              "L2 Quy trình",
-              "Các bước làm một việc đầu đến cuối, có đầu ra kiểm được và một cổng review",
-              "Một việc chạy từ đầu tới cuối có kết quả kiểm tra được, đa số skill ở đây",
-              "Có tác dụng phụ hoặc nhạy thời điểm thì người dùng gọi, còn lại model tự gọi",
-              "200 / 500"
-            ],
-            [
-              "L3 Router",
-              "Cửa vào cho một mảng, chỉ có bảng định tuyến và luật chung, không tự làm việc",
-              "Từ 2 skill anh em trở lên cùng một mảng cần một cửa chung",
-              "Model tự gọi",
-              "80 / 150"
-            ]
-          ]
-        },
-        {
-          "k": "p",
-          "t": "Cấp độ chỉ đo một thứ: một skill điều phối bao nhiêu việc. Nó không quyết định cách chia nhỏ tài liệu hay cách gọi skill. Chốt cấp độ ngay trong brief vì nó quyết định mẫu, checklist và tiêu chí hoàn thành cho cả vòng đời."
-        },
-        {
-          "k": "h",
-          "t": "Khung của từng cấp"
-        },
-        {
-          "k": "table",
-          "head": [
-            "Cấp",
-            "Khung nội dung",
-            "Tiêu chí hoàn thành chính"
-          ],
-          "rows": [
-            [
-              "L1",
-              "Phạm vi công cụ trong một dòng; bảng thao tác chính kèm định dạng tham số; các lỗi hay gặp dạng sai và đúng; quy tắc kiểm tra sau thao tác; cảnh báo lệch (công cụ thật thắng skill); các thao tác phá huỷ không bao giờ tự chạy. Có thêm mục Cài đặt nếu công cụ cần đăng nhập, bí mật không bao giờ nằm trong skill.",
-              "Mọi thao tác và tham số phải có trong tài liệu thật của công cụ; mỗi lỗi hay gặp có cặp sai và đúng; nêu rõ sự kiện nào buộc cập nhật skill; mini quy trình nhúng tối đa khoảng 5 bước, dài hơn thì tách thành L2."
-            ],
-            [
-              "L2",
-              "Phần mở đầu ngắn (tuỳ chọn); đầu vào bắt buộc; các bước, mỗi bước có một tiêu chí hoàn thành kiểm được; cổng review độc lập khi đầu ra quan trọng; đầu ra kèm một dòng Done-when. Đầu ra là tài liệu thì dùng mẫu trong assets.",
-              "Mục Đầu vào luôn đứng đầu và có cách hỏi khi thiếu; mỗi bước có tiêu chí hoàn thành; mỗi bước có thể lỗi đều nêu lối thoát (thử lại có điều kiện, phương án dự phòng hoặc dừng lại hỏi); tạo tài liệu mà không có mẫu trong assets là trượt; dãy lệnh cố định không viết thành văn xuôi."
-            ],
-            [
-              "L3",
-              "Bản đồ mảng trong một đoạn; tối đa 5 luật bắt buộc, mỗi luật chặn một loại lỗi; bảng định tuyến 'muốn X thì skill Y' gồm cả ý định tưởng chừng nhỏ, cộng các ý định na ná thuộc nơi khác; chính sách khi có thay đổi.",
-              "Mọi skill anh em đều nằm trong bảng; mọi đích định tuyến đều tồn tại; không có nội dung thực thi trong thân; thêm, đổi tên, bỏ hoặc đổi phạm vi skill thì cập nhật bảng ngay trong cùng đợt."
-            ]
-          ]
-        },
-        {
-          "k": "p",
-          "t": "Với L2 có nhiều nhánh: nhánh nhỏ viết một dòng trong bước, nhánh lớn tách thành một file tham chiếu riêng cho mỗi biến thể, lớn hơn nữa thì tách skill. Từ 2 điểm quyết định trở lên thì vẽ sơ đồ mermaid chỉ hình dạng luồng phía trên phần Steps. Sản phẩm của skill nói ngôn ngữ của người dùng, từ đầu đến cuối."
-        },
-        {
-          "k": "h",
-          "t": "Quy tắc hệ thống"
-        },
-        {
-          "k": "list",
-          "items": [
-            "Phụ thuộc một chiều: L3 trỏ tới L2, L2 trỏ tới L1, cấp thấp không bao giờ trỏ lên.",
-            "Chỉ viết lệnh, tham số, cờ hay tên trường khi chúng xuất hiện nguyên văn trong tài liệu nguồn hoặc đã chạy thật khi soạn. Suy đoán nghe hợp lý là nguyên nhân hàng đầu làm hỏng hướng dẫn công cụ.",
-            "Thân skill viết bằng tiếng Anh ngắn gọn. Chuỗi tiếng Việt chỉ giữ nguyên khi máy khớp đúng chuỗi đó, khách hàng đọc hoặc nghe, là ví dụ dạy viết bằng tiếng đó, hoặc là câu người dùng gõ để kích hoạt.",
-            "Dùng từ đơn giản mà người mới vào nghề đã biết. Thuật ngữ chỉ giữ khi skill tự định nghĩa và dùng lại như từ dẫn dắt; thuật ngữ người đọc phải tra mà không được định nghĩa trong file là một lỗi review.",
-            "Đặt tên: L1 là danh từ của công cụ, L2 là cụm động từ đứng đầu (viết plan-content, không viết content-planning), L3 là danh từ của mảng.",
-            "Tác giả: mỗi skill có metadata.author dạng 'tên bạn · built with kes-create-skill · KesFlow', trừ khi bạn chọn dòng tác giả khác.",
-            "Skill chỉ có kiến thức thuần (lý thuyết, tiêu chuẩn) không phải một cấp, mà là tài liệu tham chiếu để mọi cấp trích dẫn."
-          ]
-        },
-        {
-          "k": "h",
-          "t": "Skill của hãng công cụ"
-        },
-        {
-          "k": "p",
-          "t": "Skill do hãng công cụ phát hành chỉ đọc, cập nhật bằng cách nhập lại bản mới, không sửa tại chỗ. Tuỳ biến của bạn đặt ở nơi vừa đủ: vài luật thì để trong CLAUDE.md, nhiều hơn thì làm một skill đồng hành nhỏ chỉ chứa phần khác biệt và kích hoạt bằng cùng từ khoá. Không chép nội dung của hãng vào skill đồng hành vì sẽ lệch khi bản gốc cập nhật. Khi mâu thuẫn: skill đồng hành thắng skill hãng, công cụ thật thắng cả hai."
-        },
-        {
-          "k": "h",
-          "t": "Quản lý phiên bản"
-        },
-        {
-          "k": "table",
-          "head": [
-            "Loại thay đổi",
-            "Tăng",
-            "Ví dụ"
-          ],
-          "rows": [
-            [
-              "Sửa lỗi không đổi bước, nhánh hay giao kèo",
-              "PATCH",
-              "Lỗi chính tả, sửa câu chữ"
-            ],
-            [
-              "Thêm mới, vẫn tương thích ngược",
-              "MINOR",
-              "Thêm bước, nhánh, tài liệu, mẫu hoặc cụm trigger"
-            ],
-            [
-              "Thay đổi làm hỏng cách dùng cũ",
-              "MAJOR",
-              "Đổi tên, bỏ hoặc sửa lại bước, đổi định dạng sản phẩm, tái cấu trúc"
-            ]
-          ]
-        },
-        {
-          "k": "p",
-          "t": "Mỗi đợt phát hành tăng một lần ở mức cao nhất đã chạm, kèm một dòng changelog có ngày ngay dưới frontmatter, dạng X.Y.Z (YYYY-MM-DD) — nội dung thay đổi. Phiên bản đầu tiên là 1.0.0."
-        },
-        {
-          "k": "h",
-          "t": "Khi nào tách skill"
-        },
-        {
-          "k": "list",
-          "items": [
-            "Một L2 tách thành nhiều L2 cộng một L3 khi xuất hiện từ 2 cụm trigger tách biệt, hoặc thân vượt trần dòng dù đã chia tài liệu đúng cách.",
-            "Một L1 chỉ nhúng mini quy trình tối đa khoảng 5 bước, dài hơn thì thành L2."
-          ]
-        },
-        {
-          "k": "h",
-          "t": "Description: nơi skill sống hay chết"
-        },
-        {
-          "k": "list",
-          "items": [
-            "Đặt cụm trigger người dùng thật sự gõ (kể cả tiếng Việt) lên đầu.",
-            "Phần mô tả ngắn 1 đến 2 câu.",
-            "Thêm 1 đến 2 mệnh đề không-kích-hoạt cho skill dễ nhầm nhất.",
-            "Tối đa 1024 ký tự, không dùng ngoặc nhọn."
-          ]
-        },
-        {
-          "k": "h",
-          "t": "Cắt chữ cho gọn"
-        },
-        {
-          "k": "list",
-          "items": [
-            "No-op test: câu nào không đổi hành vi so với mặc định của model thì xoá.",
-            "Leading word: một từ model đã quen có thể thay cả ba câu diễn giải.",
-            "Mỗi ý chỉ sống ở một chỗ. Khi nén skill có sẵn, lập sổ claims: ý nào cũng phải còn hoặc có lý do cắt."
-          ]
-        },
-        {
-          "k": "h",
-          "t": "Từ vựng chuẩn của bộ này"
-        },
-        {
-          "k": "table",
-          "head": [
-            "Khái niệm",
-            "Ý nghĩa"
-          ],
-          "rows": [
-            [
-              "Predictability",
-              "Agent đi theo cùng một quy trình mỗi lần chạy, không phải cùng một đầu ra. Skill brainstorm vẫn cho ý mới mỗi lần, nhưng cách dẫn dắt nhất quán."
-            ],
-            [
-              "Model-invoked",
-              "Giữ description để agent tự kích hoạt, nhưng description luôn nằm trong ngữ cảnh mỗi lượt (tốn context)."
-            ],
-            [
-              "User-invoked",
-              "Bỏ description, chỉ kích hoạt khi bạn gõ tên (disable-model-invocation: true). Không tốn context nhưng bạn phải nhớ skill tồn tại, nên dùng ở chỗ cần phán đoán của con người."
-            ],
-            [
-              "Progressive disclosure",
-              "Đẩy tài liệu ít nhánh cần ra file riêng sau một con trỏ; cái mọi lần chạy đều cần thì để trong SKILL.md. Con trỏ nổ không đều thì sửa câu chữ con trỏ trước, kéo vào trong chỉ khi sửa chữ thất bại."
-            ],
-            [
-              "Co-location",
-              "Cái cần đọc cùng lúc thì đặt cạnh nhau (định nghĩa, luật, lưu ý dưới một tiêu đề)."
-            ],
-            [
-              "Completion criterion",
-              "Điều kiện cho agent biết một bước đã xong. Mạnh nhất khi vừa kiểm tra được vừa đòi hỏi đủ. Tiêu chí mờ như 'đã hiểu' dễ gây kết thúc sớm."
-            ],
-            [
-              "Leading word",
-              "Từ model đã học sẵn, gánh cả một nguyên tắc hành vi bằng một từ (ví dụ tracer bullets, tight, relentless). Từ quá yếu để thắng mặc định thì chính nó là no-op, cần từ mạnh hơn."
-            ],
-            [
-              "No-op",
-              "Câu không đổi hành vi so với mặc định của model. Câu nào trượt thì xoá cả câu, đừng gọt vài chữ."
-            ],
-            [
-              "Sediment",
-              "Chữ cũ bồi lắng vì thêm thì thấy an toàn còn xoá thì thấy rủi ro. Số phận mặc định của skill không có kỷ luật cắt tỉa."
-            ],
-            [
-              "Sprawl",
-              "Skill đơn giản là quá dài. Chữa bằng phân tầng tài liệu và tách theo nhánh."
-            ]
-          ]
-        },
-        {
-          "k": "h",
-          "t": "Ba kiểu cổng duyệt của con người"
-        },
-        {
-          "k": "p",
-          "t": "Khi skill ghi vào thứ con người sở hữu (dữ liệu khách hàng, tin nhắn gửi đi), con người là cổng. Chọn kiểu theo ai tạo ra giá trị, không phải theo số lượng mục."
-        },
-        {
-          "k": "table",
-          "head": [
-            "Kiểu",
-            "Giá trị đến từ",
-            "Con người làm",
-            "Dùng khi"
-          ],
-          "rows": [
-            [
-              "Từng mục một",
-              "Con người",
-              "Quyết từng mục",
-              "Mỗi mục cần một quyết định khác nhau"
-            ],
-            [
-              "Gộp theo dạng câu hỏi",
-              "Con người",
-              "Trả lời cả cụm, rồi nghe danh sách đã phân tích đọc lại trước khi ghi",
-              "Nhiều mục cùng một câu hỏi"
-            ],
-            [
-              "Khớp sẵn, người duyệt phủ quyết",
-              "Quy trình",
-              "Duyệt bảng, im lặng nghĩa là đồng ý, chỉ nêu dòng sai",
-              "Có tín hiệu xác định cho ra đáp án"
-            ]
-          ]
-        },
-        {
-          "k": "p",
-          "t": "Kiểu thứ ba chỉ dùng khi phép suy ra chính xác, không phải ước chừng (khớp trên giá trị chính người dùng đã nhập, không phải điểm giống nhau). Bắt người duyệt kiểm tra các đoán mò còn tệ hơn hỏi thẳng. Luôn hiện cả phần đã khớp và phần còn lại, phần còn lại quay về cách hỏi từng mục."
-        },
-        {
-          "k": "h",
-          "t": "Review trước khi dùng"
-        },
-        {
-          "k": "p",
-          "t": "Quy trình review gồm kiểm tra tay, review độc lập, sổ claims (khi nén hoặc cấu trúc lại), trigger test, chạy thử. Người dựng tự chấm bài mình là vô nghĩa vì ngữ cảnh dựng làm mờ mắt."
-        },
-        {
-          "k": "table",
-          "head": [
-            "Vai trò",
-            "Là ai",
-            "Làm gì"
-          ],
-          "rows": [
-            [
-              "Builder",
-              "Phiên chính",
-              "Trình hướng đi (mục tiêu, phạm vi, cách làm) trước, được đồng ý rồi mới sửa trực tiếp, báo kết quả trung thực kèm điểm"
-            ],
-            [
-              "Reviewer",
-              "Agent mới, không có ngữ cảnh dựng",
-              "Chấm theo checklist đúng cấp, tư thế đối kháng: tìm vì sao skill hỏng. Mỗi nhận xét trích file và dòng"
-            ],
-            [
-              "Con người",
-              "Chủ skill",
-              "Giữ cổng hướng đi ở đầu, không duyệt từng thay đổi nhỏ, nhận báo cáo và điểm cuối"
-            ]
-          ]
-        },
-        {
-          "k": "h",
-          "t": "1. Kiểm tra tay (mỗi vòng)"
-        },
-        {
-          "k": "list",
-          "items": [
-            "Cấu trúc: SKILL.md ở gốc, thư mục references phẳng, assets, thêm scripts chỉ khi skill kèm script chạy; không lồng thư mục, không file thừa.",
-            "Ngân sách dòng đúng trần của cấp.",
-            "Frontmatter: name trùng tên thư mục; description đúng công thức, tối đa 1024 ký tự, không ngoặc nhọn; có metadata.version, metadata.author và changelog có ngày.",
-            "Không có nội dung dễ lỗi thời trong thân (ngày tháng, 'hiện nay', số liệu hay đổi).",
-            "Mọi file được trỏ tới đều tồn tại; từ 2 file reference trở lên thì có bảng read-when."
-          ]
-        },
-        {
-          "k": "h",
-          "t": "2. Review độc lập"
-        },
-        {
-          "k": "steps",
-          "items": [
-            {
-              "t": "Reviewer mới chấm",
-              "d": "Chấm theo checklist của cấp và thử no-op với từng dòng. Mỗi kết luận phải trích file và dòng, chấm gộp kiểu 'đạt N trên M' không hợp lệ. Thiếu phần cốt lõi bắt buộc (Inputs, Steps, Done-when với L2) thì phải cấu trúc lại, không phải sửa vặt."
-            },
-            {
-              "t": "Builder trả lời mọi phát hiện",
-              "d": "Đã sửa, hoặc không đồng ý kèm lý do. Không được lờ đi."
-            },
-            {
-              "t": "Người tìm ra lỗi kiểm lại bản sửa",
-              "d": "Rẻ nhất vì đã có sẵn ngữ cảnh."
-            },
-            {
-              "t": "Tối đa 3 vòng với cùng reviewer",
-              "d": "Vòng 4 hoặc sau khi viết lại lớn thì dùng reviewer mới, vì reviewer đã phán 3 lần sẽ bảo vệ phán quyết cũ. Kẹt sau 3 vòng thì dừng và đưa bảng phát hiện chưa giải quyết cho người quyết, không ép đạt."
-            },
-            {
-              "t": "Sửa một mẫu lỗi thì tìm mọi biến thể",
-              "d": "Danh sách vị trí trong phát hiện chỉ là mẫu. Tìm hết trong SKILL.md, references và assets trước khi sửa, nếu không nhãn 'đã sửa' là nhãn nói dối."
-            }
-          ]
-        },
-        {
-          "k": "h",
-          "t": "3. Sổ claims (chỉ khi nén hoặc cấu trúc lại)"
-        },
-        {
-          "k": "p",
-          "t": "Một agent mới đối chiếu với bản gốc: liệt kê mọi claim (luật, bước, ràng buộc, dữ kiện) rồi đánh dấu kept (nay nằm ở đâu) hoặc cut kèm lý do. Rơi claim mà không khai báo thì bản sửa trượt. Sau đó kiểm lại ngân sách dòng, vì nén mà mất claim để đạt ngân sách là thất bại."
-        },
-        {
-          "k": "h",
-          "t": "4. Trigger test"
-        },
-        {
-          "k": "p",
-          "t": "Description là con trỏ duy nhất luôn được nạp, nên thân skill hoàn hảo sau description yếu cũng không bao giờ được tới. Chạy mỗi khi viết hoặc đổi description."
-        },
-        {
-          "k": "table",
-          "head": [
-            "Nhóm",
-            "Số lượng",
-            "Nội dung"
-          ],
-          "rows": [
-            [
-              "Phải kích hoạt",
-              "10",
-              "Một ý định, nhiều cách nói: trang trọng, thân mật, viết thường, gõ sai, đúng ngôn ngữ người dùng gõ. Gồm câu không nêu tên skill nhưng rõ ràng cần nó, một ca ít gặp, một ca skill phải thắng skill na ná"
-            ],
-            [
-              "Phải im",
-              "10",
-              "Chỉ những câu na ná, lấy từ câu hỏi near-miss lúc phỏng vấn. Mỗi câu có chung từ khoá hay khái niệm nhưng cần công cụ khác. Câu hoàn toàn không liên quan bị cấm vì không kiểm tra được gì"
-            ]
-          ]
-        },
-        {
-          "k": "steps",
-          "items": [
-            {
-              "t": "Trình 20 câu",
-              "d": "Bạn duyệt, vì câu hỏi tệ sinh ra description tệ. Câu phải cụ thể: tên file, tình huống thật, một dòng bối cảnh."
-            },
-            {
-              "t": "Chấm chỉ dựa trên description",
-              "d": "Đóng vai agent chọn skill, không nhìn thân skill. Ghi kích hoạt hay im."
-            },
-            {
-              "t": "Chấm điểm",
-              "d": "Từ 9 trên 10 câu phải-kích-hoạt thật sự kích hoạt VÀ từ 9 trên 10 câu phải-im thật sự im. Dưới ngưỡng ở một bên thì sửa rồi chạy lại cả bộ."
-            }
-          ]
-        },
-        {
-          "k": "p",
-          "t": "Khi trượt: bỏ sót nghĩa là description thiếu họ cách nói đó, thêm vào; kích hoạt nhầm nghĩa là ranh giới mềm, nêu rõ skill không dành cho việc gì hoặc trỏ tới công cụ phụ trách ca đó."
-        },
-        {
-          "k": "h",
-          "t": "5. Chạy thử"
-        },
-        {
-          "k": "p",
-          "t": "Chạy skill hoàn chỉnh một lần trên một yêu cầu mẫu, Done-when của chính skill phải đúng. Skill chưa từng chạy một lần chỉ là bản nháp. Trượt thì quay về Builder, đạt thì báo kết quả kèm điểm trên mẫu báo cáo chấm điểm."
-        },
-        {
-          "k": "h",
-          "t": "Định nghĩa hoàn thành của cả quy trình"
-        },
-        {
-          "k": "list",
-          "items": [
-            "Hướng đi được trình và đồng ý TRƯỚC khi sửa, kết quả báo trung thực sau đó.",
-            "Brief đầy đủ, NO GAPS, bạn đồng ý rõ ràng (nhánh Create).",
-            "Kiểm tra tay đều sạch.",
-            "Checklist của cấp đạt 100% kèm bằng chứng trích dẫn; mọi dòng qua no-op test và test từ đơn giản; skill tạo tài liệu thì có mẫu trong assets.",
-            "Trigger test đạt từ 9 trên 10 ở cả hai bên.",
-            "Chạy thử một lần thật, Done-when đúng.",
-            "Sổ claims sạch (chỉ khi nén lại skill cũ)."
-          ]
-        },
-        {
-          "k": "h",
-          "t": "Mẫu báo cáo chấm điểm"
-        },
-        {
-          "k": "p",
-          "t": "Báo cáo viết bằng ngôn ngữ người đọc, có các phần: bảng Kiểm tra (hướng đi, brief, static, checklist cấp độ, trigger test, chạy thử; mục không chạy ghi SKIPPED kèm lý do, không xoá dòng), bảng Phát hiện (mỗi dòng có file:dòng, mức chặn hoặc nên sửa, trích nguyên văn vấn đề, câu trả lời của Builder), Sổ claims, Phán quyết (điểm và kết quả) và Việc tiếp theo."
-        },
-        {
-          "k": "h",
-          "t": "Kết quả đạt được khi dùng skill"
-        },
-        {
-          "k": "callout",
-          "t": "Kết quả dưới đây là sản phẩm đầu ra mà chính skill quy định (theo file SKILL.md và README), không phải số liệu đo từ dự án thực tế. Khi bạn dùng và có kết quả thật, hãy ghi lại để bổ sung vào đây."
-        },
-        {
-          "k": "list",
-          "items": [
-            "Một skill có cấu trúc chuẩn: SKILL.md, references, assets, version và changelog.",
-            "Brief 7 mục làm căn cứ, không bị dính chặt vào một ca duy nhất.",
-            "Description đã qua test trigger nên dễ kích hoạt đúng lúc và ít kích hoạt nhầm.",
-            "Báo cáo chấm điểm theo mẫu, mỗi phát hiện có bằng chứng.",
-            "Skill cũ được nén gọn mà vẫn giữ đủ các ý nhờ sổ claims."
-          ]
-        },
-        {
-          "k": "h",
-          "t": "Các file trong gói (đã đọc đủ)"
-        },
-        {
-          "k": "table",
-          "head": [
-            "File",
-            "Dùng khi"
-          ],
-          "rows": [
-            [
-              "references/standard.md",
-              "Viết hoặc đánh giá bất kỳ nội dung skill, đọc đầu tiên"
-            ],
-            [
-              "references/levels.md",
-              "Chọn cấp độ, mẫu, checklist"
-            ],
-            [
-              "references/interview.md",
-              "Bắt đầu Create hoặc Update chưa rõ ý"
-            ],
-            [
-              "references/review-checklist.md",
-              "Review, sửa, test trigger, chạy thử"
-            ],
-            [
-              "assets/skill-brief-template.md",
-              "Điền brief khi phỏng vấn"
-            ],
-            [
-              "assets/l1, l2, l3-skill-template.md",
-              "Dựng skill theo cấp"
-            ],
-            [
-              "assets/grade-report-template.md",
-              "Viết báo cáo chấm điểm"
-            ]
           ]
         },
         {
@@ -6117,35 +5328,46 @@
           ],
           "rows": [
             [
-              "Skill có chạy hộ skill đã cài hay dựng workflow tự động không?",
-              "Không. Skill không chạy skill khác, không viết SOP cho người đọc và không dựng workflow tự động hoá."
+              "Skill được viết bằng ngôn ngữ gì?",
+              "Phần thân skill được viết bằng tiếng Anh ngắn gọn để AI đọc và thực hiện ổn định hơn. Các câu gọi skill và nội dung khách hàng nhìn thấy vẫn là tiếng Việt, báo cáo gửi bạn cũng bằng tiếng của bạn."
             ],
             [
-              "Skill có bảo đảm AI luôn ra cùng một kết quả không?",
-              "Không. Skill ép AI đi đúng một quy trình, không ép ra cùng một kết quả."
+              "Skill này có chạy hộ việc hay dựng quy trình tự động không?",
+              "Không. Skill không chạy hộ skill đã cài, không viết tài liệu quy trình cho người đọc và không dựng luồng tự động trong các công cụ workflow."
             ],
             [
-              "Chưa biết trả lời câu phỏng vấn thì sao?",
-              "Cứ nói \"chưa biết\". Chất lượng skill phụ thuộc vào câu trả lời của bạn, nên đừng đoán cho có."
+              "Có thể dùng skill để sửa skill do hãng công cụ phát hành không?",
+              "Bên mình khuyên không sửa trực tiếp vì bản cập nhật của hãng sẽ ghi đè lên thay đổi. Bạn nên đặt phần tuỳ biến ở file hướng dẫn dự án hoặc tạo một skill nhỏ đi kèm."
             ],
             [
-              "Bản trong kho khác gì bản trên KesFlow?",
-              "Bản trong kho là v1.1.0 với 3 nhánh. Bản kes-create-skill trên KesFlow có thêm nhánh tối ưu. Xem nút KesFlow bên dưới."
+              "Mình cần cài đặt gì trên máy để sử dụng?",
+              "Node.js để đo độ dài skill (phần mềm miễn phí; không có thì AI đếm tay và ghi rõ là số đếm tay). Mặc định AI chấm tay theo bộ 20 câu; vòng thử tự động là tuỳ chọn, chỉ chạy trên một số công cụ AI dạng dòng lệnh, gọi AI vài trăm lần nên tốn lượt dùng gói AI của bạn, và AI sẽ hỏi trước khi chạy."
+            ],
+            [
+              "Skill tạo xong sẽ ghi tác giả là ai?",
+              "Tác giả mặc định là tên bạn, kèm dòng 'built with kes-create-skill · KesFlow'. Nếu muốn bỏ dòng này, bạn chỉ cần dặn AI một câu trong lúc tạo."
+            ],
+            [
+              "Skill có đảm bảo AI luôn làm ra cùng một kết quả không?",
+              "Không. Skill ép AI đi đúng một quy trình mỗi lần, không ép ra cùng một kết quả, và bên mình không hứa skill bật đúng 100%. Chất lượng skill phụ thuộc vào câu trả lời của bạn lúc phỏng vấn; chưa rõ điểm nào thì cứ nói \"chưa biết\"."
+            ],
+            [
+              "AI của mình không tạo được file trên máy thì sao?",
+              "AI đưa từng file ngay trong khung chat, ghi rõ file đó đặt ở đâu."
             ]
           ]
         },
         {
           "k": "h",
-          "t": "Cài đặt chung"
+          "t": "Đóng gói cách làm của bạn thành skill"
         },
         {
-          "k": "list",
-          "items": [
-            "Tải file về từ nút Drive bên dưới.",
-            "Claude Code: giải nén thư mục skill vào ~/.claude/skills/ (dùng cho mọi dự án) hoặc .claude/skills/ trong dự án. Mỗi skill là một thư mục chứa SKILL.md.",
-            "Claude trên web hoặc app: vào Cài đặt, mục Skills (Capabilities), tải file zip hoặc .skill lên rồi bật.",
-            "Mở phiên mới và gõ lệnh hoặc câu kích hoạt của skill."
-          ]
+          "k": "p",
+          "t": "Tải file zip về, đưa cho AI của bạn và nhắn một câu là AI tự cài; mở cuộc trò chuyện mới rồi gọi \"tạo skill cho mình từ việc vừa làm\"."
+        },
+        {
+          "k": "callout",
+          "t": "README đi kèm có thêm phần đọc khoảng 15 phút về tư duy viết skill để bạn hiểu rõ bản chất thay vì chỉ dùng công cụ."
         }
       ]
     },
@@ -7052,7 +6274,7 @@
         "báo giá"
       ],
       "thumb": "assets/res/skill-chuan-hoa-van-ban.jpg",
-      "note": "Trình bày lại file .docx (báo giá, hợp đồng, công văn) theo Phụ lục I Nghị định 30/2020, giữ nguyên chữ và số, xuất .docx và .pdf.",
+      "note": "28 quy tắc trình bày rút từ Nghị định 30/2020 · Giữ nguyên ruột, chỉ sửa cách viết · Bộ soi tự kiểm và đối soát số liệu.",
       "date": "2026-11-15",
       "ctas": [
         {
@@ -7062,84 +6284,98 @@
         {
           "btn": "Thư mục Skill-Hub",
           "url": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
-        },
-        {
-          "btn": "Trang sản phẩm KesFlow",
-          "url": "https://kesflow.vn/skills/kes-chuan-hoa-van-ban"
         }
       ],
       "ctasTitle": "Tải skill",
       "sections": [
         {
-          "k": "callout",
-          "t": "Báo giá gửi khách nội dung rất ổn, nhưng phông chữ lẫn lộn, thiếu số văn bản, thiếu Nơi nhận thì trông như soạn vội. Phần thể thức để máy làm, người lo phần nội dung."
+          "k": "h",
+          "t": "Văn bản gửi đi: Đừng để áo đẹp cài lệch cúc"
         },
         {
-          "k": "callout",
-          "t": "Dùng khi đã có file .docx soạn xong và cần trình bày lại cho chuẩn trước khi gửi. Kích hoạt bằng: chuẩn hoá văn bản, trình bày theo Nghị định 30, cho đúng thể thức, sửa trình bày cho chuẩn, làm cho chỉn chu trước khi gửi khách."
+          "k": "p",
+          "t": "Báo giá hay công văn gửi khách nội dung rất ổn, nhưng ba bốn phông chữ cùng số tiền lộn xộn khiến người ta thấy soạn vội. Cái gì máy làm tốt thì người đừng làm tay."
+        },
+        {
+          "k": "list",
+          "items": [
+            "28 quy tắc trình bày rút từ Nghị định 30/2020",
+            "Giữ nguyên ruột, chỉ sửa cách viết",
+            "Bộ soi tự kiểm và đối soát số liệu"
+          ]
         },
         {
           "k": "h",
-          "t": "Skill giúp bạn"
+          "t": "Đưa văn bản vào khuôn khổ mà không sợ lệch một con số"
         },
         {
           "k": "cards",
           "items": [
             {
-              "t": "Đúng thể thức Phụ lục I Nghị định 30/2020",
-              "d": "Thêm Quốc hiệu, Tiêu ngữ, số và ký hiệu, địa danh và ngày tháng, khối ký, Nơi nhận. Times New Roman màu đen, lề 20/20/30/15 mm, nội dung cỡ 14 canh đều. Đi kèm 34 quy tắc có số trang căn cứ."
+              "t": "28 quy tắc trình bày rút từ Nghị định 30/2020",
+              "tag": "01",
+              "d": "Khổ A4, lề trên 2, dưới 2, trái 3, phải 1,5 cm, phông Times New Roman, đủ Quốc hiệu, Tiêu ngữ, số và ký hiệu, địa danh ngày tháng, trích yếu, khối ký, Nơi nhận. Các quy tắc rút từ Phụ lục I của nghị định về công tác văn thư."
             },
             {
-              "t": "Giữ nguyên chữ và số",
-              "d": "Chữ được chép từ file gốc qua mã khối, Claude không gõ lại. Tên khách, mã hàng, số lượng, đơn giá, điều khoản giữ nguyên, kể cả lỗi chính tả (chỉ ghi vào mục Cần xác nhận)."
+              "t": "Giữ nguyên ruột, chỉ sửa cách viết",
+              "tag": "02",
+              "d": "Tên hàng, đơn giá, số lượng và điều khoản được giữ nguyên vẹn. Skill chỉ dọn sạch icon trang trí, đưa số tiền và ngày tháng về một khuôn, kèm báo cáo ghi rõ từng chỗ chỉnh sửa."
             },
             {
-              "t": "Tự đối chiếu trước khi giao",
-              "d": "Script so lại: mọi đoạn gốc phải còn nguyên chữ, mọi con số phải còn đủ. Không đạt thì không xuất PDF và không báo là xong."
+              "t": "Bộ soi tự kiểm và đối soát số liệu",
+              "tag": "03",
+              "d": "Bộ soi đi kèm tự kiểm khổ giấy, lề, phông, số trang, Quốc hiệu, số văn bản, ngày tháng, Nơi nhận. Có file Word gốc thì nó so các con số từ 1.000 trở lên giữa bản gốc và bản mới; số nào mất là AI phải sửa trước khi giao."
             },
             {
-              "t": "Hỏi đúng một lượt",
-              "d": "Số văn bản, người ký (quyền hạn, chức vụ, họ tên), ngày nếu file thiếu, Nơi nhận nếu không có \"Kính gửi\". Claude không tự điền tạm."
+              "t": "Hỏi đúng một lần, xuất nhiều định dạng",
+              "tag": "04",
+              "d": "Thiếu số văn bản, ngày, người ký hay chức vụ thì AI hỏi đúng một lượt, mỗi chỗ kèm gợi ý; bạn gõ \"ok\" là AI dùng gợi ý. Nhận về file .docx, file HTML để đưa lên Google Docs, và PDF nếu máy có LibreOffice."
             }
           ]
         },
         {
           "k": "h",
-          "t": "Ai dùng: trước và sau"
+          "t": "Từ việc công sở đến việc đời sống đều cần bản gửi đi nghiêm túc"
         },
         {
           "k": "table",
           "head": [
-            "Ai đang cần",
+            "Tình huống",
             "Trước",
             "Sau"
           ],
           "rows": [
             [
-              "Nhân viên sales sắp gửi báo giá",
-              "Báo giá đủ nội dung nhưng phông chữ lẫn lộn, không có số văn bản, ngày viết dạng 15/09/2026.",
-              "File .docx và .pdf có Quốc hiệu, số 01/BG-..., \"Hà Nội, ngày 15 tháng 9 năm 2026\", khối ký và Nơi nhận."
+              "Nhân viên sales hoặc chủ shop sắp gửi báo giá cho khách hàng",
+              "Báo giá gõ vội trong chat, phông chữ lộn xộn, số tiền chỗ ghi 1,350,000đ chỗ ghi 3tr2 trông thiếu chuyên nghiệp.",
+              "Bảng báo giá vào khuôn ngay ngắn, định dạng số tiền đồng nhất, có số hiệu và ngày tháng trang trọng để tự tin gửi đi."
             ],
             [
-              "Doanh nghiệp gửi công văn cho đối tác",
-              "Loay hoay căn lề, đặt Quốc hiệu sai chỗ, thiếu trích yếu.",
-              "Lề, cỡ chữ và vị trí từng thành phần theo Phụ lục I, có trang căn cứ để tra lại."
+              "Doanh nghiệp chuẩn bị nộp hồ sơ, văn bản cho cơ quan hoặc đối tác nhà nước",
+              "Loay hoay căn chỉnh thước lề, đặt sai vị trí Quốc hiệu, Tiêu ngữ hoặc thiếu trích yếu theo thói quen văn thư của họ.",
+              "Văn bản trình bày theo 28 quy tắc rút từ Nghị định 30/2020, đúng thể thức người nhận quen đọc."
             ],
             [
-              "Người soạn hợp đồng hai bên ký",
-              "Sợ khối ký mới đè lên bảng ký của các bên.",
-              "Bảng ký các bên giữ nguyên, không thêm khối ký và Nơi nhận; phụ lục sang trang mới."
+              "Hành chính - nhân sự soạn thông báo nghỉ lễ hoặc thay đổi giờ làm",
+              "Nhờ AI soạn xong nội dung, nhưng văn bản còn dấu sao trang trí, gạch đầu dòng mỗi chỗ một kiểu, thiếu số văn bản và Nơi nhận.",
+              "Có bản Word sạch: bỏ ký tự trang trí, gạch đầu dòng về một kiểu, đủ khối ký và Nơi nhận, sẵn sàng in dán bảng tin hoặc gửi kèm email."
+            ],
+            [
+              "Kế toán làm đề nghị thanh toán hoặc tờ trình gửi đối tác",
+              "Mất thời gian dò từng dòng lề, ngày viết tắt kiểu 7/10/26, số tiền mỗi chỗ một kiểu, sợ sót một con số khi sửa tay.",
+              "Số tiền và ngày tháng về một khuôn. Có file Word gốc thì bộ soi tự so các số từ 1.000 trở lên với bản gốc; số nhỏ, mã hàng AI dò bằng mắt và ghi rõ trong báo cáo."
+            ],
+            [
+              "Ban đại diện phụ huynh hoặc ban quản trị chung cư đã soạn xong nội dung kiến nghị, thông báo",
+              "Soạn văn bản gửi ban giám hiệu hoặc ban quản lý nhưng trình bày vụng về như một tin nhắn dài, thiếu sức nặng.",
+              "Cùng nội dung đó, giờ có tiêu đề, số văn bản, ngày tháng, khối ký và Nơi nhận đúng khuôn, trông nghiêm túc khi gửi đi."
             ]
           ]
         },
         {
-          "k": "h",
-          "t": "Ví dụ"
-        },
-        {
           "k": "code",
-          "t": "TRƯỚC (file gốc):\nCÔNG TY TNHH AB   ĐC: ... · MST: ...      15/09/2026\nBÁO GIÁ\nV/v cung cấp bàn ghế văn phòng\nKính gửi: Siêu thị Sao Mai\n(bảng giá)\nNgười lập báo giá: Nguyễn Văn A\n\nSAU (_chuan-hoa.docx):\nCÔNG TY TNHH AB          CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM\n                             Độc lập - Tự do - Hạnh phúc\nSố: 01/BG-AB         Hà Nội, ngày 15 tháng 9 năm 2026\n                  BÁO GIÁ\n       V/v cung cấp bàn ghế văn phòng\n        Kính gửi: Siêu thị Sao Mai\n(bảng giá giữ nguyên từng ô)\nNơi nhận:                         TUQ. GIÁM ĐỐC\n- Như trên;              TRƯỞNG PHÒNG KINH DOANH\n- Lưu: VT, KD, 02b.            (họ tên người ký)\n\nĐối chiếu: ĐẠT. Khối không đưa vào: dòng \"Người lập báo giá\", thay bằng khối ký mới.",
-          "cap": "Ví dụ hư cấu"
+          "t": "TRƯỚC:\nBÁO GIÁ!!! ★\nCông ty TNHH AB - HN 7/10/26\n- Ghế văn phòng x 10 cái = 1,350,000đ/cái => 13tr5\n- Bàn làm việc x 5 cái = 2.500.000 đ/cái => 12,500,000\n\nSAU (phần chính của file .docx):\nCÔNG TY TNHH AB\nSố: 05/BG-AB\n            CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM\n                  Độc lập - Tự do - Hạnh phúc\n            Hà Nội, ngày 07 tháng 10 năm 2026\n\nBÁO GIÁ\nBàn ghế văn phòng\n\nSTT | Tên hàng | Số lượng | Đơn giá (đồng) | Thành tiền (đồng)\n1 | Ghế văn phòng | 10 | 1.350.000 | 13.500.000\n2 | Bàn làm việc | 5 | 2.500.000 | 12.500.000\n\nNơi nhận:                                   GIÁM ĐỐC\n- Như trên;\n- Lưu: VT, KD.\n\nTRÍCH BÁO CÁO:\n- Đã bỏ ký tự trang trí: \"!!!\", \"★\", \"=>\"\n- Số tiền: \"1,350,000đ\" -> 1.350.000; \"13tr5\" -> 13.500.000; chữ \"đ\" chuyển lên tiêu đề cột\n- Ngày: \"7/10/26\" -> ngày 07 tháng 10 năm 2026\n- Số văn bản 05/BG-AB, chức vụ người ký: theo gợi ý bạn đã \"ok\"\n- Thêm Quốc hiệu, Tiêu ngữ, Nơi nhận",
+          "cap": "Báo giá trước và sau khi chuẩn hoá (ví dụ hư cấu)"
         },
         {
           "k": "h",
@@ -7149,31 +6385,18 @@
           "k": "steps",
           "items": [
             {
-              "t": "Cài vào dự án",
-              "d": "Giải nén vào .claude/skills/ trong thư mục dự án. Lệnh của skill chạy từ thư mục gốc dự án và ghi kết quả vào van-ban/."
+              "t": "Bước 1",
+              "d": "Tải file zip về, đưa cho AI của bạn và nhắn: 'Cài skill trong file này theo hướng dẫn INSTALL.md bên trong.' (Nhớ bật chế độ chạy code trên app chat)."
             },
             {
-              "t": "Đổi thông tin công ty",
-              "d": "Mở trinh-bay.json, sửa tên cơ quan, địa danh, ký hiệu viết tắt và dòng địa chỉ chân trang. Bản trong kho đang đặt sẵn cho một công ty mẫu (Công ty TNHH Phân phối An Khang, Hà Nội)."
+              "t": "Bước 2",
+              "d": "Mở cuộc trò chuyện mới, tải file Word, PDF hoặc dán đoạn văn bản vào và gõ: 'Chuẩn hoá giúp mình file báo giá này.'"
             },
             {
-              "t": "Gọi skill",
-              "d": "Đưa file .docx và nói \"Chuẩn hoá văn bản này theo Nghị định 30\"."
-            },
-            {
-              "t": "Trả lời một lượt",
-              "d": "Số văn bản, người ký, số bản lưu, cùng những gì file gốc còn thiếu."
-            },
-            {
-              "t": "Đọc bản PDF",
-              "d": "Nhận van-ban/<tên>_chuan-hoa.docx và .pdf, file gốc giữ nguyên. Đọc lại trước khi gửi."
+              "t": "Bước 3",
+              "d": "Trả lời một lượt câu hỏi thể thức (hoặc chỉ cần gõ 'ok'), nhận file .docx cùng báo cáo kiểm tra, lướt lại mắt rồi tự tin gửi đi."
             }
           ]
-        },
-        {
-          "k": "code",
-          "t": "Chuẩn hoá giúp mình file van-ban/bao-gia_sieu-thi-sao-mai.docx theo Nghị định 30",
-          "cap": "Ví dụ kích hoạt"
         },
         {
           "k": "h",
@@ -7187,40 +6410,46 @@
           ],
           "rows": [
             [
-              "Skill có sửa nội dung hay đổi giá không?",
-              "Không. Chữ chép từ file gốc. Thấy lỗi chính tả thì chỉ ghi vào mục Cần xác nhận."
+              "Skill này có tự sửa nội dung hay tự ý đổi giá không?",
+              "Hoàn toàn không. Skill giữ nguyên tên hàng, số lượng, đơn giá và điều khoản; chỉ sửa cách trình bày như định dạng số tiền, ngày tháng, phông chữ và bố cục lề."
             ],
             [
-              "Skill có tự đặt số văn bản hay chọn người ký không?",
-              "Không. Hai thứ này luôn hỏi bạn. Skill cũng không lấy \"Người lập báo giá\" làm chức vụ người ký."
+              "Skill có tự soạn văn bản mới hoặc rà soát tính pháp lý của hợp đồng không?",
+              "Không. Skill không soạn nội dung mới và không rà nội dung pháp lý của hợp đồng; nó chỉ trình bày lại văn bản bạn đưa vào."
+            ],
+            [
+              "Doanh nghiệp tư nhân có bắt buộc phải làm theo Nghị định 30/2020 không?",
+              "Không bắt buộc. Nghị định 30 bắt buộc với cơ quan nhà nước và doanh nghiệp nhà nước; skill dùng nó làm thước đo cho văn bản gửi ra ngoài."
+            ],
+            [
+              "Cần môi trường AI như thế nào để skill hoạt động?",
+              "Cần AI chạy được Python 3 và ghi được file (AI làm việc trên máy tính, hoặc ứng dụng chat đã bật tính năng chạy code). Thiếu thì skill dừng và nói rõ thiếu gì, không dựng file \"bằng tay\"."
+            ],
+            [
+              "File HTML mở trên Google Docs có giống hệt bản Word không?",
+              "Không hoàn toàn. Bản Google Docs giữ phông, cỡ chữ, bảng, nhưng lề về mặc định và không có số trang. Bản đúng chuẩn đầy đủ là file .docx."
+            ],
+            [
+              "Có đúng 100% Nghị định 30 và có đóng dấu không?",
+              "Skill không đóng dấu, và bên mình không nói \"đúng 100%\": skill bám 28 quy tắc trình bày rút từ Phụ lục I, cộng 4 quy ước riêng ghi rõ trong README. Số nhỏ, số điện thoại, mã hàng thì bạn nên đọc lại trước khi gửi."
             ],
             [
               "Hợp đồng hai bên ký thì sao?",
-              "Dùng chế độ không thêm khối ký: giữ bảng ký của các bên, không thêm Nơi nhận."
-            ],
-            [
-              "Skill có gửi văn bản đi không?",
-              "Không. Skill chỉ lưu file vào van-ban/ và không ghi đè file gốc."
-            ],
-            [
-              "Bản trong kho khác gì bản trên KesFlow?",
-              "Bản kes-chuan-hoa-van-ban trên KesFlow dùng cho mọi công ty, nhận cả PDF hoặc đoạn văn dán vào và xuất thêm HTML cho Google Docs. Bản trong kho dựng cho một dự án mẫu, nhận .docx, cần sửa trinh-bay.json trước khi dùng."
+              "Skill dựng phần đầu, phần thân và khối ký Bên B; khối ký Bên A bạn gõ vào ô trống cột trái trong Word, AI sẽ nhắc trước. Bộ soi báo thiếu Nơi nhận là bình thường với hợp đồng hai bên, báo cáo sẽ giải thích."
             ]
           ]
         },
         {
           "k": "h",
-          "t": "Cài đặt chung"
+          "t": "Để nhân sự AI lo phần thể thức, bạn tập trung vào nội dung"
         },
         {
-          "k": "list",
-          "items": [
-            "Tải file về từ nút Drive bên dưới.",
-            "Claude Code: giải nén thư mục chuan-hoa-van-ban vào .claude/skills/ trong dự án.",
-            "Cần Python 3; script chỉ dùng thư viện có sẵn của Python.",
-            "Xuất PDF dùng Microsoft Word trên Windows. Không có Word thì vẫn có file .docx và script báo lỗi ở bước chuyển PDF.",
-            "Mở phiên mới và nói câu kích hoạt của skill."
-          ]
+          "k": "p",
+          "t": "Tải file zip về, đưa cho AI của bạn và nhắn một câu là AI tự cài; mở cuộc trò chuyện mới là dùng được."
+        },
+        {
+          "k": "callout",
+          "t": "Cần AI chạy được Python 3 và ghi được file."
         }
       ]
     },
