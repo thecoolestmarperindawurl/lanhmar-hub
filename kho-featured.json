@@ -4218,7 +4218,8 @@
           "k": "p",
           "t": "Thông tin lấy từ README, LICENSE và Cargo.toml của repo (đọc ngày 27/10/2026). Mình chưa chạy thử công cụ này. Số sao, số lượt tải và lịch sử phát hành chưa kiểm tra."
         }
-      ]
+      ],
+      "group": "cli"
     },
     {
       "id": "skill-brainstorm",
@@ -8978,7 +8979,8 @@
             }
           ]
         }
-      ]
+      ],
+      "group": "start"
     },
     {
       "id": "tool-long-tieng-viet",
@@ -10086,6 +10088,1739 @@
         "url": "https://lanhmar.id.vn/storage.html",
         "btn": "Ủng hộ để mở Storage"
       }
+    },
+    {
+      "id": "tool-agent-stack-theory",
+      "kho": "tool",
+      "group": "start",
+      "guide": true,
+      "date": "2026-11-15",
+      "title": "Plugin, MCP, CLI, Skill, Hook: lắp đồ nghề cho AI Agent (đọc trước khi cài)",
+      "type": "Lý thuyết",
+      "badge": "Lý thuyết",
+      "tags": [
+        "claude code",
+        "plugin",
+        "mcp",
+        "cli",
+        "skill",
+        "lý thuyết"
+      ],
+      "thumb": "assets/res/tool-agent-stack-theory.jpg",
+      "note": "AI Agent chỉ giỏi bằng đồ nghề nó được cầm. Thẻ này giải thích 5 loại đồ nghề của Claude Code, khác nhau ở đâu, cài bằng lệnh nào, tốn gì và cần cẩn thận gì, kèm danh sách mình đang cài.",
+      "cta": {
+        "title": "Tài liệu MCP của Claude Code",
+        "url": "https://code.claude.com/docs/en/mcp",
+        "btn": "Mở tài liệu chính thức"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Một câu để nhớ: Skill là sổ tay quy trình, MCP là ổ cắm nối agent với ứng dụng, CLI là dụng cụ cầm tay chạy trong terminal, Hook là quy tắc tự bật, còn Plugin là hộp đồ nghề đóng gói sẵn mấy thứ trên để cài một lần."
+        },
+        {
+          "k": "h",
+          "t": "Vì sao phải cài thêm?"
+        },
+        {
+          "k": "p",
+          "t": "Mô hình AI tự nó chỉ đọc và viết chữ. Để thành agent làm được việc thật (đọc Gmail, tạo thiết kế Canva, mở PR trên GitHub, chuyển PDF thành văn bản), nó cần được nối với công cụ. Claude Code có sẵn đọc/ghi file, chạy lệnh terminal và tìm web; mọi thứ khác bạn cài thêm theo 5 cách dưới đây."
+        },
+        {
+          "k": "h",
+          "t": "5 loại đồ nghề"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Loại",
+            "Là gì",
+            "Ví dụ mình đang dùng",
+            "Cài bằng"
+          ],
+          "rows": [
+            [
+              "Skill",
+              "Thư mục có file SKILL.md: hướng dẫn làm một loại việc đúng quy trình. Claude chỉ nạp khi cần.",
+              "brainstorm, plan, reflect (xem Kho AI > Skill)",
+              "Chép vào ~/.claude/skills/ hoặc cài qua plugin"
+            ],
+            [
+              "MCP server",
+              "Chương trình theo chuẩn Model Context Protocol, đưa cho agent một bộ \"tool\" để thao tác với một ứng dụng.",
+              "Notion, Canva, Gmail, Google Drive, Composio",
+              "claude mcp add … hoặc bật connector trên claude.ai"
+            ],
+            [
+              "CLI",
+              "Chương trình dòng lệnh. Agent gõ lệnh trong terminal như người, đọc kết quả rồi làm tiếp.",
+              "gh, gcloud, markitdown, ffmpeg",
+              "Trình quản lý gói của máy (brew, winget, npm, pip…)"
+            ],
+            [
+              "Hook",
+              "Lệnh tự chạy ở một thời điểm cố định: trước khi dùng tool, khi gửi prompt, khi mở phiên…",
+              "Hook của plugin Composio nhắc agent dùng Composio khi bạn nhắc tên app",
+              "settings.json hoặc đi kèm plugin"
+            ],
+            [
+              "Plugin",
+              "Gói cài một lần, chứa bất kỳ tổ hợp skill, agent, lệnh /, hook, MCP server.",
+              "social-media-skills, Zapier, GitHub",
+              "/plugin install tên@marketplace"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "MCP hoạt động thế nào"
+        },
+        {
+          "k": "p",
+          "t": "Claude Code là MCP client. Mỗi MCP server khai báo danh sách tool (ví dụ create_design, search_threads). Khi bạn giao việc, Claude đọc tên và mô tả tool rồi tự chọn gọi tool phù hợp. Có 2 kiểu server:"
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "Remote (HTTP)",
+              "tag": "Khuyên dùng",
+              "d": "Chạy trên máy chủ của nhà cung cấp, bạn chỉ dán URL rồi đăng nhập OAuth trong trình duyệt. Ví dụ Notion, Canva, Zapier. Không cần cài gì trên máy."
+            },
+            {
+              "t": "Local (stdio)",
+              "tag": "Chạy trên máy bạn",
+              "d": "Claude Code tự bật một chương trình trên máy bằng npx, uvx hoặc docker. Hợp với việc cần đọc file hay điều khiển trình duyệt trên máy, ví dụ Playwright MCP. Cần có Node, uv hoặc Docker (xem thẻ Bộ chạy nền)."
+            }
+          ]
+        },
+        {
+          "k": "table",
+          "head": [
+            "Phạm vi (scope)",
+            "Ai dùng được",
+            "Lưu ở đâu"
+          ],
+          "rows": [
+            [
+              "local (mặc định)",
+              "Chỉ bạn, chỉ trong dự án hiện tại",
+              "~/.claude.json"
+            ],
+            [
+              "project",
+              "Mọi người làm chung repo",
+              ".mcp.json ở gốc dự án (commit lên git)"
+            ],
+            [
+              "user",
+              "Chỉ bạn, mọi dự án",
+              "~/.claude.json"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "CLI hay MCP: chọn cái nào?"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Đã có CLI tốt và bạn dùng terminal (git, gh, gcloud, ffmpeg): cứ để agent gõ lệnh. Agent vốn đã biết các lệnh phổ biến, không tốn thêm ngữ cảnh mỗi lượt.",
+            "Ứng dụng web cần đăng nhập, không có CLI (Canva, Notion, Gmail): dùng MCP remote, đăng nhập OAuth một lần.",
+            "Việc lặp lại có quy trình riêng của bạn (viết caption theo giọng thương hiệu): viết Skill.",
+            "Muốn chia sẻ cả bộ cho đồng đội hoặc cài trên máy khác: đóng gói thành Plugin.",
+            "Đây là cách mình chọn, không phải quy tắc cứng. Nhiều dịch vụ có cả hai, ví dụ GitHub có gh (CLI) và GitHub MCP."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Lệnh cài trong Claude Code"
+        },
+        {
+          "k": "code",
+          "t": "# Mở trình duyệt plugin\n/plugin\n\n# Cài plugin từ chợ chính thức của Anthropic\n/plugin install github@claude-plugins-official\n\n# Cài plugin từ chợ khác: thêm chợ trước\n/plugin marketplace add social-media-skills/skills\n/plugin install social-media-skills@social-media-skills",
+          "cap": "Plugin (gõ trong phiên Claude Code)"
+        },
+        {
+          "k": "code",
+          "t": "# Remote (HTTP)\nclaude mcp add --transport http notion https://mcp.notion.com/mcp\n\n# Local (stdio): phần sau dấu -- là lệnh chạy server\nclaude mcp add playwright -- npx @playwright/mcp@latest\n\n# Dùng cho mọi dự án\nclaude mcp add --scope user --transport http canva https://mcp.canva.com/mcp\n\nclaude mcp list        # xem danh sách\nclaude mcp remove notion",
+          "cap": "MCP (gõ trong terminal)"
+        },
+        {
+          "k": "p",
+          "t": "Trong phiên Claude Code, gõ /mcp để xem server nào đang chạy và đăng nhập (OAuth). Connector bạn bật trên claude.ai (Customize > Connectors) cũng tự có trong Claude Code khi bạn đăng nhập cùng tài khoản; tắt riêng từng dự án trong /mcp."
+        },
+        {
+          "k": "h",
+          "t": "Chi phí ẩn: ngữ cảnh"
+        },
+        {
+          "k": "p",
+          "t": "Mỗi plugin và MCP server thêm mô tả tool vào ngữ cảnh của mọi lượt chat. Cài quá nhiều làm agent chậm, tốn token và dễ chọn nhầm tool. Trang chi tiết plugin trong /plugin có mục Context cost (chi phí mỗi lượt); lệnh claude plugin details <tên> cho con số cụ thể. Cái gì lâu không dùng thì tắt."
+        },
+        {
+          "k": "h",
+          "t": "An toàn trước khi cài"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Plugin và MCP chạy được lệnh trên máy bạn. Chỉ cài từ nguồn biết rõ, đọc mục \"Will install\" trước khi bấm cài.",
+            "Không dán token, API key vào file sẽ commit (.mcp.json). Dùng biến môi trường, ví dụ GITHUB_PERSONAL_ACCESS_TOKEN.",
+            "Cấp quyền tối thiểu: token GitHub chỉ cho repo cần dùng, connector Gmail chỉ bật khi cần.",
+            "Nội dung agent đọc qua MCP (email, trang web, tài liệu) có thể chứa lệnh giấu. Hành động gửi đi, xoá, đăng bài thì luôn để agent hỏi lại bạn.",
+            "Với .mcp.json của dự án, Claude Code hỏi bạn duyệt trước khi dùng server lần đầu."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Bộ đồ nghề mình đang cài (đã bỏ trùng)"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Nhóm",
+            "Có gì",
+            "Ghi chú"
+          ],
+          "rows": [
+            [
+              "Plugin",
+              "social-media-skills, Zapier, GitHub",
+              "Zapier và GitHub là plugin có MCP bên trong, nên chỉ có 1 thẻ mỗi cái"
+            ],
+            [
+              "MCP / Connector",
+              "Google Workspace (Gmail, Calendar, Drive, Docs, Sheets, Slides), Notion, Canva, Composio, Claude Docs / Meetings / Claude Data",
+              "Notion và Canva có cả plugin chính thức, gộp vào thẻ MCP"
+            ],
+            [
+              "CLI",
+              "Claude Code, gh, Google Cloud SDK, markitdown, Playwright, bộ chạy nền (Node, uv, Bun, Docker), bộ xử lý file (ffmpeg, pandoc, jq, ripgrep)",
+              "facebook-cli đã có thẻ riêng trong Kho Tool"
+            ],
+            [
+              "Skill",
+              "brainstorm, plan, reflect, self-explorer… (gói anthropic-skills)",
+              "Đã có ở Kho AI > Skill, không đưa lại"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Lộ trình cho người mới (gợi ý của mình)"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Bật 2–3 connector bạn dùng hằng ngày",
+              "d": "Ví dụ Google Drive và Notion trên claude.ai. Không cần terminal, dùng được cả trên web và Claude Code."
+            },
+            {
+              "t": "Cài 1 plugin skill theo nghề",
+              "d": "Làm marketing thì social-media-skills. Thử 1 tuần rồi giữ hay bỏ."
+            },
+            {
+              "t": "Thêm CLI khi làm việc với file và code",
+              "d": "gh nếu dùng GitHub, markitdown nếu hay cần đọc PDF/Word."
+            },
+            {
+              "t": "Rà lại mỗi tháng",
+              "d": "Mở /plugin và /mcp, tắt cái không dùng để agent nhẹ và chính xác hơn."
+            }
+          ]
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "Claude Code: kết nối MCP",
+              "u": "https://code.claude.com/docs/en/mcp"
+            },
+            {
+              "t": "Claude Code: cài và quản lý plugin",
+              "u": "https://code.claude.com/docs/en/discover-plugins"
+            },
+            {
+              "t": "Model Context Protocol (chuẩn mở)",
+              "u": "https://modelcontextprotocol.io"
+            },
+            {
+              "t": "Danh bạ connector của Anthropic",
+              "u": "https://claude.ai/directory"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tool-plugin-social-media-skills",
+      "kho": "tool",
+      "group": "plugin",
+      "guide": true,
+      "date": "2026-11-15",
+      "title": "social-media-skills: 106 skill làm mạng xã hội cho AI Agent",
+      "type": "Plugin Claude Code",
+      "badge": "Plugin",
+      "tags": [
+        "plugin",
+        "skill",
+        "social media",
+        "content",
+        "marketing"
+      ],
+      "thumb": "assets/res/tool-plugin-social-media-skills.jpg",
+      "note": "Một plugin chứa 106 skill trong 14 chủ đề: hồ sơ thương hiệu, giọng văn, lịch nội dung, caption, kịch bản Reels/TikTok, thiết kế, tăng trưởng từng nền tảng, báo cáo. Mỗi skill đọc hồ sơ thương hiệu của bạn trước khi viết. MIT.",
+      "cta": {
+        "title": "social-media-skills/skills",
+        "url": "https://github.com/social-media-skills/skills",
+        "btn": "Mở repo GitHub"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Cài xong, khi bạn nói \"viết caption cho bài này\" hay \"lên lịch nội dung tháng 12\", Claude tự nạp đúng skill chuyên môn thay vì trả lời chung chung. Bắt đầu bằng skill brand-profile để agent biết bạn là ai."
+        },
+        {
+          "k": "h",
+          "t": "Thông tin"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Mục",
+            "Chi tiết"
+          ],
+          "rows": [
+            [
+              "Tác giả",
+              "Frank Heijdenrijk"
+            ],
+            [
+              "Repo",
+              "github.com/social-media-skills/skills"
+            ],
+            [
+              "Phiên bản",
+              "1.0.1 (bản mình đang cài)"
+            ],
+            [
+              "Giấy phép",
+              "MIT"
+            ],
+            [
+              "Loại",
+              "Plugin chỉ chứa skill, không có MCP hay hook"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Có gì trong 106 skill"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Nhóm",
+            "Skill tiêu biểu"
+          ],
+          "rows": [
+            [
+              "Nền tảng thương hiệu",
+              "brand-profile, voice-builder, audience-research, content-pillars"
+            ],
+            [
+              "Lập kế hoạch",
+              "social-strategy, content-calendar, batch-content-plan, campaign-and-launch-planning, goals-and-kpis"
+            ],
+            [
+              "Viết",
+              "caption-writer, hook-writer, carousel-writer, linkedin-post-writer, thread-writer"
+            ],
+            [
+              "Video",
+              "short-form-video-script, reels-script, tiktok-script, youtube-long-form, capcut, descript"
+            ],
+            [
+              "Hình ảnh & AI",
+              "canva, design-and-templates, image-prompt, nano-banana, flux, ai-video, veo-3"
+            ],
+            [
+              "Tăng trưởng từng nền tảng",
+              "instagram-growth, tiktok-growth, facebook-strategy, linkedin-growth, threads-growth, pinterest-growth"
+            ],
+            [
+              "Cộng đồng & đo lường",
+              "community-management, engagement-routine, analytics-and-reporting, competitor-analysis, content-audit"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cài đặt"
+        },
+        {
+          "k": "code",
+          "t": "/plugin marketplace add social-media-skills/skills\n/plugin install social-media-skills@social-media-skills",
+          "cap": "Plugin (tự cập nhật)"
+        },
+        {
+          "k": "code",
+          "t": "npx skills add social-media-skills/skills -g -a claude-code -s '*' -y",
+          "cap": "Hoặc chỉ chép skill bằng skills CLI"
+        },
+        {
+          "k": "h",
+          "t": "Cách mình dùng"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Tạo hồ sơ thương hiệu",
+              "d": "Nói \"set up my brand profile\". Skill hỏi bạn về khách hàng, giọng văn, điều nên và không nên nói, rồi lưu thành file để các skill khác đọc."
+            },
+            {
+              "t": "Giao việc bằng lời thường",
+              "d": "\"Lên 12 bài Instagram tháng 12 theo 3 trụ nội dung\" sẽ gọi batch-content-plan, rồi chuyển cho caption-writer viết từng bài."
+            },
+            {
+              "t": "Kiểm tra trước khi đăng",
+              "d": "platform-specs-and-validation soát kích thước, độ dài theo từng nền tảng."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Lưu ý"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Skill nhắc tới WoopSocial cho bước đăng bài; bạn không bắt buộc dùng, có thể tự đăng.",
+            "Skill không tự lấy số liệu tài khoản; phần báo cáo cần bạn đưa số từ trang thống kê của nền tảng.",
+            "106 skill chỉ tốn ngữ cảnh phần mô tả ngắn; nội dung đầy đủ chỉ nạp khi dùng tới."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tool-plugin-zapier",
+      "kho": "tool",
+      "group": "plugin",
+      "guide": true,
+      "date": "2026-11-15",
+      "title": "Zapier: nối AI Agent với hơn 9.000 ứng dụng bằng một câu lệnh",
+      "type": "Plugin Claude Code",
+      "badge": "Plugin + MCP",
+      "tags": [
+        "plugin",
+        "mcp",
+        "zapier",
+        "automation"
+      ],
+      "thumb": "assets/res/tool-plugin-zapier.jpg",
+      "note": "Plugin chính thức của Zapier gồm MCP server (mcp.zapier.com) và 4 skill hướng dẫn: onboard, demo, explore, status. Bạn chọn sẵn các hành động (gửi Slack, thêm dòng Sheets, tạo task…), agent gọi chúng khi bạn nói.",
+      "cta": {
+        "title": "Zapier MCP",
+        "url": "https://docs.zapier.com/mcp/home",
+        "btn": "Mở tài liệu Zapier MCP"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Zapier MCP là cách nhanh nhất để agent làm việc với những app không có MCP riêng. Bạn bật từng hành động trên mcp.zapier.com, agent chỉ thấy và dùng đúng những hành động đó."
+        },
+        {
+          "k": "h",
+          "t": "Thông tin"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Mục",
+            "Chi tiết"
+          ],
+          "rows": [
+            [
+              "Nhà phát triển",
+              "Zapier (chính thức)"
+            ],
+            [
+              "MCP server",
+              "https://mcp.zapier.com/api/v1/connect (remote, HTTP)"
+            ],
+            [
+              "Skill đi kèm",
+              "zapier-onboard, zapier-demo, zapier-explore, zapier-status"
+            ],
+            [
+              "Quy mô",
+              "9.000+ ứng dụng, 40.000+ hành động (theo README của Zapier)"
+            ],
+            [
+              "Repo",
+              "github.com/zapier/zapier-mcp"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cài đặt"
+        },
+        {
+          "k": "code",
+          "t": "/plugin install zapier@claude-plugins-official",
+          "cap": "Trong phiên Claude Code"
+        },
+        {
+          "k": "code",
+          "t": "claude mcp add --transport http zapier https://mcp.zapier.com/api/v1/connect",
+          "cap": "Hoặc chỉ thêm MCP, không có skill"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Cài plugin",
+              "d": "Lệnh trên, rồi mở lại phiên hoặc gõ /reload-plugins."
+            },
+            {
+              "t": "Onboard",
+              "d": "Nói \"onboard zapier\". Skill dẫn bạn đăng nhập và kết nối."
+            },
+            {
+              "t": "Bật hành động",
+              "d": "Trên mcp.zapier.com chọn app và hành động agent được phép dùng."
+            },
+            {
+              "t": "Kiểm tra",
+              "d": "Nói \"zapier status\" để xem hành động nào đang bật, cái nào trùng hoặc lỗi."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Câu lệnh ví dụ"
+        },
+        {
+          "k": "list",
+          "items": [
+            "\"Thêm một dòng vào sheet Chiến dịch Q4 với số lead hôm nay\"",
+            "\"Gửi tin Slack vào #launches: đã phát hành, đang theo dõi\"",
+            "\"Tạo task Trello từ email khách hàng này\""
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Lưu ý"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Hành động ghi (gửi, tạo, xoá) chạy thật trên tài khoản của bạn. Plugin có quy tắc bắt agent xác nhận trước; bạn vẫn nên đọc lại.",
+            "Gói miễn phí của Zapier có giới hạn số lần chạy; xem bảng giá trên zapier.com trước khi dùng nhiều.",
+            "Trùng chức năng với Composio: chọn một bên làm \"cổng app\" chính để agent không lúng túng."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tool-plugin-github",
+      "kho": "tool",
+      "group": "plugin",
+      "guide": true,
+      "date": "2026-11-15",
+      "title": "GitHub MCP: để AI Agent quản lý repo, issue, pull request",
+      "type": "Plugin Claude Code",
+      "badge": "Plugin + MCP",
+      "tags": [
+        "plugin",
+        "mcp",
+        "github"
+      ],
+      "thumb": "assets/res/tool-plugin-github.jpg",
+      "note": "Plugin chính thức của GitHub, bên trong là GitHub MCP server (remote). Agent tạo issue, mở và review pull request, đọc file, xem CI ngay trong cuộc trò chuyện. Cần một Personal Access Token.",
+      "cta": {
+        "title": "github/github-mcp-server",
+        "url": "https://github.com/github/github-mcp-server",
+        "btn": "Mở repo GitHub MCP"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Website này (lanhmar.id.vn) chạy trên GitHub Pages, nên mình dùng GitHub MCP hằng ngày: agent sửa file, mở pull request, đọc kết quả kiểm tra rồi báo lại."
+        },
+        {
+          "k": "h",
+          "t": "Thông tin"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Mục",
+            "Chi tiết"
+          ],
+          "rows": [
+            [
+              "Nhà phát triển",
+              "GitHub (chính thức)"
+            ],
+            [
+              "MCP server",
+              "https://api.githubcopilot.com/mcp/ (remote, HTTP)"
+            ],
+            [
+              "Xác thực",
+              "Header Authorization: Bearer với biến môi trường GITHUB_PERSONAL_ACCESS_TOKEN"
+            ],
+            [
+              "Trong chợ",
+              "github@claude-plugins-official"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Làm được gì"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Nhóm",
+            "Ví dụ tool"
+          ],
+          "rows": [
+            [
+              "Repo & file",
+              "get_file_contents, create_or_update_file, push_files, create_branch"
+            ],
+            [
+              "Issue",
+              "issue_read, issue_write, add_issue_comment, list_issues"
+            ],
+            [
+              "Pull request",
+              "create_pull_request, pull_request_read, pull_request_review_write, merge_pull_request"
+            ],
+            [
+              "CI / Actions",
+              "actions_list, get_job_logs"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cài đặt"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Tạo token",
+              "d": "github.com > Settings > Developer settings > Personal access tokens. Chọn fine-grained, chỉ cấp quyền cho repo cần dùng."
+            },
+            {
+              "t": "Đặt biến môi trường",
+              "d": "export GITHUB_PERSONAL_ACCESS_TOKEN=... trong file cấu hình shell, không ghi vào repo."
+            },
+            {
+              "t": "Cài plugin",
+              "d": "/plugin install github@claude-plugins-official"
+            }
+          ]
+        },
+        {
+          "k": "code",
+          "t": "claude mcp add --transport http github https://api.githubcopilot.com/mcp/ \\\n  --header \"Authorization: Bearer $GITHUB_PERSONAL_ACCESS_TOKEN\"",
+          "cap": "Hoặc thêm MCP thủ công"
+        },
+        {
+          "k": "h",
+          "t": "GitHub MCP hay gh CLI?"
+        },
+        {
+          "k": "p",
+          "t": "Cả hai làm được việc giống nhau. Mình dùng MCP khi làm trên web hoặc phiên cloud (không có terminal riêng), dùng gh khi làm trên máy có sẵn gh và đã đăng nhập. Không cần cài cả hai cho cùng một việc. Xem thẻ gh trong mục CLI."
+        },
+        {
+          "k": "h",
+          "t": "Lưu ý"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Token có quyền ghi là chìa khoá repo của bạn. Đặt hạn dùng và thu hồi khi không dùng.",
+            "Merge pull request, xoá nhánh là hành động khó hoàn tác: để agent hỏi lại trước."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tool-mcp-google-workspace",
+      "kho": "tool",
+      "group": "mcp",
+      "guide": true,
+      "date": "2026-11-15",
+      "title": "Google Workspace: Gmail, Calendar, Drive, Docs, Sheets, Slides cho AI Agent",
+      "type": "MCP / Connector",
+      "badge": "Connector",
+      "tags": [
+        "mcp",
+        "google",
+        "gmail",
+        "google drive",
+        "google sheets"
+      ],
+      "thumb": "assets/res/tool-mcp-google-workspace.jpg",
+      "note": "6 connector của Google bật trên claude.ai rồi dùng luôn trong Claude Code: tìm và soạn email, đặt lịch, tìm file Drive, đọc và sửa Docs, Sheets, Slides. Không cần cài gì trên máy, đăng nhập Google một lần.",
+      "cta": {
+        "title": "claude.ai > Customize > Connectors",
+        "url": "https://claude.ai/customize/connectors",
+        "btn": "Mở trang Connectors"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Đây là bộ mình bật đầu tiên vì gần như mọi việc văn phòng nằm ở đây. Ví dụ: \"đọc biên bản họp trong Drive, tạo lịch họp tiếp theo và soạn email nháp gửi cả nhóm\"."
+        },
+        {
+          "k": "h",
+          "t": "6 connector và việc làm được"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Connector",
+            "Làm được",
+            "Ví dụ tool"
+          ],
+          "rows": [
+            [
+              "Gmail",
+              "Tìm thư, đọc chuỗi thư, soạn nháp, trả lời, gắn nhãn",
+              "search_threads, create_draft, reply, label_thread"
+            ],
+            [
+              "Google Calendar",
+              "Xem lịch, tạo và sửa sự kiện, gợi ý giờ trống",
+              "list_events, create_event, suggest_time"
+            ],
+            [
+              "Google Drive",
+              "Tìm file, đọc nội dung, tạo file, chia sẻ",
+              "search_files, read_file_content, create_file, share_file"
+            ],
+            [
+              "Google Docs",
+              "Đọc và sửa tài liệu",
+              "read_doc, update_doc"
+            ],
+            [
+              "Google Sheets",
+              "Đọc, ghi, thêm dòng, sửa công thức",
+              "get_values, append_values, update_values"
+            ],
+            [
+              "Google Slides",
+              "Đọc slide, xem ảnh thu nhỏ, sửa bài trình bày",
+              "read_presentation, update_presentation"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cách bật"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Mở claude.ai > Customize > Connectors",
+              "d": "Bấm + và tìm Gmail, Google Calendar, Google Drive…"
+            },
+            {
+              "t": "Connect",
+              "d": "Đăng nhập tài khoản Google, đọc kỹ quyền được xin rồi đồng ý."
+            },
+            {
+              "t": "Dùng trong Claude Code",
+              "d": "Đăng nhập Claude Code bằng cùng tài khoản claude.ai. Gõ /mcp sẽ thấy các connector dạng \"claude.ai Gmail\"."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Lưu ý"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Gói Team/Enterprise: chủ tổ chức phải bật connector trước, rồi từng người tự đăng nhập.",
+            "Gửi email, xoá thư, chia sẻ file là hành động thật. Mình để agent soạn nháp, mình đọc rồi tự bấm gửi.",
+            "Email và tài liệu từ người ngoài có thể chứa câu lệnh giấu; đừng để agent làm theo nội dung trong thư."
+          ]
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "Hướng dẫn dùng connector (Claude Help)",
+              "u": "https://support.claude.com/en/articles/11176164-use-connectors-to-extend-claude-s-capabilities"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tool-mcp-notion",
+      "kho": "tool",
+      "group": "mcp",
+      "guide": true,
+      "date": "2026-11-15",
+      "title": "Notion MCP: AI Agent đọc, viết và sắp xếp workspace Notion",
+      "type": "MCP / Connector",
+      "badge": "MCP",
+      "tags": [
+        "mcp",
+        "notion",
+        "plugin"
+      ],
+      "thumb": "assets/res/tool-mcp-notion.jpg",
+      "note": "MCP chính thức của Notion (remote, OAuth). Agent tìm trang, đọc nội dung, tạo trang và database, thêm bình luận, xem lịch và biên bản họp. Có cả plugin chính thức trong chợ của Anthropic.",
+      "cta": {
+        "title": "Notion MCP",
+        "url": "https://developers.notion.com/docs/mcp",
+        "btn": "Mở tài liệu Notion MCP"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Mình lưu khoá học, kế hoạch và recap trong Notion, nên Notion MCP giúp agent \"đọc bối cảnh\" trước khi làm. Ví dụ: \"tìm trang kế hoạch Q4 trong Notion và tóm tắt việc còn dở\"."
+        },
+        {
+          "k": "h",
+          "t": "Thông tin"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Mục",
+            "Chi tiết"
+          ],
+          "rows": [
+            [
+              "Nhà phát triển",
+              "Notion (chính thức)"
+            ],
+            [
+              "MCP server",
+              "https://mcp.notion.com/mcp (remote, HTTP, OAuth)"
+            ],
+            [
+              "Plugin",
+              "notion@claude-plugins-official (MCP kèm skill)"
+            ],
+            [
+              "Quyền",
+              "Theo quyền tài khoản Notion của bạn"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Làm được gì"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Tìm kiếm trong workspace và trong các nguồn đã kết nối.",
+            "Đọc trang, database; tạo trang mới, sửa nội dung, di chuyển, nhân bản trang.",
+            "Tạo database, view, truy vấn dữ liệu trong database.",
+            "Bình luận, gợi ý chỉnh sửa, xem lịch và biên bản họp."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cài đặt"
+        },
+        {
+          "k": "code",
+          "t": "claude mcp add --transport http notion https://mcp.notion.com/mcp",
+          "cap": "MCP (terminal)"
+        },
+        {
+          "k": "code",
+          "t": "/plugin install notion@claude-plugins-official",
+          "cap": "Hoặc plugin (trong phiên Claude Code)"
+        },
+        {
+          "k": "p",
+          "t": "Sau đó gõ /mcp, chọn notion và đăng nhập trong trình duyệt. Trên claude.ai, Notion cũng có sẵn trong Customize > Connectors; chọn một cách, đừng cài cả hai để khỏi trùng tool."
+        },
+        {
+          "k": "h",
+          "t": "Lưu ý"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Xoá trang trong Notion đi vào Thùng rác, vẫn khôi phục được trong thời gian Notion cho phép; vẫn nên để agent hỏi trước.",
+            "Trang chia sẻ chung với người khác: agent sửa là mọi người thấy ngay."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tool-mcp-canva",
+      "kho": "tool",
+      "group": "mcp",
+      "guide": true,
+      "date": "2026-11-15",
+      "title": "Canva MCP: AI Agent tạo, sửa, đổi cỡ và xuất thiết kế Canva",
+      "type": "MCP / Connector",
+      "badge": "MCP",
+      "tags": [
+        "mcp",
+        "canva",
+        "design",
+        "plugin"
+      ],
+      "thumb": "assets/res/tool-mcp-canva.jpg",
+      "note": "MCP chính thức của Canva (remote, OAuth). Agent tạo thiết kế từ mô tả, điền mẫu thương hiệu, đổi kích thước cho từng nền tảng, xoá nền, xuất PNG/PDF/MP4 và bình luận trên thiết kế.",
+      "cta": {
+        "title": "Canva MCP",
+        "url": "https://www.canva.dev/docs/connect/canva-mcp-server-setup",
+        "btn": "Mở hướng dẫn cài Canva MCP"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Dùng cùng skill canva của gói social-media-skills: skill lo phần ý tưởng, bố cục, giọng thương hiệu; Canva MCP làm phần bấm nút trong Canva."
+        },
+        {
+          "k": "h",
+          "t": "Thông tin"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Mục",
+            "Chi tiết"
+          ],
+          "rows": [
+            [
+              "Nhà phát triển",
+              "Canva (chính thức)"
+            ],
+            [
+              "MCP server",
+              "https://mcp.canva.com/mcp (remote, HTTP, OAuth)"
+            ],
+            [
+              "Plugin",
+              "canva@claude-plugins-official (skill của Canva)"
+            ],
+            [
+              "Chi phí",
+              "Không tính phí riêng cho MCP; tính năng phụ thuộc gói Canva của bạn"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Làm được gì"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Nhóm",
+            "Ví dụ tool"
+          ],
+          "rows": [
+            [
+              "Tạo",
+              "generate-design, create-design, create-design-from-brand-template, create-video"
+            ],
+            [
+              "Sửa",
+              "edit-design, autofill-design, resize-design, remove-background, merge-designs"
+            ],
+            [
+              "Tìm & quản lý",
+              "search-designs, list-brand-kits, search-brand-templates, create-folder, move-item-to-folder"
+            ],
+            [
+              "Xuất & cộng tác",
+              "export-design, comment-on-design, list-comments, reply-to-comment"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cài đặt"
+        },
+        {
+          "k": "code",
+          "t": "claude mcp add --transport http canva https://mcp.canva.com/mcp",
+          "cap": "MCP (terminal)"
+        },
+        {
+          "k": "p",
+          "t": "Gõ /mcp, chọn canva và đăng nhập. Trên claude.ai có sẵn connector Canva trong Customize > Connectors."
+        },
+        {
+          "k": "p",
+          "t": "Đừng nhầm với Canva Dev MCP (chạy bằng npx @canva/cli): bản đó chỉ tra tài liệu cho lập trình viên làm app Canva, không đụng tới thiết kế của bạn."
+        },
+        {
+          "k": "h",
+          "t": "Lưu ý"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Thiết kế tạo ra nằm trong tài khoản Canva của bạn; kiểm tra font tiếng Việt trước khi xuất.",
+            "Ảnh tạo bằng AI: kiểm tra quyền dùng thương mại theo điều khoản Canva."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tool-mcp-composio",
+      "kho": "tool",
+      "group": "mcp",
+      "guide": true,
+      "date": "2026-11-15",
+      "title": "Composio: một cổng MCP cho hàng trăm ứng dụng, đăng nhập OAuth có quản lý",
+      "type": "MCP / Connector",
+      "badge": "MCP + Plugin",
+      "tags": [
+        "mcp",
+        "composio",
+        "automation",
+        "plugin"
+      ],
+      "thumb": "assets/res/tool-mcp-composio.jpg",
+      "note": "Composio cho agent tìm tool theo việc cần làm, kết nối app qua OAuth do Composio quản lý rồi chạy nhiều tool một lúc, kèm môi trường chạy code từ xa. Cài bằng plugin cho Claude Code hoặc MCP.",
+      "cta": {
+        "title": "ComposioHQ/composio-plugin-cc",
+        "url": "https://github.com/ComposioHQ/composio-plugin-cc",
+        "btn": "Mở repo plugin Composio"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Khác Zapier ở cách dùng: với Zapier bạn bật sẵn từng hành động; với Composio agent tự tìm tool phù hợp, tự nhờ bạn kết nối app khi cần. Hợp khi bạn chưa biết trước sẽ cần app nào."
+        },
+        {
+          "k": "h",
+          "t": "Tool chính khi đã kết nối"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Tool",
+            "Việc làm"
+          ],
+          "rows": [
+            [
+              "COMPOSIO_SEARCH_TOOLS",
+              "Tìm tool phù hợp với việc cần làm"
+            ],
+            [
+              "COMPOSIO_MANAGE_CONNECTIONS",
+              "Tạo, kiểm tra kết nối OAuth tới app"
+            ],
+            [
+              "COMPOSIO_MULTI_EXECUTE_TOOL",
+              "Chạy nhiều tool trong một lần gọi"
+            ],
+            [
+              "COMPOSIO_REMOTE_WORKBENCH / REMOTE_BASH_TOOL",
+              "Chạy code, lệnh trong môi trường từ xa để xử lý dữ liệu lớn"
+            ],
+            [
+              "COMPOSIO_SEARCH_SKILLS / USE_SKILL",
+              "Tìm và dùng skill dựng sẵn"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cài đặt (plugin cho Claude Code)"
+        },
+        {
+          "k": "code",
+          "t": "/plugin marketplace add ComposioHQ/composio-plugin-cc\n/plugin install composio@composio",
+          "cap": "Trong phiên Claude Code"
+        },
+        {
+          "k": "p",
+          "t": "Plugin gồm 2 hook (báo trạng thái đăng nhập khi mở phiên, nhắc agent dùng Composio khi bạn nhắc tên app) và lệnh /composio-connect <app> để kết nối một app. Composio còn có cách thêm bằng claude mcp add với API key; câu lệnh khác nhau giữa các trang tài liệu của họ, nên mình khuyên đi theo plugin."
+        },
+        {
+          "k": "h",
+          "t": "Lưu ý"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Số ứng dụng hỗ trợ do Composio công bố (hơn 1.000 theo tài liệu của họ); mình chưa tự kiểm.",
+            "Kết nối OAuth do Composio giữ: đọc chính sách bảo mật của họ trước khi nối tài khoản công việc.",
+            "Trùng vai trò với Zapier: chọn một cổng chính."
+          ]
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "Composio: Claude Code plugin",
+              "u": "https://docs.composio.dev/docs/claude-code-plugin"
+            },
+            {
+              "t": "Composio Connect",
+              "u": "https://docs.composio.dev/docs/composio-connect"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tool-mcp-claude-connectors",
+      "kho": "tool",
+      "group": "mcp",
+      "guide": true,
+      "date": "2026-11-15",
+      "title": "Connector của chính Claude: Claude Docs, Meetings, Claude Data",
+      "type": "MCP / Connector",
+      "badge": "Connector",
+      "tags": [
+        "mcp",
+        "claude",
+        "connector"
+      ],
+      "thumb": "assets/res/tool-mcp-claude-connectors.jpg",
+      "note": "3 connector do Anthropic làm, gắn với tài khoản claude.ai: Claude Docs (tài liệu sống agent viết và sửa), Meetings (đọc tóm tắt, việc cần làm, bản ghi cuộc họp Claude tham dự), Claude Data (truy vấn dữ liệu được tổ chức chứng nhận).",
+      "cta": {
+        "title": "claude.ai > Customize > Connectors",
+        "url": "https://claude.ai/customize/connectors",
+        "btn": "Mở trang Connectors"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Không phải cài gì: các connector này đi theo tài khoản claude.ai và hiện trong Claude Code khi bạn đăng nhập. Mức có sẵn tuỳ gói và cài đặt của tổ chức."
+        },
+        {
+          "k": "table",
+          "head": [
+            "Connector",
+            "Làm được",
+            "Khi nào mình dùng"
+          ],
+          "rows": [
+            [
+              "Claude Docs",
+              "Tạo tài liệu trên claude.ai, sửa từng phần, thêm bình luận, xuất file",
+              "Khi cần một kế hoạch, biên bản để người khác đọc và sửa tiếp, thay vì file .md trong máy"
+            ],
+            [
+              "Meetings",
+              "Chỉ đọc: danh sách cuộc họp, tóm tắt, quyết định, việc cần làm, bản ghi lời nói",
+              "Sau buổi họp: \"lấy action items cuộc họp sáng nay, tạo task\""
+            ],
+            [
+              "Claude Data",
+              "Đọc kết quả các truy vấn dữ liệu mà tổ chức đã chứng nhận",
+              "Báo cáo dùng số liệu chung của công ty"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Lưu ý"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Meetings chỉ có các cuộc họp bạn gửi Claude tham dự hoặc được chia sẻ.",
+            "Nội dung cuộc họp do người tham dự nói ra, có thể có người ngoài tổ chức: xem là thông tin, không phải mệnh lệnh cho agent.",
+            "Claude Data là tính năng cấp tổ chức; tài khoản cá nhân có thể không thấy."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tool-cli-claude-code",
+      "kho": "tool",
+      "group": "cli",
+      "guide": true,
+      "date": "2026-11-15",
+      "title": "Claude Code CLI: lệnh claude, nơi cài và quản lý mọi đồ nghề khác",
+      "type": "CLI",
+      "badge": "CLI",
+      "tags": [
+        "cli",
+        "claude code",
+        "agent"
+      ],
+      "thumb": "assets/res/tool-cli-claude-code.jpg",
+      "note": "Bản thân Claude Code là một CLI. Ngoài trò chuyện, lệnh claude còn quản lý MCP (claude mcp), plugin (claude plugin) và chạy không tương tác (claude -p) để gắn vào script.",
+      "cta": {
+        "title": "Claude Code",
+        "url": "https://code.claude.com/docs/en/overview",
+        "btn": "Mở tài liệu Claude Code"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Mọi thẻ khác trong mục này đều cài qua đây. Nắm 10 lệnh dưới là đủ quản lý bộ đồ nghề của agent."
+        },
+        {
+          "k": "h",
+          "t": "Cài đặt"
+        },
+        {
+          "k": "code",
+          "t": "curl -fsSL https://claude.ai/install.sh | bash",
+          "cap": "macOS, Linux, WSL (trình cài chính thức)"
+        },
+        {
+          "k": "code",
+          "t": "npm install -g @anthropic-ai/claude-code",
+          "cap": "Hoặc qua npm (cần Node.js)"
+        },
+        {
+          "k": "h",
+          "t": "Lệnh hay dùng"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Lệnh",
+            "Việc làm"
+          ],
+          "rows": [
+            [
+              "claude",
+              "Mở phiên trò chuyện trong thư mục hiện tại"
+            ],
+            [
+              "claude -p \"…\"",
+              "Chạy một yêu cầu rồi thoát, dùng trong script"
+            ],
+            [
+              "claude mcp add / list / remove",
+              "Thêm, xem, gỡ MCP server"
+            ],
+            [
+              "claude plugin install / list / disable",
+              "Cài, xem, tắt plugin từ terminal"
+            ],
+            [
+              "claude plugin details <tên>",
+              "Xem plugin tốn bao nhiêu token mỗi phiên"
+            ],
+            [
+              "/mcp",
+              "Trong phiên: xem trạng thái và đăng nhập MCP"
+            ],
+            [
+              "/plugin",
+              "Trong phiên: duyệt, cài, bật tắt plugin"
+            ],
+            [
+              "/reload-plugins",
+              "Nạp lại plugin vừa cài mà không mở phiên mới"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Có ở đâu"
+        },
+        {
+          "k": "p",
+          "t": "Terminal, ứng dụng desktop (Mac/Windows), web (claude.ai/code), VS Code và JetBrains. Phiên trên web chạy trong máy ảo đám mây và không nạp plugin bạn cài trên máy riêng; connector claude.ai thì vẫn dùng được."
+        }
+      ]
+    },
+    {
+      "id": "tool-cli-gh",
+      "kho": "tool",
+      "group": "cli",
+      "guide": true,
+      "date": "2026-11-15",
+      "title": "gh (GitHub CLI): làm việc với GitHub ngay trong terminal",
+      "type": "CLI",
+      "badge": "CLI",
+      "tags": [
+        "cli",
+        "github"
+      ],
+      "thumb": "assets/res/tool-cli-gh.jpg",
+      "note": "CLI chính thức của GitHub: tạo và xem pull request, issue, release, chạy lại workflow, gọi API. Agent dùng gh rất thạo vì đây là lệnh phổ biến, không tốn ngữ cảnh như MCP.",
+      "cta": {
+        "title": "cli.github.com",
+        "url": "https://cli.github.com",
+        "btn": "Mở trang GitHub CLI"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Nếu bạn làm trên máy riêng và đã đăng nhập gh, cứ để agent gõ gh thay vì cài GitHub MCP. Hai cách làm được việc giống nhau."
+        },
+        {
+          "k": "h",
+          "t": "Cài đặt"
+        },
+        {
+          "k": "code",
+          "t": "brew install gh                      # macOS\nwinget install --id GitHub.cli        # Windows\nsudo apt install gh                  # Ubuntu/Debian (xem cli.github.com nếu bản cũ)\n\ngh auth login                         # đăng nhập một lần",
+          "cap": "Cài và đăng nhập"
+        },
+        {
+          "k": "h",
+          "t": "Lệnh hay dùng"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Lệnh",
+            "Việc làm"
+          ],
+          "rows": [
+            [
+              "gh repo clone owner/repo",
+              "Tải repo về máy"
+            ],
+            [
+              "gh pr create / list / view / checks",
+              "Tạo, xem pull request và kết quả kiểm tra"
+            ],
+            [
+              "gh issue list / create",
+              "Xem và tạo issue"
+            ],
+            [
+              "gh run list / view --log",
+              "Xem lần chạy GitHub Actions và log lỗi"
+            ],
+            [
+              "gh api …",
+              "Gọi thẳng GitHub API"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Lưu ý"
+        },
+        {
+          "k": "list",
+          "items": [
+            "gh lưu token trong máy; trên máy dùng chung, đăng xuất bằng gh auth logout.",
+            "Lệnh ghi (merge, xoá nhánh, release) vẫn nên để agent hỏi trước."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tool-cli-gcloud",
+      "kho": "tool",
+      "group": "cli",
+      "guide": true,
+      "date": "2026-11-15",
+      "title": "Google Cloud SDK: gcloud, bq, gsutil cho agent làm việc với Google Cloud",
+      "type": "CLI",
+      "badge": "CLI",
+      "tags": [
+        "cli",
+        "google cloud",
+        "bigquery"
+      ],
+      "thumb": "assets/res/tool-cli-gcloud.jpg",
+      "note": "Bộ CLI của Google Cloud: gcloud quản lý dự án và dịch vụ, bq truy vấn BigQuery, gsutil (và gcloud storage) làm việc với Cloud Storage. Hợp cho phân tích dữ liệu marketing lớn trong BigQuery.",
+      "cta": {
+        "title": "Google Cloud SDK",
+        "url": "https://cloud.google.com/sdk/docs/install",
+        "btn": "Mở hướng dẫn cài"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Ví dụ dùng cho marketing: dữ liệu GA4 xuất sang BigQuery, agent viết và chạy câu SQL bằng bq rồi tóm tắt kết quả cho bạn."
+        },
+        {
+          "k": "h",
+          "t": "3 lệnh trong bộ"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Lệnh",
+            "Dùng cho",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "gcloud",
+              "Đăng nhập, chọn dự án, quản lý dịch vụ",
+              "gcloud auth login; gcloud config set project TEN_DU_AN"
+            ],
+            [
+              "bq",
+              "BigQuery: truy vấn, tạo bảng, nạp dữ liệu",
+              "bq query --use_legacy_sql=false 'SELECT …'"
+            ],
+            [
+              "gsutil",
+              "Cloud Storage (bản cũ, Google khuyên dùng gcloud storage)",
+              "gcloud storage cp file.csv gs://ten-bucket/"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cài đặt"
+        },
+        {
+          "k": "p",
+          "t": "Tải trình cài theo hệ điều hành tại cloud.google.com/sdk/docs/install (macOS có thể dùng brew install --cask google-cloud-sdk), rồi chạy gcloud init."
+        },
+        {
+          "k": "h",
+          "t": "Lưu ý"
+        },
+        {
+          "k": "list",
+          "items": [
+            "BigQuery tính tiền theo lượng dữ liệu quét. Thêm --dry_run để xem trước dung lượng trước khi chạy câu lớn.",
+            "Dùng tài khoản dịch vụ với quyền tối thiểu nếu để agent chạy tự động."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tool-cli-markitdown",
+      "kho": "tool",
+      "group": "cli",
+      "guide": true,
+      "date": "2026-11-15",
+      "title": "markitdown: chuyển PDF, Word, Excel, PowerPoint thành Markdown cho AI đọc",
+      "type": "CLI",
+      "badge": "CLI",
+      "tags": [
+        "cli",
+        "markdown",
+        "pdf",
+        "convert"
+      ],
+      "thumb": "assets/res/tool-cli-markitdown.jpg",
+      "note": "Công cụ mã nguồn mở của Microsoft đổi gần như mọi loại file văn phòng sang Markdown. AI đọc Markdown chính xác và tốn ít token hơn đọc thẳng PDF hay Word. Có CLI, thư viện Python và bản MCP.",
+      "cta": {
+        "title": "microsoft/markitdown",
+        "url": "https://github.com/microsoft/markitdown",
+        "btn": "Mở repo GitHub"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Mình dùng trước khi đưa tài liệu khoá học, báo cáo cho agent: đổi sang .md một lần, agent đọc nhanh và trích dẫn đúng."
+        },
+        {
+          "k": "h",
+          "t": "Cài và dùng"
+        },
+        {
+          "k": "code",
+          "t": "pip install 'markitdown[all]'\n\nmarkitdown bao-cao.pdf -o bao-cao.md\nmarkitdown slide.pptx > slide.md",
+          "cap": "CLI"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Đọc được",
+            "Ghi chú"
+          ],
+          "rows": [
+            [
+              "PDF, Word, Excel, PowerPoint",
+              "Giữ tiêu đề, danh sách, bảng"
+            ],
+            [
+              "HTML, CSV, JSON, XML",
+              "Đổi về văn bản gọn"
+            ],
+            [
+              "Ảnh, âm thanh",
+              "Đọc metadata; mô tả ảnh hoặc chép lời cần cấu hình thêm"
+            ],
+            [
+              "ZIP",
+              "Đổi lần lượt từng file bên trong"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Dùng với agent"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Trong Claude Code: chỉ cần nói \"đổi thư mục tai-lieu sang markdown bằng markitdown\", agent gõ lệnh.",
+            "Có bản MCP (markitdown-mcp) nếu bạn muốn dùng như tool thay vì lệnh.",
+            "Mình còn có skill markitdown-convert và công cụ AI Convert trên web này cho người không dùng terminal."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Lưu ý"
+        },
+        {
+          "k": "list",
+          "items": [
+            "PDF dạng ảnh scan cần OCR, markitdown không tự đọc chữ trong ảnh.",
+            "Bảng phức tạp có thể lệch cột; xem lại trước khi dùng số liệu."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tool-cli-playwright",
+      "kho": "tool",
+      "group": "cli",
+      "guide": true,
+      "date": "2026-11-15",
+      "title": "Playwright: cho AI Agent mở trình duyệt, bấm, điền form, chụp màn hình",
+      "type": "CLI",
+      "badge": "CLI + MCP",
+      "tags": [
+        "cli",
+        "mcp",
+        "playwright",
+        "browser"
+      ],
+      "thumb": "assets/res/tool-cli-playwright.jpg",
+      "note": "Playwright của Microsoft điều khiển Chromium, Firefox, WebKit. Có 3 cách dùng với agent: CLI/thư viện để viết script, Playwright MCP để agent tự thao tác trang, và plugin playwright trong chợ chính thức.",
+      "cta": {
+        "title": "microsoft/playwright-mcp",
+        "url": "https://github.com/microsoft/playwright-mcp",
+        "btn": "Mở repo Playwright MCP"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Mình dùng Playwright để kiểm tra giao diện web này trước khi đẩy lên: agent mở trang, chụp ảnh ở cỡ điện thoại và máy tính rồi so với yêu cầu."
+        },
+        {
+          "k": "h",
+          "t": "3 cách dùng (cùng một công cụ, chọn một)"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Cách",
+            "Lệnh",
+            "Hợp khi"
+          ],
+          "rows": [
+            [
+              "CLI / thư viện",
+              "npm i -D playwright; npx playwright install chromium",
+              "Agent viết script kiểm thử, chụp màn hình lặp lại"
+            ],
+            [
+              "MCP",
+              "claude mcp add playwright -- npx @playwright/mcp@latest",
+              "Agent tự mở trang và thao tác từng bước"
+            ],
+            [
+              "Plugin",
+              "/plugin install playwright@claude-plugins-official",
+              "Muốn cài kiểu một lệnh trong Claude Code"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Lưu ý"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Playwright MCP chạy cục bộ (stdio) nên cần Node.js; xem thẻ Bộ chạy nền.",
+            "Đừng để agent đăng nhập tài khoản quan trọng trên trình duyệt tự động nếu không cần.",
+            "Muốn chống bị nhận diện là bot khi thu thập dữ liệu: xem thẻ Camoufox và CloakBrowser trong Kho Tool, và tôn trọng điều khoản của trang."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tool-cli-runtimes",
+      "kho": "tool",
+      "group": "cli",
+      "guide": true,
+      "date": "2026-11-15",
+      "title": "Bộ chạy nền cho MCP: Node.js/npx, uv/uvx, Bun, Docker",
+      "type": "CLI",
+      "badge": "CLI",
+      "tags": [
+        "cli",
+        "node",
+        "python",
+        "docker",
+        "mcp"
+      ],
+      "thumb": "assets/res/tool-cli-runtimes.jpg",
+      "note": "Phần lớn MCP server chạy cục bộ được khởi động bằng npx (Node), uvx (Python) hoặc docker. Cài sẵn 4 bộ chạy này thì gần như MCP nào trên mạng cũng chạy được, không phải cài từng thứ.",
+      "cta": {
+        "title": "Claude Code: thêm MCP chạy cục bộ (stdio)",
+        "url": "https://code.claude.com/docs/en/mcp",
+        "btn": "Mở tài liệu MCP"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Gặp hướng dẫn MCP có dòng \"command\": \"npx\" hay \"uvx\" là cần bộ chạy tương ứng. Thiếu thì Claude Code báo server không khởi động được."
+        },
+        {
+          "k": "table",
+          "head": [
+            "Bộ chạy",
+            "Lệnh mở server",
+            "Cài",
+            "Ví dụ MCP"
+          ],
+          "rows": [
+            [
+              "Node.js (npm, npx)",
+              "npx -y ten-goi",
+              "nodejs.org (bản LTS)",
+              "@playwright/mcp"
+            ],
+            [
+              "uv (uvx)",
+              "uvx ten-goi",
+              "curl -LsSf https://astral.sh/uv/install.sh | sh",
+              "markitdown-mcp và nhiều MCP viết bằng Python"
+            ],
+            [
+              "Bun (bunx)",
+              "bunx ten-goi",
+              "bun.sh",
+              "Thay npx, khởi động nhanh hơn"
+            ],
+            [
+              "Docker",
+              "docker run -i --rm image",
+              "docker.com (Docker Desktop)",
+              "MCP đóng gói thành image, chạy tách biệt khỏi máy"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Ví dụ thêm MCP cục bộ"
+        },
+        {
+          "k": "code",
+          "t": "claude mcp add playwright -- npx @playwright/mcp@latest\nclaude mcp add markitdown -- uvx markitdown-mcp",
+          "cap": "Phần sau dấu -- là lệnh Claude Code sẽ chạy"
+        },
+        {
+          "k": "h",
+          "t": "Lưu ý"
+        },
+        {
+          "k": "list",
+          "items": [
+            "npx -y và uvx tải gói mới nhất mỗi lần: tiện nhưng nên ghim phiên bản (@1.2.3) với MCP quan trọng.",
+            "Docker tách MCP khỏi file trên máy, an toàn hơn khi thử MCP lạ.",
+            "Người không viết code: chỉ cần Node.js LTS là đủ cho đa số MCP."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tool-cli-file-toolkit",
+      "kho": "tool",
+      "group": "cli",
+      "guide": true,
+      "date": "2026-11-15",
+      "title": "Bộ xử lý file cho agent: ffmpeg, pandoc, jq, ripgrep",
+      "type": "CLI",
+      "badge": "CLI",
+      "tags": [
+        "cli",
+        "ffmpeg",
+        "pandoc",
+        "video"
+      ],
+      "thumb": "assets/res/tool-cli-file-toolkit.jpg",
+      "note": "4 CLI nhỏ mà agent dùng rất thạo: ffmpeg cắt, nén, đổi định dạng video và âm thanh; pandoc đổi qua lại Markdown, Word, HTML; jq lọc JSON; ripgrep tìm chữ trong hàng nghìn file trong tích tắc.",
+      "cta": {
+        "title": "ffmpeg.org",
+        "url": "https://ffmpeg.org",
+        "btn": "Mở trang ffmpeg"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Không cần học lệnh: cài sẵn rồi nói bằng lời, ví dụ \"cắt 30 giây đầu video này và nén dưới 10MB\", agent tự viết lệnh ffmpeg."
+        },
+        {
+          "k": "table",
+          "head": [
+            "CLI",
+            "Làm gì",
+            "Câu giao việc ví dụ",
+            "Cài"
+          ],
+          "rows": [
+            [
+              "ffmpeg",
+              "Cắt, ghép, nén, đổi định dạng video/âm thanh, tách tiếng, ghép phụ đề",
+              "\"Đổi video sang dọc 9:16 và nén cho Reels\"",
+              "brew install ffmpeg / winget install ffmpeg"
+            ],
+            [
+              "pandoc",
+              "Đổi Markdown sang Word, HTML, PDF và ngược lại",
+              "\"Xuất file kế hoạch .md sang .docx\"",
+              "brew install pandoc / pandoc.org"
+            ],
+            [
+              "jq",
+              "Lọc, đổi cấu trúc dữ liệu JSON",
+              "\"Lấy tên và lượt xem từ file xuất API này\"",
+              "brew install jq"
+            ],
+            [
+              "ripgrep (rg)",
+              "Tìm chữ cực nhanh trong thư mục lớn",
+              "\"Tìm mọi chỗ nhắc tới giá cũ trong website\"",
+              "brew install ripgrep"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Lưu ý"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Claude Code tự dùng ripgrep cho công cụ tìm kiếm bên trong, nên bạn thường không phải cài riêng.",
+            "ffmpeg ghi đè file nếu trùng tên khi có cờ -y: dặn agent xuất ra file mới.",
+            "Plugin mograph (Kho Ứng dụng) cũng dựng video trên máy; ffmpeg hợp cho việc sửa nhanh video có sẵn."
+          ]
+        }
+      ]
     }
   ]
 }
