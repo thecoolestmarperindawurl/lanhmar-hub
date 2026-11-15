@@ -4250,16 +4250,11 @@
       "ctasTitle": "Tải skill",
       "sections": [
         {
-          "k": "h",
-          "t": "Nhiều việc hỏng chỉ vì làm đúng một đề bài sai"
-        },
-        {
-          "k": "p",
-          "t": "Giao việc cho AI hay đồng đội bằng một câu mơ hồ rất dễ nhận lại kết quả lệch và phải làm lại từ đầu. Thay vì vội lao vào làm, bạn cần mài rìu thật kỹ và đo hai lần cắt một lần."
-        },
-        {
-          "k": "list",
-          "items": [
+          "k": "hero",
+          "kicker": "Skill cho AI",
+          "t": "Nhiều việc hỏng chỉ vì làm đúng một đề bài sai",
+          "lead": "Giao việc cho AI hay đồng đội bằng một câu mơ hồ rất dễ nhận lại kết quả lệch và phải làm lại từ đầu. Thay vì vội lao vào làm, bạn cần mài rìu thật kỹ và đo hai lần cắt một lần.",
+          "ticks": [
             "Phỏng vấn theo cụm, trả lời gọn nhẹ",
             "Đọc trước dữ liệu có sẵn, không hỏi thừa",
             "Đóng gói đề bài 6 mục, cố ý chưa đưa lời giải"
@@ -4299,38 +4294,33 @@
           "t": "Làm rõ mọi bài toán mơ hồ trong công việc lẫn đời sống"
         },
         {
-          "k": "table",
-          "head": [
-            "Tình huống",
-            "Trước",
-            "Sau"
-          ],
-          "rows": [
-            [
-              "Chủ quán cà phê đang tính chuyện mở cơ sở 2",
-              "Nghĩ tới đâu lo tới đó, chưa rõ nên ưu tiên dòng tiền hay thử nghiệm concept mới, bàn với ai cũng thấy mông lung.",
-              "Được AI phỏng vấn bóc tách rõ ràng mục tiêu, hiện trạng quán cũ và các giả định cần kiểm tra thực tế trước khi tìm mặt bằng."
-            ],
-            [
-              "Chủ shop online muốn giảm thời gian trả lời khách trên Zalo",
-              "Định mua phần mềm tự động hóa ngay nhưng chưa rõ khách hay tắc ở khâu tư vấn giá hay khâu chốt đơn, nguy cơ tốn tiền vô ích.",
-              "Đề bài ghi rõ khách hay tắc ở khâu nào, thời gian phản hồi mong muốn, ngân sách và chỗ còn là giả định cần kiểm. Có cái nền đó rồi mới tính có cần phần mềm hay không."
-            ],
-            [
-              "Trưởng nhóm thấy đội ngũ liên tục quá tải",
-              "Định xin tuyển thêm người vì áp lực dồn dập, chưa rõ gốc rễ vấn đề nằm ở năng lực, quy trình hay khối lượng công việc.",
-              "Đề bài ghi rõ hiện trạng khối việc, ràng buộc ngân sách và những điều còn là giả định cần kiểm. Quyết chuyện tuyển thêm người dựa trên bức tranh rõ ràng, không dựa trên cảm giác."
-            ],
-            [
-              "Người đi làm định nhờ AI viết một công cụ nhỏ hoặc làm lại bộ nội dung",
-              "Mô tả một câu chung chung khiến AI tự vẽ tính năng linh tinh, kết quả làm ra không đúng ý và phải sửa đi sửa lại.",
-              "Có bản đề bài 6 mục đủ rõ để đưa cho AI lên kế hoạch mà hiếm khi phải quay lại hỏi bạn."
-            ],
-            [
-              "Gia đình đang bàn tính kế hoạch đổi nhà hoặc cho con chuyển trường",
-              "Mỗi người một ý kiến rồi tranh cãi, người lo tiền bạc, người lo địa điểm xa gần mà chưa có một tiêu chí thống nhất.",
-              "Đóng gói rõ ràng mục tiêu chung, ngân sách tối đa và những yếu tố ngoài phạm vi để cả nhà cùng đi tìm phương án phù hợp."
-            ]
+          "k": "cases",
+          "items": [
+            {
+              "t": "Chủ quán cà phê đang tính chuyện mở cơ sở 2",
+              "before": "Nghĩ tới đâu lo tới đó, chưa rõ nên ưu tiên dòng tiền hay thử nghiệm concept mới, bàn với ai cũng thấy mông lung.",
+              "after": "Được AI phỏng vấn bóc tách rõ ràng mục tiêu, hiện trạng quán cũ và các giả định cần kiểm tra thực tế trước khi tìm mặt bằng."
+            },
+            {
+              "t": "Chủ shop online muốn giảm thời gian trả lời khách trên Zalo",
+              "before": "Định mua phần mềm tự động hóa ngay nhưng chưa rõ khách hay tắc ở khâu tư vấn giá hay khâu chốt đơn, nguy cơ tốn tiền vô ích.",
+              "after": "Đề bài ghi rõ khách hay tắc ở khâu nào, thời gian phản hồi mong muốn, ngân sách và chỗ còn là giả định cần kiểm. Có cái nền đó rồi mới tính có cần phần mềm hay không."
+            },
+            {
+              "t": "Trưởng nhóm thấy đội ngũ liên tục quá tải",
+              "before": "Định xin tuyển thêm người vì áp lực dồn dập, chưa rõ gốc rễ vấn đề nằm ở năng lực, quy trình hay khối lượng công việc.",
+              "after": "Đề bài ghi rõ hiện trạng khối việc, ràng buộc ngân sách và những điều còn là giả định cần kiểm. Quyết chuyện tuyển thêm người dựa trên bức tranh rõ ràng, không dựa trên cảm giác."
+            },
+            {
+              "t": "Người đi làm định nhờ AI viết một công cụ nhỏ hoặc làm lại bộ nội dung",
+              "before": "Mô tả một câu chung chung khiến AI tự vẽ tính năng linh tinh, kết quả làm ra không đúng ý và phải sửa đi sửa lại.",
+              "after": "Có bản đề bài 6 mục đủ rõ để đưa cho AI lên kế hoạch mà hiếm khi phải quay lại hỏi bạn."
+            },
+            {
+              "t": "Gia đình đang bàn tính kế hoạch đổi nhà hoặc cho con chuyển trường",
+              "before": "Mỗi người một ý kiến rồi tranh cãi, người lo tiền bạc, người lo địa điểm xa gần mà chưa có một tiêu chí thống nhất.",
+              "after": "Đóng gói rõ ràng mục tiêu chung, ngân sách tối đa và những yếu tố ngoài phạm vi để cả nhà cùng đi tìm phương án phù hợp."
+            }
           ]
         },
         {
@@ -4364,49 +4354,39 @@
           "t": "Câu hỏi thường gặp"
         },
         {
-          "k": "table",
-          "head": [
-            "Câu hỏi",
-            "Trả lời"
-          ],
-          "rows": [
-            [
-              "Skill này có lên luôn kế hoạch thực thi chi tiết không?",
-              "Không bạn nhé. Skill này chỉ tập trung làm rõ đề bài và mô tả đúng vấn đề, cố ý chưa đưa ra lời giải hay lập kế hoạch. Khi có bản đề bài 6 mục đủ rõ rồi, bạn có thể tự làm hoặc đưa đề bài đó cho AI lên kế hoạch tiếp."
-            ],
-            [
-              "Nếu gặp câu hỏi mà mình chưa biết trả lời thì sao?",
-              "Bạn cứ nói thẳng 'chưa biết'. AI sẽ ghi nhận điều đó thành giả định hoặc điểm cần kiểm tra lại sau. Chất lượng bản đề bài phụ thuộc trực tiếp vào câu trả lời của bạn."
-            ],
-            [
-              "Skill có dùng để nghĩ ra danh sách ý tưởng mới hay đặt tên không?",
-              "Không, skill không làm việc đó. Nhiệm vụ của skill là biến một bài toán còn mơ hồ thành đề bài rõ ràng, không dùng để liệt kê ý tưởng tản mạn."
-            ],
-            [
-              "Nếu AI trong ứng dụng của mình không hỗ trợ cài file zip thì làm thế nào?",
-              "Bạn chỉ cần gửi kèm file SKILL.md và assets/brief-template.md vào khung chat rồi nhắn 'Làm theo SKILL.md'. AI sẽ đọc hướng dẫn và kích hoạt quy trình làm việc ngay."
-            ],
-            [
-              "Sau này có bản cập nhật mới thì cập nhật ra sao?",
-              "Bạn chỉ cần tải file zip mới về và nhắn AI cài lại, AI sẽ hỏi bạn trước khi thay thế bản cũ."
-            ],
-            [
-              "Quy định sử dụng và chỉnh sửa skill này như thế nào?",
-              "Bạn được dùng và sửa skill trong công việc, kinh doanh của chính mình. Được chia sẻ nguyên bản cho mục đích phi thương mại, ghi rõ nguồn; không bán lại, không phát hành bản đã sửa."
-            ]
+          "k": "faq",
+          "items": [
+            {
+              "q": "Skill này có lên luôn kế hoạch thực thi chi tiết không?",
+              "a": "Không bạn nhé. Skill này chỉ tập trung làm rõ đề bài và mô tả đúng vấn đề, cố ý chưa đưa ra lời giải hay lập kế hoạch. Khi có bản đề bài 6 mục đủ rõ rồi, bạn có thể tự làm hoặc đưa đề bài đó cho AI lên kế hoạch tiếp."
+            },
+            {
+              "q": "Nếu gặp câu hỏi mà mình chưa biết trả lời thì sao?",
+              "a": "Bạn cứ nói thẳng 'chưa biết'. AI sẽ ghi nhận điều đó thành giả định hoặc điểm cần kiểm tra lại sau. Chất lượng bản đề bài phụ thuộc trực tiếp vào câu trả lời của bạn."
+            },
+            {
+              "q": "Skill có dùng để nghĩ ra danh sách ý tưởng mới hay đặt tên không?",
+              "a": "Không, skill không làm việc đó. Nhiệm vụ của skill là biến một bài toán còn mơ hồ thành đề bài rõ ràng, không dùng để liệt kê ý tưởng tản mạn."
+            },
+            {
+              "q": "Nếu AI trong ứng dụng của mình không hỗ trợ cài file zip thì làm thế nào?",
+              "a": "Bạn chỉ cần gửi kèm file SKILL.md và assets/brief-template.md vào khung chat rồi nhắn 'Làm theo SKILL.md'. AI sẽ đọc hướng dẫn và kích hoạt quy trình làm việc ngay."
+            },
+            {
+              "q": "Sau này có bản cập nhật mới thì cập nhật ra sao?",
+              "a": "Bạn chỉ cần tải file zip mới về và nhắn AI cài lại, AI sẽ hỏi bạn trước khi thay thế bản cũ."
+            },
+            {
+              "q": "Quy định sử dụng và chỉnh sửa skill này như thế nào?",
+              "a": "Bạn được dùng và sửa skill trong công việc, kinh doanh của chính mình. Được chia sẻ nguyên bản cho mục đích phi thương mại, ghi rõ nguồn; không bán lại, không phát hành bản đã sửa."
+            }
           ]
         },
         {
-          "k": "h",
-          "t": "Mài rìu thật kỹ trước khi chặt cây cùng nhân sự AI"
-        },
-        {
-          "k": "p",
-          "t": "Tải file zip về, đưa cho AI của bạn và nhắn một câu là AI tự cài; mở cuộc trò chuyện mới là dùng được."
-        },
-        {
-          "k": "callout",
-          "t": "Skill dùng cho công việc, kinh doanh của chính bạn, không bán lại."
+          "k": "outro",
+          "t": "Mài rìu thật kỹ trước khi chặt cây cùng nhân sự AI",
+          "d": "Tải file zip về, đưa cho AI của bạn và nhắn một câu là AI tự cài; mở cuộc trò chuyện mới là dùng được.",
+          "note": "Skill dùng cho công việc, kinh doanh của chính bạn, không bán lại."
         }
       ]
     },
@@ -4726,16 +4706,11 @@
       "ctasTitle": "Tải skill",
       "sections": [
         {
-          "k": "h",
-          "t": "Đừng để nhân sự AI mỗi sáng lại mất trí nhớ"
-        },
-        {
-          "k": "p",
-          "t": "Xong một việc, bao nhiêu bài học hay lại trôi tuột theo khung chat vừa đóng. Mở phiên mới là AI quên sạch, lỗi cũ lặp lại và bạn lại phải cặm cụi dặn lại từ đầu."
-        },
-        {
-          "k": "list",
-          "items": [
+          "k": "hero",
+          "kicker": "Skill cho AI",
+          "t": "Đừng để nhân sự AI mỗi sáng lại mất trí nhớ",
+          "lead": "Xong một việc, bao nhiêu bài học hay lại trôi tuột theo khung chat vừa đóng. Mở phiên mới là AI quên sạch, lỗi cũ lặp lại và bạn lại phải cặm cụi dặn lại từ đầu.",
+          "ticks": [
             "Bản nhìn lại 5 mục vừa vặn một màn hình",
             "Cất bài học vào đúng ngăn cần nhớ",
             "Bộ lọc 4 câu hỏi khắt khe, bạn duyệt mới ghi"
@@ -4775,38 +4750,33 @@
           "t": "Biến từng phiên làm việc thành kinh nghiệm thực chiến cho AI"
         },
         {
-          "k": "table",
-          "head": [
-            "Tình huống",
-            "Trước",
-            "Sau"
-          ],
-          "rows": [
-            [
-              "Người thuê hoặc chủ nhà vừa soạn xong hợp đồng thuê nhà cùng AI",
-              "Lần sau soạn hợp đồng khác, AI lại quên các điều khoản cọc đặc thù khiến bạn mất công sửa lại từ đầu.",
-              "AI nhìn lại buổi làm, đề xuất ghi bước kiểm điều khoản cọc vào skill soạn hợp đồng bạn đang dùng (chưa có skill thì đưa sẵn các bước thành đoạn chữ để bạn dán khi làm lại)."
-            ],
-            [
-              "Kế toán hoặc chủ doanh nghiệp vừa chốt xong bảng lương tháng",
-              "AI tính nhầm một khoản phụ cấp, sửa xong trong cuộc trò chuyện là thôi, tháng sau lỗi cũ quay lại.",
-              "Bản nhìn lại ghi rõ chỗ chưa ổn, kèm đề xuất thêm một bước kiểm vào skill tính lương bạn đang dùng. Bạn duyệt thì AI mới ghi."
-            ],
-            [
-              "Người đi làm đang chạy một việc dài, cuộc trò chuyện đã quá dài phải sang cuộc mới",
-              "Mở cuộc trò chuyện mới thì AI không biết gì, bạn mất công gõ lại bối cảnh, tài liệu và các việc còn dang dở.",
-              "Nói \"reflect và bàn giao\", AI đưa một đoạn ghi việc đang ở đâu, file quan trọng, việc tiếp theo và bẫy đã gặp để bạn dán sang cuộc mới làm tiếp."
-            ],
-            [
-              "Người làm nội dung vừa có một phiên viết bài đăng fanpage đúng giọng ưng ý",
-              "Buổi sau nhờ viết tiếp lại ra giọng chung chung, phải dặn lại từ đầu những gì hôm trước đã chỉnh.",
-              "AI rút ra cái gì làm tốt lần này và đề xuất ghi lại đúng chỗ, để lần sau khỏi dặn lại."
-            ],
-            [
-              "Cá nhân lên kế hoạch du lịch hoặc tiệc sinh nhật gia đình",
-              "Mỗi lần hỏi chỗ ăn chơi, AI lại gợi ý món mặn và địa điểm xa dù nhà bạn ăn chay và ngại đi lại.",
-              "AI nhận ra thói quen lặp lại, đề xuất lưu sở thích ăn chay và yêu cầu di chuyển của gia đình vào Memory."
-            ]
+          "k": "cases",
+          "items": [
+            {
+              "t": "Người thuê hoặc chủ nhà vừa soạn xong hợp đồng thuê nhà cùng AI",
+              "before": "Lần sau soạn hợp đồng khác, AI lại quên các điều khoản cọc đặc thù khiến bạn mất công sửa lại từ đầu.",
+              "after": "AI nhìn lại buổi làm, đề xuất ghi bước kiểm điều khoản cọc vào skill soạn hợp đồng bạn đang dùng (chưa có skill thì đưa sẵn các bước thành đoạn chữ để bạn dán khi làm lại)."
+            },
+            {
+              "t": "Kế toán hoặc chủ doanh nghiệp vừa chốt xong bảng lương tháng",
+              "before": "AI tính nhầm một khoản phụ cấp, sửa xong trong cuộc trò chuyện là thôi, tháng sau lỗi cũ quay lại.",
+              "after": "Bản nhìn lại ghi rõ chỗ chưa ổn, kèm đề xuất thêm một bước kiểm vào skill tính lương bạn đang dùng. Bạn duyệt thì AI mới ghi."
+            },
+            {
+              "t": "Người đi làm đang chạy một việc dài, cuộc trò chuyện đã quá dài phải sang cuộc mới",
+              "before": "Mở cuộc trò chuyện mới thì AI không biết gì, bạn mất công gõ lại bối cảnh, tài liệu và các việc còn dang dở.",
+              "after": "Nói \"reflect và bàn giao\", AI đưa một đoạn ghi việc đang ở đâu, file quan trọng, việc tiếp theo và bẫy đã gặp để bạn dán sang cuộc mới làm tiếp."
+            },
+            {
+              "t": "Người làm nội dung vừa có một phiên viết bài đăng fanpage đúng giọng ưng ý",
+              "before": "Buổi sau nhờ viết tiếp lại ra giọng chung chung, phải dặn lại từ đầu những gì hôm trước đã chỉnh.",
+              "after": "AI rút ra cái gì làm tốt lần này và đề xuất ghi lại đúng chỗ, để lần sau khỏi dặn lại."
+            },
+            {
+              "t": "Cá nhân lên kế hoạch du lịch hoặc tiệc sinh nhật gia đình",
+              "before": "Mỗi lần hỏi chỗ ăn chơi, AI lại gợi ý món mặn và địa điểm xa dù nhà bạn ăn chay và ngại đi lại.",
+              "after": "AI nhận ra thói quen lặp lại, đề xuất lưu sở thích ăn chay và yêu cầu di chuyển của gia đình vào Memory."
+            }
           ]
         },
         {
@@ -4840,49 +4810,39 @@
           "t": "Câu hỏi thường gặp"
         },
         {
-          "k": "table",
-          "head": [
-            "Câu hỏi",
-            "Trả lời"
-          ],
-          "rows": [
-            [
-              "AI có tự ý sửa hướng dẫn hay bộ nhớ của bạn không?",
-              "Không. AI chỉ đưa đề xuất sau khi lọc kỹ. Bạn duyệt cái nào thì AI mới ghi cái đó, mục nào bạn không đồng ý sẽ giữ nguyên."
-            ],
-            [
-              "Skill có lục lọi lại các cuộc trò chuyện cũ trước đây không?",
-              "Không. Skill chỉ nhìn lại đúng phiên trò chuyện hiện tại đang mở, không lục lại các phiên cũ của bạn."
-            ],
-            [
-              "Skill này có tóm tắt cuộc họp, tài liệu hay tự viết skill mới không?",
-              "Không. Skill chỉ nhìn lại cuộc trò chuyện vừa xong; không tóm tắt cuộc họp hay tài liệu, không tự viết một skill mới từ đầu."
-            ],
-            [
-              "Nếu dùng ứng dụng chat trên web không hỗ trợ ghi file thì sao?",
-              "Bản nhìn lại sẽ hiển thị thẳng trong khung chat để bạn lưu. Với đề xuất được duyệt, AI đưa sẵn đoạn chữ để bạn tự dán vào đúng nơi."
-            ],
-            [
-              "Trường hợp AI không tự cài được skill từ file zip thì xử lý thế nào?",
-              "Giải nén file zip, rồi mỗi lần muốn rút kinh nghiệm thì gửi kèm SKILL.md, assets/journal-template.md và assets/handoff-template.md vào cuối cuộc trò chuyện đó và nhắn \"Làm theo SKILL.md\". Bản nhìn lại sẽ hiện ngay trong khung chat để bạn tự lưu."
-            ],
-            [
-              "Cài skill này rồi thì AI có bao giờ lặp lại lỗi cũ nữa không?",
-              "Bên mình không hứa vậy. Skill giúp bài học được ghi đúng chỗ để lần sau AI có cái mà dựa vào; AI vẫn cần chỗ ghi đó, không tự nhớ được. Đoạn bàn giao cũng chỉ chính xác tới đâu AI đọc được tới đó."
-            ]
+          "k": "faq",
+          "items": [
+            {
+              "q": "AI có tự ý sửa hướng dẫn hay bộ nhớ của bạn không?",
+              "a": "Không. AI chỉ đưa đề xuất sau khi lọc kỹ. Bạn duyệt cái nào thì AI mới ghi cái đó, mục nào bạn không đồng ý sẽ giữ nguyên."
+            },
+            {
+              "q": "Skill có lục lọi lại các cuộc trò chuyện cũ trước đây không?",
+              "a": "Không. Skill chỉ nhìn lại đúng phiên trò chuyện hiện tại đang mở, không lục lại các phiên cũ của bạn."
+            },
+            {
+              "q": "Skill này có tóm tắt cuộc họp, tài liệu hay tự viết skill mới không?",
+              "a": "Không. Skill chỉ nhìn lại cuộc trò chuyện vừa xong; không tóm tắt cuộc họp hay tài liệu, không tự viết một skill mới từ đầu."
+            },
+            {
+              "q": "Nếu dùng ứng dụng chat trên web không hỗ trợ ghi file thì sao?",
+              "a": "Bản nhìn lại sẽ hiển thị thẳng trong khung chat để bạn lưu. Với đề xuất được duyệt, AI đưa sẵn đoạn chữ để bạn tự dán vào đúng nơi."
+            },
+            {
+              "q": "Trường hợp AI không tự cài được skill từ file zip thì xử lý thế nào?",
+              "a": "Giải nén file zip, rồi mỗi lần muốn rút kinh nghiệm thì gửi kèm SKILL.md, assets/journal-template.md và assets/handoff-template.md vào cuối cuộc trò chuyện đó và nhắn \"Làm theo SKILL.md\". Bản nhìn lại sẽ hiện ngay trong khung chat để bạn tự lưu."
+            },
+            {
+              "q": "Cài skill này rồi thì AI có bao giờ lặp lại lỗi cũ nữa không?",
+              "a": "Bên mình không hứa vậy. Skill giúp bài học được ghi đúng chỗ để lần sau AI có cái mà dựa vào; AI vẫn cần chỗ ghi đó, không tự nhớ được. Đoạn bàn giao cũng chỉ chính xác tới đâu AI đọc được tới đó."
+            }
           ]
         },
         {
-          "k": "h",
-          "t": "Trang bị sổ tay rút kinh nghiệm cho đồng đội AI của bạn"
-        },
-        {
-          "k": "p",
-          "t": "Tải file zip về, đưa cho AI của bạn và nhắn một câu là AI tự cài; xong việc nào thì gọi rút kinh nghiệm việc đó."
-        },
-        {
-          "k": "callout",
-          "t": "Bản nhìn lại được lưu tại docs/journals/ hoặc reflections/ nếu AI hỗ trợ ghi file, hoặc hiển thị trực tiếp trong khung chat."
+          "k": "outro",
+          "t": "Trang bị sổ tay rút kinh nghiệm cho đồng đội AI của bạn",
+          "d": "Tải file zip về, đưa cho AI của bạn và nhắn một câu là AI tự cài; xong việc nào thì gọi rút kinh nghiệm việc đó.",
+          "note": "Bản nhìn lại được lưu tại docs/journals/ hoặc reflections/ nếu AI hỗ trợ ghi file, hoặc hiển thị trực tiếp trong khung chat."
         }
       ]
     },
@@ -5008,16 +4968,11 @@
       "ctasTitle": "Tải skill",
       "sections": [
         {
-          "k": "h",
-          "t": "Khi trắc nghiệm và lá số mỗi nơi nói một kiểu"
-        },
-        {
-          "k": "p",
-          "t": "Bạn đã làm MBTI, xem thần số học hay Tử Vi mà mỗi nguồn chỉ ra một hướng khác nhau. Đọc xong nhiều bản giải mã, bạn vẫn chưa trả lời được mình thật sự là người thế nào và muốn sống vì điều gì."
-        },
-        {
-          "k": "list",
-          "items": [
+          "k": "hero",
+          "kicker": "Skill cho AI",
+          "t": "Khi trắc nghiệm và lá số mỗi nơi nói một kiểu",
+          "lead": "Bạn đã làm MBTI, xem thần số học hay Tử Vi mà mỗi nguồn chỉ ra một hướng khác nhau. Đọc xong nhiều bản giải mã, bạn vẫn chưa trả lời được mình thật sự là người thế nào và muốn sống vì điều gì.",
+          "ticks": [
             "AI thành người hỏi chuyện",
             "Đời thật luôn được ưu tiên",
             "Báo cáo chân dung 10 phần rõ ràng"
@@ -5057,38 +5012,33 @@
           "t": "Tấm gương soi chiếu cho các ngã rẽ công việc và đời sống"
         },
         {
-          "k": "table",
-          "head": [
-            "Tình huống",
-            "Trước",
-            "Sau"
-          ],
-          "rows": [
-            [
-              "Người đi làm đang ở ngã rẽ sự nghiệp, cân nhắc đổi việc hoặc chuyển ngành",
-              "Mông lung giữa kỳ vọng xung quanh và sở thích cá nhân, chưa nhìn rõ điểm tựa năng lực thực sự.",
-              "Có một bản chân dung chỉ ra năng lực lõi và điều đang rút cạn năng lượng, mỗi ý trỏ về câu chính bạn kể, làm nền khi bạn tự cân nhắc hướng đi."
-            ],
-            [
-              "Người vừa trải qua biến cố hoặc bước vào chặng mới như ra trường, nghỉ việc, làm cha mẹ",
-              "Bị xáo trộn nhịp sống, thấy những định nghĩa cũ về bản thân không còn khớp với thực tại.",
-              "Một báo cáo đặt các góc nhìn cạnh nhau: chỗ còn khớp, chỗ đã khác, và những câu hỏi để bạn ngẫm tiếp theo nhịp của mình."
-            ],
-            [
-              "Người có kết quả MBTI, DISC hoặc lá số nhưng thấy không giống mình ngoài đời",
-              "Cố ép hành vi của mình vào khuôn mẫu lý thuyết dù trực giác mách bảo điều ngược lại.",
-              "Phân tách rõ chỗ khớp và chỗ mâu thuẫn giữa lý thuyết với trải nghiệm sống, không còn bị dán nhãn gượng ép."
-            ],
-            [
-              "Chủ doanh nghiệp nhỏ hoặc người làm thương hiệu cá nhân cần đúc kết giá trị cốt lõi",
-              "Tập hợp những câu khẩu hiệu hoa mỹ nghe cho hay nhưng thiếu dẫn chứng từ câu chuyện thật.",
-              "Viết ra giá trị sống có dẫn chứng từ chính câu chuyện của mình; dữ liệu chưa đủ thì báo cáo nói rõ chỗ còn thiếu."
-            ],
-            [
-              "Bất kỳ ai muốn tự nhìn lại bản thân vào dịp cuối năm",
-              "Thấy một năm trôi qua bộn bề mà không rõ động lực nằm ở đâu và điều gì đang âm thầm bào mòn mình.",
-              "Báo cáo có riêng mục \"điều đang rút cạn năng lượng\" và \"câu hỏi để ngẫm\", dựa trên chính những gì bạn kể."
-            ]
+          "k": "cases",
+          "items": [
+            {
+              "t": "Người đi làm đang ở ngã rẽ sự nghiệp, cân nhắc đổi việc hoặc chuyển ngành",
+              "before": "Mông lung giữa kỳ vọng xung quanh và sở thích cá nhân, chưa nhìn rõ điểm tựa năng lực thực sự.",
+              "after": "Có một bản chân dung chỉ ra năng lực lõi và điều đang rút cạn năng lượng, mỗi ý trỏ về câu chính bạn kể, làm nền khi bạn tự cân nhắc hướng đi."
+            },
+            {
+              "t": "Người vừa trải qua biến cố hoặc bước vào chặng mới như ra trường, nghỉ việc, làm cha mẹ",
+              "before": "Bị xáo trộn nhịp sống, thấy những định nghĩa cũ về bản thân không còn khớp với thực tại.",
+              "after": "Một báo cáo đặt các góc nhìn cạnh nhau: chỗ còn khớp, chỗ đã khác, và những câu hỏi để bạn ngẫm tiếp theo nhịp của mình."
+            },
+            {
+              "t": "Người có kết quả MBTI, DISC hoặc lá số nhưng thấy không giống mình ngoài đời",
+              "before": "Cố ép hành vi của mình vào khuôn mẫu lý thuyết dù trực giác mách bảo điều ngược lại.",
+              "after": "Phân tách rõ chỗ khớp và chỗ mâu thuẫn giữa lý thuyết với trải nghiệm sống, không còn bị dán nhãn gượng ép."
+            },
+            {
+              "t": "Chủ doanh nghiệp nhỏ hoặc người làm thương hiệu cá nhân cần đúc kết giá trị cốt lõi",
+              "before": "Tập hợp những câu khẩu hiệu hoa mỹ nghe cho hay nhưng thiếu dẫn chứng từ câu chuyện thật.",
+              "after": "Viết ra giá trị sống có dẫn chứng từ chính câu chuyện của mình; dữ liệu chưa đủ thì báo cáo nói rõ chỗ còn thiếu."
+            },
+            {
+              "t": "Bất kỳ ai muốn tự nhìn lại bản thân vào dịp cuối năm",
+              "before": "Thấy một năm trôi qua bộn bề mà không rõ động lực nằm ở đâu và điều gì đang âm thầm bào mòn mình.",
+              "after": "Báo cáo có riêng mục \"điều đang rút cạn năng lượng\" và \"câu hỏi để ngẫm\", dựa trên chính những gì bạn kể."
+            }
           ]
         },
         {
@@ -5127,49 +5077,39 @@
           "t": "Câu hỏi thường gặp"
         },
         {
-          "k": "table",
-          "head": [
-            "Câu hỏi",
-            "Trả lời"
-          ],
-          "rows": [
-            [
-              "Skill này có phải là trị liệu tâm lý không?",
-              "Không. Skill không chẩn đoán, không tư vấn y tế, pháp lý, tài chính. Thấy bạn đang khủng hoảng, AI sẽ dừng và khuyên bạn tìm chuyên gia sức khoẻ tinh thần."
-            ],
-            [
-              "Skill có tiên đoán tương lai hay bói toán vận mệnh không?",
-              "Không. Lá số chỉ là một lăng kính tham khảo trong mục riêng chứ không dùng để đoán vận hạn hay tương lai. Báo cáo là tấm gương soi chiếu hiện tại, không phải bản kế hoạch hay lời phán."
-            ],
-            [
-              "Trong buổi có làm bài test MBTI hay DISC không?",
-              "Không. Bạn mang kết quả sẵn có; không có thì bỏ qua, AI không bắt bạn làm test. Báo cáo khi đó dựa trên bài tự kể và lá số, và nói rõ phần nào còn thiếu."
-            ],
-            [
-              "Báo cáo có đưa sẵn kế hoạch hành động hay lộ trình đổi việc không?",
-              "Không tự đưa. Báo cáo là tấm gương, không phải kế hoạch. Muốn có kế hoạch 30 ngày hay lộ trình 6 tháng thì đọc báo cáo xong bạn hỏi thêm AI."
-            ],
-            [
-              "Dữ liệu và câu chuyện của mình đi đâu?",
-              "Ngoài dịch vụ AI bạn đang trò chuyện, skill không gửi dữ liệu đi đâu khác, trừ khi bạn đồng ý tra lá số trên web (chỉ gửi ngày, giờ, nơi sinh, giới tính; không gửi tên). Xoá 2 file ghi chú và báo cáo là xoá bản lưu của skill; nội dung vẫn còn trong lịch sử trò chuyện của công cụ AI cho tới khi bạn xoá. App AI có tính năng ghi nhớ thì tắt trước buổi nếu bạn không muốn nó nhớ."
-            ],
-            [
-              "Không nhớ rõ giờ sinh thì có dùng được skill không?",
-              "Vẫn dùng được. Biết khoảng giờ (giờ Tý, giờ Sửu...) là đủ cho lá số Tử Vi; không biết giờ thì cung Mọc, các nhà và lá số Tử Vi để trống. Thần số học và cung Mặt Trời AI tự tính."
-            ]
+          "k": "faq",
+          "items": [
+            {
+              "q": "Skill này có phải là trị liệu tâm lý không?",
+              "a": "Không. Skill không chẩn đoán, không tư vấn y tế, pháp lý, tài chính. Thấy bạn đang khủng hoảng, AI sẽ dừng và khuyên bạn tìm chuyên gia sức khoẻ tinh thần."
+            },
+            {
+              "q": "Skill có tiên đoán tương lai hay bói toán vận mệnh không?",
+              "a": "Không. Lá số chỉ là một lăng kính tham khảo trong mục riêng chứ không dùng để đoán vận hạn hay tương lai. Báo cáo là tấm gương soi chiếu hiện tại, không phải bản kế hoạch hay lời phán."
+            },
+            {
+              "q": "Trong buổi có làm bài test MBTI hay DISC không?",
+              "a": "Không. Bạn mang kết quả sẵn có; không có thì bỏ qua, AI không bắt bạn làm test. Báo cáo khi đó dựa trên bài tự kể và lá số, và nói rõ phần nào còn thiếu."
+            },
+            {
+              "q": "Báo cáo có đưa sẵn kế hoạch hành động hay lộ trình đổi việc không?",
+              "a": "Không tự đưa. Báo cáo là tấm gương, không phải kế hoạch. Muốn có kế hoạch 30 ngày hay lộ trình 6 tháng thì đọc báo cáo xong bạn hỏi thêm AI."
+            },
+            {
+              "q": "Dữ liệu và câu chuyện của mình đi đâu?",
+              "a": "Ngoài dịch vụ AI bạn đang trò chuyện, skill không gửi dữ liệu đi đâu khác, trừ khi bạn đồng ý tra lá số trên web (chỉ gửi ngày, giờ, nơi sinh, giới tính; không gửi tên). Xoá 2 file ghi chú và báo cáo là xoá bản lưu của skill; nội dung vẫn còn trong lịch sử trò chuyện của công cụ AI cho tới khi bạn xoá. App AI có tính năng ghi nhớ thì tắt trước buổi nếu bạn không muốn nó nhớ."
+            },
+            {
+              "q": "Không nhớ rõ giờ sinh thì có dùng được skill không?",
+              "a": "Vẫn dùng được. Biết khoảng giờ (giờ Tý, giờ Sửu...) là đủ cho lá số Tử Vi; không biết giờ thì cung Mọc, các nhà và lá số Tử Vi để trống. Thần số học và cung Mặt Trời AI tự tính."
+            }
           ]
         },
         {
-          "k": "h",
-          "t": "Nhìn rõ chính mình cùng đồng đội AI"
-        },
-        {
-          "k": "p",
-          "t": "Tải file zip về, đưa cho AI của bạn và nhắn một câu là AI tự cài; buổi có thể dài, nghỉ giữa chừng được."
-        },
-        {
-          "k": "callout",
-          "t": "Không phải trị liệu tâm lý, không tiên đoán tương lai. Skill chạy tốt nhất trên model AI suy luận mạnh."
+          "k": "outro",
+          "t": "Nhìn rõ chính mình cùng đồng đội AI",
+          "d": "Tải file zip về, đưa cho AI của bạn và nhắn một câu là AI tự cài; buổi có thể dài, nghỉ giữa chừng được.",
+          "note": "Không phải trị liệu tâm lý, không tiên đoán tương lai. Skill chạy tốt nhất trên model AI suy luận mạnh."
         }
       ]
     },
@@ -5202,16 +5142,11 @@
       "ctasTitle": "Tải skill",
       "sections": [
         {
-          "k": "h",
-          "t": "Chỉ AI xong việc, lần sau lại phải dặn lại từ đầu?"
-        },
-        {
-          "k": "p",
-          "t": "AI như một bạn intern giỏi việc nhưng chưa có sổ tay quy trình, dẫn đến mỗi lần làm một kiểu. Thay vì nhắc việc thủ công mỗi ngày, bạn có thể đóng gói cách làm thành một skill chuẩn."
-        },
-        {
-          "k": "list",
-          "items": [
+          "k": "hero",
+          "kicker": "Skill cho AI",
+          "t": "Chỉ AI xong việc, lần sau lại phải dặn lại từ đầu?",
+          "lead": "AI như một bạn intern giỏi việc nhưng chưa có sổ tay quy trình, dẫn đến mỗi lần làm một kiểu. Thay vì nhắc việc thủ công mỗi ngày, bạn có thể đóng gói cách làm thành một skill chuẩn.",
+          "ticks": [
             "Quản quy trình, không ép cứng kết quả",
             "Phỏng vấn chống học vẹt và dẫn trọn đường",
             "Bộ thử 20 câu và trợ lý soát lạnh"
@@ -5251,38 +5186,33 @@
           "t": "Biến kinh nghiệm thực chiến thành tài sản dùng nhiều lần"
         },
         {
-          "k": "table",
-          "head": [
-            "Tình huống",
-            "Trước",
-            "Sau"
-          ],
-          "rows": [
-            [
-              "Chủ tiệm kinh doanh, cần gửi báo giá chuẩn cho khách mỗi ngày",
-              "Mỗi lần báo giá lại phải copy paste bảng giá, dặn AI giữ đúng mẫu và tính tiền cẩn thận.",
-              "Chỉ cần bảo 'Tạo skill cho mình từ việc vừa làm: soạn báo giá theo mẫu của tiệm', lần sau gọi một câu là xong."
-            ],
-            [
-              "Người làm nội dung, đang viết bài và quản lý bài đăng",
-              "Skill viết caption dùng được một thời gian thì bắt đầu bỏ quên bước kiểm tra giá sản phẩm.",
-              "Nhắn \"Sửa skill viết caption của mình\": AI đọc hết bản gốc, sao lưu, sửa, chạy thử rồi tăng số phiên bản, kèm danh sách đã đổi gì và cố tình không đổi gì."
-            ],
-            [
-              "Người bận rộn, cần lên thực đơn đi chợ tuần theo khẩu vị gia đình",
-              "Tuần nào cũng gõ lại danh sách món ăn, món kiêng của từng người và dặn AI phân loại theo quầy chợ.",
-              "Đóng gói cách nhà mình hay làm thành skill; đầu tuần gọi một câu là AI làm đúng các bước đó, khỏi dặn lại món kiêng của từng người."
-            ],
-            [
-              "Trưởng nhóm chuyên môn, chuẩn bị bàn giao tài liệu làm việc cho đồng đội",
-              "Tự viết xong một skill nhưng không chắc câu chữ có thừa thãi hay sót bước kỹ thuật nào không.",
-              "Nhắn \"Review skill này giúp mình, đừng sửa gì\" để nhận báo cáo theo khuôn, mỗi lỗi chỉ rõ file và dòng, trước khi đưa đồng đội."
-            ],
-            [
-              "Người dùng đã có skill nhưng gặp tình trạng AI đọc sót bước hoặc tự bật nhầm lúc",
-              "Skill dài lê thê khiến AI đọc sót bước, hoặc bạn hỏi chuyện khác mà skill vẫn tự bật.",
-              "Dùng nhánh tối ưu để cắt gọt chữ thừa, đồng thời chỉnh lại mô tả và kiểm tra qua bộ 20 câu thử."
-            ]
+          "k": "cases",
+          "items": [
+            {
+              "t": "Chủ tiệm kinh doanh, cần gửi báo giá chuẩn cho khách mỗi ngày",
+              "before": "Mỗi lần báo giá lại phải copy paste bảng giá, dặn AI giữ đúng mẫu và tính tiền cẩn thận.",
+              "after": "Chỉ cần bảo 'Tạo skill cho mình từ việc vừa làm: soạn báo giá theo mẫu của tiệm', lần sau gọi một câu là xong."
+            },
+            {
+              "t": "Người làm nội dung, đang viết bài và quản lý bài đăng",
+              "before": "Skill viết caption dùng được một thời gian thì bắt đầu bỏ quên bước kiểm tra giá sản phẩm.",
+              "after": "Nhắn \"Sửa skill viết caption của mình\": AI đọc hết bản gốc, sao lưu, sửa, chạy thử rồi tăng số phiên bản, kèm danh sách đã đổi gì và cố tình không đổi gì."
+            },
+            {
+              "t": "Người bận rộn, cần lên thực đơn đi chợ tuần theo khẩu vị gia đình",
+              "before": "Tuần nào cũng gõ lại danh sách món ăn, món kiêng của từng người và dặn AI phân loại theo quầy chợ.",
+              "after": "Đóng gói cách nhà mình hay làm thành skill; đầu tuần gọi một câu là AI làm đúng các bước đó, khỏi dặn lại món kiêng của từng người."
+            },
+            {
+              "t": "Trưởng nhóm chuyên môn, chuẩn bị bàn giao tài liệu làm việc cho đồng đội",
+              "before": "Tự viết xong một skill nhưng không chắc câu chữ có thừa thãi hay sót bước kỹ thuật nào không.",
+              "after": "Nhắn \"Review skill này giúp mình, đừng sửa gì\" để nhận báo cáo theo khuôn, mỗi lỗi chỉ rõ file và dòng, trước khi đưa đồng đội."
+            },
+            {
+              "t": "Người dùng đã có skill nhưng gặp tình trạng AI đọc sót bước hoặc tự bật nhầm lúc",
+              "before": "Skill dài lê thê khiến AI đọc sót bước, hoặc bạn hỏi chuyện khác mà skill vẫn tự bật.",
+              "after": "Dùng nhánh tối ưu để cắt gọt chữ thừa, đồng thời chỉnh lại mô tả và kiểm tra qua bộ 20 câu thử."
+            }
           ]
         },
         {
@@ -5321,53 +5251,43 @@
           "t": "Câu hỏi thường gặp"
         },
         {
-          "k": "table",
-          "head": [
-            "Câu hỏi",
-            "Trả lời"
-          ],
-          "rows": [
-            [
-              "Skill được viết bằng ngôn ngữ gì?",
-              "Phần thân skill được viết bằng tiếng Anh ngắn gọn để AI đọc và thực hiện ổn định hơn. Các câu gọi skill và nội dung khách hàng nhìn thấy vẫn là tiếng Việt, báo cáo gửi bạn cũng bằng tiếng của bạn."
-            ],
-            [
-              "Skill này có chạy hộ việc hay dựng quy trình tự động không?",
-              "Không. Skill không chạy hộ skill đã cài, không viết tài liệu quy trình cho người đọc và không dựng luồng tự động trong các công cụ workflow."
-            ],
-            [
-              "Có thể dùng skill để sửa skill do hãng công cụ phát hành không?",
-              "Bên mình khuyên không sửa trực tiếp vì bản cập nhật của hãng sẽ ghi đè lên thay đổi. Bạn nên đặt phần tuỳ biến ở file hướng dẫn dự án hoặc tạo một skill nhỏ đi kèm."
-            ],
-            [
-              "Mình cần cài đặt gì trên máy để sử dụng?",
-              "Node.js để đo độ dài skill (phần mềm miễn phí; không có thì AI đếm tay và ghi rõ là số đếm tay). Mặc định AI chấm tay theo bộ 20 câu; vòng thử tự động là tuỳ chọn, chỉ chạy trên một số công cụ AI dạng dòng lệnh, gọi AI vài trăm lần nên tốn lượt dùng gói AI của bạn, và AI sẽ hỏi trước khi chạy."
-            ],
-            [
-              "Skill tạo xong sẽ ghi tác giả là ai?",
-              "Tác giả mặc định là tên bạn, kèm dòng 'built with kes-create-skill · KesFlow'. Nếu muốn bỏ dòng này, bạn chỉ cần dặn AI một câu trong lúc tạo."
-            ],
-            [
-              "Skill có đảm bảo AI luôn làm ra cùng một kết quả không?",
-              "Không. Skill ép AI đi đúng một quy trình mỗi lần, không ép ra cùng một kết quả, và bên mình không hứa skill bật đúng 100%. Chất lượng skill phụ thuộc vào câu trả lời của bạn lúc phỏng vấn; chưa rõ điểm nào thì cứ nói \"chưa biết\"."
-            ],
-            [
-              "AI của mình không tạo được file trên máy thì sao?",
-              "AI đưa từng file ngay trong khung chat, ghi rõ file đó đặt ở đâu."
-            ]
+          "k": "faq",
+          "items": [
+            {
+              "q": "Skill được viết bằng ngôn ngữ gì?",
+              "a": "Phần thân skill được viết bằng tiếng Anh ngắn gọn để AI đọc và thực hiện ổn định hơn. Các câu gọi skill và nội dung khách hàng nhìn thấy vẫn là tiếng Việt, báo cáo gửi bạn cũng bằng tiếng của bạn."
+            },
+            {
+              "q": "Skill này có chạy hộ việc hay dựng quy trình tự động không?",
+              "a": "Không. Skill không chạy hộ skill đã cài, không viết tài liệu quy trình cho người đọc và không dựng luồng tự động trong các công cụ workflow."
+            },
+            {
+              "q": "Có thể dùng skill để sửa skill do hãng công cụ phát hành không?",
+              "a": "Bên mình khuyên không sửa trực tiếp vì bản cập nhật của hãng sẽ ghi đè lên thay đổi. Bạn nên đặt phần tuỳ biến ở file hướng dẫn dự án hoặc tạo một skill nhỏ đi kèm."
+            },
+            {
+              "q": "Mình cần cài đặt gì trên máy để sử dụng?",
+              "a": "Node.js để đo độ dài skill (phần mềm miễn phí; không có thì AI đếm tay và ghi rõ là số đếm tay). Mặc định AI chấm tay theo bộ 20 câu; vòng thử tự động là tuỳ chọn, chỉ chạy trên một số công cụ AI dạng dòng lệnh, gọi AI vài trăm lần nên tốn lượt dùng gói AI của bạn, và AI sẽ hỏi trước khi chạy."
+            },
+            {
+              "q": "Skill tạo xong sẽ ghi tác giả là ai?",
+              "a": "Tác giả mặc định là tên bạn, kèm dòng 'built with kes-create-skill · KesFlow'. Nếu muốn bỏ dòng này, bạn chỉ cần dặn AI một câu trong lúc tạo."
+            },
+            {
+              "q": "Skill có đảm bảo AI luôn làm ra cùng một kết quả không?",
+              "a": "Không. Skill ép AI đi đúng một quy trình mỗi lần, không ép ra cùng một kết quả, và bên mình không hứa skill bật đúng 100%. Chất lượng skill phụ thuộc vào câu trả lời của bạn lúc phỏng vấn; chưa rõ điểm nào thì cứ nói \"chưa biết\"."
+            },
+            {
+              "q": "AI của mình không tạo được file trên máy thì sao?",
+              "a": "AI đưa từng file ngay trong khung chat, ghi rõ file đó đặt ở đâu."
+            }
           ]
         },
         {
-          "k": "h",
-          "t": "Đóng gói cách làm của bạn thành skill"
-        },
-        {
-          "k": "p",
-          "t": "Tải file zip về, đưa cho AI của bạn và nhắn một câu là AI tự cài; mở cuộc trò chuyện mới rồi gọi \"tạo skill cho mình từ việc vừa làm\"."
-        },
-        {
-          "k": "callout",
-          "t": "README đi kèm có thêm phần đọc khoảng 15 phút về tư duy viết skill để bạn hiểu rõ bản chất thay vì chỉ dùng công cụ."
+          "k": "outro",
+          "t": "Đóng gói cách làm của bạn thành skill",
+          "d": "Tải file zip về, đưa cho AI của bạn và nhắn một câu là AI tự cài; mở cuộc trò chuyện mới rồi gọi \"tạo skill cho mình từ việc vừa làm\".",
+          "note": "README đi kèm có thêm phần đọc khoảng 15 phút về tư duy viết skill để bạn hiểu rõ bản chất thay vì chỉ dùng công cụ."
         }
       ]
     },
@@ -6289,16 +6209,11 @@
       "ctasTitle": "Tải skill",
       "sections": [
         {
-          "k": "h",
-          "t": "Văn bản gửi đi: Đừng để áo đẹp cài lệch cúc"
-        },
-        {
-          "k": "p",
-          "t": "Báo giá hay công văn gửi khách nội dung rất ổn, nhưng ba bốn phông chữ cùng số tiền lộn xộn khiến người ta thấy soạn vội. Cái gì máy làm tốt thì người đừng làm tay."
-        },
-        {
-          "k": "list",
-          "items": [
+          "k": "hero",
+          "kicker": "Skill cho AI",
+          "t": "Văn bản gửi đi: Đừng để áo đẹp cài lệch cúc",
+          "lead": "Báo giá hay công văn gửi khách nội dung rất ổn, nhưng ba bốn phông chữ cùng số tiền lộn xộn khiến người ta thấy soạn vội. Cái gì máy làm tốt thì người đừng làm tay.",
+          "ticks": [
             "28 quy tắc trình bày rút từ Nghị định 30/2020",
             "Giữ nguyên ruột, chỉ sửa cách viết",
             "Bộ soi tự kiểm và đối soát số liệu"
@@ -6338,38 +6253,33 @@
           "t": "Từ việc công sở đến việc đời sống đều cần bản gửi đi nghiêm túc"
         },
         {
-          "k": "table",
-          "head": [
-            "Tình huống",
-            "Trước",
-            "Sau"
-          ],
-          "rows": [
-            [
-              "Nhân viên sales hoặc chủ shop sắp gửi báo giá cho khách hàng",
-              "Báo giá gõ vội trong chat, phông chữ lộn xộn, số tiền chỗ ghi 1,350,000đ chỗ ghi 3tr2 trông thiếu chuyên nghiệp.",
-              "Bảng báo giá vào khuôn ngay ngắn, định dạng số tiền đồng nhất, có số hiệu và ngày tháng trang trọng để tự tin gửi đi."
-            ],
-            [
-              "Doanh nghiệp chuẩn bị nộp hồ sơ, văn bản cho cơ quan hoặc đối tác nhà nước",
-              "Loay hoay căn chỉnh thước lề, đặt sai vị trí Quốc hiệu, Tiêu ngữ hoặc thiếu trích yếu theo thói quen văn thư của họ.",
-              "Văn bản trình bày theo 28 quy tắc rút từ Nghị định 30/2020, đúng thể thức người nhận quen đọc."
-            ],
-            [
-              "Hành chính - nhân sự soạn thông báo nghỉ lễ hoặc thay đổi giờ làm",
-              "Nhờ AI soạn xong nội dung, nhưng văn bản còn dấu sao trang trí, gạch đầu dòng mỗi chỗ một kiểu, thiếu số văn bản và Nơi nhận.",
-              "Có bản Word sạch: bỏ ký tự trang trí, gạch đầu dòng về một kiểu, đủ khối ký và Nơi nhận, sẵn sàng in dán bảng tin hoặc gửi kèm email."
-            ],
-            [
-              "Kế toán làm đề nghị thanh toán hoặc tờ trình gửi đối tác",
-              "Mất thời gian dò từng dòng lề, ngày viết tắt kiểu 7/10/26, số tiền mỗi chỗ một kiểu, sợ sót một con số khi sửa tay.",
-              "Số tiền và ngày tháng về một khuôn. Có file Word gốc thì bộ soi tự so các số từ 1.000 trở lên với bản gốc; số nhỏ, mã hàng AI dò bằng mắt và ghi rõ trong báo cáo."
-            ],
-            [
-              "Ban đại diện phụ huynh hoặc ban quản trị chung cư đã soạn xong nội dung kiến nghị, thông báo",
-              "Soạn văn bản gửi ban giám hiệu hoặc ban quản lý nhưng trình bày vụng về như một tin nhắn dài, thiếu sức nặng.",
-              "Cùng nội dung đó, giờ có tiêu đề, số văn bản, ngày tháng, khối ký và Nơi nhận đúng khuôn, trông nghiêm túc khi gửi đi."
-            ]
+          "k": "cases",
+          "items": [
+            {
+              "t": "Nhân viên sales hoặc chủ shop sắp gửi báo giá cho khách hàng",
+              "before": "Báo giá gõ vội trong chat, phông chữ lộn xộn, số tiền chỗ ghi 1,350,000đ chỗ ghi 3tr2 trông thiếu chuyên nghiệp.",
+              "after": "Bảng báo giá vào khuôn ngay ngắn, định dạng số tiền đồng nhất, có số hiệu và ngày tháng trang trọng để tự tin gửi đi."
+            },
+            {
+              "t": "Doanh nghiệp chuẩn bị nộp hồ sơ, văn bản cho cơ quan hoặc đối tác nhà nước",
+              "before": "Loay hoay căn chỉnh thước lề, đặt sai vị trí Quốc hiệu, Tiêu ngữ hoặc thiếu trích yếu theo thói quen văn thư của họ.",
+              "after": "Văn bản trình bày theo 28 quy tắc rút từ Nghị định 30/2020, đúng thể thức người nhận quen đọc."
+            },
+            {
+              "t": "Hành chính - nhân sự soạn thông báo nghỉ lễ hoặc thay đổi giờ làm",
+              "before": "Nhờ AI soạn xong nội dung, nhưng văn bản còn dấu sao trang trí, gạch đầu dòng mỗi chỗ một kiểu, thiếu số văn bản và Nơi nhận.",
+              "after": "Có bản Word sạch: bỏ ký tự trang trí, gạch đầu dòng về một kiểu, đủ khối ký và Nơi nhận, sẵn sàng in dán bảng tin hoặc gửi kèm email."
+            },
+            {
+              "t": "Kế toán làm đề nghị thanh toán hoặc tờ trình gửi đối tác",
+              "before": "Mất thời gian dò từng dòng lề, ngày viết tắt kiểu 7/10/26, số tiền mỗi chỗ một kiểu, sợ sót một con số khi sửa tay.",
+              "after": "Số tiền và ngày tháng về một khuôn. Có file Word gốc thì bộ soi tự so các số từ 1.000 trở lên với bản gốc; số nhỏ, mã hàng AI dò bằng mắt và ghi rõ trong báo cáo."
+            },
+            {
+              "t": "Ban đại diện phụ huynh hoặc ban quản trị chung cư đã soạn xong nội dung kiến nghị, thông báo",
+              "before": "Soạn văn bản gửi ban giám hiệu hoặc ban quản lý nhưng trình bày vụng về như một tin nhắn dài, thiếu sức nặng.",
+              "after": "Cùng nội dung đó, giờ có tiêu đề, số văn bản, ngày tháng, khối ký và Nơi nhận đúng khuôn, trông nghiêm túc khi gửi đi."
+            }
           ]
         },
         {
@@ -6403,53 +6313,43 @@
           "t": "Câu hỏi thường gặp"
         },
         {
-          "k": "table",
-          "head": [
-            "Câu hỏi",
-            "Trả lời"
-          ],
-          "rows": [
-            [
-              "Skill này có tự sửa nội dung hay tự ý đổi giá không?",
-              "Hoàn toàn không. Skill giữ nguyên tên hàng, số lượng, đơn giá và điều khoản; chỉ sửa cách trình bày như định dạng số tiền, ngày tháng, phông chữ và bố cục lề."
-            ],
-            [
-              "Skill có tự soạn văn bản mới hoặc rà soát tính pháp lý của hợp đồng không?",
-              "Không. Skill không soạn nội dung mới và không rà nội dung pháp lý của hợp đồng; nó chỉ trình bày lại văn bản bạn đưa vào."
-            ],
-            [
-              "Doanh nghiệp tư nhân có bắt buộc phải làm theo Nghị định 30/2020 không?",
-              "Không bắt buộc. Nghị định 30 bắt buộc với cơ quan nhà nước và doanh nghiệp nhà nước; skill dùng nó làm thước đo cho văn bản gửi ra ngoài."
-            ],
-            [
-              "Cần môi trường AI như thế nào để skill hoạt động?",
-              "Cần AI chạy được Python 3 và ghi được file (AI làm việc trên máy tính, hoặc ứng dụng chat đã bật tính năng chạy code). Thiếu thì skill dừng và nói rõ thiếu gì, không dựng file \"bằng tay\"."
-            ],
-            [
-              "File HTML mở trên Google Docs có giống hệt bản Word không?",
-              "Không hoàn toàn. Bản Google Docs giữ phông, cỡ chữ, bảng, nhưng lề về mặc định và không có số trang. Bản đúng chuẩn đầy đủ là file .docx."
-            ],
-            [
-              "Có đúng 100% Nghị định 30 và có đóng dấu không?",
-              "Skill không đóng dấu, và bên mình không nói \"đúng 100%\": skill bám 28 quy tắc trình bày rút từ Phụ lục I, cộng 4 quy ước riêng ghi rõ trong README. Số nhỏ, số điện thoại, mã hàng thì bạn nên đọc lại trước khi gửi."
-            ],
-            [
-              "Hợp đồng hai bên ký thì sao?",
-              "Skill dựng phần đầu, phần thân và khối ký Bên B; khối ký Bên A bạn gõ vào ô trống cột trái trong Word, AI sẽ nhắc trước. Bộ soi báo thiếu Nơi nhận là bình thường với hợp đồng hai bên, báo cáo sẽ giải thích."
-            ]
+          "k": "faq",
+          "items": [
+            {
+              "q": "Skill này có tự sửa nội dung hay tự ý đổi giá không?",
+              "a": "Hoàn toàn không. Skill giữ nguyên tên hàng, số lượng, đơn giá và điều khoản; chỉ sửa cách trình bày như định dạng số tiền, ngày tháng, phông chữ và bố cục lề."
+            },
+            {
+              "q": "Skill có tự soạn văn bản mới hoặc rà soát tính pháp lý của hợp đồng không?",
+              "a": "Không. Skill không soạn nội dung mới và không rà nội dung pháp lý của hợp đồng; nó chỉ trình bày lại văn bản bạn đưa vào."
+            },
+            {
+              "q": "Doanh nghiệp tư nhân có bắt buộc phải làm theo Nghị định 30/2020 không?",
+              "a": "Không bắt buộc. Nghị định 30 bắt buộc với cơ quan nhà nước và doanh nghiệp nhà nước; skill dùng nó làm thước đo cho văn bản gửi ra ngoài."
+            },
+            {
+              "q": "Cần môi trường AI như thế nào để skill hoạt động?",
+              "a": "Cần AI chạy được Python 3 và ghi được file (AI làm việc trên máy tính, hoặc ứng dụng chat đã bật tính năng chạy code). Thiếu thì skill dừng và nói rõ thiếu gì, không dựng file \"bằng tay\"."
+            },
+            {
+              "q": "File HTML mở trên Google Docs có giống hệt bản Word không?",
+              "a": "Không hoàn toàn. Bản Google Docs giữ phông, cỡ chữ, bảng, nhưng lề về mặc định và không có số trang. Bản đúng chuẩn đầy đủ là file .docx."
+            },
+            {
+              "q": "Có đúng 100% Nghị định 30 và có đóng dấu không?",
+              "a": "Skill không đóng dấu, và bên mình không nói \"đúng 100%\": skill bám 28 quy tắc trình bày rút từ Phụ lục I, cộng 4 quy ước riêng ghi rõ trong README. Số nhỏ, số điện thoại, mã hàng thì bạn nên đọc lại trước khi gửi."
+            },
+            {
+              "q": "Hợp đồng hai bên ký thì sao?",
+              "a": "Skill dựng phần đầu, phần thân và khối ký Bên B; khối ký Bên A bạn gõ vào ô trống cột trái trong Word, AI sẽ nhắc trước. Bộ soi báo thiếu Nơi nhận là bình thường với hợp đồng hai bên, báo cáo sẽ giải thích."
+            }
           ]
         },
         {
-          "k": "h",
-          "t": "Để nhân sự AI lo phần thể thức, bạn tập trung vào nội dung"
-        },
-        {
-          "k": "p",
-          "t": "Tải file zip về, đưa cho AI của bạn và nhắn một câu là AI tự cài; mở cuộc trò chuyện mới là dùng được."
-        },
-        {
-          "k": "callout",
-          "t": "Cần AI chạy được Python 3 và ghi được file."
+          "k": "outro",
+          "t": "Để nhân sự AI lo phần thể thức, bạn tập trung vào nội dung",
+          "d": "Tải file zip về, đưa cho AI của bạn và nhắn một câu là AI tự cài; mở cuộc trò chuyện mới là dùng được.",
+          "note": "Cần AI chạy được Python 3 và ghi được file."
         }
       ]
     },
