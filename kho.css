@@ -586,3 +586,5 @@ body.fx-off .card::after{display:none}
 }
 @media (prefers-reduced-motion:reduce){.g-blob,.g-arrow,.g-faq details p{animation:none}.rv{opacity:1;transform:none;transition:none}.g-card,.g-case{transition:none}}
 @media(max-width:600px){.res-cta{padding:10px 14px;gap:6px}.res-cta b{font-size:13px}.res-cta-btns{width:100%;gap:8px;flex-wrap:nowrap}.res-cta-btns .orange-btn{flex:1 1 0;min-width:0;font-size:13px;padding:10px 8px;white-space:normal;line-height:1.25}}
+.g-body{overflow-wrap:anywhere}.g-body .g-tbl{overflow-wrap:normal}
+@media(max-width:600px){.res-cta small{display:none}.res-cta>.orange-btn{flex:1;text-align:center;font-size:14px;padding:10px 14px}}
