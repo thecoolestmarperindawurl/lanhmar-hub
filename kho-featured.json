@@ -6439,6 +6439,195 @@
       ]
     },
     {
+      "id": "skill-coding-agent-standards",
+      "kho": "ai",
+      "group": "skill",
+      "guide": true,
+      "title": "coding-agent-standards: bộ quy tắc giúp coding agent làm việc có kỷ luật",
+      "type": "Skill",
+      "badge": "Lập trình",
+      "tags": [
+        "lập trình",
+        "code review",
+        "agent",
+        "git"
+      ],
+      "thumb": "assets/res/skill-coding-agent-standards.jpg",
+      "note": "Một skill gom vai trò, 3 bộ quy tắc, 6 skill con và 3 quy trình cho AI viết code: hiểu trước khi sửa, sửa gọn, luôn kiểm tra, không tự push hay xoá. Chỉ có file Markdown. Repo của danieldev23.",
+      "date": "2026-11-15",
+      "cta": {
+        "title": "danieldev23/agent-skill",
+        "url": "https://github.com/danieldev23/agent-skill",
+        "btn": "Mở repo GitHub"
+      },
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Dùng khi giao việc lập trình cho Claude Code: thêm tính năng, sửa lỗi, review, refactor. Theo mô tả của skill, Claude tự đọc bộ quy tắc trước mọi việc viết code; bạn cũng có thể gọi trực tiếp bằng /coding-agent-standards."
+        },
+        {
+          "k": "h",
+          "t": "Thông tin"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Mục",
+            "Chi tiết"
+          ],
+          "rows": [
+            [
+              "Repo",
+              "github.com/danieldev23/agent-skill"
+            ],
+            [
+              "Tên skill",
+              "coding-agent-standards"
+            ],
+            [
+              "Phiên bản",
+              "Không ghi số phiên bản; mình cài bản commit ad7c246 ngày 19/09/2026"
+            ],
+            [
+              "Thành phần",
+              "Chỉ có file Markdown và một file config.yaml mẫu, không có script chạy được"
+            ],
+            [
+              "Giấy phép",
+              "Repo chưa có file LICENSE, nên mình chỉ giới thiệu và dẫn link, không chép lại nội dung"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Bên trong có gì"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Nhóm",
+            "File",
+            "Nội dung"
+          ],
+          "rows": [
+            [
+              "Cốt lõi",
+              "AGENTS.md",
+              "Vai trò coding agent, 6 nguyên tắc, thứ tự ưu tiên khi có xung đột"
+            ],
+            [
+              "Quy tắc (luôn theo)",
+              "rules/ 01 đến 03",
+              "Chuẩn viết code, giới hạn an toàn, quy ước git (nhánh, commit, PR)"
+            ],
+            [
+              "Skill con (dùng khi cần)",
+              "skills/ 6 file",
+              "Review code, debug, viết test, refactor, viết tài liệu, thiết kế giao diện"
+            ],
+            [
+              "Quy trình (làm từng bước)",
+              "workflows/ 3 file",
+              "Thêm tính năng, sửa lỗi, chuẩn bị pull request"
+            ],
+            [
+              "Cấu hình mẫu",
+              "config.yaml",
+              "Gợi ý ánh xạ sang LangChain, CrewAI, AutoGen nếu bạn tự dựng agent"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Nguyên tắc cốt lõi"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Hiểu rồi mới sửa: đọc code liên quan trước, thiếu thông tin thì đọc thêm hoặc hỏi, không đoán.",
+            "Sửa gọn đúng phạm vi: không tiện tay refactor chỗ khác.",
+            "Luôn kiểm tra: chạy test, lint, build trước khi báo xong; chưa có test thì viết ít nhất một test cơ bản.",
+            "Minh bạch: nói rõ đã làm gì, vì sao, còn rủi ro gì; không giả vờ đã test.",
+            "Đề bài mơ hồ: chọn cách hợp lý nhất, nêu giả định rồi làm tiếp.",
+            "Không tự làm việc rủi ro cao: push lên nhánh chính, xoá file hay nhánh, chạy migration, deploy, gửi email đều phải hỏi trước."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Ví dụ: quy trình sửa lỗi"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Tái hiện lỗi",
+              "d": "Chạy lại để thấy lỗi thật; không tái hiện được thì nói rõ và xin thêm thông tin."
+            },
+            {
+              "t": "Tìm nguyên nhân gốc",
+              "d": "Thu hẹp phạm vi, thử từng giả thuyết một, không vá triệu chứng."
+            },
+            {
+              "t": "Viết test bắt lỗi",
+              "d": "Test phải hỏng trước khi sửa và chạy được sau khi sửa."
+            },
+            {
+              "t": "Sửa tối thiểu",
+              "d": "Chỉ đổi đúng chỗ gây lỗi, theo chuẩn viết code."
+            },
+            {
+              "t": "Chạy lại bộ test",
+              "d": "Đảm bảo không làm hỏng chỗ khác."
+            },
+            {
+              "t": "Báo cáo",
+              "d": "Nguyên nhân, cách sửa, file nào, test nào chứng minh."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cài đặt"
+        },
+        {
+          "k": "code",
+          "t": "git clone https://github.com/danieldev23/agent-skill.git\nmkdir -p ~/.claude/skills/coding-agent-standards\ncp -r agent-skill/{SKILL.md,AGENTS.md,config.yaml,rules,skills,workflows} \\\n  ~/.claude/skills/coding-agent-standards/",
+          "cap": "macOS, Linux, WSL: cài cho mọi dự án"
+        },
+        {
+          "k": "p",
+          "t": "Mở lại Claude Code, gõ / sẽ thấy coding-agent-standards. Muốn chỉ dùng trong một dự án, chép vào .claude/skills/coding-agent-standards/ trong thư mục dự án thay vì ~/.claude/skills/."
+        },
+        {
+          "k": "h",
+          "t": "Đánh giá của mình"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Hợp với người mới dùng agent để viết code: biến những thói quen tốt thành quy tắc agent tự theo.",
+            "Nhiều điểm trùng với cách Claude Code vốn làm (không tự push, hỏi trước khi xoá), nên lợi ích lớn nhất là phần quy trình sửa lỗi, test và review rõ ràng.",
+            "Quy ước git (nhánh feat/…, Conventional Commits) có thể khác quy ước dự án của bạn. Sửa rules/03-git-conventions.md cho khớp, nếu không agent sẽ lúng túng giữa hai bộ luật.",
+            "skills/design.md trông giống skill frontend-design của Anthropic. Nếu bạn đã có skill thiết kế riêng (như brand guideline), cân nhắc xoá file này để tránh hai hướng dẫn thiết kế chồng nhau.",
+            "Đây là nhận định của mình sau khi đọc toàn bộ 16 file, chưa phải kết quả đo trên nhiều dự án."
+          ]
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "danieldev23/agent-skill trên GitHub",
+              "u": "https://github.com/danieldev23/agent-skill"
+            },
+            {
+              "t": "Claude Code: Skills",
+              "u": "https://code.claude.com/docs/en/skills"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "edit-editornghiepdu",
       "kho": "edit",
       "guide": true,
