@@ -4245,10 +4245,86 @@
         {
           "btn": "Thư mục Skill-Hub",
           "url": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
+        },
+        {
+          "btn": "Trang sản phẩm KesFlow",
+          "url": "https://kesflow.vn/skills/kes-brainstorm"
         }
       ],
       "ctasTitle": "Tải skill",
       "sections": [
+        {
+          "k": "callout",
+          "t": "Nhiều việc hỏng không phải vì làm kém mà vì làm đúng một đề bài sai. Giao việc cho AI bằng một câu mơ hồ thì dễ nhận về kết quả lệch và phải làm lại. Mài rìu trước, đo hai lần rồi mới cắt."
+        },
+        {
+          "k": "h",
+          "t": "Skill giúp bạn"
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "Hỏi từng câu, có sẵn đáp án gợi ý",
+              "d": "Mỗi lượt Claude hỏi một câu kèm đáp án nó khuyến nghị. Bạn gật hoặc sửa, không phải nghĩ từ trang trắng."
+            },
+            {
+              "t": "Đọc tài liệu trước khi hỏi",
+              "d": "Claude đọc file, thư mục liên quan trước, rồi chỉ hỏi những gì tài liệu chưa trả lời."
+            },
+            {
+              "t": "Đề bài 6 mục, cố ý chưa có lời giải",
+              "d": "Mục tiêu, Hiện trạng, Vấn đề, Mong muốn, Ràng buộc, Ngoài phạm vi. Tách vấn đề khỏi giải pháp để không bị khoá sớm vào một hướng."
+            },
+            {
+              "t": "Rà soát độc lập, bạn gật mới chốt",
+              "d": "Một subagent đọc brief và hỏi thêm tới khi không còn lỗ hổng. Im lặng không tính là đồng ý."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Ai dùng: trước và sau"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Ai đang cần",
+            "Trước",
+            "Sau"
+          ],
+          "rows": [
+            [
+              "Chủ quán cà phê tính mở cơ sở 2",
+              "Nghĩ tới đâu lo tới đó, chưa rõ nên ưu tiên dòng tiền hay thử mô hình mới.",
+              "Có đề bài ghi rõ mục tiêu, hiện trạng quán cũ và các giả định cần kiểm trước khi đi tìm mặt bằng."
+            ],
+            [
+              "Chủ shop online muốn trả lời khách nhanh hơn",
+              "Định mua phần mềm ngay dù chưa biết khách hay tắc ở khâu báo giá hay chốt đơn.",
+              "Đề bài chỉ ra khâu tắc, thời gian phản hồi mong muốn và ngân sách, rồi mới tính chuyện phần mềm."
+            ],
+            [
+              "Người đi làm nhờ AI làm một công cụ nhỏ",
+              "Mô tả một câu, AI tự thêm tính năng linh tinh, sửa đi sửa lại.",
+              "Có đề bài 6 mục đủ rõ để chuyển sang bước lập kế hoạch với kf-plan hoặc plan trong kho."
+            ],
+            [
+              "Gia đình bàn chuyện đổi nhà",
+              "Mỗi người một tiêu chí, bàn mãi không chốt.",
+              "Cả nhà có chung mục tiêu, ngân sách tối đa và danh sách những điều để ngoài phạm vi."
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Ví dụ"
+        },
+        {
+          "k": "code",
+          "t": "Bạn: /brainstorm Mình muốn mở cơ sở 2 cho quán cà phê\nClaude: Câu 1: Mục tiêu chính của cơ sở 2 là gì? Gợi ý của mình: thử mô hình mới ở khu khác, vì bạn nói quán cũ đang ổn định. Bạn đồng ý hay muốn sửa?\nBạn: Đúng vậy.\nClaude: (...các câu tiếp theo...) Trích bản nháp đề bài:\n- Mục tiêu: Thử mô hình quán mới ở khu khác.\n- Vấn đề: Chưa biết khách khu mới có hợp mô hình không.\n- Ngoài phạm vi: Chưa nhượng quyền; chưa đổi menu cốt lõi; chưa vay vốn.\nBạn gõ \"đồng ý\" thì mình chốt và lưu vào docs/briefs/.",
+          "cap": "Ví dụ hư cấu"
+        },
         {
           "k": "callout",
           "t": "Dùng khi đề bài còn thiếu rõ ràng và bạn chưa muốn nhảy vào làm. Kích hoạt bằng: brainstorm, thảo luận, làm rõ đề bài."
@@ -4367,6 +4443,35 @@
             "Bài toán được viết bằng vấn đề, không lẫn giải pháp, nên không bị khoá sớm vào một hướng.",
             "Các giả định và chỗ chưa rõ bị lộ ra trước khi tốn công thực hiện.",
             "Phạm vi rõ nhờ mục Non-goals."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Câu hỏi thường gặp"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Câu hỏi",
+            "Trả lời"
+          ],
+          "rows": [
+            [
+              "Skill có lên luôn kế hoạch không?",
+              "Không. Skill chỉ làm rõ vấn đề. Có đề bài rồi, bạn dùng kf-plan hoặc plan trong kho để lập kế hoạch."
+            ],
+            [
+              "Gặp câu chưa biết trả lời thì sao?",
+              "Cứ nói \"chưa biết\". Claude ghi thành giả định cần kiểm, không tự điền thay bạn."
+            ],
+            [
+              "Có dùng để nghĩ ý tưởng hay đặt tên không?",
+              "Không. Skill biến bài toán mơ hồ thành đề bài rõ, không liệt kê ý tưởng."
+            ],
+            [
+              "Bản trong kho khác gì bản trên KesFlow?",
+              "Bản trong kho hỏi từng câu một. Bản kes-brainstorm trên KesFlow hỏi theo cụm và có thêm bước soát lạnh. Xem nút KesFlow bên dưới."
+            ]
           ]
         },
         {
@@ -4695,10 +4800,81 @@
         {
           "btn": "Thư mục Skill-Hub",
           "url": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
+        },
+        {
+          "btn": "Trang sản phẩm KesFlow",
+          "url": "https://kesflow.vn/skills/kes-reflect"
         }
       ],
       "ctasTitle": "Tải skill",
       "sections": [
+        {
+          "k": "callout",
+          "t": "Xong một việc, bài học hay trôi theo khung chat vừa đóng. Mở phiên mới, AI quên sạch, lỗi cũ lặp lại và bạn lại phải dặn từ đầu."
+        },
+        {
+          "k": "h",
+          "t": "Skill giúp bạn"
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "Bản nhìn lại 5 phần",
+              "d": "Đã xảy ra gì, điều làm tốt, điều chưa tốt, cách cải thiện và đề xuất cập nhật bền, chỉ dựa trên việc thật trong phiên."
+            },
+            {
+              "t": "Bài học viết thành hành động",
+              "d": "Mỗi cải thiện có dạng \"khi gặp X thì làm Y\", đọc là làm theo được."
+            },
+            {
+              "t": "Cất vào đúng chỗ",
+              "d": "Đề xuất ghi vào Skill, Memory hay Rule. Chuyện chỉ xảy ra một lần thì chọn Nothing, không ghi đâu cả."
+            },
+            {
+              "t": "Bạn duyệt mới ghi",
+              "d": "Skill chỉ đề xuất. Không skill, bộ nhớ hay quy tắc nào bị sửa khi bạn chưa đồng ý."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Ai dùng: trước và sau"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Ai đang cần",
+            "Trước",
+            "Sau"
+          ],
+          "rows": [
+            [
+              "Kế toán vừa chốt bảng lương tháng",
+              "AI tính nhầm một khoản phụ cấp, sửa trong chat là xong, tháng sau lỗi cũ quay lại.",
+              "Bản nhìn lại ghi rõ nguyên nhân và đề xuất thêm một bước kiểm vào skill tính lương. Bạn duyệt thì mới ghi."
+            ],
+            [
+              "Người làm nội dung vừa có một phiên viết bài ưng giọng",
+              "Buổi sau AI lại viết chung chung, phải dặn lại những gì hôm trước đã chỉnh.",
+              "Điều làm tốt được đề xuất giữ lại thành quy tắc để lần sau khỏi dặn."
+            ],
+            [
+              "Người lên kế hoạch du lịch cho gia đình",
+              "Lần nào AI cũng gợi ý món mặn dù cả nhà ăn chay.",
+              "Sở thích lặp lại được đề xuất lưu vào Memory."
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Ví dụ"
+        },
+        {
+          "k": "code",
+          "t": "Bạn: /reflect\nClaude: Bản nhìn lại phiên làm bảng lương\n1. Đã xảy ra gì: Làm xong bảng lương, phải tính lại một lần vì sót ngày nghỉ không lương của 2 người.\n2. Điều làm tốt: Đối chiếu bảng chấm công trước khi tính, bắt được 1 dòng trùng.\n3. Điều chưa tốt: Không đọc cột \"nghỉ không lương\".\n4. Cải thiện: Khi nhận bảng chấm công thì liệt kê mọi cột và hỏi lại cột chưa rõ.\n5. Cập nhật bền (chờ bạn duyệt): Skill tính lương, thêm bước liệt kê cột trước khi tính.",
+          "cap": "Ví dụ hư cấu"
+        },
         {
           "k": "callout",
           "t": "Dùng cuối phiên, sau một việc làm tốt hoặc tệ rõ rệt. Kích hoạt bằng: /reflect, rút kinh nghiệm, nhìn lại, tổng kết hội thoại."
@@ -4784,6 +4960,35 @@
             "Bài học không biến mất khi đóng phiên, mà có chỗ để lưu.",
             "Mỗi cải thiện có dạng hành động cụ thể (khi X thì Y).",
             "Bạn kiểm soát việc gì được ghi nhớ lâu dài."
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Câu hỏi thường gặp"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Câu hỏi",
+            "Trả lời"
+          ],
+          "rows": [
+            [
+              "AI có tự sửa hướng dẫn hay bộ nhớ của mình không?",
+              "Không. Bạn duyệt mục nào thì mới ghi mục đó, mục còn lại giữ nguyên."
+            ],
+            [
+              "Dùng Claude trên web không ghi được file thì sao?",
+              "Bản nhìn lại hiện thẳng trong khung chat để bạn tự lưu."
+            ],
+            [
+              "Cài rồi thì AI có bao giờ lặp lỗi cũ nữa không?",
+              "Không ai hứa được vậy. Skill giúp bài học được ghi đúng chỗ để lần sau AI có cái mà dựa vào."
+            ],
+            [
+              "Bản trong kho khác gì bản trên KesFlow?",
+              "Bản kes-reflect trên KesFlow có thêm bộ lọc 4 câu hỏi cho từng đề xuất và đoạn bàn giao khi chuyển sang phiên mới. Xem nút KesFlow bên dưới."
+            ]
           ]
         },
         {
@@ -4918,10 +5123,81 @@
         {
           "btn": "Thư mục Skill-Hub",
           "url": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
+        },
+        {
+          "btn": "Trang sản phẩm KesFlow",
+          "url": "https://kesflow.vn/skills/kes-explore-yourself"
         }
       ],
       "ctasTitle": "Tải skill",
       "sections": [
+        {
+          "k": "callout",
+          "t": "MBTI nói một kiểu, lá số nói một kiểu, đọc xong nhiều bản giải mã vẫn chưa trả lời được mình thật sự là người thế nào và muốn sống vì điều gì."
+        },
+        {
+          "k": "h",
+          "t": "Skill giúp bạn"
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "Gom 3 góc nhìn",
+              "d": "Lá số (Tử Vi, chiêm tinh, thần số học), trắc nghiệm (MBTI, DISC, Enneagram) và bài tự kể 500 đến 2000 từ của bạn."
+            },
+            {
+              "t": "Đời thật được ưu tiên",
+              "d": "Khi các góc lệch nhau: trải nghiệm thật đứng trước, rồi tới lá số, cuối cùng là bài test."
+            },
+            {
+              "t": "Hỏi thẳng vào chỗ mâu thuẫn",
+              "d": "Hỏi từng câu, khoảng 10 đến 12 lượt, xử lý mâu thuẫn mức Critical và High trước."
+            },
+            {
+              "t": "Báo cáo 10 mục có dẫn chứng",
+              "d": "Dẫn lại chính lời bạn kể, có câu hỏi để ngẫm ở cuối. Kế hoạch hành động chỉ có khi bạn hỏi thêm."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Ai dùng: trước và sau"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Ai đang cần",
+            "Trước",
+            "Sau"
+          ],
+          "rows": [
+            [
+              "Người đang ở ngã rẽ sự nghiệp",
+              "Mông lung giữa kỳ vọng của người xung quanh và sở thích của mình.",
+              "Một bản báo cáo chỉ ra chỗ các góc nhìn đồng thuận và chỗ mâu thuẫn, mỗi ý dẫn lại câu chuyện của chính bạn."
+            ],
+            [
+              "Người có kết quả MBTI nhưng thấy không giống mình",
+              "Cố ép mình vào khuôn lý thuyết dù trực giác nói khác.",
+              "Thấy rõ chỗ lý thuyết khớp và chỗ lệch với trải nghiệm thật, không bị dán nhãn gượng ép."
+            ],
+            [
+              "Bất kỳ ai muốn nhìn lại bản thân cuối năm",
+              "Một năm bộn bề, không rõ động lực nằm ở đâu.",
+              "Báo cáo kèm câu hỏi để tự ngẫm tiếp theo nhịp của mình."
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Ví dụ"
+        },
+        {
+          "k": "code",
+          "t": "Claude: Trắc nghiệm của bạn nghiêng về hướng nội, nhưng bài tự kể có ba lần bạn đứng ra tổ chức cho cả nhóm. Lúc đó bạn thấy được tiếp năng lượng hay bị rút cạn? Kể một lần cụ thể.\nBạn: Lần làm sự kiện ra mắt, mình điều phối vì sốt ruột thấy trễ hạn. Xong thì kiệt sức, phải ở một mình hai ngày.\nClaude: Ghi nhận: khả năng tổ chức của bạn đến từ tinh thần trách nhiệm, không phải nhu cầu lấy năng lượng từ đám đông. Điểm này khớp với kết quả hướng nội.",
+          "cap": "Ví dụ hư cấu"
+        },
         {
           "k": "callout",
           "t": "Dùng khi muốn rõ bản thân, mục đích, giá trị, hoặc hoà giải mâu thuẫn giữa trắc nghiệm và trải nghiệm. Nên chạy trên Claude Opus. Skill đóng vai tấm gương đặt câu hỏi, không phải nhà trị liệu hay coach."
@@ -5008,6 +5284,35 @@
         },
         {
           "k": "h",
+          "t": "Câu hỏi thường gặp"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Câu hỏi",
+            "Trả lời"
+          ],
+          "rows": [
+            [
+              "Skill có phải trị liệu tâm lý không?",
+              "Không. Skill là tấm gương đặt câu hỏi. Gặp dấu hiệu căng thẳng nặng, nên tìm chuyên gia tâm lý."
+            ],
+            [
+              "Skill có bói tương lai không?",
+              "Không. Chiêm tinh, Tử Vi chỉ là lăng kính để suy ngẫm, không phải dự đoán."
+            ],
+            [
+              "Nên chạy trên mô hình nào?",
+              "Skill khuyên dùng Claude Opus."
+            ],
+            [
+              "Bản trong kho khác gì bản trên KesFlow?",
+              "Bản tương ứng trên KesFlow tên là kes-explore-yourself. Xem nút KesFlow bên dưới để biết bản mới nhất."
+            ]
+          ]
+        },
+        {
+          "k": "h",
           "t": "Cài đặt chung"
         },
         {
@@ -5045,10 +5350,81 @@
         {
           "btn": "Thư mục Skill-Hub",
           "url": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
+        },
+        {
+          "btn": "Trang sản phẩm KesFlow",
+          "url": "https://kesflow.vn/skills/kes-create-skill"
         }
       ],
       "ctasTitle": "Tải skill",
       "sections": [
+        {
+          "k": "callout",
+          "t": "Nhờ AI xong việc, lần sau lại phải dặn lại từ đầu? AI như một bạn thực tập giỏi nhưng chưa có sổ tay quy trình nên mỗi lần làm một kiểu. Đóng gói cách làm thành skill để lần nào cũng đi đúng một quy trình."
+        },
+        {
+          "k": "h",
+          "t": "Skill giúp bạn"
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "Ép quy trình, không ép kết quả",
+              "d": "Skill không bắt AI ra cùng một kết quả, mà bắt đi đúng các bước mỗi lần. Chữ có thể đổi, cách làm thì không."
+            },
+            {
+              "t": "Phỏng vấn chống học vẹt",
+              "d": "Hỏi theo cụm 3 đến 5 câu kèm đáp án gợi ý, có 5 câu bắt buộc để skill dùng được cho nhiều ca tương tự chứ không chỉ ca vừa làm."
+            },
+            {
+              "t": "Review độc lập và bộ thử 20 câu",
+              "d": "Một reviewer mới đọc lại skill, mỗi phát hiện phải được trả lời. Bộ 20 câu kiểm skill bật đúng lúc và im đúng lúc."
+            },
+            {
+              "t": "3 nhánh: tạo, sửa, review",
+              "d": "Tạo mới đóng gói bản 1.0.0. Sửa có bản chụp và tăng phiên bản. Review chỉ báo lỗi, không sửa."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Ai dùng: trước và sau"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Ai đang cần",
+            "Trước",
+            "Sau"
+          ],
+          "rows": [
+            [
+              "Chủ tiệm gửi báo giá cho khách mỗi ngày",
+              "Lần nào cũng dán bảng giá và dặn AI giữ đúng mẫu.",
+              "Nói \"Tạo skill cho mình từ việc vừa làm\", lần sau gọi một câu là xong."
+            ],
+            [
+              "Người làm nội dung có skill viết caption bắt đầu sót bước",
+              "Sửa tay, không chắc có làm hỏng chỗ khác không.",
+              "Nhánh sửa đọc hết bản gốc, lưu bản chụp, sửa rồi tăng phiên bản."
+            ],
+            [
+              "Trưởng nhóm sắp bàn giao skill cho đồng đội",
+              "Không chắc skill còn chữ thừa hay sót bước.",
+              "Nói \"Review skill này, đừng sửa\" để nhận danh sách phát hiện."
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Ví dụ"
+        },
+        {
+          "k": "code",
+          "t": "Claude: Mình cần làm rõ 3 điểm trước khi viết skill:\n1. Giữa các lần soạn báo giá, cái gì thay đổi? (Gợi ý: tên khách, hạng mục, số lượng)\n2. Câu nào na ná mà skill KHÔNG được bật? (Gợi ý: \"soạn hợp đồng\")\n3. Ai khác sẽ dùng skill này? (Gợi ý: nhân viên bán hàng)\nBạn: 1: ừ - 2: thêm \"xuất hoá đơn\" - 3: tuỳ bạn\nClaude: Đã ghi nhận. Mình soạn brief và bộ câu thử ngay sau đây.",
+          "cap": "Ví dụ hư cấu"
+        },
         {
           "k": "callout",
           "t": "Dùng khi muốn tạo, viết, sửa, nén hoặc review một skill của Claude Code, hoặc khi skill không chịu kích hoạt. Kích hoạt bằng: tạo skill, viết skill, sửa skill, cập nhật skill, review skill, nén skill, tối ưu skill, make this a skill."
@@ -5726,6 +6102,35 @@
             [
               "assets/grade-report-template.md",
               "Viết báo cáo chấm điểm"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Câu hỏi thường gặp"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Câu hỏi",
+            "Trả lời"
+          ],
+          "rows": [
+            [
+              "Skill có chạy hộ skill đã cài hay dựng workflow tự động không?",
+              "Không. Skill không chạy skill khác, không viết SOP cho người đọc và không dựng workflow tự động hoá."
+            ],
+            [
+              "Skill có bảo đảm AI luôn ra cùng một kết quả không?",
+              "Không. Skill ép AI đi đúng một quy trình, không ép ra cùng một kết quả."
+            ],
+            [
+              "Chưa biết trả lời câu phỏng vấn thì sao?",
+              "Cứ nói \"chưa biết\". Chất lượng skill phụ thuộc vào câu trả lời của bạn, nên đừng đoán cho có."
+            ],
+            [
+              "Bản trong kho khác gì bản trên KesFlow?",
+              "Bản trong kho là v1.1.0 với 3 nhánh. Bản kes-create-skill trên KesFlow có thêm nhánh tối ưu. Xem nút KesFlow bên dưới."
             ]
           ]
         },
@@ -6628,6 +7033,193 @@
               "t": "Claude Code: Skills",
               "u": "https://code.claude.com/docs/en/skills"
             }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "skill-chuan-hoa-van-ban",
+      "kho": "ai",
+      "group": "skill",
+      "guide": true,
+      "title": "chuan-hoa-van-ban: trình bày văn bản đúng thể thức Nghị định 30",
+      "type": "Skill",
+      "badge": "Văn bản",
+      "tags": [
+        "văn bản",
+        "Nghị định 30",
+        "docx",
+        "báo giá"
+      ],
+      "thumb": "assets/res/skill-chuan-hoa-van-ban.jpg",
+      "note": "Trình bày lại file .docx (báo giá, hợp đồng, công văn) theo Phụ lục I Nghị định 30/2020, giữ nguyên chữ và số, xuất .docx và .pdf.",
+      "date": "2026-11-15",
+      "ctas": [
+        {
+          "btn": "Tải chuan-hoa-van-ban.zip",
+          "url": "https://drive.google.com/file/d/1yiTHknWWd2IqG8zYgsOZVo09HZplA6i_/view?usp=drive_link"
+        },
+        {
+          "btn": "Thư mục Skill-Hub",
+          "url": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
+        },
+        {
+          "btn": "Trang sản phẩm KesFlow",
+          "url": "https://kesflow.vn/skills/kes-chuan-hoa-van-ban"
+        }
+      ],
+      "ctasTitle": "Tải skill",
+      "sections": [
+        {
+          "k": "callout",
+          "t": "Báo giá gửi khách nội dung rất ổn, nhưng phông chữ lẫn lộn, thiếu số văn bản, thiếu Nơi nhận thì trông như soạn vội. Phần thể thức để máy làm, người lo phần nội dung."
+        },
+        {
+          "k": "callout",
+          "t": "Dùng khi đã có file .docx soạn xong và cần trình bày lại cho chuẩn trước khi gửi. Kích hoạt bằng: chuẩn hoá văn bản, trình bày theo Nghị định 30, cho đúng thể thức, sửa trình bày cho chuẩn, làm cho chỉn chu trước khi gửi khách."
+        },
+        {
+          "k": "h",
+          "t": "Skill giúp bạn"
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "Đúng thể thức Phụ lục I Nghị định 30/2020",
+              "d": "Thêm Quốc hiệu, Tiêu ngữ, số và ký hiệu, địa danh và ngày tháng, khối ký, Nơi nhận. Times New Roman màu đen, lề 20/20/30/15 mm, nội dung cỡ 14 canh đều. Đi kèm 34 quy tắc có số trang căn cứ."
+            },
+            {
+              "t": "Giữ nguyên chữ và số",
+              "d": "Chữ được chép từ file gốc qua mã khối, Claude không gõ lại. Tên khách, mã hàng, số lượng, đơn giá, điều khoản giữ nguyên, kể cả lỗi chính tả (chỉ ghi vào mục Cần xác nhận)."
+            },
+            {
+              "t": "Tự đối chiếu trước khi giao",
+              "d": "Script so lại: mọi đoạn gốc phải còn nguyên chữ, mọi con số phải còn đủ. Không đạt thì không xuất PDF và không báo là xong."
+            },
+            {
+              "t": "Hỏi đúng một lượt",
+              "d": "Số văn bản, người ký (quyền hạn, chức vụ, họ tên), ngày nếu file thiếu, Nơi nhận nếu không có \"Kính gửi\". Claude không tự điền tạm."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Ai dùng: trước và sau"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Ai đang cần",
+            "Trước",
+            "Sau"
+          ],
+          "rows": [
+            [
+              "Nhân viên sales sắp gửi báo giá",
+              "Báo giá đủ nội dung nhưng phông chữ lẫn lộn, không có số văn bản, ngày viết dạng 15/09/2026.",
+              "File .docx và .pdf có Quốc hiệu, số 01/BG-..., \"Hà Nội, ngày 15 tháng 9 năm 2026\", khối ký và Nơi nhận."
+            ],
+            [
+              "Doanh nghiệp gửi công văn cho đối tác",
+              "Loay hoay căn lề, đặt Quốc hiệu sai chỗ, thiếu trích yếu.",
+              "Lề, cỡ chữ và vị trí từng thành phần theo Phụ lục I, có trang căn cứ để tra lại."
+            ],
+            [
+              "Người soạn hợp đồng hai bên ký",
+              "Sợ khối ký mới đè lên bảng ký của các bên.",
+              "Bảng ký các bên giữ nguyên, không thêm khối ký và Nơi nhận; phụ lục sang trang mới."
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Ví dụ"
+        },
+        {
+          "k": "code",
+          "t": "TRƯỚC (file gốc):\nCÔNG TY TNHH AB   ĐC: ... · MST: ...      15/09/2026\nBÁO GIÁ\nV/v cung cấp bàn ghế văn phòng\nKính gửi: Siêu thị Sao Mai\n(bảng giá)\nNgười lập báo giá: Nguyễn Văn A\n\nSAU (_chuan-hoa.docx):\nCÔNG TY TNHH AB          CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM\n                             Độc lập - Tự do - Hạnh phúc\nSố: 01/BG-AB         Hà Nội, ngày 15 tháng 9 năm 2026\n                  BÁO GIÁ\n       V/v cung cấp bàn ghế văn phòng\n        Kính gửi: Siêu thị Sao Mai\n(bảng giá giữ nguyên từng ô)\nNơi nhận:                         TUQ. GIÁM ĐỐC\n- Như trên;              TRƯỞNG PHÒNG KINH DOANH\n- Lưu: VT, KD, 02b.            (họ tên người ký)\n\nĐối chiếu: ĐẠT. Khối không đưa vào: dòng \"Người lập báo giá\", thay bằng khối ký mới.",
+          "cap": "Ví dụ hư cấu"
+        },
+        {
+          "k": "h",
+          "t": "Cách dùng"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Cài vào dự án",
+              "d": "Giải nén vào .claude/skills/ trong thư mục dự án. Lệnh của skill chạy từ thư mục gốc dự án và ghi kết quả vào van-ban/."
+            },
+            {
+              "t": "Đổi thông tin công ty",
+              "d": "Mở trinh-bay.json, sửa tên cơ quan, địa danh, ký hiệu viết tắt và dòng địa chỉ chân trang. Bản trong kho đang đặt sẵn cho một công ty mẫu (Công ty TNHH Phân phối An Khang, Hà Nội)."
+            },
+            {
+              "t": "Gọi skill",
+              "d": "Đưa file .docx và nói \"Chuẩn hoá văn bản này theo Nghị định 30\"."
+            },
+            {
+              "t": "Trả lời một lượt",
+              "d": "Số văn bản, người ký, số bản lưu, cùng những gì file gốc còn thiếu."
+            },
+            {
+              "t": "Đọc bản PDF",
+              "d": "Nhận van-ban/<tên>_chuan-hoa.docx và .pdf, file gốc giữ nguyên. Đọc lại trước khi gửi."
+            }
+          ]
+        },
+        {
+          "k": "code",
+          "t": "Chuẩn hoá giúp mình file van-ban/bao-gia_sieu-thi-sao-mai.docx theo Nghị định 30",
+          "cap": "Ví dụ kích hoạt"
+        },
+        {
+          "k": "h",
+          "t": "Câu hỏi thường gặp"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Câu hỏi",
+            "Trả lời"
+          ],
+          "rows": [
+            [
+              "Skill có sửa nội dung hay đổi giá không?",
+              "Không. Chữ chép từ file gốc. Thấy lỗi chính tả thì chỉ ghi vào mục Cần xác nhận."
+            ],
+            [
+              "Skill có tự đặt số văn bản hay chọn người ký không?",
+              "Không. Hai thứ này luôn hỏi bạn. Skill cũng không lấy \"Người lập báo giá\" làm chức vụ người ký."
+            ],
+            [
+              "Hợp đồng hai bên ký thì sao?",
+              "Dùng chế độ không thêm khối ký: giữ bảng ký của các bên, không thêm Nơi nhận."
+            ],
+            [
+              "Skill có gửi văn bản đi không?",
+              "Không. Skill chỉ lưu file vào van-ban/ và không ghi đè file gốc."
+            ],
+            [
+              "Bản trong kho khác gì bản trên KesFlow?",
+              "Bản kes-chuan-hoa-van-ban trên KesFlow dùng cho mọi công ty, nhận cả PDF hoặc đoạn văn dán vào và xuất thêm HTML cho Google Docs. Bản trong kho dựng cho một dự án mẫu, nhận .docx, cần sửa trinh-bay.json trước khi dùng."
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cài đặt chung"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Tải file về từ nút Drive bên dưới.",
+            "Claude Code: giải nén thư mục chuan-hoa-van-ban vào .claude/skills/ trong dự án.",
+            "Cần Python 3; script chỉ dùng thư viện có sẵn của Python.",
+            "Xuất PDF dùng Microsoft Word trên Windows. Không có Word thì vẫn có file .docx và script báo lỗi ở bước chuyển PDF.",
+            "Mở phiên mới và nói câu kích hoạt của skill."
           ]
         }
       ]
