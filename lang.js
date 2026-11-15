@@ -28,12 +28,12 @@
           g._vi = g._vi || { name: g.name };
           g.name = (e.groups || {})[g.id] || g._vi.name;
           if (g.intro) {
-            g.intro._vi = g.intro._vi || { text: g.intro.text, rows: g.intro.rows.map((r) => r[0]), btn: g.intro.btn };
+            g.intro._vi = g.intro._vi || { text: g.intro.text, rows: g.intro.rows.map((r) => r[0]), btn: g.intro.btn, head: g.intro.head };
             const ie = cur === "en" ? e.intro : null;
             g.intro.text = ie ? ie.text : g.intro._vi.text;
             g.intro.rows.forEach((r, n) => { r[0] = ie && ie.rows[n] ? ie.rows[n] : g.intro._vi.rows[n]; });
             g.intro.btn = ie ? ie.btn : g.intro._vi.btn;
-            g.intro.head = ie ? ie.head : ["Tình huống", "Dùng skill"];
+            g.intro.head = ie ? ie.head : g.intro._vi.head || ["Tình huống", "Dùng skill"];
           }
         });
         (k.shelves || []).forEach((s) => {
