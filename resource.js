@@ -160,7 +160,7 @@ window.Res = (() => {
       loaded.sort((a, b) => (b.d || "").localeCompare(a.d || ""));
       return `<article class="card res-card feed-card" data-res="${esc(i.id)}" tabindex="0" role="button" aria-label="${esc(i.title)}">
         <img class="res-thumb" src="${esc(okUrl(i.thumb))}" alt="" loading="lazy"><div class="res-info">${liveBadges(i, aiNew())}<h3>${esc(i.title)}</h3>
-        ${loaded.length ? `<ul class="feed-mini">${loaded.slice(0, 3).map((x) => `<li><b>${esc(compName(i, x.id).split(" ·")[0])}</b> ${esc(tt(x))}</li>`).join("")}</ul>` : `<p>${API() ? T("Đang tải tin mới…", "Loading the latest news…") : esc(i.note || "")}</p>`}
+        ${loaded.length ? `<ul class="feed-mini">${loaded.slice(0, 4).map((x) => `<li><b style="color:${COLORS[x.id] || "var(--purple-deep)"}">${esc(compName(i, x.id).split(" ·")[0])}</b> ${esc(tt(x))} <small class="nw-when">· ${esc(relDay(x.d))}</small></li>`).join("")}</ul>` : `<p>${API() ? T("Đang tải tin mới…", "Loading the latest news…") : esc(i.note || "")}</p>`}
         <div class="meta"><span>${T("Theo dõi " + (i.companies || []).length + " hãng AI", "Following " + (i.companies || []).length + " AI companies")}</span><span class="res-more">${T("Xem tất cả →", "See all →")}</span></div></div></article>`;
     }
     if (i.feed === "ranking") {
@@ -191,31 +191,79 @@ window.Res = (() => {
   const cta = (title, url) => `<div class="res-cta"><div><b>${esc(title)}</b><small>${esc(String(url).replace(/^https?:\/\//, ""))}</small></div><a class="btn orange-btn" href="${esc(okUrl(url))}" target="_blank" rel="noopener">${T("Mở trang gốc ↗", "Open source page ↗")}</a></div>`;
   const head = (i, extra) => `<button class="x" id="resX" aria-label="${T("Đóng", "Close")}">×</button><div class="res-body"><div class="res-head"><span class="badge live"><i></i>LIVE</span><h2>${esc(i.title)}</h2>${extra || ""}</div>`;
 
+  /* ---------- bản tin kiểu trang báo ---------- */
+  const COLORS = { anthropic: "#C2552F", openai: "#0E8A6B", google: "#2F6FDE", xai: "#241F45", microsoft: "#0078B8", meta: "#0866FF", deepseek: "#4D6BFE", mistral: "#E2500C", nvidia: "#4E8A00", perplexity: "#14899A" };
+  function relDay(d) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(d || "")) return d || "";
+    const n = new Date(), [y, m, dd] = d.split("-").map(Number);
+    const diff = Math.round((new Date(n.getFullYear(), n.getMonth(), n.getDate()) - new Date(y, m - 1, dd)) / 864e5);
+    return diff <= 0 ? T("Hôm nay", "Today") : diff === 1 ? T("Hôm qua", "Yesterday") : diff < 7 ? T(diff + " ngày trước", diff + " days ago") : fmtDate(d);
+  }
+  const summ = (x) => (EN() ? plain(x.se) : plain(x.s) ? vi(x.s) : "");
+  const snap = {}; // mốc "đã xem" lúc mở cửa sổ, để nhãn Mới không mất khi đổi tab hay làm mới
+  const isNew = (x) => { const s = snap[x.c]; return !!(s && x.d && x.d > s); };
+  const coTag = (an, id) => `<span class="nw-co" style="--c:${COLORS[id] || "#6A5CFF"}">${esc(compName(an, id).split(" ·")[0])}</span>`;
+  const newTag = () => `<span class="nw-new">${T("Mới", "New")}</span>`;
+  const when = (x) => `<span class="nw-when">${esc(relDay(x.d))}</span>${isNew(x) ? newTag() : ""}${x.src ? `<span class="news-src">${esc(x.src)}</span>` : ""}`;
+  const link = (x, inner, cls) => `<a${cls ? ` class="${cls}"` : ""} href="${esc(okUrl(x.u))}" target="_blank" rel="noopener">${inner}</a>`;
+  function newsBody(an, items, q) {
+    q = (q || "").trim().toLowerCase();
+    const arr = q ? items.filter((x) => (tt(x) + " " + summ(x)).toLowerCase().includes(q)) : items;
+    if (!arr.length) return `<p class="nw-empty">${q ? T("Không có tin khớp với từ khoá.", "No news matches your search.") : T("Chưa có tin.", "No news yet.")}</p>`;
+    const li = Math.max(0, arr.findIndex((x) => summ(x).length > 40)); // tin nổi bật: tin mới nhất có tóm tắt
+    const lead = arr[li], rest = arr.filter((_, k) => k !== li), two = rest.slice(0, 2), more = rest.slice(2);
+    let html = `<article class="nw-lead"><div class="nw-meta">${coTag(an, lead.c)}${when(lead)}</div><h3>${link(lead, esc(tt(lead)))}</h3>${summ(lead) ? `<p>${esc(summ(lead))}</p>` : ""}${link(lead, T("Đọc bài gốc ↗", "Read the original ↗"), "nw-read")}</article>`;
+    if (two.length) html += `<div class="nw-two">${two.map((x) => `<article class="nw-card"><div class="nw-meta">${coTag(an, x.c)}${when(x)}</div><h4>${link(x, esc(tt(x)))}</h4>${summ(x) ? `<p>${esc(summ(x))}</p>` : ""}</article>`).join("")}</div>`;
+    const days = [];
+    more.forEach((x) => { const g = days[days.length - 1]; if (g && g.d === x.d) g.items.push(x); else days.push({ d: x.d, items: [x] }); });
+    html += days.map((g) => `<h5 class="nw-day"><span>${esc(relDay(g.d))}</span>${relDay(g.d) !== fmtDate(g.d) ? `<small>${esc(fmtDate(g.d))}</small>` : ""}</h5><ul class="nw-rows">${g.items.map((x) => `<li><div class="nw-meta">${coTag(an, x.c)}${isNew(x) ? newTag() : ""}</div><b>${link(x, esc(tt(x)))}</b>${summ(x) ? `<p>${esc(summ(x))}</p>` : ""}</li>`).join("")}</ul>`).join("");
+    return html;
+  }
+
   function openClaude(i, dlg) {
     live = { type: "claude", id: i.id };
     const arr = (feeds && feeds.claude) || [];
+    if (feeds && !("claude" in snap)) snap.claude = seenOf("claude");
+    const pts = (x) => (EN() ? (x.pte && x.pte.length ? x.pte : x.pt || []) : (x.pt && x.pt.length ? x.pt : x.pte || []));
+    const li = (t) => `<li>${esc(t)}</li>`;
     const body = !arr.length ? `<p class="res-pad">${feeds ? T("Chưa có tin.", "No news yet.") : T("Chưa tải được tin lúc này, thử lại sau ít phút.", "Couldn't load the news right now, try again in a few minutes.")}</p>`
-      : arr.map((x) => `<article class="news-item"><div class="news-top"><span class="news-ver">v${esc(x.v)}</span><span class="news-date">${esc(fmtDate(x.d))}</span></div>
-          <ul>${(EN() ? (x.pte && x.pte.length ? x.pte : x.pt || []) : (x.pt && x.pt.length ? x.pt : x.pte || [])).map((p) => `<li>${esc(p)}</li>`).join("")}</ul><a href="${esc(okUrl(x.u))}" target="_blank" rel="noopener">${T("Xem bản phát hành ↗", "See the release ↗")}</a></article>`).join("");
+      : `<ol class="nw-timeline">${arr.map((x, k) => {
+          const p = pts(x), fresh = snap.claude && x.d && x.d > snap.claude;
+          return `<li class="nw-rel${k ? "" : " latest"}"><div class="nw-meta"><span class="news-ver">v${esc(x.v)}</span><span class="nw-when">${esc(relDay(x.d))}</span>${k ? "" : `<span class="nw-tag">${T("Mới nhất", "Latest")}</span>`}${fresh ? newTag() : ""}</div>
+            <ul>${p.slice(0, 4).map(li).join("")}</ul>${p.length > 4 ? `<details><summary>${T("Xem thêm " + (p.length - 4) + " thay đổi", "Show " + (p.length - 4) + " more changes")}</summary><ul>${p.slice(4).map(li).join("")}</ul></details>` : ""}${link(x, T("Xem bản phát hành ↗", "See the release ↗"), "nw-read")}</li>`;
+        }).join("")}</ol>`;
     if (feeds) markSeen("claude", feeds.claude);
-    show(dlg, head(i, `<p class="news-meta">${feeds ? T("Cập nhật lúc ", "Updated at ") + esc(updatedText(feeds.updated)) + " · " : ""}${T("tự làm mới mỗi 5 phút khi đang mở. Tóm tắt dịch tự động, có thể chưa chuẩn: bấm bài gốc để đọc đầy đủ.", "refreshes every 5 minutes while open. Open the original release for full details.")} ${refreshBtn()}</p>`) + `<div class="news-list">${body}</div></div>` + cta(i.title, i.url));
+    show(dlg, head(i, `<p class="news-meta">${feeds ? T("Cập nhật lúc ", "Updated at ") + esc(updatedText(feeds.updated)) + " · " : ""}${T("tự làm mới mỗi 5 phút khi đang mở. Tóm tắt dịch tự động, có thể chưa chuẩn: bấm bài gốc để đọc đầy đủ.", "refreshes every 5 minutes while open. Open the original release for full details.")} ${refreshBtn()}</p>`) + `<div class="news-list nw">${body}</div></div>` + cta(i.title, i.url));
   }
 
-  function aiList(an, id) {
-    const v = ai[id];
-    if (!v) return `<p class="res-pad">${API() ? T("Chưa tải được tin của hãng này, thử lại sau ít phút.", "Couldn't load this company's news, try again in a few minutes.") : T("Chưa kích hoạt nguồn tin.", "The news source isn't enabled yet.")}</p>`;
-    return v.items.map((x) => `<article class="news-item"><div class="news-top"><span class="news-date">${esc(fmtDate(x.d))}</span>${x.src ? `<span class="news-src">${esc(x.src)}</span>` : ""}</div>
-      <h3>${esc(tt(x))}</h3>${EN() ? (plain(x.se) ? `<p>${esc(plain(x.se))}</p>` : "") : plain(x.s) ? `<p>${esc(vi(x.s))}</p>` : ""}${!EN() && x.te && x.t !== x.te ? `<small>Gốc: ${esc(plain(x.te))}</small>` : ""}<a href="${esc(okUrl(x.u))}" target="_blank" rel="noopener">${T("Đọc bài gốc ↗", "Read the original ↗")}</a></article>`).join("");
-  }
+  let aiQ = "";
+  const aiItems = (an, id) => (id === "all" ? an.companies.flatMap((c) => (ai[c.id] ? ai[c.id].items.map((x) => ({ ...x, c: c.id })) : [])) : ((ai[id] || {}).items || []).map((x) => ({ ...x, c: id }))).sort((a, b) => (b.d || "").localeCompare(a.d || ""));
   async function openAi(i, dlg, id) {
-    id = id || (i.companies[0] || {}).id;
+    const reopen = dlg.open && live && live.type === "ai" && live.id === i.id;
+    if (!reopen) { aiQ = ""; Object.keys(snap).forEach((k) => k !== "claude" && delete snap[k]); }
+    id = id || "all";
     live = { type: "ai", id: i.id, c: id };
-    const chips = `<div class="ai-chips" role="tablist">${i.companies.map((c) => { const n = ai[c.id] ? countNew("ai-" + c.id, ai[c.id].items) : 0; return `<button class="chip ${c.id === id ? "on" : ""}" data-aic="${esc(c.id)}" type="button">${esc(c.name)}${n ? ` <b class="dotnew">${n}</b>` : ""}</button>`; }).join("")}</div>`;
-    const render = () => show(dlg, head(i, `<p class="news-meta">${T("Tin mới từ " + i.companies.length + " hãng AI", "Latest news from " + i.companies.length + " AI companies")}${ai[id] && ai[id].updated ? T(", cập nhật lúc ", ", updated at ") + esc(updatedText(ai[id].updated)) : ""}${T(", tự làm mới mỗi 5 phút khi đang mở. Tóm tắt dịch tự động, có thể chưa chuẩn: bấm bài gốc để đọc đầy đủ.", ", refreshes every 5 minutes while open. Open the original article for full details.")} ${refreshBtn()}</p>`) + chips + `<div class="news-list" id="aiList">${ai[id] ? aiList(i, id) : `<p class="res-pad">${T("Đang tải tin…", "Loading news…")}</p>`}</div></div>` + cta(compName(i, id), OFFICIAL[id] || "https://news.google.com/search?q=" + encodeURIComponent(compName(i, id).replace(" · ", " "))));
-    render();
-    dlg.querySelectorAll("[data-aic]").forEach((b) => (b.onclick = () => openAi(i, dlg, b.dataset.aic)));
-    if (!ai[id]) { const v = await loadAi(id); if (dlg.open) { if (v) { markSeen("ai-" + id, v.items); } openAi(i, dlg, id); } }
-    else markSeen("ai-" + id, ai[id].items);
+    const loaded = i.companies.filter((c) => ai[c.id]);
+    loaded.forEach((c) => { if (!(c.id in snap)) snap[c.id] = seenOf("ai-" + c.id); });
+    const items = aiItems(i, id);
+    const nNew = (cid) => (ai[cid] ? ai[cid].items.filter((x) => isNew({ ...x, c: cid })).length : 0);
+    const allNew = i.companies.reduce((n, c) => n + nNew(c.id), 0);
+    const chip = (cid, name, n) => `<button class="chip ${cid === id ? "on" : ""}" data-aic="${esc(cid)}" type="button" role="tab" aria-selected="${cid === id}">${cid === "all" ? "" : `<i style="background:${COLORS[cid] || "#6A5CFF"}"></i>`}${esc(name)}${n ? ` <b class="dotnew">${n}</b>` : ""}</button>`;
+    const tabs = `<div class="nw-bar"><div class="ai-chips" role="tablist">${chip("all", T("Tất cả", "All"), allNew)}${i.companies.map((c) => chip(c.id, c.name.split(" ·")[0], nNew(c.id))).join("")}</div><input class="nw-q" id="nwQ" type="search" placeholder="${T("Tìm trong bản tin…", "Search the news…")}" value="${esc(aiQ)}" aria-label="${T("Tìm tin", "Search news")}"></div>`;
+    const pending = id === "all" ? i.companies.length - loaded.length : ai[id] ? 0 : 1;
+    const upd = loaded.map((c) => ai[c.id].updated).filter(Boolean).sort().pop();
+    const stats = `<p class="nw-stats"><b>${items.length}</b> ${T("tin", "stories")} · <b>${id === "all" ? loaded.length : 1}</b> ${T("hãng", id === "all" ? "companies" : "company")}${allNew ? ` · <b class="nw-hot">${allNew}</b> ${T("tin mới từ lần xem trước", "new since your last visit")}` : ""}${pending ? ` · ${T("đang tải thêm " + pending + " hãng…", "loading " + pending + " more…")}` : ""}</p>`;
+    const masthead = `<div class="nw-mast"><span class="nw-kick">${T("Bản tin AI", "AI briefing")}</span><span class="nw-date">${esc(new Date().toLocaleDateString(EN() ? "en-GB" : "vi-VN", { weekday: "long", day: "2-digit", month: "2-digit", year: "numeric" }))}</span></div>`;
+    show(dlg, head(i, masthead + `<p class="news-meta">${upd ? T("Cập nhật lúc ", "Updated at ") + esc(updatedText(upd)) + " · " : ""}${T("tự làm mới mỗi 5 phút khi đang mở. Tóm tắt dịch tự động, có thể chưa chuẩn: bấm bài gốc để đọc đầy đủ.", "refreshes every 5 minutes while open. Open the original article for full details.")} ${refreshBtn()}</p>`) + tabs + stats + `<div class="news-list nw" id="aiList">${items.length || !pending ? newsBody(i, items, aiQ) : `<p class="res-pad">${T("Đang tải tin…", "Loading news…")}</p>`}</div></div>` + (id === "all" ? "" : cta(compName(i, id), OFFICIAL[id] || "https://news.google.com/search?q=" + encodeURIComponent(compName(i, id).replace(" · ", " ")))));
+    dlg.querySelectorAll("[data-aic]").forEach((b) => (b.onclick = () => { keepScroll = 0; openAi(i, dlg, b.dataset.aic); }));
+    const qi = dlg.querySelector("#nwQ");
+    if (qi) qi.oninput = () => { aiQ = qi.value; const l = dlg.querySelector("#aiList"); if (l) l.innerHTML = newsBody(i, aiItems(i, id), aiQ); };
+    (id === "all" ? loaded : loaded.filter((c) => c.id === id)).forEach((c) => markSeen("ai-" + c.id, ai[c.id].items));
+    const want = id === "all" ? i.companies.filter((c) => !ai[c.id]).map((c) => c.id) : ai[id] ? [] : [id];
+    if (want.length) {
+      await Promise.all(want.map((c) => loadAi(c)));
+      if (dlg.open && live && live.type === "ai" && live.c === id) { keepScroll = dlg.scrollTop; openAi(i, dlg, id); }
+    }
   }
 
   function openRanking(i, dlg) {
@@ -253,6 +301,15 @@ window.Res = (() => {
       case "cases": return `<div class="g-cases">${x.items.map((c) => `<article class="g-case"><h5>${esc(c.t)}</h5><div class="g-ba"><div class="g-before"><b>${T("Trước", "Before")}</b><p>${esc(c.before)}</p></div><span class="g-arrow" aria-hidden="true">→</span><div class="g-after"><b>${T("Sau", "After")}</b><p>${esc(c.after)}</p></div></div></article>`).join("")}</div>`;
       case "faq": return `<div class="g-faq">${x.items.map((f, n) => `<details${n ? "" : " open"}><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("")}</div>`;
       case "outro": return `<div class="g-outro"><h3>${esc(x.t)}</h3>${x.d ? `<p>${esc(x.d)}</p>` : ""}${x.note ? `<small>${esc(x.note)}</small>` : ""}</div>`;
+      // demo: đầu vào → các bước xử lý → sản phẩm nhận được (khung cửa sổ)
+      case "demo": {
+        const box = (o, cls, lb) => `<div class="g-dm-${cls}"><span class="g-dm-lb">${esc(o.label || lb)}</span>${o.code ? `<pre>${esc(o.t)}</pre>` : `<p>${esc(o.t)}</p>`}</div>`;
+        return `<div class="g-demo">${x.t ? `<h5>${esc(x.t)}</h5>` : ""}<div class="g-dm-flow">
+          ${box(x.input, "in", T("Đầu vào", "Input"))}
+          <ol class="g-dm-steps" aria-label="${T("Xử lý", "Processing")}"><span class="g-dm-lb">${T("Xử lý", "Processing")}</span>${x.steps.map((s, n) => `<li style="--n:${n}">${esc(s)}</li>`).join("")}</ol>
+          <div class="g-dm-out" style="--k:${x.steps.length}"><div class="g-dm-bar"><i></i><i></i><i></i><span>${esc(x.output.label || T("Kết quả", "Result"))}</span></div>${x.output.code ? `<pre>${esc(x.output.t)}</pre>` : `<p>${esc(x.output.t)}</p>`}</div>
+        </div>${x.note ? `<small class="g-dm-note">${esc(x.note)}</small>` : ""}</div>`;
+      }
       case "table": return `<div class="g-tbl"><table><thead><tr>${x.head.map((h) => `<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${x.rows.map((r) => `<tr>${r.map((c, k) => (k ? `<td>${esc(c)}</td>` : `<th scope="row">${esc(c)}</th>`)).join("")}</tr>`).join("")}</tbody></table></div>`;
       case "links": return `<ul class="rank-src">${x.items.map((l) => `<li><a href="${esc(okUrl(l.u))}" target="_blank" rel="noopener">${esc(l.t)} ↗</a></li>`).join("")}</ul>`;
       default: return "";
