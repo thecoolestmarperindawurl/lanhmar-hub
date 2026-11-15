@@ -247,7 +247,12 @@ window.Res = (() => {
       }
       case "list": return `<ul class="g-list">${x.items.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>`;
       case "steps": return `<ol class="res-outline">${x.items.map((o) => `<li><b>${esc(o.t)}</b><span>${esc(o.d)}</span></li>`).join("")}</ol>`;
-      case "cards": return `<div class="g-cards">${x.items.map((c) => `<div class="g-card"><b>${esc(c.t)}</b>${c.tag ? `<span class="badge">${esc(c.tag)}</span>` : ""}<p>${esc(c.d)}${lnk(c.u, c.lb)}</p></div>`).join("")}</div>`;
+      case "cards": return `<div class="g-cards">${x.items.map((c) => /^\d+$/.test(c.tag || "") ? `<div class="g-card g-num"><span class="g-no">${esc(c.tag)}</span><b>${esc(c.t)}</b><p>${esc(c.d)}${lnk(c.u, c.lb)}</p></div>` : `<div class="g-card"><b>${esc(c.t)}</b>${c.tag ? `<span class="badge">${esc(c.tag)}</span>` : ""}<p>${esc(c.d)}${lnk(c.u, c.lb)}</p></div>`).join("")}</div>`;
+      // trang giới thiệu skill: mở đầu, trước/sau, hỏi đáp, khung kết
+      case "hero": return `<div class="g-hero"><i class="g-blob b1"></i><i class="g-blob b2"></i>${x.kicker ? `<span class="g-kick">${esc(x.kicker)}</span>` : ""}<h3>${esc(x.t)}</h3>${x.lead ? `<p>${esc(x.lead)}</p>` : ""}${(x.ticks || []).length ? `<ul>${x.ticks.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}</div>`;
+      case "cases": return `<div class="g-cases">${x.items.map((c) => `<article class="g-case"><h5>${esc(c.t)}</h5><div class="g-ba"><div class="g-before"><b>${T("Trước", "Before")}</b><p>${esc(c.before)}</p></div><span class="g-arrow" aria-hidden="true">→</span><div class="g-after"><b>${T("Sau", "After")}</b><p>${esc(c.after)}</p></div></div></article>`).join("")}</div>`;
+      case "faq": return `<div class="g-faq">${x.items.map((f, n) => `<details${n ? "" : " open"}><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("")}</div>`;
+      case "outro": return `<div class="g-outro"><h3>${esc(x.t)}</h3>${x.d ? `<p>${esc(x.d)}</p>` : ""}${x.note ? `<small>${esc(x.note)}</small>` : ""}</div>`;
       case "table": return `<div class="g-tbl"><table><thead><tr>${x.head.map((h) => `<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${x.rows.map((r) => `<tr>${r.map((c, k) => (k ? `<td>${esc(c)}</td>` : `<th scope="row">${esc(c)}</th>`)).join("")}</tr>`).join("")}</tbody></table></div>`;
       case "links": return `<ul class="rank-src">${x.items.map((l) => `<li><a href="${esc(okUrl(l.u))}" target="_blank" rel="noopener">${esc(l.t)} ↗</a></li>`).join("")}</ul>`;
       default: return "";
@@ -256,11 +261,20 @@ window.Res = (() => {
   function openGuide(i, dlg) {
     const nx = i.next && list.find((x) => x.id === i.next.id);
     show(dlg, `<button class="x" id="resX" aria-label="${T("Đóng", "Close")}">×</button><div class="res-body g-body">
-      <div class="res-head"><span class="badge">${esc(i.type || T("Lý thuyết", "Theory"))}</span><h2>${esc(i.title)}</h2><p class="news-meta">${esc(i.note || "")}</p></div>${viNote(i)}
+      <div class="res-head"><span class="badge">${esc(i.type || T("Lý thuyết", "Theory"))}</span><h2>${esc(i.title)}</h2>${(i.sections || [])[0]?.k === "hero" ? "" : `<p class="news-meta">${esc(i.note || "")}</p>`}</div>${viNote(i)}
       ${(i.sections || []).map(guideSection).join("")}</div>` +
       (Array.isArray(i.ctas) && i.ctas.length ? `<div class="res-cta"><div><b>${esc(EN() ? i.title : i.ctasTitle || i.title)}</b></div><div class="res-cta-btns">${i.ctas.map((c) => `<a class="btn orange-btn" href="${esc(okUrl(c.url))}" target="_blank" rel="noopener">${esc(c.btn)} ↗</a>`).join("")}</div></div>`
         : i.cta ? `<div class="res-cta"><div><b>${esc(EN() ? i.title : i.cta.title)}</b><small>${esc(String(i.cta.url).replace(/^https?:\/\//, ""))}</small></div><a class="btn orange-btn" href="${esc(okUrl(i.cta.url))}" target="_blank" rel="noopener">${esc(i.cta.btn || T("Mở trang gốc", "Open source page"))} ↗</a></div>` : "") +
       (nx ? `<div class="res-cta"><div><b>${esc(EN() ? "Read next: " + nx.title : i.next.label)}</b></div><button class="btn orange-btn" type="button" data-res="${esc(nx.id)}">${T("Mở tiếp →", "Next →")}</button></div>` : ""));
+    reveal(dlg);
+  }
+  // khối trong bài hiện dần khi cuộn tới (CSS tắt hiệu ứng khi người xem chọn giảm chuyển động)
+  function reveal(dlg) {
+    const els = dlg.querySelectorAll(".g-body > *:not(.res-head), .g-cards > *, .g-cases > *");
+    if (!("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { root: dlg, threshold: 0.08 });
+    els.forEach((el, n) => { el.classList.add("rv"); el.style.setProperty("--d", (n % 4) * 60 + "ms"); io.observe(el); });
+    dlg.addEventListener("close", () => io.disconnect(), { once: true });
   }
 
   function open(id) {
