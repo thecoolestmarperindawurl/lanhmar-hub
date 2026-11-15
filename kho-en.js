@@ -2,7 +2,7 @@
    nội dung chi tiết trong cửa sổ (sections, intro...) vẫn là tiếng Việt và được ghi chú rõ khi xem bản EN.
    Thêm mục mới vào kho-featured.json thì thêm một dòng ở ITEMS bên dưới (id giống hệt). Thiếu thì thẻ hiện tiếng Việt. */
 // Phiên bản của i18n/featured-en.json (lang.js gắn vào ?v=). Sửa featured-en.json thì tăng số này và ?v= của kho-en.js trong HTML.
-window.__khoEnV = "20261115f";
+window.__khoEnV = "20261115g";
 window.KHO_EN = {
   kho: {
     ai: { name: "AI Library", desc: "Accounts, skills for AI agents, feature updates",
