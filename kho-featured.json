@@ -1090,6 +1090,31 @@
         },
         {
           "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Bot echo trên tài khoản Zalo phụ của chính bạn",
+          "input": {
+            "label": "Code bạn viết (bot.js)",
+            "t": "const api = await new Zalo().loginQR();\napi.listener.on(\"message\", (msg) => { /* gửi lại nội dung */ });\napi.listener.start();",
+            "code": true
+          },
+          "steps": [
+            "Bạn chạy node bot.js, thư viện hiện mã QR để đăng nhập.",
+            "Bạn quét QR bằng Zalo trên điện thoại của tài khoản phụ.",
+            "Listener nghe tin nhắn cá nhân và nhóm gửi tới tài khoản.",
+            "Bot xử lý nội dung rồi gọi hàm gửi tin để trả lời."
+          ],
+          "output": {
+            "label": "Terminal và khung chat Zalo",
+            "t": "$ node bot.js\nĐã tạo mã QR, hãy quét bằng Zalo trên điện thoại\nĐăng nhập thành công: tài khoản phụ \"Bot Thử\"\nListener đã chạy, đang chờ tin nhắn...\n[tin đến] Bạn A: Mai họp mấy giờ?\n[đã gửi] Echo: Mai họp mấy giờ?\n\n--- Trong Zalo của Bạn A ---\nBạn A:    Mai họp mấy giờ?\nBot Thử:  Echo: Mai họp mấy giờ?",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, nội dung thật tuỳ code của bạn. Thư viện không chính thức: chỉ thử trên tài khoản phụ, cần Node.js hoặc Bun."
+        },
+        {
+          "k": "h",
           "t": "Là gì"
         },
         {
@@ -1260,6 +1285,31 @@
               "after": "Sao lưu ra ổ ngoài, khôi phục thành tài khoản mới khi cần, có cảnh báo khi ổ đĩa sắp đầy."
             }
           ]
+        },
+        {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Mở Zalo cá nhân và Zalo công việc cùng lúc trên một laptop",
+          "input": {
+            "label": "Bạn làm",
+            "t": "Đã sao lưu dữ liệu Zalo. Mở Zalo Switcher, lưu tài khoản đang đăng nhập làm Zalo chính, rồi bấm Thêm tài khoản và đặt tên \"Công việc\".",
+            "code": false
+          },
+          "steps": [
+            "Ứng dụng lưu tài khoản hiện tại làm Zalo chính bằng cách đổi tên thư mục, không sao chép dữ liệu.",
+            "Tài khoản mới có thư mục dữ liệu riêng, bạn đăng nhập Zalo trong cửa sổ mới.",
+            "Bạn bấm Mở tất cả để hai tài khoản chạy hai cửa sổ cùng lúc.",
+            "Sau đó bạn sao lưu tài khoản ra ổ ngoài khi cần."
+          ],
+          "output": {
+            "label": "Cửa sổ Zalo Switcher",
+            "t": "ZALO SWITCHER\n● Cá nhân   (Zalo chính)   Đang mở   [Chuyển tới] [Đóng]\n● Công việc                Đang mở   [Chuyển tới] [Đóng]\n○ Fanpage shop             Đã đóng   [Mở]\n\n[Thêm tài khoản]  [Mở tất cả]  [Đóng tất cả]  [Sao lưu]\nỔ đĩa còn trống: 38 GB (cảnh báo khi dưới 5 GB)\n\nTrên màn hình: hai cửa sổ Zalo riêng, mỗi cửa sổ một tài khoản.\nTài khoản đã đóng không nhận tin cho tới khi mở lại.",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, giao diện thật có thể khác. Ứng dụng không chính thức và đổi tên thư mục dữ liệu Zalo: hãy sao lưu trước khi dùng."
         },
         {
           "k": "h",
@@ -1441,6 +1491,30 @@
         },
         {
           "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Sao lưu bình luận một bài viết của chính bạn",
+          "input": {
+            "label": "Bạn làm",
+            "t": "Đăng nhập Facebook của bạn trong Chrome, mở bài viết của mình, bấm biểu tượng Social AIO và chọn xuất bình luận và lượt cảm xúc.",
+            "code": false
+          },
+          "steps": [
+            "Tiện ích làm việc trên trang bài viết bạn đang mở, bằng tài khoản đang đăng nhập.",
+            "Tiện ích gom bình luận và lượt cảm xúc của bài.",
+            "Bạn lưu bản xuất về máy để giữ một bản sao."
+          ],
+          "output": {
+            "label": "Bản xuất bình luận (trích)",
+            "t": "Bài viết: \"Ra mắt bộ ảnh mùa thu\" (của bạn)\nCảm xúc: Thích 124 · Yêu thích 37 · Haha 5\n\nNgười bình luận   Thời gian          Nội dung\nKhách 01          12/11/2026 08:15   Ảnh đẹp quá, có bản in không?\nKhách 02          12/11/2026 09:02   Mình đặt một bộ nhé\nKhách 03          12/11/2026 10:47   Màu ảnh này chỉnh bằng gì vậy?\n...\nTổng: 46 bình luận",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, cột và định dạng thật tuỳ tiện ích. Chỉ dùng với nội dung của chính bạn; thao tác hàng loạt nên thử vài mục trước."
+        },
+        {
+          "k": "h",
           "t": "Là gì"
         },
         {
@@ -1612,6 +1686,31 @@
               "after": "Truy vết lỗi chỉ ra file, hàm hoặc vị trí cần sửa, kèm chuỗi phụ thuộc liên quan."
             }
           ]
+        },
+        {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Nhờ Claude trên web tìm vì sao nút Gửi của form liên hệ không chạy",
+          "input": {
+            "label": "Bạn gõ trong khung chat",
+            "t": "Dùng ChatCode, liệt kê workspace rồi tìm vì sao nút Gửi ở trang Liên hệ không chạy. Chỉ chẩn đoán, chưa sửa file.",
+            "code": false
+          },
+          "steps": [
+            "AI liệt kê workspace bạn đã thêm (quyền chỉ đọc).",
+            "Project Brain lập bản đồ file, hàm, import và chỉ gửi phần liên quan.",
+            "Truy vết lỗi lần theo chuỗi phụ thuộc tới file và hàm cần sửa.",
+            "AI trả lời chẩn đoán và chờ bạn đồng ý trước khi sửa."
+          ],
+          "output": {
+            "label": "Câu trả lời của AI",
+            "t": "Workspace: shop-web (chỉ đọc)\n\nChuỗi liên quan:\n  contact.html → js/contact.js → js/api.js\n\nNguyên nhân có khả năng nhất:\n  js/contact.js, hàm submitForm(), dòng 42\n  Đang tìm phần tử #send-btn, nhưng trong contact.html\n  nút có id=\"sendBtn\", nên sự kiện click không được gắn.\n\nĐề xuất sửa (chưa thực hiện):\n  Đổi #send-btn thành #sendBtn ở dòng 42.\n\nMình chưa thay đổi file nào. Bạn muốn bật quyền sửa file\ncho workspace này để mình sửa không?",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, kết quả thật tuỳ dự án của bạn. Cần app ChatCode trên Windows và đường dẫn kết nối đã thêm vào nền tảng AI; không chia sẻ đường dẫn này."
         },
         {
           "k": "h",
@@ -2130,6 +2229,31 @@
               "after": "Bật Web Inspector trên iPhone, mở menu Phát triển trong Safari trên Mac và kiểm tra trực tiếp trang đó."
             }
           ]
+        },
+        {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Kéo cả thư mục ảnh từ điện thoại Android về laptop bằng một lệnh",
+          "input": {
+            "label": "Lệnh",
+            "t": "adb devices -l\nadb pull /sdcard/DCIM/Camera/ ./anh",
+            "code": true
+          },
+          "steps": [
+            "Bạn bật Gỡ lỗi USB trên điện thoại và cắm cáp có truyền dữ liệu.",
+            "Bạn bấm Cho phép gỡ lỗi USB trên điện thoại.",
+            "adb devices -l xác nhận máy ở trạng thái device.",
+            "adb pull kéo cả thư mục ảnh về laptop."
+          ],
+          "output": {
+            "label": "Terminal",
+            "t": "$ adb devices -l\nList of devices attached\nR58N123ABC   device usb:1-1 product:a54x model:SM_A546E device:a54x\n\n$ adb pull /sdcard/DCIM/Camera/ ./anh\n/sdcard/DCIM/Camera/: 312 files pulled, 0 skipped. 18.4 MB/s (1873451520 bytes in 97.1s)\n\n$ ls ./anh/Camera | head -3\n20261102_081530.jpg\n20261102_081602.jpg\n20261103_174411.mp4",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, số file và tên máy tuỳ điện thoại của bạn. Cần cài adb (SDK Platform-Tools); tắt Gỡ lỗi USB khi xong việc."
         },
         {
           "k": "callout",
@@ -6011,6 +6135,31 @@
         },
         {
           "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Nhờ AI agent đọc bảng tin rồi đăng thử một bài ở chế độ chỉ mình tôi",
+          "input": {
+            "label": "Lệnh",
+            "t": "fb login\nfb feed -n 3\nfb post \"Lịch mở cửa tuần này: 8h đến 21h\" --to me",
+            "code": true
+          },
+          "steps": [
+            "fb login sao chép phiên Facebook từ Chrome thường dùng của bạn, bấm Allow một lần.",
+            "Chrome chạy ngầm mở bảng tin trong một tab riêng, không hiện cửa sổ.",
+            "Kết quả trả về dạng dòng cách nhau bằng tab, kèm mã tham chiếu 5 ký tự.",
+            "fb post đăng bài ở chế độ chỉ mình tôi để bạn xem trước khi công khai."
+          ],
+          "output": {
+            "label": "Terminal",
+            "t": "$ fb feed -n 3\np3k9a\tCửa hàng Hoa Nắng\t2 giờ\tMẫu bó hoa mới cho tuần này\t48 react\t6 bình luận\np7q2m\tNhóm Làm vườn Đô thị\t5 giờ\tAi có kinh nghiệm trồng rau trên ban công?\t21 react\t14 bình luận\npx41d\tBạn B\t1 ngày\tẢnh chuyến đi Đà Lạt\t95 react\t12 bình luận\n\n$ fb post \"Lịch mở cửa tuần này: 8h đến 21h\" --to me\nposted\tp9t2c\tChỉ mình tôi\n\n$ fb view p9t2c\np9t2c\tBạn\tvừa xong\tLịch mở cửa tuần này: 8h đến 21h\t0 react\t0 bình luận",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, nội dung thật tuỳ tài khoản của bạn. Chỉ dùng cho tài khoản của chính bạn, với tần suất như người thật; cần Chrome đã đăng nhập Facebook."
+        },
+        {
+          "k": "h",
           "t": "Thông tin repo"
         },
         {
@@ -6330,6 +6479,32 @@
           ]
         },
         {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Brainstorm chuyện tiệm bánh mở thêm kênh bán online",
+          "input": {
+            "label": "Bạn gõ",
+            "t": "Brainstorm giúp mình chuyện mở kênh bán bánh online cho tiệm. File doanh thu 3 tháng gần nhất mình để trong thư mục này.",
+            "code": false
+          },
+          "steps": [
+            "Đọc trước file doanh thu và tài liệu với tới được, điều đã có thì không hỏi lại.",
+            "Hỏi bạn theo từng cụm 2-5 câu, mỗi câu kèm gợi ý và lý do; bạn trả lời vắn tắt kiểu \"1: A - 2: ừ\".",
+            "Gom câu trả lời thành đề bài 6 mục, cố ý chưa đưa lời giải.",
+            "Soát lạnh để tìm chỗ còn mơ hồ (trợ lý phụ, hoặc AI tự soát và nói rõ).",
+            "Chỉ chốt khi bạn gõ \"được\"."
+          ],
+          "output": {
+            "label": "docs/briefs/2026-11-16-tiem-banh-online.md",
+            "t": "# Đề bài: Mở kênh bán bánh online\n- Mục tiêu: Có thêm nguồn đơn ngoài khách ghé tiệm, thử trong 3 tháng.\n- Hiện trạng: Bán tại tiệm, khoảng 60 đơn/ngày; chưa có kênh online nào.\n- Vấn đề: Bánh kem để được ít giờ, chưa rõ giao xa có giữ chất lượng không.\n- Mong muốn: Biết khách online đặt món gì, giờ nào, trước khi đầu tư lớn.\n- Ràng buộc: 2 người làm bếp, không tăng người trong giai đoạn thử.\n- Ngoài phạm vi: Chưa làm app riêng, chưa mở chi nhánh.\n* Giả định cần kiểm: Khách quen sẵn sàng đặt trước 1 ngày.\n* Chưa biết: Phí giao hàng khách chấp nhận (bạn trả lời \"chưa biết\").\n\nSoát lạnh: trợ lý phụ, 2 chỗ mơ hồ, đã hỏi lại bạn.\nTrạng thái: ĐÃ CHỐT (bạn gõ \"được\").",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, nội dung thật tuỳ dữ liệu của bạn."
+        },
+        {
           "k": "code",
           "t": "Bạn: Brainstorm giúp mình chuyện mở cơ sở 2.\n\nAI: Mình sẽ hỏi bạn cụm 3 câu về Mục tiêu trước nhé:\n1. Mục tiêu lớn nhất của cơ sở mới là gì? (Gợi ý: A. Tăng doanh thu / B. Thử nghiệm mô hình mới)\n2. Bạn có muốn giữ nguyên phong cách menu hiện tại không? (Gợi ý: Có / Không)\n3. Mốc thời gian bạn kỳ vọng bắt đầu vận hành? (Gợi ý: Trong 3 tháng / 6 tháng / Tuỳ bạn)\n\nBạn: 1: B - 2: ừ - 3: tuỳ bạn\n\nAI: Đã ghi nhận. Vì bạn chọn \"tuỳ bạn\" ở câu 3, mình tạm chọn mốc 6 tháng để chuẩn bị kỹ. (...vài cụm câu hỏi sau...) Trích đoạn bản nháp đề bài:\n- Mục tiêu: Thử nghiệm mô hình quán mới ở khu vực khác.\n- Hiện trạng: Cơ sở 1 đang vận hành ổn định.\n- Vấn đề: Cần xác thực tệp khách mới mà không ảnh hưởng quán cũ.\n- Mong muốn: Biết khách khu mới có hợp mô hình mới không trước khi đầu tư lớn.\n- Ràng buộc: Giữ nguyên phong cách menu cốt lõi.\n- Ngoài phạm vi: Chưa mở rộng nhượng quyền.\n* Giả định cần kiểm: Mặt bằng mới có tệp khách trẻ tương tự cơ sở 1.\nBạn xem qua nếu thấy ổn thì gõ \"được\" để mình chốt nhé!",
           "cap": "Mẫu đoạn trao đổi làm rõ đề bài cùng AI"
@@ -6467,6 +6642,32 @@
               "d": "Cập nhật kế hoạch cũ và ghi nhật ký thay đổi theo ngày."
             }
           ]
+        },
+        {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Lên kế hoạch có kiểm chứng từ đề bài tiệm bánh bán online",
+          "input": {
+            "label": "Lệnh",
+            "t": "/kf-plan docs/briefs/2026-11-16-tiem-banh-online.md",
+            "code": true
+          },
+          "steps": [
+            "Đọc brief, phân loại điều đã biết, điều phân tích được, điều bắt buộc phải thăm dò.",
+            "Chia bài toán thành cây vấn đề, xếp ưu tiên bằng ma trận 2x2: tác động và mức kiểm soát được.",
+            "Viết phương án, sổ giả định ghi VERIFIED hoặc TO-TEST, việc chưa chắc vào bản thăm dò riêng.",
+            "Subagent mới soi khả năng thực thi và tình huống thất bại, lặp tới khi SUFFICIENT, tối đa 3 vòng.",
+            "Chỉ lưu file khi bạn đồng ý rõ ràng."
+          ],
+          "output": {
+            "label": "docs/plans/2026-11-16-tiem-banh-online.md",
+            "t": "## Cây vấn đề\n1. Sản phẩm giao được  2. Kênh nhận đơn  3. Giao hàng  4. Sức bếp\n\n## Ưu tiên (tác động x kiểm soát)\nCao/Cao: chọn 6 món giữ được 24 giờ | Cao/Thấp: phí giao\n\n## Sổ giả định\n| Giả định | Trạng thái | Cách kiểm |\n| Doanh thu cuối tuần cao gấp đôi ngày thường | VERIFIED | file doanh thu |\n| Khách quen đặt trước 1 ngày | TO-TEST | thăm dò 20 khách |\n\n## Bản thăm dò (must-probe)\n- Tuần 1: nhận đặt trước qua tin nhắn, ghi giờ đặt và món.\n\n## Review\nVòng 1: INSUFFICIENT (thiếu phương án khi bếp quá tải)\nVòng 2: SUFFICIENT\n\nBạn đồng ý lưu? → \"ok\" → đã lưu.",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, nội dung thật tuỳ dữ liệu của bạn. Skill chỉ lập kế hoạch, không thực hiện."
         },
         {
           "k": "h",
@@ -6674,6 +6875,32 @@
               "d": "Mỗi phase thành một task để bám theo. Dưới 3 phase thì bỏ qua bước này."
             }
           ]
+        },
+        {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Lập kế hoạch tổ chức workshop nội bộ 40 người ở chế độ kỹ",
+          "input": {
+            "label": "Lệnh",
+            "t": "/plan Tổ chức workshop nội bộ 40 người cuối tháng 12 --hard",
+            "code": true
+          },
+          "steps": [
+            "Quét plan.md trong ./plans/, nối phụ thuộc blockedBy, blocks với kế hoạch liên quan.",
+            "Hỏi lại phạm vi, nghiên cứu và hỏi bạn hiện trạng (ngân sách, địa điểm).",
+            "Viết thư mục kế hoạch gồm plan.md và file từng phase.",
+            "Red team soi rủi ro, hỏi các câu then chốt (chế độ --hard).",
+            "Mỗi phase thành một task, rồi nhắc bạn chạy /clear."
+          ],
+          "output": {
+            "label": "Terminal",
+            "t": "Đã tạo ./plans/20261116-0930-workshop-noi-bo/\n├── plan.md\n├── phase-01-chot-noi-dung-dien-gia.md\n├── phase-02-dia-diem-hau-can.md\n├── phase-03-moi-va-dang-ky.md\n└── phase-04-ngay-dien-ra-tong-ket.md\n\nPhụ thuộc: blockedBy ./plans/20261102-1400-ngan-sach-q4/\nRed team: 3 rủi ro (địa điểm hết chỗ, diễn giả rút, thiếu người đăng ký)\nTask: 4 task đã tạo, mỗi phase một task.\n\nRun /clear rồi bắt đầu thực hiện từ:\n./plans/20261116-0930-workshop-noi-bo/plan.md",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, nội dung thật tuỳ dữ liệu của bạn. Skill chỉ lập kế hoạch, không thực hiện."
         },
         {
           "k": "h",
@@ -6936,6 +7163,31 @@
           ]
         },
         {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Rút kinh nghiệm sau phiên viết 5 bài đăng fanpage",
+          "input": {
+            "label": "Bạn gõ",
+            "t": "Rút kinh nghiệm vụ viết bài fanpage tuần này giúp mình.",
+            "code": false
+          },
+          "steps": [
+            "Nhìn lại đúng cuộc trò chuyện vừa xong, chỉ dựa trên việc thật trong phiên.",
+            "Chốt bản nhìn lại 5 mục vừa một màn hình.",
+            "Lọc mỗi đề xuất qua 4 câu: đã có chưa, xảy ra mấy lần, ghi đúng chỗ chưa, có ca thật không.",
+            "Chờ bạn duyệt, đồng ý mục nào mới ghi mục đó vào Instruction, Memory hoặc Skill."
+          ],
+          "output": {
+            "label": "Bản nhìn lại (lưu ở docs/journals/)",
+            "t": "1. Chuyện gì đã xảy ra: Viết 5 bài fanpage; bài 2 và 4 phải viết lại vì dài quá 150 chữ.\n2. Cái gì làm tốt: Mở bài bằng câu hỏi của khách, bạn giữ nguyên cả 5 bài.\n3. Cái gì chưa ổn: Không ai nói giới hạn độ dài nên AI viết như bài blog.\n4. Lần sau làm tốt hơn: Hỏi độ dài và kênh đăng trước khi viết.\n5. Đề xuất ghi lại (chờ duyệt):\n- QUA LỌC - Memory - \"Bài fanpage của shop dưới 150 chữ, mở bằng câu hỏi của khách.\"\n- LOẠI - \"Bài 3 cần ảnh sản phẩm màu xanh\": chỉ xảy ra một lần, bản nhìn lại đã giữ.\nNgười lọc: trợ lý phụ đọc độc lập.\n\nBạn duyệt đề xuất nào thì mình ghi đề xuất đó.",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, nội dung thật tuỳ dữ liệu của bạn."
+        },
+        {
           "k": "code",
           "t": "Bạn: Rút kinh nghiệm vụ làm bảng lương tháng này giúp mình.\n\nAI: Bản nhìn lại đã lưu ở docs/journals/.\n1. Chuyện gì đã xảy ra: Làm xong bảng lương tháng; phải tính lại một lần vì sót ngày nghỉ không lương của 2 người.\n2. Cái gì làm tốt: Đối chiếu bảng chấm công trước khi tính, bắt được 1 dòng trùng.\n3. Cái gì chưa ổn: Bảng chấm công có cột \"nghỉ không lương\" nhưng không ai dặn AI đọc cột đó.\n4. Lần sau làm tốt hơn: Đọc đủ các cột chấm công trước khi tính.\n5. Đề xuất ghi lại (chờ duyệt):\n- QUA LỌC - Skill tính lương bạn đang dùng - thêm bước: \"Trước khi tính, liệt kê mọi cột của bảng chấm công và hỏi lại cột nào chưa rõ cách tính.\"\n- LOẠI - \"Nhân viên B đổi số tài khoản\": chỉ xảy ra một lần, bản nhìn lại đã giữ.\nNgười lọc: mình tự lọc, không có người đọc độc lập.\n\nBạn duyệt đề xuất nào thì mình ghi đề xuất đó.",
           "cap": "Trích bản nhìn lại sau buổi làm bảng lương (ví dụ hư cấu)"
@@ -7069,6 +7321,30 @@
               "d": "Đọc xong, hỏi tiếp nếu muốn đi sâu một phần."
             }
           ]
+        },
+        {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Giải thích \"API là gì\" cho người ngoài ngành",
+          "input": {
+            "label": "Lệnh",
+            "t": "/eli5 API là gì",
+            "code": true
+          },
+          "steps": [
+            "Nhận chủ đề bạn gõ kèm lệnh /eli5.",
+            "Rút khái niệm khó thành hình lớn và vài câu ngắn.",
+            "Xuất một trang HTML để mở đọc hoặc gửi cho người khác."
+          ],
+          "output": {
+            "label": "Trang HTML (mô tả các khối)",
+            "t": "┌ Tiêu đề: API là gì?\n├ Khối 1 · Hình lớn: một quầy gọi món ở nhà hàng\n│  \"API giống người phục vụ: bạn gọi món, họ mang vào bếp.\"\n├ Khối 2 · Hình lớn: bạn, người phục vụ, nhà bếp nối bằng mũi tên\n│  \"Bạn không cần biết bếp nấu thế nào.\"\n├ Khối 3 · Hình lớn: điện thoại hiện thời tiết\n│  \"App thời tiết hỏi qua API, nhận về nhiệt độ.\"\n└ Khối 4 · Một câu nhớ\n   \"API = cửa gọi món giữa hai phần mềm.\"",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, bố cục và hình thật tuỳ AI dựng. Hỏi tiếp nếu muốn đi sâu một phần."
         },
         {
           "k": "h",
@@ -7240,6 +7516,31 @@
               "after": "Báo cáo có riêng mục \"điều đang rút cạn năng lượng\" và \"câu hỏi để ngẫm\", dựa trên chính những gì bạn kể."
             }
           ]
+        },
+        {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Khám phá bản thân khi đang cân nhắc đổi việc",
+          "input": {
+            "label": "Bạn đưa vào",
+            "t": "Mình muốn khám phá bản thân, giúp mình hiểu mình thật sự là ai.\nKèm: kết quả MBTI và DISC đã làm, ngày giờ nơi sinh, bài tự kể khoảng 1.200 từ.",
+            "code": false
+          },
+          "steps": [
+            "Gom lá số, kết quả trắc nghiệm sẵn có và bài tự kể của bạn.",
+            "Hỏi lại từng câu một đúng chỗ các nguồn nói ngược nhau, khoảng 10-12 câu; trả lời chung chung thì xin ví dụ cụ thể.",
+            "Đối chiếu, khi lá số và đời thật lệch nhau thì ưu tiên trải nghiệm thật của bạn.",
+            "Viết báo cáo chân dung 10 phần, mỗi kết luận trỏ về câu bạn kể hoặc kết quả trắc nghiệm."
+          ],
+          "output": {
+            "label": "Báo cáo chân dung 10 phần",
+            "t": "1. Chân dung con người thật: người gỡ rối cho nhóm, cần thời gian một mình để hồi sức.\n2. Tổng hợp 3 góc: trắc nghiệm, lá số, bài tự kể.\n3. Chỗ khớp và chỗ còn mâu thuẫn: hướng nội khớp; \"thích dẫn dắt\" (lá số) chưa khớp đời thật.\n4. Năng lực lõi: sắp xếp việc rối thành bước rõ (dẫn chứng: lần bạn dựng lại quy trình kho).\n5. Vết thương và điểm mù: ngại từ chối, nhận thêm việc rồi quá tải.\n6. Giá trị sống: tự chủ thời gian; làm xong đến nơi đến chốn.\n7. Câu sứ mệnh: chưa đủ dữ liệu để chốt, không ép ra một câu cho có.\n8. Thẩm mỹ: gọn, ít chi tiết, thích không gian yên tĩnh.\n9. Điều đang rút cạn năng lượng: họp dài không có kết luận.\n10. Câu hỏi để ngẫm: \"Việc nào bạn làm xong mà vẫn còn sức?\"",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, nội dung thật tuỳ câu chuyện của bạn. Không phải trị liệu tâm lý, không tiên đoán tương lai."
         },
         {
           "k": "code",
@@ -7416,6 +7717,32 @@
           ]
         },
         {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Tạo skill viết email xác nhận đơn hàng theo mẫu của shop",
+          "input": {
+            "label": "Bạn gõ",
+            "t": "Tạo skill cho mình từ việc vừa làm: viết email xác nhận đơn hàng theo mẫu của shop.",
+            "code": false
+          },
+          "steps": [
+            "Phỏng vấn theo cụm 2-5 câu kèm gợi ý, đủ 5 câu bắt buộc để skill dùng được cho nhiều ca tương tự.",
+            "Soạn 20 câu thử (10 câu phải bật, 10 câu na ná phải im) để bạn duyệt.",
+            "Kiểm cơ học, rồi trợ lý phụ soát lạnh, mỗi lỗi chỉ rõ file và dòng.",
+            "Chấm bộ 20 câu, chạy thử từ gói zip với câu mới.",
+            "Giao thư mục skill hoàn chỉnh kèm file zip."
+          ],
+          "output": {
+            "label": "Thư mục skill và kết quả kiểm",
+            "t": "Đã tạo skill xac-nhan-don, phiên bản 1.0.0:\nxac-nhan-don/\n├── SKILL.md\n├── CHANGELOG.md\n└── assets/\n    └── email-xac-nhan-template.md\nxac-nhan-don.zip (để cài hoặc gửi đồng đội)\n\nKết quả kiểm:\n- Kiểm cơ học: đủ file, đúng giới hạn dòng, đủ tên, mô tả, phiên bản, tác giả\n- Soát lạnh bằng trợ lý phụ: 2 lỗi, đã sửa 2\n- Bộ 20 câu thử: phải bật 10/10 - phải im 9/10\n- Chạy thử một lần từ gói zip với câu mới: đạt",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, nội dung thật tuỳ dữ liệu của bạn. Node.js giúp đo độ dài skill; không có thì AI đếm tay."
+        },
+        {
           "k": "code",
           "t": "AI: Mình cần làm rõ 3 điểm trước khi viết skill:\n1. Giữa các lần soạn báo giá, cái gì thay đổi? (Gợi ý: tên khách, hạng mục, số lượng).\n2. Câu nào na ná mà skill KHÔNG được bật? (Gợi ý: 'soạn hợp đồng').\n3. Ai khác sẽ dùng skill này? (Gợi ý: nhân viên bán hàng).\n\nBạn: 1: ừ - 2: thêm 'xuất hoá đơn' - 3: tuỳ bạn.\n\nAI: Đã ghi nhận. Mình sẽ viết đề bài skill và chuẩn bị bộ câu thử ngay sau đây.",
           "cap": "Trích phỏng vấn mẫu: 3 trong 5 câu bắt buộc"
@@ -7582,6 +7909,32 @@
               "after": "Skill chỉ kế thừa phong cách và cấu trúc, không chép logo hay font nguyên bản vì đó là sở hữu trí tuệ của người khác."
             }
           ]
+        },
+        {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Chuẩn bị bộ hồ sơ Claude Design cho một app đặt lịch spa nhỏ",
+          "input": {
+            "label": "Lệnh",
+            "t": "kf-cl-design-init both",
+            "code": true
+          },
+          "steps": [
+            "Kiểm tra thư mục gốc đã có PRODUCT.md, DESIGN.md chưa.",
+            "Phỏng vấn 3 cụm (danh tính và Register, người dùng, tính cách và ranh giới), tạo PRODUCT.md nhãn [DRAFT] tới khi bạn xác nhận.",
+            "Dựng design-explore.html 3 tab A, B, C, mọi cặp chữ và nền đạt WCAG AA; bạn chọn bằng mắt.",
+            "Chốt DESIGN.md 9 mục theo chuẩn Stitch từ bản đã chọn, font có tiếng Việt.",
+            "Tạo UPLOAD.md, rồi subagent độc lập kiểm bộ hồ sơ theo tiêu chí hoàn thành."
+          ],
+          "output": {
+            "label": "Thư mục gốc dự án + trích UPLOAD.md",
+            "t": "./\n├── PRODUCT.md            (đã xác nhận, Register: product)\n├── DESIGN.md             (9 mục, Motion: NON-SPEC EXTENSION)\n├── design-explore.html   (3 tab A B C, bạn chọn B)\n└── UPLOAD.md\n\n# UPLOAD.md\nBước 1: tạo design system\n- DESIGN.md  ← FILE CHÍNH\n- Logo spa, font Be Vietnam Pro, Noto Sans\nBước 2: tạo màn hình\n- PRODUCT.md (bối cảnh)\nGiữ lại, không tải: design-explore.html\n\nCổng chất lượng: 2 phát hiện, đã sửa 2.",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, nội dung thật tuỳ câu trả lời của bạn. Skill không hỏi mã hex, font hay độ bo góc."
         },
         {
           "k": "h",
@@ -8337,6 +8690,32 @@
         },
         {
           "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Nhờ agent sửa lỗi form đăng ký theo quy trình sửa lỗi",
+          "input": {
+            "label": "Bạn gõ",
+            "t": "Form đăng ký báo thành công nhưng email có dấu cách ở cuối thì không lưu được. Sửa giúp mình.",
+            "code": false
+          },
+          "steps": [
+            "Tái hiện lỗi bằng cách chạy lại với email có dấu cách ở cuối.",
+            "Thu hẹp phạm vi, thử từng giả thuyết để tìm nguyên nhân gốc.",
+            "Viết test bắt lỗi, test phải hỏng trước khi sửa.",
+            "Sửa tối thiểu đúng chỗ gây lỗi, chạy lại test, lint, build.",
+            "Báo cáo nguyên nhân, cách sửa, file, test; không tự push."
+          ],
+          "output": {
+            "label": "Báo cáo của agent",
+            "t": "Nguyên nhân: validateEmail() kiểm tra email trước khi bỏ dấu cách,\nnên \"an@vidu.vn \" bị từ chối âm thầm, form vẫn báo thành công.\n\nCách sửa: cắt dấu cách trước khi kiểm tra (1 dòng).\nFile: src/forms/signup.js\n\nTest: tests/signup.test.js\n  ✗ trước khi sửa: lưu email có dấu cách ở cuối\n  ✓ sau khi sửa: 24/24 test đạt\nLint: đạt · Build: đạt\n\nKhông đổi gì khác. Chưa push, chờ bạn đồng ý.",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, nội dung thật tuỳ dự án của bạn. Cần cài skill vào Claude Code."
+        },
+        {
+          "k": "h",
           "t": "Bên trong có gì"
         },
         {
@@ -8624,6 +9003,32 @@
               "after": "Cùng nội dung đó, giờ có tiêu đề, số văn bản, ngày tháng, khối ký và Nơi nhận đúng khuôn, trông nghiêm túc khi gửi đi."
             }
           ]
+        },
+        {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Chuẩn hoá thông báo nghỉ Tết Dương lịch của công ty",
+          "input": {
+            "label": "Bạn đưa vào",
+            "t": "File thong-bao-nghi-le.docx (gõ vội, có icon trang trí, ngày viết tắt) kèm câu: \"Chuẩn hoá giúp mình file thông báo này.\"",
+            "code": false
+          },
+          "steps": [
+            "Đọc văn bản, giữ nguyên nội dung, chỉ sửa cách trình bày.",
+            "Hỏi đúng một lượt chỗ còn thiếu (số văn bản, người ký, chức vụ), mỗi chỗ kèm gợi ý; bạn gõ \"ok\".",
+            "Trình bày theo 28 quy tắc rút từ Nghị định 30/2020: khổ A4, lề, phông Times New Roman, Quốc hiệu, Nơi nhận.",
+            "Bộ soi tự kiểm thể thức và đối soát các số từ 1.000 trở lên với file gốc.",
+            "Xuất file .docx, file HTML cho Google Docs, và PDF nếu máy có LibreOffice."
+          ],
+          "output": {
+            "label": "thong-bao-nghi-le.docx + báo cáo",
+            "t": "CÔNG TY TNHH AB          CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM\nSố: 12/TB-AB                   Độc lập - Tự do - Hạnh phúc\n                       Hà Nội, ngày 16 tháng 11 năm 2026\n\nTHÔNG BÁO\nVề việc nghỉ Tết Dương lịch năm 2027\n\nNhân viên nghỉ từ thứ Sáu ngày 01 tháng 01 năm 2027\nđến hết Chủ nhật ngày 03 tháng 01 năm 2027.\n\nNơi nhận:                                   GIÁM ĐỐC\n- Toàn thể nhân viên;\n- Lưu: VT, HCNS.\n\nTRÍCH BÁO CÁO:\n- Đã bỏ ký tự trang trí: \"🎉\", \"!!!\"\n- Ngày: \"1/1-3/1\" -> ngày 01 tháng 01 ... ngày 03 tháng 01 năm 2027\n- Số văn bản 12/TB-AB, chức vụ người ký: theo gợi ý bạn đã \"ok\"",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, nội dung thật tuỳ văn bản của bạn. Cần AI chạy được Python 3 và ghi được file."
         },
         {
           "k": "code",
@@ -11158,6 +11563,31 @@
           ]
         },
         {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Kiểm thử landing page của chính bạn bằng CloakBrowser thay cho Playwright",
+          "input": {
+            "label": "Code bạn viết (test_landing.py)",
+            "t": "from cloakbrowser import launch\nbrowser = launch(humanize=True)\npage = browser.new_page(); page.goto(\"https://shop-cua-ban.vn\")\npage.screenshot(path=\"landing.png\"); browser.close()",
+            "code": true
+          },
+          "steps": [
+            "Lần chạy đầu tự tải binary Chromium khoảng 200 MB và lưu cache.",
+            "Key đọc từ biến môi trường CLOAKBROWSER_LICENSE_KEY trước khi khởi chạy.",
+            "launch() trả về Browser của Playwright, mở trang với chuột và cuộn giống người.",
+            "Phần còn lại chạy như Playwright bình thường: chụp màn hình rồi đóng."
+          ],
+          "output": {
+            "label": "Terminal",
+            "t": "$ export CLOAKBROWSER_LICENSE_KEY=...   # key của bạn, không ghi vào code\n$ python test_landing.py\nĐang tải binary Chromium (lần đầu, khoảng 200 MB)...\nĐã xác minh chữ ký Ed25519, giải nén vào cache\nKhởi chạy: Chromium 156.0.8078.47.1, danh tính Windows\nMở https://shop-cua-ban.vn ... 200 OK\nTiêu đề trang: Shop Của Bạn | Ưu đãi tháng 11\nĐã lưu landing.png (1366 x 768)\nĐóng trình duyệt.",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, log thật có thể khác. Cần license key (gói miễn phí một phiên); chỉ dùng trên trang của bạn hoặc khi được phép."
+        },
+        {
           "k": "p",
           "t": "Thông tin lấy từ trang GitHub của repo, đọc ngày 4/11/2026. Số sao, phiên bản và điều khoản có thể đã đổi, và các tuyên bố về khả năng vượt kiểm tra bot là do chính tác giả công bố, mình chưa kiểm chứng độc lập."
         },
@@ -11476,6 +11906,31 @@
         },
         {
           "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Xem landing page của chính bạn hiển thị thế nào với khách ở Nhật qua proxy",
+          "input": {
+            "label": "Code bạn viết (check_jp.py)",
+            "t": "from camoufox.sync_api import Camoufox\nwith Camoufox(headless=True, proxy={\"server\": \"http://proxy-jp:8080\"}, geoip=True) as browser:\n    page = browser.new_page(); page.goto(\"https://shop-cua-ban.vn\")\n    print(page.title()); page.screenshot(path=\"jp.png\")",
+            "code": true
+          },
+          "steps": [
+            "Bạn cài camoufox[geoip] và chạy camoufox fetch để tải trình duyệt.",
+            "Mỗi lần khởi chạy sinh một danh tính thiết bị Firefox nhất quán.",
+            "geoip=True khớp múi giờ, ngôn ngữ, vị trí và IP WebRTC theo IP proxy.",
+            "Bạn dùng page như Playwright bình thường: mở trang, đọc tiêu đề, chụp màn hình."
+          ],
+          "output": {
+            "label": "Terminal",
+            "t": "$ pip install -U \"camoufox[geoip]\"\n$ camoufox fetch\nĐã tải bản build Camoufox\n\n$ python check_jp.py\nShop Của Bạn | 日本向けページ\n\n$ ls\ncheck_jp.py  jp.png\n\njp.png: trang hiện bản tiếng Nhật, giá tính bằng yên,\nbanner \"Miễn phí giao hàng quốc tế\" ở đầu trang.",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, kết quả thật tuỳ trang và proxy của bạn. Dự án đang phát triển, không chạy trên WSL; chỉ dùng trên trang của bạn hoặc dữ liệu được phép."
+        },
+        {
+          "k": "h",
           "t": "Thông tin repo"
         },
         {
@@ -11770,6 +12225,31 @@
               "after": "Chạy --health-check để chẩn đoán cài đặt Claude Code và cấu hình dự án."
             }
           ]
+        },
+        {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Tìm và cài một subagent frontend cho dự án Claude Code",
+          "input": {
+            "label": "Lệnh",
+            "t": "npx claude-code-templates@latest --search \"frontend\"\nnpx claude-code-templates@latest --agent development-team/frontend-developer",
+            "code": true
+          },
+          "steps": [
+            "Bạn tìm thành phần theo việc cần làm ngay trong terminal.",
+            "Bạn mở trang thành phần trên aitmpl.com để xem file nó sẽ ghi vào máy.",
+            "Lệnh npx cài agent vào thư mục dự án, không cần cài toàn cục.",
+            "Bạn mở lại Claude Code để nạp agent vừa cài."
+          ],
+          "output": {
+            "label": "Terminal và thư mục dự án",
+            "t": "$ npx claude-code-templates@latest --search \"frontend\"\nagent    development-team/frontend-developer\nskill    creative-design/frontend-design\ncommand  ...\n\n$ npx claude-code-templates@latest --agent development-team/frontend-developer\nĐã cài agent: frontend-developer\n\ndu-an-cua-ban/\n└── .claude/\n    └── agents/\n        └── frontend-developer.md   (file mới)\n\nMở lại Claude Code để dùng agent frontend-developer.",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, danh sách và thông báo thật có thể khác. Cần Node.js; thành phần do cộng đồng đóng góp, đọc file trước khi cài."
         },
         {
           "k": "h",
@@ -12092,6 +12572,31 @@
         },
         {
           "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Xem một video hướng dẫn tiếng Anh trên YouTube mà nghe giọng Việt",
+          "input": {
+            "label": "Bạn làm",
+            "t": "Mở trên Edge một video YouTube tiếng Anh có phụ đề tự động, bấm vào video một lần.",
+            "code": false
+          },
+          "steps": [
+            "Tiện ích lấy phụ đề của video, kể cả phụ đề tự động, và gộp thành câu.",
+            "Phụ đề được dịch sang tiếng Việt bằng Google Dịch.",
+            "Giọng HoaiMy đọc khớp thời gian, âm gốc tự nhỏ lại.",
+            "Bản dịch được lưu trên máy để lần sau mở lại nghe ngay."
+          ],
+          "output": {
+            "label": "Màn hình YouTube",
+            "t": "[Trình phát video]\nGóc trên trái: \"Đang lấy phụ đề...\"\n            → \"Lồng tiếng Việt: BẬT\"\n\n  (hình video chạy bình thường)\n\nPhụ đề VI: \"Bước tiếp theo, chúng ta cắt khung ảnh\n            cho vừa bố cục.\"\nThanh điều khiển:  ▶  ──●────  [VI]  ⚙\n\nÂm thanh: giọng Việt to, tiếng gốc nhỏ phía sau.\nBật/tắt: nút VI hoặc Alt + V.",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, câu dịch thật là máy dịch và tuỳ video. Cần mạng, video phải có phụ đề; chưa chạy với YouTube Shorts."
+        },
+        {
+          "k": "h",
           "t": "Là gì"
         },
         {
@@ -12304,6 +12809,31 @@
         },
         {
           "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Làm video dọc 30 giây giới thiệu một tiệm bánh",
+          "input": {
+            "label": "Bạn gõ trong Claude Code",
+            "t": "Làm video dọc 30 giây giới thiệu tiệm bánh Mây, phong cách vui tươi, có nhạc. Ảnh trong thư mục ./assets",
+            "code": false
+          },
+          "steps": [
+            "Agent chốt kịch bản, chọn ảnh và kiểu cảnh cho từng đoạn.",
+            "Gửi ảnh so sánh vài phong cách (playful, bold, clean) để bạn chọn.",
+            "Gửi ảnh tổng hợp các cảnh để bạn duyệt.",
+            "Viết một file kịch bản ngắn; engine render trên máy và xuất MP4."
+          ],
+          "output": {
+            "label": "Video MP4 dọc 9:16",
+            "t": "Video dọc 9:16 · 30 giây · look: playful\n00:00-00:04  Logo sting: logo tiệm bánh mở tròn, flash\n00:04-00:09  Chữ động: \"Bánh nướng mới mỗi sáng\"\n00:09-00:15  Lưới ảnh: 4 ảnh bánh từ ./assets, cắt theo beat\n00:15-00:21  Mockup điện thoại: trang đặt bánh online\n00:21-00:26  Lower third: \"Mở cửa 7:00 đến 21:00\"\n00:26-00:30  Kết: địa chỉ tiệm và lời mời ghé thử\nNhạc: nhạc gốc, điểm cắt cảnh khớp beat\nMuốn thêm: giọng đọc kèm phụ đề và file .srt",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, nội dung thật tuỳ kịch bản và ảnh của bạn. Cần Node.js 18+, Chrome hoặc Edge, ffmpeg."
+        },
+        {
+          "k": "h",
           "t": "Cài và dùng"
         },
         {
@@ -12505,6 +13035,31 @@
         },
         {
           "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Giao cả công ty AI lập kế hoạch ra mắt khóa học mới",
+          "input": {
+            "label": "Lệnh trong Claude Code",
+            "t": "/t-outbox:brief Ra mắt khóa học mới trong 30 ngày, ngân sách 50 triệu: cần kế hoạch marketing, landing page và dự toán",
+            "code": true
+          },
+          "steps": [
+            "CEO nhận việc và chia theo phòng ban.",
+            "Trưởng phòng Marketing, Kỹ thuật & Dữ liệu, Vận hành giao người làm.",
+            "QA soát chéo kết quả của các phòng.",
+            "CEO tổng hợp báo cáo; văn phòng 3D ở http://127.0.0.1:4747 cho thấy ai đang làm gì."
+          ],
+          "output": {
+            "label": "Báo cáo của CEO trong Claude Code",
+            "t": "BÁO CÁO CỦA CEO: Ra mắt khóa học mới (30 ngày, 50 triệu)\n\nMarketing (content, design, performance ads)\n  - Tuần 1 teaser, tuần 2-3 chạy quảng cáo, tuần 4 mở bán\nKỹ thuật & Dữ liệu (web)\n  - Khung landing page: hero, lợi ích, giáo trình, học phí, FAQ, form đăng ký\nVận hành (tài chính)\n  - Dự toán: quảng cáo 30tr · thiết kế 8tr · landing page 7tr · dự phòng 5tr\nQA: đã soát chéo, còn 2 điểm cần bạn chốt\n  1. Giá khóa học\n  2. Ngày mở bán chính thức",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, nội dung thật tuỳ yêu cầu bạn giao. Cần Claude Code và Node.js 18 trở lên."
+        },
+        {
+          "k": "h",
           "t": "Cơ cấu công ty"
         },
         {
@@ -12692,6 +13247,31 @@
               "d": "Lương gộp, thực nhận, ứng lương và giải trình chấm công, cập nhật theo kỳ."
             }
           ]
+        },
+        {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Mở bản Owner lúc 8 giờ sáng để xem cả hệ thống",
+          "input": {
+            "label": "Bạn mở",
+            "t": "Bản Owner trên điện thoại, qua mạng riêng Tailscale",
+            "code": false
+          },
+          "steps": [
+            "Đồng bộ việc từ Google Sheet, chia Quá hạn, Hôm nay, Sắp tới.",
+            "Hiện trạng thái sống hay chết của từng bot theo thời gian thực.",
+            "Ping TCP các VPS thường, lấy trạng thái instance Oracle từ API OCI.",
+            "Đếm ngược ngày hết hạn và đẩy thông báo khi có việc cần xử lý."
+          ],
+          "output": {
+            "label": "Màn hình bản Owner và thông báo đẩy",
+            "t": "[Thông báo] Bot báo giá: không phản hồi từ 07:42\n[Thông báo] VPS web-01: còn 5 ngày hết hạn\n\nVIỆC\n  Quá hạn   Gửi báo cáo tuần          [Xong]\n  Hôm nay   Duyệt bài đăng fanpage    [Xong]\n            Gọi lại khách đặt hàng    [Xong]\nBOT\n  bot-bao-gia     chết   nhịp cuối 07:42  [Khởi động lại] [Tắt cảnh báo]\n  bot-nhac-viec   sống   nhịp cuối 08:01\nVPS\n  oracle-arm-1    RUNNING  còn 41 ngày  [Bật] [Tắt] [Khởi động lại]\n  web-01          sống     còn 5 ngày",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, tên bot và máy chủ là giả định. Bản Owner chỉ vào được qua mạng riêng Tailscale."
         },
         {
           "k": "h",
@@ -12957,6 +13537,31 @@
         },
         {
           "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Chuyển báo giá, slide và bảng doanh số sang Markdown cho agent đọc",
+          "input": {
+            "label": "Bạn thả vào",
+            "t": "bao-gia-thang-11.pdf (4 trang)\nke-hoach.pptx (12 slide)\ndoanh-so.xlsx (2 sheet)",
+            "code": false
+          },
+          "steps": [
+            "Nhận loại file, đếm trang, slide, sheet và ước tính token cho từng file.",
+            "PDF: ghép chữ thành đoạn, dựng lại bảng báo giá, bỏ header/footer và số trang.",
+            "PPTX mỗi slide một mục, giữ cấp ý và ghi chú; XLSX mỗi sheet một bảng.",
+            "Bạn bấm tải .zip gồm từng file kèm INDEX.md."
+          ],
+          "output": {
+            "label": "File .zip: INDEX.md và bao-gia-thang-11.md",
+            "t": "INDEX.md\n  bao-gia-thang-11.md   PDF · 4 trang · ~1.900 token\n  ke-hoach.md           PPTX · 12 slide · ~2.600 token\n  doanh-so.md           XLSX · 2 sheet · ~1.100 token\n\nbao-gia-thang-11.md (trích)\n## Báo giá dịch vụ tháng 11\n| Hạng mục          | SL | Đơn giá | Thành tiền |\n|-------------------|----|---------|------------|\n| Thiết kế banner   | 4  | 500.000 | 2.000.000  |\n| Viết bài fanpage  | 8  | 300.000 | 2.400.000  |\n| Tổng              |    |         | 4.400.000  |",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, nội dung thật tuỳ file của bạn. Số token chỉ là ước tính."
+        },
+        {
+          "k": "h",
           "t": "Đọc được những gì"
         },
         {
@@ -13158,6 +13763,31 @@
         },
         {
           "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Đổi tên người nhận trong thư mời chỉ còn bản PDF",
+          "input": {
+            "label": "Bạn đưa vào",
+            "t": "thu-moi.pdf (xuất từ Word), cần đổi dòng tên người nhận thành một tên dài hơn",
+            "code": false
+          },
+          "steps": [
+            "Mở file bằng Chọn file PDF hoặc Mở từ Google Drive.",
+            "Bấm vào dòng tên người nhận, gõ tên mới, nhấn Enter.",
+            "Công cụ xoá thật chữ cũ, viết chữ mới bằng phông gốc, giữ cỡ, màu, căn lề; đoạn tự dàn lại.",
+            "Bấm Lưu vào Drive để tạo bản (đã sửa) cạnh file gốc."
+          ],
+          "output": {
+            "label": "thu-moi (đã sửa).pdf",
+            "t": "Trang 1\n  Trước:  Kính gửi: Anh Minh\n  Sau:    Kính gửi: Chị Trần Thu Hà, Trưởng phòng\n          Kinh doanh\n          (dòng dài ra, phần đuôi tự dàn xuống dòng sau, giữ căn lề)\n\nGiữ nguyên: phông Times, cỡ chữ, màu, chữ đậm ở tên\nPhần còn lại của trang: không đổi\nTìm \"Thu Hà\" trong PDF: thấy đúng chữ mới\nThời gian sửa: khoảng 0,5 giây",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, tên trong thư là giả định. Chưa sửa được bản scan và nền tô màu sau chữ."
+        },
+        {
+          "k": "h",
           "t": "Cách dùng"
         },
         {
@@ -13304,6 +13934,31 @@
               "d": "Dữ liệu đi thẳng từ Google về trình duyệt; extension chỉ nói chuyện với www.googleapis.com."
             }
           ]
+        },
+        {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Đọc một giáo trình PDF 320 MB trên Drive mà không tải về",
+          "input": {
+            "label": "Bạn chọn",
+            "t": "giao-trinh-marketing.pdf (320 MB) trên Google Drive, Drive báo không xem trước được",
+            "code": false
+          },
+          "steps": [
+            "Bấm icon extension, chọn Chọn sách từ Google Drive, chọn cuốn sách trong cửa sổ Drive.",
+            "Sách vào Tủ sách; extension xin đúng đoạn 1 MB quanh chỗ đang đọc qua HTTP Range.",
+            "Chỉ render trang gần vùng nhìn, nhớ trang đang đọc trên máy bạn.",
+            "Lần sau bấm nút tím Đọc không cần tải trên trang Drive là mở luôn."
+          ],
+          "output": {
+            "label": "Tab đọc sách trong trình duyệt",
+            "t": "Thanh trên cùng: giao-trinh-marketing.pdf · đã nạp 3 MB / 320 MB\nCông cụ: [-] 100% [+] · Vừa chiều rộng · Trang 1 / 486\nVùng đọc: trang 1-2 đã render, bôi đen và copy được chữ\nNhảy tới trang 120: nạp thêm khoảng 4 MB\nTrang ở xa: được giải phóng để tiết kiệm RAM\nTủ sách: giao-trinh-marketing.pdf · đang đọc trang 120\nGiao diện: sáng / sepia / tối\nỔ cứng: không nhận thêm byte nào",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, số MB nạp tuỳ cấu trúc từng PDF. Cần bật Developer mode để nạp extension; quyền drive.file chỉ đọc sách bạn tự chọn."
         },
         {
           "k": "h",
@@ -13499,6 +14154,31 @@
               "d": "Bài tập được nhận biết riêng và viết theo khuôn: yêu cầu, các bước, lưu ý, nhận xét."
             }
           ]
+        },
+        {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Biến video buổi 1 khoá Photoshop thành ghi chú theo chủ đề",
+          "input": {
+            "label": "Lệnh",
+            "t": "python course-recap.py \"https://drive.google.com/file/d/<ID>/view\" --title \"BUỔI 1\" --context \"Khoá Photoshop Cơ bản\" --notes",
+            "code": true
+          },
+          "steps": [
+            "Tool tải video, dò slide và gỡ băng lời giảng.",
+            "Claude đọc ảnh slide, sửa thuật ngữ và tên riêng, bỏ từ đệm, đánh dấu chỗ không chắc.",
+            "Phần giới thiệu và nội quy được tự bỏ và ghi vào recap-notes-skipped.txt kèm lý do.",
+            "Claude viết ghi chú theo chủ đề, bài tập viết theo khuôn riêng."
+          ],
+          "output": {
+            "label": "Thư mục kết quả và trích recap-notes.html",
+            "t": "recap.html               (theo từng slide, có lời giảng gốc)\nrecap-notes.html         (ghi chú theo chủ đề)\nrecap-notes.zip          (import vào Notion)\nrecap-notes-skipped.txt  (slide 1-6: giới thiệu, nội quy)\n\n--- recap-notes.html ---\nI. LÀM QUEN VỚI LAYER\n  1. Layer là gì\n     [ảnh slide 9]\n     Mỗi layer là một lớp trong suốt xếp chồng lên nhau...\n  Ghi nhớ: luôn đặt tên layer trước khi chỉnh.\n  Cần kiểm tra: \"Smart Object\" hay \"Smart Filter\" ở phút 34?\nBÀI TẬP: Yêu cầu · Các bước · Lưu ý · Nhận xét\nTỔNG KẾT",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, nội dung thật tuỳ bài giảng của bạn. Cần Python 3.9+, ffmpeg và API key Claude (bạn tự chịu chi phí); chỉ dùng video bạn có quyền sử dụng."
         },
         {
           "k": "h",
@@ -14100,6 +14780,30 @@
         },
         {
           "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Lên lịch 12 bài Instagram tháng 12 cho một quán cà phê",
+          "input": {
+            "label": "Bạn gõ",
+            "t": "Lên 12 bài Instagram tháng 12 theo 3 trụ nội dung",
+            "code": false
+          },
+          "steps": [
+            "Đọc hồ sơ thương hiệu đã lưu bằng brand-profile.",
+            "batch-content-plan chia 12 bài theo 3 trụ nội dung.",
+            "caption-writer viết caption từng bài theo giọng thương hiệu."
+          ],
+          "output": {
+            "label": "Kế hoạch 12 bài và caption",
+            "t": "KẾ HOẠCH INSTAGRAM THÁNG 12 · 3 trụ nội dung\nTrụ 1: Hậu trường · Trụ 2: Mẹo pha cà phê · Trụ 3: Khách quen\n\n| #  | Ngày  | Trụ | Định dạng | Ý chính                          |\n|----|-------|-----|-----------|----------------------------------|\n| 1  | 02/12 | 1   | Reels     | Mẻ rang đầu mùa đông             |\n| 2  | 04/12 | 2   | Carousel  | 5 bước pha phin cho người mới    |\n| 3  | 06/12 | 3   | Ảnh       | Góc ngồi quen của khách sáng T7  |\n| .. | ...   | ... | ...       | 9 bài còn lại                    |\n\nCaption bài 2:\nPha phin không khó. Lưu bài này, sáng mai thử đúng 5 bước nhé.\n#caphephin #caphesang",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, nội dung thật tuỳ hồ sơ thương hiệu của bạn. Nên chạy brand-profile trước."
+        },
+        {
+          "k": "h",
           "t": "Thông tin"
         },
         {
@@ -14316,6 +15020,31 @@
         },
         {
           "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Ghi số lead hôm nay vào Google Sheets bằng một câu",
+          "input": {
+            "label": "Bạn gõ",
+            "t": "Thêm một dòng vào sheet Chiến dịch Q4 với số lead hôm nay là 37",
+            "code": false
+          },
+          "steps": [
+            "Agent tìm hành động Google Sheets bạn đã bật trên mcp.zapier.com.",
+            "Điền tham số: bảng tính Chiến dịch Q4, ngày và số lead.",
+            "Hỏi bạn xác nhận vì đây là hành động ghi.",
+            "Chạy hành động và báo kết quả."
+          ],
+          "output": {
+            "label": "Trong Claude Code",
+            "t": "Hành động: Google Sheets · Create Spreadsheet Row\nBảng tính: Chiến dịch Q4 · Trang: Lead\n  Ngày:     16/11/2026\n  Số lead:  37\nĐây là hành động ghi trên tài khoản của bạn. Chạy chứ?\n> có\nĐã thêm dòng 47 vào trang Lead.",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, số liệu là giả định. Cần đăng nhập Zapier và bật sẵn hành động Google Sheets; gói miễn phí giới hạn số lần chạy."
+        },
+        {
+          "k": "h",
           "t": "Thông tin"
         },
         {
@@ -14487,6 +15216,31 @@
         },
         {
           "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Sửa một lỗi chính tả trên website, mở pull request và đọc CI",
+          "input": {
+            "label": "Bạn gõ",
+            "t": "Sửa \"liên hê\" thành \"liên hệ\" trong index.html, mở pull request rồi xem CI",
+            "code": false
+          },
+          "steps": [
+            "get_file_contents đọc index.html.",
+            "create_branch tạo nhánh mới, create_or_update_file sửa file.",
+            "create_pull_request mở pull request.",
+            "actions_list và get_job_logs đọc kết quả kiểm tra rồi báo lại."
+          ],
+          "output": {
+            "label": "Trong Claude Code",
+            "t": "✓ Đọc index.html (nhánh main)\n✓ Tạo nhánh fix/chinh-ta-lien-he\n✓ Sửa index.html: \"liên hê\" → \"liên hệ\" (1 dòng)\n✓ Mở pull request #42: Sửa lỗi chính tả mục Liên hệ\nCI: 2 job\n  build   ✓ thành công (38s)\n  links   ✗ 1 link hỏng ở about.html, không liên quan thay đổi này\nChưa merge. Bạn muốn mình merge pull request #42 không?",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, tên repo và số pull request là giả định. Cần Personal Access Token fine-grained cho đúng repo."
+        },
+        {
+          "k": "h",
           "t": "Thông tin"
         },
         {
@@ -14648,6 +15402,30 @@
               "d": "Đọc, ghi, thêm dòng, sửa công thức trong bảng tính; đọc slide, xem ảnh thu nhỏ, sửa bài trình bày."
             }
           ]
+        },
+        {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Từ biên bản họp trong Drive, tạo lịch họp tiếp và soạn email nháp",
+          "input": {
+            "label": "Bạn gõ",
+            "t": "Đọc biên bản họp trong Drive, tạo lịch họp tiếp theo và soạn email nháp gửi cả nhóm",
+            "code": false
+          },
+          "steps": [
+            "Drive: search_files tìm biên bản, read_file_content đọc nội dung.",
+            "Calendar: suggest_time tìm giờ trống, create_event tạo lịch.",
+            "Gmail: create_draft soạn email nháp, bạn đọc rồi tự bấm gửi."
+          ],
+          "output": {
+            "label": "Lịch mới và email nháp trong Gmail",
+            "t": "Đã tạo lịch: Họp dự án Website\n  Thứ Năm 19/11, 14:00-15:00 · 4 người tham dự\nĐã soạn nháp (chưa gửi):\n  Gửi: nhóm dự án (4 người)\n  Tiêu đề: Tóm tắt họp 16/11 và lịch họp tiếp theo\n\n  Chào cả nhóm,\n  Tóm tắt buổi họp 16/11:\n  - Chốt giao diện trang chủ trước 20/11\n  - Thêm 5 bài blog trong tháng 12\n  Họp tiếp: Thứ Năm 19/11, 14:00, đã có trong Calendar.",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, nội dung thật tuỳ biên bản của bạn. Cần bật connector trên claude.ai và đăng nhập Google."
         },
         {
           "k": "h",
@@ -14828,6 +15606,31 @@
         },
         {
           "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Tìm trang kế hoạch Q4 trong Notion và tóm tắt việc còn dở",
+          "input": {
+            "label": "Bạn gõ",
+            "t": "Tìm trang kế hoạch Q4 trong Notion và tóm tắt việc còn dở.",
+            "code": false
+          },
+          "steps": [
+            "Agent tìm trong workspace Notion trang có tên kế hoạch Q4.",
+            "Agent đọc nội dung trang và database công việc gắn kèm.",
+            "Agent lọc các việc chưa xong và gom theo người phụ trách.",
+            "Agent trả bản tóm tắt ngay trong khung chat."
+          ],
+          "output": {
+            "label": "Trả lời của agent",
+            "t": "Trang: Kế hoạch Q4 2026 (sửa lần cuối 12/11)\n\nĐã xong: 7/12 việc\nCòn dở: 5 việc\n\n| Việc                          | Phụ trách | Hạn   | Trạng thái   |\n|-------------------------------|-----------|-------|--------------|\n| Ra mắt khoá học mới           | Minh      | 30/11 | Đang làm     |\n| Viết 4 bài blog tháng 12      | Hà        | 05/12 | Chưa bắt đầu |\n| Chốt ngân sách quảng cáo Tết  | Bạn       | 20/11 | Chờ duyệt    |\n| Cập nhật trang giới thiệu     | Minh      | 25/11 | Đang làm     |\n| Recap khoá học tháng 10       | Hà        | 18/11 | Đang làm     |\n\nGấp nhất: chốt ngân sách quảng cáo Tết (còn 4 ngày).",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, nội dung thật tuỳ workspace Notion của bạn. Cần đăng nhập Notion qua /mcp; agent chỉ thấy trang trong quyền tài khoản của bạn."
+        },
+        {
+          "k": "h",
           "t": "Thông tin"
         },
         {
@@ -14995,6 +15798,31 @@
         },
         {
           "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Đổi một thiết kế Canva sang nhiều cỡ cho từng nền tảng",
+          "input": {
+            "label": "Bạn gõ",
+            "t": "Lấy thiết kế \"Sale 11.11 - bộ ly gốm\" trong Canva, đổi sang cỡ story Instagram và bài Facebook, rồi xuất PNG.",
+            "code": false
+          },
+          "steps": [
+            "Agent tìm thiết kế bằng search-designs.",
+            "Agent đổi kích thước sang từng cỡ bằng resize-design.",
+            "Agent xuất từng bản ra PNG bằng export-design.",
+            "Agent gửi lại đường dẫn các bản thiết kế mới."
+          ],
+          "output": {
+            "label": "Kết quả trong tài khoản Canva",
+            "t": "Thiết kế gốc: Sale 11.11 - bộ ly gốm (1080 x 1080)\n\nBản mới đã tạo:\n1. Sale 11.11 - Instagram Story   1080 x 1920   PNG đã xuất\n2. Sale 11.11 - Facebook Post     1200 x 630    PNG đã xuất\n\nTải về:\n  sale-1111-story.png   (1,2 MB)\n  sale-1111-fb.png      (640 KB)\n\nLưu ý từ agent:\n- Bản story: tiêu đề bị đẩy sát mép trên, nên kéo xuống một chút.\n- Kiểm tra font tiếng Việt trước khi đăng.",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, kết quả thật tuỳ thiết kế và gói Canva của bạn. Cần đăng nhập Canva qua /mcp."
+        },
+        {
+          "k": "h",
           "t": "Thông tin"
         },
         {
@@ -15142,6 +15970,31 @@
               "d": "COMPOSIO_REMOTE_WORKBENCH / REMOTE_BASH_TOOL chạy code, lệnh từ xa để xử lý dữ liệu lớn; COMPOSIO_SEARCH_SKILLS / USE_SKILL tìm và dùng skill dựng sẵn."
             }
           ]
+        },
+        {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Nhờ một việc cần app chưa kết nối, để Composio tự tìm tool",
+          "input": {
+            "label": "Bạn gõ",
+            "t": "Lấy 5 email mới nhất có chữ \"báo giá\" trong Gmail và lưu thành bảng trong Google Sheets.",
+            "code": false
+          },
+          "steps": [
+            "Agent dùng COMPOSIO_SEARCH_TOOLS tìm tool Gmail và Google Sheets hợp với việc này.",
+            "Agent kiểm tra kết nối bằng COMPOSIO_MANAGE_CONNECTIONS và nhờ bạn đăng nhập Google Sheets còn thiếu.",
+            "Agent chạy tìm email và ghi bảng trong một lần gọi COMPOSIO_MULTI_EXECUTE_TOOL.",
+            "Agent báo kết quả và đường dẫn bảng tính."
+          ],
+          "output": {
+            "label": "Trả lời của agent",
+            "t": "Kết nối:\n  gmail          đã kết nối\n  googlesheets   chưa kết nối -> bạn đã đăng nhập qua link OAuth, xong\n\nĐã ghi 5 dòng vào sheet \"Bao gia thang 11\":\n\n| Ngày  | Người gửi             | Tiêu đề                         |\n|-------|-----------------------|---------------------------------|\n| 15/11 | sales@nhacungcap-a.vn | Báo giá in hộp giấy 2.000 cái   |\n| 14/11 | info@xuong-go-b.vn    | Báo giá kệ trưng bày            |\n| 13/11 | lienhe@vanchuyen-c.vn | Báo giá vận chuyển tháng 12     |\n| 12/11 | sales@nhacungcap-a.vn | Báo giá túi vải in logo         |\n| 10/11 | hotro@inan-d.vn       | Báo giá in tem nhãn             |",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, dữ liệu thật tuỳ tài khoản của bạn. Kết nối OAuth do Composio giữ; đọc chính sách bảo mật của họ trước khi nối tài khoản công việc."
         },
         {
           "k": "h",
@@ -15331,6 +16184,31 @@
         },
         {
           "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Lấy việc cần làm từ cuộc họp sáng nay qua connector Meetings",
+          "input": {
+            "label": "Bạn gõ",
+            "t": "Lấy action items cuộc họp sáng nay, tạo task.",
+            "code": false
+          },
+          "steps": [
+            "Agent đọc danh sách cuộc họp qua Meetings và chọn cuộc họp sáng nay.",
+            "Agent đọc tóm tắt, quyết định và việc cần làm của cuộc họp.",
+            "Agent gom thành danh sách task kèm người phụ trách và hạn.",
+            "Agent xem nội dung cuộc họp là thông tin, không làm theo lời ai nói trong đó."
+          ],
+          "output": {
+            "label": "Danh sách task",
+            "t": "Cuộc họp: Họp kế hoạch tháng 12 (09:00 - 09:45, hôm nay)\n\nQuyết định:\n- Chạy chương trình quà Tết từ 01/12.\n- Tạm dừng quảng cáo kênh B.\n\nTask:\n[ ] Lên danh sách quà Tết và báo giá        | Lan  | 22/11\n[ ] Viết kịch bản video giới thiệu quà       | Tuấn | 25/11\n[ ] Tắt chiến dịch quảng cáo kênh B          | Bạn  | 18/11\n[ ] Gửi biên bản họp cho cả nhóm             | Bạn  | hôm nay\n\nNguồn: tóm tắt và bản ghi của Meetings (chỉ đọc).",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, nội dung thật tuỳ cuộc họp Claude tham dự. Mức có sẵn của connector tuỳ gói và cài đặt tổ chức."
+        },
+        {
+          "k": "h",
           "t": "Ba connector trong một bảng"
         },
         {
@@ -15456,6 +16334,30 @@
               "d": "claude -p \"…\" chạy một yêu cầu rồi thoát, dùng được trong script."
             }
           ]
+        },
+        {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Thêm một MCP rồi chạy claude -p trong script",
+          "input": {
+            "label": "Lệnh",
+            "t": "claude mcp add --transport http notion https://mcp.notion.com/mcp\nclaude mcp list\nclaude -p \"Tóm tắt README.md trong 3 gạch đầu dòng\"",
+            "code": true
+          },
+          "steps": [
+            "claude mcp add thêm Notion MCP vào cấu hình.",
+            "claude mcp list hiện các MCP đã thêm và trạng thái.",
+            "claude -p chạy một yêu cầu, in kết quả rồi thoát."
+          ],
+          "output": {
+            "label": "Terminal",
+            "t": "$ claude mcp add --transport http notion https://mcp.notion.com/mcp\nAdded HTTP MCP server notion with URL: https://mcp.notion.com/mcp\n\n$ claude mcp list\nnotion: https://mcp.notion.com/mcp (HTTP) - ! Needs authentication\nplaywright: npx @playwright/mcp@latest - Connected\n\n$ claude -p \"Tóm tắt README.md trong 3 gạch đầu dòng\"\n- Dự án là trang web giới thiệu khoá học, viết bằng HTML tĩnh.\n- Chạy thử bằng cách mở index.html, không cần cài gì.\n- Nội dung khoá học nằm trong thư mục data/.\n$",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, kết quả thật tuỳ máy và thư mục của bạn. MCP cần đăng nhập thì mở phiên claude và gõ /mcp."
         },
         {
           "k": "h",
@@ -15644,6 +16546,31 @@
         },
         {
           "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Đọc log lỗi GitHub Actions rồi mở pull request sửa",
+          "input": {
+            "label": "Bạn gõ",
+            "t": "Lần chạy GitHub Actions mới nhất báo đỏ, xem lỗi gì, sửa rồi mở pull request.",
+            "code": false
+          },
+          "steps": [
+            "Agent chạy gh run list để tìm lần chạy lỗi.",
+            "Agent chạy gh run view --log để đọc dòng log lỗi.",
+            "Agent sửa file, đẩy nhánh mới rồi chạy gh pr create.",
+            "Agent chạy gh pr checks để xem kết quả kiểm tra."
+          ],
+          "output": {
+            "label": "Terminal",
+            "t": "$ gh run list --limit 2\nSTATUS  TITLE                  WORKFLOW  BRANCH  EVENT  ID\nX       Cập nhật trang giá     build     main    push   9123456780\nok      Thêm ảnh khoá học      build     main    push   9123456701\n\n$ gh run view 9123456780 --log | grep -i error\nbuild  Error: Cannot find module './data/prices.json'\n\n$ gh pr create --title \"Sửa đường dẫn prices.json\" --body \"Sửa lỗi build\"\nhttps://github.com/ban/trang-khoa-hoc/pull/42\n\n$ gh pr checks 42\nbuild   pass   41s",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, kết quả thật tuỳ repo của bạn. Cần gh auth login một lần; lệnh merge, xoá nhánh nên để agent hỏi trước."
+        },
+        {
+          "k": "h",
           "t": "Cài đặt"
         },
         {
@@ -15781,6 +16708,31 @@
         },
         {
           "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Hỏi đơn hàng theo kênh từ dữ liệu GA4 trong BigQuery",
+          "input": {
+            "label": "Bạn gõ",
+            "t": "Tháng 10 kênh nào mang về nhiều đơn nhất? Dữ liệu GA4 trong dự án shop-analytics.",
+            "code": false
+          },
+          "steps": [
+            "Agent chọn dự án bằng gcloud config set project.",
+            "Agent viết câu SQL và chạy bq query --dry_run để xem dung lượng quét.",
+            "Agent chạy bq query thật.",
+            "Agent tóm tắt kết quả cho bạn."
+          ],
+          "output": {
+            "label": "Terminal và tóm tắt",
+            "t": "$ gcloud config set project shop-analytics\nUpdated property [core/project].\n\n$ bq query --use_legacy_sql=false --dry_run 'SELECT ...'\nQuery successfully validated. This query will process 1.8 GB when run.\n\n$ bq query --use_legacy_sql=false 'SELECT ...'\n+-----------------+--------+-------------+\n| channel         | orders | revenue     |\n+-----------------+--------+-------------+\n| Organic Search  |    412 |  98.500.000 |\n| Paid Social     |    305 |  71.200.000 |\n| Direct          |    188 |  45.900.000 |\n+-----------------+--------+-------------+\n\nTóm tắt: Organic Search dẫn đầu với 412 đơn, gấp đôi Direct.",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, số liệu thật tuỳ dữ liệu của bạn. BigQuery tính tiền theo dữ liệu quét; chạy tự động thì dùng tài khoản dịch vụ quyền tối thiểu."
+        },
+        {
+          "k": "h",
           "t": "3 lệnh trong bộ"
         },
         {
@@ -15911,6 +16863,30 @@
               "d": "Có CLI, thư viện Python và bản MCP (markitdown-mcp). Không dùng terminal thì có skill markitdown-convert và công cụ AI Convert trên web này."
             }
           ]
+        },
+        {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Đổi báo cáo PDF sang Markdown trước khi đưa cho agent",
+          "input": {
+            "label": "Lệnh",
+            "t": "markitdown bao-cao.pdf -o bao-cao.md",
+            "code": true
+          },
+          "steps": [
+            "markitdown đọc file PDF.",
+            "Công cụ giữ lại tiêu đề, danh sách và bảng.",
+            "Kết quả ghi ra file bao-cao.md để agent đọc."
+          ],
+          "output": {
+            "label": "bao-cao.md",
+            "t": "# Báo cáo bán hàng quý 3\n\n## 1. Tổng quan\n- Doanh thu tăng 18% so với quý 2.\n- Kênh online chiếm 62% đơn hàng.\n\n## 2. Doanh thu theo tháng\n\n| Tháng | Đơn hàng | Doanh thu (triệu) |\n|-------|----------|-------------------|\n| 7     | 820      | 410               |\n| 8     | 905      | 452               |\n| 9     | 990      | 497               |\n\n## 3. Đề xuất quý 4\n- Tăng ngân sách cho kênh online.",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, nội dung thật tuỳ file của bạn. Cần Python để cài; PDF scan cần OCR riêng, bảng phức tạp nên xem lại."
         },
         {
           "k": "callout",
@@ -16084,6 +17060,31 @@
         },
         {
           "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Kiểm tra giao diện trang của chính bạn ở cỡ điện thoại và máy tính",
+          "input": {
+            "label": "Bạn gõ",
+            "t": "Mở http://localhost:3000, chụp trang chủ ở cỡ điện thoại và máy tính, so với yêu cầu: nút Đăng ký phải thấy ngay không cần cuộn.",
+            "code": false
+          },
+          "steps": [
+            "Agent mở trang bằng Playwright MCP trong Chromium.",
+            "Agent đổi cỡ cửa sổ sang điện thoại rồi máy tính, chụp màn hình mỗi cỡ.",
+            "Agent so ảnh chụp với yêu cầu bạn đưa.",
+            "Agent báo chỗ chưa đạt kèm file ảnh."
+          ],
+          "output": {
+            "label": "Báo cáo kiểm tra",
+            "t": "Trang: http://localhost:3000\n\nẢnh chụp:\n  home-mobile-375x812.png\n  home-desktop-1440x900.png\n\n| Cỡ                | Nút Đăng ký thấy ngay? | Ghi chú                           |\n|-------------------|------------------------|-----------------------------------|\n| Điện thoại 375px  | Không                  | Nằm dưới ảnh bìa, phải cuộn 1 lần |\n| Máy tính 1440px   | Có                     | Góc phải, ngang tiêu đề           |\n\nĐề xuất: trên điện thoại, giảm chiều cao ảnh bìa hoặc đưa nút lên trên ảnh.",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, kết quả thật tuỳ trang của bạn. Playwright MCP cần Node.js; chỉ kiểm thử trang của chính bạn."
+        },
+        {
+          "k": "h",
           "t": "3 cách dùng (cùng một công cụ, chọn một)"
         },
         {
@@ -16235,6 +17236,30 @@
               "after": "Chạy bằng docker run -i --rm image để MCP tách khỏi file trên máy."
             }
           ]
+        },
+        {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Thêm hai MCP chạy cục bộ bằng npx và uvx",
+          "input": {
+            "label": "Lệnh",
+            "t": "claude mcp add playwright -- npx @playwright/mcp@latest\nclaude mcp add markitdown -- uvx markitdown-mcp\nclaude mcp list",
+            "code": true
+          },
+          "steps": [
+            "Claude Code ghi hai MCP vào cấu hình, phần sau dấu -- là lệnh sẽ chạy.",
+            "Khi kiểm tra, npx (Node.js) và uvx (uv) tải gói rồi khởi động server.",
+            "claude mcp list báo server nào chạy được, server nào thiếu bộ chạy."
+          ],
+          "output": {
+            "label": "Terminal",
+            "t": "$ claude mcp add playwright -- npx @playwright/mcp@latest\nAdded stdio MCP server playwright with command: npx @playwright/mcp@latest\n\n$ claude mcp add markitdown -- uvx markitdown-mcp\nAdded stdio MCP server markitdown with command: uvx markitdown-mcp\n\n$ claude mcp list\nplaywright: npx @playwright/mcp@latest - Connected\nmarkitdown: uvx markitdown-mcp - Failed to connect\n\n# markitdown lỗi vì máy chưa có uv, cài uv rồi kiểm tra lại:\n$ curl -LsSf https://astral.sh/uv/install.sh | sh\n$ claude mcp list\nplaywright: npx @playwright/mcp@latest - Connected\nmarkitdown: uvx markitdown-mcp - Connected",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, kết quả thật tuỳ máy của bạn. npx cần Node.js, uvx cần uv; nên ghim phiên bản với MCP quan trọng."
         },
         {
           "k": "h",
@@ -16420,6 +17445,31 @@
               "after": "Nói \"Tìm mọi chỗ nhắc tới giá cũ trong website\", agent dùng ripgrep."
             }
           ]
+        },
+        {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Đổi video ngang sang dọc 9:16 và nén cho Reels",
+          "input": {
+            "label": "Bạn gõ",
+            "t": "Đổi video gioi-thieu.mp4 sang dọc 9:16 và nén cho Reels, xuất ra file mới.",
+            "code": false
+          },
+          "steps": [
+            "Agent đọc kích thước video gốc bằng ffprobe đi kèm ffmpeg.",
+            "Agent viết lệnh ffmpeg cắt khung 9:16 và nén.",
+            "Agent xuất ra file mới, không ghi đè file gốc.",
+            "Agent báo dung lượng trước và sau."
+          ],
+          "output": {
+            "label": "Terminal",
+            "t": "$ ffprobe -v error -show_entries stream=width,height -of csv=p=0 gioi-thieu.mp4\n1920,1080\n\n$ ffmpeg -i gioi-thieu.mp4 -vf \"crop=ih*9/16:ih,scale=1080:1920\" \\\n    -c:v libx264 -crf 26 -preset medium -c:a aac -b:a 128k \\\n    gioi-thieu-reels.mp4\n...\nvideo:14820kB audio:470kB\n\nKết quả:\n  gioi-thieu.mp4         1920x1080   86 MB   (giữ nguyên)\n  gioi-thieu-reels.mp4   1080x1920   15 MB   (file mới)",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, số liệu thật tuỳ video của bạn. Cần cài ffmpeg; dặn agent xuất ra file mới để không ghi đè file gốc."
         },
         {
           "k": "h",
