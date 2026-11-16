@@ -17,6 +17,212 @@ window.TREASURE_SHELVES = [
 
 window.TREASURES = [
   {
+    "id": "drive-transfer",
+    "shelf": "code",
+    "featured": true,
+    "status": "open",
+    "url": "https://github.com/thecoolestmarperindawurl/drive-transfer/blob/main/Code.gs",
+    "thumb": "assets/res/tool-drive-transfer.jpg",
+    "name": "Drive Transfer",
+    "hook": "Chép cả thư mục sang tài khoản Google mới, máy bạn không tải gì.",
+    "hook_en": "Copy whole folders to a new Google account, nothing passes your computer.",
+    "type": "Google Apps Script",
+    "type_en": "Google Apps Script",
+    "badge": "Miễn phí · Mã nguồn mở",
+    "badge_en": "Free · Open source",
+    "desc": "Chuyển dữ liệu từ Google Drive này sang Google Drive khác, giữ nguyên cây thư mục. Dán một đoạn Apps Script vào Google Sheet của tài khoản mới, dán link thư mục cũ, Google tự chép trên máy chủ của họ.",
+    "desc_en": "Move data from one Google Drive to another with the folder tree intact. Paste one Apps Script file into a Google Sheet on the new account, paste the old folder link, and Google copies everything on its own servers.",
+    "points": [
+      "Google chép phía máy chủ: máy bạn không tải hay tải lên byte nào",
+      "Giữ nguyên cây thư mục, chép cả Google Docs/Sheets/Slides",
+      "Tự chạy tiếp từng lượt tới khi xong, kể cả khi đã đóng Sheet",
+      "Nhật ký từng file; quét lại chỉ chép bù file còn thiếu, không chép trùng"
+    ],
+    "points_en": [
+      "Google copies server-side: not a byte through your computer",
+      "Folder tree kept, Google Docs/Sheets/Slides included",
+      "Keeps running round after round until done, even with the Sheet closed",
+      "Per-file log; a rescan only copies missing files, never duplicates"
+    ],
+    "cta": "Mở Code.gs trên GitHub →",
+    "cta_en": "Open Code.gs on GitHub →",
+    "meta": [
+      {
+        "l": "Cài đặt",
+        "l_en": "Install",
+        "v": "Dán Code.gs vào Apps Script của một Google Sheet trên tài khoản mới",
+        "v_en": "Paste Code.gs into the Apps Script of a Google Sheet on the new account"
+      },
+      {
+        "l": "Dữ liệu",
+        "l_en": "Your data",
+        "v": "Chạy trong tài khoản Google của bạn, không qua máy chủ nào khác",
+        "v_en": "Runs inside your own Google account, through no other server"
+      },
+      {
+        "l": "Giấy phép",
+        "l_en": "License",
+        "v": "MIT: dùng, sửa, chia sẻ, dùng thương mại thoải mái",
+        "v_en": "MIT: use, modify, share and use commercially"
+      }
+    ],
+    "note": "Giới hạn của Google: mỗi lượt script chạy tối đa 6 phút; chạy nền tối đa 90 phút/ngày với Gmail cá nhân (6 giờ với Workspace); tải lên và sao chép tối đa 750 GB mỗi 24 giờ. Hết hạn mức thì hôm sau script chạy tiếp.",
+    "note_en": "Google's limits: each script run lasts at most 6 minutes; background runtime is capped at 90 minutes/day on personal Gmail (6 hours on Workspace); uploads and copies are capped at 750 GB per 24 hours. When a quota runs out, the script continues the next day.",
+    "detail": "drive-transfer",
+    "direct": true,
+    "demo": {
+      "kind": "convert",
+      "before": {
+        "label": "Drive cũ: thư mục bạn chia sẻ",
+        "label_en": "Old Drive: the folder you shared",
+        "text": "Khach-hang/\n├─ Hop-dong/\n│  ├─ A.pdf      2.1 MB\n│  └─ B.pdf      1.8 MB\n├─ Bao-cao/\n│  └─ doanh-thu  (Sheets)\n├─ intro.mp4     1.4 GB\n└─ goc.pdf       🔒"
+      },
+      "after": {
+        "label": "Sheet Nhật ký sau khi chạy",
+        "label_en": "Log sheet after the run",
+        "text": "OK   Hop-dong/A.pdf      2.1 MB\nOK   Hop-dong/B.pdf      1.8 MB\nOK   Bao-cao/doanh-thu   Sheets\nOK   intro.mp4           1.4 GB\nLỖI  goc.pdf  Access denied"
+      }
+    },
+    "links": [
+      {
+        "t": "README: cách hoạt động và giới hạn ↗",
+        "t_en": "README: how it works and its limits ↗",
+        "u": "https://github.com/thecoolestmarperindawurl/drive-transfer#readme"
+      },
+      {
+        "t": "Mã nguồn trên GitHub ↗",
+        "t_en": "Source code on GitHub ↗",
+        "u": "https://github.com/thecoolestmarperindawurl/drive-transfer"
+      }
+    ],
+    "sections": [
+      {
+        "k": "callout",
+        "t": "Cách thường làm là tải cả Drive về máy rồi tải lên tài khoản mới: chậm, tốn ổ cứng, đứt mạng là làm lại. Tool này để Google tự chép từ Drive cũ sang Drive mới ngay trên máy chủ của Google, bạn chỉ dán hai đường link.",
+        "t_en": "The usual way is to download the whole Drive and upload it to the new account: slow, eats disk space, and a dropped connection means starting over. This tool lets Google copy from the old Drive to the new one on its own servers; you only paste two links."
+      },
+      {
+        "k": "h",
+        "t": "Làm được gì",
+        "t_en": "What it handles"
+      },
+      {
+        "k": "table",
+        "head": [
+          "Loại dữ liệu",
+          "Tool xử lý thế nào"
+        ],
+        "head_en": [
+          "Data",
+          "How the tool handles it"
+        ],
+        "rows": [
+          [
+            "PDF, ảnh, video, Office, ZIP…",
+            "Chép nguyên file, giữ tên và thư mục"
+          ],
+          [
+            "Google Docs, Sheets, Slides, Forms",
+            "Chép thành file Google mới thuộc tài khoản mới"
+          ],
+          [
+            "Thư mục con nhiều cấp",
+            "Tạo lại đúng cây thư mục"
+          ],
+          [
+            "Lối tắt (shortcut)",
+            "Ghi BỎ QUA; muốn chép thì chia sẻ thư mục gốc của nó"
+          ],
+          [
+            "File chủ đã tắt tải/sao chép, Google Sites, My Maps",
+            "Không chép được, ghi LỖI kèm lý do"
+          ]
+        ],
+        "rows_en": [
+          [
+            "PDF, images, video, Office, ZIP…",
+            "Copied as-is, name and folder kept"
+          ],
+          [
+            "Google Docs, Sheets, Slides, Forms",
+            "Copied as new Google files owned by the new account"
+          ],
+          [
+            "Nested subfolders",
+            "Folder tree recreated"
+          ],
+          [
+            "Shortcuts",
+            "Logged as skipped; share their target folder if you need it"
+          ],
+          [
+            "Files whose owner disabled download/copy, Google Sites, My Maps",
+            "Cannot be copied; logged as an error with the reason"
+          ]
+        ]
+      },
+      {
+        "k": "h",
+        "t": "Cài và chạy",
+        "t_en": "Set up and run"
+      },
+      {
+        "k": "steps",
+        "items": [
+          {
+            "t": "Chia sẻ từ tài khoản cũ",
+            "d": "Chuột phải thư mục cần chuyển → Chia sẻ → thêm email tài khoản mới, quyền Người xem là đủ. Muốn chuyển cả Drive: gom mọi thứ vào một thư mục rồi chia sẻ thư mục đó."
+          },
+          {
+            "t": "Dán script vào Sheet của tài khoản mới",
+            "d": "Tạo Google Sheet mới → Tiện ích mở rộng → Apps Script → xoá code mẫu, dán toàn bộ Code.gs → Lưu."
+          },
+          {
+            "t": "Bắt đầu",
+            "d": "Tải lại Sheet → menu Chuyển Drive → Bắt đầu chuyển… → cấp quyền. Dán link thư mục nguồn và link thư mục đích (để trống để tự tạo). Xong thì script gửi email cho bạn."
+          }
+        ],
+        "items_en": [
+          {
+            "t": "Share from the old account",
+            "d": "Right-click the folder → Share → add the new account's email; Viewer is enough. To move a whole Drive, gather everything into one folder and share that."
+          },
+          {
+            "t": "Paste the script into a Sheet on the new account",
+            "d": "Create a new Google Sheet → Extensions → Apps Script → delete the sample code, paste all of Code.gs → Save."
+          },
+          {
+            "t": "Start",
+            "d": "Reload the Sheet → Drive Transfer menu → Start a transfer… → authorize. Paste the source folder link and the destination link (leave empty to create one). The script emails you when it is done."
+          }
+        ]
+      },
+      {
+        "k": "callout",
+        "t": "Lần đầu cấp quyền, Google báo \"Google chưa xác minh ứng dụng này\" vì đây là script của chính bạn, chạy trong tài khoản của bạn. Bấm Nâng cao → Đi tới … (không an toàn).",
+        "t_en": "The first time you authorize, Google says \"Google hasn't verified this app\" because this is your own script running in your own account. Click Advanced → Go to … (unsafe)."
+      },
+      {
+        "k": "h",
+        "t": "Lưu ý",
+        "t_en": "Good to know"
+      },
+      {
+        "k": "list",
+        "items": [
+          "Đây là sao chép: bản chép thuộc tài khoản mới và tính vào dung lượng của nó, dữ liệu gốc không bị xoá.",
+          "Bình luận, lịch sử phiên bản và quyền chia sẻ cũ không đi theo bản chép.",
+          "Có file lỗi thì lọc cột Trạng thái theo LỖI, xử lý nguyên nhân rồi chọn Quét lại và chép bù."
+        ],
+        "items_en": [
+          "This is a copy: copies belong to the new account and use its storage; originals are not deleted.",
+          "Comments, version history and old sharing settings do not carry over.",
+          "If some files fail, filter the Status column by LỖI, fix the cause, then choose Rescan and copy missing files."
+        ]
+      }
+    ]
+  },
+  {
     "id": "mograph",
     "shelf": "code",
     "featured": true,
