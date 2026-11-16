@@ -627,6 +627,10 @@ def write_outputs(out, title, video, segs):
 
 
 def main():
+    # Windows: khi in ra qua đường ống (| hoặc > file) Python dùng bảng mã cp1252 và lỗi với tiếng Việt, nên ép UTF-8
+    for _st in (sys.stdout, sys.stderr):
+        try: _st.reconfigure(encoding="utf-8", errors="replace")
+        except Exception: pass
     ap = argparse.ArgumentParser(description="Recap bài giảng: lời giảng + ảnh slide theo mốc thời gian")
     ap.add_argument("video", nargs="?", help="Đường dẫn file video HOẶC link/ID Google Drive. File riêng tư (chia sẻ theo email): chạy --google-login một lần trước")
     ap.add_argument("--title", help="Tiêu đề recap (mặc định: tên file)")
