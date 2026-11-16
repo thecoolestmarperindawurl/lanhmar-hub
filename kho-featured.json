@@ -12917,11 +12917,15 @@
           "items": [
             {
               "t": "Code.gs: mã để dán vào Apps Script",
-              "u": "https://github.com/thecoolestmarperindawurl/lanhmar-hub/blob/main/tools/drive-transfer/Code.gs"
+              "u": "https://github.com/thecoolestmarperindawurl/drive-transfer/blob/main/Code.gs"
             },
             {
               "t": "README: cách hoạt động và giới hạn",
-              "u": "https://github.com/thecoolestmarperindawurl/lanhmar-hub/tree/main/tools/drive-transfer#readme"
+              "u": "https://github.com/thecoolestmarperindawurl/drive-transfer#readme"
+            },
+            {
+              "t": "Mã nguồn trên GitHub: thecoolestmarperindawurl/drive-transfer",
+              "u": "https://github.com/thecoolestmarperindawurl/drive-transfer"
             },
             {
               "t": "Apps Script: hạn mức (Quotas for Google Services)",
@@ -12971,7 +12975,7 @@
       ],
       "cta": {
         "title": "Lấy script",
-        "url": "https://github.com/thecoolestmarperindawurl/lanhmar-hub/blob/main/tools/drive-transfer/Code.gs",
+        "url": "https://github.com/thecoolestmarperindawurl/drive-transfer/blob/main/Code.gs",
         "btn": "Mở Code.gs trên GitHub"
       }
     },
