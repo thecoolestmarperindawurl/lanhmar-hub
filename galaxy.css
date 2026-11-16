@@ -1,0 +1,126 @@
+/* Giao diện "Galaxy" cho trang chủ và Cộng đồng: nền vũ trụ tím đậm, tinh vân tím/cam, trời sao vẽ bằng galaxy.js
+   (sao lấp lánh, trôi nhẹ theo cuộn, sao băng). Thẻ chuyển sang kính mờ tối; hộp thoại (dialog) giữ nền sáng để dễ đọc.
+   Vẫn chỉ dùng màu LANHMAR: tím #2D2FEF/#6A5CFF/#8F84FF, cam #FF7A45/#FFD8C2, mực #241F45. */
+:root{
+  --gx-bg:#08061C;--gx-text:#CFC8F2;--gx-strong:#FFFFFF;--gx-muted:#A99FD6;
+  --gx-glass:rgba(24,19,64,.62);--gx-glass-2:rgba(36,30,88,.55);--gx-line:rgba(178,164,239,.24);
+  --gx-orange:#FFB08A;--gx-violet:#B9B0FF;
+  --gx-glow:0 0 0 1px rgba(178,164,239,.14),0 18px 46px rgba(4,2,20,.55);
+}
+html{color-scheme:dark;min-height:100%;background:
+  radial-gradient(900px 620px at 8% -6%,rgba(255,122,69,.20),transparent 62%),
+  radial-gradient(1000px 700px at 100% 4%,rgba(106,92,255,.30),transparent 60%),
+  radial-gradient(1200px 800px at 50% 120%,rgba(45,47,239,.30),transparent 60%),
+  linear-gradient(180deg,#0B0826 0%,#08061C 45%,#0A0724 100%) fixed var(--gx-bg)}
+body{color:var(--gx-text);background:transparent}
+#gxSky{position:fixed;inset:0;width:100%;height:100%;z-index:-2;pointer-events:none;display:block}
+/* tinh vân trôi chậm (thay cho hai đốm màu của motion.css) */
+body::before{background:rgba(255,122,69,.30);opacity:.5;mix-blend-mode:screen}
+body::after{background:rgba(106,92,255,.40);opacity:.6;mix-blend-mode:screen}
+
+/* chữ trực tiếp trên nền vũ trụ */
+body>section h1,body>section h2,body>section h3,body>section h4{color:var(--gx-strong)}
+body>section h1{text-shadow:0 0 34px rgba(106,92,255,.45)}
+body>section h1 em,body>section h2 em{color:#FF8B5C;text-decoration-color:rgba(255,122,69,.35);text-shadow:0 0 28px rgba(255,122,69,.45)}
+body>section .kicker{color:var(--gx-orange)}
+body>section .lead,body>section .sub,body>section p{color:var(--gx-text)}
+.kicker.mo-line::after{background:radial-gradient(circle at 5px 50%,var(--orange) 4.5px,transparent 5.5px),linear-gradient(rgba(178,164,239,.5),rgba(178,164,239,.5)) 5px 50%/calc(100% - 5px) 2px no-repeat;filter:drop-shadow(0 0 4px rgba(255,122,69,.6))}
+
+/* nút */
+body>section .btn.dark{box-shadow:0 0 22px rgba(45,47,239,.55)}
+body>section .btn.ghost{background:rgba(255,255,255,.06);color:#fff;border-color:rgba(178,164,239,.6)}
+body>section .btn.ghost:hover{background:rgba(255,255,255,.12);box-shadow:0 0 24px rgba(178,164,239,.35)}
+.cta-row .btn.dark::after{filter:drop-shadow(0 0 6px rgba(255,255,255,.5))}
+
+/* hero trang chủ */
+.badge{background:var(--gx-glass);border-color:var(--gx-line);color:#fff;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.menu-line{color:var(--gx-muted)}
+.menu-line #rotator{background:rgba(255,122,69,.16);color:var(--gx-orange);box-shadow:0 0 14px rgba(255,122,69,.25)}
+.hero-photo>img:first-of-type{border-color:rgba(143,132,255,.85);box-shadow:0 0 0 6px rgba(106,92,255,.12),0 0 60px rgba(106,92,255,.45),0 0 120px rgba(255,122,69,.18)}
+.watermark{color:rgba(178,164,239,.06)}
+.sticker{border-color:rgba(255,255,255,.9);box-shadow:0 0 26px rgba(255,122,69,.5)}
+.follow span{color:var(--gx-muted)}
+.follow a{background:var(--gx-glass);border-color:var(--gx-line);color:#fff}
+.follow a:hover{box-shadow:0 0 16px rgba(178,164,239,.5)}
+.mo-chip{background:rgba(20,15,56,.72);border-color:rgba(178,164,239,.4);color:#fff;box-shadow:0 0 22px rgba(106,92,255,.35)}
+.mo-flare{color:#FFC2A3}
+
+/* dải chữ chạy */
+.marquee{background:linear-gradient(90deg,rgba(45,47,239,.75),rgba(106,92,255,.75) 50%,rgba(255,122,69,.6));box-shadow:0 0 40px rgba(106,92,255,.4);text-shadow:0 0 10px rgba(255,255,255,.4)}
+
+/* hành trình */
+.counter{color:var(--gx-muted)}.counter b{text-shadow:0 0 18px rgba(255,122,69,.6)}
+.progress{background:rgba(178,164,239,.18)}
+.progress i{background:linear-gradient(90deg,var(--purple-mid),var(--orange));box-shadow:0 0 12px rgba(255,122,69,.6)}
+.chapter,.card,.svc-col{background:var(--gx-glass);border-color:var(--gx-line);box-shadow:var(--gx-glow);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.chapter .no{color:var(--gx-orange)}
+.chapter .org{color:var(--gx-muted)}
+.chapter li{color:var(--gx-text)}
+.chapter .ach{background:rgba(255,122,69,.14);color:#FFD8C2;border:1px solid rgba(255,122,69,.3)}
+.chapter .head .ini{background:var(--gx-glass-2);border-color:var(--gx-line);color:#fff}
+
+/* năng lực */
+.menu,.services{background:transparent}
+.stat{background:linear-gradient(150deg,rgba(45,47,239,.35),rgba(24,19,64,.7));border:1px solid var(--gx-line);box-shadow:var(--gx-glow)}
+.stat b{text-shadow:0 0 16px rgba(255,122,69,.5)}
+.chip{background:rgba(106,92,255,.18);border-color:rgba(178,164,239,.4);color:#E7E2FB}
+.sw b{color:#fff}
+.swl{border-color:rgba(255,255,255,.2)}
+.swl:hover,.swl:focus-visible{box-shadow:0 0 18px rgba(178,164,239,.6)}
+
+/* dịch vụ */
+.svc-col>h3{color:var(--gx-orange)!important}
+.svc{border-top-color:rgba(178,164,239,.22)}
+.svc-tag{background:rgba(106,92,255,.18);border-color:rgba(178,164,239,.4);color:#E7E2FB}
+.svc-link,.svc-more a{color:var(--gx-violet)}
+.svc-link:hover,.svc-more a:hover{color:var(--gx-orange)}
+
+/* các khối tối sẵn có: bỏ nền đặc để trời sao lộ ra */
+.mo-band{background:radial-gradient(500px 240px at 12% 0,rgba(255,122,69,.22),transparent),radial-gradient(560px 280px at 92% 100%,rgba(106,92,255,.4),transparent),rgba(10,7,32,.55)}
+.after{background:radial-gradient(600px 320px at 50% 0,rgba(106,92,255,.35),transparent 70%),rgba(10,7,32,.45)}
+.pcard{background:var(--gx-glass);border:1px solid var(--gx-line);box-shadow:var(--gx-glow)}
+.pcard:hover,.pcard:focus-visible{box-shadow:0 0 0 1px rgba(255,167,127,.5),0 0 36px rgba(255,122,69,.3),0 22px 50px rgba(4,2,20,.6)}
+.ccard{background:var(--gx-glass);border-color:var(--gx-line)}
+.ccard b{color:#fff}.ccard small{color:var(--gx-muted)}
+.ccard:hover{box-shadow:0 0 30px rgba(106,92,255,.45)}
+.contact{background:radial-gradient(700px 400px at 90% 10%,rgba(255,122,69,.25),transparent 65%),radial-gradient(800px 500px at 0 100%,rgba(106,92,255,.45),transparent 65%),rgba(45,47,239,.35);border-top:1px solid var(--gx-line)}
+.contacts li{background:rgba(255,255,255,.06);border-color:rgba(178,164,239,.35)}
+footer{background:rgba(6,4,20,.8);border-top:1px solid var(--gx-line)}
+.mo-check{background-image:conic-gradient(#120E36 25%,rgba(106,92,255,.35) 0 50%,#120E36 0 75%,rgba(106,92,255,.35) 0)}
+.mo-tilt.hot{box-shadow:0 0 0 1px rgba(178,164,239,.3),0 0 40px rgba(106,92,255,.45)}
+
+/* ===== Trang Cộng đồng ===== */
+.cm-star{text-shadow:0 0 14px currentColor}
+.cm-pill{background:var(--gx-glass);border-color:var(--gx-line);color:#fff}
+.cm-pill b{color:var(--gx-orange)}
+.cm-sub{color:var(--gx-muted)}
+.cm-step,.cm-kind,.cm-pro,.cm-evc{background:var(--gx-glass);border-color:var(--gx-line);box-shadow:var(--gx-glow);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.cm-rules{background:rgba(24,19,64,.45);border:1px solid var(--gx-line)}
+.cm-rules li{background:rgba(255,255,255,.05);border-color:var(--gx-line);color:var(--gx-text)}
+.cm-card,.cm-ex{border:1px solid var(--gx-line)}
+.cm-pro-b h3,.cm-evc-body h3{color:#fff}
+.cm-pro .cm-role,.cm-pts{color:#E7E2FB}
+.cm-bio,.cm-ev-sub,.cm-evc-desc,.cm-evc-meta,.cm-evc-foot{color:var(--gx-text)}
+.cm-evc-meta b{color:#fff}.cm-evc-foot b{color:var(--gx-orange)}
+.cm-evc-place{color:var(--gx-orange)}
+.cm-tags li{background:rgba(106,92,255,.18);border-color:rgba(178,164,239,.4);color:#E7E2FB}
+.cm-pro .cm-lk a{box-shadow:0 0 16px rgba(45,47,239,.5)}
+.cm-pro .cm-lk a+a{background:transparent;color:#fff;border-color:rgba(178,164,239,.6);box-shadow:none}
+.cm-evh{background-color:rgba(18,14,50,.7)}
+
+@media (prefers-reduced-motion:reduce){body::before,body::after{animation:none}}
+
+/* hộp thoại giữ nền sáng: trả lại màu chữ tối */
+dialog{color:var(--ink-soft);color-scheme:light}
+
+/* chuyển động "thật" cho các ngôi sao trang trí: sao không xoay tròn mà nhấp nháy (độ sáng dao động nhanh, không đều);
+   tinh vân gần như đứng yên nên chỉ trôi rất chậm */
+.mo-flare{animation:gxScint 2.6s steps(26) infinite}
+.mo-flare.b{animation-duration:3.4s;animation-delay:-1.2s}
+.cm-star{animation:gxScint 3s steps(30) infinite}
+.cm-star.s2{animation-delay:-1s}.cm-star.s3{animation-delay:-2s}
+.cm-kv::after{animation:gxScint 3.2s steps(32) infinite}
+@keyframes gxScint{0%{opacity:.55;transform:scale(.8)}9%{opacity:1;transform:scale(1)}17%{opacity:.7;transform:scale(.88)}28%{opacity:.95;transform:scale(.97)}41%{opacity:.5;transform:scale(.78)}52%{opacity:.9;transform:scale(.95)}63%{opacity:.62;transform:scale(.84)}77%{opacity:1;transform:scale(1.02)}88%{opacity:.68;transform:scale(.86)}100%{opacity:.55;transform:scale(.8)}}
+body::before{animation-duration:140s}
+body::after{animation-duration:170s}
+@media (prefers-reduced-motion:reduce){.mo-flare,.cm-star,.cm-kv::after{animation:none}}
