@@ -258,41 +258,51 @@ dialog::backdrop{background:rgba(36,31,69,.6)}
 @keyframes vtIn{from{opacity:0;filter:blur(8px);transform:translateY(22px) scale(1.01)}}
 @media (prefers-reduced-motion:reduce){@view-transition{navigation:none}}
 
-/* Open Storage: hành tinh phát sáng trong dải ngân hà ở góc trên bên phải.
-   Hành tinh cam → tím (màu LANHMAR) tự quay, vành đai nghiêng, mặt trăng nhỏ bay quanh, sóng sáng lan ra để mời bấm.
-   Rê chuột / focus: hành tinh phóng to, sáng mạnh hơn, mặt trăng bay nhanh hơn. Tắt chuyển động khi người dùng chọn giảm hiệu ứng. */
-.top-storage{position:fixed;top:6px;right:14px;z-index:30;display:inline-flex;align-items:center;gap:9px;padding:3px 15px 3px 3px;border-radius:999px;background:linear-gradient(120deg,rgba(14,10,42,.86),rgba(45,47,239,.55));-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(255,216,194,.45);color:#fff;font:800 12px/1.3 Montserrat;letter-spacing:.03em;text-decoration:none;white-space:nowrap;box-shadow:0 0 0 1px rgba(106,92,255,.25),0 0 22px rgba(255,122,69,.35),0 8px 22px rgba(10,8,34,.45);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s,border-color .3s;animation:tsFloat 4.2s ease-in-out infinite}
-.top-storage:hover,.top-storage:focus-visible{transform:translateY(-1px) scale(1.06);border-color:#FFD8C2;box-shadow:0 0 0 1px rgba(255,216,194,.5),0 0 34px rgba(255,122,69,.6),0 0 60px rgba(106,92,255,.45),0 10px 26px rgba(10,8,34,.5)}
+/* Open Storage: hành tinh phát sáng, chuyển động theo mô hình thật (tua nhanh):
+   - Tự quay quanh trục nghiêng 22° (trục vuông góc mặt phẳng vành đai); bề mặt có vết bão và dải mây xích đạo
+     quay nhanh hơn vùng vĩ độ cao (quay vi sai như Sao Mộc/Sao Thổ).
+   - Ánh sáng đến từ một "mặt trời" cố định phía trên bên trái: vùng sáng, tối viền (limb darkening) và đường phân chia ngày-đêm đứng yên khi bề mặt quay.
+   - Vành đai nằm trong mặt phẳng xích đạo, có khe Cassini; nửa sau bị hành tinh che, nửa trước đè lên hành tinh.
+   - Mặt trăng chạy quỹ đạo elip theo định luật Kepler (e = 0,28): gần hành tinh thì nhanh, xa thì chậm; đi phía trước thì to hơn,
+     đi ra phía sau thì bị hành tinh che (keyframes tính sẵn từ phương trình Kepler).
+   - Quầng khí quyển sáng nhịp và sóng sáng lan ra để người xem biết là bấm được.
+   Tắt chuyển động khi người dùng chọn giảm hiệu ứng. */
+.top-storage{position:fixed;top:6px;right:14px;z-index:30;display:inline-flex;align-items:center;gap:9px;padding:3px 15px 3px 3px;border-radius:999px;background:linear-gradient(120deg,rgba(14,10,42,.86),rgba(45,47,239,.55));-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(255,216,194,.45);color:#fff;font:800 12px/1.3 Montserrat;letter-spacing:.03em;text-decoration:none;white-space:nowrap;box-shadow:0 0 0 1px rgba(106,92,255,.25),0 0 22px rgba(255,122,69,.35),0 8px 22px rgba(10,8,34,.45);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s,border-color .3s}
+.top-storage:hover,.top-storage:focus-visible{transform:translateY(-1px) scale(1.05);border-color:#FFD8C2;box-shadow:0 0 0 1px rgba(255,216,194,.5),0 0 34px rgba(255,122,69,.6),0 0 60px rgba(106,92,255,.45),0 10px 26px rgba(10,8,34,.5)}
 .top-storage:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
-.ts-planet{position:relative;flex:none;width:36px;height:36px;display:block}
-/* sóng sáng lan ra từ hành tinh */
-.ts-planet::before{content:"";position:absolute;inset:4px;border-radius:50%;border:2px solid rgba(255,167,127,.8);animation:tsWave 2.4s ease-out infinite}
-/* thân hành tinh: dải màu trượt ngang tạo cảm giác tự quay, đốm sáng và bóng tối giữ nguyên */
-.ts-ball{position:absolute;inset:6px;z-index:1;border-radius:50%;background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.9),rgba(255,255,255,0) 30%),radial-gradient(circle at 72% 78%,rgba(18,12,52,.7),rgba(18,12,52,0) 60%),linear-gradient(165deg,#FFC2A3 0 14%,#FF7A45 14% 30%,#FFA77F 30% 38%,#8F84FF 38% 52%,#6A5CFF 52% 66%,#FF8B5C 66% 74%,#2D2FEF 74% 100%);background-size:100% 100%,100% 100%,220% 100%;box-shadow:0 0 10px 2px rgba(255,122,69,.8),0 0 22px 6px rgba(106,92,255,.55);animation:tsSpin 6s linear infinite,tsGlow 2.4s ease-in-out infinite;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
-/* vành đai nghiêng: nửa sau nằm dưới hành tinh, nửa trước đè lên */
-.ts-ring,.ts-ring2{position:absolute;left:-1px;right:-1px;top:50%;height:12px;margin-top:-6px;border-radius:50%;border:2px solid rgba(255,216,194,.95);box-shadow:0 0 8px rgba(255,122,69,.8);transform:rotate(-22deg);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
-.ts-ring{z-index:0}
+.ts-planet{position:relative;flex:none;width:36px;height:36px;display:block;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+/* sóng sáng lan ra (gợi ý bấm) */
+.ts-planet::before{content:"";position:absolute;inset:5px;border-radius:50%;border:1.5px solid rgba(255,167,127,.75);animation:tsWave 2.8s ease-out infinite}
+/* thân hành tinh */
+.ts-ball{position:absolute;inset:6px;z-index:1;border-radius:50%;overflow:hidden;background:#6A5CFF;animation:tsAtmo 3.2s ease-in-out infinite}
+/* lớp bề mặt: nghiêng theo trục, trượt sang trái = quay thuận chiều với mặt trăng; 3 lớp ảnh nền chạy 3 tốc độ */
+.ts-ball::before{content:"";position:absolute;inset:-22%;transform:rotate(-22deg);background:
+  radial-gradient(ellipse 4px 2.6px at 50% 64%,rgba(196,40,20,.95),rgba(255,122,69,.6) 60%,transparent 75%) 0 0/34px 100% repeat-x,
+  linear-gradient(90deg,transparent 0,rgba(255,255,255,.38) 18%,transparent 36%,rgba(45,47,239,.35) 62%,transparent 80%) 0 50%/22px 16% repeat-x,
+  linear-gradient(180deg,#FFC2A3 0 16%,#FF7A45 16% 30%,#FFA77F 30% 41%,#8F84FF 41% 50%,#B9B0FF 50% 55%,#6A5CFF 55% 66%,#FF8B5C 66% 74%,#2D2FEF 74%);
+  animation:tsRotate 7s linear infinite}
+/* ánh sáng cố định: đốm phản chiếu, tối viền, phía đêm */
+.ts-ball::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.75),rgba(255,255,255,0) 26%),radial-gradient(circle at 36% 32%,rgba(0,0,0,0) 42%,rgba(12,8,40,.55) 78%,rgba(8,5,30,.85) 100%)}
+/* vành đai: viền đôi = hai vòng sáng cách nhau bởi khe Cassini */
+.ts-ring,.ts-ring2{position:absolute;left:-1px;right:-1px;top:50%;height:12px;margin-top:-6px;border-radius:50%;border:3px double rgba(255,216,194,.95);box-shadow:0 0 7px rgba(255,122,69,.65);transform:rotate(-22deg)}
+.ts-ring{z-index:0;opacity:.8}
 .ts-ring2{z-index:2;clip-path:inset(50% 0 0 0)}
-/* mặt trăng bay quanh */
-.ts-moon{position:absolute;inset:-2px;z-index:3;border-radius:50%;animation:tsOrbit 3.6s linear infinite}
-.ts-moon::before{content:"";position:absolute;left:50%;top:0;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:#fff;box-shadow:0 0 6px 2px rgba(255,216,194,.95)}
+/* mặt trăng: quỹ đạo Kepler quanh tâm hành tinh */
+.ts-moon{position:absolute;left:15.5px;top:15.5px;width:5px;height:5px;border-radius:50%;z-index:4;background:radial-gradient(circle at 30% 30%,#fff,#E7E2FB 45%,#8F84FF 100%);box-shadow:0 0 5px 1px rgba(255,216,194,.8);animation:tsKepler 6s linear infinite}
 .ts-label{display:inline-flex;align-items:center;gap:6px;text-shadow:0 0 10px rgba(255,167,127,.55)}
 .ts-label span{color:#FFB08A;transition:transform .3s}
-.top-storage:hover .ts-ball,.top-storage:focus-visible .ts-ball{transform:scale(1.15)}
-.top-storage:hover .ts-ring,.top-storage:hover .ts-ring2,.top-storage:focus-visible .ts-ring,.top-storage:focus-visible .ts-ring2{transform:rotate(-22deg) scale(1.18)}
-.top-storage:hover .ts-moon,.top-storage:focus-visible .ts-moon{animation-duration:1.2s}
+.top-storage:hover .ts-planet,.top-storage:focus-visible .ts-planet{transform:scale(1.14)}
 .top-storage:hover .ts-label span,.top-storage:focus-visible .ts-label span{transform:translate(2px,-2px)}
 .top-storage:active{transform:scale(.97)}
-@keyframes tsSpin{to{background-position:0 0,0 0,-220% 0}}
-@keyframes tsGlow{0%,100%{box-shadow:0 0 10px 2px rgba(255,122,69,.75),0 0 22px 6px rgba(106,92,255,.5)}50%{box-shadow:0 0 16px 4px rgba(255,122,69,.95),0 0 34px 10px rgba(106,92,255,.7)}}
-@keyframes tsWave{0%{opacity:.85;transform:scale(.8)}100%{opacity:0;transform:scale(1.9)}}
-@keyframes tsOrbit{to{transform:rotate(360deg)}}
-@keyframes tsFloat{0%,100%{translate:0 0}50%{translate:0 2px}}
-@media (prefers-reduced-motion:reduce){.top-storage,.ts-ball,.ts-moon,.ts-planet::before{animation:none}}
+@keyframes tsRotate{to{background-position:-34px 0,-44px 50%,0 0}}
+@keyframes tsAtmo{0%,100%{box-shadow:0 0 8px 2px rgba(255,122,69,.7),0 0 20px 5px rgba(106,92,255,.45)}50%{box-shadow:0 0 14px 4px rgba(255,122,69,.9),0 0 30px 9px rgba(106,92,255,.65)}}
+@keyframes tsWave{0%{opacity:.8;transform:scale(.85)}100%{opacity:0;transform:scale(1.9)}}
+@keyframes tsKepler{0%{transform:translate(11.35px,-4.59px) scale(1.00);z-index:4}2.08%{transform:translate(11.44px,-3.62px) scale(1.04);z-index:4}4.17%{transform:translate(11.02px,-2.49px) scale(1.07);z-index:4}6.25%{transform:translate(10.13px,-1.25px) scale(1.11);z-index:4}8.33%{transform:translate(8.84px,0.03px) scale(1.14);z-index:4}10.4%{transform:translate(7.25px,1.32px) scale(1.16);z-index:4}12.5%{transform:translate(5.42px,2.56px) scale(1.18);z-index:4}14.6%{transform:translate(3.45px,3.74px) scale(1.19);z-index:4}16.7%{transform:translate(1.39px,4.82px) scale(1.20);z-index:4}18.8%{transform:translate(-0.69px,5.81px) scale(1.21);z-index:4}20.8%{transform:translate(-2.77px,6.68px) scale(1.21);z-index:4}22.9%{transform:translate(-4.80px,7.44px) scale(1.21);z-index:4}25%{transform:translate(-6.75px,8.09px) scale(1.20);z-index:4}27.1%{transform:translate(-8.62px,8.63px) scale(1.20);z-index:4}29.2%{transform:translate(-10.37px,9.05px) scale(1.18);z-index:4}31.2%{transform:translate(-12.01px,9.38px) scale(1.17);z-index:4}33.3%{transform:translate(-13.51px,9.60px) scale(1.16);z-index:4}35.4%{transform:translate(-14.87px,9.72px) scale(1.14);z-index:4}37.5%{transform:translate(-16.10px,9.74px) scale(1.12);z-index:4}39.6%{transform:translate(-17.17px,9.68px) scale(1.10);z-index:4}41.7%{transform:translate(-18.09px,9.53px) scale(1.08);z-index:4}43.8%{transform:translate(-18.85px,9.30px) scale(1.06);z-index:4}45.8%{transform:translate(-19.45px,8.99px) scale(1.04);z-index:4}47.9%{transform:translate(-19.90px,8.61px) scale(1.02);z-index:4}50%{transform:translate(-20.18px,8.15px) scale(1.00);z-index:4}52.1%{transform:translate(-20.29px,7.63px) scale(0.98);z-index:0}54.2%{transform:translate(-20.24px,7.05px) scale(0.96);z-index:0}56.2%{transform:translate(-20.02px,6.40px) scale(0.94);z-index:0}58.3%{transform:translate(-19.63px,5.71px) scale(0.92);z-index:0}60.4%{transform:translate(-19.07px,4.96px) scale(0.90);z-index:0}62.5%{transform:translate(-18.35px,4.17px) scale(0.88);z-index:0}64.6%{transform:translate(-17.45px,3.34px) scale(0.86);z-index:0}66.7%{transform:translate(-16.38px,2.48px) scale(0.84);z-index:0}68.8%{transform:translate(-15.15px,1.60px) scale(0.83);z-index:0}70.8%{transform:translate(-13.75px,0.69px) scale(0.82);z-index:0}72.9%{transform:translate(-12.19px,-0.22px) scale(0.80);z-index:0}75%{transform:translate(-10.48px,-1.13px) scale(0.80);z-index:0}77.1%{transform:translate(-8.62px,-2.02px) scale(0.79);z-index:0}79.2%{transform:translate(-6.63px,-2.88px) scale(0.79);z-index:0}81.2%{transform:translate(-4.53px,-3.69px) scale(0.79);z-index:0}83.3%{transform:translate(-2.35px,-4.44px) scale(0.80);z-index:0}85.4%{transform:translate(-0.11px,-5.09px) scale(0.81);z-index:0}87.5%{transform:translate(2.12px,-5.61px) scale(0.82);z-index:0}89.6%{transform:translate(4.30px,-5.98px) scale(0.84);z-index:0}91.7%{transform:translate(6.34px,-6.17px) scale(0.86);z-index:0}93.8%{transform:translate(8.16px,-6.13px) scale(0.89);z-index:0}95.8%{transform:translate(9.65px,-5.86px) scale(0.93);z-index:0}97.9%{transform:translate(10.74px,-5.34px) scale(0.96);z-index:0}100%{transform:translate(11.35px,-4.59px) scale(1.00);z-index:0}}
+@media (prefers-reduced-motion:reduce){.ts-ball,.ts-ball::before,.ts-moon,.ts-planet::before{animation:none}.ts-moon{transform:translate(12px,-4px)}}
 
 /* chân trang: bản quyền · vị trí và giờ Sài Gòn · khẩu hiệu */
 .foot-meta{display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;color:var(--lav-200);font-weight:600}
 .foot-sep{color:var(--orange)}
 .foot-time{font-variant-numeric:tabular-nums;color:#fff;font-weight:700;letter-spacing:.04em}
 .foot-slogan{font:italic 800 14px Montserrat;color:var(--orange-soft);letter-spacing:.04em}
-@media(max-width:520px){.top-storage{top:4px;right:10px;gap:7px;padding:2px 12px 2px 2px;font-size:11.5px}.ts-planet{width:32px;height:32px}}
+@media(max-width:520px){.top-storage{top:4px;right:10px;gap:7px;padding:2px 12px 2px 2px;font-size:11.5px}.ts-planet{scale:.9}}

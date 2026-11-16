@@ -112,3 +112,15 @@ footer{background:rgba(6,4,20,.8);border-top:1px solid var(--gx-line)}
 
 /* hộp thoại giữ nền sáng: trả lại màu chữ tối */
 dialog{color:var(--ink-soft);color-scheme:light}
+
+/* chuyển động "thật" cho các ngôi sao trang trí: sao không xoay tròn mà nhấp nháy (độ sáng dao động nhanh, không đều);
+   tinh vân gần như đứng yên nên chỉ trôi rất chậm */
+.mo-flare{animation:gxScint 2.6s steps(26) infinite}
+.mo-flare.b{animation-duration:3.4s;animation-delay:-1.2s}
+.cm-star{animation:gxScint 3s steps(30) infinite}
+.cm-star.s2{animation-delay:-1s}.cm-star.s3{animation-delay:-2s}
+.cm-kv::after{animation:gxScint 3.2s steps(32) infinite}
+@keyframes gxScint{0%{opacity:.55;transform:scale(.8)}9%{opacity:1;transform:scale(1)}17%{opacity:.7;transform:scale(.88)}28%{opacity:.95;transform:scale(.97)}41%{opacity:.5;transform:scale(.78)}52%{opacity:.9;transform:scale(.95)}63%{opacity:.62;transform:scale(.84)}77%{opacity:1;transform:scale(1.02)}88%{opacity:.68;transform:scale(.86)}100%{opacity:.55;transform:scale(.8)}}
+body::before{animation-duration:140s}
+body::after{animation-duration:170s}
+@media (prefers-reduced-motion:reduce){.mo-flare,.cm-star,.cm-kv::after{animation:none}}
