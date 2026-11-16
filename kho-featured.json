@@ -12749,6 +12749,237 @@
       ]
     },
     {
+      "id": "tool-drive-transfer",
+      "kho": "idea",
+      "shelf": "tool",
+      "status": "Đang dùng",
+      "guide": true,
+      "date": "2026-11-16",
+      "title": "Drive Transfer: chuyển dữ liệu từ Google Drive này sang Google Drive khác, giữ nguyên thư mục",
+      "type": "Công cụ",
+      "badge": "Apps Script",
+      "tags": [
+        "drive",
+        "apps script",
+        "google sheets",
+        "chuyển dữ liệu",
+        "miễn phí"
+      ],
+      "thumb": "assets/res/tool-drive-transfer.jpg",
+      "note": "Dán một đoạn Apps Script vào Google Sheet của tài khoản mới, dán link thư mục cũ, Google tự chép cả cây thư mục sang phía máy chủ. Máy bạn không tải gì, script tự chạy tiếp từng lượt, ghi nhật ký từng file và chép bù file lỗi mà không chép trùng.",
+      "sections": [
+        {
+          "k": "hero",
+          "kicker": "Apps Script · Google Drive",
+          "t": "Đổi tài khoản Google mà không phải tải cả Drive về rồi tải lên lại",
+          "lead": "Cách thường làm là tải về máy rồi tải lên tài khoản mới: chậm, tốn ổ cứng, đứt mạng là làm lại. Tool này để Google tự chép từ Drive cũ sang Drive mới ngay trên máy chủ của Google, bạn chỉ dán hai đường link.",
+          "ticks": [
+            "Máy bạn không tải hay tải lên byte nào",
+            "Giữ nguyên cây thư mục, chép cả Google Docs/Sheets/Slides",
+            "Tự chạy tiếp tới khi xong, có nhật ký từng file"
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Tool giúp bạn"
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "Google chép hộ",
+              "tag": "01",
+              "d": "Dùng lệnh sao chép phía máy chủ của Drive (makeCopy), file vài GB cũng không đi qua mạng nhà bạn."
+            },
+            {
+              "t": "Giữ nguyên cấu trúc",
+              "tag": "02",
+              "d": "Thư mục con được tạo lại đúng chỗ, file vào đúng thư mục, tên giữ nguyên."
+            },
+            {
+              "t": "Tự chạy tiếp",
+              "tag": "03",
+              "d": "Apps Script chỉ cho chạy 6 phút một lượt. Script dừng ở 4,5 phút, tự hẹn lượt sau, chạy cả khi bạn đã đóng Sheet."
+            },
+            {
+              "t": "Chép bù không trùng",
+              "tag": "04",
+              "d": "Mỗi file ghi một dòng OK / LỖI / BỎ QUA. Quét lại chỉ chép file chưa có trong nhật ký."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Chuyển thư mục \"Khách hàng 2026\" từ Gmail cũ sang Gmail mới",
+          "input": {
+            "label": "Bạn dán",
+            "t": "Nguồn: https://drive.google.com/drive/folders/1AbC…(thư mục Khách hàng 2026, đã chia sẻ cho tài khoản mới)\nĐích: (để trống)",
+            "code": true
+          },
+          "steps": [
+            "Script tạo thư mục \"Khách hàng 2026 (chuyển 2026-11-16)\" trong Drive của tôi ở tài khoản mới.",
+            "Duyệt từng thư mục: tạo thư mục con bên đích, đưa vào hàng đợi, rồi chép từng file bằng makeCopy.",
+            "Hết 4,5 phút thì lưu vị trí, hẹn lượt sau 1 phút; lặp tới khi hàng đợi rỗng.",
+            "Xong thì gửi email tóm tắt cho chính bạn."
+          ],
+          "output": {
+            "label": "Sheet Nhật ký và email",
+            "t": "OK     Khách hàng 2026/Hợp đồng/hop-dong-A.pdf      2.1 MB\nOK     Khách hàng 2026/Báo cáo/doanh-thu        google-spreadsheet\nBỎ QUA Khách hàng 2026/Lối tắt tới Ảnh          shortcut\nLỖI    Khách hàng 2026/bản-quyền.pdf            Không có quyền sao chép\n…\nEmail: Đã chép N file, M thư mục, 1 lỗi, 1 bỏ qua.",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ. Thời gian phụ thuộc số file nhiều hơn dung lượng; Gmail cá nhân có 90 phút chạy nền mỗi ngày, hết thì hôm sau script chạy tiếp."
+        },
+        {
+          "k": "h",
+          "t": "Làm được gì"
+        },
+        {
+          "k": "table",
+          "head": [
+            "Loại dữ liệu",
+            "Tool xử lý thế nào"
+          ],
+          "rows": [
+            [
+              "PDF, ảnh, video, Office, ZIP…",
+              "Chép nguyên file, giữ tên và thư mục"
+            ],
+            [
+              "Google Docs, Sheets, Slides, Forms",
+              "Chép thành file Google mới thuộc tài khoản mới"
+            ],
+            [
+              "Thư mục con nhiều cấp",
+              "Tạo lại đúng cây; thư mục cùng tên trong cùng thư mục cha được gộp làm một"
+            ],
+            [
+              "Lối tắt (shortcut)",
+              "Ghi BỎ QUA; muốn chép thì chia sẻ thư mục gốc của nó"
+            ],
+            [
+              "File chủ đã tắt tải/sao chép, Google Sites, My Maps",
+              "Không chép được, ghi LỖI kèm lý do"
+            ],
+            [
+              "Drive dùng chung (Shared drive)",
+              "Dùng được làm nguồn hoặc đích nếu tài khoản mới có quyền"
+            ]
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Cài và chạy"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Chia sẻ từ tài khoản cũ",
+              "d": "Chuột phải thư mục cần chuyển → Chia sẻ → thêm email tài khoản mới, quyền Người xem là đủ. Muốn chuyển cả Drive: gom mọi thứ vào một thư mục rồi chia sẻ thư mục đó."
+            },
+            {
+              "t": "Dán script vào Sheet của tài khoản mới",
+              "d": "Tạo Google Sheet mới → Tiện ích mở rộng → Apps Script → xoá code mẫu, dán toàn bộ Code.gs (nút bên dưới) → Lưu."
+            },
+            {
+              "t": "Bắt đầu",
+              "d": "Tải lại Sheet → menu Chuyển Drive → Bắt đầu chuyển… → cấp quyền. Dán link thư mục nguồn, link thư mục đích (để trống để tự tạo). Theo dõi ở sheet Nhật ký hoặc Xem tiến độ."
+            },
+            {
+              "t": "Kiểm tra và chép bù",
+              "d": "Lọc cột Trạng thái theo LỖI, xử lý nguyên nhân (thiếu quyền, đầy dung lượng) rồi chọn Quét lại và chép bù. Kiểm tra xong mới xoá dữ liệu bên tài khoản cũ."
+            }
+          ]
+        },
+        {
+          "k": "callout",
+          "t": "Lần đầu cấp quyền, Google báo \"Google chưa xác minh ứng dụng này\" vì đây là script của chính bạn, chạy trong tài khoản của bạn. Bấm Nâng cao → Đi tới … (không an toàn). Script xin quyền Drive (đọc thư mục nguồn, tạo bản chép), Sheet đang mở (ghi nhật ký), chạy nền và gửi email cho chính bạn; không gửi dữ liệu đi đâu khác."
+        },
+        {
+          "k": "h",
+          "t": "Giới hạn cần biết"
+        },
+        {
+          "k": "list",
+          "items": [
+            "Một lượt Apps Script chạy tối đa 6 phút; tổng thời gian chạy nền bằng trigger là 90 phút/ngày với Gmail cá nhân, 6 giờ/ngày với Google Workspace (theo trang Quotas của Apps Script). Hết hạn mức thì script tự thử lại, hôm sau chạy tiếp.",
+            "Mỗi người dùng tải lên và sao chép tối đa 750 GB trong 24 giờ (trang trợ giúp Google Workspace).",
+            "Bản chép thuộc sở hữu tài khoản mới và tính vào dung lượng của tài khoản mới; dữ liệu gốc không bị xoá.",
+            "Bình luận, lịch sử phiên bản và quyền chia sẻ cũ không đi theo bản chép."
+          ]
+        },
+        {
+          "k": "links",
+          "items": [
+            {
+              "t": "Code.gs: mã để dán vào Apps Script",
+              "u": "https://github.com/thecoolestmarperindawurl/drive-transfer/blob/main/Code.gs"
+            },
+            {
+              "t": "README: cách hoạt động và giới hạn",
+              "u": "https://github.com/thecoolestmarperindawurl/drive-transfer#readme"
+            },
+            {
+              "t": "Mã nguồn trên GitHub: thecoolestmarperindawurl/drive-transfer",
+              "u": "https://github.com/thecoolestmarperindawurl/drive-transfer"
+            },
+            {
+              "t": "Apps Script: hạn mức (Quotas for Google Services)",
+              "u": "https://developers.google.com/apps-script/guides/services/quotas"
+            },
+            {
+              "t": "Google Workspace: giới hạn tải lên và lưu trữ",
+              "u": "https://support.google.com/a/answer/172541"
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Câu hỏi thường gặp"
+        },
+        {
+          "k": "faq",
+          "items": [
+            {
+              "q": "Có chuyển quyền sở hữu thay vì sao chép được không?",
+              "a": "Giữa hai Gmail cá nhân, Drive không cho chuyển quyền sở hữu trực tiếp mà phải mời và chờ bên kia chấp nhận từng file. Sao chép là cách làm được hàng loạt; kiểm tra xong bạn xoá bản bên tài khoản cũ."
+            },
+            {
+              "q": "Đang chạy mà đóng máy thì sao?",
+              "a": "Không sao. Script chạy trên máy chủ Google bằng trigger, đóng Sheet hay tắt máy vẫn chạy tiếp. Muốn dừng thì chọn Tạm dừng."
+            },
+            {
+              "q": "Chạy lại có bị chép trùng không?",
+              "a": "Không. File đã chép thành công nằm trong sheet Nhật ký theo ID nguồn; Quét lại và chép bù chỉ chép file chưa có, gồm file lỗi và file mới thêm vào thư mục nguồn."
+            },
+            {
+              "q": "Chuyển một thư mục khác thì làm sao?",
+              "a": "Chọn Bắt đầu chuyển… với link khác. Nhật ký cũ được đổi tên kèm ngày giờ, lượt mới ghi vào sheet Nhật ký mới."
+            },
+            {
+              "q": "Bao lâu thì xong?",
+              "a": "Phụ thuộc số file hơn dung lượng, vì mỗi file là một lệnh sao chép. Mình chưa đo trên Drive thật; theo dõi số file mỗi lượt trong Xem tiến độ để ước lượng."
+            }
+          ]
+        },
+        {
+          "k": "outro",
+          "t": "Đổi tài khoản Google, dữ liệu đi theo",
+          "d": "Chia sẻ thư mục, dán script vào một Google Sheet, dán hai đường link. Google lo phần còn lại.",
+          "note": "Miễn phí, mã nguồn mở. Chạy trong tài khoản Google của bạn, không qua máy chủ nào khác."
+        }
+      ],
+      "cta": {
+        "title": "Lấy script",
+        "url": "https://github.com/thecoolestmarperindawurl/drive-transfer/blob/main/Code.gs",
+        "btn": "Mở Code.gs trên GitHub"
+      }
+    },
+    {
       "id": "app-mograph",
       "kho": "idea",
       "shelf": "tool",
