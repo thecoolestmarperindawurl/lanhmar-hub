@@ -93,6 +93,20 @@ function hashIndex(str, n) {
   return h % n;
 }
 
+// Tên skill như lúc gọi (`t-outbox:content-calendar`, `/brief`) -> id ngắn để tra bảng kỹ năng của phòng ban.
+function skillId(name) {
+  return String(name || '').trim().replace(/^\//, '').split(/\s/)[0].split(':').pop();
+}
+// Skill thuộc phòng nào, ai là người dùng chính (theo roster.departments[].skills).
+function skillInfo(name) {
+  const id = skillId(name);
+  for (const d of S.roster.departments || []) {
+    const k = (d.skills || []).find((x) => x.id === id);
+    if (k) return { ...k, dept: d.id };
+  }
+  return null;
+}
+
 function describeTool(ev) {
   const d = ev.detail;
   switch (ev.tool) {
@@ -103,7 +117,7 @@ function describeTool(ev) {
     case 'WebFetch': return d ? `Đang xem ${d}` : 'Đang xem trang web';
     case 'Bash': return d || 'Đang chạy lệnh';
     case 'Grep': case 'Glob': return 'Đang lục hồ sơ dự án';
-    case 'Skill': return d ? `Đang dùng skill ${d}` : 'Đang dùng skill';
+    case 'Skill': return d ? `Chạy skill /${skillId(d)}` : 'Đang dùng skill';
     case 'AskUserQuestion': return 'Đang hỏi ý kiến sếp';
     default: {
       const m = /^mcp__(.+?)__/.exec(ev.tool || '');
@@ -121,7 +135,7 @@ function createStaff(def) {
     title: 'Cộng tác viên', ...def,
     name: def.name || def.id,
     deptName: dept ? dept.name : 'Cộng tác viên',
-    instances: new Map(), status: 'idle', activity: '', alert: false, assist: false, lastTs: 0, doneAt: 0,
+    instances: new Map(), status: 'idle', activity: '', alert: false, assist: false, lastTs: 0, doneAt: 0, skill: null,
   };
   // Màu nhận diện là màu phòng ban; áo đồng phục thì theo brand (do view vẽ).
   if (!s.color) s.color = dept ? dept.color : GUEST_COLORS[hashIndex(s.id, GUEST_COLORS.length)];
@@ -163,6 +177,7 @@ function pickHelper(ev) {
     else if (['svg', 'png', 'jpg', 'jpeg', 'webp', 'fig'].includes(ext)) id = 'designer';
   } else if (ev.tool === 'Bash' && /test|kiểm|lint/.test(d)) id = 'qa-reviewer';
   else if (/^mcp__canva/i.test(ev.tool || '')) id = 'designer';
+  else if (ev.tool === 'Skill') { const k = skillInfo(ev.detail); if (k && k.owner !== 'manager') id = k.owner; }
   const s = id && S.staff.get(id);
   return s && !s.off && s.instances.size === 0 ? s : null;
 }
@@ -181,9 +196,15 @@ function setWorking(s, activity, t) {
 }
 function setDone(s, t) {
   s.status = 'done';
+  s.skill = null;
   s.doneAt = t;
   s.lastTs = t;
 }
+function runSkill(s, name, t, sid) {
+  s.skill = { id: skillId(name), name: String(name).replace(/^\//, ''), t };
+  if (S.animate && view.skill) view.skill(s, s.skill.name, sessionColor(sid));
+}
+
 function addFeed(t, who, text, kind) {
   S.feed.unshift({ t, who, text, kind });
   if (S.feed.length > FEED_MAX) S.feed.length = FEED_MAX;
@@ -191,7 +212,7 @@ function addFeed(t, who, text, kind) {
 
 function resetState() {
   for (const s of S.staff.values()) {
-    s.instances.clear(); s.status = 'idle'; s.activity = ''; s.alert = false; s.assist = false; s.lastTs = 0; s.doneAt = 0;
+    s.instances.clear(); s.status = 'idle'; s.activity = ''; s.alert = false; s.assist = false; s.lastTs = 0; s.doneAt = 0; s.skill = null;
   }
   S.tasks = []; S.feed = []; S.doneCount = 0; S.sessions.clear(); S.openTasks.clear();
 }
@@ -205,10 +226,14 @@ function apply(ev) {
   if (ev.e !== 'wait') actor.alert = false;
 
   switch (ev.e) {
-    case 'prompt':
+    case 'prompt': {
       setWorking(manager, 'Nhận việc từ sếp', t);
       addFeed(t, 'Sếp', ev.text || 'giao việc mới', 'boss');
+      // Sếp gõ thẳng lệnh skill (/t-outbox:brief ...): CEO chạy skill đó.
+      const cmd = /^\/([\w.-]+:)?[\w.-]+/.exec(ev.text || '');
+      if (cmd && (cmd[1] || skillInfo(cmd[0]))) { runSkill(manager, cmd[0], t, ev.sid); manager.activity = `Chạy skill /${skillId(cmd[0])}`; }
       break;
+    }
 
     case 'assign': {
       const to = getStaff(ev.to);
@@ -241,8 +266,13 @@ function apply(ev) {
         if (task) { task.steps.push({ t, text }); if (task.steps.length > 30) task.steps.shift(); }
       } else if (S.lively && S.animate) {
         const helper = pickHelper(ev);
-        if (helper) { helper.assist = true; setWorking(helper, 'Hỗ trợ CEO: ' + text.replace(/^Đang /, ''), t); }
+        if (helper) {
+          helper.assist = true;
+          setWorking(helper, 'Hỗ trợ CEO: ' + text.replace(/^Đang /, ''), t);
+          if (ev.tool === 'Skill' && ev.detail) runSkill(helper, ev.detail, t, ev.sid);
+        }
       }
+      if (ev.tool === 'Skill' && ev.detail) runSkill(actor, ev.detail, t, ev.sid);
       if (FEED_TOOLS.has(ev.tool) || /^mcp__/.test(ev.tool || '')) addFeed(t, actor.name, text.replace(/^Đang /, ''), 'tool');
       break;
     }
@@ -288,8 +318,8 @@ function settle(now) {
   let changed = false;
   for (const s of S.staff.values()) {
     if (s.status === 'done' && now - s.doneAt > DONE_SHOW_MS) { s.status = 'idle'; changed = true; }
-    if (s.assist && s.status === 'working' && now - s.lastTs > ASSIST_MS) { s.status = 'idle'; s.assist = false; changed = true; }
-    if (s.status === 'working' && now - s.lastTs > STALE_MS) { s.status = 'idle'; s.alert = false; s.instances.clear(); changed = true; }
+    if (s.assist && s.status === 'working' && now - s.lastTs > ASSIST_MS) { s.status = 'idle'; s.assist = false; s.skill = null; changed = true; }
+    if (s.status === 'working' && now - s.lastTs > STALE_MS) { s.status = 'idle'; s.alert = false; s.instances.clear(); s.skill = null; changed = true; }
   }
   return changed;
 }
@@ -319,7 +349,7 @@ function card(k, now) {
 }
 
 function render() {
-  for (const s of S.staff.values()) view.sync(s, bubbleText(s), S.animate);
+  for (const s of S.staff.values()) { s.hideDetail = S.hide; view.sync(s, bubbleText(s), S.animate); }
   const now = Date.now();
   const staff = [...S.staff.values()];
 
@@ -339,9 +369,12 @@ function render() {
   $('depts').innerHTML = (S.roster.departments || []).map((d) => {
     const team = staff.filter((s) => s.dept === d.id && !s.off);
     const busy = team.filter((s) => s.status === 'working').length;
-    return `<li style="--c:${esc(d.color)}" data-dept="${esc(d.id)}" title="Bấm để xem tầng này"><span class="dept-name">${esc(d.name)}</span>
+    const running = staff.filter((s) => s.status === 'working' && s.skill && (skillInfo(s.skill.name) || { dept: s.dept }).dept === d.id);
+    const skills = (d.skills || []).map((k) => `/${k.id}`).join(' · ');
+    return `<li style="--c:${esc(d.color)}" data-dept="${esc(d.id)}" title="Bấm để xem tầng này${skills ? '. Skill: ' + esc(skills) : ''}"><span class="dept-name">${esc(d.name)}</span>
       <span class="dept-dots">${team.map((s) => `<i class="${s.status}" title="${esc(s.name)}"></i>`).join('')}</span>
-      <span class="dept-count">${busy}/${team.length}</span></li>`;
+      <span class="dept-count">${busy}/${team.length}</span>
+      ${running.length && !S.hide ? `<span class="dept-skill">${running.map((s) => `<span>▶ /${esc(s.skill.id)} <small>${esc(s.name)}</small></span>`).join('')}</span>` : ''}</li>`;
   }).join('') + [['meeting', 'Trung tâm hội nghị'], ['canteen', 'Canteen'], ['lobby', 'Sảnh, lễ tân, bảo vệ'], ['parking', 'Hầm đỗ xe B1']].map(([id, name]) =>
     `<li class="place" data-dept="${id}" title="Bấm để xem"><span class="dept-name">${name}</span></li>`).join('');
 
