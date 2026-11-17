@@ -5,13 +5,11 @@
    - Thẻ nội dung: kính tối, chữ sáng (đặt lại biến màu của kho.css trong phạm vi .lms). Hộp chi tiết (#resDlg) giữ nền sáng như website.
    Chỉ dùng màu LANHMAR: tím #2D2FEF/#6A5CFF/#8F84FF/#B9B0FF, cam #FF7A45/#FFB08A. */
 
-/* Phạm vi: storage.html luôn; kho.html chỉ khi đang ở màn khoá (#lock hiện). Phần quản lý của chủ kho sau khi mở khoá giữ giao diện cũ. */
-html:has(#lock[hidden]){background:none;color-scheme:light}
-html:has(#lock[hidden]) #gxSky,html:has(#lock[hidden]) .gx-skytag{display:none}
-:root:not(:has(#lock[hidden])) body{background:transparent;color:var(--gx-text)}
-:root:not(:has(#lock[hidden])) body::before,:root:not(:has(#lock[hidden])) body::after{display:none!important}
+/* Áp dụng cho storage.html và kho.html (màn khoá + phần quản lý của chủ kho). */
+:root body{background:transparent;color:var(--gx-text)}
+:root body::before,:root body::after{display:none!important}
 /* lớp tối nhẹ phía trên bầu trời để nội dung dễ đọc */
-:root:not(:has(#lock[hidden]))::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(120% 90% at 60% 40%,rgba(8,6,28,.35),rgba(8,6,28,.6))}
+:root::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(120% 90% at 60% 40%,rgba(8,6,28,.35),rgba(8,6,28,.6))}
 .lms ~ * .marquee,body:has(.lms) .marquee{display:none}
 
 /* ---------- token tối trong phạm vi Storage ---------- */
@@ -40,8 +38,8 @@ html:has(#lock[hidden]) #gxSky,html:has(#lock[hidden]) .gx-skytag{display:none}
 .lockcard .seg .tab{background:transparent;color:#CFC8F2;border-color:transparent}
 .lockcard .seg .tab.on{background:linear-gradient(120deg,#2D2FEF,#6A5CFF);color:#fff}
 .lockcard .codebox{background:rgba(255,122,69,.14);color:#FFD8C2;border-color:rgba(255,122,69,.5)}
-:root:not(:has(#lock[hidden])) :is(.st-lang,[data-lm-lang]) button{color:#A99FD6}
-:root:not(:has(#lock[hidden])) [data-lm-lang] button:is(.on,[aria-pressed="true"]){color:#fff}
+:root :is(.st-lang,[data-lm-lang]) button{color:#A99FD6}
+:root [data-lm-lang] button:is(.on,[aria-pressed="true"]){color:#fff}
 
 /* ---------- khung LMS ---------- */
 .lms{display:grid;grid-template-columns:272px minmax(0,1fr);min-height:100vh;min-height:100dvh}
@@ -126,7 +124,7 @@ html:has(#lock[hidden]) #gxSky,html:has(#lock[hidden]) .gx-skytag{display:none}
 
 /* ---------- hộp chi tiết giữ nền sáng (như website) ---------- */
 dialog.res-dlg{color:#55507A;color-scheme:light}
-body:has(.lms) dialog::backdrop,:root:not(:has(#lock[hidden])) dialog::backdrop{background:rgba(8,6,28,.7);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+body:has(.lms) dialog::backdrop,:root dialog::backdrop{background:rgba(8,6,28,.7);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
 
 /* ---------- điện thoại / máy tính bảng: thanh bên thành menu trượt ---------- */
 @media(max-width:960px){
@@ -163,3 +161,23 @@ body:has(.lms) dialog::backdrop,:root:not(:has(#lock[hidden])) dialog::backdrop{
 .lms-side-foot .btn{background:rgba(255,255,255,.05)!important;box-shadow:none!important}
 /* menu trượt đang mở: tạm ẩn nút chat để không đè lên chân menu */
 body:has(.lms-side.open) :is(.chat-fab,.chat-tip,.gx-skytag){visibility:hidden}
+
+/* ---------- Kho cá nhân (kho.html): công cụ chủ kho ở thanh bên ---------- */
+.lms-user em{font-style:normal;font-size:11.5px;color:#A99FD6}
+.lms-side-foot label.btn{display:block;width:100%;text-align:center;margin:0;padding:9px 14px;font-size:13px;text-transform:none;letter-spacing:0;cursor:pointer}
+.lms-note{margin:2px 4px 6px;font-size:11.5px;line-height:1.45;color:#8F86C2}
+.lms-top .bar #add{flex:none;padding:9px 16px}
+.lms .card .acts button{background:rgba(255,255,255,.06);color:#E7E2FB;border-color:rgba(178,164,239,.35)}
+.lms .badge.shared{background:rgba(106,92,255,.25);color:#E7E2FB}
+.lms .chip.more{background:transparent;border-style:dashed;color:#FFB08A}
+.lms-head>.tags{margin:12px 0 0}
+/* bảng giới thiệu chủ đề (grp-intro) trên nền tối */
+.lms .grp-intro table{background:rgba(14,10,42,.55)}
+.lms .grp-intro td{color:#E7E2FB}
+.lms .grp-intro td:last-child{color:#FFB08A;font-weight:700}
+.lms .grp-intro-link{color:#B9B0FF}
+/* thanh trên: ô tìm kiếm, nút Thêm và công tắc Hiệu ứng trên một hàng */
+.lms-top .bar{flex:0 1 640px;flex-wrap:nowrap}
+.lms-top .bar input{min-width:140px}
+.lms-top .neu-ctl{flex:none}
+@media(max-width:960px){.lms-top .bar{flex-wrap:wrap}}
