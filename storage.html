@@ -8,10 +8,12 @@
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-<meta name="theme-color" content="#2D2FEF">
+<meta name="theme-color" content="#0B0826">
 <link rel="stylesheet" href="kho.css?v=20261116b">
 <link rel="stylesheet" href="mascot.css?v=20261104z">
 <link rel="stylesheet" href="donate.css?v=20261104u">
+<link rel="stylesheet" href="sky.css?v=20261118a">
+<link rel="stylesheet" href="storage-lms.css?v=20261118d">
 </head>
 <body>
 <div class="marquee"><span>★ DATA STORAGE ★ LANHMAR ★ DATA STORAGE ★ LANHMAR ★ DATA STORAGE ★ LANHMAR ★ DATA STORAGE ★ LANHMAR</span></div>
@@ -57,19 +59,36 @@
   </div>
 </section>
 
-<div id="app" hidden>
-  <header class="hero"><div class="wrap">
-    <div class="st-top"><a class="btn back" href="index.html" data-i="back_port">← Về portfolio</a><div data-lm-lang></div></div>
-    <div class="kicker">★ Data Storage</div>
-    <h1 data-ih="h1">Kho <em>chia sẻ</em></h1>
-    <p id="hello"></p>
+<div id="app" class="lms" hidden>
+  <!-- bố cục kiểu LMS: thanh bên = danh sách kho (như danh sách khoá học), cột chính = đầu kho + các chương (nhóm) + nội dung -->
+  <aside class="lms-side" id="lmsSide" aria-label="Data Storage">
+    <a class="lms-brand" href="index.html"><img src="assets/img/logo-lanhmar.png" alt="LANHMAR"><span>Data Storage</span></a>
+    <div class="lms-user"><span class="lms-av" aria-hidden="true">★</span><p id="hello"></p></div>
+    <p class="lms-label" data-i="side_label">Các kho</p>
     <nav class="tabs" id="tabs"></nav>
-    <p class="desc" id="desc"></p>
-    <div class="groups" id="groups"></div>
-    <div class="bar"><input id="q" type="search" placeholder="Tìm trong kho…" data-ph="search"><button class="btn" id="logout" data-i="logout">Thoát</button></div>
-    <div class="tags" id="tags"></div>
-  </div></header>
-  <main class="wrap"><section class="grid" id="grid"></section></main>
+    <div class="lms-side-foot">
+      <div data-lm-lang></div>
+      <a class="btn back" href="index.html" data-i="back_port">← Về portfolio</a>
+      <button class="btn" id="logout" data-i="logout">Thoát</button>
+    </div>
+  </aside>
+  <div class="lms-scrim" id="lmsScrim" hidden></div>
+  <div class="lms-main">
+    <header class="lms-top">
+      <button class="lms-burger" id="lmsBurger" type="button" aria-controls="lmsSide" aria-expanded="false">☰</button>
+      <nav class="lms-crumb" id="crumb" aria-label="breadcrumb"></nav>
+      <div class="bar"><input id="q" type="search" placeholder="Tìm trong kho…" data-ph="search"></div>
+    </header>
+    <section class="lms-head">
+      <div class="kicker">★ Data Storage</div>
+      <h1 id="khoTitle" data-ih="h1">Kho <em>chia sẻ</em></h1>
+      <p class="desc" id="desc"></p>
+      <div class="lms-stats" id="stats"></div>
+      <div class="groups" id="groups"></div>
+      <details class="lms-tagbox" id="tagBox"><summary data-i="tag_filter">Lọc theo thẻ</summary><div class="tags" id="tags"></div></details>
+    </section>
+    <main class="lms-content"><section class="grid" id="grid"></section></main>
+  </div>
 </div>
 
 <dialog id="resDlg" class="res-dlg"></dialog>
@@ -81,9 +100,14 @@
 <script src="resource.js?v=20261116b"></script>
 <script src="storage-config.js?v=20261104u"></script>
 <script src="chat.js?v=20261105a"></script>
-<script src="storage.js?v=20261105a"></script>
+<script src="storage.js?v=20261118a"></script>
 <script src="fx.js?v=20261105j"></script>
 <script src="mascot.js?v=20261104z"></script>
+<script src="sky-data.js?v=20261117a"></script>
+<script src="sky-astro.js?v=20261117a"></script>
+<script src="sky-holidays.js?v=20261118a"></script>
+<script src="galaxy.js?v=20261118b"></script>
+<script src="planet-warp.js?v=20261118b"></script>
 <!-- GoatCounter: đếm lượt xem ẩn danh, không cookie, không theo dõi cá nhân -->
 <script data-goatcounter="https://lanhmar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>

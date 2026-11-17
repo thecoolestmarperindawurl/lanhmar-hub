@@ -1,0 +1,165 @@
+/* Data Storage (storage.html) + trang khoá Kho cá nhân (kho.html): đồng bộ giao diện Galaxy của website, bố cục kiểu LMS.
+   - Nền: bầu trời thật (galaxy.js + sky.css), phủ một lớp tối nhẹ để đọc lâu không mỏi mắt.
+   - Bố cục: thanh bên = danh sách kho (như danh sách khoá học) + người dùng + ngôn ngữ/thoát; cột chính = thanh trên (đường dẫn, tìm kiếm),
+     đầu kho (tên, mô tả, số liệu), các chủ đề dạng tab chương, bộ lọc thẻ thu gọn, rồi nội dung. Điện thoại: thanh bên thành menu trượt.
+   - Thẻ nội dung: kính tối, chữ sáng (đặt lại biến màu của kho.css trong phạm vi .lms). Hộp chi tiết (#resDlg) giữ nền sáng như website.
+   Chỉ dùng màu LANHMAR: tím #2D2FEF/#6A5CFF/#8F84FF/#B9B0FF, cam #FF7A45/#FFB08A. */
+
+/* Phạm vi: storage.html luôn; kho.html chỉ khi đang ở màn khoá (#lock hiện). Phần quản lý của chủ kho sau khi mở khoá giữ giao diện cũ. */
+html:has(#lock[hidden]){background:none;color-scheme:light}
+html:has(#lock[hidden]) #gxSky,html:has(#lock[hidden]) .gx-skytag{display:none}
+:root:not(:has(#lock[hidden])) body{background:transparent;color:var(--gx-text)}
+:root:not(:has(#lock[hidden])) body::before,:root:not(:has(#lock[hidden])) body::after{display:none!important}
+/* lớp tối nhẹ phía trên bầu trời để nội dung dễ đọc */
+:root:not(:has(#lock[hidden]))::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(120% 90% at 60% 40%,rgba(8,6,28,.35),rgba(8,6,28,.6))}
+.lms ~ * .marquee,body:has(.lms) .marquee{display:none}
+
+/* ---------- token tối trong phạm vi Storage ---------- */
+.lms,#gate,#lock{
+  --paper:rgba(24,19,64,.66);--lav-100:rgba(255,255,255,.04);--lav-200:rgba(106,92,255,.18);--lav-300:rgba(178,164,239,.26);--lav-400:rgba(178,164,239,.5);
+  --ink:#FFFFFF;--ink-soft:#CFC8F2;--purple-deep:#C9C2FF;--orange-text:#FFB08A;--orange-soft:rgba(255,122,69,.18);
+  --shadow:0 0 0 1px rgba(178,164,239,.12),0 14px 36px rgba(4,2,20,.5);
+  color:var(--gx-text)}
+.lms input,.lms select,.lms textarea,#gate input,#gate textarea,#lock input{background:rgba(14,10,42,.7);color:#fff;border-color:rgba(178,164,239,.35)}
+.lms input::placeholder,#gate input::placeholder,#gate textarea::placeholder,#lock input::placeholder{color:#8F86C2}
+.lms .btn,#gate .btn,#lock .btn{background:rgba(255,255,255,.06);color:#E7E2FB;border-color:rgba(178,164,239,.45)}
+.lms .btn:hover,#gate .btn:hover,#lock .btn:hover{background:rgba(255,255,255,.12);box-shadow:0 0 22px rgba(143,132,255,.35)}
+.lms .btn.primary,#gate .btn.primary,#lock .btn.primary{background:linear-gradient(120deg,#2D2FEF,#6A5CFF);border-color:transparent;color:#fff;box-shadow:0 0 24px rgba(45,47,239,.5)}
+#gate .btn.storage,#lock .btn.storage{background:linear-gradient(120deg,#FF7A45,#C24418);color:#fff;border-color:transparent;box-shadow:0 0 24px rgba(255,122,69,.4)}
+.lms h1 em,#gate h1 em,#lock h1 em{color:#FF8B5C;text-decoration-color:rgba(255,122,69,.35);text-shadow:0 0 26px rgba(255,122,69,.45)}
+.lms .kicker,#gate .kicker,#lock .kicker{color:#FFB08A}
+
+/* ---------- màn khoá / đăng ký: thẻ kính tối giữa bầu trời ---------- */
+.lockbox{background:transparent}
+.lockcard{background:rgba(18,14,50,.78)!important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(178,164,239,.3)!important;
+  box-shadow:0 0 0 1px rgba(178,164,239,.1),0 30px 80px rgba(4,2,20,.65),0 0 60px rgba(106,92,255,.25)!important;color:#CFC8F2}
+.lockcard h1{color:#fff!important}
+.lockcard p,.lockcard label,.lockcard .hint{color:#CFC8F2}
+.lockcard .sep{border-color:rgba(178,164,239,.3)}
+.lockcard .seg{background:rgba(255,255,255,.05);border-color:rgba(178,164,239,.3)}
+.lockcard .seg .tab{background:transparent;color:#CFC8F2;border-color:transparent}
+.lockcard .seg .tab.on{background:linear-gradient(120deg,#2D2FEF,#6A5CFF);color:#fff}
+.lockcard .codebox{background:rgba(255,122,69,.14);color:#FFD8C2;border-color:rgba(255,122,69,.5)}
+:root:not(:has(#lock[hidden])) :is(.st-lang,[data-lm-lang]) button{color:#A99FD6}
+:root:not(:has(#lock[hidden])) [data-lm-lang] button:is(.on,[aria-pressed="true"]){color:#fff}
+
+/* ---------- khung LMS ---------- */
+.lms{display:grid;grid-template-columns:272px minmax(0,1fr);min-height:100vh;min-height:100dvh}
+.lms[hidden]{display:none}
+.lms-side{position:sticky;top:0;height:100vh;height:100dvh;overflow:auto;display:flex;flex-direction:column;gap:14px;padding:22px 16px 18px;
+  background:rgba(10,7,32,.78);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-right:1px solid rgba(178,164,239,.18);z-index:30;scrollbar-width:thin}
+.lms-brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font:800 15px Montserrat;letter-spacing:.02em;padding:0 6px}
+.lms-brand img{height:28px;width:auto;filter:drop-shadow(0 0 .7px #fff) drop-shadow(0 0 .7px #fff)}
+.lms-brand span{background:linear-gradient(90deg,#B9B0FF,#FFB08A);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lms-user{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(178,164,239,.2)}
+.lms-av{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:#241F45;font-weight:800;background:radial-gradient(circle at 32% 28%,#FFE1D2,#FF7A45 55%,#6A5CFF);box-shadow:0 0 14px rgba(255,122,69,.5)}
+.lms-user p{margin:0;font:600 12.5px/1.35 Montserrat;color:#E7E2FB}
+.lms-label{margin:6px 8px 0;font:700 11px Montserrat;letter-spacing:.16em;text-transform:uppercase;color:#8F86C2}
+/* danh sách kho dọc, như danh sách khoá học */
+.lms-side .tabs{display:flex;flex-direction:column;gap:4px;margin:0;overflow:visible;flex-wrap:nowrap}
+.lms-side .tab{position:relative;display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:11px 12px;border-radius:14px;border:1px solid transparent;
+  background:transparent;color:#CFC8F2;font:600 14px Montserrat;box-shadow:none;transform:none}
+.lms-side .tab small{margin-left:auto;min-width:28px;text-align:center;padding:1px 8px;border-radius:999px;background:rgba(255,255,255,.07);color:#A99FD6;font:700 11.5px Montserrat;opacity:1}
+.lms-side .tab:hover{background:rgba(255,255,255,.06);color:#fff;transform:none;box-shadow:none}
+.lms-side .tab.on{background:linear-gradient(120deg,rgba(45,47,239,.55),rgba(106,92,255,.35));border-color:rgba(185,176,255,.45);color:#fff;box-shadow:0 0 22px rgba(106,92,255,.35)}
+.lms-side .tab.on::before{content:"";position:absolute;left:-16px;top:10px;bottom:10px;width:4px;border-radius:0 4px 4px 0;background:linear-gradient(#FFB08A,#FF7A45);box-shadow:0 0 10px rgba(255,122,69,.8)}
+.lms-side .tab.on small{background:#FF7A45;color:#241F45}
+.lms-side-foot{margin-top:auto;display:flex;flex-direction:column;gap:8px;padding-top:12px;border-top:1px solid rgba(178,164,239,.18)}
+.lms-side-foot [data-lm-lang]{padding:0 6px}
+.lms-side-foot .btn{width:100%;text-align:center;padding:9px 14px;font-size:13px}
+.lms-side-foot .btn.back{margin:0}
+
+.lms-main{min-width:0;display:flex;flex-direction:column}
+.lms-top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:14px;padding:12px clamp(16px,3vw,36px);
+  background:rgba(10,7,32,.72);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid rgba(178,164,239,.16)}
+.lms-burger{display:none;flex:none;width:40px;height:40px;border-radius:12px;border:1px solid rgba(178,164,239,.4);background:rgba(255,255,255,.06);color:#fff;font:700 18px/1 Montserrat;cursor:pointer}
+.lms-crumb{display:flex;align-items:center;gap:8px;min-width:0;font:600 13px Montserrat;color:#A99FD6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lms-crumb b{color:#fff;font-weight:700}
+.lms-crumb i{font-style:normal;color:#6E66A8}
+.lms-top .bar{margin:0 0 0 auto;flex:0 1 380px;min-width:180px}
+.lms-top .bar input{border-radius:999px;padding:9px 16px 9px 38px;background:rgba(14,10,42,.7) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23B9B0FF' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E") no-repeat 14px 50%/16px}
+/* công tắc "Hiệu ứng" của fx.js: gọn lại trong thanh trên */
+.lms-top .bar{display:flex;align-items:center;gap:10px}
+.lms-top .bar label,.lms-top .bar .fx-toggle{flex:none;font-size:11px;color:#A99FD6}
+
+.lms-head{padding:clamp(22px,4vw,40px) clamp(16px,3vw,36px) 6px;max-width:1180px;width:100%}
+.lms-head h1{color:#fff;font-size:clamp(30px,4.6vw,46px);margin:6px 0 8px;text-shadow:0 0 30px rgba(106,92,255,.45)}
+.lms-head .desc{color:#CFC8F2;font-weight:500;font-size:15.5px;max-width:760px;margin:0 0 14px}
+.lms-stats{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.lms-stat{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(178,164,239,.25);font:700 12px Montserrat;color:#E7E2FB}
+.lms-stat::before{content:"✦";color:#B9B0FF;font-size:10px}
+.lms-stat.new{border-color:rgba(255,122,69,.5);color:#FFD8C2}.lms-stat.new::before{color:#FF7A45}
+/* chủ đề trong kho: tab chương, kéo ngang được */
+.lms-head .groups{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;margin:0 0 4px;padding:0 0 10px;border-bottom:1px solid rgba(178,164,239,.18);scrollbar-width:thin}
+.lms-head .gpill{flex:none;border-radius:12px 12px 0 0;border:0;border-bottom:3px solid transparent;background:transparent;color:#A99FD6;font:700 13.5px Montserrat;padding:9px 14px;box-shadow:none;transform:none}
+.lms-head .gpill small{color:#8F86C2}
+.lms-head .gpill:hover{color:#fff;background:rgba(255,255,255,.05);transform:none}
+.lms-head .gpill.on{color:#fff;border-bottom-color:#FF7A45;background:linear-gradient(rgba(106,92,255,0),rgba(106,92,255,.22))}
+.lms-head .gpill.on small{color:#FFB08A}
+/* bộ lọc thẻ thu gọn */
+.lms-tagbox{margin:12px 0 0}
+.lms-tagbox[hidden]{display:none}
+.lms-tagbox summary{display:inline-flex;align-items:center;gap:8px;cursor:pointer;list-style:none;padding:6px 14px;border-radius:999px;border:1px dashed rgba(178,164,239,.45);font:700 12.5px Montserrat;color:#CFC8F2}
+.lms-tagbox summary::-webkit-details-marker{display:none}
+.lms-tagbox summary::before{content:"#";color:#FFB08A;font-weight:800}
+.lms-tagbox[open] summary{border-style:solid;color:#fff}
+.lms-tagbox .tags{margin:12px 0 0;max-height:220px;overflow:auto;padding:4px 2px}
+.lms .chip{background:rgba(106,92,255,.16);border-color:rgba(178,164,239,.35);color:#E7E2FB}
+.lms .chip.on{background:rgba(255,122,69,.22);border-color:#FF7A45;color:#FFD8C2}
+
+.lms-content{padding:18px clamp(16px,3vw,36px) 80px;max-width:1180px;width:100%}
+.lms-content .grid{padding-bottom:0}
+
+/* ---------- thẻ nội dung: kính tối ---------- */
+.lms .card,.lms .res-card{background:rgba(24,19,64,.66)!important;border:1px solid rgba(178,164,239,.24)!important;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.lms .card h3,.lms .res-info h3,.lms .card h3 a{color:#fff}
+.lms .card p,.lms .res-info p{color:#CFC8F2}
+.lms .meta,.lms .card .meta{color:#A99FD6}
+.lms .badge{background:rgba(255,122,69,.18);color:#FFD8C2;border-color:rgba(255,122,69,.4)}
+.lms .grp-h{color:#fff;border-color:rgba(178,164,239,.2)}
+.lms .grp-h small{background:rgba(255,255,255,.08);color:#CFC8F2}
+.lms .grp-intro{background:rgba(24,19,64,.6);border-color:rgba(178,164,239,.24);color:#CFC8F2}
+.lms .grp-intro th{color:#FFB08A}
+.lms .grp-intro td,.lms .grp-intro th{border-color:rgba(178,164,239,.2)}
+.lms .empty{color:#A99FD6;border-color:rgba(178,164,239,.3);background:rgba(255,255,255,.03)}
+.lms .card:hover,.lms .res-card:hover{box-shadow:0 0 0 1px rgba(255,176,138,.45),0 0 36px rgba(106,92,255,.4),0 20px 46px rgba(4,2,20,.55)!important}
+
+/* ---------- hộp chi tiết giữ nền sáng (như website) ---------- */
+dialog.res-dlg{color:#55507A;color-scheme:light}
+body:has(.lms) dialog::backdrop,:root:not(:has(#lock[hidden])) dialog::backdrop{background:rgba(8,6,28,.7);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+
+/* ---------- điện thoại / máy tính bảng: thanh bên thành menu trượt ---------- */
+@media(max-width:960px){
+  .lms{grid-template-columns:minmax(0,1fr)}
+  .lms-side{position:fixed;left:0;top:0;bottom:0;width:min(300px,86vw);transform:translateX(-102%);transition:transform .35s cubic-bezier(.2,.8,.2,1);box-shadow:20px 0 60px rgba(4,2,20,.6)}
+  .lms-side.open{transform:none}
+  .lms-scrim{position:fixed;inset:0;z-index:25;background:rgba(4,2,20,.55)}
+  .lms-scrim[hidden]{display:none}
+  .lms-burger{display:grid;place-items:center}
+  .lms-top{flex-wrap:wrap;gap:10px}
+  .lms-crumb{flex:1}
+  .lms-top .bar{flex:1 1 100%;order:3;margin:0}
+}
+@media (prefers-reduced-motion:reduce){.lms-side{transition:none}}
+
+/* ---------- bổ sung: thẻ có nền trắng cứng trong kho.css (Kho Ứng dụng, thẻ có hiệu ứng) ---------- */
+.lms{--neu-face:rgba(24,19,64,.7);--neu-up:0 0 0 1px rgba(178,164,239,.16),0 16px 40px rgba(4,2,20,.5);--neu-up-s:0 0 0 1px rgba(178,164,239,.16),0 8px 20px rgba(4,2,20,.45);
+  --neu-up-l:0 0 0 1px rgba(255,176,138,.4),0 0 36px rgba(106,92,255,.4);--neu-dn-s:inset 0 0 0 1px rgba(255,176,138,.5);--glow:0 0 0 1px rgba(255,176,138,.45),0 0 36px rgba(106,92,255,.4)}
+.lms .card,.lms .res-card{background:rgba(24,19,64,.66)!important}
+.lms .app-counts span{background:rgba(255,255,255,.06);border-color:rgba(178,164,239,.3);color:#E7E2FB}
+.lms .app-counts b{color:#FFB08A}
+.lms .app-hero h2{color:#fff}
+.lms .app-sec,.lms .app-body h3{color:#fff}
+.lms .app-card{border-color:rgba(178,164,239,.24);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.lms .app-status{color:#B9B0FF}
+.lms .app-go{background:rgba(255,255,255,.06);border-color:rgba(178,164,239,.4);color:#E7E2FB}
+.lms .app-card:hover .app-go{background:linear-gradient(120deg,#2D2FEF,#6A5CFF);border-color:transparent;color:#fff}
+.lms .app-shelf-btn{color:#CFC8F2}
+.lms .app-shelf-btn b{color:#fff}
+.lms .app-shelf-btn.on{border-color:#FF7A45}
+.lms .app-empty{border-color:rgba(178,164,239,.35);color:#A99FD6}
+/* nhãn bầu trời không nằm dưới thanh bên */
+@media(min-width:961px){body:has(.lms:not([hidden])) .gx-skytag{left:288px}}
+.lms-side-foot .btn{background:rgba(255,255,255,.05)!important;box-shadow:none!important}
+/* menu trượt đang mở: tạm ẩn nút chat để không đè lên chân menu */
+body:has(.lms-side.open) :is(.chat-fab,.chat-tip,.gx-skytag){visibility:hidden}

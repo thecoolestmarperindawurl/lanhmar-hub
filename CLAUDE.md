@@ -55,3 +55,13 @@ Extension Chrome/Edge (MV3) đọc PDF/EPUB lớn trên Google Drive không cầ
 - Đêm giao thừa (Tết Nguyên Đán và 31/12): từ 18h có nhãn đếm ngược theo đồng hồ thật, 10 giây cuối hiện số lớn giữa màn hình, đúng 0h bắn màn pháo hoa ~40 giây + "Chúc mừng năm mới!". Thử: `?sky=2027-02-05T23:59`, `?sky=2026-12-31T23:59`.
 - Xem trước: `?sky=day|dusk|night|aurora|YYYY-MM-DD|YYYY-MM-DDTHH:MM`, `?fest=tet|national|reunify|midautumn|xmas|newyear|birthday`.
 - `sky-data.js` là file tạo tự động, đừng sửa tay: `npm i d3-celestial` ở thư mục tạm rồi `node tools/build-sky-data.mjs <…/d3-celestial/data> 5.3`.
+
+## Data Storage (`storage.html`) và trang khoá Kho cá nhân (`kho.html`)
+
+Giao diện Galaxy đồng bộ website, bố cục kiểu LMS: `storage-lms.css` (nạp sau `kho.css`) + `sky.css` + nền bầu trời `galaxy.js`.
+- `storage.html`: thanh bên = danh sách kho (`#tabs`), người dùng, ngôn ngữ, thoát; thanh trên = đường dẫn (`#crumb`) + tìm kiếm; đầu kho (`#khoTitle`, `#desc`, `#stats`), chủ đề dạng tab (`#groups`), lọc thẻ thu gọn (`#tagBox`). Điện thoại: menu trượt (`#lmsBurger`). Chữ mới thêm vào `STR` trong `storage.js`.
+- Thẻ nội dung tối bằng cách đặt lại biến màu của `kho.css` trong `.lms`; hộp chi tiết `#resDlg` giữ nền sáng.
+- `kho.html`: chỉ màn khoá (`#lock`) dùng giao diện tối; phần quản lý sau khi mở khoá giữ giao diện cũ (CSS phân phạm vi bằng `:has(#lock[hidden])`).
+- Nút Open Storage (trang chủ, Cộng đồng, Kho báu) → `planet-warp.js`: hành tinh bay tới phủ màn hình rồi vào `kho.html`, ở đó bề mặt hành tinh tan dần.
+- `sky.css` là phần CSS dùng chung của nền bầu trời (tách từ `galaxy.css`), nạp ở trang chủ, Cộng đồng, Storage, Kho.
+
