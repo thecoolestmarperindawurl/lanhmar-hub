@@ -55,8 +55,8 @@
   else if (MD === "12-31" || MD === "01-01") { FEST = "newyear"; if (MD === "12-31") festYear++; }
   if (FEST === "tet" && !tetY) festYear = Object.keys(LUNAR.tet).map(Number).find((y) => dayNo(LUNAR.tet[y]) >= today - 6) || +sp.year;
   const AURORA = FEST === "birthday";
-  // giao thừa → mùng 3 Tết, Quốc khánh, Tết Dương lịch: pháo hoa khi trời tối
-  const FIREWORKS = FEST === "national" || FEST === "newyear" || (FEST === "tet" && (!tetY || near(LUNAR.tet[tetY], -1, 2)));
+  // mùng 1 → mùng 3 Tết, Quốc khánh, đêm 1/1: pháo hoa khi trời tối; đêm giao thừa: màn pháo hoa lớn đúng 0h (xem phần đếm ngược)
+  const FIREWORKS = FEST === "national" || (FEST === "newyear" && MD === "01-01") || (FEST === "tet" && (!tetY || near(LUNAR.tet[tetY], 0, 2)));   // tối giao thừa để dành cho màn pháo hoa lúc 0h
   window.SKY_STATE = { fest: FEST, year: festYear, phase: null, sunAlt: -30 };
 
   // ---------- dữ liệu dựng sẵn ----------
@@ -307,15 +307,16 @@
 
   // ---------- pháo hoa (Quốc khánh, giao thừa → mùng 3 Tết, Tết Dương lịch; chỉ khi trời tối) ----------
   const FW_COL = { national: ["255,59,48", "255,214,74", "255,240,200"], tet: ["255,59,48", "255,214,74", "255,140,180", "255,240,200"], newyear: ["143,132,255", "255,122,69", "255,214,74", "255,255,255"] };
-  let rockets = [], sparks = [], nextFw = 0;
+  let rockets = [], sparks = [], nextFw = 0, finaleUntil = 0;   // finaleUntil: thời điểm (performance.now) hết màn pháo hoa giao thừa
   const fireworks = (now, dt, alt) => {
-    if (!FIREWORKS || alt > -4) return;
+    const finale = now < finaleUntil;
+    if (!(FIREWORKS || finale) || (alt > -4 && !finale)) return;
     const cols = FW_COL[FEST] || FW_COL.newyear;
-    if (!reduce && now > nextFw) { rockets.push({ x: W * (0.12 + Math.random() * 0.76), y: H + 10, vy: -(0.55 + Math.random() * 0.25) * H / 1000, ty: H * (0.12 + Math.random() * 0.35), c: cols[(Math.random() * cols.length) | 0] }); nextFw = now + 700 + Math.random() * 1500; }
+    if (!reduce && now > nextFw) { rockets.push({ x: W * (0.12 + Math.random() * 0.76), y: H + 10, vy: -(0.55 + Math.random() * 0.25) * H / 1000, ty: H * (0.12 + Math.random() * 0.35), c: cols[(Math.random() * cols.length) | 0] }); nextFw = now + (finale ? 120 + Math.random() * 260 : 700 + Math.random() * 1500); }
     ctx.save(); ctx.globalCompositeOperation = "lighter";
     rockets = rockets.filter((r) => { r.y += r.vy * dt; ctx.fillStyle = `rgba(${r.c},.9)`; ctx.fillRect(r.x - 1, r.y, 2, 10);
       if (r.y > r.ty) return true;
-      const n = 70 + ((Math.random() * 40) | 0), sp = (0.12 + Math.random() * 0.1) * Math.min(W, H) / 1000, two = Math.random() < 0.5 ? cols[(Math.random() * cols.length) | 0] : r.c;
+      const n = (finale ? 110 : 70) + ((Math.random() * 40) | 0), sp = (finale ? 0.16 : 0.12) * (1 + Math.random() * 0.8) * Math.min(W, H) / 1000, two = Math.random() < 0.5 ? cols[(Math.random() * cols.length) | 0] : r.c;
       for (let i = 0; i < n; i++) { const a = (i / n) * TAU + Math.random() * 0.1, v = sp * (0.6 + Math.random() * 0.5); sparks.push({ x: r.x, y: r.y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, life: 0, dur: 1300 + Math.random() * 700, c: i % 3 ? r.c : two }); }
       return false; });
     sparks = sparks.filter((p) => { p.life += dt; const k = p.life / p.dur; if (k >= 1) return false;
@@ -389,6 +390,50 @@
     drawMeteors(dt);
     raf = requestAnimationFrame(frame);
   };
+
+  // ---------- đếm ngược giao thừa (Tết Nguyên Đán và Tết Dương lịch) ----------
+  // Dùng đồng hồ thật (không theo bầu trời tua nhanh). Từ 18h đêm giao thừa: nhãn đếm ngược dưới thanh menu; 10 giây cuối: số lớn giữa màn hình;
+  // đúng 0h: pháo hoa dồn dập ~40 giây + lời chúc. Xem thử: ?sky=2027-02-05T23:59 (giao thừa Tết Đinh Mùi) hoặc ?sky=2026-12-31T23:59.
+  (() => {
+    let target = 0, lunar = false;
+    if (FEST === "tet" && tetY) { const d = LUNAR.tet[tetY]; const [y, m, dd] = d.split("-").map(Number); target = atVN(y, m, dd, 0, 0).getTime(); lunar = true; }
+    else if (FEST === "newyear" && MD === "12-31") target = atVN(festYear, 1, 1, 0, 0).getTime();
+    if (!target) return;
+    const t0r = performance.now(), base = mode === "date" ? start.getTime() : Date.now();
+    const realNow = () => base + (performance.now() - t0r);
+    if (realNow() > target + 120000 || target - realNow() > 30 * 3600000) return;     // đã qua hẳn, hoặc còn quá xa
+    const pill = document.createElement("div"); pill.className = "gx-count"; pill.setAttribute("role", "timer");
+    const big = document.createElement("div"); big.className = "gx-count-big"; big.setAttribute("aria-hidden", "true");
+    const hny = document.createElement("div"); hny.className = "gx-hny"; hny.setAttribute("role", "status");
+    document.body.append(pill, big, hny);
+    const pad = (n) => String(n).padStart(2, "0");
+    let lastBig = -1, fired = false;
+    const paintHny = () => { hny.innerHTML = `<b>${T("Chúc mừng năm mới!", "Happy New Year!")}</b><span>${lunar ? T(`Tết ${canChi(festYear)} · ${festYear}`, `Year of the ${ZOD[festYear % 12]} · ${festYear}`) : festYear}</span>`; };
+    const tick = () => {
+      const left = target - realNow();
+      if (left > 0) {
+        const s = Math.ceil(left / 1000), hms = `${pad(Math.floor(s / 3600))}:${pad(Math.floor(s / 60) % 60)}:${pad(s % 60)}`;
+        const show = left <= 6 * 3600000;
+        pill.hidden = !show; document.documentElement.classList.toggle("gx-counting", show);   // điện thoại: nhãn bầu trời thu gọn để nhường chỗ
+        if (show) pill.innerHTML = lunar
+          ? `<i aria-hidden="true">✦</i><span>${T(`Giao thừa Tết ${canChi(festYear)} · còn`, `Lunar New Year's Eve · Year of the ${ZOD[festYear % 12]} in`)}</span><b>${hms}</b>`
+          : `<i aria-hidden="true">✦</i><span>${T(`Giao thừa ${festYear} · còn`, `New Year ${festYear} in`)}</span><b>${hms}</b>`;
+        if (s <= 10) { if (s !== lastBig) { lastBig = s; big.textContent = s; big.classList.remove("on"); void big.offsetWidth; big.classList.add("on"); } }
+        else big.classList.remove("on");
+        return;
+      }
+      if (!fired) {
+        fired = true; pill.hidden = true; big.classList.remove("on"); document.documentElement.classList.remove("gx-counting");
+        finaleUntil = performance.now() + 40000; nextFw = 0;
+        for (let i = 0; i < 9; i++) rockets.push({ x: W * (0.08 + 0.84 * i / 8), y: H + 10 + Math.random() * 80, vy: -(0.6 + Math.random() * 0.2) * H / 1000, ty: H * (0.1 + Math.random() * 0.3), c: (FW_COL[FEST] || FW_COL.newyear)[i % 3] });
+        paintHny();
+        hny.classList.add("on"); setTimeout(() => hny.classList.remove("on"), 10000);
+      }
+      if (realNow() > target + 120000) { clearInterval(iv); pill.remove(); big.remove(); setTimeout(() => hny.remove(), 11000); }
+    };
+    const iv = setInterval(tick, 200); tick();
+    document.addEventListener("click", (e) => { if (e.target.closest(".lang button")) setTimeout(() => { tick(); if (fired) paintHny(); }, 60); });
+  })();
 
   const begin = () => { cancelAnimationFrame(raf); last = 0; raf = requestAnimationFrame(frame); };
   let rt = 0;
