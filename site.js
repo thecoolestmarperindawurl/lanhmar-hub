@@ -92,7 +92,7 @@ function render() {
     <div class="head">${c.logo ? `<img src="${esc(safe(c.logo))}" alt="" onerror="this.remove()">` : c.initials ? `<span class="ini">${esc(c.initials)}</span>` : ""}<div><h3>${esc(c.title)}</h3><div class="org">${esc(c.org)}${c.period && c.period !== c.no ? " · " + esc(c.period) : ""}</div></div></div>
     ${c.ctx ? `<p>${esc(c.ctx)}</p>` : ""}
     ${c.tasks?.length ? `<ul>${c.tasks.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
-    ${(c.ach || []).map((a) => `<div class="ach">★ ${esc(a)}</div>`).join("")}
+    ${(c.ach || []).map((a) => `<div class="ach"><i class="cx-star" aria-hidden="true">★</i> ${esc(a)}</div>`).join("")}
     ${c.img ? `<img class="work-img" loading="lazy" src="${esc(safe(c.img))}" alt="${esc(c.title + " · " + c.org)}" onerror="this.remove()">` : ""}</article>`).join("");
   observeChapters(chapters.length);
 
