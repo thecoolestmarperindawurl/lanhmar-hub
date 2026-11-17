@@ -33,6 +33,10 @@
       r5: "Hỏi rõ bối cảnh, nêu công cụ đang dùng để mọi người giúp đúng chỗ.",
       rules_note: "Mỗi nhóm có thêm nội quy riêng trên trang nhóm. Bạn đọc qua trước khi đăng bài nhé.",
       cta_h: "Chưa thấy nhóm bạn cần?", cta_p: "Nói với mình chủ đề bạn muốn trao đổi, mình sẽ cân nhắc mở thêm nhóm hoặc giới thiệu nơi phù hợp.",
+      // hai dải băng chạy chéo dưới phần đầu trang (các ý lấy từ chính nội dung trang), ngăn cách bằng |
+      rib_a: "Đi làm với AI|Chia sẻ thực tế|Hỏi đáp thân thiện|Công cụ · quy trình · bài học|Cả những lần làm chưa ra",
+      rib_b: "Chọn nhóm|Bấm tham gia|Giới thiệu và hỏi|Tôn trọng nhau|Nêu rõ nguồn",
+      lib_h: "Kho báu của mình", lib_p: "Những công cụ mình tự vibe-code và chia sẻ miễn phí, cùng kho tài nguyên mình dùng hằng ngày.", lib_go: "Vào Kho báu →",
       back_home: "← Về trang chủ", copied: "Đã sao chép link nhóm", copy_fail: "Không sao chép được, hãy bấm giữ vào link"
     },
     en: {
@@ -61,6 +65,9 @@
       r5: "Give context and name the tools you use, so people can help in the right place.",
       rules_note: "Each group also has its own rules on its page. Please read them before posting.",
       cta_h: "Can't find the group you need?", cta_p: "Tell me the topic you'd like to discuss, and I'll consider opening a group or point you to the right place.",
+      rib_a: "Working with AI|Real-world sharing|Friendly Q&A|Tools · workflows · lessons|Even the attempts that didn't work",
+      rib_b: "Pick a group|Tap join|Say hi and ask|Respect each other|Credit your sources",
+      lib_h: "My Treasure", lib_p: "Tools I vibe-code and share for free, plus the resources I use every day.", lib_go: "Open the Treasure →",
       back_home: "← Back to home", copied: "Group link copied", copy_fail: "Couldn't copy, press and hold the link instead"
     }
   };
@@ -75,7 +82,7 @@
 
   const card = (g) => {
     const url = okUrl(g.url), soon = g.status === "soon", topics = L(g, "topics") || [];
-    return `<article class="cm-card reveal" id="${esc(g.id)}">
+    return `<article class="cm-card reveal${g.feature ? " home" : ""}" id="${esc(g.id)}">${g.feature ? '<i class="cm-spark s1" aria-hidden="true"></i><i class="cm-spark s2" aria-hidden="true"></i><i class="cm-spark s3" aria-hidden="true"></i>' : ""}
       <div class="cm-top"><span class="cm-plat">${esc(g.platform || T("community"))}</span><span class="cm-state ${soon ? "soon" : ""}"><i></i>${soon ? T("soon") : T("open")}</span></div>
       <h3>${esc(L(g, "name"))}</h3>
       <p>${esc(L(g, "desc"))}</p>
@@ -116,6 +123,12 @@
     document.querySelectorAll("[data-i]").forEach((e) => { e.textContent = T(e.dataset.i); });
     document.querySelectorAll("[data-ih]").forEach((e) => { e.innerHTML = T(e.dataset.ih); }); // chuỗi cố định trong I18N, không lấy từ người dùng
     document.querySelectorAll(".lang button").forEach((b) => { const on = b.dataset.lang === lang; b.classList.toggle("on", on); b.setAttribute("aria-pressed", on); });
+    // dải băng: lặp đủ dài rồi nhân đôi để chạy vòng không hở
+    const ICONS = ["✦", "★", "✧"];
+    document.querySelectorAll("[data-rib]").forEach((e) => {
+      const one = T(e.dataset.rib).split("|").map((w, i) => `<span>${esc(w)}</span><i>${ICONS[i % 3]}</i>`).join("");
+      e.innerHTML = one.repeat(3) + one.repeat(3);
+    });
   }
 
   function renderGroups() {
@@ -226,6 +239,24 @@
     const b = e.target.closest("[data-copy]"); if (!b) return;
     try { await navigator.clipboard.writeText(b.dataset.copy); toast(T("copied")); } catch { toast(T("copy_fail")); }
   });
+  // bụi sao bung ra quanh chỗ bấm (thay cho pháo giấy): chấm tím/cam/lavender và vài ngôi sao ✦, bay toả ra rồi tắt
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches && Element.prototype.animate) {
+    const COLORS = ["#6A5CFF", "#8F84FF", "#B9B0FF", "#FF7A45", "#FFB08A", "#FFFFFF"];
+    document.addEventListener("click", (e) => {
+      const el = e.target.closest('a.cm-join, .cm-lk a, .cm-lib, .cm-evh-btn'); if (!el) return;
+      const r = el.getBoundingClientRect(), x = e.clientX || r.left + r.width / 2, y = e.clientY || r.top + r.height / 2;
+      for (let i = 0; i < 24; i++) {
+        const p = document.createElement("i"), star = i % 5 === 0, c = COLORS[i % COLORS.length];
+        p.className = "cm-burst"; p.setAttribute("aria-hidden", "true");
+        if (star) { p.textContent = "✦"; p.style.color = c; } else { p.style.background = c; p.style.boxShadow = `0 0 8px ${c}`; }
+        p.style.left = x + "px"; p.style.top = y + "px"; document.body.append(p);
+        const a = Math.random() * Math.PI * 2, d = 50 + Math.random() * 100;
+        p.animate([{ transform: "translate(-50%,-50%) scale(1)", opacity: 1 },
+          { transform: `translate(calc(-50% + ${(Math.cos(a) * d).toFixed(1)}px), calc(-50% + ${(Math.sin(a) * d - 30).toFixed(1)}px)) rotate(${(Math.random() * 540).toFixed(0)}deg) scale(.5)`, opacity: 0 }],
+          { duration: 700 + Math.random() * 450, easing: "cubic-bezier(.2,.7,.2,1)" }).onfinish = () => p.remove();
+      }
+    });
+  }
   const toast = (m) => { const t = $("#cmToast"); t.textContent = m; t.classList.add("on"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("on"), 2200); };
 
   // menu điện thoại
