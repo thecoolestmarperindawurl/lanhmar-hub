@@ -115,6 +115,7 @@ export class View3D {
     this.pending = [];  // các lần giao việc đang chờ gom thành cuộc họp
     this.peds = [];     // người đi đường
     this.drives = [];   // các chuyến xe đang chạy
+    this.boards = [];   // bảng kỹ năng (skill) của từng phòng ban
     this.center = new THREE.Vector3(this.FW / 2, (this.H - this.FH) / 2 + 0.6, this.FD / 2 + 1.5);
     this.userMoved = false;
     this.fitDist = 40;
@@ -867,6 +868,7 @@ export class View3D {
       this.prop('pottedPlant', 4.3, y, 0.7);
       this.prop('pottedPlant', FW - 4.3, y, 0.7);
       lounge(13.2, 4.4);
+      this.skillBoard(i, dept, 13.5, y);
       // Phòng họp hội đồng vách kính, có máy chiếu.
       this.glassRoom(0.8, 4.0, 5.7, 6.7, y);
       this.meetingTable(3.3, y, 5.35, 3.2, 6, color);
@@ -887,6 +889,7 @@ export class View3D {
       lounge(13.4, 4.4);
       this.prop('pottedPlant', FW - 0.8, y, 0.7);
       (this['furnish_' + f.dept] || this.furnish_default).call(this, y, color, wallH);
+      if (dept) this.skillBoard(i, dept, 13.5, y);
     }
   }
 
@@ -1803,7 +1806,17 @@ export class View3D {
       this.replan(a);
     }
     const n = s.instances.size;
-    a.bubble.firstChild.textContent = text ? (n > 1 ? `×${n} · ` : '') + text : '';
+    const sk = s.status === 'working' && s.skill && !s.alert ? s.skill.id : '';
+    if (!sk && this.boards.some((b) => [...b.active.values()].some((on) => on.sid === s.id))) this.clearSkill(s.id);
+    // Dựng lại từ lịch sử (mở trang giữa chừng): bật dòng skill đang chạy mà không diễn thẻ bay.
+    if (sk && !this.boards.some((b) => [...b.active.values()].some((on) => on.sid === s.id))) this.skill(s, s.skill.name, null, true);
+    const showTag = sk && !s.hideDetail;
+    const span = a.bubble.firstChild;
+    // Đã có nhãn skill thì không lặp lại tên skill trong lời bong bóng.
+    const said = showTag && /^Chạy skill \//.test(text) ? 'Đang chạy skill' : text;
+    span.textContent = said ? (n > 1 ? `×${n} · ` : '') + said : '';
+    if (showTag && text) { const tag = document.createElement('em'); tag.className = 'sk'; tag.textContent = '⚡/' + sk; span.prepend(tag); }
+    a.bubble.classList.toggle('skill', Boolean(showTag && text));
     a.bubble.classList.toggle('show', Boolean(text));
     a.bubble.classList.toggle('done', s.status === 'done' && !s.alert);
     a.bubble.classList.toggle('alert', s.alert);
@@ -1904,6 +1917,127 @@ export class View3D {
     if (B.errands.some((e) => e.kind === 'brief')) return;
     B.errands.push({ kind: 'brief', dest: { floor: A.home.floor, x: A.visitor.x, z: A.visitor.z }, dwell: 2.5, heading: -Math.PI / 2 });
     this.replan(B);
+  }
+
+  // ---- Bảng kỹ năng ----------------------------------------------------------------------
+  // Mỗi phòng ban treo một bảng liệt kê skill của phòng (roster.departments[].skills). Skill đang chạy sáng màu phòng,
+  // kèm tên người chạy; skill ngoài danh sách (sếp cài thêm) hiện ở dòng cuối.
+  skillBoard(floor, dept, x, y) {
+    const c = document.createElement('canvas');
+    c.width = 768; c.height = 480;
+    const tex = new THREE.CanvasTexture(c);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.anisotropy = 8;
+    const b = {
+      floor, dept: dept.id, name: dept.name, color: dept.color, canvas: c, tex,
+      rows: (dept.skills || []).slice(0, 5).map((k) => ({ ...k })), extra: null,
+      active: new Map(), counts: {}, pos: new THREE.Vector3(x, y + 1.62, 0.2),
+    };
+    // Treo trên vách sau góc tiếp khách: người ở đây đang rảnh nên không có bong bóng che bảng.
+    this.box(1.86, 1.22, 0.06, '#20242c', x, y + 1.62, 0.1);
+    this.screen(x, y + 1.62, 0.14, 1.72, 0, tex, '#20242c');
+    this.boards.push(b);
+    this.drawBoard(b);
+    return b;
+  }
+
+  drawBoard(b) {
+    const g = b.canvas.getContext('2d'), W = 768, H = 480;
+    const font = (w, px, mono) => `${w} ${px}px ${mono ? 'ui-monospace, Menlo, Consolas, monospace' : 'system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif'}`;
+    const round = (x, y, w, h, r) => { g.beginPath(); g.roundRect(x, y, w, h, r); g.fill(); };
+    const fit = (text, max) => { let t = text; while (t.length > 3 && g.measureText(t).width > max) t = t.slice(0, -2); return t === text ? t : t + '…'; };
+    g.fillStyle = '#141a2e'; g.fillRect(0, 0, W, H);
+    g.fillStyle = b.color; g.fillRect(0, 0, W, 64);
+    g.fillStyle = '#ffffff'; g.font = font(800, 30);
+    g.fillText(fit(`⚡ KỸ NĂNG · ${b.name.toUpperCase()}`, W - 150), 22, 43);
+    const live = b.active.size;
+    g.font = font(700, 20);
+    const tag = live ? `${live} đang chạy` : 'sẵn sàng';
+    const tw = g.measureText(tag).width + 26;
+    g.fillStyle = live ? '#ffffff' : 'rgba(255,255,255,.22)'; round(W - tw - 18, 16, tw, 32, 16);
+    g.fillStyle = live ? b.color : '#ffffff'; g.fillText(tag, W - tw - 5, 39);
+    const rows = b.extra ? [...b.rows, b.extra] : b.rows;
+    const top = 78, gap = 8, n = Math.max(rows.length, 3);
+    const rh = Math.min(92, (H - top - 10 - gap * (n - 1)) / n);
+    rows.forEach((k, i) => {
+      const y = top + i * (rh + gap), on = b.active.get(k.id);
+      g.fillStyle = on ? b.color : k.extra ? '#232a42' : '#1d2440'; round(14, y, W - 28, rh, 14);
+      if (on) { g.fillStyle = 'rgba(255,255,255,.18)'; round(14, y, 10, rh, 5); }
+      g.fillStyle = on ? '#ffffff' : '#8f9bd6'; g.font = font(800, 26);
+      g.fillText(on ? '▶' : '•', 34, y + rh / 2 + 9);
+      g.fillStyle = '#ffffff'; g.font = font(700, Math.round(rh * 0.33), true);
+      g.fillText(fit('/' + k.id, 430), 66, y + rh * 0.47);
+      g.fillStyle = on ? 'rgba(255,255,255,.88)' : '#a9b1d6'; g.font = font(600, Math.round(rh * 0.24));
+      const owner = this.actors.get(k.owner);
+      g.fillText(fit(k.extra ? 'skill khác' : `${k.name}${owner ? ' · ' + owner.s.name : ''}`, 430), 66, y + rh * 0.8);
+      g.textAlign = 'right';
+      if (on) {
+        g.fillStyle = '#ffffff'; g.font = font(800, 20); g.fillText('ĐANG CHẠY', W - 34, y + rh * 0.45);
+        g.font = font(600, 19); g.fillText(fit(on.who, 220), W - 34, y + rh * 0.78);
+      } else if (b.counts[k.id]) {
+        g.fillStyle = '#8f9bd6'; g.font = font(700, 22); g.fillText(`×${b.counts[k.id]}`, W - 34, y + rh / 2 + 8);
+      }
+      g.textAlign = 'left';
+    });
+    b.tex.needsUpdate = true;
+  }
+
+  // Một nhân viên bắt đầu chạy skill: sáng dòng skill trên bảng, thẻ skill bay từ bảng tới người đó.
+  skill(s, name, color, quiet) {
+    const a = this.actors.get(s.id);
+    const id = String(name).split(':').pop();
+    let b = this.boards.find((x) => x.rows.some((k) => k.id === id));
+    if (!b) { // skill ngoài danh sách: hiện ở dòng cuối bảng của phòng người chạy (cộng tác viên: bảng điều hành)
+      b = this.boards.find((x) => x.dept === s.dept) || this.boards.find((x) => x.dept === 'executive') || this.boards[0];
+      if (!b) return;
+      b.extra = { id, name, extra: true };
+    }
+    this.clearSkill(s.id);
+    b.active.set(id, { who: s.name, sid: s.id });
+    b.counts[id] = (b.counts[id] || 0) + 1;
+    this.drawBoard(b);
+    if (a && !quiet) this.skillCard(b, a, id, color);
+  }
+
+  clearSkill(staffId) {
+    for (const b of this.boards) {
+      let changed = false;
+      for (const [id, on] of b.active) if (on.sid === staffId) { b.active.delete(id); changed = true; }
+      if (changed) this.drawBoard(b);
+    }
+  }
+
+  skillCard(b, a, id, edge) {
+    const c = document.createElement('canvas');
+    c.width = 320; c.height = 96;
+    const g = c.getContext('2d');
+    g.fillStyle = b.color; g.beginPath(); g.roundRect(0, 0, 320, 96, 22); g.fill();
+    if (edge) { g.fillStyle = edge; g.fillRect(0, 84, 320, 12); }
+    g.fillStyle = '#ffffff'; g.font = '800 34px ui-monospace, Menlo, Consolas, monospace';
+    let t = '⚡/' + id; while (t.length > 4 && g.measureText(t).width > 290) t = t.slice(0, -2);
+    g.fillText(t, 16, 60);
+    const tex = new THREE.CanvasTexture(c);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(0.8, 0.24), new THREE.MeshBasicMaterial({ map: tex, transparent: true, toneMapped: false, depthTest: false }));
+    m.renderOrder = 10;
+    this.scene.add(m);
+    const p0 = b.pos.clone(), p1 = new THREE.Vector3();
+    const same = a.home.floor === b.floor;
+    this.effects.push({
+      t: 0, dur: same ? 1.2 : 1.7,
+      step: (k) => {
+        p1.copy(a.body.g.position); p1.y += PERSON_H + 0.35; // bám theo người đang đi
+        const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+        m.position.lerpVectors(p0, p1, e);
+        const arc = Math.sin(Math.PI * k);
+        m.position.z += arc * (same ? 0.9 : this.FD - Math.min(p0.z, p1.z) + 1.0);
+        m.position.y += arc * (same ? 0.7 : 0.3);
+        m.quaternion.copy(this.camera.quaternion);
+        m.scale.setScalar(0.7 + 0.5 * arc);
+        m.material.opacity = k > 0.85 ? (1 - k) / 0.15 : 1;
+      },
+      end: () => { this.scene.remove(m); m.geometry.dispose(); m.material.dispose(); tex.dispose(); },
+    });
   }
 
   // ---- Hiệu ứng ------------------------------------------------------------------------

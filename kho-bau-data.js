@@ -380,12 +380,14 @@ window.TREASURES = [
     "points": [
       "Giao một đầu việc lớn bằng /t-outbox:brief, CEO tự chia theo phòng ban và tổng hợp báo cáo",
       "Tòa nhà 9 tầng: mỗi phòng ban một tầng, phòng họp, canteen, sảnh lễ tân, hầm xe",
+      "Mỗi phòng một bộ skill; bảng kỹ năng trên từng tầng sáng lên khi nhân viên chạy skill",
       "Đồng phục và văn phòng đổi theo brand bạn nạp vào",
       "Dữ liệu chỉ nằm trên máy bạn, server local không gửi đi đâu"
     ],
     "points_en": [
       "Hand over a big job with /t-outbox:brief; the CEO splits it by department and compiles the report",
       "A 9-floor tower: one floor per department, meeting rooms, canteen, reception lobby, car park",
+      "Every department has its own skills; the skill board on each floor lights up when staff run one",
       "Uniforms and office follow the brand you load",
       "Your data stays on your machine; the local server sends nothing anywhere"
     ],
@@ -491,6 +493,7 @@ window.TREASURES = [
           "Tòa nhà 9 tầng, mỗi phòng ban một tầng với nội thất riêng; canteen và trung tâm hội nghị ở tầng riêng; sảnh có lễ tân, bảo vệ; hầm đỗ xe B1.",
           "Nhân viên mặc đồng phục theo màu brand bạn nạp vào (mặc định LanhMar). Đổi brand bằng lệnh /t-outbox:brand.",
           "Nhân viên đi thang máy, thang bộ, vào phòng họp khi được giao việc, xuống canteen nghỉ, lái xe vào hầm.",
+          "Mỗi phòng có bộ skill riêng (21 skill). Mỗi tầng treo một bảng kỹ năng: skill đang chạy sáng màu phòng kèm tên người chạy, thẻ skill bay tới người gọi, bong bóng có nhãn ⚡/tên-skill.",
           "Bảng công việc, nhật ký văn phòng, chế độ Sôi nổi, Theo việc, Ẩn chi tiết, Buổi tối, xem 2D trên điện thoại.",
           "Dữ liệu chỉ nằm trên máy bạn: hook ghi sự kiện vào thư mục .t-outbox của dự án, server local không gửi đi đâu."
         ],
@@ -498,6 +501,7 @@ window.TREASURES = [
           "A 9-floor tower, one floor per department with its own interior; canteen and conference centre on their own floors; a lobby with reception and security; B1 car park.",
           "Staff wear uniforms in the brand colours you load (LanhMar by default). Change the brand with /t-outbox:brand.",
           "Staff take the lifts and stairs, go to meeting rooms when given work, take breaks in the canteen and drive into the car park.",
+          "Every department has its own skill set (21 skills). Each floor has a skill board: a running skill lights up in the department colour with who is running it, a skill card flies to that person, and their bubble shows a ⚡/skill-name tag.",
           "Task board, office log, Lively, Follow work, Hide details and Evening modes, and a 2D view on phones.",
           "Your data stays on your machine: a hook writes events to the project's .t-outbox folder and the local server sends nothing anywhere."
         ]

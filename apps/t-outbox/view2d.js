@@ -92,7 +92,12 @@ export class View2D {
     el.classList.toggle('alert', s.alert);
     el.classList.toggle('talking', Boolean(text));
     n.desk.classList.toggle('on', s.status === 'working');
-    n.bubble.textContent = text;
+    const tagged = text && s.status === 'working' && s.skill && !s.alert && !s.hideDetail;
+    n.bubble.textContent = tagged && /^Chạy skill \//.test(text) ? 'Đang chạy skill' : text;
+    // Đang chạy skill: gắn nhãn skill trước lời bong bóng (giống bản 3D).
+    if (text && s.status === 'working' && s.skill && !s.alert && !s.hideDetail) {
+      const tag = document.createElement('em'); tag.className = 'sk'; tag.textContent = '⚡/' + s.skill.id; n.bubble.prepend(tag);
+    }
     n.count.textContent = s.instances.size > 1 ? '×' + s.instances.size : '';
   }
 

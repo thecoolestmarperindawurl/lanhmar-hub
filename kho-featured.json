@@ -13297,32 +13297,39 @@
           "k": "table",
           "head": [
             "Phòng ban",
-            "Nhân sự"
+            "Nhân sự",
+            "Skill của phòng"
           ],
           "rows": [
             [
               "Ban điều hành",
-              "CEO nhận việc từ bạn, chia việc và tổng hợp báo cáo"
+              "CEO nhận việc từ bạn, chia việc và tổng hợp báo cáo",
+              "/t-outbox:brief, brand, hire, open"
             ],
             [
               "Marketing",
-              "Trưởng phòng, content, design, performance ads"
+              "Trưởng phòng, content, SEO, quảng cáo",
+              "marketing-plan, content-calendar, seo-audit, ad-campaign"
             ],
             [
               "Sản phẩm & Thiết kế",
-              "Trưởng phòng, nghiên cứu người dùng, UX/UI"
+              "Trưởng phòng, nghiên cứu, thiết kế",
+              "product-brief, customer-research, design-brief"
             ],
             [
               "Kỹ thuật & Dữ liệu",
-              "Trưởng phòng, web, dữ liệu, QA"
+              "Trưởng phòng, web, dữ liệu, QA",
+              "tech-plan, landing-page, data-report, qa-check"
             ],
             [
               "Kinh doanh & CSKH",
-              "Trưởng phòng, chăm sóc khách hàng"
+              "Trưởng phòng, chăm sóc khách hàng",
+              "sales-script, customer-reply"
             ],
             [
               "Vận hành",
-              "Trưởng phòng, tài chính, pháp chế, nhân sự"
+              "Trưởng phòng, tài chính, pháp chế, nhân sự",
+              "process-sop, budget-estimate, contract-check, hiring-plan"
             ]
           ]
         },
@@ -13336,6 +13343,7 @@
             "Tòa nhà 9 tầng, mỗi phòng ban một tầng với nội thất riêng; canteen và trung tâm hội nghị ở tầng riêng; sảnh có lễ tân, bảo vệ; hầm đỗ xe B1.",
             "Nhân viên mặc đồng phục theo màu brand bạn nạp vào (mặc định LanhMar). Đổi brand bằng lệnh /t-outbox:brand.",
             "Nhân viên đi thang máy, thang bộ, vào phòng họp khi được giao việc, xuống canteen nghỉ, lái xe vào hầm.",
+            "Mỗi phòng có bộ skill riêng (21 skill). Mỗi tầng treo một bảng kỹ năng: skill đang chạy sáng màu phòng kèm tên người chạy, thẻ skill bay tới người gọi, bong bóng có nhãn ⚡/tên-skill.",
             "Bảng công việc, nhật ký văn phòng, chế độ Sôi nổi, Theo việc, Ẩn chi tiết, Buổi tối, xem 2D trên điện thoại.",
             "Dữ liệu chỉ nằm trên máy bạn: hook ghi sự kiện vào thư mục .t-outbox của dự án, server local không gửi đi đâu."
           ]

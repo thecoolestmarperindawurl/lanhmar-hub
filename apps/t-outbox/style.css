@@ -117,6 +117,8 @@ body {
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere;
 }
 .bubble3.done span { border-color: var(--ok); }
+.bubble3.skill span { border-width: 2px; }
+.bubble .sk, .bubble3 .sk { display: inline-block; margin-right: 5px; padding: 0 6px; border-radius: 6px; background: var(--c, #2D2FEF); color: #fff; font-style: normal; font-weight: 700; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .92em; }
 .bubble3.done span::before { content: "✓ "; color: var(--ok); font-weight: 700; }
 .bubble3.alert span { border-color: #e0352b; background: #fff1ef; font-weight: 600; }
 .plate3 {
@@ -246,6 +248,10 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; fo
 .dept-dots i.working { background: var(--c); }
 .dept-dots i.done { background: var(--ok); }
 .dept-count { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.depts li { flex-wrap: wrap; }
+.dept-skill span { white-space: nowrap; }
+.dept-skill { display: flex; flex-wrap: wrap; gap: 1px 10px; flex-basis: 100%; margin: 1px 0 2px 18px; font-size: 11.5px; font-weight: 600; font-family: ui-monospace, Menlo, Consolas, monospace; color: var(--c); }
+.dept-skill small { font-family: inherit; font-weight: 500; color: var(--muted); }
 
 /* ---- Bảng công việc 3 cột ---- */
 .columns { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; padding: 12px; }

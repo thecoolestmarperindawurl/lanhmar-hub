@@ -12,12 +12,39 @@
     {"id": "executive", "dept": "executive"}
   ],
   "departments": [
-    {"id": "executive", "name": "Ban điều hành", "color": "#1e2a4a", "head": "manager"},
-    {"id": "marketing", "name": "Marketing", "color": "#e4572e", "head": "marketing-lead"},
-    {"id": "product", "name": "Sản phẩm & Thiết kế", "color": "#7c5cbf", "head": "product-manager"},
-    {"id": "engineering", "name": "Kỹ thuật & Dữ liệu", "color": "#2f7fd1", "head": "tech-lead"},
-    {"id": "sales", "name": "Kinh doanh & CSKH", "color": "#2f9e6e", "head": "sales-lead"},
-    {"id": "operations", "name": "Vận hành", "color": "#b8860b", "head": "operations-lead"}
+    {"id": "executive", "name": "Ban điều hành", "color": "#1e2a4a", "head": "manager", "skills": [
+      {"id": "brief", "name": "Giao việc lớn", "owner": "manager"},
+      {"id": "brand", "name": "Nạp brand", "owner": "manager"},
+      {"id": "hire", "name": "Tuyển nhân sự", "owner": "manager"},
+      {"id": "open", "name": "Mở trụ sở", "owner": "manager"}
+    ]},
+    {"id": "marketing", "name": "Marketing", "color": "#e4572e", "head": "marketing-lead", "skills": [
+      {"id": "marketing-plan", "name": "Kế hoạch marketing", "owner": "marketing-lead"},
+      {"id": "content-calendar", "name": "Lịch nội dung", "owner": "content-writer"},
+      {"id": "seo-audit", "name": "Từ khóa & SEO", "owner": "seo-specialist"},
+      {"id": "ad-campaign", "name": "Chiến dịch quảng cáo", "owner": "ads-specialist"}
+    ]},
+    {"id": "product", "name": "Sản phẩm & Thiết kế", "color": "#7c5cbf", "head": "product-manager", "skills": [
+      {"id": "product-brief", "name": "Brief sản phẩm", "owner": "product-manager"},
+      {"id": "customer-research", "name": "Nghiên cứu khách hàng", "owner": "researcher"},
+      {"id": "design-brief", "name": "Brief & dựng thiết kế", "owner": "designer"}
+    ]},
+    {"id": "engineering", "name": "Kỹ thuật & Dữ liệu", "color": "#2f7fd1", "head": "tech-lead", "skills": [
+      {"id": "tech-plan", "name": "Kế hoạch kỹ thuật", "owner": "tech-lead"},
+      {"id": "landing-page", "name": "Dựng landing page", "owner": "web-developer"},
+      {"id": "data-report", "name": "Báo cáo số liệu", "owner": "data-analyst"},
+      {"id": "qa-check", "name": "Soát chất lượng", "owner": "qa-reviewer"}
+    ]},
+    {"id": "sales", "name": "Kinh doanh & CSKH", "color": "#2f9e6e", "head": "sales-lead", "skills": [
+      {"id": "sales-script", "name": "Kịch bản bán hàng", "owner": "sales-lead"},
+      {"id": "customer-reply", "name": "Trả lời khách hàng", "owner": "customer-support"}
+    ]},
+    {"id": "operations", "name": "Vận hành", "color": "#b8860b", "head": "operations-lead", "skills": [
+      {"id": "process-sop", "name": "Quy trình SOP", "owner": "operations-lead"},
+      {"id": "budget-estimate", "name": "Dự toán ngân sách", "owner": "finance-analyst"},
+      {"id": "contract-check", "name": "Rà soát hợp đồng", "owner": "legal-counsel"},
+      {"id": "hiring-plan", "name": "Kế hoạch tuyển dụng", "owner": "hr-specialist"}
+    ]}
   ],
   "staff": [
     {"id": "manager", "name": "CEO", "title": "Giám đốc điều hành (Claude chính)", "dept": "executive", "lead": true, "fixed": true, "gender": "m", "hair": "#2b2b30", "skin": "#e2ab85"},
