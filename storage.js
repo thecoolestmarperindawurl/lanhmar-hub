@@ -30,7 +30,10 @@ const STR = {
   err_net: ["Không kết nối được, thử lại sau.", "Couldn't connect, please try again later."],
   hello: ["Xin chào {n} — bạn đã được duyệt xem.", "Hi {n}, you're approved to browse."], you: ["bạn", "there"],
   empty_apps: ["Chưa có ứng dụng nào được chia sẻ.", "No apps shared yet."], empty: ["Chưa có mục nào được chia sẻ trong kho này.", "Nothing shared in this library yet."],
-  title: ["Data Storage — LANHMAR", "Data Storage — LANHMAR"]
+  title: ["Data Storage — LANHMAR", "Data Storage — LANHMAR"],
+  side_label: ["Các kho", "Libraries"], tag_filter: ["Lọc theo thẻ", "Filter by tag"], menu: ["Mở danh sách kho", "Open library list"],
+  st_items: ["{n} mục", "{n} items"], st_groups: ["{n} chủ đề", "{n} topics"], st_new: ["{n} mới trong 30 ngày", "{n} new in the last 30 days"],
+  all: ["Tất cả", "All"], tag_on: ["Đang lọc: #{t}", "Filtering: #{t}"]
 };
 const S = (k, v) => { const p = STR[k] || [k, k]; let t = window.LM ? LM.t(p[0], p[1]) : p[0]; if (v) Object.keys(v).forEach((x) => (t = t.replace("{" + x + "}", v[x]))); return t; };
 let helloName = "";
@@ -120,9 +123,16 @@ function render() {
   const k = KHO.find((x) => x.id === cur) || KHO[0];
   $("#tabs").innerHTML = KHO.map((x) => `<button class="tab ${x.id === cur ? "on" : ""}" data-k="${x.id}">${x.icon} ${x.name}<small>${Res.visible(items).filter((i) => i.kho === x.id).length + featured.filter((i) => i.kho === x.id).length}</small></button>`).join("");
   $("#desc").textContent = k.desc;
+  // đầu trang kiểu LMS: đường dẫn, tên kho, số liệu
+  const gs = Res.khoGroups(cur) || [], gName = grp ? gs.find((g) => g.id === grp) : null;
+  $("#crumb").innerHTML = `<span>Data Storage</span><i aria-hidden="true">›</i><b>${esc(k.icon || "")} ${esc(k.name)}</b>` + (gName ? `<i aria-hidden="true">›</i><span>${esc(gName.icon || "")} ${esc(gName.name)}</span>` : "");
+  $("#khoTitle").textContent = k.name;
+  document.title = `${k.name} · ${S("title")}`;
   const inKho = Res.visible(items).filter((i) => i.kho === cur).concat(featured.filter((i) => i.kho === cur));
   const tags = [...new Set(inKho.flatMap((i) => i.tags || []))].sort();
   if (tag && !tags.includes(tag)) tag = "";
+  { const box = $("#tagBox"), sum = box.querySelector("summary"); box.hidden = !tags.length;
+    sum.textContent = tag ? S("tag_on", { t: tag }) : `${S("tag_filter")} (${tags.length})`; if (tag) box.open = true; }
   $("#tags").innerHTML = tags.map((t) => `<span class="chip ${t === tag ? "on" : ""}" data-t="${esc(t)}">#${esc(t)}</span>`).join("");
   const n = q.trim().toLowerCase();
   const list = inKho.filter((i) => !tag || (i.tags || []).includes(tag))
@@ -136,9 +146,11 @@ function render() {
       <div>${(i.tags || []).map((t) => `<span class="chip" data-t="${esc(t)}">#${esc(t)}</span>`).join(" ")}</div>
       <div class="meta"><span>${esc(i.date)}</span></div>
     </article>`;
+  { const now = Date.now(), fresh = inKho.filter((i) => i.date && now - Date.parse(i.date) < 30 * 864e5).length, ng = gs.length ? gs.filter((g) => inKho.some((i) => Res.groupOf(i, gs) === g.id)).length : 0;
+    $("#stats").innerHTML = [S("st_items", { n: inKho.length }), ng ? S("st_groups", { n: ng }) : "", fresh ? S("st_new", { n: fresh }) : ""].filter(Boolean).map((x, i) => `<span class="lms-stat${i === 2 ? " new" : ""}">${esc(x)}</span>`).join(""); }
   $("#grid").classList.toggle("is-apps", cur === "idea");
   if (cur === "idea") { // Kho Ứng dụng: trình bày kiểu thư viện
-    $("#groups").innerHTML = ""; $("#tags").innerHTML = "";
+    $("#groups").innerHTML = ""; $("#tags").innerHTML = ""; $("#tagBox").hidden = true;
     $("#grid").innerHTML = list.length ? Res.appShelf(list) : `<div class="empty">${esc(S("empty_apps"))}</div>`;
     return;
   }
@@ -148,10 +160,19 @@ function render() {
 document.addEventListener("click", (e) => {
   const t = e.target;
   if (t.dataset?.g !== undefined && t.classList?.contains("gpill")) { grp = t.dataset.g; render(); }
-  else if (t.dataset?.k) { cur = t.dataset.k; tag = ""; grp = ""; render(); }
+  else if (t.closest?.("[data-k]")) { cur = t.closest("[data-k]").dataset.k; tag = ""; grp = ""; render(); side(false); scrollTo({ top: 0, behavior: "smooth" }); }
   else if (t.dataset?.t !== undefined && !$("#app").hidden) { tag = tag === t.dataset.t ? "" : t.dataset.t; render(); }
 });
 $("#q").addEventListener("input", (e) => { q = e.target.value; render(); });
+
+/* thanh bên trên điện thoại: menu trượt */
+function side(open) {
+  const sd = $("#lmsSide"), b = $("#lmsBurger"), sc = $("#lmsScrim"); if (!sd || !b) return;
+  sd.classList.toggle("open", open); sc.hidden = !open; b.setAttribute("aria-expanded", open); b.setAttribute("aria-label", S("menu"));
+}
+$("#lmsBurger").addEventListener("click", () => side(!$("#lmsSide").classList.contains("open")));
+$("#lmsScrim").addEventListener("click", () => side(false));
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") side(false); });
 $("#logout").onclick = () => { try { localStorage.removeItem(SAVE); } catch {} location.reload(); };
 
 /* tự vào lại nếu đã lưu đăng nhập */

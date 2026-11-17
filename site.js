@@ -265,13 +265,5 @@ document.addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(fa
 document.addEventListener("click", (e) => { if (!e.target.closest(".pill-nav")) setMenu(false); });
 renderStatic();
 
-/* Open Storage (người lạ): hiện QR donate trước, rồi đăng ký để được duyệt */
-(() => {
-  const a = $("#openStorage"), dd = $("#donDlg");
-  if (!a || !dd) return;
-  // hành tinh từ xa bay tới phủ kín màn hình (planet-warp.js) rồi mới hiện hộp donate
-  const open = () => { $("#donBox").innerHTML = window.donateHtml(); dd.showModal(); };
-  a.addEventListener("click", (e) => { e.preventDefault(); if (window.planetWarp) window.planetWarp(a).then((finish) => { open(); finish(); }); else open(); });
-  $("#donX").onclick = () => dd.close();
-  dd.addEventListener("click", (e) => { if (e.target === dd) dd.close(); });
-})();
+/* Open Storage: hành tinh bay tới rồi vào trang khoá Kho cá nhân (kho.html) — xem planet-warp.js.
+   Hộp #donDlg trong index.html hiện không còn nút nào mở. */

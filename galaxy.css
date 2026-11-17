@@ -1,19 +1,7 @@
 /* Giao diện "Galaxy" cho trang chủ và Cộng đồng: nền vũ trụ tím đậm, tinh vân tím/cam, trời sao vẽ bằng galaxy.js
    (sao lấp lánh, trôi nhẹ theo cuộn, sao băng). Thẻ chuyển sang kính mờ tối; hộp thoại (dialog) giữ nền sáng để dễ đọc.
    Vẫn chỉ dùng màu LANHMAR: tím #2D2FEF/#6A5CFF/#8F84FF, cam #FF7A45/#FFD8C2, mực #241F45. */
-:root{
-  --gx-bg:#08061C;--gx-text:#CFC8F2;--gx-strong:#FFFFFF;--gx-muted:#A99FD6;
-  --gx-glass:rgba(24,19,64,.62);--gx-glass-2:rgba(36,30,88,.55);--gx-line:rgba(178,164,239,.24);
-  --gx-orange:#FFB08A;--gx-violet:#B9B0FF;
-  --gx-glow:0 0 0 1px rgba(178,164,239,.14),0 18px 46px rgba(4,2,20,.55);
-}
-html{color-scheme:dark;min-height:100%;background:
-  radial-gradient(900px 620px at 8% -6%,rgba(255,122,69,.20),transparent 62%),
-  radial-gradient(1000px 700px at 100% 4%,rgba(106,92,255,.30),transparent 60%),
-  radial-gradient(1200px 800px at 50% 120%,rgba(45,47,239,.30),transparent 60%),
-  linear-gradient(180deg,#0B0826 0%,#08061C 45%,#0A0724 100%) fixed var(--gx-bg)}
 body{color:var(--gx-text);background:transparent}
-#gxSky{position:fixed;inset:0;width:100%;height:100%;z-index:-2;pointer-events:none;display:block}
 /* tinh vân trôi chậm (thay cho hai đốm màu của motion.css) */
 body::before{background:rgba(255,122,69,.30);opacity:.5;mix-blend-mode:screen}
 body::after{background:rgba(106,92,255,.40);opacity:.6;mix-blend-mode:screen}
@@ -124,51 +112,3 @@ dialog{color:var(--ink-soft);color-scheme:light}
 body::before{animation-duration:140s}
 body::after{animation-duration:170s}
 @media (prefers-reduced-motion:reduce){.mo-flare,.cm-star,.cm-kv::after{animation:none}}
-
-/* nhãn "Bầu trời hôm nay" (galaxy.js): góc trái dưới; mở 9 giây rồi thu lại thành ngôi sao, bấm để mở/đóng */
-.gx-skytag{position:fixed;left:14px;bottom:14px;z-index:25;display:inline-flex;align-items:center;gap:8px;max-width:min(560px,calc(100vw - 28px));padding:6px 14px 6px 8px;border-radius:999px;
-  background:rgba(14,10,42,.78);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(178,164,239,.35);color:#E7E2FB;font:600 12px/1.35 Montserrat;text-align:left;cursor:pointer;
-  box-shadow:0 8px 24px rgba(4,2,20,.5);transition:max-width .5s cubic-bezier(.2,.8,.2,1),padding .4s,border-color .3s}
-.gx-skytag i{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-style:normal;color:#FFB08A;background:radial-gradient(circle,rgba(255,122,69,.35),transparent 70%);text-shadow:0 0 8px rgba(255,122,69,.9)}
-.gx-skytag span{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;transition:opacity .3s}
-.gx-skytag b{display:block;color:#9CFFD4;font-weight:800;text-shadow:0 0 10px rgba(80,255,190,.6)}
-.gx-skytag:not(.open){max-width:36px;padding:6px 7px}
-.gx-skytag:not(.open) span{opacity:0;width:0}
-.gx-skytag.open span{white-space:normal}
-.gx-skytag:hover,.gx-skytag:focus-visible{border-color:#FFB08A}
-.gx-skytag:focus-visible{outline:2px solid #FF7A45;outline-offset:2px}
-.gx-skytag.bday{border-color:rgba(110,255,190,.55);box-shadow:0 8px 24px rgba(4,2,20,.5),0 0 22px rgba(80,255,190,.3)}
-.gx-skytag.bday i{color:#9CFFD4;background:radial-gradient(circle,rgba(80,255,190,.35),transparent 70%);text-shadow:0 0 8px rgba(80,255,190,.9)}
-@media (prefers-reduced-motion:reduce){.gx-skytag{transition:none}}
-
-/* lớp chi tiết ngày lễ (sky-fest.js): cờ, đèn lồng, hoa mai/đào, tuyết — không bắt chuột */
-#gxFest{position:fixed;inset:0;width:100%;height:100%;z-index:28;pointer-events:none;display:block}
-/* nhãn theo dịp lễ */
-.gx-skytag.fest-tet,.gx-skytag.fest-national,.gx-skytag.fest-reunify{border-color:rgba(255,80,60,.6);box-shadow:0 8px 24px rgba(4,2,20,.5),0 0 22px rgba(255,59,48,.3)}
-.gx-skytag.fest-tet b,.gx-skytag.fest-national b,.gx-skytag.fest-reunify b,.gx-skytag.fest-midautumn b{color:#FFD54A;text-shadow:0 0 10px rgba(255,120,60,.6)}
-.gx-skytag.fest-tet i,.gx-skytag.fest-national i,.gx-skytag.fest-reunify i{color:#FFD54A;background:radial-gradient(circle,rgba(255,59,48,.45),transparent 70%)}
-.gx-skytag.fest-midautumn{border-color:rgba(255,190,80,.6)}
-.gx-skytag.fest-xmas b,.gx-skytag.fest-newyear b{color:#fff;text-shadow:0 0 10px rgba(185,176,255,.8)}
-
-/* đếm ngược giao thừa (galaxy.js) */
-.gx-count{position:fixed;left:50%;top:112px;transform:translateX(-50%);z-index:26;display:inline-flex;align-items:center;gap:10px;padding:8px 18px 8px 10px;border-radius:999px;white-space:nowrap;
-  background:linear-gradient(120deg,rgba(120,10,20,.82),rgba(14,10,42,.82));-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(255,213,74,.6);
-  color:#FFE9B0;font:700 13px/1.2 Montserrat;box-shadow:0 10px 28px rgba(4,2,20,.5),0 0 26px rgba(255,59,48,.35)}
-.gx-count i{font-style:normal;color:#FFD54A;text-shadow:0 0 8px rgba(255,180,60,.9)}
-.gx-count b{font:800 17px/1 Montserrat;color:#fff;letter-spacing:.06em;font-variant-numeric:tabular-nums;text-shadow:0 0 12px rgba(255,213,74,.7)}
-.gx-count[hidden]{display:none}
-@media(max-width:700px){.gx-count{top:auto;bottom:14px;left:58px;transform:none;font-size:11px;padding:6px 12px 6px 8px;gap:7px;max-width:calc(100vw - 72px)}.gx-count b{font-size:14px}
-  .gx-counting .gx-skytag{max-width:36px;padding:6px 7px}.gx-counting .gx-skytag span{display:none}}
-.gx-count-big{position:fixed;left:50%;top:50%;z-index:41;pointer-events:none;transform:translate(-50%,-50%) scale(.6);opacity:0;
-  font:900 clamp(120px,26vw,300px)/1 Montserrat;font-variant-numeric:tabular-nums;color:transparent;background:linear-gradient(180deg,#FFF3C4,#FFD54A 45%,#FF7A45);-webkit-background-clip:text;background-clip:text;
-  filter:drop-shadow(0 0 30px rgba(255,180,60,.7)) drop-shadow(0 0 60px rgba(255,59,48,.45))}
-.gx-count-big.on{animation:gxTick 1s cubic-bezier(.2,.8,.2,1) forwards}
-@keyframes gxTick{0%{opacity:0;transform:translate(-50%,-50%) scale(1.5)}25%{opacity:1;transform:translate(-50%,-50%) scale(1)}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(.85)}}
-.gx-hny{position:fixed;left:50%;top:42%;z-index:41;pointer-events:none;transform:translate(-50%,-50%) scale(.8);opacity:0;text-align:center;width:min(92vw,900px);transition:opacity .8s,transform 1s cubic-bezier(.2,.8,.2,1.2)}
-.gx-hny.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
-.gx-hny::before{content:"";position:absolute;inset:-18% -8%;z-index:-1;border-radius:50%;background:radial-gradient(closest-side,rgba(8,6,28,.82),rgba(8,6,28,.55) 60%,rgba(8,6,28,0))}
-.gx-hny b{display:block;font:900 clamp(40px,8vw,96px)/1.05 Montserrat;color:transparent;background:linear-gradient(90deg,#FFD54A,#FF7A45,#FF3B30,#FFD54A);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;
-  filter:drop-shadow(0 0 24px rgba(255,120,60,.6));animation:cmShine2 3s linear infinite}
-.gx-hny span{display:block;margin-top:10px;font:800 clamp(16px,2.4vw,24px) Montserrat;color:#FFE9B0;letter-spacing:.08em;text-shadow:0 0 14px rgba(255,180,60,.7)}
-@keyframes cmShine2{to{background-position:200% 0}}
-@media (prefers-reduced-motion:reduce){.gx-count-big.on{animation:none;opacity:1;transform:translate(-50%,-50%)}.gx-hny{transition:none}.gx-hny b{animation:none}}
