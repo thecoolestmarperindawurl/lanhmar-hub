@@ -163,8 +163,22 @@ function observeChapters(total) {
 
 // rotating "today's menu"
 const ROT = ["SEO", "PERFORMANCE", "DESIGN & EDIT", "AI AGENT", "E-COMMERCE"];
-let ri = 0;
-setInterval(() => { ri = (ri + 1) % ROT.length; $("#rotator").textContent = ROT[ri]; }, 2200);
+// gõ từng chữ → giữ → xoá lùi → chữ tiếp theo; con trỏ cam nhấp nháy (CSS .rot-caret). Giảm chuyển động: đổi cả từ mỗi 2,6 giây.
+(function typeRotator() {
+  const el = $("#rotator"); if (!el) return;
+  const rm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const txt = document.createElement("span"), caret = document.createElement("i");
+  caret.className = "rot-caret"; caret.setAttribute("aria-hidden", "true");
+  el.textContent = ""; el.append(txt, caret);
+  let i = 0, ch = ROT[0].length, del = true; txt.textContent = ROT[0];
+  const step = () => {
+    const w = ROT[i % ROT.length];
+    if (rm) { i++; txt.textContent = ROT[i % ROT.length]; return setTimeout(step, 2600); }
+    if (!del) { ch++; txt.textContent = w.slice(0, ch); if (ch >= w.length) { del = true; return setTimeout(step, 1700); } return setTimeout(step, 70 + Math.random() * 60); }
+    ch--; txt.textContent = w.slice(0, Math.max(ch, 0)); if (ch <= 0) { del = false; i++; return setTimeout(step, 320); } setTimeout(step, 32);
+  };
+  setTimeout(step, 2400);
+})();
 
 // certificate rail: nút ‹ › + kéo chuột / vuốt tay
 const rail = $("#certList");

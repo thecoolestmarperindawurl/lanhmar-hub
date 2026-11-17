@@ -212,3 +212,98 @@
 .cm-ev-empty{padding:10px 28px 30px;color:var(--ink-soft)}
 @media(max-width:640px){.cm-ev-head{padding:22px 18px 4px}.cm-ev-gal{padding:14px 18px 22px;grid-template-columns:repeat(2,1fr)}.cm-evs{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.cm-evc,.cm-evc-cover img,.cm-ev-x{transition:none}}
+/* ===== Chuyển thể bộ chuyển động trang Cộng đồng tham khảo sang phong cách Galaxy (đi cùng galaxy.css) =====
+   Giữ cách hoạt động: chữ ánh màu chạy, nhãn lắc nhẹ, hai dải băng chạy chéo ngược chiều có kim tuyến + vệt sáng quét + sao lấp lánh,
+   thẻ nhóm "nhà mình" có viền quỹ đạo xoay và sao lấp lánh, thẻ bật lên lần lượt, rê chuột nhấc + nghiêng, bụi sao bung ra khi bấm,
+   ô có hành tinh ở góc phình to khi rê, nội quy dạng nhãn viền nét đứt, banner tối dẫn sang Kho báu. Tắt khi chọn giảm chuyển động. */
+@property --cmRing{syntax:"<angle>";inherits:false;initial-value:0deg}
+
+/* chữ "đi làm với AI." ánh màu tinh vân chạy ngang */
+.cm-hero h1 em{background:linear-gradient(90deg,#FF7A45,#FFB08A,#B9B0FF,#8F84FF,#FF7A45);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent!important;text-shadow:none!important;filter:drop-shadow(0 0 18px rgba(255,122,69,.35));animation:cmShine 6s linear infinite}
+@keyframes cmShine{to{background-position:200% 0}}
+
+/* nhãn đếm nhóm như miếng dán: viền cam nét đứt, nghiêng, lắc nhẹ */
+.cm-strip .cm-pill:first-child{border:2px dashed rgba(255,122,69,.75);background:rgba(255,122,69,.12);transform:rotate(-3deg);animation:cmWobble 3.6s ease-in-out infinite}
+@keyframes cmWobble{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(2deg) translateY(-2px)}}
+
+/* hai dải băng chạy chéo, ngược chiều */
+.cm-ribbons{position:relative;width:100%;height:clamp(140px,14vw,176px);margin:0 0 6px;overflow:hidden;pointer-events:none}
+.cm-ribbon{position:absolute;left:-4%;right:-4%;overflow:hidden;box-shadow:0 14px 34px -16px rgba(4,2,20,.8)}
+.cm-ribbon>div{display:flex;align-items:center;gap:22px;width:max-content;padding:12px 0;white-space:nowrap;animation:cmMarquee 34s linear infinite}
+.cm-ribbon span{font:800 clamp(15px,1.5vw,19px) Montserrat;letter-spacing:-.01em}
+.cm-ribbon i{font-style:normal;font-size:1.05em;display:inline-block;animation:cmStar 2.4s ease-in-out infinite}
+.cm-ribbon i:nth-of-type(2n){animation-delay:.8s}.cm-ribbon i:nth-of-type(3n){animation-delay:1.5s}
+@keyframes cmMarquee{to{transform:translateX(-50%)}}
+@keyframes cmStar{0%,100%{opacity:.55;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+/* băng trên: tinh vân tím → cam, kim tuyến, vệt sáng quét qua */
+.cm-ribbon.a{top:16%;transform:rotate(-3deg);color:#fff;text-shadow:0 0 12px rgba(255,255,255,.5);
+  background:radial-gradient(circle at 20% 30%,rgba(255,255,255,.6) 0 1px,transparent 2px) 0 0/26px 22px,radial-gradient(circle at 70% 80%,rgba(255,216,194,.65) 0 1px,transparent 2px) 0 0/34px 30px,
+  linear-gradient(90deg,#2D2FEF,#6A5CFF 30%,#8F84FF 50%,#FF7A45 75%,#6A5CFF);border-block:1px solid rgba(255,255,255,.35)}
+.cm-ribbon.a i{color:#FFD8C2}
+.cm-ribbon.a::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);transform:translateX(-100%);animation:cmSweep 3.4s ease-in-out infinite}
+@keyframes cmSweep{0%,40%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+/* băng dưới: dải sao tối, viền lavender nét đứt, chạy ngược chiều */
+.cm-ribbon.b{top:56%;transform:rotate(2.6deg);color:#E7E2FB;background:repeating-linear-gradient(90deg,#120E36 0 22px,#1A1450 22px 44px);border-block:2px dashed rgba(185,176,255,.6)}
+.cm-ribbon.b>div{animation-direction:reverse;animation-duration:40s;padding:9px 0}
+.cm-ribbon.b span{font-size:clamp(14px,1.3vw,16px);font-weight:700}
+.cm-ribbon.b i{color:#FFB08A}
+/* sao 4 cánh lấp lánh trên hai dải băng */
+.cm-tw{position:absolute;z-index:2;width:14px;height:14px;background:#fff;clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);filter:drop-shadow(0 0 6px #fff) drop-shadow(0 0 10px #FFB08A);animation:cmTwinkle 2.6s ease-in-out infinite;animation-delay:var(--d)}
+@keyframes cmTwinkle{0%,100%{transform:scale(.3);opacity:0}50%{transform:scale(1.15);opacity:1}}
+
+/* thẻ nhóm: bật lên lần lượt, rê chuột nhấc + nghiêng nhẹ */
+.cm-card.reveal{transform:translateY(16px) scale(.96);transition:opacity .6s ease var(--d,0ms),transform .6s cubic-bezier(.2,.8,.2,1.3) var(--d,0ms),box-shadow .35s}
+.cm-card.reveal.in{transform:none}
+@media (hover:hover){.cm-card.reveal.in:hover{transform:translateY(-5px) rotate(-.6deg)}}
+/* nhóm mình làm mod: viền quỹ đạo nhiều màu xoay liên tục + sao lấp lánh ở góc */
+.cm-card.home::after{content:"";position:absolute;inset:0;z-index:2;border-radius:inherit;padding:2.5px;pointer-events:none;
+  background:conic-gradient(from var(--cmRing),#2D2FEF,#8F84FF,#FF7A45,#FFB08A,#B9B0FF,#2D2FEF);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:cmRing 6s linear infinite}
+@keyframes cmRing{to{--cmRing:360deg}}
+.cm-card.home{box-shadow:0 18px 44px rgba(36,31,69,.28),0 0 36px rgba(143,132,255,.35)}
+.cm-spark{position:absolute!important;z-index:3;width:12px;height:12px;pointer-events:none;background:#FFD8C2;clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);filter:drop-shadow(0 0 4px #FFB08A);animation:cmTwinkle 2.4s ease-in-out infinite}
+.cm-spark.s1{top:14px;right:16px}
+.cm-spark.s2{bottom:26px;right:30%;width:9px;height:9px;animation-delay:.8s;background:#B9B0FF}
+.cm-spark.s3{top:46%;right:12px;width:8px;height:8px;animation-delay:1.5s;background:#FF7A45}
+
+/* bụi sao bung ra khi bấm tham gia */
+.cm-burst{position:fixed;z-index:70;width:7px;height:7px;border-radius:50%;pointer-events:none;font:16px/1 Montserrat;font-style:normal;display:grid;place-items:center}
+
+/* ô Ba bước / kiểu thành viên: hành tinh nhỏ ở góc, phình to khi rê; nhấc + nghiêng */
+.cm-step,.cm-kind{position:relative;overflow:hidden;isolation:isolate}
+.cm-step::after,.cm-kind::after{content:"";position:absolute;z-index:-1;right:-44px;bottom:-60px;width:140px;height:140px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,rgba(255,216,194,.55),rgba(255,122,69,.28) 35%,rgba(106,92,255,.22) 70%,transparent 72%);
+  box-shadow:0 0 40px rgba(143,132,255,.25);transition:transform .45s cubic-bezier(.2,.8,.2,1.3)}
+.cm-kind:nth-child(2n)::after,.cm-step:nth-child(2n)::after{background:radial-gradient(circle at 35% 30%,rgba(231,226,251,.55),rgba(143,132,255,.32) 40%,rgba(45,47,239,.2) 70%,transparent 72%)}
+.cm-step.reveal,.cm-kind.reveal{transform:translateY(16px) scale(.96);transition:opacity .6s ease var(--d,0ms),transform .6s cubic-bezier(.2,.8,.2,1.3) var(--d,0ms),border-color .25s}
+.cm-step.reveal.in,.cm-kind.reveal.in{transform:none}
+@media (hover:hover){
+  .cm-step.reveal.in:hover,.cm-kind.reveal.in:hover{transform:translateY(-4px) rotate(1deg)}
+  .cm-step:hover::after,.cm-kind:hover::after{transform:scale(1.4)}
+}
+
+/* nội quy: nhãn viền nét đứt */
+.cm-rules li{border:1.5px dashed rgba(185,176,255,.4)!important}
+
+/* banner tối dẫn sang Kho báu */
+.cm-libsec{padding-top:0}
+.cm-lib{position:relative;overflow:hidden;isolation:isolate;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:24px 28px;border-radius:24px;text-decoration:none;color:#fff;
+  background:radial-gradient(1.5px 1.5px at 12% 30%,#fff,transparent 60%),radial-gradient(1px 1px at 40% 70%,rgba(255,255,255,.8),transparent 60%),radial-gradient(1.2px 1.2px at 64% 22%,#FFD8C2,transparent 60%),
+  radial-gradient(1px 1px at 82% 80%,#B9B0FF,transparent 60%),radial-gradient(500px 220px at 0 100%,rgba(106,92,255,.45),transparent 70%),linear-gradient(120deg,#0B0826,#1A1450);
+  border:1px solid rgba(178,164,239,.3);box-shadow:0 22px 50px rgba(4,2,20,.55);transition:transform .35s cubic-bezier(.2,.8,.2,1.3),box-shadow .35s}
+.cm-lib>span:first-child{display:flex;flex-direction:column;gap:4px;position:relative;z-index:1}
+.cm-lib b{font:800 20px Montserrat;color:#fff}
+.cm-lib small{color:#CFC8F2;font-size:14.5px}
+.cm-lib .go{position:relative;z-index:1;flex:none;padding:10px 18px;border-radius:999px;background:#FF7A45;color:#241F45;font:800 14px Montserrat;transition:transform .3s}
+.cm-lib-planet{position:absolute;z-index:0;right:150px;top:50%;width:70px;height:70px;margin-top:-35px;border-radius:50%;
+  background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.8),transparent 28%),linear-gradient(165deg,#FFC2A3 0 18%,#FF7A45 18% 34%,#8F84FF 34% 58%,#6A5CFF 58% 76%,#2D2FEF 76%);
+  box-shadow:0 0 30px rgba(255,122,69,.5);opacity:.85;transition:transform .5s cubic-bezier(.2,.8,.2,1.3)}
+.cm-lib-planet::after{content:"";position:absolute;left:-18px;right:-18px;top:50%;height:20px;margin-top:-10px;border-radius:50%;border:2px solid rgba(255,216,194,.8);transform:rotate(-20deg)}
+@media (hover:hover){.cm-lib:hover{transform:translateY(-3px);box-shadow:0 26px 60px rgba(4,2,20,.6),0 0 40px rgba(143,132,255,.35)}.cm-lib:hover .go{transform:translateX(4px)}.cm-lib:hover .cm-lib-planet{transform:scale(1.15) rotate(-8deg)}}
+@media(max-width:640px){.cm-lib{flex-direction:column;align-items:flex-start}.cm-lib-planet{right:18px;top:26px;margin-top:0;width:52px;height:52px}}
+
+@media (prefers-reduced-motion:reduce){
+  .cm-hero h1 em,.cm-strip .cm-pill:first-child,.cm-ribbon>div,.cm-ribbon i,.cm-ribbon.a::after,.cm-tw,.cm-card.home::after,.cm-spark{animation:none}
+  .cm-tw{opacity:.8}
+  .cm-card.reveal,.cm-step.reveal,.cm-kind.reveal,.cm-lib,.cm-step::after,.cm-kind::after{transition:none}
+}
