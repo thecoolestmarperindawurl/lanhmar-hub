@@ -21,7 +21,7 @@ body>section .btn.ghost:hover{background:rgba(255,255,255,.12);box-shadow:0 0 24
 .cta-row .btn.dark::after{filter:drop-shadow(0 0 6px rgba(255,255,255,.5))}
 
 /* hero trang chủ */
-.badge{background:var(--gx-glass);border-color:var(--gx-line);color:#fff;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.badge{background:var(--gx-glass);border-color:var(--gx-line);color:#fff}
 .menu-line{color:var(--gx-muted)}
 .menu-line #rotator{background:rgba(255,122,69,.16);color:var(--gx-orange);box-shadow:0 0 14px rgba(255,122,69,.25)}
 .hero-photo>img:first-of-type{border-color:rgba(143,132,255,.85);box-shadow:0 0 0 6px rgba(106,92,255,.12),0 0 60px rgba(106,92,255,.45),0 0 120px rgba(255,122,69,.18)}
@@ -40,7 +40,8 @@ body>section .btn.ghost:hover{background:rgba(255,255,255,.12);box-shadow:0 0 24
 .counter{color:var(--gx-muted)}.counter b{text-shadow:0 0 18px rgba(255,122,69,.6)}
 .progress{background:rgba(178,164,239,.18)}
 .progress i{background:linear-gradient(90deg,var(--purple-mid),var(--orange));box-shadow:0 0 12px rgba(255,122,69,.6)}
-.chapter,.card,.svc-col{background:var(--gx-glass);border-color:var(--gx-line);box-shadow:var(--gx-glow);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+/* không dùng backdrop-filter trên thẻ: nền sao vẽ lại liên tục nên mỗi khung phải làm mờ lại cả chục thẻ; nền đặc hơn thay cho kính mờ */
+.chapter,.card,.svc-col{background:rgba(24,19,64,.78);border-color:var(--gx-line);box-shadow:var(--gx-glow)}
 .chapter .no{color:var(--gx-orange)}
 .chapter .org{color:var(--gx-muted)}
 .chapter li{color:var(--gx-text)}
@@ -82,7 +83,7 @@ footer{background:rgba(6,4,20,.8);border-top:1px solid var(--gx-line)}
 .cm-pill{background:var(--gx-glass);border-color:var(--gx-line);color:#fff}
 .cm-pill b{color:var(--gx-orange)}
 .cm-sub{color:var(--gx-muted)}
-.cm-step,.cm-kind,.cm-pro,.cm-evc{background:var(--gx-glass);border-color:var(--gx-line);box-shadow:var(--gx-glow);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.cm-step,.cm-kind,.cm-pro,.cm-evc{background:rgba(24,19,64,.78);border-color:var(--gx-line);box-shadow:var(--gx-glow)}
 .cm-rules{background:rgba(24,19,64,.45);border:1px solid var(--gx-line)}
 .cm-rules li{background:rgba(255,255,255,.05);border-color:var(--gx-line);color:var(--gx-text)}
 .cm-card,.cm-ex{border:1px solid var(--gx-line)}

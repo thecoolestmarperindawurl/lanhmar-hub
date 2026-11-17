@@ -74,7 +74,7 @@
   };
 
   const build = () => {
-    dpr = Math.min(window.devicePixelRatio || 1, 2); W = innerWidth; H = innerHeight; SMALL = W < 700;
+    dpr = Math.min(window.devicePixelRatio || 1, 1.5); W = innerWidth; H = innerHeight; SMALL = W < 700;
     cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     if (FEST === "national" || FEST === "reunify") FL = buildFlag(SMALL ? 48 : 78);
     const n = { tet: SMALL ? 12 : 24, xmas: SMALL ? 36 : 70 }[FEST] || 0;

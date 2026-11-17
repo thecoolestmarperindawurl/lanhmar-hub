@@ -261,7 +261,7 @@
 
   // ---------- dựng khung ----------
   const build = () => {
-    dpr = Math.min(window.devicePixelRatio || 1, 2); W = innerWidth; H = innerHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, 1.5); W = innerWidth; H = innerHeight;   // nền mờ ảo: 1.5× đủ nét, đỡ ~45% điểm ảnh so với 2×
     cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     SMALL = W < 700; CX = W / 2; CY = H / 2; RH = Math.hypot(W, H) * 0.55;
     RADX = W * 0.12; RADY = -H * 0.12;
@@ -329,6 +329,7 @@
 
   let raf = 0, last = 0, t0 = 0, hiddenAt = 0, skyMs = start.getTime();
   const frame = (now) => {
+    if (!reduce && last && now - last < 31) { raf = requestAnimationFrame(frame); return; }   // vẽ ~30 khung/giây: sao lấp lánh chậm nên mắt không thấy khác, máy đỡ một nửa việc
     if (!t0) t0 = now;
     const dt = last ? Math.min(now - last, 50) : 16; last = now;
     const t = (now - t0) / 1000;

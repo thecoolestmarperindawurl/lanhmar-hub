@@ -93,7 +93,7 @@ function render() {
     ${c.ctx ? `<p>${esc(c.ctx)}</p>` : ""}
     ${c.tasks?.length ? `<ul>${c.tasks.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
     ${(c.ach || []).map((a) => `<div class="ach">★ ${esc(a)}</div>`).join("")}
-    ${c.img ? `<img class="work-img" loading="lazy" src="${esc(safe(c.img))}" alt="" onerror="this.remove()">` : ""}</article>`).join("");
+    ${c.img ? `<img class="work-img" loading="lazy" src="${esc(safe(c.img))}" alt="${esc(c.title + " · " + c.org)}" onerror="this.remove()">` : ""}</article>`).join("");
   observeChapters(chapters.length);
 
   $("#projects").innerHTML = D.projects.map((pr, i) => `<button class="pcard" data-proj="${i}"><div class="ph${pr.image ? "" : " thumbs"}">${pr.image ? `<img loading="lazy" src="${esc(safe(pr.image))}" alt="">` : pr.videos.slice(0, 3).map((v) => `<img loading="lazy" src="${esc(safe(v.thumb))}" alt="">`).join("")}<span class="num">${String(i + 1).padStart(2, "0")}</span></div><div class="tx"><h3>${esc(L(pr, "title"))}</h3><p>${esc(L(pr, "desc"))}</p></div></button>`).join("");
@@ -202,8 +202,8 @@ rail.addEventListener("click", (e) => { if (moved) { e.stopPropagation(); e.prev
 
 // dialog + carousel
 const dlg = $("#dlg"), body = $("#dlgBody");
-function carousel(slides) {
-  return `<div class="car"><div class="track">${slides.map((s) => `<div class="slide"><img src="${esc(safe(s.src))}" alt="" onerror="this.style.opacity=.2">${s.url ? `<a class="vid" href="${esc(safe(s.url))}" target="_blank" rel="noopener" aria-label="video">▶</a>` : ""}</div>`).join("")}</div>
+function carousel(slides, title = "") {
+  return `<div class="car"><div class="track">${slides.map((s, k) => `<div class="slide"><img src="${esc(safe(s.src))}" alt="${esc(title + (slides.length > 1 ? ` (${k + 1}/${slides.length})` : ""))}" onerror="this.style.opacity=.2">${s.url ? `<a class="vid" href="${esc(safe(s.url))}" target="_blank" rel="noopener" aria-label="video">▶</a>` : ""}</div>`).join("")}</div>
     ${slides.length > 1 ? `<button class="nb p" data-nav="-1" aria-label="prev">‹</button><button class="nb n" data-nav="1" aria-label="next">›</button>` : ""}</div>
     <div class="cnt" id="cnt"></div><div class="cap" id="cap"></div>`;
 }
@@ -230,7 +230,7 @@ function briefHTML(t) {
 function openProject(i) {
   const pr = D.projects[i];
   const slides = [...pr.images.map((src) => ({ src })), ...pr.videos.map((v) => ({ src: v.thumb || pr.images[0], url: v.url }))];
-  body.innerHTML = `<div class="dbody"><p class="kicker">${String(i + 1).padStart(2, "0")} / ${esc(pr.key)}</p><h2>${esc(L(pr, "title"))}</h2>${carousel(slides)}${briefHTML(L(pr, "brief") || L(pr, "desc"))}</div>`;
+  body.innerHTML = `<div class="dbody"><p class="kicker">${String(i + 1).padStart(2, "0")} / ${esc(pr.key)}</p><h2>${esc(L(pr, "title"))}</h2>${carousel(slides, L(pr, "title"))}${briefHTML(L(pr, "brief") || L(pr, "desc"))}</div>`;
   const caps = pr["slideCaptions_" + lang] || [];
   wire(slides, slides.map((_, k) => caps[k] || (k >= pr.images.length ? L(pr.videos[k - pr.images.length], "label") : "")), pr.canvaUrls);
   dlg.showModal();
@@ -238,7 +238,7 @@ function openProject(i) {
 function openCert(i) {
   const c = D.certificates[i];
   const slides = c.images.map((src) => ({ src }));
-  body.innerHTML = `<div class="dbody"><p class="kicker">${esc(c.org)}</p><h2>${esc(L(c, "name"))}</h2>${carousel(slides)}</div>`;
+  body.innerHTML = `<div class="dbody"><p class="kicker">${esc(c.org)}</p><h2>${esc(L(c, "name"))}</h2>${carousel(slides, L(c, "name"))}</div>`;
   wire(slides, c["slideCaptions_" + lang] || [L(c, "project")], null);
   dlg.showModal();
 }

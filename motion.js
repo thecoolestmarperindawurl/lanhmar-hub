@@ -56,7 +56,7 @@
         // chỉ chuyển sang dải logo khi mọi brand đã có logo; thiếu thì giữ dạng chữ để dải đồng đều
         if (!allLogo) return mkText(arr);
         const tile = (b, n) => okLogo(b.logo)
-          ? `<span class="mo-logo${/^#[0-9a-f]{6}$/i.test(b.bg || "") ? " fill" : ""}${n ? " mo-dup" : ""}"${/^#[0-9a-f]{6}$/i.test(b.bg || "") ? ` style="background:${b.bg}"` : ""} title="${esc(b.name)}"><img src="${esc(b.logo)}" alt="${esc(b.name)}" loading="lazy" decoding="async"></span>`
+          ? `<span class="mo-logo${/^#[0-9a-f]{6}$/i.test(b.bg || "") ? " fill" : ""}${n ? " mo-dup" : ""}"${/^#[0-9a-f]{6}$/i.test(b.bg || "") ? ` style="background:${b.bg}"` : ""} title="${esc(b.name)}"><img src="${esc(b.logo)}" alt="${n ? "" : esc(b.name)}" loading="lazy" decoding="async"></span>`
           : `<span class="mo-logo txt${n ? " mo-dup" : ""}">${esc(b.name)}</span>`;
         const items = Array.from({ length: k }, (_, n) => arr.map((b) => tile(b, n)).join("")).join("");
         const one = `<div class="mo-track">${items}</div>`;
