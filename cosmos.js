@@ -485,4 +485,13 @@
     }
     visible(sec, (v) => { on = v; if (v && !raf) raf = requestAnimationFrame(frame); }, "100px");
   })();
+
+  /* ========== 11. Vệt sáng theo con trỏ trên thẻ (CSS mục 11 vẽ quầng ở --mx/--my) ========== */
+  (function spotlight() {
+    if (reduce || !matchMedia("(hover:hover)").matches) return;
+    let tk = 0, ev = null;
+    document.addEventListener("pointermove", (e) => { ev = e; if (tk) return;
+      tk = requestAnimationFrame(() => { tk = 0; const c = ev.target.closest && ev.target.closest(".chapter,.svc-col,.ccard"); if (!c) return;
+        const r = c.getBoundingClientRect(); c.style.setProperty("--mx", (ev.clientX - r.left).toFixed(0) + "px"); c.style.setProperty("--my", (ev.clientY - r.top).toFixed(0) + "px"); }); }, { passive: true });
+  })();
 })();

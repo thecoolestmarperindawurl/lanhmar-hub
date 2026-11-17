@@ -321,3 +321,10 @@ dialog::backdrop{background:rgba(36,31,69,.6)}
 .pw-ring{position:absolute;left:-34%;right:-34%;top:50%;height:34%;margin-top:-17%;border-radius:50%;border:7px double rgba(255,216,194,.9);box-shadow:0 0 18px rgba(255,122,69,.6)}
 .pw-ring.back{z-index:0}
 .pw-ring.front{z-index:2;clip-path:inset(50% 0 0 0)}
+
+/* màn hình cảm ứng: nới vùng chạm của nút chữ nhỏ lên ~44px bằng lớp trong suốt, giao diện không xê dịch */
+@media (pointer:coarse){
+  .lang button,.svc-link,.contacts .ph-reveal{position:relative}
+  .lang button::after,.svc-link::after,.contacts .ph-reveal::after{content:"";position:absolute;inset:-14px -8px}
+  .lang button::after{inset:-14px -3px}  /* VI / EN đứng sát nhau: chỉ nới dọc để không đè lên nhau */
+}
