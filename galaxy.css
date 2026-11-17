@@ -124,3 +124,19 @@ dialog{color:var(--ink-soft);color-scheme:light}
 body::before{animation-duration:140s}
 body::after{animation-duration:170s}
 @media (prefers-reduced-motion:reduce){.mo-flare,.cm-star,.cm-kv::after{animation:none}}
+
+/* nhãn "Bầu trời hôm nay" (galaxy.js): góc trái dưới; mở 9 giây rồi thu lại thành ngôi sao, bấm để mở/đóng */
+.gx-skytag{position:fixed;left:14px;bottom:14px;z-index:25;display:inline-flex;align-items:center;gap:8px;max-width:min(560px,calc(100vw - 28px));padding:6px 14px 6px 8px;border-radius:999px;
+  background:rgba(14,10,42,.78);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(178,164,239,.35);color:#E7E2FB;font:600 12px/1.35 Montserrat;text-align:left;cursor:pointer;
+  box-shadow:0 8px 24px rgba(4,2,20,.5);transition:max-width .5s cubic-bezier(.2,.8,.2,1),padding .4s,border-color .3s}
+.gx-skytag i{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-style:normal;color:#FFB08A;background:radial-gradient(circle,rgba(255,122,69,.35),transparent 70%);text-shadow:0 0 8px rgba(255,122,69,.9)}
+.gx-skytag span{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;transition:opacity .3s}
+.gx-skytag b{display:block;color:#9CFFD4;font-weight:800;text-shadow:0 0 10px rgba(80,255,190,.6)}
+.gx-skytag:not(.open){max-width:36px;padding:6px 7px}
+.gx-skytag:not(.open) span{opacity:0;width:0}
+.gx-skytag.open span{white-space:normal}
+.gx-skytag:hover,.gx-skytag:focus-visible{border-color:#FFB08A}
+.gx-skytag:focus-visible{outline:2px solid #FF7A45;outline-offset:2px}
+.gx-skytag.bday{border-color:rgba(110,255,190,.55);box-shadow:0 8px 24px rgba(4,2,20,.5),0 0 22px rgba(80,255,190,.3)}
+.gx-skytag.bday i{color:#9CFFD4;background:radial-gradient(circle,rgba(80,255,190,.35),transparent 70%);text-shadow:0 0 8px rgba(80,255,190,.9)}
+@media (prefers-reduced-motion:reduce){.gx-skytag{transition:none}}

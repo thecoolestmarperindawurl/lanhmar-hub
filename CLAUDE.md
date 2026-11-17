@@ -46,3 +46,10 @@ Mục trong `kho-featured.json` với `kho: "idea"`, `shelf` (id kệ trong `KHO
 ## Extension trình duyệt: `extensions/drive-ebook-reader/`
 
 Extension Chrome/Edge (MV3) đọc PDF/EPUB lớn trên Google Drive không cần tải về: `reader.js` nạp PDF theo đoạn qua Drive API (`Range` + `PDFDataRangeTransport` của PDF.js), EPUB qua epub.js; `content.js` thêm nút trên drive.google.com. Không liên quan tới site tĩnh và `i18n-check`; chữ giao diện dùng `T(vi, en)` ngay trong `reader.js`. Thư viện nằm sẵn trong `vendor/` (không tải từ CDN vì MV3 cấm mã từ xa). Người dùng tự tạo OAuth Client ID (xem README). Kiểm tra: `node --check`, rồi nạp extension vào Chromium bằng Playwright (`launchPersistentContext` với `--load-extension`, `channel: 'chromium'`) và mở `reader.html` với file qua `#fileIn`.
+
+## Nền "Bầu trời hôm nay" (trang chủ + Cộng đồng)
+
+`galaxy.js` vẽ bầu trời thật nhìn từ Sài Gòn: ban đêm lấy đúng lúc đang xem, ban ngày lấy 21:00 tối nay. Gồm sao thật (`sky-data.js`), Mặt Trăng có pha, 5 hành tinh mắt thường, dải Ngân Hà và M31. Phần tính toán nằm trong `sky-astro.js` (sai số < 1° so với astronomy-engine), nhãn góc trái dưới dùng `T(vi, en)`.
+- Ngày 27/02 (theo `dob` trong `assets/content.json`) nền có cực quang. Đổi ngày ở hằng `BIRTHDAY` đầu `galaxy.js`.
+- Xem trước: `?sky=aurora` hiện cực quang, `?sky=YYYY-MM-DD` xem bầu trời 21:00 ngày đó.
+- `sky-data.js` là file tạo tự động, đừng sửa tay: `npm i d3-celestial` ở thư mục tạm rồi `node tools/build-sky-data.mjs <…/d3-celestial/data> 5.3`.
