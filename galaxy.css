@@ -140,3 +140,12 @@ body::after{animation-duration:170s}
 .gx-skytag.bday{border-color:rgba(110,255,190,.55);box-shadow:0 8px 24px rgba(4,2,20,.5),0 0 22px rgba(80,255,190,.3)}
 .gx-skytag.bday i{color:#9CFFD4;background:radial-gradient(circle,rgba(80,255,190,.35),transparent 70%);text-shadow:0 0 8px rgba(80,255,190,.9)}
 @media (prefers-reduced-motion:reduce){.gx-skytag{transition:none}}
+
+/* lớp chi tiết ngày lễ (sky-fest.js): cờ, đèn lồng, hoa mai/đào, tuyết — không bắt chuột */
+#gxFest{position:fixed;inset:0;width:100%;height:100%;z-index:28;pointer-events:none;display:block}
+/* nhãn theo dịp lễ */
+.gx-skytag.fest-tet,.gx-skytag.fest-national,.gx-skytag.fest-reunify{border-color:rgba(255,80,60,.6);box-shadow:0 8px 24px rgba(4,2,20,.5),0 0 22px rgba(255,59,48,.3)}
+.gx-skytag.fest-tet b,.gx-skytag.fest-national b,.gx-skytag.fest-reunify b,.gx-skytag.fest-midautumn b{color:#FFD54A;text-shadow:0 0 10px rgba(255,120,60,.6)}
+.gx-skytag.fest-tet i,.gx-skytag.fest-national i,.gx-skytag.fest-reunify i{color:#FFD54A;background:radial-gradient(circle,rgba(255,59,48,.45),transparent 70%)}
+.gx-skytag.fest-midautumn{border-color:rgba(255,190,80,.6)}
+.gx-skytag.fest-xmas b,.gx-skytag.fest-newyear b{color:#fff;text-shadow:0 0 10px rgba(185,176,255,.8)}
