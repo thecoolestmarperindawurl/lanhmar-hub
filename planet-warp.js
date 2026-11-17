@@ -1,7 +1,8 @@
 /* Open Storage: bấm nút thì hành tinh (cùng kiểu với hành tinh trên nút) từ xa bay tới, lớn dần, tự quay, vành đai lướt qua,
    các vì sao kéo vệt về phía sau (cảm giác lao tới), cuối cùng hành tinh phủ kín màn hình rồi mới hiện phần donate.
-   - Trang chủ (#openStorage): site.js gọi window.planetWarp(nút) rồi mở hộp donate (#donDlg).
-   - Trang khác (Cộng đồng, Kho báu): bấm nút → bay tới → chuyển sang storage.html (nơi có luồng donate/đăng ký).
+   - Mọi trang có nút (trang chủ, Cộng đồng, Kho báu): bay tới xong thì vào trang khoá Kho cá nhân (kho.html); ở đó có nút
+     "Truy cập Data Storage" dẫn sang luồng donate/đăng ký.
+   - kho.html cũng nạp file này: nếu vừa tới bằng hiệu ứng, bề mặt hành tinh phủ màn hình rồi tan dần để lộ trang khoá.
    Giữ Ctrl/⌘/Shift hoặc bấm chuột giữa thì mở link bình thường. Chọn giảm chuyển động: bỏ hiệu ứng. */
 (() => {
   "use strict";
@@ -67,11 +68,22 @@
     });
   });
 
-  // trang không có hộp donate: bay tới rồi chuyển sang storage.html
+  // bấm Open Storage: bay tới rồi vào kho.html
   document.addEventListener("click", (e) => {
-    const a = e.target.closest("a.top-storage"); if (!a || a.id === "openStorage") return;
+    const a = e.target.closest("a.top-storage"); if (!a) return;
     if (e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || reduce) return;
     e.preventDefault();
-    window.planetWarp(a).then(() => { location.href = a.href; });
+    window.planetWarp(a).then(() => { try { sessionStorage.setItem("pw-arrive", "1"); } catch {} location.href = a.href; });
   });
+
+  // trang đích: bề mặt hành tinh đang phủ màn hình tan dần (nối liền với hiệu ứng ở trang trước)
+  let arrive = false; try { arrive = sessionStorage.getItem("pw-arrive") === "1"; sessionStorage.removeItem("pw-arrive"); } catch {}
+  if (arrive && !reduce && Element.prototype.animate) {
+    const s = document.createElement("div"); s.setAttribute("aria-hidden", "true");
+    s.style.cssText = "position:fixed;inset:0;z-index:2147483000;pointer-events:none;background:" +
+      "radial-gradient(120% 90% at 32% 28%,rgba(255,255,255,.35),rgba(255,255,255,0) 40%)," +
+      "linear-gradient(158deg,#FFC2A3 0 16%,#FF7A45 16% 30%,#FFA77F 30% 41%,#8F84FF 41% 50%,#B9B0FF 50% 55%,#6A5CFF 55% 66%,#FF8B5C 66% 74%,#2D2FEF 74%)";
+    (document.body || document.documentElement).appendChild(s);
+    s.animate([{ opacity: 1, transform: "scale(1)" }, { opacity: 0, transform: "scale(1.15)" }], { duration: 900, delay: 80, easing: "cubic-bezier(.2,.8,.2,1)", fill: "forwards" }).finished.then(() => s.remove());
+  }
 })();
