@@ -269,7 +269,9 @@ renderStatic();
 (() => {
   const a = $("#openStorage"), dd = $("#donDlg");
   if (!a || !dd) return;
-  a.addEventListener("click", (e) => { e.preventDefault(); $("#donBox").innerHTML = window.donateHtml(); dd.showModal(); });
+  // hành tinh từ xa bay tới phủ kín màn hình (planet-warp.js) rồi mới hiện hộp donate
+  const open = () => { $("#donBox").innerHTML = window.donateHtml(); dd.showModal(); };
+  a.addEventListener("click", (e) => { e.preventDefault(); if (window.planetWarp) window.planetWarp(a).then((finish) => { open(); finish(); }); else open(); });
   $("#donX").onclick = () => dd.close();
   dd.addEventListener("click", (e) => { if (e.target === dd) dd.close(); });
 })();
