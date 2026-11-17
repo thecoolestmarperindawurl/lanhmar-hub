@@ -135,7 +135,8 @@ const UI = {
   f_tags: ["Tag (cách nhau bằng dấu phẩy)", "Tags (comma separated)"], f_note: ["Ghi chú", "Note"], f_share: ["Chia sẻ mục này trong Data Storage", "Share this item in Data Storage"],
   marquee: ["★ KHO AI ★ KHO DESIGN ★ KHO EDIT ★ KHO TOOL ★ KHO KNOWLEDGE ★ KHO ỨNG DỤNG ★ KHO AI ★ KHO DESIGN ★ KHO EDIT ★ KHO TOOL ★ KHO KNOWLEDGE ★ KHO ỨNG DỤNG", "★ AI LIBRARY ★ DESIGN LIBRARY ★ EDIT LIBRARY ★ TOOL LIBRARY ★ KNOWLEDGE LIBRARY ★ APP LIBRARY ★ AI LIBRARY ★ DESIGN LIBRARY ★ EDIT LIBRARY ★ TOOL LIBRARY ★ KNOWLEDGE LIBRARY ★ APP LIBRARY"],
   cancel: ["Huỷ", "Cancel"], save: ["Lưu", "Save"], g_h: ["Đăng nhập Google", "Sign in with Google"],
-  g_p: ["Đăng nhập lại bằng mail chủ kho để lưu/đồng bộ lên đám mây.", "Sign in again with the owner email to save/sync to the cloud."], close: ["Đóng", "Close"]
+  g_p: ["Đăng nhập lại bằng mail chủ kho để lưu/đồng bộ lên đám mây.", "Sign in again with the owner email to save/sync to the cloud."], close: ["Đóng", "Close"],
+  side_brand: ["Kho cá nhân", "Personal library"], owner: ["Chủ kho", "Library owner"], side_label: ["Các kho", "Libraries"], owner_tools: ["Công cụ chủ kho", "Owner tools"], menu: ["Mở danh sách kho", "Open library list"]
 };
 function applyUI() {
   const U = (k) => L(UI[k][0], UI[k][1]);
@@ -198,6 +199,10 @@ function render() {
   const k = KHO.find((x) => x.id === cur);
   renderTabs();
   $("#desc").textContent = k.desc;
+  // đầu trang kiểu LMS (giống Data Storage): đường dẫn, tên kho, số liệu
+  const gs = Res.khoGroups(cur) || [], gName = grp ? gs.find((g) => g.id === grp) : null;
+  $("#crumb").innerHTML = `<span>${esc(L("Kho cá nhân", "Personal library"))}</span><i aria-hidden="true">›</i><b>${esc(k.icon || "")} ${esc(k.name)}</b>` + (gName ? `<i aria-hidden="true">›</i><span>${esc(gName.icon || "")} ${esc(gName.name)}</span>` : "");
+  $("#khoTitle").textContent = k.name;
   const inKho = Res.visible(items).filter((i) => i.kho === cur).concat(featured.filter((i) => i.kho === cur));
   window.__khoCur = cur;
   // Thanh lọc tag gọn: chỉ hiện các tag dùng nhiều nhất, còn lại thu vào nút "+N thẻ"
@@ -222,6 +227,10 @@ function render() {
       <div class="card-tags">${(i.tags || []).slice(0, 3).map((t) => `<span class="chip" data-t="${esc(t)}">#${esc(t)}</span>`).join(" ")}${(i.tags || []).length > 3 ? `<span class="chip dim">+${i.tags.length - 3}</span>` : ""}</div>
       <div class="meta"><span>${esc(i.date)}</span><span class="acts"><button data-edit="${i.id}">${L("Sửa", "Edit")}</button><button data-del="${i.id}">${L("Xoá", "Delete")}</button></span></div>
     </article>`;
+  { const now = Date.now(), fresh = inKho.filter((i) => i.date && now - Date.parse(i.date) < 30 * 864e5).length, sh = inKho.filter((i) => i.shared).length,
+      ng = gs.length ? gs.filter((g) => inKho.some((i) => Res.groupOf(i, gs) === g.id)).length : 0;
+    $("#stats").innerHTML = [L(`${inKho.length} mục`, `${inKho.length} items`), ng ? L(`${ng} chủ đề`, `${ng} topics`) : "", sh ? L(`${sh} đang chia sẻ`, `${sh} shared`) : "", fresh ? L(`${fresh} mới trong 30 ngày`, `${fresh} new in the last 30 days`) : ""]
+      .filter(Boolean).map((x, i, a) => `<span class="lms-stat${fresh && i === a.length - 1 ? " new" : ""}">${esc(x)}</span>`).join(""); }
   $("#grid").classList.toggle("is-apps", cur === "idea");
   if (cur === "idea") { // Kho Ứng dụng: trình bày kiểu thư viện
     $("#groups").innerHTML = ""; $("#tags").innerHTML = "";
@@ -272,12 +281,20 @@ document.addEventListener("click", async (e) => {
   const t = e.target;
   if (t.dataset.g !== undefined && t.classList.contains("gpill")) { grp = t.dataset.g; render(); }
   else if (t.dataset.more !== undefined) { tagsOpen = !tagsOpen; render(); }
-  else if (t.dataset.k) { cur = t.dataset.k; tag = ""; grp = ""; tagsOpen = false; render(); }
+  else if (t.closest("#tabs [data-k]")) { cur = t.closest("[data-k]").dataset.k; tag = ""; grp = ""; tagsOpen = false; render(); side(false); scrollTo({ top: 0, behavior: "smooth" }); }
   else if (t.dataset.t !== undefined) { tag = tag === t.dataset.t ? "" : t.dataset.t; render(); }
   else if (t.dataset.edit) openForm(items.find((i) => i.id === t.dataset.edit));
   else if (t.dataset.del && confirm(L("Xoá mục này?", "Delete this item?"))) { items = items.filter((i) => i.id !== t.dataset.del); await seal(); render(); }
 });
 $("#q").addEventListener("input", (e) => { q = e.target.value; render(); });
+/* thanh bên trên điện thoại: menu trượt */
+function side(open) {
+  const sd = $("#lmsSide"), b = $("#lmsBurger"), sc = $("#lmsScrim"); if (!sd || !b) return;
+  sd.classList.toggle("open", open); sc.hidden = !open; b.setAttribute("aria-expanded", open); b.setAttribute("aria-label", L(UI.menu[0], UI.menu[1]));
+}
+$("#lmsBurger").addEventListener("click", () => side(!$("#lmsSide").classList.contains("open")));
+$("#lmsScrim").addEventListener("click", () => side(false));
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") side(false); });
 $("#add").onclick = () => openForm();
 $("#syncStorage").onclick = async () => {
   const api = (window.STORAGE_API || "").trim();

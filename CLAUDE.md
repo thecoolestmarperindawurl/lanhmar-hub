@@ -61,7 +61,7 @@ Extension Chrome/Edge (MV3) đọc PDF/EPUB lớn trên Google Drive không cầ
 Giao diện Galaxy đồng bộ website, bố cục kiểu LMS: `storage-lms.css` (nạp sau `kho.css`) + `sky.css` + nền bầu trời `galaxy.js`.
 - `storage.html`: thanh bên = danh sách kho (`#tabs`), người dùng, ngôn ngữ, thoát; thanh trên = đường dẫn (`#crumb`) + tìm kiếm; đầu kho (`#khoTitle`, `#desc`, `#stats`), chủ đề dạng tab (`#groups`), lọc thẻ thu gọn (`#tagBox`). Điện thoại: menu trượt (`#lmsBurger`). Chữ mới thêm vào `STR` trong `storage.js`.
 - Thẻ nội dung tối bằng cách đặt lại biến màu của `kho.css` trong `.lms`; hộp chi tiết `#resDlg` giữ nền sáng.
-- `kho.html`: chỉ màn khoá (`#lock`) dùng giao diện tối; phần quản lý sau khi mở khoá giữ giao diện cũ (CSS phân phạm vi bằng `:has(#lock[hidden])`).
+- `kho.html`: màn khoá và phần quản lý của chủ kho cùng giao diện tối, bố cục LMS như Storage. Công cụ chủ kho (đồng bộ đám mây/Storage, xuất/nhập bản mã, khoá lại) nằm ở chân thanh bên; nút "+ Thêm" ở thanh trên. Chữ mới thêm vào `UI` trong `kho.js`.
 - Nút Open Storage (trang chủ, Cộng đồng, Kho báu) → `planet-warp.js`: hành tinh bay tới phủ màn hình rồi vào `kho.html`, ở đó bề mặt hành tinh tan dần.
 - `sky.css` là phần CSS dùng chung của nền bầu trời (tách từ `galaxy.css`), nạp ở trang chủ, Cộng đồng, Storage, Kho.
 

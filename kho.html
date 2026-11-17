@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="kho.css?v=20261116b">
 <link rel="stylesheet" href="mascot.css?v=20261104z">
 <link rel="stylesheet" href="sky.css?v=20261118a">
-<link rel="stylesheet" href="storage-lms.css?v=20261118d">
+<link rel="stylesheet" href="storage-lms.css?v=20261118f">
 </head>
 <body>
 <section id="lock" class="lockbox"><form id="lockForm" class="lockcard" autocomplete="off">
@@ -34,34 +34,46 @@
   <p class="hint" data-ku="no_access">Chưa có quyền? Đăng ký ở đó, Lan Anh duyệt xong bạn sẽ xem được phần được chia sẻ.</p>
   </div>
 </form></section>
-<div id="app" hidden>
-<div class="marquee"><span data-ku="marquee">★ KHO AI ★ KHO DESIGN ★ KHO EDIT ★ KHO TOOL ★ KHO KNOWLEDGE ★ KHO ỨNG DỤNG ★ KHO AI ★ KHO DESIGN ★ KHO EDIT ★ KHO TOOL ★ KHO KNOWLEDGE ★ KHO ỨNG DỤNG</span></div>
-<header class="hero"><div class="wrap">
-  <div class="st-top"><a class="btn back" href="index.html" data-ku="back_port">← Về portfolio</a><div data-lm-lang></div></div>
-  <div class="kicker" data-ku="kicker">★ Kho cá nhân</div>
-  <h1 data-kh="app_h">Kho <em>tool</em> của mình</h1>
-  <p data-ku="app_p">Nơi gom AI, thiết kế, dựng video, repo hay và kiến thức khoá học — cập nhật liên tục.</p>
-  <nav class="tabs" id="tabs"></nav>
-  <p class="desc" id="desc"></p>
-  <div class="groups" id="groups"></div>
-  <div class="bar">
-    <input id="q" type="search" placeholder="Tìm trong kho…" data-kp="search">
-    <button class="btn primary" id="add" data-ku="add">+ Thêm</button>
+<div id="app" class="lms" hidden>
+  <!-- bố cục kiểu LMS giống Data Storage: thanh bên = danh sách kho + công cụ chủ kho; cột chính = đường dẫn, tìm kiếm, đầu kho, chủ đề, nội dung -->
+  <aside class="lms-side" id="lmsSide" aria-label="Kho cá nhân">
+    <a class="lms-brand" href="index.html"><img src="assets/img/logo-lanhmar.png" alt="LANHMAR"><span data-ku="side_brand">Kho cá nhân</span></a>
+    <div class="lms-user"><span class="lms-av" aria-hidden="true">★</span><p><b data-ku="owner">Chủ kho</b><br><em id="cloudState"></em></p></div>
+    <p class="lms-label" data-ku="side_label">Các kho</p>
+    <nav class="tabs" id="tabs"></nav>
+    <div class="lms-side-foot">
+      <p class="lms-label" data-ku="owner_tools">Công cụ chủ kho</p>
+      <button class="btn" id="cloudSync" hidden data-ku="cloud">Đồng bộ đám mây</button>
+      <button class="btn" id="syncStorage" data-ku="sync_st">Đồng bộ Storage</button>
+      <button class="btn" id="export" data-ku="export">Xuất bản mã</button>
+      <label class="btn"><span data-ku="import">Nhập bản mã</span><input id="import" type="file" accept=".json" hidden></label>
+      <p class="lms-note" data-ku="foot">★ Dữ liệu được mã hoá trong trình duyệt — nhớ Xuất bản mã để sao lưu.</p>
+      <div data-lm-lang></div>
+      <a class="btn back" href="index.html" data-ku="back_port">← Về portfolio</a>
+      <button class="btn" id="lockNow" data-ku="lock">Khoá lại</button>
+    </div>
+  </aside>
+  <div class="lms-scrim" id="lmsScrim" hidden></div>
+  <div class="lms-main">
+    <header class="lms-top">
+      <button class="lms-burger" id="lmsBurger" type="button" aria-controls="lmsSide" aria-expanded="false">☰</button>
+      <nav class="lms-crumb" id="crumb" aria-label="breadcrumb"></nav>
+      <div class="bar">
+        <input id="q" type="search" placeholder="Tìm trong kho…" data-kp="search">
+        <button class="btn primary" id="add" data-ku="add">+ Thêm</button>
+      </div>
+    </header>
+    <section class="lms-head">
+      <div class="kicker" data-ku="kicker">★ Kho cá nhân</div>
+      <h1 id="khoTitle" data-kh="app_h">Kho <em>tool</em> của mình</h1>
+      <p class="desc" id="desc"></p>
+      <div class="lms-stats" id="stats"></div>
+      <div class="groups" id="groups"></div>
+      <div class="tags" id="tags"></div>
+    </section>
+    <main class="lms-content"><section class="grid" id="grid"></section></main>
   </div>
-  <div class="tags" id="tags"></div>
-</div></header>
-<main class="wrap"><section class="grid" id="grid"></section></main>
-<footer><div class="wrap" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between">
-  <span><span data-ku="foot">★ Dữ liệu được mã hoá trong trình duyệt — nhớ Xuất bản mã để sao lưu.</span> <em id="cloudState"></em></span>
-  <span style="display:flex;gap:8px;flex-wrap:wrap">
-    <button class="btn" id="export" data-ku="export">Xuất bản mã</button>
-    <label class="btn" style="margin:0;text-transform:none;letter-spacing:0;font-size:12px;color:#fff"><span data-ku="import">Nhập bản mã</span><input id="import" type="file" accept=".json" hidden></label>
-    <button class="btn" id="cloudSync" hidden data-ku="cloud">Đồng bộ đám mây</button>
-    <button class="btn" id="syncStorage" data-ku="sync_st">Đồng bộ Storage</button>
-    <a class="btn" href="index.html">← Portfolio</a>
-    <button class="btn" id="lockNow" data-ku="lock">Khoá lại</button>
-  </span>
-</div></footer>
+</div>
 <dialog id="dlg"><form id="form" method="dialog">
   <h2 id="dlgTitle">Thêm mục mới</h2>
   <input type="hidden" name="id">
@@ -75,7 +87,6 @@
   <label class="chk"><input type="checkbox" name="shared"> <span data-ku="f_share">Chia sẻ mục này trong Data Storage</span></label>
   <div class="row"><button type="button" class="btn" id="cancel" data-ku="cancel">Huỷ</button><button class="btn primary" type="submit" data-ku="save">Lưu</button></div>
 </form></dialog>
-</div>
 <dialog id="gDlg"><h2 data-ku="g_h">Đăng nhập Google</h2><p data-ku="g_p">Đăng nhập lại bằng mail chủ kho để lưu/đồng bộ lên đám mây.</p><div id="gBtn2" class="gbtn"></div><div class="row"><button type="button" class="btn" id="gClose" data-ku="close">Đóng</button></div></dialog>
 <dialog id="resDlg" class="res-dlg"></dialog>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -85,7 +96,7 @@
 <script src="resource.js?v=20261116b"></script>
 <script src="storage-config.js?v=20261104u"></script>
 <script src="chat.js?v=20261105a"></script>
-<script src="kho.js?v=20261105a"></script>
+<script src="kho.js?v=20261118a"></script>
 <script src="fx.js?v=20261105j"></script>
 <script src="mascot.js?v=20261104z"></script>
 <script src="sky-data.js?v=20261117a"></script>
