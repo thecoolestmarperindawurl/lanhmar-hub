@@ -103,7 +103,7 @@ function render() {
   // Email hiện sẵn + COPY; số điện thoại chỉ hiện khi bấm (không nằm trong HTML/JSON công khai).
   $("#contacts").innerHTML = `
     <li><span class="lbl">Email</span><a href="mailto:${esc(p.email)}">${esc(p.email)}</a><button class="btn" data-copy="${esc(p.email)}">${T("copy")}</button></li>
-    <li><span class="lbl">${T("phone")}</span><button class="reveal" data-phone>${T("reveal")}</button></li>
+    <li><span class="lbl">${T("phone")}</span><button class="ph-reveal" data-phone>${T("reveal")}</button></li>
     <li><span class="lbl">LinkedIn</span><a href="https://www.linkedin.com/in/lanhmar" target="_blank" rel="noopener">linkedin.com/in/lanhmar ↗</a></li>`;
 }
 const PH = "MDM4NCAwMTcgMTk1"; // chuỗi mã hoá nhẹ, chỉ giải mã khi người xem bấm
