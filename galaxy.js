@@ -444,5 +444,8 @@
     if (document.hidden) { cancelAnimationFrame(raf); hiddenAt = performance.now(); }
     else { t0 += performance.now() - hiddenAt; begin(); }
   });
-  build(); nextMeteor = performance.now() + 1200; begin();
+  build(); nextMeteor = performance.now() + 1200;
+  // vẽ ngay 1 khung tĩnh cho trời hiện liền, còn vòng hoạt ảnh đợi trang tải xong để nhường CPU lúc tải
+  if (document.readyState === "complete") begin();
+  else { frame(performance.now()); cancelAnimationFrame(raf); addEventListener("load", begin, { once: true }); }
 })();
