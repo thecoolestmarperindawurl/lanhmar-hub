@@ -55,7 +55,7 @@
     hero.prepend(cv);
     const ctx = cv.getContext("2d");
     const LOW = innerWidth < 1100 || (navigator.hardwareConcurrency || 8) <= 4;
-    const N = innerWidth < 820 ? 1100 : LOW ? 1700 : 3000, K = 5; // 0 dải Ngân Hà · 1 thiên hà xoắn ốc · 2 hành tinh có vành · 3 ngôi sao ★ · 4 chữ LANHMAR
+    const N = innerWidth < 820 ? 700 : LOW ? 1200 : 1800, K = 5;   // hạt có quầng sáng chồng lên nhau nên bớt hạt nhìn vẫn dày; đỡ CPU nhiều // 0 dải Ngân Hà · 1 thiên hà xoắn ốc · 2 hành tinh có vành · 3 ngôi sao ★ · 4 chữ LANHMAR
     const S = Array.from({ length: K }, () => new Float32Array(N * 3)), R = new Float32Array(N * 4);
     for (let i = 0; i < N * 4; i++) R[i] = Math.random();
 
@@ -129,8 +129,11 @@
       }
     }
 
+    let drawn = 0;
     const frame = (now) => {
       raf = 0; if (!on) return;
+      if (!reduce && now - drawn < 31) { raf = requestAnimationFrame(frame); return; }   // ~30 khung/giây: bụi trôi chậm nên mắt không thấy khác
+      drawn = now;
       runTweens(now);
       const t = (now - t0) / 1000; spin += (t - lastT) * 0.15 * st.w1; lastT = t;
       ctx.clearRect(0, 0, W, H);
@@ -168,7 +171,9 @@
       ctx.globalAlpha = 1; ctx.globalCompositeOperation = "source-over";
       if (!reduce) raf = requestAnimationFrame(frame);
     };
-    const go = () => { if (!raf) raf = requestAnimationFrame(frame); };
+    let loaded = document.readyState === "complete";
+    const go = () => { if (!raf && loaded) raf = requestAnimationFrame(frame); };   // chỉ chạy sau khi trang tải xong: nhường CPU cho lúc tải
+    if (!loaded) addEventListener("load", () => { loaded = true; go(); }, { once: true });
     visible(hero, (v) => { on = v; if (v) go(); }, "0px");
     if (reduce) { st.chaos = 0; place(spots.ribbon, spots.ribbon[2]); addEventListener("load", () => { measure(); place(spots.ribbon, spots.ribbon[2]); go(); }); go(); cv.classList.add("on"); return; }
     setTimeout(() => { measure(); cv.classList.add("on"); director(); }, 500);
