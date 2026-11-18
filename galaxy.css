@@ -7,17 +7,17 @@ body::before{background:rgba(255,122,69,.30);opacity:.5;mix-blend-mode:screen}
 body::after{background:rgba(106,92,255,.40);opacity:.6;mix-blend-mode:screen}
 
 /* chữ trực tiếp trên nền vũ trụ */
-body>section h1,body>section h2,body>section h3,body>section h4{color:var(--gx-strong)}
-body>section h1{text-shadow:0 0 34px rgba(106,92,255,.45)}
-body>section h1 em,body>section h2 em{color:#FF8B5C;text-decoration-color:rgba(255,122,69,.35);text-shadow:0 0 28px rgba(255,122,69,.45)}
-body>section .kicker{color:var(--gx-orange)}
-body>section .lead,body>section .sub,body>section p{color:var(--gx-text)}
+:is(body,main)>section h1,:is(body,main)>section h2,:is(body,main)>section h3,:is(body,main)>section h4{color:var(--gx-strong)}
+:is(body,main)>section h1{text-shadow:0 0 34px rgba(106,92,255,.45)}
+:is(body,main)>section h1 em,:is(body,main)>section h2 em{color:#FF8B5C;text-decoration-color:rgba(255,122,69,.35);text-shadow:0 0 28px rgba(255,122,69,.45)}
+:is(body,main)>section .kicker{color:var(--gx-orange)}
+:is(body,main)>section .lead,:is(body,main)>section .sub,:is(body,main)>section p{color:var(--gx-text)}
 .kicker.mo-line::after{background:radial-gradient(circle at 5px 50%,var(--orange) 4.5px,transparent 5.5px),linear-gradient(rgba(178,164,239,.5),rgba(178,164,239,.5)) 5px 50%/calc(100% - 5px) 2px no-repeat;filter:drop-shadow(0 0 4px rgba(255,122,69,.6))}
 
 /* nút */
-body>section .btn.dark{box-shadow:0 0 22px rgba(45,47,239,.55)}
-body>section .btn.ghost{background:rgba(255,255,255,.06);color:#fff;border-color:rgba(178,164,239,.6)}
-body>section .btn.ghost:hover{background:rgba(255,255,255,.12);box-shadow:0 0 24px rgba(178,164,239,.35)}
+:is(body,main)>section .btn.dark{box-shadow:0 0 22px rgba(45,47,239,.55)}
+:is(body,main)>section .btn.ghost{background:rgba(255,255,255,.06);color:#fff;border-color:rgba(178,164,239,.6)}
+:is(body,main)>section .btn.ghost:hover{background:rgba(255,255,255,.12);box-shadow:0 0 24px rgba(178,164,239,.35)}
 .cta-row .btn.dark::after{filter:drop-shadow(0 0 6px rgba(255,255,255,.5))}
 
 /* hero trang chủ */

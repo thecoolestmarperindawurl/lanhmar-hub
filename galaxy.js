@@ -227,7 +227,7 @@
     if (k < 0.45) return w ? T("Trăng lưỡi liềm đầu tháng", "Waxing crescent") : T("Trăng lưỡi liềm cuối tháng", "Waning crescent");
     if (k <= 0.55) return w ? T("Trăng thượng huyền", "First quarter") : T("Trăng hạ huyền", "Last quarter");
     return w ? T("Trăng khuyết đang tròn dần", "Waxing gibbous") : T("Trăng khuyết đang khuyết dần", "Waning gibbous"); };
-  const tag = document.createElement("button"); tag.type = "button"; tag.className = "gx-skytag";
+  const tag = document.createElement("button"); tag.type = "button"; tag.className = "gx-skytag open";   // tạo sẵn ở dạng mở: không giãn từ 36px (chữ xuống dòng thành cột cao rồi co lại → nhảy bố cục)
   document.body.appendChild(tag);
   let open = true;
   const canChi = (y) => `${CAN[y % 10]} ${CHI[y % 12]}`;
@@ -255,7 +255,7 @@
     tag.classList.toggle("open", open); tag.className = tag.className.replace(/\bfest-\S+/g, "").trim(); if (FEST) tag.classList.add("fest-" + FEST);
     tag.classList.toggle("bday", AURORA);
   };
-  tag.addEventListener("click", () => { open = !open; renderTag(); });
+  tag.addEventListener("click", () => { open = !open; tag.classList.toggle("full", open); renderTag(); });   // tự mở: 1 dòng; người xem bấm: hiện đủ nhiều dòng
   document.addEventListener("click", (e) => { if (e.target.closest(".lang button")) setTimeout(renderTag, 60); });
   setTimeout(() => { if (open) { open = false; renderTag(); } }, (FEST ? 14000 : 9000) * (innerWidth < 700 ? 0.5 : 1));
 
@@ -329,7 +329,7 @@
 
   let raf = 0, last = 0, t0 = 0, hiddenAt = 0, skyMs = start.getTime();
   const frame = (now) => {
-    if (!reduce && last && now - last < 31) { raf = requestAnimationFrame(frame); return; }   // vẽ ~30 khung/giây: sao lấp lánh chậm nên mắt không thấy khác, máy đỡ một nửa việc
+    if (!reduce && last && now - last < (SMALL ? 48 : 31)) { raf = requestAnimationFrame(frame); return; }   // vẽ ~30 khung/giây (điện thoại ~20): sao lấp lánh chậm nên mắt không thấy khác, máy đỡ nhiều việc
     if (!t0) t0 = now;
     const dt = last ? Math.min(now - last, 50) : 16; last = now;
     const t = (now - t0) / 1000;
@@ -358,7 +358,8 @@
     // thiên hà Andromeda
     const g = sky.m31;
     if (g && g.alt > 3 && deep > 0.02) {
-      if (gLast < 0 || now - gLast > 66 || reduce) { renderGalaxy(reduce ? 0 : t, g.pa); gLast = now; }
+      // M31 xoay rất chậm: điện thoại vẽ lại ~5 lần/giây là đủ
+      if (gLast < 0 || now - gLast > (SMALL ? 180 : 66) || reduce) { renderGalaxy(reduce ? 0 : t, g.pa); gLast = now; }
       ctx.globalCompositeOperation = "lighter"; ctx.globalAlpha = (SMALL ? 0.5 : 1) * Math.min(1, g.alt / 15) * deep;
       ctx.drawImage(gcv, g.x - gSize / 2, g.y - gSize / 2, gSize, gSize); ctx.globalAlpha = 1; ctx.globalCompositeOperation = "source-over";
     }
