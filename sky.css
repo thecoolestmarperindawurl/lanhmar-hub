@@ -22,7 +22,7 @@ html{color-scheme:dark;min-height:100%;background:
 .gx-skytag b{display:block;color:#9CFFD4;font-weight:800;text-shadow:0 0 10px rgba(80,255,190,.6)}
 .gx-skytag:not(.open){max-width:36px;padding:6px 7px}
 .gx-skytag:not(.open) span{opacity:0;width:0}
-.gx-skytag.open span{white-space:normal}
+.gx-skytag.open.full span{white-space:normal}  /* chỉ mở nhiều dòng khi người xem bấm; tự mở thì 1 dòng để không nhảy bố cục lúc tự thu lại */
 .gx-skytag:hover,.gx-skytag:focus-visible{border-color:#FFB08A}
 .gx-skytag:focus-visible{outline:2px solid #FF7A45;outline-offset:2px}
 .gx-skytag.bday{border-color:rgba(110,255,190,.55);box-shadow:0 8px 24px rgba(4,2,20,.5),0 0 22px rgba(80,255,190,.3)}

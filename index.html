@@ -9,14 +9,16 @@
 <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <meta name="theme-color" content="#0B0826">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;1,800&display=swap">
-<link rel="stylesheet" href="site.css?v=20261118u">
+<link rel="preload" href="assets/fonts/montserrat-vietnamese-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/montserrat-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/montserrat-vietnamese-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/montserrat-latin-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="site.css?v=20261118p">
 <link rel="stylesheet" href="motion.css?v=20261108a">
 <link rel="stylesheet" href="donate.css?v=20261104z">
 <link rel="stylesheet" href="mascot.css?v=20261104z">
-<link rel="stylesheet" href="sky.css?v=20261118a">
-<link rel="stylesheet" href="galaxy.css?v=20261119a">
+<link rel="stylesheet" href="sky.css?v=20261118p">
+<link rel="stylesheet" href="galaxy.css?v=20261118p">
 <link rel="stylesheet" href="cosmos.css?v=20261118u">
 <script>matchMedia("(prefers-reduced-motion: reduce)").matches||document.documentElement.classList.add("cx-intro")</script>
 <link rel="canonical" href="https://lanhmar.id.vn/">
@@ -26,7 +28,7 @@
 <body>
 <a class="top-storage" id="openStorage" href="kho.html" rel="nofollow"><span class="ts-planet" aria-hidden="true"><b class="ts-ring"></b><b class="ts-ball"></b><b class="ts-ring2"></b><b class="ts-moon"></b></span><span class="ts-label">Open Storage <span aria-hidden="true">↗</span></span></a>
 <header class="pill-nav" id="top">
-  <a class="brand" href="#top"><img src="assets/img/logo-lanhmar.png" alt="LANHMAR"></a>
+  <a class="brand" href="#top"><img src="assets/img/logo-lanhmar.webp" alt="LANHMAR" width="477" height="195"></a>
   <nav id="navlinks">
     <a href="#story" data-i="nav_story">Hành trình</a>
     <a href="#services" data-i="nav_services">Dịch vụ</a>
@@ -39,6 +41,7 @@
   <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="navlinks">☰</button>
 </header>
 
+<main>
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
@@ -57,7 +60,7 @@
     </div>
     <div class="hero-photo">
       <div class="watermark">MARKETER</div>
-      <img src="assets/img/profile-photo.jpg" alt="Dương Thị Lan Anh" data-alt="photo_alt">
+      <img src="assets/img/profile-photo.webp" alt="Dương Thị Lan Anh" data-alt="photo_alt" width="600" height="1066" fetchpriority="high">
       <img class="sticker" src="assets/img/mascot-dance.jpg" alt="" width="120" height="120">
     </div>
   </div>
@@ -140,9 +143,11 @@
       <ul class="contacts" id="contacts"></ul>
       <div class="socials" id="socialsRow"></div>
     </div>
-    <div class="bye-wrap"><img src="assets/img/mascot-bye.jpg" alt="" class="bye"><span class="lm-mascot bye-mascot" data-pose="love" data-moods="love,wave,coffee,wink,laptop,mega"></span></div>
+    <div class="bye-wrap"><img src="assets/img/mascot-bye.jpg" alt="" class="bye" width="306" height="280" loading="lazy"><span class="lm-mascot bye-mascot" data-pose="love" data-moods="love,wave,coffee,wink,laptop,mega"></span></div>
   </div>
 </section>
+
+</main>
 
 <footer>
   <div class="wrap foot"><span data-i="foot">© 2026 Dương Thị Lan Anh — LANHMAR</span><span class="foot-meta"><span class="foot-loc">Saigon, Vietnam</span><span class="foot-sep" aria-hidden="true">·</span><time class="foot-time" id="footTime" aria-label="Giờ Sài Gòn / Saigon time (GMT+7)">GMT+7 --:--:--</time></span><em class="foot-slogan">Amor fati</em></div>
@@ -175,7 +180,7 @@
 <script src="sky-data.js?v=20261117a"></script>
 <script src="sky-astro.js?v=20261117a"></script>
 <script src="sky-holidays.js?v=20261118a"></script>
-<script src="galaxy.js?v=20261119a"></script>
+<script src="galaxy.js?v=20261118p"></script>
 <script src="sky-fest.js?v=20261119a"></script>
 <script src="cosmos.js?v=20261118u"></script>
 <!-- GoatCounter: đếm lượt xem ẩn danh, không cookie, không theo dõi cá nhân -->
