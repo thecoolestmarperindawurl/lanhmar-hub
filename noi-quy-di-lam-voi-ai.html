@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nội quy Đi làm với AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: cột mục lục dính bên trái (desktop) + cột đọc 42rem; mobile thành thanh chip cuộn ngang. Một theme sáng (KesFlow v3 B15). */
+:root{
+  --paper:#FFFDF7; --sand:#F7F1E5; --sand-2:#ECE3CF; --white:#FFFFFF;
+  --ink:#2C2719; --ink-2:#685D45; --hair:#DFD3B8;
+  --moss-900:#24351B; --moss-800:#314724; --moss-700:#3F5B2F; --moss-600:#44622F;
+  --leaf:#CBE1B6; --spec:#8FB573;
+  --amber-l:#F8E7C6; --amber:#A8650D; --amber-d:#7A4A07; --coal:#17140D;
+  --err:#8E3B2F;
+  --display:"Bricolage Grotesque", system-ui, sans-serif;
+  --body:"Manrope", system-ui, sans-serif;
+  --r-s:14px; --r:20px; --r-l:28px;
+  --sh-card:0 10px 28px -12px rgba(91,71,38,.20);
+  --sh-raised:0 16px 40px rgba(91,71,38,.10);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.65}
+a{color:var(--moss-700);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--moss-700);outline-offset:2px;border-radius:6px}
+h1,h2,h3{font-family:var(--display);letter-spacing:-.025em;line-height:1.1;text-wrap:balance;margin:0;color:var(--ink)}
+h1{font-size:clamp(36px,5.2vw,56px);font-weight:800}
+h1 span{color:var(--moss-700)}
+h2{font-size:clamp(26px,3vw,34px);font-weight:700}
+h3{font-size:clamp(18px,1.6vw,20px);font-weight:700}
+p{margin:0}
+.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(20px,4vw,40px)}
+
+/* Hero */
+.hero{background:var(--sand);border-bottom:1px solid var(--hair)}
+.hero .wrap{padding-top:clamp(40px,5vw,72px);padding-bottom:clamp(48px,6vw,80px);display:grid;gap:24px}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--display);font-weight:700;font-size:15px;color:var(--moss-800)}
+.brand .dot{width:10px;height:10px;border-radius:999px;background:var(--moss-600);box-shadow:0 0 0 4px var(--leaf)}
+.lead{font-size:clamp(18px,1.35vw,21px);color:var(--ink-2);max-width:42rem}
+.meta{display:flex;flex-wrap:wrap;gap:8px}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;font-family:var(--display);font-weight:700;font-size:13px;line-height:1.2;background:var(--leaf);color:var(--moss-900)}
+.pill.amber{background:var(--amber-l);color:var(--amber-d)}
+.pill.err{background:#F3DCD6;color:var(--err)}
+.pill i{width:8px;height:8px;border-radius:999px;background:currentColor;display:inline-block}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:12px 24px;border-radius:999px;font-family:var(--display);font-weight:700;font-size:16px;text-decoration:none;cursor:pointer;border:1.5px solid transparent;transition:transform .18s,background .18s}
+.btn:hover{transform:translateY(-1px)}
+.btn.primary{background:var(--moss-600);color:#fff}
+.btn.primary:hover{background:var(--moss-700)}
+.btn.ghost{background:transparent;border-color:var(--hair);color:var(--moss-800)}
+.btn.ghost:hover{border-color:var(--moss-700)}
+
+/* Body layout */
+.layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:clamp(32px,5vw,80px);padding-top:clamp(48px,6vw,80px);padding-bottom:96px}
+.toc{position:sticky;top:24px;align-self:start}
+.toc p{font-family:var(--display);font-weight:700;font-size:13px;color:var(--ink-2);margin-bottom:12px}
+.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:4px;counter-reset:t}
+.toc a{display:flex;gap:12px;align-items:baseline;padding:8px 12px;border-radius:var(--r-s);text-decoration:none;color:var(--ink);font-size:15px;font-weight:600;line-height:1.35}
+.toc a::before{counter-increment:t;content:counter(t,upper-roman);font-family:var(--display);font-size:12px;color:var(--ink-2);min-width:24px}
+.toc a:hover{background:var(--sand)}
+.toc a.on{background:var(--leaf);color:var(--moss-900)}
+.content{display:grid;gap:clamp(56px,7vw,96px);min-width:0}
+section{display:grid;gap:24px;scroll-margin-top:24px}
+.sec-head{display:grid;gap:12px;max-width:42rem}
+.eyebrow{font-family:var(--display);font-weight:700;font-size:13px;color:var(--moss-700)}
+.sec-head p{color:var(--ink-2)}
+
+/* 8 điều */
+.rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;counter-reset:r}
+.rule{background:var(--white);border:1px solid var(--hair);border-radius:var(--r);padding:24px;box-shadow:var(--sh-card);display:grid;gap:8px;align-content:start}
+.rule .n{font-family:var(--display);font-weight:800;font-size:28px;line-height:1;color:var(--moss-700);font-variant-numeric:tabular-nums}
+.rule p{font-size:15.5px;color:var(--ink-2);line-height:1.6}
+.rule.dark{background:var(--moss-900);border-color:var(--moss-900)}
+.rule.dark h3{color:#fff}.rule.dark .n{color:var(--leaf)}.rule.dark p{color:#E4ECD9}
+
+/* Lists */
+.list{list-style:none;margin:0;padding:0;display:grid;gap:12px;max-width:46rem}
+.list li{display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:start}
+.list .k{font-family:var(--display);font-weight:700;font-size:15px;color:var(--moss-700);background:var(--sand);border-radius:10px;height:32px;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+.list b{font-weight:700;color:var(--ink)}
+.bullets{margin:0;padding-left:20px;display:grid;gap:8px;max-width:46rem}
+.bullets li::marker{color:var(--moss-700)}
+
+/* Hashtag */
+.tags{display:grid;gap:12px}
+.tag{display:grid;grid-template-columns:minmax(0,220px) 1fr auto;gap:16px;align-items:center;padding:16px 24px;background:var(--white);border:1px solid var(--hair);border-radius:var(--r-s)}
+.tag code{font-family:var(--display);font-weight:700;font-size:18px;color:var(--moss-800);word-break:break-all}
+.tag span{color:var(--ink-2);font-size:15.5px}
+.copy{min-height:44px;min-width:44px;padding:8px 16px;border-radius:var(--r-s);border:1.5px solid var(--hair);background:var(--paper);color:var(--moss-800);font-family:var(--display);font-weight:700;font-size:14px;cursor:pointer}
+.copy:hover{border-color:var(--moss-700)}
+.note{background:var(--sand);border-radius:var(--r);padding:24px;display:grid;gap:8px;max-width:46rem}
+.note h3{font-size:17px}
+.series{display:flex;flex-wrap:wrap;gap:8px}
+.series code{font-family:var(--body);font-weight:700;font-size:14px;padding:6px 12px;border-radius:999px;background:var(--white);border:1px solid var(--hair);color:var(--moss-800)}
+
+/* Template */
+.tpl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.card{background:linear-gradient(160deg,#FFF,#F7F1E5);border:1px solid var(--hair);border-radius:var(--r);padding:24px;display:grid;gap:16px;align-content:start}
+.card pre{margin:0;white-space:pre-wrap;font-family:var(--body);font-size:15.5px;line-height:1.7;background:var(--white);border:1px solid var(--hair);border-radius:var(--r-s);padding:16px;color:var(--ink)}
+.card .row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+
+/* Conditions */
+.conds{display:grid;gap:12px;counter-reset:c}
+.cond{display:grid;grid-template-columns:48px 1fr;gap:16px;padding:16px 24px;background:var(--white);border:1px solid var(--hair);border-radius:var(--r-s)}
+.cond .k{font-family:var(--display);font-weight:800;font-size:24px;color:var(--moss-700)}
+.cond p{color:var(--ink-2);font-size:15.5px}
+.cond h3{font-size:17px;margin-bottom:4px}
+
+/* Two col */
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.box{border:1px solid var(--hair);border-radius:var(--r);padding:24px;display:grid;gap:12px;align-content:start;background:var(--white)}
+.box.no{background:#FBF4F1;border-color:#E8CFC8}
+.box.ok{background:#F2F7EC;border-color:#D3E3C3}
+.box h3{font-size:18px}
+
+/* Table */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--hair);border-radius:var(--r);background:var(--white)}
+table{width:100%;border-collapse:collapse;min-width:620px}
+th,td{text-align:left;padding:16px 24px;vertical-align:top;border-bottom:1px solid var(--hair);font-size:15.5px}
+th{font-family:var(--display);font-weight:700;font-size:14px;color:var(--ink-2);background:var(--sand)}
+tr:last-child td{border-bottom:0}
+td:first-child{white-space:nowrap}
+
+/* Footer */
+.end{background:var(--moss-900);color:#E4ECD9}
+.end .wrap{padding-top:clamp(56px,7vw,96px);padding-bottom:56px;display:grid;gap:24px}
+.end h2{color:#fff;max-width:36rem}
+.end h2 span{color:var(--leaf)}
+.end p{max-width:42rem}
+.end .btn.ghost{color:#fff;border-color:rgba(255,255,255,.35)}
+.end .btn.primary{background:var(--leaf);color:var(--moss-900)}
+.end small{color:#B9C7A8;font-size:13px}
+
+/* Toast */
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--coal);color:#fff;padding:12px 20px;border-radius:999px;font-weight:600;font-size:15px;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.show{opacity:1}
+
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr;gap:32px;padding-top:24px}
+  .toc{position:sticky;top:0;z-index:5;background:var(--paper);margin:0 calc(-1*clamp(20px,4vw,40px));padding:12px clamp(20px,4vw,40px);border-bottom:1px solid var(--hair)}
+  .toc p{display:none}
+  .toc ol{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+  .toc a{white-space:nowrap;border:1px solid var(--hair);border-radius:999px;padding:8px 14px;font-size:14px}
+  .toc a::before{display:none}
+  section{scroll-margin-top:72px}
+}
+@media (max-width:640px){
+  .rules,.tpl,.two{grid-template-columns:1fr}
+  .tag{grid-template-columns:1fr auto;padding:16px}
+  .tag span{grid-column:1/-1;grid-row:2}
+  .cond{grid-template-columns:32px 1fr;padding:16px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="brand"><span class="dot" aria-hidden="true"></span>Đi làm với AI · Cộng đồng người đi làm ứng dụng AI</div>
+    <h1>Nội quy group <span>Đi làm với AI</span></h1>
+    <p class="lead">Nơi người đi làm ở mọi ngành nghề kể việc thật đã làm với AI, hỏi khi bị kẹt và học cùng nhau về AI Agent, tự động hóa. Không cần biết code. Câu hỏi cơ bản luôn được chào đón. Đọc 3 phút để bài của bạn được duyệt nhanh hơn nhé.</p>
+    <div class="meta">
+      <span class="pill"><i aria-hidden="true"></i>Đang áp dụng</span>
+      <span class="pill amber">Cập nhật 18/11/2026</span>
+    </div>
+    <div class="actions">
+      <a class="btn primary" href="https://www.facebook.com/groups/dilamvoiai">Vào group Đi làm với AI →</a>
+      <a class="btn ghost" href="#tom-tat">Đọc 8 điều chính</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap layout">
+  <nav class="toc" aria-label="Mục lục nội quy">
+    <p>Mục lục</p>
+    <ol>
+      <li><a href="#tom-tat">8 điều chính</a></li>
+      <li><a href="#dang-gi">Đăng gì ở đây</a></li>
+      <li><a href="#hashtag">Hashtag</a></li>
+      <li><a href="#truoc-khi-dang">Trước khi đăng</a></li>
+      <li><a href="#tai-lieu">Chia sẻ tài liệu</a></li>
+      <li><a href="#khong-dang">Không đăng</a></li>
+      <li><a href="#binh-luan">Bình luận</a></li>
+      <li><a href="#vi-pham">Xử lý vi phạm</a></li>
+      <li><a href="#khieu-nai">Báo cáo, khiếu nại</a></li>
+    </ol>
+  </nav>
+
+  <main class="content">
+
+    <section id="tom-tat" aria-labelledby="h-tom-tat">
+      <div class="sec-head">
+        <span class="eyebrow">Tóm tắt</span>
+        <h2 id="h-tom-tat">8 điều chính</h2>
+        <p>Đây cũng là 8 quy tắc bạn thấy trong mục Quy tắc nhóm trên Facebook. Chi tiết từng điều nằm ở các phần bên dưới.</p>
+      </div>
+      <div class="rules">
+        <article class="rule"><span class="n">01</span><h3>Đọc nội quy trước khi đăng</h3><p>Trang này có danh sách hashtag, mẫu đặt câu hỏi và cách xử lý vi phạm.</p></article>
+        <article class="rule"><span class="n">02</span><h3>Đúng chủ đề: AI trong công việc</h3><p>Usecase thật, câu hỏi khi ứng dụng AI, chia sẻ học tập, AI Agent và tự động hóa, tin AI có nhận định, trao đổi về AI.</p></article>
+        <article class="rule"><span class="n">03</span><h3>Chia sẻ thật, ghi nguồn rõ</h3><p>Kể việc thật bạn đã làm, kể cả chỗ chưa được. Dùng của người khác thì ghi nguồn. Khoe kết quả AI thì ghi công cụ.</p></article>
+        <article class="rule"><span class="n">04</span><h3>Hỏi rõ để được giúp nhanh</h3><p>Nói bạn làm nghề gì, muốn AI làm việc gì, đang dùng công cụ nào, đã thử gì. Gắn #HoiDap.</p></article>
+        <article class="rule"><span class="n">05</span><h3>Bảo vệ dữ liệu công việc</h3><p>Không đăng API key, mật khẩu, dữ liệu khách hàng, tài liệu nội bộ. Che thông tin trước khi chụp màn hình.</p></article>
+        <article class="rule"><span class="n">06</span><h3>Không quảng cáo, không thu data</h3><p>Không rao bán, không affiliate, không thu email/SĐT, không kéo người sang Zalo, Telegram, group khác.</p></article>
+        <article class="rule"><span class="n">07</span><h3>Tử tế khi trao đổi</h3><p>Góp ý lịch sự, không công kích. Không bình luận "chấm", "hóng", "ib".</p></article>
+        <article class="rule dark"><span class="n">08</span><h3>Điều cấm tuyệt đối</h3><p>Lừa đảo, đa cấp, "kiếm tiền nhanh bằng AI", mua bán tài khoản AI, crack, key API, deepfake, 18+, thù ghét, cờ bạc. Vi phạm sẽ bị chặn ngay.</p></article>
+      </div>
+    </section>
+
+    <section id="dang-gi" aria-labelledby="h-dang-gi">
+      <div class="sec-head">
+        <span class="eyebrow">Phần I</span>
+        <h2 id="h-dang-gi">Đăng gì ở đây</h2>
+      </div>
+      <ol class="list">
+        <li><span class="k">1</span><p><b>Usecase thật:</b> dùng AI giải quyết việc gì, bằng công cụ nào, các bước ra sao, kết quả và bài học, kể cả chỗ chưa được.</p></li>
+        <li><span class="k">2</span><p><b>Câu hỏi</b> khi ứng dụng AI vào công việc.</p></li>
+        <li><span class="k">3</span><p><b>Chia sẻ học tập:</b> ghi chú khóa học, bài đọc, webinar, prompt, workflow, template, viết bằng lời của bạn.</p></li>
+        <li><span class="k">4</span><p><b>AI Agent và tự động hóa:</b> agent, workflow, kết nối công cụ, kinh nghiệm triển khai.</p></li>
+        <li><span class="k">5</span><p><b>Tin AI có nhận định:</b> dẫn nguồn và nói rõ dùng được vào việc gì.</p></li>
+        <li><span class="k">6</span><p><b>Kết nối:</b> giới thiệu bản thân, tìm bạn học, tìm người cùng thử nghiệm hoặc cùng làm dự án AI.</p></li>
+        <li><span class="k">7</span><p><b>Trao đổi về AI:</b> hỏi ý kiến, chia sẻ quan điểm, poll, câu hỏi mở. Không bắt buộc phải là usecase.</p></li>
+        <li><span class="k">8</span><p><b>Webinar của group:</b> hỏi đáp, cảm nhận, tài liệu liên quan.</p></li>
+      </ol>
+    </section>
+
+    <section id="hashtag" aria-labelledby="h-hashtag">
+      <div class="sec-head">
+        <span class="eyebrow">Phần II</span>
+        <h2 id="h-hashtag">Hashtag</h2>
+        <p>Gắn 1 hashtag chủ đề cho mỗi bài. Bấm "Sao chép" để lấy nhanh.</p>
+      </div>
+      <div class="tags">
+        <div class="tag"><code>#MotViecChoAI</code><span>Usecase thật bạn đã giao cho AI làm</span><button class="copy" type="button" data-copy="#MotViecChoAI" aria-label="Sao chép #MotViecChoAI">Sao chép</button></div>
+        <div class="tag"><code>#HoiDap</code><span>Hỏi đáp, gỡ kẹt</span><button class="copy" type="button" data-copy="#HoiDap" aria-label="Sao chép #HoiDap">Sao chép</button></div>
+        <div class="tag"><code>#HuongDan</code><span>Hướng dẫn từng bước, mẹo, prompt, template</span><button class="copy" type="button" data-copy="#HuongDan" aria-label="Sao chép #HuongDan">Sao chép</button></div>
+        <div class="tag"><code>#TinAI</code><span>Tin AI kèm nhận định của bạn</span><button class="copy" type="button" data-copy="#TinAI" aria-label="Sao chép #TinAI">Sao chép</button></div>
+        <div class="tag"><code>#KetNoi</code><span>Giới thiệu bản thân, tìm bạn học, tìm người cùng làm</span><button class="copy" type="button" data-copy="#KetNoi" aria-label="Sao chép #KetNoi">Sao chép</button></div>
+      </div>
+      <div class="note">
+        <h3>Hashtag chuyên mục của ban quản trị</h3>
+        <div class="series"><code>#ThuThach30Phut</code><code>#TuDienAI</code><code>#ChuDNKeViec</code><code>#ChaoBanMoi</code><code>#Webinar</code></div>
+        <p>Bạn có thể dùng kèm khi tham gia chuyên mục đó. Tối đa 2 hashtag mỗi bài: 1 chủ đề + 1 chuyên mục. Không tự tạo hashtag mới; muốn nói về AI Agent, n8n hay ChatGPT thì cứ viết thẳng trong bài để mọi người tìm được. Quên gắn hashtag cũng không sao, mod sẽ nhắc trong bình luận.</p>
+      </div>
+    </section>
+
+    <section id="truoc-khi-dang" aria-labelledby="h-truoc">
+      <div class="sec-head">
+        <span class="eyebrow">Phần III</span>
+        <h2 id="h-truoc">Trước khi đăng</h2>
+        <p>Tìm trong group trước, có thể câu hỏi của bạn đã có người trả lời. Rồi dùng một trong hai khung dưới đây.</p>
+      </div>
+      <div class="tpl">
+        <div class="card">
+          <div class="row"><h3>Mẫu đặt câu hỏi</h3><button class="copy" type="button" data-copy-target="tpl-hoi">Sao chép mẫu</button></div>
+<pre id="tpl-hoi">#HoiDap
+Mình làm: (nghề, ngành)
+Mình muốn AI làm: (việc cụ thể)
+Đang dùng: (công cụ, gói miễn phí hay trả phí)
+Đã thử: (cách đã làm)
+Kết quả hoặc lỗi: (kèm ảnh chụp màn hình đã che thông tin)</pre>
+        </div>
+        <div class="card">
+          <div class="row"><h3>Khung kể usecase</h3><button class="copy" type="button" data-copy-target="tpl-usecase">Sao chép mẫu</button></div>
+<pre id="tpl-usecase">#MotViecChoAI
+Việc gì:
+Công cụ:
+Các bước:
+Kết quả (con số nếu có):
+Chỗ chưa được:</pre>
+        </div>
+      </div>
+      <ul class="bullets">
+        <li>Ghi nguồn khi dùng bài viết, prompt, template của người khác. Khoe kết quả làm bằng AI thì ghi công cụ đã dùng.</li>
+        <li>Che API key, mật khẩu, dữ liệu khách hàng, tài liệu nội bộ công ty trước khi chụp màn hình.</li>
+        <li>Khuyến khích viết tiếng Việt có dấu, hạn chế viết tắt để mọi người dễ đọc.</li>
+      </ul>
+    </section>
+
+    <section id="tai-lieu" aria-labelledby="h-tai-lieu">
+      <div class="sec-head">
+        <span class="eyebrow">Phần IV</span>
+        <h2 id="h-tai-lieu">Chia sẻ tài liệu và "comment để nhận tài liệu"</h2>
+        <p>Group khuyến khích chia sẻ tài liệu, prompt, template, công cụ miễn phí. Bài "comment để nhận tài liệu" được duyệt khi đủ 5 điều kiện:</p>
+      </div>
+      <div class="conds">
+        <div class="cond"><span class="k">1</span><div><h3>Miễn phí cho tất cả</h3><p>Ai bình luận cũng nhận được và dùng được ngay, không phải mua thêm gì.</p></div></div>
+        <div class="cond"><span class="k">2</span><div><h3>Bài có giá trị sẵn</h3><p>Nói rõ tài liệu gồm những gì, dùng cho việc gì, kèm ảnh xem trước. Không đăng mỗi câu "comment để nhận".</p></div></div>
+        <div class="cond"><span class="k">3</span><div><h3>Không thu data, không trục lợi</h3><p>Không xin email, SĐT; không bắt kết bạn, theo dõi trang hay nhắn tin mua hàng; không dẫn sang Zalo, Telegram, group khác; không chào bán khóa học, dịch vụ kèm theo sau.</p></div></div>
+        <div class="cond"><span class="k">4</span><div><h3>Gửi đúng hẹn</h3><p>Ưu tiên để link công khai ngay trong bài hoặc bình luận đầu tiên. Nếu gửi qua tin nhắn thì gửi hết trong 48 giờ.</p></div></div>
+        <div class="cond"><span class="k">5</span><div><h3>Tôn trọng bản quyền</h3><p>Tài liệu không phải của bạn thì ghi nguồn, không chia sẻ tài liệu có bản quyền trái phép.</p></div></div>
+      </div>
+      <p style="color:var(--ink-2);max-width:46rem">Ban quản trị có thể đề nghị bạn chuyển sang link công khai, hoặc gỡ bài nếu thành viên báo có dấu hiệu thu data, bán hàng sau khi gửi tài liệu.</p>
+    </section>
+
+    <section id="khong-dang" aria-labelledby="h-khong">
+      <div class="sec-head">
+        <span class="eyebrow">Phần V</span>
+        <h2 id="h-khong">Không đăng</h2>
+      </div>
+      <div class="two">
+        <div class="box no">
+          <h3>Bài sẽ không được duyệt</h3>
+          <ul class="bullets">
+            <li>Nội dung không liên quan AI: bán hàng thông thường, đầu tư, crypto, chính trị, chuyện đời sống chung.</li>
+            <li>Chỉ dán link tin tức, video mà không kèm tóm tắt hoặc nhận định của bạn.</li>
+            <li>Quảng cáo, rao bán sản phẩm, dịch vụ, khóa học, kể cả về AI.</li>
+            <li>Link affiliate, link rút gọn không rõ đích đến, link mời sang group/kênh khác khi chưa được đồng ý.</li>
+            <li>Tiêu đề giật gân kiểu "kiếm tiền nhanh bằng AI", "tool thần thánh thay thế mọi nghề".</li>
+          </ul>
+        </div>
+        <div class="box ok">
+          <h3>Ngoại lệ</h3>
+          <ul class="bullets">
+            <li><b>Sản phẩm, công cụ do chính bạn làm:</b> được giới thiệu dưới dạng usecase đầy đủ (bối cảnh, cách làm, kết quả, bài học), không kèm giá, không "inbox".</li>
+            <li><b>Tin tuyển dụng vị trí có dùng AI, sự kiện hoặc khóa học bên ngoài:</b> nhắn admin trước, admin duyệt mới đăng.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="binh-luan" aria-labelledby="h-binh-luan">
+      <div class="sec-head">
+        <span class="eyebrow">Phần VI</span>
+        <h2 id="h-binh-luan">Bình luận</h2>
+      </div>
+      <ul class="bullets">
+        <li>Bình luận liên quan đến bài. Không đồng ý thì góp ý lịch sự hoặc bỏ qua.</li>
+        <li>Không bình luận "chấm", "hóng", "ib". Muốn theo dõi thì bật thông báo hoặc lưu bài.</li>
+        <li>Câu hỏi thêm nên hỏi công khai dưới bài để cả group cùng học.</li>
+        <li>Không để link, Zalo, SĐT trong bình luận để kéo người ra ngoài.</li>
+        <li>Cần sửa thì dùng "Chỉnh sửa", không bình luận nhiều lần liên tiếp.</li>
+      </ul>
+    </section>
+
+    <section id="vi-pham" aria-labelledby="h-vi-pham">
+      <div class="sec-head">
+        <span class="eyebrow">Phần VII</span>
+        <h2 id="h-vi-pham">Xử lý vi phạm</h2>
+        <p>Tái phạm sẽ bị nâng lên một mức.</p>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th scope="col">Mức</th><th scope="col">Ví dụ</th><th scope="col">Xử lý</th></tr></thead>
+          <tbody>
+            <tr><td><span class="pill">Nhẹ</span></td><td>Thiếu hashtag, thiếu nguồn, lạc đề nhẹ, câu hỏi chưa rõ, bình luận "chấm/hóng/ib"</td><td>Lần 1 mod nhắc và hướng dẫn sửa. Lần 2 xóa nội dung.</td></tr>
+            <tr><td><span class="pill amber">Trung bình</span></td><td>Quảng cáo, affiliate, thu email/SĐT, kéo người sang group/kênh khác, spam lặp lại, ngôn từ thô tục</td><td>Xóa nội dung và tạm khóa đăng bài, bình luận 3 đến 7 ngày.</td></tr>
+            <tr><td><span class="pill err">Nặng</span></td><td>Lừa đảo, đa cấp, mua bán tài khoản AI, crack, key API, deepfake giả mạo người thật, 18+, thù ghét, quấy rối, mạo danh ban quản trị, cố ý tung dữ liệu người khác</td><td>Chặn khỏi group ngay.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">
+        <h3>Lỡ đăng nhầm API key hoặc dữ liệu?</h3>
+        <p>Ban quản trị ẩn bài và nhắn bạn thu hồi key. Trường hợp này không tính là vi phạm.</p>
+      </div>
+    </section>
+
+    <section id="khieu-nai" aria-labelledby="h-khieu-nai">
+      <div class="sec-head">
+        <span class="eyebrow">Phần VIII</span>
+        <h2 id="h-khieu-nai">Báo cáo và khiếu nại</h2>
+      </div>
+      <ol class="list">
+        <li><span class="k">1</span><p><b>Thấy nội dung vi phạm:</b> bấm "..." trên bài hoặc bình luận, chọn "Báo cáo với quản trị viên".</p></li>
+        <li><span class="k">2</span><p><b>Muốn khiếu nại một quyết định:</b> bình luận dưới <a href="https://www.facebook.com/groups/dilamvoiai/posts/1885312002908056/">bài ghim nội quy</a> hoặc nhắn anh Nguyễn Thanh Bình (ban quản trị). Bên mình phản hồi trong 48 giờ. Mỗi quyết định được khiếu nại 1 lần.</p></li>
+      </ol>
+      <div class="note">
+        <h3>Lưu ý</h3>
+        <p>Nội dung trong group do thành viên chia sẻ. Ban quản trị không chịu trách nhiệm về kết quả khi bạn làm theo hướng dẫn. Hãy thử trên dữ liệu mẫu và kiểm tra lại kết quả AI trước khi dùng cho dữ liệu công việc thật.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="end">
+  <div class="wrap">
+    <h2>Kể việc thật, hỏi khi kẹt, <span>cùng nhau làm việc nhanh hơn.</span></h2>
+    <p>Nội quy này sẽ được cập nhật khi group lớn lên, mọi thay đổi đều ghi ngày. Bạn có góp ý cho nội quy, cứ bình luận dưới bài ghim trong group nhé.</p>
+    <div class="actions">
+      <a class="btn primary" href="https://www.facebook.com/groups/dilamvoiai">Vào group →</a>
+      <a class="btn ghost" href="https://www.facebook.com/groups/dilamvoiai/posts/1885312002908056/">Mở bài ghim nội quy</a>
+    </div>
+    <small>Đi làm với AI · Cập nhật 18/11/2026</small>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  var toast=document.getElementById('toast'), t;
+  function show(msg){ toast.textContent=msg; toast.classList.add('show'); clearTimeout(t); t=setTimeout(function(){toast.classList.remove('show')},1800); }
+  function fallback(text){ var ta=document.createElement('textarea'); ta.value=text; ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); var ok=false; try{ ok=document.execCommand('copy'); }catch(e){} document.body.removeChild(ta); return ok; }
+  document.querySelectorAll('.copy').forEach(function(b){
+    b.addEventListener('click',function(){
+      var text=b.dataset.copy || document.getElementById(b.dataset.copyTarget).textContent;
+      var done=function(){ show('Đã sao chép'); };
+      try{ navigator.clipboard.writeText(text).then(done,function(){ fallback(text)?done():show('Chưa sao chép được, bạn bôi đen để copy nhé'); }); }
+      catch(e){ fallback(text)?done():show('Chưa sao chép được, bạn bôi đen để copy nhé'); }
+    });
+  });
+  var links=[].slice.call(document.querySelectorAll('.toc a'));
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ links.forEach(function(a){ a.classList.toggle('on', a.getAttribute('href')==='#'+e.target.id); }); } }); },{rootMargin:'-30% 0px -60% 0px'});
+    document.querySelectorAll('main section').forEach(function(s){ io.observe(s); });
+  }
+})();
+</script>
+</body>
+</html>
