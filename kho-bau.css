@@ -205,7 +205,8 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--purple-mid);outline
 .kb-tbl th{background:var(--purple-deep);color:#fff;text-align:left;font:700 12px Montserrat;letter-spacing:.06em;text-transform:uppercase;padding:10px 14px}
 .kb-tbl td{padding:10px 14px;font-size:13.5px;vertical-align:top;border-top:1px solid var(--lav-300)}
 .kb-tbl td:first-child{font-weight:700;color:var(--ink);white-space:nowrap}
-@media(max-width:560px){.kb-tbl td:first-child{white-space:normal}}
+.kb-tbl.wrap td:first-child,.kb-tbl.wrap th:first-child{white-space:normal;min-width:11em;width:32%}   /* cột đầu dài cả câu (tình huống, FAQ): xuống dòng, không ép các cột sau */
+@media(max-width:560px){.kb-tbl td:first-child{white-space:normal}.kb-tbl.wrap td:first-child,.kb-tbl.wrap th:first-child{min-width:0}}
 
 /* ví dụ kết quả trong hộp chi tiết */
 .kb-demo{margin:18px 0 0;background:var(--lav-200);border:2px solid var(--lav-300);border-radius:20px;padding:6px 16px 14px}
