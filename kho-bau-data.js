@@ -30,8 +30,8 @@ window.TREASURES = [
     "type_en": "Claude skill",
     "badge": "Miễn phí",
     "badge_en": "Free",
-    "desc": "Skill giúp mod group Facebook: khai vấn một lần ra hồ sơ group (nội quy, chân dung thành viên, rubric), chấm bài chờ duyệt theo rubric và chính sách Facebook, soát bài admin trước khi đăng kèm bản sửa, canh bình luận ở bài đang căng.",
-    "desc_en": "A skill for Facebook group moderators: one interview builds the group profile (rules, member persona, rubric), pending posts are scored against the rubric and Facebook policy, admin drafts are checked before publishing with a fixed version, and heated comment threads are watched.",
+    "desc": "Admin duyệt hay tự đăng bài vi phạm thì Facebook tính lỗi cho cả group: giảm hiển thị, có khi bị gỡ. Skill này giúp mod chấm bài nhất quán, chặn lỗi chính sách từ trước, và canh bình luận khi drama nổi lên.",
+    "desc_en": "When an admin approves or publishes a violating post, Facebook counts it against the whole group: less reach, sometimes removal. This skill helps moderators score posts consistently, catch policy issues up front, and watch the comments when drama breaks out.",
     "points": [
       "Mỗi bài qua 2 cổng: chính sách Facebook rồi luật cứng của group, sau đó mới chấm điểm",
       "Mỗi kết luận kèm câu trích làm căn cứ và lời nhắn sẵn gửi tác giả",
@@ -46,28 +46,12 @@ window.TREASURES = [
     ],
     "cta": "Tải file .zip →",
     "cta_en": "Download the .zip →",
-    "meta": [
-      {
-        "l": "Cài đặt",
-        "l_en": "Install",
-        "v": "claude.ai: Cài đặt → Capabilities → Skills → tải zip lên. Claude Code: giải nén vào ~/.claude/skills/",
-        "v_en": "claude.ai: Settings → Capabilities → Skills → upload the zip. Claude Code: unzip into ~/.claude/skills/"
-      },
-      {
-        "l": "Quyền",
-        "l_en": "Control",
-        "v": "Skill chỉ đề xuất; mod tự bấm duyệt, xoá, chặn trên Facebook",
-        "v_en": "The skill only proposes; mods click approve, delete or block on Facebook themselves"
-      },
-      {
-        "l": "Phiên bản",
-        "l_en": "Version",
-        "v": "1.0.0, gói theo chuẩn kes-create-skill",
-        "v_en": "1.0.0, packaged with kes-create-skill"
-      }
-    ],
-    "note": "Phần chính sách Facebook là bản tóm tắt Tiêu chuẩn cộng đồng của Meta; khi kết luận phụ thuộc đúng một điều khoản, skill được dặn mở trang chính sách gốc để kiểm tra.",
-    "note_en": "The Facebook policy part summarises Meta's Community Standards; when a verdict hinges on one exact rule, the skill is told to check the live policy page.",
+    "video": {
+      "src": "assets/video/qc-content-fb-group-intro.mp4",
+      "poster": "assets/res/qc-content-fb-group-intro-poster.jpg",
+      "title": "qc-content-fb-group: video demo 41 giây",
+      "title_en": "qc-content-fb-group: 41-second demo video"
+    },
     "detail": "qc-content-fb-group",
     "direct": true,
     "links": [
@@ -80,70 +64,171 @@ window.TREASURES = [
     "sections": [
       {
         "k": "callout",
-        "t": "Admin duyệt hay tự đăng bài vi phạm thì Facebook tính lỗi cho cả group. Skill này cho cả đội mod một bộ thước chung, chặn lỗi chính sách trước khi bấm duyệt.",
-        "t_en": "When an admin approves or publishes a violating post, Facebook counts it against the whole group. This skill gives the mod team one shared yardstick and catches policy issues before anyone clicks approve."
+        "t": "Duyệt bài group: đừng để một cú bấm \"Duyệt\" kéo cả group bị phạt",
+        "t_en": "Approving posts: don't let one \"Approve\" click get the whole group penalised"
+      },
+      {
+        "k": "list",
+        "items": [
+          "Khai vấn một lần ra hồ sơ group",
+          "Chấm bài theo rubric, chặn trước bằng chính sách Facebook",
+          "Soát bài admin kèm bản sửa, canh bình luận căng"
+        ],
+        "items_en": [
+          "One interview builds the group profile",
+          "Posts scored on a rubric, with a Facebook policy check first",
+          "Admin drafts checked with a fixed version, heated comments watched"
+        ]
       },
       {
         "k": "h",
-        "t": "4 chế độ",
-        "t_en": "4 modes"
+        "t": "Một bộ thước chung cho cả đội mod",
+        "t_en": "One shared yardstick for the whole mod team"
+      },
+      {
+        "k": "steps",
+        "items": [
+          {
+            "t": "Khai vấn một lần ra hồ sơ group",
+            "d": "AI hỏi lần lượt 6 cụm: thông tin group, nội quy (chia luật cứng và mềm), chân dung thành viên, rubric chấm điểm, cách xử lý bình luận, đội quản trị. Bạn dán sẵn nội quy thì AI tự rút ra, chỉ hỏi phần còn thiếu. Kết quả là file group-profile.md dùng cho mọi lần sau."
+          },
+          {
+            "t": "Chấm bài theo rubric, chặn trước bằng chính sách Facebook",
+            "d": "Mỗi bài qua 2 cổng: chính sách Facebook (mức ĐỎ là từ chối ngay) rồi luật cứng của group. Qua cổng mới chấm rubric 100 điểm, mỗi tiêu chí kèm câu trích làm căn cứ. Kết luận có 4 mức, kèm lời nhắn lịch sự gửi tác giả."
+          },
+          {
+            "t": "Soát bài admin kèm bản sửa",
+            "d": "Bài của admin, mod, BTC, đối tác không chấm rubric mà soát những lỗi hay gặp: mồi tương tác, minigame bắt share/tag, bài tài trợ không ghi hợp tác, cam kết kết quả, bóc phốt lộ thông tin. Có lỗi thì AI viết lại đúng những câu đó, giữ giọng văn của người viết."
+          },
+          {
+            "t": "Canh bình luận ở bài đang căng",
+            "d": "AI chấm Mức nhiệt 0-10, gắn nhãn từng bình luận (phản biện, spam, khiếm nhã, công kích, vi phạm ĐỎ) kèm hành động đề xuất, soạn sẵn bình luận ghim để hạ nhiệt và ghi lịch sử vi phạm vào watchlist."
+          }
+        ],
+        "items_en": [
+          {
+            "t": "One interview builds the group profile",
+            "d": "The AI asks 6 rounds of questions: group info, rules (split into hard and soft), member persona, scoring rubric, how to handle comments, and the admin team. Paste your existing rules and it extracts them, asking only what is missing. The result is a group-profile.md file reused every time."
+          },
+          {
+            "t": "Posts scored on a rubric, with a Facebook policy check first",
+            "d": "Each post passes 2 gates: Facebook policy (RED means decline right away), then the group's hard rules. Only then is it scored on a 100-point rubric, each criterion backed by a quote. The verdict has 4 levels and comes with a polite message for the author."
+          },
+          {
+            "t": "Admin drafts checked, with a fixed version",
+            "d": "Posts by admins, mods, organisers and partners skip the rubric and get checked for the usual slips: engagement bait, giveaways that require shares or tags, sponsored posts without disclosure, guaranteed results, call-out posts that expose personal data. The AI rewrites only the problem sentences and keeps the author's voice."
+          },
+          {
+            "t": "Comments watched on heated posts",
+            "d": "The AI scores a 0-10 heat level, labels each comment (fair pushback, spam, rude, personal attack, RED violation) with a proposed action, drafts a pinned comment to calm things down, and logs strikes in a watchlist."
+          }
+        ]
+      },
+      {
+        "k": "h",
+        "t": "Group nào có người duyệt bài là dùng được",
+        "t_en": "Any group that approves posts can use it"
       },
       {
         "k": "table",
         "head": [
-          "Chế độ",
-          "Khi nào",
-          "Nhận về"
+          "Tình huống",
+          "Trước",
+          "Sau"
         ],
         "head_en": [
-          "Mode",
-          "When",
-          "You get"
+          "Situation",
+          "Before",
+          "After"
         ],
         "rows": [
           [
-            "Khai vấn group",
-            "Lần đầu, hoặc đổi nội quy",
-            "group-profile.md"
+            "Group cộng đồng có hàng chục bài chờ duyệt mỗi ngày",
+            "Mỗi mod duyệt theo cảm tính, bài giống nhau người duyệt người từ chối, thành viên thắc mắc vì sao bài mình bị loại.",
+            "Cả đội chấm theo cùng một rubric, mỗi kết luận có câu trích làm căn cứ và lời nhắn sẵn để gửi tác giả."
           ],
           [
-            "Chấm bài thành viên",
-            "Bài chờ duyệt",
-            "Điểm, kết luận, lời nhắn tác giả"
+            "Group thương hiệu chuẩn bị chạy minigame",
+            "Bài viết \"Like, share, tag 3 bạn bè\" đăng lên thì bị Facebook giảm hiển thị, group tích thêm lỗi.",
+            "Soát trước khi đăng, nhận bản sửa dùng câu hỏi thật làm điều kiện, có thể lệ và câu miễn trừ đầy đủ."
           ],
           [
-            "Soát bài admin",
-            "Trước khi đăng",
-            "Danh sách lỗi + bản sửa"
+            "Bài bóc phốt hay so sánh thương hiệu kéo theo hàng trăm bình luận",
+            "Mod thức khuya đọc từng bình luận, không biết nên ẩn, xoá hay khoá bài, người vi phạm lần thứ mấy cũng không nhớ.",
+            "Có Mức nhiệt, danh sách bình luận cần xử lý kèm hành động, bình luận ghim soạn sẵn và lịch hẹn quét lại."
           ],
           [
-            "Canh bình luận",
-            "Bài đang căng",
-            "Mức nhiệt, việc cần làm, bình luận ghim"
+            "Mod mới vào đội",
+            "Phải hỏi lại admin nội quy, chưa biết lỗi chính sách Facebook nào là nặng.",
+            "Đọc hồ sơ group và báo cáo của AI là nắm được cách đội đang duyệt, lỗi nào ĐỎ, lỗi nào VÀNG."
           ]
         ],
         "rows_en": [
           [
-            "Group interview",
-            "First time, or rules change",
-            "group-profile.md"
+            "A community group with dozens of pending posts a day",
+            "Each mod judges by feel, similar posts get approved by one and declined by another, and members ask why theirs was rejected.",
+            "The whole team scores on the same rubric; every verdict has a supporting quote and a ready message for the author."
           ],
           [
-            "Score member posts",
-            "Pending posts",
-            "Score, verdict, author message"
+            "A brand group about to run a giveaway",
+            "A \"Like, share, tag 3 friends\" post goes up, Facebook cuts its reach and the group collects another strike.",
+            "Checked before publishing, with a fixed version that uses a real question as the entry condition, plus full rules and a disclaimer."
           ],
           [
-            "Check admin drafts",
-            "Before publishing",
-            "Issue list + fixed version"
+            "A call-out or brand-comparison post pulls hundreds of comments",
+            "Mods stay up late reading every comment, unsure whether to hide, delete or lock, and nobody remembers who has offended before.",
+            "A heat score, a list of comments to act on with proposed actions, a ready pinned comment, and a re-scan time."
           ],
           [
-            "Watch comments",
-            "Heated posts",
-            "Heat score, actions, pinned comment"
+            "A new mod joins the team",
+            "They have to ask the admin about the rules again and don't know which Facebook policy breaches are serious.",
+            "Reading the group profile and the AI's reports shows how the team moderates, and what counts as RED or YELLOW."
           ]
         ]
+      },
+      {
+        "k": "h",
+        "t": "Xem thử: đầu vào → xử lý → đầu ra",
+        "t_en": "Preview: input → process → output"
+      },
+      {
+        "k": "p",
+        "t": "Soát bài minigame của BTC trước khi đăng",
+        "t_en": "Checking an organiser's giveaway post before it goes live"
+      },
+      {
+        "k": "p",
+        "t": "Bạn đưa vào: Bài nháp: \"MINIGAME NHẬN 5 VÉ NIGHT RUN. Like + Share bài này, tag 3 người bạn, comment 'Tôi muốn chạy' để nhận link. Giải chạy giúp bạn giảm 5kg trong 1 tháng, đảm bảo 100%!\" kèm câu: \"Kiểm tra bài admin này trước khi đăng.\"",
+        "t_en": "You give it: Draft (Vietnamese): \"MINIGAME NHẬN 5 VÉ NIGHT RUN. Like + Share bài này, tag 3 người bạn, comment 'Tôi muốn chạy' để nhận link. Giải chạy giúp bạn giảm 5kg trong 1 tháng, đảm bảo 100%!\" plus: \"Check this admin post before publishing.\""
+      },
+      {
+        "k": "list",
+        "items": [
+          "Nhận diện tác giả là BTC trong đội quản trị → soát theo nhánh bài admin.",
+          "Quét chính sách Facebook, đặc biệt bảng lỗi hay gặp ở bài admin, rồi đối chiếu nội quy group.",
+          "Mỗi vấn đề ghi câu trích, mục chính sách, mức ĐỎ hoặc VÀNG và cách sửa.",
+          "Viết bản sửa giữ ý và giọng của BTC, chỉ đổi những câu có vấn đề.",
+          "Soát lại bản sửa: không còn lỗi thì giao, thiếu thông tin thì để ô [cần điền]."
+        ],
+        "items_en": [
+          "Recognise the author as an organiser on the admin team → use the admin-draft branch.",
+          "Sweep Facebook policy, especially the common slips in admin posts, then check the group's rules.",
+          "For each issue: the quote, the policy item, RED or YELLOW, and the fix.",
+          "Write a fixed version that keeps the organiser's ideas and voice, changing only the problem sentences.",
+          "Re-check the fixed version: deliver if clean, leave a [to fill in] slot where facts are missing."
+        ]
+      },
+      {
+        "k": "code",
+        "cap": "Báo cáo soát bài",
+        "cap_en": "Check report",
+        "t": "🛡 Kết quả soát: SỬA RỒI ĐĂNG\nLý do: không có lỗi ĐỎ, nhưng dùng mồi tương tác làm điều kiện tham gia.\n\nVấn đề:\n1. \"Like + Share bài này\" → Mồi tương tác → VÀNG → bỏ điều kiện like/share\n2. \"Tag 3 người bạn\" → Mồi tương tác → VÀNG → đổi thành trả lời câu hỏi\n3. \"giảm 5kg trong 1 tháng, đảm bảo 100%\" → Tuyên bố nhạy cảm → VÀNG → bỏ cam kết\n4. Thiếu thể lệ chọn người thắng → Minigame → VÀNG → ghi rõ cách chọn, thời gian\n\n✍️ Bản đề xuất đã sửa (câu đổi nằm trong ⟦ ⟧):\n⟦Trả lời dưới bài: Lần chạy đêm đáng nhớ nhất của bạn là ở đâu?⟧\n⟦BTC chọn 5 câu trả lời hay nhất, công bố ngày [cần điền].⟧\n⟦Bài hợp tác với hãng giày XYZ. Chương trình không liên quan tới Facebook.⟧",
+        "t_en": "🛡 Kết quả soát: SỬA RỒI ĐĂNG (fix, then publish)\nWhy: no RED issue, but engagement bait is used as the entry condition.\n\nIssues:\n1. \"Like + Share bài này\" → Engagement bait → YELLOW → drop the like/share condition\n2. \"Tag 3 người bạn\" → Engagement bait → YELLOW → replace with answering a question\n3. \"giảm 5kg trong 1 tháng, đảm bảo 100%\" → Sensitive claim → YELLOW → drop the promise\n4. No rules for picking winners → Giveaway → YELLOW → state how and when\n\n✍️ Proposed fixed draft (changed sentences in ⟦ ⟧):\n⟦Answer below: where was your most memorable night run?⟧\n⟦The organisers pick the 5 best answers, announced on [to fill in].⟧\n⟦In partnership with shoe brand XYZ. This giveaway is not associated with Facebook.⟧"
+      },
+      {
+        "k": "p",
+        "t": "Ví dụ minh hoạ với dữ liệu tự soạn. Skill chỉ đề xuất, mod là người bấm duyệt, xoá hay chặn.",
+        "t_en": "Illustrative example with made-up data. The skill only proposes; the moderator clicks approve, delete or block."
       },
       {
         "k": "h",
@@ -154,32 +239,97 @@ window.TREASURES = [
         "k": "steps",
         "items": [
           {
-            "t": "Cài skill",
-            "d": "Tải zip, tải lên claude.ai (Skills) hoặc giải nén vào ~/.claude/skills/."
+            "t": "Bước 1",
+            "d": "Tải file zip. Trên claude.ai: Cài đặt → Capabilities → Skills → tải file zip lên. Trên Claude Code: giải nén vào thư mục ~/.claude/skills/."
           },
           {
-            "t": "Khai vấn group",
-            "d": "Gõ \"Lập nội quy và rubric cho group của mình\", trả lời 6 cụm câu hỏi."
+            "t": "Bước 2",
+            "d": "Mở cuộc trò chuyện mới và gõ: \"Lập nội quy và rubric cho group của mình\". Trả lời 6 cụm câu hỏi, hoặc dán sẵn nội quy hiện có để AI tự rút ra."
           },
           {
-            "t": "Dán bài cần duyệt",
-            "d": "Đọc báo cáo, rồi tự bấm duyệt, sửa hoặc xoá trên Facebook."
+            "t": "Bước 3",
+            "d": "Dán bài chờ duyệt, bài admin sắp đăng hoặc chuỗi bình luận đang căng rồi nhờ AI chấm. Đọc báo cáo, sau đó tự bấm duyệt, sửa hoặc xoá trên Facebook."
           }
         ],
         "items_en": [
           {
-            "t": "Install",
-            "d": "Download the zip, upload it on claude.ai (Skills) or unzip into ~/.claude/skills/."
+            "t": "Step 1",
+            "d": "Download the zip. On claude.ai: Settings → Capabilities → Skills → upload the zip. In Claude Code: unzip it into ~/.claude/skills/."
           },
           {
-            "t": "Interview your group",
-            "d": "Type \"Set up rules and a rubric for my group\" and answer 6 rounds of questions."
+            "t": "Step 2",
+            "d": "Open a new chat and type: \"Set up rules and a rubric for my group\". Answer the 6 rounds of questions, or paste your current rules and let the AI extract them."
           },
           {
-            "t": "Paste a post",
-            "d": "Read the report, then approve, edit or delete on Facebook yourself."
+            "t": "Step 3",
+            "d": "Paste a pending post, an admin draft or a heated comment thread and ask the AI to check it. Read the report, then approve, edit or delete on Facebook yourself."
           }
         ]
+      },
+      {
+        "k": "h",
+        "t": "Câu hỏi thường gặp",
+        "t_en": "FAQ"
+      },
+      {
+        "k": "table",
+        "head": [
+          "Câu hỏi",
+          "Trả lời"
+        ],
+        "head_en": [
+          "Question",
+          "Answer"
+        ],
+        "rows": [
+          [
+            "Skill có tự đăng nhập Facebook và tự duyệt, xoá bài không?",
+            "Không. Skill không nhập mật khẩu và không bấm nút. Nó chỉ đọc nội dung bạn dán vào (hoặc mở link bằng phiên Facebook bạn đã đăng nhập, nếu bạn cho phép) rồi đề xuất; mod là người quyết định."
+          ],
+          [
+            "Group của mình chưa có rubric thì sao?",
+            "Skill có sẵn rubric mặc định 100 điểm với 7 tiêu chí: đúng chủ đề, giá trị cho thành viên, rõ ràng, đúng định dạng, mức quảng cáo, giọng điệu, độ tin cậy. Bạn giữ nguyên hoặc đổi trọng số trong lúc khai vấn."
+          ],
+          [
+            "Phần chính sách Facebook có luôn đúng không?",
+            "Đó là bản tóm tắt Tiêu chuẩn cộng đồng của Meta. Meta thay đổi chính sách theo thời gian, nên khi một kết luận phụ thuộc vào đúng một điều khoản, skill được dặn mở trang chính sách gốc để kiểm tra trước."
+          ],
+          [
+            "Thông tin cá nhân của thành viên có bị lưu lại không?",
+            "Số điện thoại, địa chỉ, số giấy tờ và link cá nhân trong câu trích đều được che. Watchlist chỉ ghi tên hiển thị để mod áp thang xử lý."
+          ],
+          [
+            "Mình đang dùng bot QC cho group Đi làm với AI, skill này có thay thế không?",
+            "Không. Skill này dùng chung cho mọi group. Group Đi làm với AI có skill và bot Telegram riêng, nên dùng đúng bộ đó."
+          ]
+        ],
+        "rows_en": [
+          [
+            "Does the skill log into Facebook and approve or delete posts by itself?",
+            "No. It never types a password or clicks a button. It reads what you paste (or opens a link in the Facebook session you are already logged into, if you allow it) and proposes; the moderator decides."
+          ],
+          [
+            "My group has no rubric yet. What then?",
+            "The skill ships a default 100-point rubric with 7 criteria: on topic, value for members, clarity, format, amount of promotion, tone, credibility. Keep it or change the weights during the interview."
+          ],
+          [
+            "Is the Facebook policy part always right?",
+            "It is a summary of Meta's Community Standards. Meta changes its policies over time, so when a verdict hinges on one exact rule, the skill is told to check the live policy page first."
+          ],
+          [
+            "Does it store members' personal data?",
+            "Phone numbers, addresses, ID numbers and profile links are masked in quotes. The watchlist records display names only, so mods can apply the penalty ladder."
+          ],
+          [
+            "I use the QC bot for the Đi làm với AI group. Does this replace it?",
+            "No. This skill works for any group. The Đi làm với AI group has its own skill and Telegram bot; keep using that set there."
+          ]
+        ]
+      },
+      {
+        "k": "callout",
+        "t": "Để AI lo phần soi lỗi, đội mod giữ phần quyết định. Tải file zip, cài một lần, khai vấn group một lần, sau đó mỗi lần duyệt chỉ cần dán bài vào.",
+        "t_en": "Let AI catch the issues while the mod team keeps the decisions. Download the zip, install once, interview your group once; after that, each review is just pasting the post in."
       }
     ]
   },
