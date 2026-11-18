@@ -78,7 +78,7 @@
   if (reduce) return;
 
   // thẻ nghiêng 3D + vệt sáng theo chuột
-  const TILT = ".pcard,.course-card,.svc-col,.ccard,.stat,.menu-grid>.card,.chapter,.cm-card,.cm-step";
+  const TILT = ".pcard,.course-card,.svc-col,.ccard,.stat,.menu-grid>.card,.chapter,.cm-card,.cm-step:not(.cm-social)";   // thẻ mạng xã hội có chuyển động riêng, không nghiêng
   const prep = (n) => { if (n.nodeType !== 1) return; const f = (el) => { if (el.dataset.mo) return; el.dataset.mo = "1"; el.classList.add("mo-tilt"); el.insertAdjacentHTML("beforeend", '<i class="mo-glare" aria-hidden="true"></i>'); }; if (n.matches && n.matches(TILT)) f(n); n.querySelectorAll && n.querySelectorAll(TILT).forEach(f); };
   new MutationObserver((ms) => ms.forEach((m) => m.addedNodes.forEach(prep))).observe(document.body, { childList: true, subtree: true });
   prep(document.body);
