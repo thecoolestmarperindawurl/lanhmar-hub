@@ -307,3 +307,16 @@
   .cm-tw{opacity:.8}
   .cm-card.reveal,.cm-step.reveal,.cm-kind.reveal,.cm-lib,.cm-step::after,.cm-kind::after{transition:none}
 }
+
+/* thẻ mạng xã hội (thay cho "Ba bước để vào nhóm"): dùng lại khung .cm-step */
+.cm-social{display:flex;flex-direction:column;text-decoration:none;color:inherit}
+.cm-social .n .ic{width:18px;height:18px}
+.cm-social h3{margin-bottom:2px}
+.cm-social small{min-height:1.4em;font-size:12.5px;font-weight:600;opacity:.75;margin-bottom:6px}
+.cm-social .go{margin-top:auto;padding-top:14px;font-weight:700;font-size:13.5px;color:var(--gx-orange,var(--orange-text))}
+.cm-social:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+.cm-social.soon .go{color:inherit;opacity:.6;font-weight:600}
+.cm-social.soon .n{filter:grayscale(.6);opacity:.75}
+.cm-steps.cm-socials{grid-template-columns:repeat(4,1fr)}   /* 4 thẻ: 4 cột / 2×2 / 1 cột, tránh lẻ 3+1 */
+@media(max-width:1000px){.cm-steps.cm-socials{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.cm-steps.cm-socials{grid-template-columns:1fr}}
