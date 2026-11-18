@@ -15,8 +15,9 @@
   const cv = document.createElement("canvas");
   cv.id = "gxSky"; cv.setAttribute("aria-hidden", "true");
   document.body.prepend(cv);
-  const ctx = cv.getContext("2d");
+  let ctx = cv.getContext("2d");   // let: lúc vẽ lớp trời đứng yên, ctx tạm trỏ sang canvas phụ (xem frame)
   if (!ctx || !A || !DATA) return;
+  const main = ctx, scv = document.createElement("canvas"), sctx = scv.getContext("2d");
   const TAU = Math.PI * 2, D2R = Math.PI / 180;
   const LAT = 10.7769, LON = 106.7009;     // Sài Gòn
   const BIRTHDAY = "02-27";                // ngày sinh trong assets/content.json (dob 27/02/2004)
@@ -262,7 +263,7 @@
   // ---------- dựng khung ----------
   const build = () => {
     dpr = Math.min(window.devicePixelRatio || 1, 1.5); W = innerWidth; H = innerHeight;   // nền mờ ảo: 1.5× đủ nét, đỡ ~45% điểm ảnh so với 2×
-    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cv.width = scv.width = Math.round(W * dpr); cv.height = scv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); sctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     SMALL = W < 700; CX = W / 2; CY = H / 2; RH = Math.hypot(W, H) * 0.55;
     RADX = W * 0.12; RADY = -H * 0.12;
     buildGalaxy(); lastProj = -1e9;
@@ -329,16 +330,22 @@
 
   let raf = 0, last = 0, t0 = 0, hiddenAt = 0, skyMs = start.getTime();
   const frame = (now) => {
-    if (!reduce && last && now - last < (SMALL ? 48 : 31)) { raf = requestAnimationFrame(frame); return; }   // vẽ ~30 khung/giây (điện thoại ~20): sao lấp lánh chậm nên mắt không thấy khác, máy đỡ nhiều việc
+    // trời yên: ~15 khung/giây (sao lấp lánh rất chậm); có sao băng / pháo hoa / cực quang: ~30 (điện thoại ~20) cho chuyển động mượt
+    const busy = AURORA || meteors.length || rockets.length || sparks.length || now < finaleUntil;
+    if (!reduce && last && now - last < (busy ? (SMALL ? 48 : 31) : 64)) { raf = requestAnimationFrame(frame); return; }
     if (!t0) t0 = now;
     const dt = last ? Math.min(now - last, 50) : 16; last = now;
     const t = (now - t0) / 1000;
     // thời điểm trên trời: đêm tua nhanh ×20, ngày/chạng vạng đúng giờ thật; vị trí tính lại mỗi 0,25 giây
     if (!reduce) skyMs += dt * ((sky.sunAlt ?? -30) < -12 ? SPEED : 1);
-    if (now - lastProj > 250 || reduce) { reproject(new Date(skyMs)); lastProj = now; if (Math.floor(t) % 30 === 0 || !tag.innerHTML) renderTag(); }
+    let still = false, stillDt = 16;
+    if (now - lastProj > 250 || reduce) { stillDt = lastProj > 0 ? Math.min(now - lastProj, 1000) : 16; reproject(new Date(skyMs)); lastProj = now; still = true; if (Math.floor(t) % 30 === 0 || !tag.innerHTML) renderTag(); }
     const alt = sky.sunAlt, night = 1 - sstep(-12, 0, alt), deep = 1 - sstep(-18, -10, alt);
     const moonWash = sky.moon && sky.moon.alt > 0 ? 1 - 0.55 * sky.moon.illum : 1;     // trăng sáng làm Ngân Hà mờ đi
     ctx.clearRect(0, 0, W, H);
+    // lớp trời đứng yên (ánh trời, quầng đô thị, Ngân Hà, đường chòm sao, mây): chỉ vẽ lại khi vị trí sao được tính lại (~4 lần/giây),
+    // mỗi khung chỉ dán lại ảnh này — đỡ phần lớn việc vẽ toàn màn hình
+    if (still) { ctx = sctx; ctx.clearRect(0, 0, W, H);
     drawSkyLight(alt, t);
     // quầng sáng đô thị gần chân trời (ban đêm)
     if (night > 0.01) { const lp = ctx.createRadialGradient(CX, CY, RH * 0.62, CX, CY, RH); lp.addColorStop(0, "rgba(255,140,90,0)"); lp.addColorStop(1, `rgba(255,140,90,${(0.1 * night).toFixed(3)})`); ctx.fillStyle = lp; ctx.fillRect(0, 0, W, H); }
@@ -355,6 +362,9 @@
     if (night > 0.3) { ctx.strokeStyle = `rgba(185,176,255,${(0.07 * night).toFixed(3)})`; ctx.lineWidth = 1; ctx.beginPath();
       for (const con of LINES) for (const seg of con) for (let i = 1; i < seg.length; i++) { const a = seg[i - 1], b = seg[i]; if (a.alt < 0 || b.alt < 0) continue; ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); }
       ctx.stroke(); }
+    drawClouds(alt, stillDt);
+    ctx = main; }
+    ctx.drawImage(scv, 0, 0, W, H);
     // thiên hà Andromeda
     const g = sky.m31;
     if (g && g.alt > 3 && deep > 0.02) {
@@ -383,7 +393,6 @@
       ctx.fillStyle = `rgba(${c},${ext.toFixed(3)})`; ctx.beginPath(); ctx.arc(p.x, p.y, r, 0, TAU); ctx.fill();
     }
     drawSun(alt);
-    drawClouds(alt, dt);
     drawMoon(sky.moon);
     if (AURORA) { ctx.save(); ctx.globalAlpha = alt > 0 ? 0.6 : 1; drawAurora(now, reduce ? 6 : t); ctx.restore(); }
     fireworks(now, dt, alt);
