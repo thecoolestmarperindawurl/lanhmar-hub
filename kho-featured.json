@@ -9102,6 +9102,188 @@
       ]
     },
     {
+      "id": "skill-qc-content-fb-group",
+      "kho": "ai",
+      "group": "skill",
+      "guide": true,
+      "title": "qc-content-fb-group: duyệt bài group Facebook đúng nội quy và chính sách",
+      "type": "Skill",
+      "badge": "Cộng đồng",
+      "tags": [
+        "group facebook",
+        "kiểm duyệt",
+        "nội quy",
+        "rubric"
+      ],
+      "thumb": "assets/res/skill-qc-content-fb-group.jpg",
+      "note": "Khai vấn một lần ra hồ sơ group · Chấm bài theo rubric, chặn trước bằng chính sách Facebook · Soát bài admin kèm bản sửa, canh bình luận căng.",
+      "date": "2026-11-18",
+      "ctas": [
+        {
+          "btn": "Tải qc-content-fb-group.zip",
+          "url": "https://drive.google.com/file/d/1tNSLdJTUBCnRubFTgk0Tjhke_TQdD307/view?usp=drivesdk"
+        },
+        {
+          "btn": "Thư mục Skill-Hub",
+          "url": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
+        }
+      ],
+      "ctasTitle": "Tải skill",
+      "sections": [
+        {
+          "k": "hero",
+          "kicker": "Skill cho AI",
+          "t": "Duyệt bài group: đừng để một cú bấm \"Duyệt\" kéo cả group bị phạt",
+          "lead": "Admin duyệt hay tự đăng bài vi phạm thì Facebook tính lỗi cho cả group: giảm hiển thị, có khi bị gỡ. Skill này giúp mod chấm bài nhất quán, chặn lỗi chính sách từ trước, và canh bình luận khi drama nổi lên.",
+          "ticks": [
+            "Khai vấn một lần ra hồ sơ group",
+            "Chấm bài theo rubric, chặn trước bằng chính sách Facebook",
+            "Soát bài admin kèm bản sửa, canh bình luận căng"
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Một bộ thước chung cho cả đội mod"
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "Khai vấn một lần ra hồ sơ group",
+              "tag": "01",
+              "d": "AI hỏi lần lượt 6 cụm: thông tin group, nội quy (chia luật cứng và mềm), chân dung thành viên, rubric chấm điểm, cách xử lý bình luận, đội quản trị. Bạn dán sẵn nội quy thì AI tự rút ra, chỉ hỏi phần còn thiếu. Kết quả là file group-profile.md dùng cho mọi lần sau."
+            },
+            {
+              "t": "Chấm bài theo rubric, chặn trước bằng chính sách Facebook",
+              "tag": "02",
+              "d": "Mỗi bài qua 2 cổng: chính sách Facebook (mức ĐỎ là từ chối ngay) rồi luật cứng của group. Qua cổng mới chấm rubric 100 điểm, mỗi tiêu chí kèm câu trích làm căn cứ. Kết luận có 4 mức, kèm lời nhắn lịch sự gửi tác giả."
+            },
+            {
+              "t": "Soát bài admin kèm bản sửa",
+              "tag": "03",
+              "d": "Bài của admin, mod, BTC, đối tác không chấm rubric mà soát những lỗi hay gặp: mồi tương tác, minigame bắt share/tag, bài tài trợ không ghi hợp tác, cam kết kết quả, bóc phốt lộ thông tin. Có lỗi thì AI viết lại đúng những câu đó, giữ giọng văn của người viết."
+            },
+            {
+              "t": "Canh bình luận ở bài đang căng",
+              "tag": "04",
+              "d": "AI chấm Mức nhiệt 0-10, gắn nhãn từng bình luận (phản biện, spam, khiếm nhã, công kích, vi phạm ĐỎ) kèm hành động đề xuất, soạn sẵn bình luận ghim để hạ nhiệt và ghi lịch sử vi phạm vào watchlist."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Group nào có người duyệt bài là dùng được"
+        },
+        {
+          "k": "cases",
+          "items": [
+            {
+              "t": "Group cộng đồng có hàng chục bài chờ duyệt mỗi ngày",
+              "before": "Mỗi mod duyệt theo cảm tính, bài giống nhau người duyệt người từ chối, thành viên thắc mắc vì sao bài mình bị loại.",
+              "after": "Cả đội chấm theo cùng một rubric, mỗi kết luận có câu trích làm căn cứ và lời nhắn sẵn để gửi tác giả."
+            },
+            {
+              "t": "Group thương hiệu chuẩn bị chạy minigame",
+              "before": "Bài viết \"Like, share, tag 3 bạn bè\" đăng lên thì bị Facebook giảm hiển thị, group tích thêm lỗi.",
+              "after": "Soát trước khi đăng, nhận bản sửa dùng câu hỏi thật làm điều kiện, có thể lệ và câu miễn trừ đầy đủ."
+            },
+            {
+              "t": "Bài bóc phốt hay so sánh thương hiệu kéo theo hàng trăm bình luận",
+              "before": "Mod thức khuya đọc từng bình luận, không biết nên ẩn, xoá hay khoá bài, người vi phạm lần thứ mấy cũng không nhớ.",
+              "after": "Có Mức nhiệt, danh sách bình luận cần xử lý kèm hành động, bình luận ghim soạn sẵn và lịch hẹn quét lại."
+            },
+            {
+              "t": "Mod mới vào đội",
+              "before": "Phải hỏi lại admin nội quy, chưa biết lỗi chính sách Facebook nào là nặng.",
+              "after": "Đọc hồ sơ group và báo cáo của AI là nắm được cách đội đang duyệt, lỗi nào ĐỎ, lỗi nào VÀNG."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Soát bài minigame của BTC trước khi đăng",
+          "input": {
+            "label": "Bạn đưa vào",
+            "t": "Bài nháp: \"MINIGAME NHẬN 5 VÉ NIGHT RUN. Like + Share bài này, tag 3 người bạn, comment 'Tôi muốn chạy' để nhận link. Giải chạy giúp bạn giảm 5kg trong 1 tháng, đảm bảo 100%!\" kèm câu: \"Kiểm tra bài admin này trước khi đăng.\"",
+            "code": false
+          },
+          "steps": [
+            "Nhận diện tác giả là BTC trong đội quản trị → soát theo nhánh bài admin.",
+            "Quét chính sách Facebook, đặc biệt bảng lỗi hay gặp ở bài admin, rồi đối chiếu nội quy group.",
+            "Mỗi vấn đề ghi câu trích, mục chính sách, mức ĐỎ hoặc VÀNG và cách sửa.",
+            "Viết bản sửa giữ ý và giọng của BTC, chỉ đổi những câu có vấn đề.",
+            "Soát lại bản sửa: không còn lỗi thì giao, thiếu thông tin thì để ô [cần điền]."
+          ],
+          "output": {
+            "label": "Báo cáo soát bài",
+            "t": "🛡 Kết quả soát: SỬA RỒI ĐĂNG\nLý do: không có lỗi ĐỎ, nhưng dùng mồi tương tác làm điều kiện tham gia.\n\nVấn đề:\n1. \"Like + Share bài này\" → Mồi tương tác → VÀNG → bỏ điều kiện like/share\n2. \"Tag 3 người bạn\" → Mồi tương tác → VÀNG → đổi thành trả lời câu hỏi\n3. \"giảm 5kg trong 1 tháng, đảm bảo 100%\" → Tuyên bố nhạy cảm → VÀNG → bỏ cam kết\n4. Thiếu thể lệ chọn người thắng → Minigame → VÀNG → ghi rõ cách chọn, thời gian\n\n✍️ Bản đề xuất đã sửa (câu đổi nằm trong ⟦ ⟧):\n⟦Trả lời dưới bài: Lần chạy đêm đáng nhớ nhất của bạn là ở đâu?⟧\n⟦BTC chọn 5 câu trả lời hay nhất, công bố ngày [cần điền].⟧\n⟦Bài hợp tác với hãng giày XYZ. Chương trình không liên quan tới Facebook.⟧",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ với dữ liệu tự soạn. Skill chỉ đề xuất, mod là người bấm duyệt, xoá hay chặn."
+        },
+        {
+          "k": "h",
+          "t": "Cách dùng"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Bước 1",
+              "d": "Tải file zip. Trên claude.ai: Cài đặt → Capabilities → Skills → tải file zip lên. Trên Claude Code: giải nén vào thư mục ~/.claude/skills/."
+            },
+            {
+              "t": "Bước 2",
+              "d": "Mở cuộc trò chuyện mới và gõ: \"Lập nội quy và rubric cho group của mình\". Trả lời 6 cụm câu hỏi, hoặc dán sẵn nội quy hiện có để AI tự rút ra."
+            },
+            {
+              "t": "Bước 3",
+              "d": "Dán bài chờ duyệt, bài admin sắp đăng hoặc chuỗi bình luận đang căng rồi nhờ AI chấm. Đọc báo cáo, sau đó tự bấm duyệt, sửa hoặc xoá trên Facebook."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Câu hỏi thường gặp"
+        },
+        {
+          "k": "faq",
+          "items": [
+            {
+              "q": "Skill có tự đăng nhập Facebook và tự duyệt, xoá bài không?",
+              "a": "Không. Skill không nhập mật khẩu và không bấm nút. Nó chỉ đọc nội dung bạn dán vào (hoặc mở link bằng phiên Facebook bạn đã đăng nhập, nếu bạn cho phép) rồi đề xuất; mod là người quyết định."
+            },
+            {
+              "q": "Group của mình chưa có rubric thì sao?",
+              "a": "Skill có sẵn rubric mặc định 100 điểm với 7 tiêu chí: đúng chủ đề, giá trị cho thành viên, rõ ràng, đúng định dạng, mức quảng cáo, giọng điệu, độ tin cậy. Bạn giữ nguyên hoặc đổi trọng số trong lúc khai vấn."
+            },
+            {
+              "q": "Phần chính sách Facebook có luôn đúng không?",
+              "a": "Đó là bản tóm tắt Tiêu chuẩn cộng đồng của Meta. Meta thay đổi chính sách theo thời gian, nên khi một kết luận phụ thuộc vào đúng một điều khoản, skill được dặn mở trang chính sách gốc để kiểm tra trước."
+            },
+            {
+              "q": "Thông tin cá nhân của thành viên có bị lưu lại không?",
+              "a": "Số điện thoại, địa chỉ, số giấy tờ và link cá nhân trong câu trích đều được che. Watchlist chỉ ghi tên hiển thị để mod áp thang xử lý."
+            },
+            {
+              "q": "Mình đang dùng bot QC cho group Đi làm với AI, skill này có thay thế không?",
+              "a": "Không. Skill này dùng chung cho mọi group. Group Đi làm với AI có skill và bot Telegram riêng, nên dùng đúng bộ đó."
+            }
+          ]
+        },
+        {
+          "k": "outro",
+          "t": "Để AI lo phần soi lỗi, đội mod giữ phần quyết định",
+          "d": "Tải file zip, cài một lần, khai vấn group một lần, sau đó mỗi lần duyệt chỉ cần dán bài vào.",
+          "note": "Dùng được trên claude.ai và Claude Code."
+        }
+      ]
+    },
+    {
       "id": "edit-editornghiepdu",
       "kho": "edit",
       "guide": true,
