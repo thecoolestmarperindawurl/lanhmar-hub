@@ -148,7 +148,7 @@
     if (b.k === "list") return `<ul class="kb-dpts">${(L(b, "items") || []).map((i) => `<li>${esc(i)}</li>`).join("")}</ul>`;
     if (b.k === "steps") return `<div class="kb-steps">${(L(b, "items") || []).map((i, n) => `<div class="kb-step"><b class="n">${n + 1}</b><h4>${esc(i.t)}</h4><p>${esc(i.d)}</p></div>`).join("")}</div>`;
     if (b.k === "table") return `<div class="kb-tbl"><table><thead><tr>${(L(b, "head") || []).map((c) => `<th>${esc(c)}</th>`).join("")}</tr></thead><tbody>${(L(b, "rows") || []).map((r) => `<tr>${r.map((c) => `<td>${esc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
-    if (b.k === "code") return `${L(b, "cap") ? `<p class="kb-lab">${esc(L(b, "cap"))}</p>` : ""}<pre class="kb-code" tabindex="0">${esc(b.t)}</pre>`;
+    if (b.k === "code") return `${L(b, "cap") ? `<p class="kb-lab">${esc(L(b, "cap"))}</p>` : ""}<pre class="kb-code" tabindex="0">${esc(L(b, "t"))}</pre>`;
     return "";
   }).join("");
   // ví dụ kết quả: dữ liệu mẫu (demo) hiện ngay dưới phần giới thiệu trong hộp chi tiết
