@@ -11,11 +11,178 @@
 window.TREASURE_SHELVES = [
   { id: "code", name: "Công cụ & mã nguồn", name_en: "Tools & source code" },
   { id: "online", name: "Công cụ online", name_en: "Online tools" },
-  { id: "skill", name: "Skill", name_en: "Skills", soon: true },
+  { id: "skill", name: "Skill", name_en: "Skills" },
   { id: "template", name: "Mẫu", name_en: "Templates", soon: true }
 ];
 
 window.TREASURES = [
+  {
+    "id": "qc-content-fb-group",
+    "shelf": "skill",
+    "featured": true,
+    "status": "open",
+    "url": "https://drive.google.com/file/d/1tNSLdJTUBCnRubFTgk0Tjhke_TQdD307/view?usp=drivesdk",
+    "thumb": "assets/res/skill-qc-content-fb-group.jpg",
+    "name": "qc-content-fb-group",
+    "hook": "Duyệt bài group Facebook đúng nội quy, chặn lỗi chính sách trước.",
+    "hook_en": "Approve Facebook group posts by your rules, catch policy issues first.",
+    "type": "Skill cho Claude",
+    "type_en": "Claude skill",
+    "badge": "Miễn phí",
+    "badge_en": "Free",
+    "desc": "Skill giúp mod group Facebook: khai vấn một lần ra hồ sơ group (nội quy, chân dung thành viên, rubric), chấm bài chờ duyệt theo rubric và chính sách Facebook, soát bài admin trước khi đăng kèm bản sửa, canh bình luận ở bài đang căng.",
+    "desc_en": "A skill for Facebook group moderators: one interview builds the group profile (rules, member persona, rubric), pending posts are scored against the rubric and Facebook policy, admin drafts are checked before publishing with a fixed version, and heated comment threads are watched.",
+    "points": [
+      "Mỗi bài qua 2 cổng: chính sách Facebook rồi luật cứng của group, sau đó mới chấm điểm",
+      "Mỗi kết luận kèm câu trích làm căn cứ và lời nhắn sẵn gửi tác giả",
+      "Bài admin có lỗi thì nhận bản sửa, giữ nguyên giọng văn người viết",
+      "Bình luận căng: Mức nhiệt 0-10, nhãn từng bình luận, bình luận ghim soạn sẵn"
+    ],
+    "points_en": [
+      "Each post passes 2 gates, Facebook policy then the group's hard rules, before scoring",
+      "Every verdict comes with a supporting quote and a ready message for the author",
+      "Admin drafts with issues get a fixed version in the author's own voice",
+      "Heated threads: a 0-10 heat score, a label per comment, a ready pinned comment"
+    ],
+    "cta": "Tải file .zip →",
+    "cta_en": "Download the .zip →",
+    "meta": [
+      {
+        "l": "Cài đặt",
+        "l_en": "Install",
+        "v": "claude.ai: Cài đặt → Capabilities → Skills → tải zip lên. Claude Code: giải nén vào ~/.claude/skills/",
+        "v_en": "claude.ai: Settings → Capabilities → Skills → upload the zip. Claude Code: unzip into ~/.claude/skills/"
+      },
+      {
+        "l": "Quyền",
+        "l_en": "Control",
+        "v": "Skill chỉ đề xuất; mod tự bấm duyệt, xoá, chặn trên Facebook",
+        "v_en": "The skill only proposes; mods click approve, delete or block on Facebook themselves"
+      },
+      {
+        "l": "Phiên bản",
+        "l_en": "Version",
+        "v": "1.0.0, gói theo chuẩn kes-create-skill",
+        "v_en": "1.0.0, packaged with kes-create-skill"
+      }
+    ],
+    "note": "Phần chính sách Facebook là bản tóm tắt Tiêu chuẩn cộng đồng của Meta; khi kết luận phụ thuộc đúng một điều khoản, skill được dặn mở trang chính sách gốc để kiểm tra.",
+    "note_en": "The Facebook policy part summarises Meta's Community Standards; when a verdict hinges on one exact rule, the skill is told to check the live policy page.",
+    "detail": "qc-content-fb-group",
+    "direct": true,
+    "links": [
+      {
+        "t": "Thư mục Skill-Hub trên Drive ↗",
+        "t_en": "Skill-Hub folder on Drive ↗",
+        "u": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
+      }
+    ],
+    "sections": [
+      {
+        "k": "callout",
+        "t": "Admin duyệt hay tự đăng bài vi phạm thì Facebook tính lỗi cho cả group. Skill này cho cả đội mod một bộ thước chung, chặn lỗi chính sách trước khi bấm duyệt.",
+        "t_en": "When an admin approves or publishes a violating post, Facebook counts it against the whole group. This skill gives the mod team one shared yardstick and catches policy issues before anyone clicks approve."
+      },
+      {
+        "k": "h",
+        "t": "4 chế độ",
+        "t_en": "4 modes"
+      },
+      {
+        "k": "table",
+        "head": [
+          "Chế độ",
+          "Khi nào",
+          "Nhận về"
+        ],
+        "head_en": [
+          "Mode",
+          "When",
+          "You get"
+        ],
+        "rows": [
+          [
+            "Khai vấn group",
+            "Lần đầu, hoặc đổi nội quy",
+            "group-profile.md"
+          ],
+          [
+            "Chấm bài thành viên",
+            "Bài chờ duyệt",
+            "Điểm, kết luận, lời nhắn tác giả"
+          ],
+          [
+            "Soát bài admin",
+            "Trước khi đăng",
+            "Danh sách lỗi + bản sửa"
+          ],
+          [
+            "Canh bình luận",
+            "Bài đang căng",
+            "Mức nhiệt, việc cần làm, bình luận ghim"
+          ]
+        ],
+        "rows_en": [
+          [
+            "Group interview",
+            "First time, or rules change",
+            "group-profile.md"
+          ],
+          [
+            "Score member posts",
+            "Pending posts",
+            "Score, verdict, author message"
+          ],
+          [
+            "Check admin drafts",
+            "Before publishing",
+            "Issue list + fixed version"
+          ],
+          [
+            "Watch comments",
+            "Heated posts",
+            "Heat score, actions, pinned comment"
+          ]
+        ]
+      },
+      {
+        "k": "h",
+        "t": "Cách dùng",
+        "t_en": "How to use"
+      },
+      {
+        "k": "steps",
+        "items": [
+          {
+            "t": "Cài skill",
+            "d": "Tải zip, tải lên claude.ai (Skills) hoặc giải nén vào ~/.claude/skills/."
+          },
+          {
+            "t": "Khai vấn group",
+            "d": "Gõ \"Lập nội quy và rubric cho group của mình\", trả lời 6 cụm câu hỏi."
+          },
+          {
+            "t": "Dán bài cần duyệt",
+            "d": "Đọc báo cáo, rồi tự bấm duyệt, sửa hoặc xoá trên Facebook."
+          }
+        ],
+        "items_en": [
+          {
+            "t": "Install",
+            "d": "Download the zip, upload it on claude.ai (Skills) or unzip into ~/.claude/skills/."
+          },
+          {
+            "t": "Interview your group",
+            "d": "Type \"Set up rules and a rubric for my group\" and answer 6 rounds of questions."
+          },
+          {
+            "t": "Paste a post",
+            "d": "Read the report, then approve, edit or delete on Facebook yourself."
+          }
+        ]
+      }
+    ]
+  },
   {
     "id": "drive-transfer",
     "shelf": "code",
