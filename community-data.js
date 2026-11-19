@@ -135,7 +135,7 @@ window.EVENTS = [
     topics_en: ["What makes a good \"skill\"?", "6-step problem solving (advanced)"],
     place: "Bamos Coffee, Bình Thạnh", place_en: "Bamos Coffee, Binh Thanh (Ho Chi Minh City)",
     map: "https://share.google/QRK3a7kzh5mzemacS",
-    attendees: 30,
+    attendees: 50,
     desc: "Buổi workshop trực tiếp của cộng đồng Đi làm với AI tại Sài Gòn: diễn giả Hưng Kescy nói về cách xây một skill tốt cho AI và quy trình 6 bước giải quyết vấn đề, kèm thực hành ngay tại chỗ.",
     desc_en: "The Đi làm với AI community's in-person workshop in Saigon: speaker Hưng Kescy on what makes a good AI skill and a 6-step problem-solving process, with hands-on practice on the spot.",
     // Ảnh đầu = ảnh bìa/poster. Ảnh chụp tại sự kiện: chạy tools/event-photos.py rồi thêm vào sau standee.

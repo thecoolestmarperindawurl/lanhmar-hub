@@ -12,7 +12,8 @@ const I18N = {
     badge_open: "Sẵn sàng cho cơ hội mới", badge_school: "Tân cử nhân UFM 2026", h1a: "Mỗi chiến dịch bắt đầu từ một insight.", h1b: "Để “Ranh Ma” tìm ra.", onmenu: "ĐANG CHẠY",
     story_k: "HÀNH TRÌNH", story_h: "Mỗi vai trò là một chiến dịch.", menu_k: "NĂNG LỰC", menu_h: "Marketing toolkit của mình.", about: "Về mình", goal: "Mục tiêu", skills: "Kỹ năng", tools: "Phần mềm",
     after_h: "Ngoài giờ, AI Agent vẫn chạy chiến dịch.", after_p: "Ngoài chiến dịch, mình xây trợ lý AI và chatbot để việc lặp đi lặp lại tự chạy.", after_cta: "Xem AI Agent",
-    work_k: "DỰ ÁN", work_h: "9 thư mục dự án mình đã thực hành.", work_p: "Mọi thứ bên dưới đều là việc thật. Bấm vào thư mục để xem đề bài, cách làm và sản phẩm.",
+    focus_k: "TRỌNG TÂM", focus_h: "4 mảng mình làm sâu nhất.", focus_p: "Tóm tắt nhanh vai trò và kết quả. Bấm để xem đề bài, cách làm và sản phẩm.", f_res: "Kết quả", f_now: "Đang làm", f1_p: "Dựng và quản trị website từ WordPress tới web tự viết song ngữ, kèm công cụ chạy ngay trên trình duyệt.", f1_r: "Website Thuận Ý Bakery tăng 10% lưu lượng sau 3 tháng.", f2_p: "Nghiên cứu từ khoá theo ý định tìm kiếm, tối ưu on-page và lên outline nội dung cho nhiều ngành.", f2_r: "2 từ khoá Top 10 Google, +20% lưu lượng tự nhiên Quý 4/2025.", f3_p: "AI Agent (Claude) viết content, đăng bài tự động; chatbot n8n trên Zalo và Discord trả lời từ dữ liệu riêng.", f3_r: "2 chatbot RAG tự xây, điều khiển qua Telegram.", f4_p: "Moderator nhóm “Đi làm với AI”, vận hành lớp học và tổ chức sự kiện cùng KesFlow (10/2026 – nay).", f4_r: "Workshop trực tiếp 50 người, 17/10/2026 tại Sài Gòn.", f4_more: "Trang Cộng đồng →",
+    work_k: "DỰ ÁN", work_h: "11 thư mục dự án mình đã thực hành.", work_p: "Mọi thứ bên dưới đều là việc thật. Bấm vào thư mục để xem đề bài, cách làm và sản phẩm.",
     certs_k: "HỌC & THỰC HÀNH", certs_h: "Chứng chỉ & khoá đào tạo.", contact_h: "Có bài toán marketing? Cùng mình lên chiến lược.", contact_p: "Cảm ơn đã ghé qua! Mình luôn sẵn sàng trò chuyện về cơ hội hợp tác hoặc công việc Digital Marketing.",
     edu: "Học vấn", phone: "Điện thoại / Zalo", reveal: "Bấm để hiện số", copy: "COPY", copied: "ĐÃ COPY", s1: "Khoá luận tốt nghiệp", s2: "Tăng lưu lượng truy cập", s3: "Mảng thực hành", s4: "Chứng chỉ & khoá học", plan: "Xem kế hoạch đầy đủ trên Canva" },
   en: {
@@ -24,7 +25,8 @@ const I18N = {
     badge_open: "Open to new opportunities", badge_school: "UFM graduate 2026", h1a: "Every campaign starts with an insight.", h1b: "Let “Ranh Ma” find it.", onmenu: "NOW RUNNING",
     story_k: "JOURNEY", story_h: "Every role was a campaign.", menu_k: "SKILLS", menu_h: "My marketing toolkit.", about: "About me", goal: "Goal", skills: "Skills", tools: "Software",
     after_h: "Off the clock, AI agents keep the campaigns running.", after_p: "Beyond campaigns, I build AI assistants and chatbots so repetitive work runs itself.", after_cta: "See AI Agent",
-    work_k: "PROJECTS", work_h: "9 project folders I've worked on.", work_p: "Everything below is real work. Open a folder to see the brief, approach and output.",
+    focus_k: "FOCUS", focus_h: "The 4 areas I go deepest in.", focus_p: "A quick look at my role and results. Open one to see the brief, approach and output.", f_res: "Result", f_now: "Now", f1_p: "Building and running websites, from WordPress to hand-coded bilingual sites with tools that run right in the browser.", f1_r: "Thuận Ý Bakery's site grew traffic 10% within 3 months.", f2_p: "Intent-based keyword research, on-page optimization and content outlines across several industries.", f2_r: "2 keywords in Google's Top 10, +20% organic traffic in Q4 2025.", f3_p: "AI Agents (Claude) that write and auto-publish content; n8n chatbots on Zalo and Discord that answer from your own data.", f3_r: "2 self-built RAG chatbots, run from a Telegram control panel.", f4_p: "Moderating the “Đi làm với AI” group, running classes and organizing events with KesFlow (10/2026 – present).", f4_r: "In-person workshop for 50 people, 17 Oct 2026 in Saigon.", f4_more: "Community page →",
+    work_k: "PROJECTS", work_h: "11 project folders I've worked on.", work_p: "Everything below is real work. Open a folder to see the brief, approach and output.",
     certs_k: "LEARNING & PRACTICE", certs_h: "Certificates & courses.", contact_h: "Got a marketing challenge? Let's plan the strategy.", contact_p: "Thanks for stopping by! Always happy to chat about collaboration or Digital Marketing opportunities.",
     edu: "Education", phone: "Phone / Zalo", reveal: "Click to show number", copy: "COPY", copied: "COPIED", s1: "Thesis score", s2: "Traffic growth", s3: "Practice areas", s4: "Certificates & courses", plan: "View the full plan on Canva" }
 };
@@ -41,6 +43,7 @@ const SOCIALS = [
 const SW_LOGOS = { Canva: "canva.svg", CapCut: "capcut.png", Photoshop: "adobephotoshop.svg", Illustrator: "adobeillustrator.svg", SEMrush: "semrush.svg", Ahrefs: "ahrefs.png", "Keyword Tool": "keywordtool.png", Word: "microsoftword.svg", Excel: "microsoftexcel.svg", ChatGPT: "openai.svg", Gemini: "googlegemini.svg", Perplexity: "perplexity.svg", Claude: "claude.svg", NotebookLM: "notebooklm.svg" };
 const SERVICES = [
   { id: "growth", vi: "Tăng trưởng & hiệu suất", en: "Growth & performance", items: [
+    { key: "website", vi: ["Website Build", "Dựng website từ WordPress tới web tự viết, song ngữ, nhanh và dễ tìm thấy trên Google.", "THƯƠNG HIỆU · CÁ NHÂN"], en: ["Website Build", "Websites from WordPress to hand-coded, bilingual, fast and easy to find on Google.", "BRANDS · PERSONAL"] },
     { key: "seo", vi: ["SEO & Content", "Nghiên cứu từ khoá, viết nội dung chuẩn SEO và tối ưu on-page để website lên top tìm kiếm.", "WEBSITE · SHOP"], en: ["SEO & Content", "Keyword research, SEO-ready content and on-page tuning to climb search results.", "WEBSITES · SHOPS"] },
     { key: "performance", vi: ["Performance Ads", "Chạy và tối ưu quảng cáo Facebook, TikTok, Google; theo dõi chi phí và chuyển đổi.", "SHOP · THƯƠNG HIỆU MỚI"], en: ["Performance Ads", "Run and optimise Facebook, TikTok and Google ads; track cost and conversions.", "SHOPS · NEW BRANDS"] },
     { key: "ecommerce", vi: ["E-Commerce", "Quản trị website bán hàng, tối ưu hành trình mua và nội dung sản phẩm.", "SHOP ONLINE"], en: ["E-Commerce", "Manage online stores, tune the buying journey and product content.", "ONLINE SHOPS"] }
@@ -48,6 +51,7 @@ const SERVICES = [
   { id: "create", vi: "Sáng tạo & vận hành", en: "Creative & operations", items: [
     { key: "design", vi: ["Design & Edit", "Ấn phẩm trên Canva, Photoshop, Illustrator và video ngắn CapCut cho kênh của bạn.", "THƯƠNG HIỆU · KÊNH NỘI DUNG"], en: ["Design & Edit", "Print and social visuals in Canva, Photoshop, Illustrator, plus short CapCut videos.", "BRANDS · CONTENT CHANNELS"] },
     { key: "aiagent", vi: ["AI Agent & Chatbot", "Trợ lý AI và chatbot Zalo, Discord trả lời tự động, đỡ việc lặp lại mỗi ngày.", "CHĂM SÓC KHÁCH HÀNG · LỚP HỌC"], en: ["AI Agents & Chatbots", "AI assistants and Zalo or Discord chatbots that answer automatically and cut repetitive work.", "CUSTOMER CARE · CLASSES"] },
+    { key: "community", vi: ["Community Builder", "Vận hành nhóm, kiểm duyệt nội dung, tổ chức lớp học và sự kiện để cộng đồng sống đều.", "CỘNG ĐỒNG · LỚP HỌC"], en: ["Community Builder", "Running groups, moderating content, and organizing classes and events that keep a community active.", "COMMUNITIES · CLASSES"] },
     { key: "planning", vi: ["Planning & Account", "Lên proposal, kế hoạch IMC, pitching và đồng hành tới nghiệm thu dự án.", "AGENCY · CHIẾN DỊCH"], en: ["Planning & Account", "Proposals, IMC plans and pitching, through to project sign-off.", "AGENCIES · CAMPAIGNS"] }
   ] }
 ];
@@ -66,7 +70,7 @@ function renderStatic() {
   document.querySelectorAll("[data-i]").forEach((e) => { e.textContent = T(e.dataset.i); });
   document.querySelectorAll("[data-alt]").forEach((e) => { e.alt = T(e.dataset.alt); });
   document.querySelectorAll("[data-il]").forEach((e) => { e.setAttribute("aria-label", T(e.dataset.il)); });
-  document.querySelectorAll(".lang button").forEach((b) => b.classList.toggle("on", b.dataset.lang === lang));
+  document.querySelectorAll(".lang button").forEach((b) => { b.classList.toggle("on", b.dataset.lang === lang); b.setAttribute("aria-pressed", b.dataset.lang === lang); });
 }
 
 function render() {
@@ -162,7 +166,7 @@ function observeChapters(total) {
 }
 
 // rotating "today's menu"
-const ROT = ["SEO", "PERFORMANCE", "DESIGN & EDIT", "AI AGENT", "E-COMMERCE"];
+const ROT = ["WEBSITE", "SEO", "AI AUTOMATION", "COMMUNITY", "PERFORMANCE", "DESIGN & EDIT"];
 // gõ từng chữ → giữ → xoá lùi → chữ tiếp theo; con trỏ cam nhấp nháy (CSS .rot-caret). Giảm chuyển động: đổi cả từ mỗi 2,6 giây.
 (function typeRotator() {
   const el = $("#rotator"); if (!el) return;
@@ -230,7 +234,7 @@ function briefHTML(t) {
 function openProject(i) {
   const pr = D.projects[i];
   const slides = [...pr.images.map((src) => ({ src })), ...pr.videos.map((v) => ({ src: v.thumb || pr.images[0], url: v.url }))];
-  body.innerHTML = `<div class="dbody"><p class="kicker">${String(i + 1).padStart(2, "0")} / ${esc(pr.key)}</p><h2>${esc(L(pr, "title"))}</h2>${carousel(slides, L(pr, "title"))}${briefHTML(L(pr, "brief") || L(pr, "desc"))}</div>`;
+  body.innerHTML = `<div class="dbody"><p class="kicker">${String(i + 1).padStart(2, "0")} / ${esc(pr.key)}</p><h2 id="dlgTitle">${esc(L(pr, "title"))}</h2>${carousel(slides, L(pr, "title"))}${briefHTML(L(pr, "brief") || L(pr, "desc"))}</div>`;
   const caps = pr["slideCaptions_" + lang] || [];
   wire(slides, slides.map((_, k) => caps[k] || (k >= pr.images.length ? L(pr.videos[k - pr.images.length], "label") : "")), pr.canvaUrls);
   dlg.showModal();
@@ -238,7 +242,7 @@ function openProject(i) {
 function openCert(i) {
   const c = D.certificates[i];
   const slides = c.images.map((src) => ({ src }));
-  body.innerHTML = `<div class="dbody"><p class="kicker">${esc(c.org)}</p><h2>${esc(L(c, "name"))}</h2>${carousel(slides, L(c, "name"))}</div>`;
+  body.innerHTML = `<div class="dbody"><p class="kicker">${esc(c.org)}</p><h2 id="dlgTitle">${esc(L(c, "name"))}</h2>${carousel(slides, L(c, "name"))}</div>`;
   wire(slides, c["slideCaptions_" + lang] || [L(c, "project")], null);
   dlg.showModal();
 }
