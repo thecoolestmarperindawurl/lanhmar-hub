@@ -674,7 +674,7 @@
     var rt = await readText(file);
     var d = new DOMParser().parseFromString(rt.text, "application/xml");
     var root = d.documentElement, name = root ? root.localName : "";
-    if (!/^(rss|feed|RDF)$/.test(name) || d.getElementsByTagName("parsererror").length) return fromText(file, rt);
+    if (!/^(rss|feed|RDF)$/.test(name) || d.getElementsByTagName("parsererror").length) return fromText(file, null, rt);
     await need("turndown");
     var body = function (el) {
       if (!el) return "";
@@ -738,7 +738,7 @@
     }).join("\n");
   }
 
-  async function fromText(file, rt) {
+  async function fromText(file, o, rt) { // (file, o) như mọi bộ chuyển; rt chỉ fromXml truyền sẵn
     rt = rt || await readText(file);
     var e = ext(file.name), t = rt.text, meta = encMeta(rt.enc);
     if (e === "md" || e === "txt") return { md: t, meta: meta };

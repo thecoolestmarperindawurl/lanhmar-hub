@@ -52,8 +52,8 @@ p{margin:0 0 12px}
 @keyframes ntStar{0%,100%{transform:rotate(0) scale(1)}50%{transform:rotate(36deg) scale(1.3)}}
 @keyframes ntShine{0%,55%{transform:translateX(-130%)}100%{transform:translateX(130%)}}
 @media (prefers-reduced-motion:reduce){.pill-nav nav a.nav-treasure,.pill-nav nav a.nav-treasure::before,.pill-nav nav a.nav-treasure::after{animation:none}}
-.lang{font-size:13px;font-weight:700;display:flex;gap:4px}
-.lang button{background:none;border:0;font:700 13px Montserrat;color:rgba(255,255,255,.55);cursor:pointer;padding:2px}
+.lang{font-size:13px;font-weight:700;display:flex;align-items:center;gap:0}
+.lang button{background:none;border:0;font:700 13px Montserrat;color:rgba(255,255,255,.55);cursor:pointer;padding:5px 6px;min-width:24px;min-height:24px}
 .lang button.on{color:#fff;text-decoration:underline;text-decoration-color:var(--orange);text-underline-offset:4px}
 .pill-nav .btn{padding:10px 20px;font-size:13px;background:#fff;color:var(--ink);border-color:#fff}
 .pill-nav .btn:hover{box-shadow:0 8px 24px rgba(255,255,255,.25)}
@@ -334,3 +334,16 @@ dialog::backdrop{background:rgba(36,31,69,.6)}
   .lang button::after,.svc-link::after,.contacts .ph-reveal::after{content:"";position:absolute;inset:-14px -8px}
   .lang button::after{inset:-14px -3px}  /* VI / EN đứng sát nhau: chỉ nới dọc để không đè lên nhau */
 }
+
+/* Trọng tâm: 4 mảng chính, chữ nằm sẵn trong HTML để người tuyển dụng và Google đọc được ngay */
+.focus{background:var(--paper)}
+.focus-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:26px}
+.focus-card{background:var(--lav-100);border:2px solid var(--lav-300);border-radius:22px;padding:20px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow)}
+.focus-card h3{margin:0;font-size:18px;color:var(--purple-deep)}
+.focus-card p{margin:0;font-size:14px}
+.focus-res{background:#fff;border:1px solid var(--lav-300);border-radius:14px;padding:10px 12px;font-weight:600}
+.focus-res b{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-text);margin-bottom:2px}
+.focus-act{margin-top:auto;display:flex;flex-wrap:wrap;gap:4px 10px}
+.focus-act .svc-link{padding:0}
+@media(max-width:900px){.focus-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.focus-grid{grid-template-columns:1fr}}

@@ -13,7 +13,7 @@
 <link rel="preload" href="assets/fonts/montserrat-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/montserrat-vietnamese-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/montserrat-latin-italic.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="site.css?v=20261118p">
+<link rel="stylesheet" href="site.css?v=20261119b">
 <link rel="stylesheet" href="motion.css?v=20261108a">
 <link rel="stylesheet" href="donate.css?v=20261104z">
 <link rel="stylesheet" href="mascot.css?v=20261104z">
@@ -54,7 +54,7 @@
       <p class="menu-line"><b data-i="onmenu">ĐANG CHẠY</b> <span id="rotator">SEO</span></p>
       <p class="lead" id="heroLine">Tân cử nhân Marketing, đang xây từng bước sự nghiệp Digital Marketing.</p>
       <div class="cta-row">
-        <a class="btn dark" href="#work"><span data-i="cta_work">Xem dự án</span> →</a>
+        <a class="btn dark" href="#focus"><span data-i="cta_work">Xem dự án</span> →</a>
         <a class="btn ghost" href="#contact" data-i="cta_talk">Liên hệ mình</a>
       </div>
     </div>
@@ -68,6 +68,20 @@
 </section>
 
 <div class="marquee"><div><span>LAN ANH ★ PORTFOLIO ★ LANHMAR ★ DIGITAL MARKETER ★ LAN ANH ★ PORTFOLIO ★ LANHMAR ★ DIGITAL MARKETER ★ </span><span aria-hidden="true">LAN ANH ★ PORTFOLIO ★ LANHMAR ★ DIGITAL MARKETER ★ LAN ANH ★ PORTFOLIO ★ LANHMAR ★ DIGITAL MARKETER ★ </span></div></div>
+
+<section id="focus" class="focus">
+  <div class="wrap">
+    <p class="kicker" data-i="focus_k">TRỌNG TÂM</p>
+    <h2 data-i="focus_h">4 mảng mình làm sâu nhất.</h2>
+    <p class="sub" data-i="focus_p">Tóm tắt nhanh vai trò và kết quả. Bấm để xem đề bài, cách làm và sản phẩm.</p>
+    <div class="focus-grid">
+      <article class="focus-card"><h3>Website Build</h3><p data-i="f1_p">Dựng và quản trị website từ WordPress tới web tự viết song ngữ, kèm công cụ chạy ngay trên trình duyệt.</p><p class="focus-res"><b data-i="f_res">Kết quả</b><span data-i="f1_r">Website Thuận Ý Bakery tăng 10% lưu lượng sau 3 tháng.</span></p><div class="focus-act"><button class="svc-link" data-open="website" data-i="svc_view">Xem dự án →</button></div></article>
+      <article class="focus-card"><h3>SEO</h3><p data-i="f2_p">Nghiên cứu từ khoá theo ý định tìm kiếm, tối ưu on-page và lên outline nội dung cho nhiều ngành.</p><p class="focus-res"><b data-i="f_res">Kết quả</b><span data-i="f2_r">2 từ khoá Top 10 Google, +20% lưu lượng tự nhiên Quý 4/2025.</span></p><div class="focus-act"><button class="svc-link" data-open="seo" data-i="svc_view">Xem dự án →</button></div></article>
+      <article class="focus-card"><h3>AI Automation</h3><p data-i="f3_p">AI Agent (Claude) viết content, đăng bài tự động; chatbot n8n trên Zalo và Discord trả lời từ dữ liệu riêng.</p><p class="focus-res"><b data-i="f_res">Kết quả</b><span data-i="f3_r">2 chatbot RAG tự xây, điều khiển qua Telegram.</span></p><div class="focus-act"><button class="svc-link" data-open="aiagent" data-i="svc_view">Xem dự án →</button></div></article>
+      <article class="focus-card"><h3>Community Builder</h3><p data-i="f4_p">Moderator nhóm “Đi làm với AI”, vận hành lớp học và tổ chức sự kiện cùng KesFlow (10/2026 – nay).</p><p class="focus-res"><b data-i="f_now">Đang làm</b><span data-i="f4_r">Workshop trực tiếp 50 người, 17/10/2026 tại Sài Gòn.</span></p><div class="focus-act"><button class="svc-link" data-open="community" data-i="svc_view">Xem dự án →</button> <a class="svc-link" href="community.html" data-i="f4_more">Trang Cộng đồng →</a></div></article>
+    </div>
+  </div>
+</section>
 
 <section id="story" class="story">
   <div class="wrap story-grid">
@@ -153,18 +167,18 @@
   <div class="wrap foot"><span data-i="foot">© 2026 Dương Thị Lan Anh — LANHMAR</span><span class="foot-meta"><span class="foot-loc">Saigon, Vietnam</span><span class="foot-sep" aria-hidden="true">·</span><time class="foot-time" id="footTime" aria-label="Giờ Sài Gòn / Saigon time (GMT+7)">GMT+7 --:--:--</time></span><em class="foot-slogan">Amor fati</em></div>
 </footer>
 
-<dialog id="donDlg">
+<dialog id="donDlg" aria-labelledby="donTitle">
   <button class="x" id="donX" aria-label="Close" data-il="close">×</button>
   <div class="don-dlg-b">
     <p class="kicker">★ DATA STORAGE</p>
-    <h2 data-i="don_h">Ủng hộ Lan Anh để mở Storage</h2>
+    <h2 id="donTitle" data-i="don_h">Ủng hộ Lan Anh để mở Storage</h2>
     <p data-i="don_p">Data Storage lưu các tài nguyên mình đã dùng, xây dựng và phát triển. Để mở truy cập, mình rất mong nhận một khoản ủng hộ nhỏ. Bạn đăng ký trước, hệ thống tạo mã QR VietQR có nội dung chuyển khoản riêng cho bạn, rồi mình duyệt.</p>
     <div id="donBox"></div>
     <div class="row"><a class="btn dark" href="storage.html" data-i="don_btn">Đăng ký và nhận mã QR →</a><span class="don-owner"><span data-i="don_owner">Mình là chủ kho:</span> <a href="kho.html" rel="nofollow" data-i="don_owner_a">vào Kho cá nhân</a></span></div>
   </div>
 </dialog>
 
-<dialog id="dlg">
+<dialog id="dlg" aria-labelledby="dlgTitle">
   <button class="x" id="dlgX" aria-label="Close">×</button>
   <div id="dlgBody"></div>
 </dialog>
@@ -172,9 +186,9 @@
 <script src="site-config.js?v=20261104z"></script>
 <script src="storage-config.js?v=20261104z"></script>
 <script src="donate.js?v=20261104z"></script>
-<script src="site.js?v=20261118u"></script>
+<script src="site.js?v=20261119e"></script>
 <script src="motion.js?v=20261118x"></script>
-<script src="mascot.js?v=20261104z"></script>
+<script src="mascot.js?v=20261119a"></script>
 <script src="planet-warp.js?v=20261118b"></script>
 <script src="site-foot.js?v=20261108a"></script>
 <script src="sky-data.js?v=20261117a"></script>

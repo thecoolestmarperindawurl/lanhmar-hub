@@ -291,13 +291,13 @@
    "tasks_vi": [
     "Vận hành lớp học: chuẩn bị, hỗ trợ học viên và giữ nhịp buổi học.",
     "Moderator Facebook Group “Đi làm với AI”: duyệt bài, giữ nội dung đúng chủ đề và tương tác với thành viên.",
-    "Lên kế hoạch và tổ chức Workshop “Đi làm với AI” với khoảng 50 người tham dự.",
+    "Lên kế hoạch và tổ chức Workshop “Đi làm với AI” với 50 người tham dự.",
     "Xây dựng tuyến nội dung cho cộng đồng, giúp thành viên có lộ trình học và chia sẻ rõ ràng."
    ],
    "tasks_en": [
     "Run classes: prepare sessions, support learners and keep each session on schedule.",
     "Moderate the “Đi làm với AI” Facebook Group: review posts, keep content on topic and engage with members.",
-    "Plan and organize the “Đi làm với AI” Workshop with around 50 attendees.",
+    "Plan and organize the “Đi làm với AI” Workshop with 50 attendees.",
     "Build the content track for the community so members have a clear path to learn and share."
    ],
    "achievements_vi": [],
@@ -500,6 +500,171 @@
  ],
  "projects": [
   {
+   "key": "website",
+   "title_vi": "Website Build",
+   "title_en": "Website Build",
+   "image": "assets/res/tool-ai-convert.jpg",
+   "images": [
+    "assets/res/tool-ai-convert.jpg",
+    "assets/res/tool-drive-ebook-reader.jpg",
+    "assets/img/work-thuanybakery.webp",
+    "assets/img/work-clbtalkshare.webp"
+   ],
+   "videos": [],
+   "desc_vi": "Dựng và quản trị website từ WordPress tới web tự viết: website CLB Talk & Share trên WordPress, thiết kế lại trải nghiệm website Thuận Ý Bakery (tăng 10% lưu lượng sau 3 tháng), và chính lanhmar.id.vn: song ngữ VI/EN, có công cụ AI Convert chạy ngay trên trình duyệt và extension Drive Ebook Reader.",
+   "desc_en": "Building and running websites, from WordPress to hand-coded: the Talk & Share Club site on WordPress, a UX redesign for Thuận Ý Bakery (+10% traffic within 3 months), and lanhmar.id.vn itself: bilingual VI/EN, with the in-browser AI Convert tool and the Drive Ebook Reader extension.",
+   "brief_vi": "Vai trò: Người dựng và quản trị website, từ cấu trúc, giao diện tới nội dung. \nCách làm: Dựng website CLB Talk & Share trên WordPress; phân tích hành trình khách và thiết kế lại giao diện cho Thuận Ý Bakery; tự xây lanhmar.id.vn bằng HTML, CSS, JavaScript cùng AI Agent (Claude), song ngữ VI/EN. \nSản phẩm: Website Talk & Share, giao diện mới của Thuận Ý Bakery, lanhmar.id.vn kèm công cụ AI Convert và extension Drive Ebook Reader. \nKết quả: Website Thuận Ý Bakery tăng 10% lưu lượng truy cập sau 3 tháng; website Talk & Share bàn giao đúng hạn.",
+   "brief_en": "Role: Built and ran the websites, from structure and layout to content. \nApproach: Built the Talk & Share Club site on WordPress; mapped the customer journey and redesigned the interface for Thuận Ý Bakery; hand-built lanhmar.id.vn in HTML, CSS and JavaScript with an AI Agent (Claude), bilingual VI/EN. \nOutput: The Talk & Share site, Thuận Ý Bakery's new interface, and lanhmar.id.vn with the AI Convert tool and the Drive Ebook Reader extension. \nResult: Thuận Ý Bakery's site grew traffic by 10% within 3 months; the Talk & Share site shipped on schedule.",
+   "slideCaptions_vi": [
+    "AI Convert trên lanhmar.id.vn: chuyển PDF, Word, Excel sang Markdown ngay trên trình duyệt",
+    "Extension Drive Ebook Reader: đọc PDF/EPUB lớn trên Google Drive không cần tải về",
+    "Thuận Ý Bakery: thiết kế lại giao diện theo hành trình mua hàng",
+    "CLB Talk & Share: website chính thức trên WordPress"
+   ],
+   "slideCaptions_en": [
+    "AI Convert on lanhmar.id.vn: PDF, Word, Excel to Markdown right in the browser",
+    "Drive Ebook Reader extension: read large PDF/EPUB files on Google Drive without downloading",
+    "Thuận Ý Bakery: interface redesigned around the buying journey",
+    "Talk & Share Club: the official WordPress site"
+   ],
+   "canvaUrls": []
+  },
+  {
+   "key": "seo",
+   "title_vi": "SEO",
+   "title_en": "SEO",
+   "image": "assets/img/proj-seo-1.jpg",
+   "images": [
+    "assets/img/proj-seo-1.jpg",
+    "assets/img/proj-seo-2.jpg",
+    "assets/img/proj-seo-3.jpg",
+    "assets/img/proj-seo-4.jpg",
+    "assets/img/proj-seo-5.jpg"
+   ],
+   "videos": [],
+   "desc_vi": "Nghiên cứu từ khóa, thiết lập bộ từ khóa mục tiêu, kiểm tra on-page và lên outline nội dung chuẩn SEO cho nhiều ngành hàng khác nhau. Kết quả nổi bật: 2 từ khoá Top 10 Google, +20% lưu lượng tự nhiên trong Quý 4/2025.",
+   "desc_en": "Keyword research, target keyword-set building, on-page audits, and SEO content outlines across several product categories. Highlight: 2 keywords in Google's Top 10 and +20% organic traffic in Q4 2025.",
+   "brief_vi": "Đề bài: Nhiều website ngành hàng khác nhau cần bộ từ khóa mục tiêu rõ ràng để tăng khả năng được tìm thấy trên Google. \nCách làm: Nghiên cứu ý định tìm kiếm, xây bộ từ khóa mục tiêu theo từng ngành, rà soát on-page và lên outline nội dung chuẩn SEO. \nSản phẩm: Bộ từ khóa và outline nội dung sẵn sàng triển khai cho từng ngành hàng. \nKết quả: Tại H2 Global Media, đưa 2 từ khoá vào Top 10 và 3 từ khoá vào Top 100 Google, góp phần tăng 20% lưu lượng tự nhiên trong Quý 4/2025.",
+   "brief_en": "Brief: Several websites across different industries needed a clear target-keyword set to become more discoverable on Google. \nApproach: Researched search intent, built target keyword sets per industry, audited on-page SEO, and drafted SEO-ready content outlines. \nOutput: Keyword sets and content outlines ready to execute for each industry. \nResult: At H2 Global Media, ranked 2 keywords in Google's Top 10 and 3 in the Top 100, contributing to a 20% rise in organic traffic in Q4 2025.",
+   "slideCaptions_vi": [
+    "Cào & liệt kê từ khóa ngành hàng \"máy lọc nước\", kèm dữ liệu lượng tìm kiếm",
+    "Audit kỹ thuật SEO on-sitecho website Nội thất KDT",
+    "Bộ từ khóa đã phân nhóm hoàn chỉnh kèm tổng lượng tìm kiếm và loại trang đích",
+    "Lên outline nội dung kèm ánh xạ từ khóa theo từng search intent",
+    "Outline bài viết SEO hoàn chỉnh - Bài đánh giá gói V-Sport của TV360"
+   ],
+   "slideCaptions_en": [
+    "Scraped and listed keywords for the \"water purifier\" category, with search-volume data",
+    "Technical SEO audit for the KDT Furniture website",
+    "Finalized, clustered keyword set with total search volume and matching page type",
+    "Content outline mapping keywords to each search intent",
+    "A complete SEO content outline - A review article for TV360's V-Sport package"
+   ],
+   "canvaUrls": []
+  },
+  {
+   "key": "aiagent",
+   "title_vi": "AI Agent",
+   "title_en": "AI Agent",
+   "image": "assets/img/proj-aiagent-1.jpg",
+   "images": [
+    "assets/img/proj-aiagent-1.jpg",
+    "assets/img/proj-aiagent-2.jpg",
+    "assets/img/proj-aiagent-3.jpg",
+    "assets/img/proj-aiagent-4.jpg",
+    "assets/img/proj-aiagent-5.jpg"
+   ],
+   "videos": [],
+   "desc_vi": "Ứng dụng AI Agent (Claude) vào quy trình marketing: tự sản xuất content on-brand, tự động đăng bài lên mạng xã hội, dựng Landing Page thu lead cho sự kiện CLB Talk & Share, và xây \"Live Artifact\" quản lý công việc cá nhân theo thời gian thực. Chính trang portfolio này cũng là một sản phẩm được xây dựng theo cách đó.",
+   "desc_en": "Applying an AI Agent (Claude) across the marketing workflow: producing on-brand content automatically, auto-publishing to social media, building a lead-gen landing page for a Talk & Share Club event, and building a real-time personal \"Live Artifact\" for task management. This very portfolio site is itself a product built the same way.",
+   "brief_vi": "Đề bài: Muốn ứng dụng AI vào công việc marketing thực tế thay vì chỉ dừng ở lý thuyết. \nCách làm: Dùng AI Agent (Claude) để tự sản xuất content on-brand, tự động đăng bài mạng xã hội, dựng Landing Page thu lead cho sự kiện CLB Talk & Share và xây \"Live Artifact\" quản lý công việc theo thời gian thực. \nSản phẩm: Chính trang portfolio này - được xây dựng theo đúng cách đó - là minh chứng sống động nhất.",
+   "brief_en": "Brief: Wanted to apply AI to real marketing work rather than just the theory. \nApproach: Used an AI Agent (Claude) to auto-produce on-brand content, auto-publish to social media, build a lead-gen landing page for a Talk & Share Club event, and build a real-time \"Live Artifact\" for task management. \nOutput: This very portfolio site - built the same way - is the clearest proof of it.",
+   "slideCaptions_vi": [
+    "Live Artifact - Bảng theo dõi công việc cá nhân theo thời gian thực xây bằng AI Agent",
+    "AI Agent hỗ trợ sản xuất content on-brand",
+    "Nội dung được tự động đăng lên Fanpage sau khi AI Agent sản xuất xong",
+    "Lên lịch & tự động đăng bài đa nền tảng qua Upload-Post",
+    "Landing Page thu lead cho hội thảo của CLB Talk & Share"
+   ],
+   "slideCaptions_en": [
+    "A real-time personal task dashboard - The \"Live Artifact\" built with an AI Agent",
+    "AI Agent producing on-brand content",
+    "Content auto-published to the Fanpage after the AI Agent finishes producing it",
+    "Scheduling and auto-publishing across platforms via Upload-Post",
+    "Lead-gen landing page for the Talk & Share Club seminar"
+   ],
+   "canvaUrls": []
+  },
+  {
+   "key": "aichatbot",
+   "title_vi": "AI Chatbot Suite (Zalo & Discord)",
+   "title_en": "AI Chatbot Suite (Zalo & Discord)",
+   "image": "assets/img/proj-aichatbot-1.jpg",
+   "images": [
+    "assets/img/proj-aichatbot-1.jpg",
+    "assets/img/proj-aichatbot-2.jpg",
+    "assets/img/proj-aichatbot-3.jpg",
+    "assets/img/proj-aichatbot-4.jpg",
+    "assets/img/proj-aichatbot-5.jpg",
+    "assets/img/proj-aichatbot-6.jpg"
+   ],
+   "videos": [],
+   "desc_vi": "Gồm 2 chatbot tự build bằng n8n: (1) Zalo Chatbot - nạp dữ liệu đầu vào để chatbot truy xuất và trả lời chính xác khi được hỏi đúng phạm vi dữ liệu; các câu hỏi ngoài phạm vi được chuyển cho AI Agent (Google Gemini Flash) xử lý; vận hành và giám sát qua bảng điều khiển Telegram (đổi chế độ làm việc/nghỉ/tự do, xem lại các câu hỏi chuyên môn chưa truy xuất được dữ liệu để tự phản hồi). (2) Discord Chatbot - cùng cơ chế truy xuất dữ liệu (RAG) + AI Agent như Zalo Chatbot, xây dựng thêm chế độ quản trị nhóm cộng đồng Discord.",
+   "desc_en": "Two self-built chatbots on n8n: (1) Zalo Chatbot - ingests input data so the bot can retrieve and answer accurately within the data's scope; out-of-scope questions are routed to an AI Agent (Google Gemini Flash); operated and monitored through a Telegram control panel (switch between working/sleep/free mode, review unanswered domain questions to reply manually). (2) Discord Chatbot - the same RAG + AI Agent mechanism as the Zalo Chatbot, plus a Discord community-moderation mode.",
+   "brief_vi": "Đề bài: Cần một trợ lý ảo tự động phản hồi khách hàng/cộng đồng trên Zalo và Discord, vừa truy xuất đúng dữ liệu nội bộ vừa xử lý linh hoạt các câu hỏi ngoài phạm vi dữ liệu. Cách làm: Tự xây dựng 2 chatbot bằng n8n, tích hợp Google Gemini (AI Agent) và Supabase Vector Store để truy xuất dữ liệu (RAG), có bảng điều khiển qua Telegram/Discord để đổi chế độ hoạt động và xem câu hỏi tồn đọng. Sản phẩm: Zalo Chatbot trả lời tự động dựa trên dữ liệu đã nạp, câu hỏi ngoài phạm vi được AI Agent (Gemini Flash) xử lý; Discord Chatbot có thêm chế độ quản trị nhóm cộng đồng.",
+   "brief_en": "Brief: Needed a virtual assistant to automatically respond to customers/community on Zalo and Discord, retrieving accurate internal data while flexibly handling out-of-scope questions. Approach: Self-built 2 chatbots with n8n, integrating Google Gemini (AI Agent) and Supabase Vector Store for data retrieval (RAG), with a Telegram/Discord control panel to switch operating modes and review pending questions. Output: Zalo Chatbot auto-replies based on ingested data, with out-of-scope questions handled by an AI Agent (Gemini Flash); Discord Chatbot adds a community-moderation mode.",
+   "slideCaptions_vi": [
+    "Xây dựng workflow Zalo Chatbot trên n8n - truy xuất dữ liệu (RAG) và AI Agent Gemini",
+    "Xây dựng workflow Discord Chatbot trên n8n - thêm chế độ quản trị nhóm cộng đồng",
+    "Bảng điều khiển Discord Chatbot qua Telegram - đổi chế độ, xem câu hỏi tồn đọng",
+    "Bảng điều khiển Zalo Chatbot qua Telegram - theo dõi trạng thái, chế độ Lao động/Ngủ",
+    "Zalo Chatbot trả lời tự động câu hỏi chuyên môn qua Telegram",
+    "Discord Chatbot trả lời câu hỏi trong kênh cộng đồng"
+   ],
+   "slideCaptions_en": [
+    "Zalo Chatbot workflow built on n8n - data retrieval (RAG) and Gemini AI Agent",
+    "Discord Chatbot workflow built on n8n - adds a community-moderation mode",
+    "Discord Chatbot control panel via Telegram - switch modes, view pending questions",
+    "Zalo Chatbot control panel via Telegram - status tracking, Working/Sleep modes",
+    "Zalo Chatbot auto-answering a domain question via Telegram",
+    "Discord Chatbot replying to a question in the community channel"
+   ],
+   "canvaUrls": []
+  },
+  {
+   "key": "community",
+   "title_vi": "Community Builder",
+   "title_en": "Community Builder",
+   "image": "assets/img/events/workshop-di-lam-voi-ai-2026-10/01.webp",
+   "images": [
+    "assets/img/events/workshop-di-lam-voi-ai-2026-10/01.webp",
+    "assets/img/work-kesflow-workshop.webp",
+    "assets/img/events/workshop-di-lam-voi-ai-2026-10/06.webp",
+    "assets/img/events/workshop-di-lam-voi-ai-2026-10/07.webp",
+    "assets/img/events/workshop-di-lam-voi-ai-2026-10/10.webp"
+   ],
+   "videos": [],
+   "desc_vi": "Đang cùng KesFlow xây cộng đồng “Đi làm với AI” (10/2026 – nay): moderator Facebook Group, vận hành lớp học, tổ chức workshop trực tiếp tại Sài Gòn và đóng gói quy trình duyệt bài thành skill QC Content cho đội moderator.",
+   "desc_en": "Currently building the “Đi làm với AI” (Working with AI) community with KesFlow (10/2026 – present): moderating the Facebook Group, running classes, organizing an in-person workshop in Saigon, and packaging the post-review process into a QC Content skill for the moderator team.",
+   "brief_vi": "Vai trò: Cộng tác viên Build Community tại KesFlow, moderator nhóm “Đi làm với AI”. \nCách làm: Duyệt bài, giữ nội dung đúng chủ đề và tương tác với thành viên; vận hành lớp học; lên kế hoạch và tổ chức workshop; xây tuyến nội dung để thành viên có lộ trình học và chia sẻ. \nSản phẩm: Workshop “Đi làm với AI” ngày 17/10/2026 tại Bamos Coffee với 50 người tham dự (diễn giả Hưng Kescy), skill QC Content Facebook Group, trang Cộng đồng trên lanhmar.id.vn. \nĐang làm: Duy trì nhóm và lớp học hằng tuần.",
+   "brief_en": "Role: Community Building Collaborator at KesFlow, moderator of the “Đi làm với AI” group. \nApproach: Review posts, keep content on topic and engage with members; run classes; plan and organize workshops; build a content track so members have a clear path to learn and share. \nOutput: The “Đi làm với AI” workshop on 17 Oct 2026 at Bamos Coffee with 50 attendees (speaker Hưng Kescy), the QC Content Facebook Group skill, and the Community page on lanhmar.id.vn. \nOngoing: Running the group and weekly classes.",
+   "slideCaptions_vi": [
+    "Standee workshop “Đi làm với AI”, 17/10/2026",
+    "Workshop do KesFlow và SG Agent Hub tổ chức",
+    "Khán phòng Bamos Coffee trong phần trình bày",
+    "Người tham dự trình bày bài làm của mình",
+    "Phần hỏi đáp cuối buổi"
+   ],
+   "slideCaptions_en": [
+    "“Đi làm với AI” workshop standee, 17 Oct 2026",
+    "The workshop hosted by KesFlow and SG Agent Hub",
+    "The room at Bamos Coffee during the talk",
+    "An attendee presenting their own work",
+    "Q&A at the end of the session"
+   ],
+   "canvaUrls": []
+  },
+  {
    "key": "design",
    "title_vi": "Design",
    "title_en": "Design",
@@ -600,39 +765,6 @@
    "canvaUrls": []
   },
   {
-   "key": "seo",
-   "title_vi": "SEO",
-   "title_en": "SEO",
-   "image": "assets/img/proj-seo-1.jpg",
-   "images": [
-    "assets/img/proj-seo-1.jpg",
-    "assets/img/proj-seo-2.jpg",
-    "assets/img/proj-seo-3.jpg",
-    "assets/img/proj-seo-4.jpg",
-    "assets/img/proj-seo-5.jpg"
-   ],
-   "videos": [],
-   "desc_vi": "Nghiên cứu từ khóa, thiết lập bộ từ khóa mục tiêu, kiểm tra on-page và lên outline nội dung chuẩn SEO cho nhiều ngành hàng khác nhau.",
-   "desc_en": "Keyword research, target keyword-set building, on-page audits, and SEO content outlines across several product categories.",
-   "brief_vi": "Đề bài: Nhiều website ngành hàng khác nhau cần bộ từ khóa mục tiêu rõ ràng để tăng khả năng được tìm thấy trên Google. \nCách làm: Nghiên cứu ý định tìm kiếm, xây bộ từ khóa mục tiêu theo từng ngành, rà soát on-page và lên outline nội dung chuẩn SEO. \nSản phẩm: Bộ từ khóa và outline nội dung sẵn sàng triển khai cho từng ngành hàng.",
-   "brief_en": "Brief: Several websites across different industries needed a clear target-keyword set to become more discoverable on Google. \nApproach: Researched search intent, built target keyword sets per industry, audited on-page SEO, and drafted SEO-ready content outlines. \nOutput: Keyword sets and content outlines ready to execute for each industry.",
-   "slideCaptions_vi": [
-    "Cào & liệt kê từ khóa ngành hàng \"máy lọc nước\", kèm dữ liệu lượng tìm kiếm",
-    "Audit kỹ thuật SEO on-sitecho website Nội thất KDT",
-    "Bộ từ khóa đã phân nhóm hoàn chỉnh kèm tổng lượng tìm kiếm và loại trang đích",
-    "Lên outline nội dung kèm ánh xạ từ khóa theo từng search intent",
-    "Outline bài viết SEO hoàn chỉnh - Bài đánh giá gói V-Sport của TV360"
-   ],
-   "slideCaptions_en": [
-    "Scraped and listed keywords for the \"water purifier\" category, with search-volume data",
-    "Technical SEO audit for the KDT Furniture website",
-    "Finalized, clustered keyword set with total search volume and matching page type",
-    "Content outline mapping keywords to each search intent",
-    "A complete SEO content outline - A review article for TV360's V-Sport package"
-   ],
-   "canvaUrls": []
-  },
-  {
    "key": "account",
    "title_vi": "Account",
    "title_en": "Account",
@@ -718,75 +850,6 @@
     "https://canva.link/laboratorios-babe-tm-proposal",
     "https://canva.link/karo-imc-plan"
    ]
-  },
-  {
-   "key": "aiagent",
-   "title_vi": "AI Agent",
-   "title_en": "AI Agent",
-   "image": "assets/img/proj-aiagent-1.jpg",
-   "images": [
-    "assets/img/proj-aiagent-1.jpg",
-    "assets/img/proj-aiagent-2.jpg",
-    "assets/img/proj-aiagent-3.jpg",
-    "assets/img/proj-aiagent-4.jpg",
-    "assets/img/proj-aiagent-5.jpg"
-   ],
-   "videos": [],
-   "desc_vi": "Ứng dụng AI Agent (Claude) vào quy trình marketing: tự sản xuất content on-brand, tự động đăng bài lên mạng xã hội, dựng Landing Page thu lead cho sự kiện CLB Talk & Share, và xây \"Live Artifact\" quản lý công việc cá nhân theo thời gian thực. Chính trang portfolio này cũng là một sản phẩm được xây dựng theo cách đó.",
-   "desc_en": "Applying an AI Agent (Claude) across the marketing workflow: producing on-brand content automatically, auto-publishing to social media, building a lead-gen landing page for a Talk & Share Club event, and building a real-time personal \"Live Artifact\" for task management. This very portfolio site is itself a product built the same way.",
-   "brief_vi": "Đề bài: Muốn ứng dụng AI vào công việc marketing thực tế thay vì chỉ dừng ở lý thuyết. \nCách làm: Dùng AI Agent (Claude) để tự sản xuất content on-brand, tự động đăng bài mạng xã hội, dựng Landing Page thu lead cho sự kiện CLB Talk & Share và xây \"Live Artifact\" quản lý công việc theo thời gian thực. \nSản phẩm: Chính trang portfolio này - được xây dựng theo đúng cách đó - là minh chứng sống động nhất.",
-   "brief_en": "Brief: Wanted to apply AI to real marketing work rather than just the theory. \nApproach: Used an AI Agent (Claude) to auto-produce on-brand content, auto-publish to social media, build a lead-gen landing page for a Talk & Share Club event, and build a real-time \"Live Artifact\" for task management. \nOutput: This very portfolio site - built the same way - is the clearest proof of it.",
-   "slideCaptions_vi": [
-    "Live Artifact - Bảng theo dõi công việc cá nhân theo thời gian thực xây bằng AI Agent",
-    "AI Agent hỗ trợ sản xuất content on-brand",
-    "Nội dung được tự động đăng lên Fanpage sau khi AI Agent sản xuất xong",
-    "Lên lịch & tự động đăng bài đa nền tảng qua Upload-Post",
-    "Landing Page thu lead cho hội thảo của CLB Talk & Share"
-   ],
-   "slideCaptions_en": [
-    "A real-time personal task dashboard - The \"Live Artifact\" built with an AI Agent",
-    "AI Agent producing on-brand content",
-    "Content auto-published to the Fanpage after the AI Agent finishes producing it",
-    "Scheduling and auto-publishing across platforms via Upload-Post",
-    "Lead-gen landing page for the Talk & Share Club seminar"
-   ],
-   "canvaUrls": []
-  },
-  {
-   "key": "aichatbot",
-   "title_vi": "AI Chatbot Suite (Zalo & Discord)",
-   "title_en": "AI Chatbot Suite (Zalo & Discord)",
-   "image": "assets/img/proj-aichatbot-1.jpg",
-   "images": [
-    "assets/img/proj-aichatbot-1.jpg",
-    "assets/img/proj-aichatbot-2.jpg",
-    "assets/img/proj-aichatbot-3.jpg",
-    "assets/img/proj-aichatbot-4.jpg",
-    "assets/img/proj-aichatbot-5.jpg",
-    "assets/img/proj-aichatbot-6.jpg"
-   ],
-   "videos": [],
-   "desc_vi": "Gồm 2 chatbot tự build bằng n8n: (1) Zalo Chatbot - nạp dữ liệu đầu vào để chatbot truy xuất và trả lời chính xác khi được hỏi đúng phạm vi dữ liệu; các câu hỏi ngoài phạm vi được chuyển cho AI Agent (Google Gemini Flash) xử lý; vận hành và giám sát qua bảng điều khiển Telegram (đổi chế độ làm việc/nghỉ/tự do, xem lại các câu hỏi chuyên môn chưa truy xuất được dữ liệu để tự phản hồi). (2) Discord Chatbot - cùng cơ chế truy xuất dữ liệu (RAG) + AI Agent như Zalo Chatbot, xây dựng thêm chế độ quản trị nhóm cộng đồng Discord.",
-   "desc_en": "Two self-built chatbots on n8n: (1) Zalo Chatbot - ingests input data so the bot can retrieve and answer accurately within the data's scope; out-of-scope questions are routed to an AI Agent (Google Gemini Flash); operated and monitored through a Telegram control panel (switch between working/sleep/free mode, review unanswered domain questions to reply manually). (2) Discord Chatbot - the same RAG + AI Agent mechanism as the Zalo Chatbot, plus a Discord community-moderation mode.",
-   "brief_vi": "Đề bài: Cần một trợ lý ảo tự động phản hồi khách hàng/cộng đồng trên Zalo và Discord, vừa truy xuất đúng dữ liệu nội bộ vừa xử lý linh hoạt các câu hỏi ngoài phạm vi dữ liệu. Cách làm: Tự xây dựng 2 chatbot bằng n8n, tích hợp Google Gemini (AI Agent) và Supabase Vector Store để truy xuất dữ liệu (RAG), có bảng điều khiển qua Telegram/Discord để đổi chế độ hoạt động và xem câu hỏi tồn đọng. Sản phẩm: Zalo Chatbot trả lời tự động dựa trên dữ liệu đã nạp, câu hỏi ngoài phạm vi được AI Agent (Gemini Flash) xử lý; Discord Chatbot có thêm chế độ quản trị nhóm cộng đồng.",
-   "brief_en": "Brief: Needed a virtual assistant to automatically respond to customers/community on Zalo and Discord, retrieving accurate internal data while flexibly handling out-of-scope questions. Approach: Self-built 2 chatbots with n8n, integrating Google Gemini (AI Agent) and Supabase Vector Store for data retrieval (RAG), with a Telegram/Discord control panel to switch operating modes and review pending questions. Output: Zalo Chatbot auto-replies based on ingested data, with out-of-scope questions handled by an AI Agent (Gemini Flash); Discord Chatbot adds a community-moderation mode.",
-   "slideCaptions_vi": [
-    "Xây dựng workflow Zalo Chatbot trên n8n - truy xuất dữ liệu (RAG) và AI Agent Gemini",
-    "Xây dựng workflow Discord Chatbot trên n8n - thêm chế độ quản trị nhóm cộng đồng",
-    "Bảng điều khiển Discord Chatbot qua Telegram - đổi chế độ, xem câu hỏi tồn đọng",
-    "Bảng điều khiển Zalo Chatbot qua Telegram - theo dõi trạng thái, chế độ Lao động/Ngủ",
-    "Zalo Chatbot trả lời tự động câu hỏi chuyên môn qua Telegram",
-    "Discord Chatbot trả lời câu hỏi trong kênh cộng đồng"
-   ],
-   "slideCaptions_en": [
-    "Zalo Chatbot workflow built on n8n - data retrieval (RAG) and Gemini AI Agent",
-    "Discord Chatbot workflow built on n8n - adds a community-moderation mode",
-    "Discord Chatbot control panel via Telegram - switch modes, view pending questions",
-    "Zalo Chatbot control panel via Telegram - status tracking, Working/Sleep modes",
-    "Zalo Chatbot auto-answering a domain question via Telegram",
-    "Discord Chatbot replying to a question in the community channel"
-   ],
-   "canvaUrls": []
   }
  ]
 }

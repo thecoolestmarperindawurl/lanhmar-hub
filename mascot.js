@@ -69,9 +69,6 @@
     return own.length ? own : (SPOT[el.dataset.say] || {}).moods || ALL;
   };
 
-  // tải trước ảnh khi trình duyệt rảnh, để đổi biểu cảm không bị chớp
-  const preload = () => ALL.forEach((m) => { const i = new Image(); i.decoding = "async"; i.src = src(m); });
-  ("requestIdleCallback" in window ? requestIdleCallback : (f) => setTimeout(f, 1500))(preload);
 
   const html = (m) => `<span class="lm-bob"><span class="lm-tilt"><span class="lm-fx"><img src="${src(m)}" alt="" width="560" height="560" loading="lazy" decoding="async" draggable="false"></span></span></span>` +
     `<i class="lm-sp s1" aria-hidden="true">★</i><i class="lm-sp s2" aria-hidden="true">★</i><i class="lm-sp s3" aria-hidden="true">★</i><span class="lm-shadow"></span><span class="lm-say" role="status" aria-live="polite"></span>`;
