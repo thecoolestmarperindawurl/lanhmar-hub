@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="mascot.css?v=20261120a">
 <link rel="stylesheet" href="sky.css?v=20261118p">
 <link rel="stylesheet" href="storage-lms.css?v=20261118f">
+<link rel="stylesheet" href="kho-admin.css?v=20261120a">
 </head>
 <body>
 <section id="lock" class="lockbox"><form id="lockForm" class="lockcard" autocomplete="off">
@@ -41,6 +42,8 @@
     <div class="lms-user"><span class="lms-av" aria-hidden="true">★</span><p><b data-ku="owner">Chủ kho</b><br><em id="cloudState"></em></p></div>
     <p class="lms-label" data-ku="side_label">Các kho</p>
     <nav class="tabs" id="tabs"></nav>
+    <p class="lms-label adm-only-label" data-ku="adm_label" hidden>Quản trị</p>
+    <button class="tab adm-tab" id="adminOpen" type="button" hidden data-ku="admin">📊 Quản trị Storage</button>
     <div class="lms-side-foot">
       <p class="lms-label" data-ku="owner_tools">Công cụ chủ kho</p>
       <button class="btn" id="cloudSync" hidden data-ku="cloud">Đồng bộ đám mây</button>
@@ -72,6 +75,7 @@
       <div class="tags" id="tags"></div>
     </section>
     <main class="lms-content"><section class="grid" id="grid"></section></main>
+    <section class="adm" id="admin" hidden aria-live="polite"></section>
   </div>
 </div>
 <dialog id="dlg"><form id="form" method="dialog">
@@ -89,14 +93,24 @@
 </form></dialog>
 <dialog id="gDlg"><h2 data-ku="g_h">Đăng nhập Google</h2><p data-ku="g_p">Đăng nhập lại bằng mail chủ kho để lưu/đồng bộ lên đám mây.</p><div id="gBtn2" class="gbtn"></div><div class="row"><button type="button" class="btn" id="gClose" data-ku="close">Đóng</button></div></dialog>
 <dialog id="resDlg" class="res-dlg"></dialog>
+<dialog id="admUser" class="adm-dlg"></dialog>
+<dialog id="admDlg"><form method="dialog">
+  <h2 id="admDlgT">Duyệt người xem</h2>
+  <p id="admWho" class="adm-who"></p>
+  <label>Donate</label><select name="donate"></select>
+  <label data-ku="adm_amount">Số tiền (đ)</label><input name="amount" type="number" min="0" step="1000" inputmode="numeric">
+  <div class="row"><button type="button" class="btn" id="admCancel" data-ku="adm_cancel">Huỷ</button><button class="btn primary" type="submit" id="admOk">Duyệt</button></div>
+</form></dialog>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
-<script src="kho-data.js?v=20261118a"></script>
-<script src="kho-en.js?v=20261118a"></script>
+<script src="kho-data.js?v=20261120a"></script>
+<script src="kho-en.js?v=20261120a"></script>
 <script src="lang.js?v=20261115a"></script>
 <script src="resource.js?v=20261116b"></script>
-<script src="storage-config.js?v=20261104u"></script>
+<script src="storage-config.js?v=20261121b"></script>
+<script src="backend.js?v=20261121a"></script>
 <script src="chat.js?v=20261105a"></script>
-<script src="kho.js?v=20261118a"></script>
+<script src="kho.js?v=20261121a"></script>
+<script src="kho-admin.js?v=20261121b"></script>
 <script src="fx.js?v=20261105j"></script>
 <script src="mascot.js?v=20261120a"></script>
 <script src="sky-data.js?v=20261117a"></script>

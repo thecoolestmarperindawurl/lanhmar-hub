@@ -1,11 +1,29 @@
 /* Data Storage — người xem: đăng ký → chờ duyệt → vào xem bằng email + mã. */
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const API = (window.STORAGE_API || "").trim();
+const API = window.LMBackend.ready(); // backend.js: Supabase nếu đã cấu hình, không thì Apps Script
 const SAVE = "lm-storage-login";
 
 let items = [], featured = [], cur = "ai", q = "", tag = "";
 let grp = "";
+
+/* ---------- thống kê cho chủ kho: mỗi phiên gửi mỗi kho / mỗi thẻ đã mở một lần (gom lại, gửi sau 4 giây) ---------- */
+let who = null; const sent = new Set(), queue = []; let flushT = 0;
+function track(ev, kho, item) {
+  const k = ev + ":" + kho + ":" + (item || "");
+  if (!who || !API || sent.has(k)) return;
+  sent.add(k); queue.push(item ? { ev, kho, item } : { ev, kho });
+  clearTimeout(flushT); flushT = setTimeout(flush, 4000);
+}
+function flush() {
+  if (!queue.length || !who) return;
+  const events = queue.splice(0, 30);
+  // keepalive: vẫn gửi được khi người xem đóng tab; lỗi mạng thì bỏ qua, không làm phiền người xem
+  LMBackend.call("track", { email: who.email, code: who.code, events }, { keepalive: true }).catch(() => {});
+}
+addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") flush(); });
+const onRes = (e) => { if (e.type === "keydown" && e.key !== "Enter" && e.key !== " ") return; const c = e.target.closest?.("#app [data-res]"); if (c) track("item", cur, c.dataset.res); };
+document.addEventListener("click", onRes, true); document.addEventListener("keydown", onRes, true);
 
 /* ---------- song ngữ (lang.js) ---------- */
 const STR = {
@@ -50,8 +68,7 @@ document.addEventListener("lm:content", () => { if (!$("#app").hidden) render();
 
 async function call(payload) {
   if (!API) throw new Error("no_api");
-  const r = await fetch(API, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) });
-  return r.json();
+  return LMBackend.call(payload.action, payload);
 }
 
 /* ---------- chế độ đăng ký / đăng nhập ---------- */
@@ -108,6 +125,7 @@ async function enter(email, code, err, remember) {
       return false;
     }
     if (remember) { try { localStorage.setItem(SAVE, JSON.stringify({ email, code })); } catch {} }
+    who = { email, code };
     items = res.items || [];
     featured = await Res.load();
     Res.loadFeeds().then(() => { render(); Res.startAutoRefresh(render); });
@@ -121,6 +139,7 @@ async function enter(email, code, err, remember) {
 /* ---------- danh sách (chỉ xem) ---------- */
 function render() {
   const k = KHO.find((x) => x.id === cur) || KHO[0];
+  track("kho", k.id);
   $("#tabs").innerHTML = KHO.map((x) => `<button class="tab ${x.id === cur ? "on" : ""}" data-k="${x.id}">${x.icon} ${x.name}<small>${Res.visible(items).filter((i) => i.kho === x.id).length + featured.filter((i) => i.kho === x.id).length}</small></button>`).join("");
   $("#desc").textContent = k.desc;
   // đầu trang kiểu LMS: đường dẫn, tên kho, số liệu

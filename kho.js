@@ -45,7 +45,7 @@ async function createVault(pass) {
 }
 
 /* ---------- đồng bộ đám mây (đăng nhập Google, chỉ chủ kho) ---------- */
-const API = () => (window.STORAGE_API || "").trim();
+const API = () => window.LMBackend.ready(); // backend.js
 const GCID = () => (window.GOOGLE_CLIENT_ID || "").trim();
 let cloud = { token: "", exp: 0, rev: 0, ready: false };
 let unlocked = false, pushing = false, again = false;
@@ -53,8 +53,7 @@ const tokenExp = (t) => { try { return JSON.parse(atob(t.split(".")[1].replace(/
 const tokenOk = () => !!cloud.token && cloud.exp - 60000 > Date.now();
 function setState(t) { $("#lockCloud").textContent = t; $("#cloudState").textContent = t; }
 async function call(action, extra) {
-  const r = await fetch(API(), { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ action, idToken: cloud.token, ...extra }) });
-  return r.json();
+  return LMBackend.call(action, { idToken: cloud.token, ...extra });
 }
 async function adoptRemote(rv, rev) {
   if (unlocked) { // đang mở: chỉ nhận nếu cùng muối (cùng một kho) để giải mã bằng khoá hiện có
@@ -85,7 +84,10 @@ async function afterSignIn() {
       else { vault.rev = cloud.rev; saveLocal(); }
     }
     setState(L("Đã đăng nhập Google. Kho trên đám mây: bản ", "Signed in with Google. Cloud library: version ") + cloud.rev + ".");
-  } else setState(vault ? L("Đã đăng nhập Google. Kho sẽ được lưu lên đám mây khi bạn mở kho.", "Signed in with Google. The library will be saved to the cloud when you open it.") : L("Đã đăng nhập Google. Chưa có kho trên đám mây.", "Signed in with Google. No library in the cloud yet."));
+  } else {
+    if (vault) { vault.rev = 0; vault.dirty = true; saveLocal(); } // đám mây trống (vd. vừa chuyển sang Supabase): lần đồng bộ tới đẩy bản mã trên máy lên
+    setState(vault ? L("Đã đăng nhập Google. Kho sẽ được lưu lên đám mây khi bạn mở kho.", "Signed in with Google. The library will be saved to the cloud when you open it.") : L("Đã đăng nhập Google. Chưa có kho trên đám mây.", "Signed in with Google. No library in the cloud yet."));
+  }
   if (unlocked) pushCloud(); else renderLock();
 }
 async function pushCloud() {
@@ -108,11 +110,12 @@ async function pushCloud() {
 function onGoogle(r) {
   cloud.token = r.credential; cloud.exp = tokenExp(r.credential);
   if ($("#gDlg").open) $("#gDlg").close();
-  afterSignIn();
+  (LMBackend.on() ? LMBackend.ownerLogin(r.credential) : Promise.resolve()).then(afterSignIn)
+    .then(() => document.dispatchEvent(new Event("kho:signed"))); // kho-admin.js chờ sự kiện này
 }
 function initGoogle(n = 0) {
   if (!GCID() || !API()) return;
-  $("#gBox").hidden = false; $("#cloudSync").hidden = false;
+  $("#gBox").hidden = false; $("#cloudSync").hidden = false; $("#adminOpen").hidden = false; document.querySelector(".adm-only-label").hidden = false;
   if (!window.google?.accounts?.id) { if (n < 50) setTimeout(() => initGoogle(n + 1), 300); else setState(L("Không tải được Google Sign-In.", "Couldn't load Google Sign-In.")); return; }
   google.accounts.id.initialize({ client_id: GCID(), callback: onGoogle, auto_select: false });
   for (const id of ["gBtn", "gBtn2"]) google.accounts.id.renderButton($("#" + id), { theme: "outline", size: "large", text: "signin_with", locale: "vi" });
@@ -136,7 +139,7 @@ const UI = {
   marquee: ["★ KHO AI ★ KHO DESIGN ★ KHO EDIT ★ KHO TOOL ★ KHO KNOWLEDGE ★ KHO ỨNG DỤNG ★ KHO AI ★ KHO DESIGN ★ KHO EDIT ★ KHO TOOL ★ KHO KNOWLEDGE ★ KHO ỨNG DỤNG", "★ AI LIBRARY ★ DESIGN LIBRARY ★ EDIT LIBRARY ★ TOOL LIBRARY ★ KNOWLEDGE LIBRARY ★ APP LIBRARY ★ AI LIBRARY ★ DESIGN LIBRARY ★ EDIT LIBRARY ★ TOOL LIBRARY ★ KNOWLEDGE LIBRARY ★ APP LIBRARY"],
   cancel: ["Huỷ", "Cancel"], save: ["Lưu", "Save"], g_h: ["Đăng nhập Google", "Sign in with Google"],
   g_p: ["Đăng nhập lại bằng mail chủ kho để lưu/đồng bộ lên đám mây.", "Sign in again with the owner email to save/sync to the cloud."], close: ["Đóng", "Close"],
-  side_brand: ["Kho cá nhân", "Personal library"], owner: ["Chủ kho", "Library owner"], side_label: ["Các kho", "Libraries"], owner_tools: ["Công cụ chủ kho", "Owner tools"], menu: ["Mở danh sách kho", "Open library list"]
+  side_brand: ["Kho cá nhân", "Personal library"], owner: ["Chủ kho", "Library owner"], side_label: ["Các kho", "Libraries"], owner_tools: ["Công cụ chủ kho", "Owner tools"], admin: ["📊 Quản trị Storage", "📊 Storage admin"], adm_label: ["Quản trị", "Admin"], adm_cancel: ["Huỷ", "Cancel"], adm_amount: ["Số tiền (đ)", "Amount (VND)"], menu: ["Mở danh sách kho", "Open library list"]
 };
 function applyUI() {
   const U = (k) => L(UI[k][0], UI[k][1]);
@@ -196,6 +199,7 @@ function renderTabs() {
     `<button class="tab ${k.id === cur ? "on" : ""}" data-k="${k.id}">${k.icon} ${k.name}<small>${Res.visible(items).filter((i) => i.kho === k.id).length + featured.filter((i) => i.kho === k.id).length}</small></button>`).join("");
 }
 function render() {
+  if (document.body.classList.contains("adm-on")) return; // đang ở màn Quản trị Storage (kho-admin.js)
   const k = KHO.find((x) => x.id === cur);
   renderTabs();
   $("#desc").textContent = k.desc;
@@ -281,7 +285,7 @@ document.addEventListener("click", async (e) => {
   const t = e.target;
   if (t.dataset.g !== undefined && t.classList.contains("gpill")) { grp = t.dataset.g; render(); }
   else if (t.dataset.more !== undefined) { tagsOpen = !tagsOpen; render(); }
-  else if (t.closest("#tabs [data-k]")) { cur = t.closest("[data-k]").dataset.k; tag = ""; grp = ""; tagsOpen = false; render(); side(false); scrollTo({ top: 0, behavior: "smooth" }); }
+  else if (t.closest("#tabs [data-k]")) { window.KhoAdmin?.close(); cur = t.closest("[data-k]").dataset.k; tag = ""; grp = ""; tagsOpen = false; render(); side(false); scrollTo({ top: 0, behavior: "smooth" }); }
   else if (t.dataset.t !== undefined) { tag = tag === t.dataset.t ? "" : t.dataset.t; render(); }
   else if (t.dataset.edit) openForm(items.find((i) => i.id === t.dataset.edit));
   else if (t.dataset.del && confirm(L("Xoá mục này?", "Delete this item?"))) { items = items.filter((i) => i.id !== t.dataset.del); await seal(); render(); }
@@ -297,16 +301,16 @@ $("#lmsScrim").addEventListener("click", () => side(false));
 document.addEventListener("keydown", (e) => { if (e.key === "Escape") side(false); });
 $("#add").onclick = () => openForm();
 $("#syncStorage").onclick = async () => {
-  const api = (window.STORAGE_API || "").trim();
-  if (!api) { alert(L("Chưa cấu hình Data Storage (storage-config.js).", "Data Storage isn't configured (storage-config.js).")); return; }
-  let key = ""; try { key = sessionStorage.getItem("lm-admin") || ""; } catch {}
-  key = prompt(L("Admin key của Data Storage (chỉ bạn biết):", "Data Storage admin key (only you know it):"), key); if (!key) return;
+  if (!LMBackend.ready()) { alert(L("Chưa cấu hình Data Storage (storage-config.js).", "Data Storage isn't configured (storage-config.js).")); return; }
   const shared = items.filter((i) => i.shared).map(({ id, kho, title, url, note, tags, type, date }) => ({ id, kho, title, url, note, tags, type, date }));
+  // Supabase: xác thực bằng đăng nhập Google của chủ kho. Apps Script: nhập ADMIN_KEY như trước.
+  let key = "";
+  if (LMBackend.on()) { if (!LMBackend.ownerOk()) { $("#gDlg").showModal(); return; } }
+  else { try { key = sessionStorage.getItem("lm-admin") || ""; } catch {} key = prompt(L("Admin key của Data Storage (chỉ bạn biết):", "Data Storage admin key (only you know it):"), key); if (!key) return; }
   try {
-    const r = await fetch(api, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ action: "sync", adminKey: key, items: shared }) });
-    const res = await r.json();
-    if (res.ok) { try { sessionStorage.setItem("lm-admin", key); } catch {} alert(L("Đã đồng bộ ", "Synced ") + res.count + L(" mục lên Data Storage.", " items to Data Storage.")); }
-    else alert(L("Không đồng bộ được: sai admin key hoặc lỗi máy chủ.", "Couldn't sync: wrong admin key or server error."));
+    const res = await LMBackend.call("sync", { adminKey: key, items: shared });
+    if (res.ok) { if (key) try { sessionStorage.setItem("lm-admin", key); } catch {} alert(L("Đã đồng bộ ", "Synced ") + res.count + L(" mục lên Data Storage.", " items to Data Storage.")); }
+    else alert(L("Không đồng bộ được: sai admin key, chưa đăng nhập Google đúng mail chủ kho, hoặc lỗi máy chủ.", "Couldn't sync: wrong admin key, not signed in with the owner's Google account, or a server error."));
   } catch { alert(L("Không kết nối được tới Data Storage.", "Couldn't connect to Data Storage.")); }
 };
 $("#cloudSync").onclick = () => { if (tokenOk() && cloud.ready) afterSignIn(); else $("#gDlg").showModal(); };
@@ -325,7 +329,7 @@ $("#import").onchange = async (e) => {
     location.reload();
   } catch { alert(L("File kho.enc.json không hợp lệ.", "Invalid kho.enc.json file.")); }
 };
-if ((window.STORAGE_API || "").trim()) $("#storageBox").hidden = false; // chỉ hiện nút khi Data Storage đã được kích hoạt
+if (LMBackend.ready()) $("#storageBox").hidden = false; // chỉ hiện nút khi Data Storage đã được kích hoạt
 $("#importLock").onchange = async (e) => {
   try {
     const v = JSON.parse(await e.target.files[0].text());

@@ -17,6 +17,320 @@ window.TREASURE_SHELVES = [
 
 window.TREASURES = [
   {
+    "id": "kes-create-credits",
+    "shelf": "skill",
+    "featured": true,
+    "status": "open",
+    "url": "https://drive.google.com/file/d/1EMB8o7OGnR2JyYzcrSgQbv7MFJ12QeyI/view?usp=drivesdk",
+    "thumb": "assets/res/skill-kes-create-credits.jpg",
+    "name": "kes-create-credits",
+    "hook": "Làm phần chạy tên cuối sự kiện từ danh sách của bạn, không sót tên nào.",
+    "hook_en": "Closing credits for your event from your own lists, no name missed.",
+    "type": "Skill cho AI Agent",
+    "type_en": "AI agent skill",
+    "badge": "Miễn phí",
+    "badge_en": "Free",
+    "desc": "Skill giúp AI dựng phần chạy tên (end credits) cuối sự kiện: người tham gia, ban tổ chức theo vai trò, nhà tài trợ theo hạng kèm logo, đơn vị đồng hành. Giữ nguyên từng tên, mỗi dòng đủ lâu để đọc, nhạc của bạn được cắt vừa độ dài. Xuất HTML trình chiếu chạy không cần mạng và MP4.",
+    "desc_en": "A skill that helps your AI build an event's closing credits: participants, the organising committee by role, sponsors by tier with logos, partners. Every name kept exactly, each line long enough to read, your music cut to fit. Exports an offline presentation HTML and MP4.",
+    "points": [
+      "Script so từng tên trên màn hình với danh sách gốc, sai một dấu cũng báo",
+      "Mỗi dòng hiện ít nhất 2,5 giây; tối đa 3 đoạn cắt nhạc để bạn nghe và chọn",
+      "3 kiểu nền: classic-roll, space-crawl (3D), retro-sunburst; màu, font theo thương hiệu",
+      "Khổ 16:9, 9:16, 1:1; file HTML đã nhúng font, logo, nhạc, chạy không cần mạng"
+    ],
+    "points_en": [
+      "A script compares every on-screen name with your original list, flagging even one wrong accent",
+      "Each line shows for at least 2.5 seconds; up to 3 music cuts for you to listen to and pick",
+      "3 styles: classic-roll, space-crawl (3D), retro-sunburst; colours and fonts from your brand",
+      "16:9, 9:16, 1:1; the HTML file has fonts, logos and music built in and plays offline"
+    ],
+    "cta": "Tải file .zip →",
+    "cta_en": "Download the .zip →",
+    "meta": [
+      {
+        "l": "Cài đặt",
+        "l_en": "Install",
+        "v": "Đưa file zip cho AI chạy được lệnh trên máy (Claude Code, Codex…) và nhắn: \"Cài skill trong file này theo hướng dẫn INSTALL.md bên trong.\"",
+        "v_en": "Give the zip to an AI that can run commands on your computer (Claude Code, Codex…) and say: \"Install the skill in this file following the INSTALL.md inside.\""
+      },
+      {
+        "l": "Cần có",
+        "l_en": "Requires",
+        "v": "uv, Node.js, ffmpeg, Chromium (miễn phí; AI kiểm và hỏi trước khi cài). Không dùng được trên AI chỉ chat web.",
+        "v_en": "uv, Node.js, ffmpeg, Chromium (free; the AI checks and asks before installing). Doesn't work in a web-only chat AI."
+      },
+      {
+        "l": "Phiên bản",
+        "l_en": "Version",
+        "v": "1.0.1, tác giả Hưng Kescy · KesFlow",
+        "v_en": "1.0.1, by Hưng Kescy · KesFlow"
+      }
+    ],
+    "note": "Skill không tìm hay tải nhạc: nhạc là file của bạn, quyền dùng bài hát là việc của bạn. Không làm slide cảm ơn tĩnh, cả bộ slide hay video highlight.",
+    "note_en": "The skill doesn't find or download music: it's your file, and the right to use the song is yours. It doesn't make a static thank-you slide, a whole deck or a highlight video.",
+    "detail": "kes-create-credits",
+    "direct": true,
+    "links": [
+      {
+        "t": "Thư mục Skill-Hub trên Drive ↗",
+        "t_en": "Skill-Hub folder on Drive ↗",
+        "u": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
+      }
+    ],
+    "sections": [
+      {
+        "k": "callout",
+        "t": "Cuối sự kiện ai cũng muốn cảm ơn đủ người. Làm tay trên slide thì dễ sót tên, gõ sai dấu, chữ chạy nhanh quá không ai đọc kịp. Skill này để AI dựng, script kiểm, bạn duyệt.",
+        "t_en": "At the end of an event everyone wants to thank every person. Done by hand on slides, names get missed, accents mistyped, text scrolls too fast to read. With this skill the AI builds, a script checks, and you approve."
+      },
+      {
+        "k": "h",
+        "t": "Bạn nhận được",
+        "t_en": "What you get"
+      },
+      {
+        "k": "table",
+        "head": [
+          "File",
+          "Dùng để"
+        ],
+        "head_en": [
+          "File",
+          "Use"
+        ],
+        "rows": [
+          [
+            "credits-16x9.html",
+            "Trình chiếu ở hội trường, chạy không cần mạng"
+          ],
+          [
+            "credits-9x16.mp4 (hoặc 16x9, 1x1)",
+            "Đăng Facebook, Reels, TikTok; chèn vào PowerPoint, Canva"
+          ],
+          [
+            "credits-section.html",
+            "Chèn vào bộ slide làm bằng HTML khổ 16:9"
+          ]
+        ],
+        "rows_en": [
+          [
+            "credits-16x9.html",
+            "Show at the venue, plays offline"
+          ],
+          [
+            "credits-9x16.mp4 (or 16x9, 1x1)",
+            "Post to Facebook, Reels, TikTok; insert into PowerPoint, Canva"
+          ],
+          [
+            "credits-section.html",
+            "Insert into a 16:9 HTML slide deck"
+          ]
+        ]
+      },
+      {
+        "k": "h",
+        "t": "Cách dùng",
+        "t_en": "How to use"
+      },
+      {
+        "k": "steps",
+        "items": [
+          {
+            "t": "Cài skill",
+            "d": "Tải zip, đưa cho AI chạy được lệnh trên máy và nhắn câu cài đặt ở trên."
+          },
+          {
+            "t": "Đưa danh sách",
+            "d": "Nhắn \"Làm end credits cho buổi bế mạc…\", trả lời câu hỏi cho từng nhóm."
+          },
+          {
+            "t": "Duyệt rồi xuất",
+            "d": "Duyệt chữ, chọn kiểu và đoạn nhạc, xem bản HTML; cần MP4 thì AI xuất sau khi bạn duyệt."
+          }
+        ],
+        "items_en": [
+          {
+            "t": "Install",
+            "d": "Download the zip, give it to an AI that can run commands and use the install line above."
+          },
+          {
+            "t": "Hand over the lists",
+            "d": "Say \"Make end credits for the closing of…\" and answer the questions for each group."
+          },
+          {
+            "t": "Approve, then export",
+            "d": "Approve the wording, pick a style and a music cut, review the HTML; for an MP4 the AI exports it after you approve."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "kes-extract-content",
+    "shelf": "skill",
+    "featured": true,
+    "status": "open",
+    "url": "https://drive.google.com/file/d/1SmjFoBqkT1tJF0AhTNXRL4b7B8XZlndS/view?usp=drivesdk",
+    "thumb": "assets/res/skill-kes-extract-content.jpg",
+    "name": "kes-extract-content",
+    "hook": "Đưa một link hay một file, nhận lại ghi chú có nguồn, không bịa.",
+    "hook_en": "Give it a link or a file, get back sourced notes, nothing made up.",
+    "type": "Skill cho AI Agent",
+    "type_en": "AI agent skill",
+    "badge": "Miễn phí",
+    "badge_en": "Free",
+    "desc": "Skill lấy trọn nội dung của một nguồn (trang web, video, âm thanh, bài mạng xã hội, PDF, Word, ảnh) rồi ghi thành file extract.md: tóm tắt, ý chính, nội dung gốc hoặc transcript, tách rõ lời gốc và phần AI diễn giải, kèm thư mục assets/ chứa bản gốc để bạn kiểm lại.",
+    "desc_en": "A skill that pulls the full content of one source (web page, video, audio, social post, PDF, Word, image) into an extract.md file: summary, key ideas, original text or transcript, with the original words kept apart from the AI's interpretation, plus an assets/ folder of originals so you can check.",
+    "points": [
+      "Nhận link YouTube, TikTok, Facebook, Instagram, X, Threads, Notion, GitHub, Drive hoặc file trên máy",
+      "Trang cần đăng nhập: bạn tự đăng nhập trong một trình duyệt riêng, không đưa mật khẩu cho AI",
+      "Trạng thái full, partial hoặc failed; chỉ ghi full khi có câu chép nguyên văn từ nguồn",
+      "Ghi chú nằm trong thư mục dự án, không tự lưu vào Notion hay Obsidian"
+    ],
+    "points_en": [
+      "Takes YouTube, TikTok, Facebook, Instagram, X, Threads, Notion, GitHub, Drive links or local files",
+      "Login-only pages: you log in yourself in a separate browser, never giving the AI your password",
+      "Marked full, partial or failed; full only when there's a line copied word for word from the source",
+      "Notes stay in your project folder, never pushed to Notion or Obsidian"
+    ],
+    "cta": "Tải file .zip →",
+    "cta_en": "Download the .zip →",
+    "meta": [
+      {
+        "l": "Cài đặt",
+        "l_en": "Install",
+        "v": "Đưa file zip cho AI chạy được lệnh trên máy (Claude Code, Codex…) và nhắn: \"Cài skill trong file này theo hướng dẫn INSTALL.md bên trong.\" Windows cần WSL.",
+        "v_en": "Give the zip to an AI that can run commands on your computer (Claude Code, Codex…) and say: \"Install the skill in this file following the INSTALL.md inside.\" Windows needs WSL."
+      },
+      {
+        "l": "Cần có",
+        "l_en": "Requires",
+        "v": "Bắt buộc uv; tuỳ loại nguồn thêm ffmpeg, CloakBrowser, Antigravity (AI kiểm và hỏi trước khi cài)",
+        "v_en": "uv is required; depending on the source also ffmpeg, CloakBrowser, Antigravity (the AI checks and asks before installing)"
+      },
+      {
+        "l": "Phiên bản",
+        "l_en": "Version",
+        "v": "1.0.2, tác giả Hưng Kescy · KesFlow",
+        "v_en": "1.0.2, by Hưng Kescy · KesFlow"
+      }
+    ],
+    "note": "Video gửi cho Gemini qua Antigravity sẽ đi lên Google. Nền tảng mạng xã hội hay đổi giao diện và chặn bot, nên có lúc chỉ lấy được một phần; khi đó ghi chú ghi partial và nói rõ lý do.",
+    "note_en": "Video sent to Gemini through Antigravity goes to Google. Social platforms often change their layout and block bots, so sometimes only part can be captured; the note is then marked partial with the reason.",
+    "detail": "kes-extract-content",
+    "direct": true,
+    "links": [
+      {
+        "t": "Thư mục Skill-Hub trên Drive ↗",
+        "t_en": "Skill-Hub folder on Drive ↗",
+        "u": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
+      }
+    ],
+    "sections": [
+      {
+        "k": "callout",
+        "t": "Nhờ AI tóm tắt thì nó trả lời trơn tru, nhưng bạn không biết câu nào thật sự có trong nguồn. Skill này tách rõ lời gốc và phần AI diễn giải, lấy không được thì nói rõ thiếu gì.",
+        "t_en": "Ask an AI for a summary and it answers smoothly, but you can't tell which lines are really in the source. This skill keeps original words apart from the AI's interpretation, and says plainly what it couldn't get."
+      },
+      {
+        "k": "h",
+        "t": "Trong file extract.md",
+        "t_en": "Inside extract.md"
+      },
+      {
+        "k": "table",
+        "head": [
+          "Mục",
+          "Nội dung"
+        ],
+        "head_en": [
+          "Section",
+          "Content"
+        ],
+        "rows": [
+          [
+            "TL;DR, Key ideas",
+            "Tóm tắt và ý chính, viết bằng tiếng Việt"
+          ],
+          [
+            "Full text / transcript",
+            "Nội dung gốc hoặc bản chép lời"
+          ],
+          [
+            "Quotes vs synthesis",
+            "Lời gốc tách khỏi phần AI diễn giải"
+          ],
+          [
+            "Unverified claims",
+            "Khẳng định của nguồn chưa được kiểm"
+          ],
+          [
+            "Extraction notes",
+            "Lấy được gì, thiếu gì, dùng đường dự phòng nào"
+          ]
+        ],
+        "rows_en": [
+          [
+            "TL;DR, Key ideas",
+            "Summary and key ideas, in Vietnamese by default"
+          ],
+          [
+            "Full text / transcript",
+            "Original content or transcript"
+          ],
+          [
+            "Quotes vs synthesis",
+            "Original words kept apart from the AI's interpretation"
+          ],
+          [
+            "Unverified claims",
+            "The source's claims not yet checked"
+          ],
+          [
+            "Extraction notes",
+            "What was captured, what's missing, which fallbacks were used"
+          ]
+        ]
+      },
+      {
+        "k": "h",
+        "t": "Cách dùng",
+        "t_en": "How to use"
+      },
+      {
+        "k": "steps",
+        "items": [
+          {
+            "t": "Cài skill",
+            "d": "Tải zip, đưa cho AI chạy được lệnh trên máy và nhắn câu cài đặt ở trên."
+          },
+          {
+            "t": "Đưa link hoặc file",
+            "d": "Nhắn \"Bóc tách nội dung link này giúp mình: [link]\"."
+          },
+          {
+            "t": "Đọc ghi chú",
+            "d": "Xem ý chính trong khung chat, mở content-extracts/ để đọc extract.md và bản gốc."
+          }
+        ],
+        "items_en": [
+          {
+            "t": "Install",
+            "d": "Download the zip, give it to an AI that can run commands and use the install line above."
+          },
+          {
+            "t": "Give a link or file",
+            "d": "Say \"Extract the content of this link for me: [link]\"."
+          },
+          {
+            "t": "Read the notes",
+            "d": "See the key ideas in the chat, open content-extracts/ to read extract.md and the originals."
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "qc-content-fb-group",
     "shelf": "skill",
     "featured": true,

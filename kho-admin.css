@@ -1,0 +1,109 @@
+/* Quản trị Storage (kho-admin.js): kính tối như giao diện LMS, màu LANHMAR tím/cam */
+body.adm-on .lms-head,body.adm-on .lms-content,body.adm-on .lms-top .bar{display:none}
+.adm{padding:clamp(22px,4vw,40px) clamp(16px,3vw,36px) 80px;max-width:1180px;width:100%;color:#CFC8F2;font-family:Montserrat,system-ui,sans-serif}
+.adm-tab.on{color:#fff}
+.adm-head h1{color:#fff;font-size:clamp(28px,4.2vw,42px);margin:6px 0 8px;text-shadow:0 0 30px rgba(106,92,255,.45)}
+.adm-head .desc{max-width:760px;margin:0 0 14px;font-weight:500;font-size:15px;color:#CFC8F2}
+.adm-acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 22px}
+.adm-acts .btn{padding:8px 14px;font-size:13px}
+.adm-upd{font-size:12px;color:#8F86C2}
+.adm-msg{margin:40px 0;padding:22px;border-radius:18px;background:rgba(24,19,64,.66);border:1px solid rgba(178,164,239,.24);line-height:1.6}
+.adm-msg .btn{margin-left:8px}
+.adm-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:0 0 16px}
+.adm-kpi{padding:16px;border-radius:18px;background:rgba(24,19,64,.66);border:1px solid rgba(178,164,239,.24);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.adm-kpi b{display:block;font-size:28px;line-height:1.1;color:#fff}
+.adm-kpi span{display:block;margin-top:6px;font-size:12.5px;font-weight:600;color:#A99FD6}
+.adm-kpi span em{font-style:normal;color:#FFB08A}
+.adm-kpi.warn{border-color:rgba(255,122,69,.55)}.adm-kpi.warn b{color:#FFB08A}
+.adm-kpi.ok b{color:#B9B0FF}
+.adm-kpi.orange b{color:#FF8B5C;font-size:22px}
+.adm-two{display:grid;grid-template-columns:1.3fr 1fr;gap:16px}
+@media (max-width:900px){.adm-two{grid-template-columns:1fr}}
+.adm-card{margin:0 0 16px;padding:18px;border-radius:18px;background:rgba(24,19,64,.66);border:1px solid rgba(178,164,239,.24);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);min-width:0}
+.adm-card h3{margin:0 0 14px;font-size:15px;color:#fff}
+.adm-chart{display:block;width:100%;height:150px}
+.adm-chart rect{fill:#6A5CFF}
+.adm-chart rect:hover{fill:#FF7A45}
+.adm-chart line{stroke:rgba(178,164,239,.3)}
+.adm-axis{display:flex;justify-content:space-between;margin-top:6px;font-size:11.5px;color:#8F86C2}
+.adm-bars{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.adm-bars li{display:grid;grid-template-columns:minmax(0,150px) 1fr 44px;gap:10px;align-items:center;font-size:13px}
+.adm-bars.items li{grid-template-columns:minmax(0,1.2fr) 1fr 44px}
+.adm-bl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#E7E2FB}
+.adm-bt{height:10px;border-radius:99px;background:rgba(255,255,255,.06);overflow:hidden}
+.adm-bt i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#2D2FEF,#8F84FF)}
+.adm-bars.items .adm-bt i{background:linear-gradient(90deg,#C24418,#FF7A45)}
+.adm-bars b{text-align:right;color:#fff}
+.adm-empty{margin:4px 0;font-size:13px;color:#8F86C2}
+.adm-ptop{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin:0 0 10px}
+.adm-ptop h3{margin:0}
+.adm-ptop input{max-width:280px;width:100%;padding:9px 14px;border-radius:999px;border:1px solid rgba(178,164,239,.35);font:500 13px Montserrat}
+.adm-filters{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.adm-filters .chip{cursor:pointer;border:1px solid rgba(178,164,239,.3);background:rgba(255,255,255,.05);color:#CFC8F2;border-radius:999px;padding:6px 12px;font:700 12px Montserrat}
+.adm-filters .chip small{color:#8F86C2;margin-left:3px}
+.adm-filters .chip.on{background:linear-gradient(120deg,#2D2FEF,#6A5CFF);color:#fff;border-color:transparent}
+.adm-filters .chip.on small{color:#E7E2FB}
+.adm-tr{display:grid;grid-template-columns:minmax(0,2.2fr) 120px minmax(0,1fr) minmax(0,1.1fr) 180px;gap:12px;align-items:center;padding:12px 6px;border-top:1px solid rgba(178,164,239,.14);font-size:13px}
+.adm-th{border-top:0;padding-top:0;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8F86C2}
+.adm-tr b{color:#fff}
+.adm-tr small{display:block;margin-top:3px;color:#A99FD6;font-size:12px;overflow-wrap:anywhere}
+.adm-tr code{font-family:ui-monospace,Consolas,monospace;color:#FFD8C2}
+.adm-note{font-style:italic}
+.adm-st{font-style:normal;display:inline-block;padding:4px 10px;border-radius:999px;font-weight:700;font-size:11.5px;background:rgba(255,255,255,.06);border:1px solid rgba(178,164,239,.3)}
+.adm-st.s-Pending{color:#FFD8C2;border-color:rgba(255,122,69,.55);background:rgba(255,122,69,.14)}
+.adm-st.s-Approved{color:#D9D4FF;border-color:rgba(143,132,255,.6);background:rgba(106,92,255,.22)}
+.adm-st.s-Revoked,.adm-st.s-Rejected{color:#A99FD6}
+.adm-act{display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap}
+.adm-act .btn{padding:6px 12px;font-size:12px}
+.lms .adm-act .btn.warn{border-color:rgba(255,122,69,.55);color:#FFD8C2}
+@media (max-width:760px){
+  .adm-th{display:none}
+  .adm-tr{grid-template-columns:1fr 1fr;gap:8px 12px}
+  .adm-tr>span:first-child{grid-column:1/-1}
+  .adm-act{grid-column:1/-1;justify-content:flex-start}
+}
+.adm-who{line-height:1.6;font-size:14px}
+.adm-who code{font-family:ui-monospace,Consolas,monospace;font-weight:700}
+/* tab, sắp xếp, phân trang, chi tiết người xem, donate */
+.adm-tabs{display:flex;gap:4px;margin:4px 0 18px;border-bottom:1px solid rgba(178,164,239,.18);overflow-x:auto}
+.adm-tabb{flex:none;border:0;border-bottom:3px solid transparent;background:transparent;color:#A99FD6;font:700 14px Montserrat;padding:10px 16px;cursor:pointer;border-radius:12px 12px 0 0}
+.adm-tabb small{color:#FFB08A;font-size:11.5px;margin-left:4px}
+.adm-tabb:hover{color:#fff;background:rgba(255,255,255,.05)}
+.adm-tabb.on{color:#fff;border-bottom-color:#FF7A45;background:linear-gradient(rgba(106,92,255,0),rgba(106,92,255,.22))}
+.adm-tabb:focus-visible,.adm-name:focus-visible{outline:3px solid #FF7A45;outline-offset:2px}
+.adm-sort{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:#A99FD6}
+.adm-sort select{padding:8px 12px;border-radius:12px;border:1px solid rgba(178,164,239,.35);font:600 13px Montserrat}
+.adm-name{all:unset;cursor:pointer;display:block;border-radius:6px}
+.adm-name:hover b{color:#FFB08A;text-decoration:underline;text-underline-offset:3px}
+.adm-memo{color:#FFD8C2!important}
+.adm-pager{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:10px;margin-top:14px;font-size:12.5px;color:#A99FD6}
+.adm-pager span{margin-right:auto}
+.adm-pager b{color:#fff}
+.adm-pager .btn{padding:6px 14px;font-size:12.5px}
+.adm-pager .btn[disabled]{opacity:.4;pointer-events:none}
+.adm-wait .adm-wrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:10px 0;border-top:1px solid rgba(178,164,239,.14)}
+.adm-wait .adm-wrow:first-of-type{border-top:0;padding-top:0}
+.adm-wait small{display:block;margin-top:3px;font-size:12px;color:#A99FD6}
+.adm-tr.adm-dr{grid-template-columns:96px minmax(0,1.3fr) 110px minmax(0,1.4fr)}
+.adm-bars.money li{grid-template-columns:minmax(0,80px) 1fr 104px}
+.adm-dlg{max-width:min(620px,calc(100vw - 32px));width:100%}
+.adm-user h2{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.adm-user h2 .adm-st{font-size:12px}
+.adm-user h3{margin:16px 0 8px;font-size:15px}
+.adm-user h3 small{font-weight:500;font-size:12px;opacity:.75;margin-left:6px}
+.adm-user textarea{width:100%;box-sizing:border-box}
+.adm-user .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:flex-end;margin-top:14px}
+.adm-user .row .adm-act{margin-right:auto}
+.adm-tl{list-style:none;margin:0;padding:0 4px 0 0;max-height:240px;overflow:auto;font-size:13px}
+.adm-tl li{display:flex;gap:12px;padding:7px 0;border-top:1px solid rgba(36,31,69,.1)}
+.adm-tl li:first-child{border-top:0}
+.adm-tl time{flex:none;width:96px;font-variant-numeric:tabular-nums;opacity:.7}
+@media (max-width:760px){.adm-tr.adm-dr{grid-template-columns:1fr 1fr}.adm-ptop input{max-width:none}}
+/* hộp chi tiết dùng nền sáng như các hộp khác của kho.css: chữ tối */
+.adm-dlg,.adm-dlg .adm-who,.adm-dlg .adm-note{color:#4A4470}
+.adm-dlg h2,.adm-dlg h3{color:#241F45}
+.adm-dlg code{color:#C24418}
+.adm-dlg .adm-st{color:#4A4470;background:#F1EEFF;border-color:#D9D4FF}
+.adm-dlg .adm-st.s-Pending{color:#A6380D;background:#FFE9DF;border-color:#FFC3A8}
+.adm-dlg .adm-st.s-Approved{color:#2D2FEF;background:#ECEAFF;border-color:#C9C2FF}
+.adm-dlg .btn.warn{color:#A6380D;border-color:#FFC3A8}
