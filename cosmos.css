@@ -114,7 +114,7 @@
   .pcard:hover::before{opacity:1;animation:cxSpin 3.2s linear infinite}
   .pcard:hover .ph img{transform:scale(1.07) translateY(-4%)}
   .pcard:hover .cx-open{opacity:1;translate:0 0}
-  .grid.cx-dim .pcard:not(:hover){opacity:.5}
+  #projects.cx-dim .pcard:not(:hover){opacity:.5}
 }
 @keyframes cxSpin{to{--cxA:360deg}}
 .work-mascot{transition:rotate .5s cubic-bezier(.2,.8,.2,1)}

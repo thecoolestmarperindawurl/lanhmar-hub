@@ -113,3 +113,7 @@ dialog{color:var(--ink-soft);color-scheme:light}
 body::before{animation-duration:140s}
 body::after{animation-duration:170s}
 @media (prefers-reduced-motion:reduce){.mo-flare,.cm-star,.cm-kv::after{animation:none}}
+
+.tile-name p{color:var(--gx-text)}
+.tile-open{color:var(--gx-violet)}
+.tile:hover .tile-open{color:var(--gx-orange)}
