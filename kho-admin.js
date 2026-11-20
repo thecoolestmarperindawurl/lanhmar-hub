@@ -30,10 +30,15 @@
     return LMBackend.call(action, { idToken: cloud.token, ...extra }); // backend.js: Supabase hoặc Apps Script
   }
   function msg(html) { box.innerHTML = `<div class="adm-msg">${html}</div>`; }
-  function errText(e) {
-    if (e === "bad_action") return L("Máy chủ chưa có tính năng quản trị. Dán <b>storage-backend/Code.gs</b> mới vào Apps Script rồi <b>Deploy → New version</b> (HUONG-DAN.md mục 12).", "The server doesn't have the admin feature yet. Paste the new <b>storage-backend/Code.gs</b> into Apps Script, then <b>Deploy → New version</b> (HUONG-DAN.md section 12).");
+  // plain = true: chữ thường cho alert(), không có thẻ HTML
+  function errText(e, plain) {
+    const b = (t) => (plain ? t : `<b>${t}</b>`);
+    if (e === "bad_action") return LMBackend.on()
+      ? L(`Supabase chưa có các hàm quản trị. Chạy ${b("storage-backend/supabase.sql")} trong SQL Editor (SUPABASE.md bước 2).`, `Supabase doesn't have the admin functions yet. Run ${b("storage-backend/supabase.sql")} in the SQL Editor (SUPABASE.md step 2).`)
+      : L(`Máy chủ chưa có tính năng quản trị. Dán ${b("storage-backend/Code.gs")} mới vào Apps Script rồi ${b("Deploy → New version")} (HUONG-DAN.md mục 12).`, `The server doesn't have the admin feature yet. Paste the new ${b("storage-backend/Code.gs")} into Apps Script, then ${b("Deploy → New version")} (HUONG-DAN.md section 12).`);
     if (e === "denied") return L("Phiên Google hết hạn hoặc không phải mail chủ kho. Bấm “Đăng nhập Google” rồi thử lại.", "Your Google session expired or this isn't the owner email. Sign in with Google and try again.");
-    return L("Không tải được dữ liệu (", "Couldn't load data (") + esc(e || L("lỗi mạng", "network error")) + ").";
+    const why = e || L("lỗi mạng", "network error");
+    return L("Không tải được dữ liệu (", "Couldn't load data (") + (plain ? why : esc(why)) + ").";
   }
 
   async function load() {
@@ -42,7 +47,7 @@
     want = false; if (!data) msg(L("Đang tải số liệu…", "Loading figures…"));
     try {
       const res = await api("admin_data");
-      if (!res.ok) { if (!data) msg(errText(res.error)); else alert(errText(res.error).replace(/<[^>]+>/g, "")); return; }
+      if (!res.ok) { if (!data) msg(errText(res.error)); else alert(errText(res.error, true)); return; }
       data = res; render();
     } catch { if (!data) msg(errText()); }
   }
@@ -218,11 +223,11 @@
     if (busy) return; busy = true;
     try {
       const res = await api("admin_set", { email, ...body });
-      if (!res.ok) { alert(errText(res.error).replace(/<[^>]+>/g, "")); return; }
+      if (!res.ok) { alert(errText(res.error, true)); return; }
       const p = data.people.find((x) => x.email === email);
       if (p) { if (body.status) p.status = body.status; if (body.memo != null) p.memo = body.memo; if (body.donate != null) { p.donate = body.donate; p.amount = Number(body.amount) || 0; } }
       render(); load();
-    } catch { alert(errText().replace(/<[^>]+>/g, "")); } finally { busy = false; }
+    } catch { alert(errText(undefined, true)); } finally { busy = false; }
   }
 
   function donateDlg(p, approve) {
