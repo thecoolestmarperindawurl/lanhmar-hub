@@ -340,6 +340,9 @@ dialog::backdrop{background:rgba(36,31,69,.6)}
 #projects>.tile:nth-child(n+4) .tile-fact{text-align:left;display:flex;align-items:baseline;gap:8px}
 #projects>.tile:nth-child(n+4) .tile-fact span{max-width:none}
 .tile-media img{width:100%;height:100%;object-fit:cover;display:block}
+/* rê vào thẻ: ảnh phóng nhẹ (học từ GZA) */
+.tile-media img,.ccard img{transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){.tile:hover .tile-media img,.ccard:hover img{transform:scale(1.04)}}
 .tile-media.thumbs{display:flex;gap:10px;justify-content:center;padding:10px;background:linear-gradient(135deg,var(--purple-deep),var(--purple-mid))}
 .tile-media.thumbs img{width:auto;max-width:48%;aspect-ratio:9/16;border-radius:10px;border:2px solid rgba(255,255,255,.7)}
 .tile-body{padding:16px 18px 18px;display:grid;grid-template-columns:1fr auto;gap:6px 14px;align-items:end}

@@ -40,6 +40,9 @@
 .lm-say::after{content:"";position:absolute;left:calc(50% - var(--sx,0px));top:100%;width:12px;height:12px;background:#fff;border-right:2px solid #241F45;border-bottom:2px solid #241F45;transform:translate(-50%,-6px) rotate(45deg)}
 .lm-say.on{opacity:1;transform:translate(calc(-50% + var(--sx,0px)),0) scale(1)}
 
+/* xoa mascot: tim bay lên (mascot.js) */
+.lm-heart{position:absolute;z-index:3;left:var(--hx,50%);top:30%;font-style:normal;line-height:1;color:#FF7A45;font-size:calc(var(--size,140px)*.13);pointer-events:none;animation:lmHeart 1.1s ease-out forwards}
+@keyframes lmHeart{0%{opacity:0;transform:translate(-50%,0) scale(.5)}20%{opacity:1;transform:translate(-50%,-20%) scale(1.1)}100%{opacity:0;transform:translate(calc(-50% + var(--hd,0px)),-160%) scale(.9)}}
 @keyframes lmBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5%)}}
 @keyframes lmShadow{0%,100%{transform:scaleX(1);opacity:1}50%{transform:scaleX(.85);opacity:.7}}
 @keyframes lmSpark{0%,100%{opacity:.5;transform:scale(.85) rotate(0)}50%{opacity:1;transform:scale(1.1) rotate(15deg)}}

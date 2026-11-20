@@ -167,6 +167,34 @@
     }, { passive: true });
   }
 
+  // xoa: rê chuột qua lại trên mascot ~3 lần trong 1,4 giây → mắt thương, thả tim, nói một câu (học từ pet-rub của GZA)
+  // shortcut: chỉ chuột/bút; vuốt tay trên điện thoại cần touch-action:none sẽ chặn cuộn trang, nên bỏ qua
+  const RUB = { vi: ["Hihi nhột quá~", "Xoa nữa đi mà ♥", "Dễ chịu ghê~", "Thương bạn nhất!"], en: ["Hehe, that tickles~", "More pats please ♥", "So cozy~", "You're the best!"] };
+  function rubTrack(s, x, t) {
+    if (s.lx == null) { s.lx = x; s.dir = 0; s.flips = []; return false; }
+    const dx = x - s.lx; if (Math.abs(dx) < 6) return false;
+    const d = dx > 0 ? 1 : -1; s.lx = x;
+    if (s.dir && d !== s.dir) s.flips.push(t);
+    s.dir = d; s.flips = s.flips.filter((f) => t - f <= 1400);
+    if (s.flips.length >= 3) { s.flips = []; return true; }
+    return false;
+  }
+  document.addEventListener("pointermove", (e) => {
+    if (e.pointerType === "touch") return;
+    const el = e.target.closest?.(".lm-mascot.lm-live"); if (!el) return;
+    const s = el._rub = el._rub || {}, now = Date.now();
+    if (!rubTrack(s, e.clientX, now) || now - (s.done || 0) < 900) return;
+    s.done = now; el._last = now;
+    setMood(el, "love");
+    const L = lang(); say(el, RUB[L][Math.floor(Math.random() * RUB[L].length)], 2200);
+    if (reduce) return;
+    for (let i = 0; i < 3; i++) {
+      const h = document.createElement("i"); h.className = "lm-heart"; h.textContent = "♥"; h.setAttribute("aria-hidden", "true");
+      h.style.cssText = `--hx:${30 + Math.random() * 40}%;--hd:${Math.round(Math.random() * 30 - 15)}px;animation-delay:${i * 120}ms`;
+      el.appendChild(h); h.addEventListener("animationend", () => h.remove());
+    }
+  }, { passive: true });
+
   window.LMMascot = { html, paint, poke, setMood, moods: ALL };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", () => paint()); else paint();
   new MutationObserver(() => paint()).observe(document.documentElement, { childList: true, subtree: true });

@@ -1,0 +1,22 @@
+/* Ranh dẫn đường (tour.js) */
+.lt-spot{position:fixed;z-index:95;border-radius:999px;pointer-events:none;opacity:0;box-shadow:0 0 0 2px #FF7A45,0 0 0 9999px rgba(8,6,28,.62);transition:left .45s cubic-bezier(.2,.8,.2,1),top .45s cubic-bezier(.2,.8,.2,1),width .45s cubic-bezier(.2,.8,.2,1),height .45s cubic-bezier(.2,.8,.2,1),opacity .3s}
+.lt-spot.on{opacity:1}
+.lt-box{position:fixed;z-index:96;display:flex;gap:12px;align-items:flex-start;width:min(340px,calc(100vw - 24px));padding:16px 16px 14px;border-radius:20px;background:#fff;color:#241F45;border:2px solid #241F45;box-shadow:0 18px 40px rgba(45,47,239,.32);font-family:Montserrat,system-ui,sans-serif}
+.lt-box::before{content:"";position:absolute;left:var(--ax,50%);top:-8px;width:14px;height:14px;background:#fff;border-left:2px solid #241F45;border-top:2px solid #241F45;transform:translateX(-50%) rotate(45deg)}
+.lt-box.up::before{top:auto;bottom:-8px;transform:translateX(-50%) rotate(225deg)}
+.lt-box.in{animation:ltIn .38s cubic-bezier(.2,1.3,.4,1) both}
+.lt-ranh{flex:none;width:64px;height:64px;object-fit:contain;animation:ltBob 2.6s ease-in-out infinite;filter:drop-shadow(0 6px 8px rgba(45,47,239,.2))}
+.lt-body{flex:1;min-width:0}
+.lt-step{margin:0 0 2px;font-size:11px;font-weight:800;letter-spacing:.12em;color:#FF7A45}
+.lt-box h3{margin:0 0 4px;font-size:16px;font-weight:800;color:#2D2FEF}
+.lt-box p{margin:0;font-size:13px;line-height:1.5}
+.lt-act{display:flex;gap:8px;align-items:center;margin-top:12px}
+.lt-act button{font:700 12.5px Montserrat,system-ui,sans-serif;border-radius:999px;padding:7px 14px;cursor:pointer;border:2px solid transparent}
+.lt-skip{margin-right:auto;background:none;color:#6B6690;padding-left:0!important}
+.lt-back{background:#F1EEFF;color:#241F45}
+.lt-next{background:#2D2FEF;color:#fff}
+.lt-act button:hover{filter:brightness(1.08)}
+.lt-act button:focus-visible{outline:3px solid #FF7A45;outline-offset:2px}
+@keyframes ltIn{0%{opacity:0;transform:translateY(8px) scale(.96)}100%{opacity:1;transform:none}}
+@keyframes ltBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@media (prefers-reduced-motion:reduce){.lt-spot,.lt-box.in,.lt-ranh{transition:none;animation:none}}
