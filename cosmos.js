@@ -55,14 +55,20 @@
     hero.prepend(cv);
     const ctx = cv.getContext("2d");
     const LOW = innerWidth < 1100 || (navigator.hardwareConcurrency || 8) <= 4;
-    const N = innerWidth < 820 ? 700 : LOW ? 1200 : 1800, K = 5;   // hạt có quầng sáng chồng lên nhau nên bớt hạt nhìn vẫn dày; đỡ CPU nhiều // 0 dải Ngân Hà · 1 thiên hà xoắn ốc · 2 hành tinh có vành · 3 ngôi sao ★ · 4 chữ LANHMAR
+    const N = innerWidth < 820 ? 700 : LOW ? 1200 : 1800, K = 5;   // hạt có quầng sáng chồng lên nhau nên bớt hạt nhìn vẫn dày; đỡ CPU nhiều // 0 dải Ngân Hà · 1–4 logo AI Agent (xem AGENTS)
     const S = Array.from({ length: K }, () => new Float32Array(N * 3)), R = new Float32Array(N * 4);
     for (let i = 0; i < N * 4; i++) R[i] = Math.random();
 
     // lấy mẫu điểm từ một hình vẽ trên canvas phụ
-    const sample = (draw, w = 300, h = 300) => { const o = document.createElement("canvas"); o.width = w; o.height = h; const g = o.getContext("2d"); g.fillStyle = "#000"; draw(g, w, h);
-      const d = g.getImageData(0, 0, w, h).data, pts = []; for (let y = 0; y < h; y += 2) for (let x = 0; x < w; x += 2) if (d[(y * w + x) * 4 + 3] > 128) pts.push([(x - w / 2) / (w / 2), -(y - h / 2) / (w / 2)]); return pts; };
-    const star = sample((g) => { g.translate(150, 150); g.scale(12, 12); g.translate(-12, -12); g.fill(new Path2D("M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z")); });
+    const sample = (draw, w = 300, h = 300, edge = false) => { const o = document.createElement("canvas"); o.width = w; o.height = h; const g = o.getContext("2d"); g.fillStyle = "#000"; draw(g, w, h);
+      const d = g.getImageData(0, 0, w, h).data, pts = []; for (let y = 0; y < h; y += 2) for (let x = 0; x < w; x += 2) if (d[(y * w + x) * 4 + 3] > 128 && (!edge || [[-3, 0], [3, 0], [0, -3], [0, 3]].some(([u, v]) => !(d[((y + v) * w + x + u) * 4 + 3] > 128)))) pts.push([(x - w / 2) / (w / 2), -(y - h / 2) / (w / 2)]); return pts; };
+    // logo AI Agent (assets/icons/sw): svg lấy đường vẽ, png lấy điểm ảnh không trong suốt
+    const AGENTS = [
+      { name: "Claude Code", svg: "assets/icons/sw/claude.svg" },
+      { name: "Codex", svg: "assets/icons/sw/openai.svg" },
+      { name: "Antigravity", img: "assets/icons/sw/antigravity.png" },
+      { name: "Hermes Agent", img: "assets/icons/sw/hermes.png", edge: true }   // ảnh nét vẽ: lấy đường viền, tô đặc sẽ thành một khối
+    ];
     const fill = (k, gen) => { for (let i = 0; i < N; i++) S[k].set(gen(i), i * 3); };
     const GEN = [
       (i) => { // dải Ngân Hà: tấm lụa xoắn, đầu phải vỡ thành bụi
@@ -70,26 +76,24 @@
         const v = Math.round(Math.random() * 16) / 8 - 1, tw = x * 3.6 + ph, yc = Math.sin(x * 6.5 + ph) * amp;
         let q = [x, yc + v * w * Math.cos(tw), v * w * Math.sin(tw) * 1.6 + (kk - 1) * 0.07];
         const sc = Math.max(0, (u - 0.62) / 0.38); if (Math.random() < sc * 0.9) { const sp = sc * sc * 0.36; q = [x + sc * 0.22 + gauss() * sp, q[1] + gauss() * sp, q[2] + gauss() * sp]; }
-        return q; },
-      () => { // thiên hà xoắn ốc 2 nhánh, đĩa nghiêng 60°
-        const arm = Math.random() < 0.5 ? 0 : Math.PI, r = Math.pow(Math.random(), 0.7), a = r * 4.2 + arm + gauss() * 0.32 * (1.2 - r);
-        const x = Math.cos(a) * r, y = Math.sin(a) * r, z = gauss() * 0.05 * (1 - r); return [x, y * 0.5 - z * 0.87, y * 0.87 + z * 0.5]; },
-      () => { // hành tinh + vành đai nghiêng
-        if (Math.random() < 0.66) { const u = Math.random() * 2 - 1, t = Math.random() * TAU, r = 0.52 + gauss() * 0.01; return [Math.sqrt(1 - u * u) * Math.cos(t) * r, u * r, Math.sqrt(1 - u * u) * Math.sin(t) * r]; }
-        const a = Math.random() * TAU, rr = rnd(0.78, 1.05), x = Math.cos(a) * rr, z = Math.sin(a) * rr, ti = 1.25, tz = -0.38;
-        let y = -z * Math.sin(ti), z2 = z * Math.cos(ti); return [x * Math.cos(tz) - y * Math.sin(tz), x * Math.sin(tz) + y * Math.cos(tz), z2]; },
-      () => { const p = star[(Math.random() * star.length) | 0]; return [p[0] * 1.05 + gauss() * 0.01, p[1] * 1.05 + gauss() * 0.01, (Math.random() - 0.5) * 0.18]; },
-      null, // chữ: lấy mẫu sau khi font Montserrat tải xong
+        return q; }
     ];
-    for (let k = 0; k < 4; k++) fill(k, GEN[k]);
-    fill(4, GEN[3]);
-    (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
-      const txt = sample((g, w, h) => { g.font = "800 92px Montserrat, sans-serif"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText("LANHMAR", w / 2, h / 2); }, 520, 140);
-      if (txt.length) fill(4, () => { const p = txt[(Math.random() * txt.length) | 0]; return [p[0] * 1.15, p[1] * 1.15, (Math.random() - 0.5) * 0.12]; });
+    for (let k = 0; k < K; k++) fill(k, GEN[0]);   // tạm dùng dải Ngân Hà cho tới khi logo nạp xong
+    const ok = [false, false, false, false, false];
+    AGENTS.forEach((ag, j) => {
+      const use = (pts) => { if (pts.length) { fill(j + 1, () => { const p = pts[(Math.random() * pts.length) | 0]; return [p[0] * 1.05 + gauss() * 0.006, p[1] * 1.05 + gauss() * 0.006, (Math.random() - 0.5) * 0.1]; }); ok[j + 1] = true; } };
+      if (ag.img) {
+        const im = new Image();
+        im.onload = () => use(sample((g) => { const k = 264 / Math.max(im.width, im.height); g.drawImage(im, 150 - im.width * k / 2, 150 - im.height * k / 2, im.width * k, im.height * k); }, 300, 300, ag.edge));
+        im.src = ag.img;
+      } else fetch(ag.svg).then((r) => r.text()).then((t) => { const d = (/\sd="([^"]+)"/.exec(t) || [])[1]; if (d) use(sample((g) => { g.translate(150, 150); g.scale(11, 11); g.translate(-12, -12); g.fill(new Path2D(d)); })); }).catch(() => {});
     });
+    // tên logo hiện dưới hình khi bụi đã tụ lại
+    const cap = document.createElement("span"); cap.className = "cx-swarm-cap"; cap.setAttribute("aria-hidden", "true"); hero.appendChild(cap);
+    let capF = 0;
 
     const st = { chaos: 1, w0: 1, w1: 0, w2: 0, w3: 0, w4: 0, x: 0, y: 0, s: 120, sx: 1 };
-    let spin = 0, lastT = 0, W = 0, H = 0, spots = null, mouse = { x: -1e4, y: -1e4 }, vel = { x: 0, y: 0 }, prev = { x: 0, y: 0 }, on = true, raf = 0, t0 = performance.now();
+    let lastT = 0, W = 0, H = 0, spots = null, mouse = { x: -1e4, y: -1e4 }, vel = { x: 0, y: 0 }, prev = { x: 0, y: 0 }, on = true, raf = 0, t0 = performance.now();
     const rect = (el) => { const r = el.getBoundingClientRect(), h = hero.getBoundingClientRect(); return { l: r.left - h.left, t: r.top - h.top, r: r.right - h.left, b: r.bottom - h.top, w: r.width, h: r.height }; };
     const measure = () => {
       [W, H] = fitCanvas(cv, ctx);
@@ -100,7 +104,7 @@
         const gl = Math.min(a.r - 40, a.l + a.w * 0.7), gr = p.l + p.w * 0.2;
         const forms = [[(a.r + p.l) / 2, a.t + a.h * 0.25], [p.r + Math.max(70, (W - p.r) / 2), p.t + p.h * 0.22], [(p.l + p.r) / 2, Math.max(140, (110 + p.t) / 2)], [p.r + Math.max(70, (W - p.r) / 2), p.t + p.h * 0.72]]
           .filter(([x]) => x < W - 50);
-        spots = { ribbon: [(gl + gr) / 2, a.t + a.h * 0.78, Math.max(90, (gr - gl) / 2.1)], forms, size: Math.min(120, Math.max(64, (W - p.r) * 0.42)) };
+        spots = { ribbon: [(gl + gr) / 2, a.t + a.h * 0.78, Math.max(90, (gr - gl) / 2.1)], forms, photo: p, size: Math.min(120, Math.max(64, (W - p.r) * 0.42)) };
       } else {
         spots = { ribbon: [W / 2, (c.b + p.t) / 2 + 6, W * 0.42], forms: [[W * 0.18, p.t + 60], [W * 0.82, p.t + 60], [W * 0.5, p.t - 30]], size: Math.min(70, W * 0.18) };
       }
@@ -119,9 +123,14 @@
       let last = 0;
       for (;;) {
         await wait(last === 0 ? rnd(7, 9) : rnd(4.5, 7));
-        const f = last !== 0 && Math.random() < 0.5 ? 0 : [1, 2, 3, 4].filter((x) => x !== last)[(Math.random() * 3) | 0];
-        last = f;
-        const sp = f === 0 ? spots.ribbon : spots.forms[(Math.random() * spots.forms.length) | 0], sc = f === 0 ? spots.ribbon[2] : spots.size * (f === 4 ? 1.35 : 1);
+        const pool = [1, 2, 3, 4].filter((x) => x !== last && ok[x]);
+        let f = last !== 0 && Math.random() < 0.4 || !pool.length ? 0 : pool[(Math.random() * pool.length) | 0];
+        // logo co lại cho vừa khoảng trống: không tràn mép màn, không chồng lên ảnh chân dung
+        const room = ([x, y]) => { const ph = spots.photo, gap = Math.max(ph.l - x, x - ph.r, ph.t - y, y - ph.b); return Math.min(spots.size * 1.4, W - x - 12, y - 70, gap - 10) / 1.05; };
+        const fit = f ? spots.forms.map((q) => [q[0], q[1], room(q)]).filter((q) => q[2] >= 48) : [];
+        if (f && !fit.length) f = 0;
+        last = f; if (f) { capF = f; cap.textContent = AGENTS[f - 1].name; }
+        const sp = f === 0 ? spots.ribbon : fit[(Math.random() * fit.length) | 0], sc = f === 0 ? spots.ribbon[2] : sp[2];
         tween(st, { chaos: 1 }, 4.4, sine, true);               // tan ra…
         tween(st, W5(f), rnd(4.2, 5.2));                         // …thành hình mới
         tween(st, { s: sc }, 6);
@@ -135,11 +144,16 @@
       if (!reduce && now - drawn < 31) { raf = requestAnimationFrame(frame); return; }   // ~30 khung/giây: bụi trôi chậm nên mắt không thấy khác
       drawn = now;
       runTweens(now);
-      const t = (now - t0) / 1000; spin += (t - lastT) * 0.15 * st.w1; lastT = t;
+      const t = (now - t0) / 1000; lastT = t;
       ctx.clearRect(0, 0, W, H);
       vel.x = lerp(vel.x, st.x - prev.x, 0.15); vel.y = lerp(vel.y, st.y - prev.y, 0.15); prev = { x: st.x, y: st.y };
-      const w = [st.w0, st.w1, st.w2, st.w3, st.w4], calm = 1 - 0.8 * st.w0;
-      const ry = (Math.sin(t * 0.11) * 0.45 + (mouse.x > -1e3 ? (mouse.x / W - 0.5) * 0.5 : 0)) * calm + spin;
+      const w = [st.w0, st.w1, st.w2, st.w3, st.w4], wl = 1 - st.w0, calm = (1 - 0.8 * st.w0) * (1 - 0.65 * wl);
+      // logo: hạt nhỏ và mờ hơn để nét không nhoè thành một khối sáng
+      const fineK = 1 - 0.4 * wl * (1 - st.chaos), alphaK = 1 - 0.12 * wl * (1 - st.chaos);
+      // tên logo chỉ hiện khi hình đã tụ lại và đứng yên
+      if (capF) { const o = cl((1 - st.chaos) * 1.6 - 0.6) * (w[capF] || 0) * cl(1 - Math.hypot(vel.x, vel.y) * 1.5); cap.style.opacity = o.toFixed(2); const ph = spots && spots.photo, up = ph && st.y < ph.t && st.x > ph.l - 20 && st.x < ph.r + 20;   // logo nằm trên ảnh: tên sang bên phải cho khỏi bị ảnh và thanh menu che
+        cap.style.transform = up ? `translate(${(st.x + st.s * 1.15).toFixed(1)}px,${st.y.toFixed(1)}px) translateY(-50%)` : `translate(${st.x.toFixed(1)}px,${(st.y + st.s * 1.25).toFixed(1)}px) translateX(-50%)`; }
+      const ry = (Math.sin(t * 0.11) * 0.45 + (mouse.x > -1e3 ? (mouse.x / W - 0.5) * 0.5 : 0)) * calm;
       const rx = (Math.sin(t * 0.08) * 0.14) * calm, cy = Math.cos(ry), sy = Math.sin(ry), cx_ = Math.cos(rx), sx_ = Math.sin(rx);
       const c = st.chaos, F = 3.2;
       // quầng sáng dưới đám bụi khi đã thành hình
@@ -163,9 +177,9 @@
         if (d2 < 8100) { const d = Math.sqrt(d2) || 1, f = (90 - d) / 90 * 26; px += dx / d * f; py += dy / d * f; }   // né con trỏ
         if (px < -8 || px > W + 8 || py < -8 || py > H + 8) continue;
         const tw = 0.68 + 0.32 * Math.pow(0.5 + 0.5 * Math.sin(t * 2.2 + r1 * 50), 2);
-        const sz = (0.95 + r2 * 1.15) * k * (0.9 + 0.2 * Math.sin(t * 3 + r3 * 40));
+        const sz = (0.95 + r2 * 1.15) * k * (0.9 + 0.2 * Math.sin(t * 3 + r3 * 40)) * fineK;
         const b = st.w0 > 0.5 ? Math.round(cl((S[0][i3] + 1.1) / 2.2) * (NB - 1)) : r3 < 0.55 ? (r3 * 9) | 0 : NB - 1 - ((r0 * 4) | 0);
-        ctx.globalAlpha = cl((0.6 + 0.45 * (Z + 1) / 2) * tw);
+        ctx.globalAlpha = cl((0.6 + 0.45 * (Z + 1) / 2) * tw * alphaK);
         ctx.drawImage(SPR[b], px - sz * 2, py - sz * 2, sz * 4, sz * 4);
       }
       ctx.globalAlpha = 1; ctx.globalCompositeOperation = "source-over";
