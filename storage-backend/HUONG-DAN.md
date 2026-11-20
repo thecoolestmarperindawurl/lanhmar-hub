@@ -1,5 +1,7 @@
 # Bật Data Storage (Google Sheet + Apps Script)
 
+> **Đang chuyển sang Supabase?** Xem `SUPABASE.md` (cùng thư mục): dữ liệu người xem, mục chia sẻ, nhật ký và kho mã hoá chuyển sang Supabase; chat, tin AI, xếp hạng vẫn dùng Apps Script trong file này.
+
 Làm một lần, khoảng 10 phút. Mọi bước bấm trong tài khoản Google của bạn.
 
 ## 1. Tạo Sheet và dán mã
@@ -144,3 +146,13 @@ Mỗi lần mở Google Sheet Storage, bảng **"Cần xử lý"** tự hiện (
 - số người đã duyệt nhưng chưa ghi donate.
 
 Nếu không có việc gì, chỉ hiện thông báo nhỏ "Không có việc cần xử lý ✔". Xem lại bảng bất cứ lúc nào: menu **LANHMAR → Xem thông báo**. Bảng chỉ đọc dữ liệu, không sửa gì, và không cần thêm quyền. Sau khi dán `Code.gs` mới, tải lại Sheet (F5) để bảng hiện.
+
+## 12. Quản trị Storage trên web (thống kê truy cập + duyệt người xem)
+Trong Kho cá nhân (`kho.html`), thanh bên có mục **📊 Quản trị Storage** (chỉ hiện khi đã cấu hình `GOOGLE_CLIENT_ID`). Đăng nhập Google bằng `OWNER_EMAIL` là xem được:
+- Số liệu nhanh: người đăng ký, chờ duyệt (và bao nhiêu người đã donate, sẵn sàng duyệt), đang có quyền, lượt vào và người hoạt động 7 ngày, tổng donate đã nhận.
+- Biểu đồ lượt vào 30 ngày, kho được xem nhiều nhất, thẻ được mở nhiều nhất (tính từ nhật ký 90 ngày).
+- Danh sách người xem: tìm kiếm, lọc theo trạng thái, lần vào gần nhất, số lượt vào; nút **Duyệt** (kèm ghi Donate + số tiền), **Từ chối**, **Thu quyền**, **Duyệt lại**; **Xuất CSV**.
+
+Số liệu đến từ tab **Log** (tự tạo): mỗi lần người xem vào Storage, mở một kho hay mở một thẻ (mỗi phiên tính một lần), máy chủ ghi một dòng. Giữ tối đa 20.000 dòng, quá thì xoá dòng cũ nhất.
+
+**Cập nhật backend để bật tính năng này:** mở Apps Script, dán toàn bộ `Code.gs` mới, **Lưu**, rồi **Triển khai → Quản lý triển khai → Sửa (bút chì) → Phiên bản: Phiên bản mới → Triển khai**. Không cần đổi URL trong `storage-config.js`. Chưa cập nhật thì màn Quản trị báo "Máy chủ chưa có tính năng quản trị", phần còn lại của Storage vẫn chạy bình thường.

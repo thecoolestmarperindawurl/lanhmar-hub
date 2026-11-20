@@ -63,5 +63,6 @@ Giao diện Galaxy đồng bộ website, bố cục kiểu LMS: `storage-lms.css
 - Thẻ nội dung tối bằng cách đặt lại biến màu của `kho.css` trong `.lms`; hộp chi tiết `#resDlg` giữ nền sáng.
 - `kho.html`: màn khoá và phần quản lý của chủ kho cùng giao diện tối, bố cục LMS như Storage. Công cụ chủ kho (đồng bộ đám mây/Storage, xuất/nhập bản mã, khoá lại) nằm ở chân thanh bên; nút "+ Thêm" ở thanh trên. Chữ mới thêm vào `UI` trong `kho.js`.
 - Nút Open Storage (trang chủ, Cộng đồng, Kho báu) → `planet-warp.js`: hành tinh bay tới phủ màn hình rồi vào `kho.html`, ở đó bề mặt hành tinh tan dần.
+- Máy chủ: `backend.js` (`LMBackend.call`) chọn Supabase (`storage-backend/supabase.sql`, cấu hình `SUPABASE_URL`/`SUPABASE_ANON_KEY` trong `storage-config.js`) hoặc Apps Script (`Code.gs`) nếu chưa cấu hình. Thêm action mới thì thêm cả hàm SQL lẫn nhánh trong `Code.gs`. Quản trị chủ kho: `kho-admin.js` (thống kê, duyệt người xem, donate). Hướng dẫn: `storage-backend/SUPABASE.md`.
 - `sky.css` là phần CSS dùng chung của nền bầu trời (tách từ `galaxy.css`), nạp ở trang chủ, Cộng đồng, Storage, Kho.
 

@@ -9284,6 +9284,370 @@
       ]
     },
     {
+      "id": "skill-kes-create-credits",
+      "kho": "ai",
+      "group": "skill",
+      "guide": true,
+      "title": "kes-create-credits: làm phần chạy tên cuối sự kiện như cuối phim",
+      "type": "Skill",
+      "badge": "Sự kiện",
+      "tags": [
+        "sự kiện",
+        "end credits",
+        "video",
+        "trình chiếu"
+      ],
+      "thumb": "assets/res/skill-kes-create-credits.jpg",
+      "note": "Giữ nguyên từng tên, script so lại với danh sách gốc · Mỗi dòng đủ lâu để đọc, nhạc của bạn được cắt vừa độ dài · Xuất HTML trình chiếu không cần mạng và MP4.",
+      "date": "2026-11-20",
+      "ctas": [
+        {
+          "btn": "Tải kes-create-credits-v1.0.1.zip",
+          "url": "https://drive.google.com/file/d/1EMB8o7OGnR2JyYzcrSgQbv7MFJ12QeyI/view?usp=drivesdk"
+        },
+        {
+          "btn": "Thư mục Skill-Hub",
+          "url": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
+        }
+      ],
+      "ctasTitle": "Tải skill",
+      "sections": [
+        {
+          "k": "hero",
+          "kicker": "Skill cho AI",
+          "t": "Cuối sự kiện, cảm ơn đủ người mà không sót một tên",
+          "lead": "Làm tay trên slide thì dễ sót tên, gõ sai dấu, hoặc chữ chạy nhanh quá không ai đọc kịp. Skill này giúp AI dựng phần chạy tên (end credits) từ danh sách của bạn: người tham gia, ban tổ chức, nhà tài trợ, đơn vị đồng hành.",
+          "ticks": [
+            "Giữ nguyên từng tên, sai một dấu cũng báo",
+            "Mỗi dòng đủ lâu để đọc, nhạc khớp câu kết",
+            "HTML trình chiếu chạy không cần mạng, thêm MP4 nếu cần"
+          ]
+        },
+        {
+          "k": "h",
+          "t": "AI lo phần dựng, bạn giữ phần duyệt"
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "Hỏi đủ từng nhóm",
+              "tag": "01",
+              "d": "AI hỏi lần lượt: tên chương trình, người tham gia (và ai được nêu riêng, ví dụ giải thưởng), ban tổ chức theo vai trò, nhà tài trợ theo hạng kèm logo, đơn vị đồng hành, câu cảm ơn và câu kết. Nhóm nào không có thì bạn nói \"không có\"; AI không tự bỏ nhóm nào."
+            },
+            {
+              "t": "Không gõ lại tên",
+              "tag": "02",
+              "d": "Bạn đưa file .txt, .csv hoặc dán danh sách vào khung chat. Một script so từng tên trên màn hình với danh sách gốc, sai một dấu cũng báo. Hai dòng trùng tên thì AI hỏi bạn đó là một người hay hai người."
+            },
+            {
+              "t": "Đọc kịp, nhạc khớp",
+              "tag": "03",
+              "d": "Mỗi dòng hiện ít nhất 2,5 giây. Bạn đưa file nhạc của mình, AI đề xuất tối đa 3 đoạn cắt, đoạn nào cũng để phần kết thật của bài hát rơi đúng vào câu kết. Bạn nghe thử rồi tự chọn."
+            },
+            {
+              "t": "3 kiểu nền, 3 khổ hình",
+              "tag": "04",
+              "d": "classic-roll (cuộn như cuối phim, mặc định), space-crawl (chữ nghiêng trôi vào không gian sao, 3D), retro-sunburst (tia nắng xoay, nhãn dạng sticker). Màu và font theo thương hiệu của bạn; không có thì dùng bộ trung tính. Khổ 16:9, 9:16 hoặc 1:1."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Dùng khi nào"
+        },
+        {
+          "k": "cases",
+          "items": [
+            {
+              "t": "Bế mạc workshop, khoá học",
+              "before": "Gõ tên học viên lên slide, sót một hai bạn, có tên sai dấu, tới lúc chiếu mới thấy.",
+              "after": "Đưa file danh sách, script so từng tên với bản gốc, bạn xem bản HTML rồi mới chiếu."
+            },
+            {
+              "t": "Vinh danh nhà tài trợ theo hạng",
+              "before": "Logo to nhỏ lộn xộn, chiếu lên màn lớn thì mờ, hạng trên hạng dưới lẫn vào nhau.",
+              "after": "Nhà tài trợ xếp theo hạng, hạng cao trước; script kiểm logo không bị mờ, chữ không tràn."
+            },
+            {
+              "t": "Video cảm ơn đăng Reels, TikTok",
+              "before": "Phải dựng lại riêng cho khổ dọc, nhạc cắt ngang giữa câu.",
+              "after": "Xuất MP4 khổ 9:16 (hoặc 16:9, 1:1) có tiếng, dùng đoạn nhạc bạn đã nghe và chọn."
+            },
+            {
+              "t": "Hội trường không có wifi",
+              "before": "File trình chiếu cần mạng, tới lúc chiếu thì không tải được font, ảnh.",
+              "after": "Mỗi khổ là một file HTML duy nhất, đã nhúng sẵn font, logo và nhạc, mở bằng trình duyệt là chạy."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Phần chạy tên cho buổi bế mạc workshop",
+          "input": {
+            "label": "Bạn đưa vào",
+            "t": "\"Làm end credits cho buổi bế mạc workshop, danh sách học viên trong file hoc-vien.csv, nhạc là file nhac-ket.mp3.\" kèm logo của 2 nhà tài trợ.",
+            "code": false
+          },
+          "steps": [
+            "Kiểm máy đã có uv, Node.js, ffmpeg, Chromium; thiếu gì thì nói rõ và hỏi trước khi cài.",
+            "Hỏi đủ từng nhóm: ban tổ chức theo vai trò, nhà tài trợ theo hạng, đơn vị đồng hành, câu cảm ơn, câu kết.",
+            "Đưa bạn duyệt từng chữ không phải tên: tiêu đề, nhãn nhóm, vai trò, câu cảm ơn, câu kết.",
+            "Đề xuất tối đa 3 đoạn cắt nhạc để bạn nghe thử và chọn.",
+            "Dựng HTML, script kiểm đủ tên, thời gian đọc, chữ tràn, logo mờ, chạy không cần mạng; rồi soát lại ảnh chụp."
+          ],
+          "output": {
+            "label": "Bạn nhận về",
+            "t": "credits-16x9.html  ← mở bằng trình duyệt, chạy không cần mạng\n  Space: bắt đầu / dừng · F: toàn màn hình · ← →: tua 5 giây\ncredits-9x16.mp4   ← nếu bạn cần video khổ dọc (xuất sau khi duyệt)\nnames-map.json     ← nên giữ: lần sau sửa một tên rồi dựng lại\n\nĐủ từng tên ✓ · mỗi dòng ≥ 2,5 giây ✓ · chữ không tràn ✓ · logo nét ✓",
+            "code": true
+          },
+          "note": "Ví dụ minh hoạ, tên file theo README của skill. Quyền dùng bài nhạc là việc của bạn."
+        },
+        {
+          "k": "h",
+          "t": "Cách dùng"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Bước 1",
+              "d": "Tải file zip, đưa cho AI chạy được lệnh trên máy (Claude Code, Codex…) và nhắn: \"Cài skill trong file này theo hướng dẫn INSTALL.md bên trong.\" AI tự kiểm và hỏi bạn trước khi cài uv, Node.js, ffmpeg, Chromium."
+            },
+            {
+              "t": "Bước 2",
+              "d": "Mở cuộc trò chuyện mới, nhắn ví dụ: \"Làm end credits cho buổi bế mạc workshop, danh sách học viên trong file hoc-vien.csv.\" Trả lời câu hỏi của AI cho từng nhóm."
+            },
+            {
+              "t": "Bước 3",
+              "d": "Duyệt chữ, chọn kiểu, nghe và chọn đoạn nhạc, rồi xem bản HTML. Muốn sửa gì thì AI quay lại đúng bước đó; muốn MP4 thì AI xuất sau khi bạn duyệt."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Câu hỏi thường gặp"
+        },
+        {
+          "k": "faq",
+          "items": [
+            {
+              "q": "Mình chỉ dùng Claude hay ChatGPT trên web, có dùng được không?",
+              "a": "Không. Skill cần AI chạy được lệnh trên máy tính của bạn (ví dụ Claude Code, Codex). AI chỉ trò chuyện trên web hoặc app điện thoại không chạy được các script dựng và kiểm."
+            },
+            {
+              "q": "Skill có tìm nhạc giúp mình không?",
+              "a": "Không. Skill không tìm, không tải, không lo bản quyền nhạc. Bạn đưa file nhạc của mình, quyền dùng bài hát là việc của bạn. Không có nhạc thì vẫn làm được bản không tiếng."
+            },
+            {
+              "q": "Slide của mình làm bằng PowerPoint, Canva thì chèn vào sao?",
+              "a": "Chèn file MP4. File credits-section.html chỉ dành cho bộ slide là trang web HTML khổ 16:9."
+            },
+            {
+              "q": "Skill có làm slide cảm ơn một trang hay video highlight không?",
+              "a": "Không. Skill chỉ làm phần chạy tên. Slide tĩnh, cả bộ slide hay teaser thì dùng công cụ khác; muốn teaser sau phần chạy tên thì skill có hướng dẫn nối hai video."
+            },
+            {
+              "q": "Đăng tên người thật lên mạng cần lưu ý gì?",
+              "a": "Tên đã đăng công khai thì khó gỡ. Hỏi ý mọi người trước khi đăng là việc của bạn."
+            }
+          ]
+        },
+        {
+          "k": "outro",
+          "t": "Cảm ơn đủ người, đúng tên, đúng nhịp nhạc",
+          "d": "Tải file zip, cài một lần, sau đó mỗi sự kiện chỉ cần đưa danh sách và trả lời vài câu hỏi.",
+          "note": "Cần AI chạy được lệnh trên máy: Claude Code, Codex…"
+        }
+      ]
+    },
+    {
+      "id": "skill-kes-extract-content",
+      "kho": "ai",
+      "group": "skill",
+      "guide": true,
+      "title": "kes-extract-content: đưa một link, nhận lại ghi chú có nguồn",
+      "type": "Skill",
+      "badge": "Nghiên cứu",
+      "tags": [
+        "bóc tách nội dung",
+        "transcript",
+        "ghi chú",
+        "trích nguồn"
+      ],
+      "thumb": "assets/res/skill-kes-extract-content.jpg",
+      "note": "Một link hoặc một file thành extract.md · Tách lời gốc khỏi phần AI diễn giải · Ghi rõ full, partial hay failed, thiếu gì nói rõ.",
+      "date": "2026-11-20",
+      "ctas": [
+        {
+          "btn": "Tải kes-extract-content-v1.0.2.zip",
+          "url": "https://drive.google.com/file/d/1SmjFoBqkT1tJF0AhTNXRL4b7B8XZlndS/view?usp=drivesdk"
+        },
+        {
+          "btn": "Thư mục Skill-Hub",
+          "url": "https://drive.google.com/drive/folders/1uSMhaYH0IX1y2raSnAPLB3ssJlOShP0C"
+        }
+      ],
+      "ctasTitle": "Tải skill",
+      "sections": [
+        {
+          "k": "hero",
+          "kicker": "Skill cho AI",
+          "t": "Lưu link \"để đọc sau\" rồi không bao giờ đọc? Đưa AI bóc tách",
+          "lead": "Nhờ AI tóm tắt thì nó trả lời trơn tru, nhưng bạn không biết câu nào thật sự có trong nguồn, câu nào nó tự nghĩ ra. Skill này lấy trọn nội dung của MỘT nguồn rồi ghi thành file extract.md, tách rõ lời gốc và phần AI diễn giải, kèm bản gốc để bạn kiểm lại.",
+          "ticks": [
+            "Trang web, video, âm thanh, bài mạng xã hội, PDF, Word, ảnh",
+            "Tách lời gốc khỏi phần AI diễn giải",
+            "Ghi rõ full, partial hay failed, không bịa cho đủ"
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Một nguồn, một thư mục ghi chú"
+        },
+        {
+          "k": "cards",
+          "items": [
+            {
+              "t": "Lấy được nhiều loại nguồn",
+              "tag": "01",
+              "d": "Link bài báo, YouTube, TikTok, Facebook, Instagram, X, Threads, Notion, GitHub, Google Drive; hoặc file video, ghi âm, PDF, Word, ảnh trên máy. Bài chỉ xem được khi đăng nhập thì skill dùng một trình duyệt riêng, bạn tự đăng nhập vào đó."
+            },
+            {
+              "t": "Một file extract.md dễ đọc",
+              "tag": "02",
+              "d": "Gồm tóm tắt, ý chính, nội dung gốc hoặc transcript (bản chép lời nói), trích dẫn tách riêng khỏi phần AI diễn giải, những khẳng định chưa được kiểm, và ghi chú lấy được gì, thiếu gì. Phần tóm tắt viết bằng tiếng Việt."
+            },
+            {
+              "t": "Có bản gốc để kiểm lại",
+              "tag": "03",
+              "d": "Thư mục assets/ giữ bản gốc đã tải: chữ, ảnh chụp trang, video, transcript. Mỗi nguồn một thư mục trong content-extracts/, tên dạng 20261013_youtube_ten-video/."
+            },
+            {
+              "t": "Trung thực về kết quả",
+              "tag": "04",
+              "d": "Mỗi ghi chú có trạng thái full (đủ), partial (một phần) hoặc failed (không lấy được). Chỉ ghi full khi có ít nhất một câu chép nguyên văn từ nguồn. Nguồn đã bóc đủ rồi thì skill báo lại thư mục cũ, không làm lại."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Dùng khi nào"
+        },
+        {
+          "k": "cases",
+          "items": [
+            {
+              "t": "Video dài trên YouTube cần nắm nội dung",
+              "before": "Xem lướt, nhờ AI tóm tắt, không chắc câu nào là lời người nói thật.",
+              "after": "Có transcript, ý chính và trích dẫn tách riêng; câu nào là AI diễn giải thì ghi rõ là diễn giải."
+            },
+            {
+              "t": "Bài đăng trong nhóm Facebook kín",
+              "before": "Copy tay từng đoạn, sót ảnh, không biết đã đủ chưa.",
+              "after": "Skill mở bằng trình duyệt riêng bạn đã đăng nhập, lưu chữ và ảnh chụp trang vào assets/, ghi rõ lấy được gì, thiếu gì."
+            },
+            {
+              "t": "Bài giới thiệu công cụ mới, kho mã GitHub",
+              "before": "Tin luôn lời người đăng, sau mới biết tính năng không như lời giới thiệu.",
+              "after": "AI mở thêm trang gốc (GitHub, tài liệu chính thức) để đối chiếu, ghi tách câu đã kiểm và câu chỉ là lời người đăng."
+            },
+            {
+              "t": "File PDF, ghi âm trên máy",
+              "before": "Mở từng file, tự gõ lại ý chính.",
+              "after": "Đưa đường dẫn file, nhận extract.md có nội dung gốc và tóm tắt."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Xem thử: đầu vào → xử lý → đầu ra"
+        },
+        {
+          "k": "demo",
+          "t": "Bóc tách một video YouTube",
+          "input": {
+            "label": "Bạn đưa vào",
+            "t": "\"Bóc tách nội dung link này giúp mình: https://www.youtube.com/watch?v=…\"",
+            "code": false
+          },
+          "steps": [
+            "Kiểm công cụ cần cho video: uv, ffmpeg, và Antigravity (lệnh agy) nếu bạn đã cài.",
+            "Tạo thư mục content-extracts/20261013_youtube_ten-video/.",
+            "Tải video, phụ đề vào assets/; nhờ Gemini xem video qua Antigravity, không có thì dùng phụ đề, ảnh cắt từ video và chuyển giọng nói thành chữ.",
+            "Viết extract.md: tóm tắt, ý chính, transcript, trích dẫn tách khỏi phần diễn giải.",
+            "Gắn trạng thái full, partial hoặc failed, ghi rõ đường dự phòng đã dùng, báo ý chính trong khung chat."
+          ],
+          "output": {
+            "label": "Khung extract.md",
+            "t": "extraction_status: full\n\n# <Tên video>\n## TL;DR\n## Key ideas\n## Full text / transcript   → assets/transcript.txt\n## Quotes vs synthesis\n## Unverified claims\n## Extraction notes\n## Assets",
+            "code": true
+          },
+          "note": "Khung rút từ mẫu có sẵn trong skill, chưa phải kết quả thật của một video. Tiêu đề các mục để tiếng Anh, nội dung tóm tắt bằng tiếng Việt."
+        },
+        {
+          "k": "h",
+          "t": "Cách dùng"
+        },
+        {
+          "k": "steps",
+          "items": [
+            {
+              "t": "Bước 1",
+              "d": "Tải file zip, đưa cho AI chạy được lệnh trên máy (Claude Code, Codex…) kèm đường dẫn tới file zip và nhắn: \"Cài skill trong file này theo hướng dẫn INSTALL.md bên trong.\" Máy Windows cần WSL; AI sẽ hướng dẫn."
+            },
+            {
+              "t": "Bước 2",
+              "d": "Mở cuộc trò chuyện mới, nhắn ví dụ: \"Bóc tách nội dung link này giúp mình: [link]\" hoặc \"Lấy transcript video này: [đường dẫn file]\"."
+            },
+            {
+              "t": "Bước 3",
+              "d": "Đọc ý chính AI báo trong khung chat, rồi mở thư mục content-extracts/ để xem extract.md và bản gốc trong assets/."
+            }
+          ]
+        },
+        {
+          "k": "h",
+          "t": "Câu hỏi thường gặp"
+        },
+        {
+          "k": "faq",
+          "items": [
+            {
+              "q": "Dùng trên Claude web hay ChatGPT được không?",
+              "a": "Không. Skill cần AI chạy lệnh trên máy tính của bạn (Claude Code, Codex…). Máy Windows cần cài WSL (miễn phí từ Microsoft), rồi mở Claude Code hoặc Codex từ trong cửa sổ WSL."
+            },
+            {
+              "q": "Trang cần đăng nhập thì có phải đưa mật khẩu cho AI không?",
+              "a": "Không. AI đưa bạn một dòng lệnh để mở trình duyệt riêng, bạn tự đăng nhập trong cửa sổ đó. Đừng bao giờ dán mật khẩu hay API key vào khung chat. Nền tảng có thể bắt xác minh lại khi đăng nhập bằng trình duyệt tự động; nếu lo, dùng tài khoản phụ."
+            },
+            {
+              "q": "Video có bị gửi đi đâu không?",
+              "a": "Nếu dùng Antigravity (lệnh agy) để Gemini xem video thì video được gửi lên Google, và tài khoản có giới hạn lượt dùng. Không có Antigravity thì skill dùng phụ đề, ảnh cắt từ video và chuyển giọng nói thành chữ; kết quả kém hơn và được ghi rõ."
+            },
+            {
+              "q": "Ghi chú có tự lưu vào Notion, Obsidian không?",
+              "a": "Không. Ghi chú nằm trong thư mục dự án, bạn tự quyết đưa đi đâu. Skill cũng không viết bài mới từ nguồn và không chép lời cuộc họp trực tiếp."
+            },
+            {
+              "q": "Gửi thư mục kết quả cho người khác có sao không?",
+              "a": "Với trang đã đăng nhập, ảnh chụp và file chữ trong assets/ có thể hiện tên, ảnh đại diện của bạn: xem lại trước khi gửi. Đừng chia sẻ thư mục ẩn .kes-extract-content (chứa phiên đăng nhập) cho ai."
+            }
+          ]
+        },
+        {
+          "k": "outro",
+          "t": "Đọc đúng điều nguồn nói, rồi mới tóm tắt",
+          "d": "Tải file zip, cài một lần, sau đó mỗi link chỉ cần một câu nhắn.",
+          "note": "Cần AI chạy được lệnh trên máy: Claude Code, Codex…"
+        }
+      ]
+    },
+    {
       "id": "edit-editornghiepdu",
       "kho": "edit",
       "guide": true,

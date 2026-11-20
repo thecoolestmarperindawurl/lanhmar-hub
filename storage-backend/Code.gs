@@ -5,6 +5,10 @@
  *                | Nội dung CK (công thức) | Donate | Số tiền (đ) | Ngày nhận | Gợi ý (công thức)
  * Tab Items:    id | kho | title | url | note | tags | type | date   (web ghi đè khi bấm "Đồng bộ Storage")
  * Tab Dashboard: số liệu nhanh + danh sách đang chờ duyệt
+ * Tab Log:      Thời gian | Email | Sự kiện (login / kho / item) | Kho | Mục   (ghi tự động, giữ tối đa LOG_MAX dòng)
+ *
+ * Quản trị trên web (kho.html → Quản trị Storage): chủ kho đăng nhập Google (OWNER_EMAIL) để xem thống kê,
+ * duyệt / thu quyền / từ chối và ghi donate mà không cần mở Sheet (action admin_data, admin_set).
  *
  * Duyệt người xem: đối chiếu khoản donate (Nội dung CK = "LM <mã>") với sao kê ngân hàng, chọn Donate = Đã nhận,
  * nhập số tiền, rồi đổi cột Trạng thái từ Pending sang Approved.
@@ -42,6 +46,10 @@ var CHAT = 'Chat';
 var GUIDE = 'Hướng dẫn';
 var CHAT_HEADERS = ['Thời gian', 'Mã hội thoại', 'Khách', 'Liên hệ', 'Chiều', 'Nội dung', 'Mã tin Telegram', 'Trang'];
 var ITEM_HEADERS = ['id', 'kho', 'title', 'url', 'note', 'tags', 'type', 'date'];
+var LOG = 'Log';
+var LOG_HEADERS = ['Thời gian', 'Email', 'Sự kiện', 'Kho', 'Mục'];
+var LOG_MAX = 20000;           // quá thì xoá các dòng cũ nhất
+var STATUSES = ['Pending', 'Approved', 'Revoked', 'Rejected'];
 
 function sheet_(name, headers) {
   var ss = SpreadsheetApp.openById(sheetId_());
@@ -356,6 +364,10 @@ function doPost(e) {
       case 'vault_get': return vaultGet_(body);
       case 'vault_put': return vaultPut_(body);
       case 'chat_send': return chatSend_(body);
+      case 'track': return track_(body);
+      case 'admin_data': return adminData_(body);
+      case 'admin_set': return adminSet_(body);
+      case 'admin_user': return adminUser_(body);
       default: return json_({ ok: false, error: 'bad_action' });
     }
   } catch (err) {
@@ -397,10 +409,111 @@ function access_(b) {
     if (String(rows[i][2]).toLowerCase() === email && same_(String(rows[i][4]).toUpperCase(), code)) {
       var status = String(rows[i][5]);
       if (status !== 'Approved') return json_({ ok: true, approved: false, status: status });
+      logEvents_(email, [{ ev: 'login' }]);
       return json_({ ok: true, approved: true, name: String(rows[i][1]), items: readItems_() });
     }
   }
   return json_({ ok: false, error: 'denied' });
+}
+
+/* ================== THỐNG KÊ TRUY CẬP + QUẢN TRỊ ==================
+ * Người xem đã duyệt gửi sự kiện (track): mở kho, mở thẻ. Mỗi phiên chỉ gửi mỗi kho / mỗi thẻ một lần.
+ * Chủ kho (đăng nhập Google đúng OWNER_EMAIL) đọc thống kê và đổi trạng thái người xem. */
+
+function logEvents_(email, evs) {
+  if (!evs.length) return;
+  var sh = sheet_(LOG, LOG_HEADERS), now = new Date();
+  var rows = evs.map(function (e) { return [now, email, e.ev, e.kho || '', e.item || '']; });
+  sh.getRange(sh.getLastRow() + 1, 1, rows.length, LOG_HEADERS.length).setValues(rows);
+  var extra = sh.getLastRow() - 1 - LOG_MAX;
+  if (extra > 500) sh.deleteRows(2, extra);
+}
+
+function approvedRow_(email, code) {
+  var rows = sheet_(REQ, REQ_HEADERS).getDataRange().getValues();
+  for (var i = 1; i < rows.length; i++) {
+    if (String(rows[i][2]).toLowerCase() === email && same_(String(rows[i][4]).toUpperCase(), code)) return String(rows[i][5]) === 'Approved';
+  }
+  return false;
+}
+
+function track_(b) {
+  var email = clean_(b.email, 120).toLowerCase(), code = clean_(b.code, 20).toUpperCase();
+  if (!approvedRow_(email, code)) return json_({ ok: false, error: 'denied' });
+  var evs = [];
+  (b.events || []).slice(0, 30).forEach(function (e) {
+    var ev = String(e && e.ev || ''), kho = String(e && e.kho || ''), item = String(e && e.item || '');
+    if ((ev !== 'kho' && ev !== 'item') || !/^[a-z0-9-]{1,20}$/.test(kho) || (ev === 'item' && !/^[A-Za-z0-9_.-]{1,80}$/.test(item))) return;
+    evs.push({ ev: ev, kho: kho, item: ev === 'item' ? item : '' });
+  });
+  logEvents_(email, evs);
+  return json_({ ok: true, n: evs.length });
+}
+
+function iso_(d) { return d instanceof Date ? d.toISOString() : String(d || ''); }
+
+function adminData_(b) {
+  if (!verifyOwner_(b.idToken)) return json_({ ok: false, error: 'denied' });
+  var req = sheet_(REQ, REQ_HEADERS).getDataRange().getValues();
+  var people = [];
+  for (var i = 1; i < req.length; i++) {
+    var r = req[i]; if (!r[2]) continue;
+    people.push({ at: iso_(r[0]), name: String(r[1]), email: String(r[2]).toLowerCase(), note: String(r[3]), code: String(r[4]),
+                  status: String(r[5]), approvedAt: iso_(r[6]), memo: String(r[7]), donate: String(r[9]), amount: Number(r[10]) || 0, paidAt: iso_(r[11]) });
+  }
+  // Gộp nhật ký 90 ngày gần nhất: theo ngày, theo kho, theo thẻ, theo người
+  var log = sheet_(LOG, LOG_HEADERS), n = log.getLastRow() - 1, since = Date.now() - 90 * 864e5;
+  var days = {}, kho = {}, items = {}, users = {};
+  if (n > 0) log.getRange(2, 1, n, 5).getValues().forEach(function (r) {
+    var t = r[0] instanceof Date ? r[0].getTime() : Date.parse(r[0]); if (!(t >= since)) return;
+    var day = Utilities.formatDate(new Date(t), 'Asia/Ho_Chi_Minh', 'yyyy-MM-dd'), em = String(r[1]), ev = String(r[2]);
+    var d = days[day] = days[day] || { login: 0, kho: 0, item: 0, users: {} };
+    d[ev] = (d[ev] || 0) + 1; d.users[em] = 1;
+    var u = users[em] = users[em] || { logins: 0, events: 0, last: 0 };
+    if (ev === 'login') u.logins++; else u.events++;
+    if (t > u.last) u.last = t;
+    if (ev === 'kho') kho[r[3]] = (kho[r[3]] || 0) + 1;
+    if (ev === 'item') items[r[4]] = (items[r[4]] || 0) + 1;
+  });
+  Object.keys(days).forEach(function (k) { days[k].users = Object.keys(days[k].users).length; });
+  Object.keys(users).forEach(function (k) { users[k].last = new Date(users[k].last).toISOString(); });
+  return json_({ ok: true, now: new Date().toISOString(), people: people, days: days, kho: kho, items: items, users: users,
+                 sheet: sheetUrl_(), donateOpts: DONATE_OPTS });
+}
+
+function adminSet_(b) {
+  if (!verifyOwner_(b.idToken)) return json_({ ok: false, error: 'denied' });
+  var email = clean_(b.email, 120).toLowerCase(), status = b.status == null ? null : String(b.status);   // status null: chỉ sửa donate / ghi chú
+  if (status !== null && STATUSES.indexOf(status) < 0) return json_({ ok: false, error: 'invalid' });
+  if (b.donate != null && DONATE_OPTS.indexOf(String(b.donate)) < 0) return json_({ ok: false, error: 'invalid' });
+  var sh = sheet_(REQ, REQ_HEADERS), rows = sh.getDataRange().getValues();
+  for (var i = 1; i < rows.length; i++) {
+    if (String(rows[i][2]).toLowerCase() !== email) continue;
+    var row = i + 1, now = new Date();
+    if (status !== null) sh.getRange(row, 6).setValue(status);
+    if (status === 'Approved' && !rows[i][6]) sh.getRange(row, 7).setValue(now);
+    if (b.donate != null) {
+      sh.getRange(row, 10).setValue(String(b.donate));
+      var amt = Number(b.amount); if (isFinite(amt) && amt >= 0) sh.getRange(row, 11).setValue(Math.round(amt));
+      if (String(b.donate) === 'Đã nhận' && !rows[i][11]) sh.getRange(row, 12).setValue(now);
+    }
+    if (b.memo != null) sh.getRange(row, 8).setValue(safeCell_(clean_(b.memo, 300)));
+    return json_({ ok: true });
+  }
+  return json_({ ok: false, error: 'not_found' });
+}
+
+// Lịch sử của một người xem: 100 sự kiện gần nhất (đọc từ cuối tab Log)
+function adminUser_(b) {
+  if (!verifyOwner_(b.idToken)) return json_({ ok: false, error: 'denied' });
+  var email = clean_(b.email, 120).toLowerCase(), log = sheet_(LOG, LOG_HEADERS), n = log.getLastRow() - 1, out = [];
+  if (n > 0) {
+    var rows = log.getRange(2, 1, n, 5).getValues();
+    for (var i = rows.length - 1; i >= 0 && out.length < 100; i--) {
+      if (String(rows[i][1]).toLowerCase() === email) out.push({ at: iso_(rows[i][0]), ev: String(rows[i][2]), kho: String(rows[i][3]), item: String(rows[i][4]) });
+    }
+  }
+  return json_({ ok: true, events: out });
 }
 
 function readItems_() {
@@ -1031,4 +1144,48 @@ function buildDashboard_(sh, req) {
     .setBorder(true, true, true, true, false, false, C.purpleSoft, SpreadsheetApp.BorderStyle.SOLID_MEDIUM);
   sh.getRange('B51').setFormula('=HYPERLINK("#gid=' + req.getSheetId() + '","→ Mở danh sách yêu cầu (Requests)")')
     .setFontWeight('bold').setFontColor(C.purple);
+}
+
+/* ================== CHUYỂN SANG SUPABASE ==================
+ * Chạy hàm exportForSupabase() trong trình soạn Apps Script (chọn hàm → Run). Hàm tạo file "lanhmar-supabase-import.sql"
+ * trong Google Drive của bạn (ghi đường dẫn ở Nhật ký thực thi). Mở file, chép toàn bộ, dán vào Supabase → SQL Editor → Run.
+ * Gồm: toàn bộ người xem (tab Requests) và nhật ký truy cập (tab Log). Mục chia sẻ và kho mã hoá KHÔNG cần chuyển:
+ * bấm "Đồng bộ Storage" và đăng nhập Google trong Kho cá nhân là chúng tự lên Supabase. Chạy lại an toàn (bỏ qua email đã có). */
+function sqlText_(v) { return v === '' || v == null ? "''" : "'" + String(v).replace(/'/g, "''") + "'"; }
+function sqlTime_(v) {
+  var d = v instanceof Date ? v : (v ? new Date(v) : null);
+  return d && !isNaN(d.getTime()) ? "'" + d.toISOString() + "'" : 'null';
+}
+function exportForSupabase() {
+  var ss = SpreadsheetApp.openById(sheetId_()), reqSh = ss.getSheetByName(REQ);
+  if (!reqSh) throw new Error('Sheet "' + ss.getName() + '" không có tab ' + REQ + '. Kiểm tra SHEET_ID trong Thuộc tính tập lệnh.');
+  var req = reqSh.getDataRange().getValues(), rows = [];
+  // ghi rõ đã đọc Sheet nào, để biết vì sao file trống (sai SHEET_ID, sai project Apps Script, hay chưa ai đăng ký)
+  var out = ['-- Tạo bởi exportForSupabase() lúc ' + new Date().toISOString(),
+             '-- Sheet: "' + ss.getName() + '" · tab ' + REQ + ': ' + (req.length - 1) + ' dòng dưới tiêu đề', 'begin;'];
+  for (var i = 1; i < req.length; i++) {
+    var r = req[i], email = String(r[2] || '').trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) continue;
+    var status = STATUSES.indexOf(String(r[5])) >= 0 ? String(r[5]) : 'Pending';
+    var donate = DONATE_OPTS.indexOf(String(r[9])) >= 0 ? String(r[9]) : '';
+    var amount = Math.max(0, Math.round(Number(r[10]) || 0));
+    rows.push('(' + [sqlTime_(r[0]) === 'null' ? 'now()' : sqlTime_(r[0]), sqlText_(String(r[1] || email).slice(0, 80)), sqlText_(email),
+      sqlText_(String(r[3] || '').replace(/^'/, '').slice(0, 300)), sqlText_(String(r[4] || '').toUpperCase()), sqlText_(status), sqlTime_(r[6]),
+      sqlText_(String(r[7] || '').replace(/^'/, '').slice(0, 300)), sqlText_(donate), amount, sqlTime_(r[11])].join(', ') + ')');
+  }
+  for (var a = 0; a < rows.length; a += 500)
+    out.push('insert into public.viewers (created_at, name, email, note, code, status, approved_at, memo, donate, amount, paid_at) values\n' +
+             rows.slice(a, a + 500).join(',\n') + '\non conflict (email) do nothing;');
+  var log = ss.getSheetByName(LOG), ev = [];
+  if (log && log.getLastRow() > 1) log.getRange(2, 1, log.getLastRow() - 1, 5).getValues().forEach(function (r) {
+    var e = String(r[2]); if (['login', 'kho', 'item'].indexOf(e) < 0 || !r[1]) return;
+    ev.push('(' + [sqlTime_(r[0]), sqlText_(String(r[1]).toLowerCase()), sqlText_(e), sqlText_(r[3]), sqlText_(r[4])].join(', ') + ')');
+  });
+  for (var b = 0; b < ev.length; b += 500)
+    out.push('insert into public.events (at, email, ev, kho, item)\nselect v.at::timestamptz, v.email, v.ev, v.kho, v.item from (values\n' + ev.slice(b, b + 500).join(',\n') +
+             '\n) v(at, email, ev, kho, item)\nwhere not exists (select 1 from public.events e where e.email = v.email and e.at = v.at::timestamptz and e.ev = v.ev and e.kho = v.kho and e.item = v.item);');
+  out.push('commit;');
+  var f = DriveApp.createFile('lanhmar-supabase-import.sql', out.join('\n\n'), 'text/plain');
+  Logger.log('Đọc Sheet "' + ss.getName() + '": tab ' + REQ + ' có ' + (req.length - 1) + ' dòng → xuất ' + rows.length + ' người xem, ' + ev.length + ' dòng nhật ký. File: ' + f.getUrl());
+  return f.getUrl();
 }
