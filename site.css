@@ -322,30 +322,23 @@ dialog::backdrop{background:rgba(36,31,69,.6)}
   .lang button::after{inset:-14px -3px}  /* VI / EN đứng sát nhau: chỉ nới dọc để không đè lên nhau */
 }
 
-/* Trọng tâm: 4 mảng chính, chữ nằm sẵn trong HTML để người tuyển dụng và Google đọc được ngay */
-.focus{background:var(--paper)}
-.focus-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:26px}
-.focus-card{background:var(--lav-100);border:2px solid var(--lav-300);border-radius:22px;padding:20px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow)}
-.focus-card h3{margin:0;font-size:18px;color:var(--purple-deep)}
-.focus-card p{margin:0;font-size:14px}
-.focus-res{background:#fff;border:1px solid var(--lav-300);border-radius:14px;padding:10px 12px;font-weight:600}
-.focus-res b{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-text);margin-bottom:2px}
-.focus-act{margin-top:auto;display:flex;flex-wrap:wrap;gap:4px 10px}
-.focus-act .svc-link{padding:0}
-@media(max-width:900px){.focus-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:560px){.focus-grid{grid-template-columns:1fr}}
 
-/* Dự án dạng bento: ô đầu lớn, bên cạnh 2 ô rộng, rồi 4/4/4; mỗi ô có nhãn, dòng lợi ích, số nổi bật */
+/* Dự án dạng bento: ô đầu nằm ngang cả hàng (ảnh trái, chữ phải), rồi 6/6, rồi 4/4/4; mỗi ô có nhãn, dòng lợi ích, số nổi bật */
 .bento{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;margin-top:26px}
 .tile{all:unset;box-sizing:border-box;cursor:pointer;grid-column:span 4;display:flex;flex-direction:column;background:var(--ink);color:#fff;border:2px solid rgba(178,164,239,.24);border-radius:22px;overflow:hidden;box-shadow:var(--shadow);transition:transform .2s,border-color .2s}
 .tile:hover,.tile:focus-visible{transform:translateY(-4px);border-color:var(--purple-mid)}
 .tile:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
-/* shortcut: vị trí ô theo thứ tự (1 lớn, 2-3 rộng, từ ô 4 một phần ba hàng) cho 6 nhóm, đổi số nhóm thì xem lại các dòng này */
-#projects>.tile:nth-child(1){grid-column:span 7;grid-row:span 2}
-#projects>.tile:nth-child(2),#projects>.tile:nth-child(3){grid-column:span 5}
+/* shortcut: vị trí ô theo thứ tự (1 cả hàng, 2-3 nửa hàng, từ ô 4 một phần ba hàng) cho 6 nhóm, đổi số nhóm thì xem lại các dòng này */
+#projects>.tile:nth-child(1){grid-column:1/-1;flex-direction:row}
+#projects>.tile:nth-child(2),#projects>.tile:nth-child(3){grid-column:span 6}
 #projects>.tile:nth-child(n+4){grid-column:span 4}
 .tile-media{aspect-ratio:16/9;overflow:hidden;background:var(--lav-200)}
-#projects>.tile:nth-child(1) .tile-media{aspect-ratio:auto;flex:1;min-height:260px}
+#projects>.tile:nth-child(1) .tile-media{flex:0 0 56%;aspect-ratio:16/9}
+#projects>.tile:nth-child(1) .tile-body{flex:1;align-content:center;padding:26px 28px}
+/* ô hẹp (một phần ba hàng): số nổi bật xuống dưới chữ để chữ không bị ép thành cột hẹp */
+#projects>.tile:nth-child(n+4) .tile-body{grid-template-columns:1fr}
+#projects>.tile:nth-child(n+4) .tile-fact{text-align:left;display:flex;align-items:baseline;gap:8px}
+#projects>.tile:nth-child(n+4) .tile-fact span{max-width:none}
 .tile-media img{width:100%;height:100%;object-fit:cover;display:block}
 .tile-media.thumbs{display:flex;gap:10px;justify-content:center;padding:10px;background:linear-gradient(135deg,var(--purple-deep),var(--purple-mid))}
 .tile-media.thumbs img{width:auto;max-width:48%;aspect-ratio:9/16;border-radius:10px;border:2px solid rgba(255,255,255,.7)}
@@ -367,5 +360,5 @@ dialog::backdrop{background:rgba(36,31,69,.6)}
 .dfacts b{display:block;font-size:24px;font-weight:900;color:var(--purple-deep);line-height:1.1}
 .dfacts span{font-size:12px;font-weight:600;color:var(--ink-soft)}
 .dcta{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin:20px 0 0;padding-top:18px;border-top:2px dashed var(--lav-300);font-weight:700}
-@media(max-width:900px){.bento{grid-template-columns:repeat(2,1fr)}.bento>.tile,#projects>.tile:nth-child(n){grid-column:auto;grid-row:auto}#projects>.tile:nth-child(1){grid-column:1/-1}#projects>.tile:nth-child(1) .tile-media{aspect-ratio:16/9;flex:none;min-height:0}}
+@media(max-width:900px){.bento{grid-template-columns:repeat(2,1fr)}.bento>.tile,#projects>.tile:nth-child(n){grid-column:auto;grid-row:auto}#projects>.tile:nth-child(1){grid-column:1/-1;flex-direction:column}#projects>.tile:nth-child(1) .tile-media{flex:none}#projects>.tile:nth-child(1) .tile-body{padding:16px 18px 18px}}
 @media(max-width:560px){.bento{grid-template-columns:1fr}}

@@ -41,7 +41,7 @@ body::after{background:rgba(106,92,255,.40);opacity:.6;mix-blend-mode:screen}
 .progress{background:rgba(178,164,239,.18)}
 .progress i{background:linear-gradient(90deg,var(--purple-mid),var(--orange));box-shadow:0 0 12px rgba(255,122,69,.6)}
 /* không dùng backdrop-filter trên thẻ: nền sao vẽ lại liên tục nên mỗi khung phải làm mờ lại cả chục thẻ; nền đặc hơn thay cho kính mờ */
-.chapter,.card,.svc-col,.focus-card{background:rgba(24,19,64,.78);border-color:var(--gx-line);box-shadow:var(--gx-glow)}
+.chapter,.card,.svc-col{background:rgba(24,19,64,.78);border-color:var(--gx-line);box-shadow:var(--gx-glow)}
 .chapter .no{color:var(--gx-orange)}
 .chapter .org{color:var(--gx-muted)}
 .chapter li{color:var(--gx-text)}
@@ -114,9 +114,6 @@ body::before{animation-duration:140s}
 body::after{animation-duration:170s}
 @media (prefers-reduced-motion:reduce){.mo-flare,.cm-star,.cm-kv::after{animation:none}}
 
-.focus-card h3{color:#fff}
-.focus-res{background:rgba(255,255,255,.06);border-color:var(--gx-line)}
-.focus-res b{color:var(--gx-orange)}
 .tile-name p{color:var(--gx-text)}
 .tile-open{color:var(--gx-violet)}
 .tile:hover .tile-open{color:var(--gx-orange)}
