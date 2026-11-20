@@ -501,40 +501,40 @@
  "projects": [
   {
    "key": "website",
-   "title_vi": "Website Build",
-   "title_en": "Website Build",
+   "title_vi": "Website & SEO",
+   "title_en": "Website & SEO",
+   "tag_vi": "XÂY DỰNG · WEBSITE & SEO",
+   "tag_en": "BUILD · WEBSITE & SEO",
+   "line_vi": "Dựng website song ngữ, tối ưu on-page và nội dung để Google tìm thấy",
+   "line_en": "Bilingual websites, on-page optimization and content that Google can find",
+   "facts": [
+    {
+     "n": "+20%",
+     "t_vi": "lưu lượng tự nhiên Quý 4/2025",
+     "t_en": "organic traffic in Q4 2025"
+    },
+    {
+     "n": "+10%",
+     "t_vi": "lưu lượng Thuận Ý Bakery sau 3 tháng",
+     "t_en": "Thuận Ý Bakery traffic within 3 months"
+    },
+    {
+     "n": "Top 10",
+     "t_vi": "2 từ khoá trên Google",
+     "t_en": "2 keywords on Google"
+    },
+    {
+     "n": "3",
+     "t_vi": "website đã dựng và quản trị",
+     "t_en": "websites built and run"
+    }
+   ],
    "image": "assets/res/tool-ai-convert.jpg",
    "images": [
     "assets/res/tool-ai-convert.jpg",
     "assets/res/tool-drive-ebook-reader.jpg",
     "assets/img/work-thuanybakery.webp",
-    "assets/img/work-clbtalkshare.webp"
-   ],
-   "videos": [],
-   "desc_vi": "Dựng và quản trị website từ WordPress tới web tự viết: website CLB Talk & Share trên WordPress, thiết kế lại trải nghiệm website Thuận Ý Bakery (tăng 10% lưu lượng sau 3 tháng), và chính lanhmar.id.vn: song ngữ VI/EN, có công cụ AI Convert chạy ngay trên trình duyệt và extension Drive Ebook Reader.",
-   "desc_en": "Building and running websites, from WordPress to hand-coded: the Talk & Share Club site on WordPress, a UX redesign for Thuận Ý Bakery (+10% traffic within 3 months), and lanhmar.id.vn itself: bilingual VI/EN, with the in-browser AI Convert tool and the Drive Ebook Reader extension.",
-   "brief_vi": "Vai trò: Người dựng và quản trị website, từ cấu trúc, giao diện tới nội dung. \nCách làm: Dựng website CLB Talk & Share trên WordPress; phân tích hành trình khách và thiết kế lại giao diện cho Thuận Ý Bakery; tự xây lanhmar.id.vn bằng HTML, CSS, JavaScript cùng AI Agent (Claude), song ngữ VI/EN. \nSản phẩm: Website Talk & Share, giao diện mới của Thuận Ý Bakery, lanhmar.id.vn kèm công cụ AI Convert và extension Drive Ebook Reader. \nKết quả: Website Thuận Ý Bakery tăng 10% lưu lượng truy cập sau 3 tháng; website Talk & Share bàn giao đúng hạn.",
-   "brief_en": "Role: Built and ran the websites, from structure and layout to content. \nApproach: Built the Talk & Share Club site on WordPress; mapped the customer journey and redesigned the interface for Thuận Ý Bakery; hand-built lanhmar.id.vn in HTML, CSS and JavaScript with an AI Agent (Claude), bilingual VI/EN. \nOutput: The Talk & Share site, Thuận Ý Bakery's new interface, and lanhmar.id.vn with the AI Convert tool and the Drive Ebook Reader extension. \nResult: Thuận Ý Bakery's site grew traffic by 10% within 3 months; the Talk & Share site shipped on schedule.",
-   "slideCaptions_vi": [
-    "AI Convert trên lanhmar.id.vn: chuyển PDF, Word, Excel sang Markdown ngay trên trình duyệt",
-    "Extension Drive Ebook Reader: đọc PDF/EPUB lớn trên Google Drive không cần tải về",
-    "Thuận Ý Bakery: thiết kế lại giao diện theo hành trình mua hàng",
-    "CLB Talk & Share: website chính thức trên WordPress"
-   ],
-   "slideCaptions_en": [
-    "AI Convert on lanhmar.id.vn: PDF, Word, Excel to Markdown right in the browser",
-    "Drive Ebook Reader extension: read large PDF/EPUB files on Google Drive without downloading",
-    "Thuận Ý Bakery: interface redesigned around the buying journey",
-    "Talk & Share Club: the official WordPress site"
-   ],
-   "canvaUrls": []
-  },
-  {
-   "key": "seo",
-   "title_vi": "SEO",
-   "title_en": "SEO",
-   "image": "assets/img/proj-seo-1.jpg",
-   "images": [
+    "assets/img/work-clbtalkshare.webp",
     "assets/img/proj-seo-1.jpg",
     "assets/img/proj-seo-2.jpg",
     "assets/img/proj-seo-3.jpg",
@@ -542,11 +542,15 @@
     "assets/img/proj-seo-5.jpg"
    ],
    "videos": [],
-   "desc_vi": "Nghiên cứu từ khóa, thiết lập bộ từ khóa mục tiêu, kiểm tra on-page và lên outline nội dung chuẩn SEO cho nhiều ngành hàng khác nhau. Kết quả nổi bật: 2 từ khoá Top 10 Google, +20% lưu lượng tự nhiên trong Quý 4/2025.",
-   "desc_en": "Keyword research, target keyword-set building, on-page audits, and SEO content outlines across several product categories. Highlight: 2 keywords in Google's Top 10 and +20% organic traffic in Q4 2025.",
-   "brief_vi": "Đề bài: Nhiều website ngành hàng khác nhau cần bộ từ khóa mục tiêu rõ ràng để tăng khả năng được tìm thấy trên Google. \nCách làm: Nghiên cứu ý định tìm kiếm, xây bộ từ khóa mục tiêu theo từng ngành, rà soát on-page và lên outline nội dung chuẩn SEO. \nSản phẩm: Bộ từ khóa và outline nội dung sẵn sàng triển khai cho từng ngành hàng. \nKết quả: Tại H2 Global Media, đưa 2 từ khoá vào Top 10 và 3 từ khoá vào Top 100 Google, góp phần tăng 20% lưu lượng tự nhiên trong Quý 4/2025.",
-   "brief_en": "Brief: Several websites across different industries needed a clear target-keyword set to become more discoverable on Google. \nApproach: Researched search intent, built target keyword sets per industry, audited on-page SEO, and drafted SEO-ready content outlines. \nOutput: Keyword sets and content outlines ready to execute for each industry. \nResult: At H2 Global Media, ranked 2 keywords in Google's Top 10 and 3 in the Top 100, contributing to a 20% rise in organic traffic in Q4 2025.",
+   "desc_vi": "Dựng và quản trị website từ WordPress tới web tự viết: website CLB Talk & Share trên WordPress, thiết kế lại trải nghiệm website Thuận Ý Bakery (tăng 10% lưu lượng sau 3 tháng), và chính lanhmar.id.vn: song ngữ VI/EN, có công cụ AI Convert chạy ngay trên trình duyệt và extension Drive Ebook Reader. Nghiên cứu từ khóa, thiết lập bộ từ khóa mục tiêu, kiểm tra on-page và lên outline nội dung chuẩn SEO cho nhiều ngành hàng khác nhau. Kết quả nổi bật: 2 từ khoá Top 10 Google, +20% lưu lượng tự nhiên trong Quý 4/2025.",
+   "desc_en": "Building and running websites, from WordPress to hand-coded: the Talk & Share Club site on WordPress, a UX redesign for Thuận Ý Bakery (+10% traffic within 3 months), and lanhmar.id.vn itself: bilingual VI/EN, with the in-browser AI Convert tool and the Drive Ebook Reader extension. Keyword research, target keyword-set building, on-page audits, and SEO content outlines across several product categories. Highlight: 2 keywords in Google's Top 10 and +20% organic traffic in Q4 2025.",
+   "brief_vi": "▸ Website Build\nVai trò: Người dựng và quản trị website, từ cấu trúc, giao diện tới nội dung. \nCách làm: Dựng website CLB Talk & Share trên WordPress; phân tích hành trình khách và thiết kế lại giao diện cho Thuận Ý Bakery; tự xây lanhmar.id.vn bằng HTML, CSS, JavaScript cùng AI Agent (Claude), song ngữ VI/EN. \nSản phẩm: Website Talk & Share, giao diện mới của Thuận Ý Bakery, lanhmar.id.vn kèm công cụ AI Convert và extension Drive Ebook Reader. \nKết quả: Website Thuận Ý Bakery tăng 10% lưu lượng truy cập sau 3 tháng; website Talk & Share bàn giao đúng hạn.\n▸ SEO\nĐề bài: Nhiều website ngành hàng khác nhau cần bộ từ khóa mục tiêu rõ ràng để tăng khả năng được tìm thấy trên Google. \nCách làm: Nghiên cứu ý định tìm kiếm, xây bộ từ khóa mục tiêu theo từng ngành, rà soát on-page và lên outline nội dung chuẩn SEO. \nSản phẩm: Bộ từ khóa và outline nội dung sẵn sàng triển khai cho từng ngành hàng. \nKết quả: Tại H2 Global Media, đưa 2 từ khoá vào Top 10 và 3 từ khoá vào Top 100 Google, góp phần tăng 20% lưu lượng tự nhiên trong Quý 4/2025.",
+   "brief_en": "▸ Website Build\nRole: Built and ran the websites, from structure and layout to content. \nApproach: Built the Talk & Share Club site on WordPress; mapped the customer journey and redesigned the interface for Thuận Ý Bakery; hand-built lanhmar.id.vn in HTML, CSS and JavaScript with an AI Agent (Claude), bilingual VI/EN. \nOutput: The Talk & Share site, Thuận Ý Bakery's new interface, and lanhmar.id.vn with the AI Convert tool and the Drive Ebook Reader extension. \nResult: Thuận Ý Bakery's site grew traffic by 10% within 3 months; the Talk & Share site shipped on schedule.\n▸ SEO\nBrief: Several websites across different industries needed a clear target-keyword set to become more discoverable on Google. \nApproach: Researched search intent, built target keyword sets per industry, audited on-page SEO, and drafted SEO-ready content outlines. \nOutput: Keyword sets and content outlines ready to execute for each industry. \nResult: At H2 Global Media, ranked 2 keywords in Google's Top 10 and 3 in the Top 100, contributing to a 20% rise in organic traffic in Q4 2025.",
    "slideCaptions_vi": [
+    "AI Convert trên lanhmar.id.vn: chuyển PDF, Word, Excel sang Markdown ngay trên trình duyệt",
+    "Extension Drive Ebook Reader: đọc PDF/EPUB lớn trên Google Drive không cần tải về",
+    "Thuận Ý Bakery: thiết kế lại giao diện theo hành trình mua hàng",
+    "CLB Talk & Share: website chính thức trên WordPress",
     "Cào & liệt kê từ khóa ngành hàng \"máy lọc nước\", kèm dữ liệu lượng tìm kiếm",
     "Audit kỹ thuật SEO on-sitecho website Nội thất KDT",
     "Bộ từ khóa đã phân nhóm hoàn chỉnh kèm tổng lượng tìm kiếm và loại trang đích",
@@ -554,6 +558,10 @@
     "Outline bài viết SEO hoàn chỉnh - Bài đánh giá gói V-Sport của TV360"
    ],
    "slideCaptions_en": [
+    "AI Convert on lanhmar.id.vn: PDF, Word, Excel to Markdown right in the browser",
+    "Drive Ebook Reader extension: read large PDF/EPUB files on Google Drive without downloading",
+    "Thuận Ý Bakery: interface redesigned around the buying journey",
+    "Talk & Share Club: the official WordPress site",
     "Scraped and listed keywords for the \"water purifier\" category, with search-volume data",
     "Technical SEO audit for the KDT Furniture website",
     "Finalized, clustered keyword set with total search volume and matching page type",
@@ -564,43 +572,31 @@
   },
   {
    "key": "aiagent",
-   "title_vi": "AI Agent",
-   "title_en": "AI Agent",
+   "title_vi": "AI Automation",
+   "title_en": "AI Automation",
+   "tag_vi": "AI AUTOMATION · AGENT & CHATBOT",
+   "tag_en": "AI AUTOMATION · AGENTS & CHATBOTS",
+   "line_vi": "Claude viết và đăng content đúng brand; chatbot Zalo, Discord trả lời khách 24/7 từ dữ liệu riêng",
+   "line_en": "Claude writes and publishes on-brand content; Zalo and Discord chatbots answer customers 24/7 from your own data",
+   "facts": [
+    {
+     "n": "2",
+     "t_vi": "chatbot RAG: Zalo, Discord",
+     "t_en": "RAG chatbots: Zalo, Discord"
+    },
+    {
+     "n": "3",
+     "t_vi": "chế độ: làm việc, nghỉ, tự do",
+     "t_en": "modes: working, sleep, free"
+    }
+   ],
    "image": "assets/img/proj-aiagent-1.jpg",
    "images": [
     "assets/img/proj-aiagent-1.jpg",
     "assets/img/proj-aiagent-2.jpg",
     "assets/img/proj-aiagent-3.jpg",
     "assets/img/proj-aiagent-4.jpg",
-    "assets/img/proj-aiagent-5.jpg"
-   ],
-   "videos": [],
-   "desc_vi": "Ứng dụng AI Agent (Claude) vào quy trình marketing: tự sản xuất content on-brand, tự động đăng bài lên mạng xã hội, dựng Landing Page thu lead cho sự kiện CLB Talk & Share, và xây \"Live Artifact\" quản lý công việc cá nhân theo thời gian thực. Chính trang portfolio này cũng là một sản phẩm được xây dựng theo cách đó.",
-   "desc_en": "Applying an AI Agent (Claude) across the marketing workflow: producing on-brand content automatically, auto-publishing to social media, building a lead-gen landing page for a Talk & Share Club event, and building a real-time personal \"Live Artifact\" for task management. This very portfolio site is itself a product built the same way.",
-   "brief_vi": "Đề bài: Muốn ứng dụng AI vào công việc marketing thực tế thay vì chỉ dừng ở lý thuyết. \nCách làm: Dùng AI Agent (Claude) để tự sản xuất content on-brand, tự động đăng bài mạng xã hội, dựng Landing Page thu lead cho sự kiện CLB Talk & Share và xây \"Live Artifact\" quản lý công việc theo thời gian thực. \nSản phẩm: Chính trang portfolio này - được xây dựng theo đúng cách đó - là minh chứng sống động nhất.",
-   "brief_en": "Brief: Wanted to apply AI to real marketing work rather than just the theory. \nApproach: Used an AI Agent (Claude) to auto-produce on-brand content, auto-publish to social media, build a lead-gen landing page for a Talk & Share Club event, and build a real-time \"Live Artifact\" for task management. \nOutput: This very portfolio site - built the same way - is the clearest proof of it.",
-   "slideCaptions_vi": [
-    "Live Artifact - Bảng theo dõi công việc cá nhân theo thời gian thực xây bằng AI Agent",
-    "AI Agent hỗ trợ sản xuất content on-brand",
-    "Nội dung được tự động đăng lên Fanpage sau khi AI Agent sản xuất xong",
-    "Lên lịch & tự động đăng bài đa nền tảng qua Upload-Post",
-    "Landing Page thu lead cho hội thảo của CLB Talk & Share"
-   ],
-   "slideCaptions_en": [
-    "A real-time personal task dashboard - The \"Live Artifact\" built with an AI Agent",
-    "AI Agent producing on-brand content",
-    "Content auto-published to the Fanpage after the AI Agent finishes producing it",
-    "Scheduling and auto-publishing across platforms via Upload-Post",
-    "Lead-gen landing page for the Talk & Share Club seminar"
-   ],
-   "canvaUrls": []
-  },
-  {
-   "key": "aichatbot",
-   "title_vi": "AI Chatbot Suite (Zalo & Discord)",
-   "title_en": "AI Chatbot Suite (Zalo & Discord)",
-   "image": "assets/img/proj-aichatbot-1.jpg",
-   "images": [
+    "assets/img/proj-aiagent-5.jpg",
     "assets/img/proj-aichatbot-1.jpg",
     "assets/img/proj-aichatbot-2.jpg",
     "assets/img/proj-aichatbot-3.jpg",
@@ -609,11 +605,16 @@
     "assets/img/proj-aichatbot-6.jpg"
    ],
    "videos": [],
-   "desc_vi": "Gồm 2 chatbot tự build bằng n8n: (1) Zalo Chatbot - nạp dữ liệu đầu vào để chatbot truy xuất và trả lời chính xác khi được hỏi đúng phạm vi dữ liệu; các câu hỏi ngoài phạm vi được chuyển cho AI Agent (Google Gemini Flash) xử lý; vận hành và giám sát qua bảng điều khiển Telegram (đổi chế độ làm việc/nghỉ/tự do, xem lại các câu hỏi chuyên môn chưa truy xuất được dữ liệu để tự phản hồi). (2) Discord Chatbot - cùng cơ chế truy xuất dữ liệu (RAG) + AI Agent như Zalo Chatbot, xây dựng thêm chế độ quản trị nhóm cộng đồng Discord.",
-   "desc_en": "Two self-built chatbots on n8n: (1) Zalo Chatbot - ingests input data so the bot can retrieve and answer accurately within the data's scope; out-of-scope questions are routed to an AI Agent (Google Gemini Flash); operated and monitored through a Telegram control panel (switch between working/sleep/free mode, review unanswered domain questions to reply manually). (2) Discord Chatbot - the same RAG + AI Agent mechanism as the Zalo Chatbot, plus a Discord community-moderation mode.",
-   "brief_vi": "Đề bài: Cần một trợ lý ảo tự động phản hồi khách hàng/cộng đồng trên Zalo và Discord, vừa truy xuất đúng dữ liệu nội bộ vừa xử lý linh hoạt các câu hỏi ngoài phạm vi dữ liệu. Cách làm: Tự xây dựng 2 chatbot bằng n8n, tích hợp Google Gemini (AI Agent) và Supabase Vector Store để truy xuất dữ liệu (RAG), có bảng điều khiển qua Telegram/Discord để đổi chế độ hoạt động và xem câu hỏi tồn đọng. Sản phẩm: Zalo Chatbot trả lời tự động dựa trên dữ liệu đã nạp, câu hỏi ngoài phạm vi được AI Agent (Gemini Flash) xử lý; Discord Chatbot có thêm chế độ quản trị nhóm cộng đồng.",
-   "brief_en": "Brief: Needed a virtual assistant to automatically respond to customers/community on Zalo and Discord, retrieving accurate internal data while flexibly handling out-of-scope questions. Approach: Self-built 2 chatbots with n8n, integrating Google Gemini (AI Agent) and Supabase Vector Store for data retrieval (RAG), with a Telegram/Discord control panel to switch operating modes and review pending questions. Output: Zalo Chatbot auto-replies based on ingested data, with out-of-scope questions handled by an AI Agent (Gemini Flash); Discord Chatbot adds a community-moderation mode.",
+   "desc_vi": "Ứng dụng AI Agent (Claude) vào quy trình marketing: tự sản xuất content on-brand, tự động đăng bài lên mạng xã hội, dựng Landing Page thu lead cho sự kiện CLB Talk & Share, và xây \"Live Artifact\" quản lý công việc cá nhân theo thời gian thực. Chính trang portfolio này cũng là một sản phẩm được xây dựng theo cách đó. Gồm 2 chatbot tự build bằng n8n: (1) Zalo Chatbot - nạp dữ liệu đầu vào để chatbot truy xuất và trả lời chính xác khi được hỏi đúng phạm vi dữ liệu; các câu hỏi ngoài phạm vi được chuyển cho AI Agent (Google Gemini Flash) xử lý; vận hành và giám sát qua bảng điều khiển Telegram (đổi chế độ làm việc/nghỉ/tự do, xem lại các câu hỏi chuyên môn chưa truy xuất được dữ liệu để tự phản hồi). (2) Discord Chatbot - cùng cơ chế truy xuất dữ liệu (RAG) + AI Agent như Zalo Chatbot, xây dựng thêm chế độ quản trị nhóm cộng đồng Discord.",
+   "desc_en": "Applying an AI Agent (Claude) across the marketing workflow: producing on-brand content automatically, auto-publishing to social media, building a lead-gen landing page for a Talk & Share Club event, and building a real-time personal \"Live Artifact\" for task management. This very portfolio site is itself a product built the same way. Two self-built chatbots on n8n: (1) Zalo Chatbot - ingests input data so the bot can retrieve and answer accurately within the data's scope; out-of-scope questions are routed to an AI Agent (Google Gemini Flash); operated and monitored through a Telegram control panel (switch between working/sleep/free mode, review unanswered domain questions to reply manually). (2) Discord Chatbot - the same RAG + AI Agent mechanism as the Zalo Chatbot, plus a Discord community-moderation mode.",
+   "brief_vi": "▸ AI Agent\nĐề bài: Muốn ứng dụng AI vào công việc marketing thực tế thay vì chỉ dừng ở lý thuyết. \nCách làm: Dùng AI Agent (Claude) để tự sản xuất content on-brand, tự động đăng bài mạng xã hội, dựng Landing Page thu lead cho sự kiện CLB Talk & Share và xây \"Live Artifact\" quản lý công việc theo thời gian thực. \nSản phẩm: Chính trang portfolio này - được xây dựng theo đúng cách đó - là minh chứng sống động nhất.\n▸ AI Chatbot Suite (Zalo & Discord)\nĐề bài: Cần một trợ lý ảo tự động phản hồi khách hàng/cộng đồng trên Zalo và Discord, vừa truy xuất đúng dữ liệu nội bộ vừa xử lý linh hoạt các câu hỏi ngoài phạm vi dữ liệu. Cách làm: Tự xây dựng 2 chatbot bằng n8n, tích hợp Google Gemini (AI Agent) và Supabase Vector Store để truy xuất dữ liệu (RAG), có bảng điều khiển qua Telegram/Discord để đổi chế độ hoạt động và xem câu hỏi tồn đọng. Sản phẩm: Zalo Chatbot trả lời tự động dựa trên dữ liệu đã nạp, câu hỏi ngoài phạm vi được AI Agent (Gemini Flash) xử lý; Discord Chatbot có thêm chế độ quản trị nhóm cộng đồng.",
+   "brief_en": "▸ AI Agent\nBrief: Wanted to apply AI to real marketing work rather than just the theory. \nApproach: Used an AI Agent (Claude) to auto-produce on-brand content, auto-publish to social media, build a lead-gen landing page for a Talk & Share Club event, and build a real-time \"Live Artifact\" for task management. \nOutput: This very portfolio site - built the same way - is the clearest proof of it.\n▸ AI Chatbot Suite (Zalo & Discord)\nBrief: Needed a virtual assistant to automatically respond to customers/community on Zalo and Discord, retrieving accurate internal data while flexibly handling out-of-scope questions. Approach: Self-built 2 chatbots with n8n, integrating Google Gemini (AI Agent) and Supabase Vector Store for data retrieval (RAG), with a Telegram/Discord control panel to switch operating modes and review pending questions. Output: Zalo Chatbot auto-replies based on ingested data, with out-of-scope questions handled by an AI Agent (Gemini Flash); Discord Chatbot adds a community-moderation mode.",
    "slideCaptions_vi": [
+    "Live Artifact - Bảng theo dõi công việc cá nhân theo thời gian thực xây bằng AI Agent",
+    "AI Agent hỗ trợ sản xuất content on-brand",
+    "Nội dung được tự động đăng lên Fanpage sau khi AI Agent sản xuất xong",
+    "Lên lịch & tự động đăng bài đa nền tảng qua Upload-Post",
+    "Landing Page thu lead cho hội thảo của CLB Talk & Share",
     "Xây dựng workflow Zalo Chatbot trên n8n - truy xuất dữ liệu (RAG) và AI Agent Gemini",
     "Xây dựng workflow Discord Chatbot trên n8n - thêm chế độ quản trị nhóm cộng đồng",
     "Bảng điều khiển Discord Chatbot qua Telegram - đổi chế độ, xem câu hỏi tồn đọng",
@@ -622,6 +623,11 @@
     "Discord Chatbot trả lời câu hỏi trong kênh cộng đồng"
    ],
    "slideCaptions_en": [
+    "A real-time personal task dashboard - The \"Live Artifact\" built with an AI Agent",
+    "AI Agent producing on-brand content",
+    "Content auto-published to the Fanpage after the AI Agent finishes producing it",
+    "Scheduling and auto-publishing across platforms via Upload-Post",
+    "Lead-gen landing page for the Talk & Share Club seminar",
     "Zalo Chatbot workflow built on n8n - data retrieval (RAG) and Gemini AI Agent",
     "Discord Chatbot workflow built on n8n - adds a community-moderation mode",
     "Discord Chatbot control panel via Telegram - switch modes, view pending questions",
@@ -635,6 +641,22 @@
    "key": "community",
    "title_vi": "Community Builder",
    "title_en": "Community Builder",
+   "tag_vi": "CỘNG ĐỒNG · ĐANG LÀM",
+   "tag_en": "COMMUNITY · NOW",
+   "line_vi": "Giữ nhóm “Đi làm với AI” sống đều: duyệt bài, lớp học, sự kiện",
+   "line_en": "Keeping “Đi làm với AI” active: post review, classes and events",
+   "facts": [
+    {
+     "n": "50",
+     "t_vi": "người dự workshop 17/10/2026",
+     "t_en": "people at the 17 Oct 2026 workshop"
+    },
+    {
+     "n": "10/2026",
+     "t_vi": "bắt đầu cùng KesFlow",
+     "t_en": "started with KesFlow"
+    }
+   ],
    "image": "assets/img/events/workshop-di-lam-voi-ai-2026-10/01.webp",
    "images": [
     "assets/img/events/workshop-di-lam-voi-ai-2026-10/01.webp",
@@ -665,9 +687,139 @@
    "canvaUrls": []
   },
   {
+   "key": "performance",
+   "title_vi": "Performance & E-Commerce",
+   "title_en": "Performance & E-Commerce",
+   "tag_vi": "TĂNG TRƯỞNG · QUẢNG CÁO & SÀN",
+   "tag_en": "GROWTH · ADS & MARKETPLACES",
+   "line_vi": "Quảng cáo Facebook, TikTok, Google và vận hành gian hàng TikTok Shop, Shopee cho Upper Moodyz",
+   "line_en": "Facebook, TikTok and Google ads, plus TikTok Shop and Shopee stores for Upper Moodyz",
+   "facts": [
+    {
+     "n": "3",
+     "t_vi": "nền tảng quảng cáo: Facebook, TikTok, Google",
+     "t_en": "ad platforms: Facebook, TikTok, Google"
+    },
+    {
+     "n": "2",
+     "t_vi": "sàn: TikTok Shop, Shopee",
+     "t_en": "marketplaces: TikTok Shop, Shopee"
+    }
+   ],
+   "image": "assets/img/proj-performance-1.jpg",
+   "images": [
+    "assets/img/proj-performance-1.jpg",
+    "assets/img/proj-performance-5.jpg",
+    "assets/img/proj-performance-2.jpg",
+    "assets/img/proj-performance-3.jpg",
+    "assets/img/proj-performance-4.jpg",
+    "assets/img/proj-ecommerce-1.jpg",
+    "assets/img/proj-ecommerce-2.jpg"
+   ],
+   "videos": [],
+   "desc_vi": "Gồm 2 phần: (1) Quản trị Fanpage và tài nguyên quảng cáo (Facebook Ads, TikTok Ads) cho kênh Upper Moodyz; (2) Case study chạy Google Ads (Search, Performance Max) thực hiện trong khóa đào tạo Google Ads tại SEONGON Academy. Vận hành gian hàng TikTok Shop và Shopee cho Upper Moodyz Shop: tối ưu sản phẩm, quản lý danh mục và mã giảm giá, thiết lập quảng cáo trên sàn và theo dõi chỉ số đơn hàng.",
+   "desc_en": "Two parts: (1) Managing the Fanpage and ad resources (Facebook Ads, TikTok Ads) for the Upper Moodyz channel; (2) A Google Ads case study (Search, Performance Max) completed as part of the Google Ads training course at SEONGON Academy. Ran the Upper Moodyz Shop storefront on TikTok Shop and Shopee: product optimization, category and discount-code management, on-platform ad setup, and order-metric tracking.",
+   "brief_vi": "▸ Performance\nĐề bài: Kênh Upper Moodyz cần vận hành Fanpage và tài nguyên quảng cáo bài bản + Thực hành chạy Google Ads qua một khóa đào tạo chuyên sâu. Cách làm: (1) Quản trị Fanpage, thiết lập Facebook Ads & TikTok Ads cho Upper Moodyz; (2) Thực hiện case study Google Ads (Search, Performance Max) trong khóa đào tạo tại SEONGON Academy. Kết quả: Fanpage và quảng cáo của Upper Moodyz vận hành liên tục; hoàn thành case study Google Ads đạt kết quả tốt.\n▸ E-Commerce\nĐề bài: Gian hàng Upper Moodyz Shop cần vận hành ổn định trên 2 sàn TikTok Shop và Shopee. \nCách làm: Tối ưu sản phẩm, quản lý danh mục và mã giảm giá, thiết lập quảng cáo trên sàn, theo dõi chỉ số đơn hàng. \nSản phẩm: Gian hàng vận hành ổn định, liên tục trên cả 2 nền tảng.",
+   "brief_en": "▸ Performance\nBrief: Upper Moodyz channel needs to operate its Fanpage and advertising assets systematically + Gain hands-on experience running Google Ads through an intensive training course. Approach: (1) Managed the Fanpage, set up Facebook Ads & TikTok Ads for Upper Moodyz; (2) Executed a Google Ads case study (Search, Performance Max) during a training course at SEONGON Academy. Output: Upper Moodyz's Fanpage and ad campaigns operated continuously; completed the Google Ads case study with good results.\n▸ E-Commerce\nBrief: The Upper Moodyz Shop storefront needed stable operations across two marketplaces, TikTok Shop and Shopee. \nApproach: Optimized product listings, managed categories and discount codes, set up on-platform ads, and tracked order metrics. \nOutput: A storefront running steadily on both platforms.",
+   "slideCaptions_vi": [
+    "Quản trị Fanpage & Facebook Ads – Upper Moodyz",
+    "Quản lý TikTok Ads cho Upper Moodyz Store",
+    "Case study Google Ads (SEONGON) – Performance Max, tủ lạnh Smart Inverter",
+    "Case study Google Ads (SEONGON) – Search Ads, tủ lạnh LG Inverter",
+    "Case study Google Ads (SEONGON) – Search Ads, điều hoà Daikin",
+    "Gian hàng TikTok Shop - Upper Moodyz Store, quản lý sản phẩm và ưu đãi vận chuyển",
+    "Gian hàng Shopee - Upper Moodyz Shop"
+   ],
+   "slideCaptions_en": [
+    "Managing the Fanpage & Facebook Ads – Upper Moodyz",
+    "Managing TikTok Ads for Upper Moodyz Store",
+    "SEONGON Google Ads case study – Performance Max, Smart Inverter fridges",
+    "SEONGON Google Ads case study – Search Ads, LG Inverter fridge",
+    "SEONGON Google Ads case study – Search Ads, Daikin AC",
+    "Upper Moodyz Store's TikTok Shop storefront - product listings and shipping promotions",
+    "Upper Moodyz Shop's Shopee storefront"
+   ],
+   "canvaUrls": []
+  },
+  {
+   "key": "planning",
+   "title_vi": "Planning & Account",
+   "title_en": "Planning & Account",
+   "tag_vi": "CHIẾN LƯỢC · KẾ HOẠCH & TÀI TRỢ",
+   "tag_en": "STRATEGY · PLANS & SPONSORSHIP",
+   "line_vi": "Kế hoạch Trade Marketing, IMC và quản lý nhà tài trợ trọn vòng",
+   "line_en": "Trade marketing and IMC plans, plus end-to-end sponsor management",
+   "facts": [
+    {
+     "n": "+15%",
+     "t_vi": "hiệu suất vận hành dự án tài trợ",
+     "t_en": "operational efficiency on the sponsorship project"
+    },
+    {
+     "n": "2",
+     "t_vi": "bản kế hoạch hoàn chỉnh",
+     "t_en": "complete plans"
+    },
+    {
+     "n": "7",
+     "t_vi": "bước từ proposal tới trả quyền lợi",
+     "t_en": "steps from proposal to benefits"
+    }
+   ],
+   "image": "assets/img/proj-planning-1.jpg",
+   "images": [
+    "assets/img/proj-planning-1.jpg",
+    "assets/img/proj-planning-2.jpg",
+    "assets/img/proj-account-1.jpg",
+    "assets/img/proj-account-2.jpg",
+    "assets/img/proj-account-3.jpg"
+   ],
+   "videos": [
+    {
+     "url": "https://youtu.be/_8Hc-VjkDUk",
+     "thumb": "https://i.ytimg.com/vi/_8Hc-VjkDUk/hqdefault.jpg",
+     "label_vi": "Xem video tổng kết dự án Băng Ghi Hình",
+     "label_en": "Watch the Bang Ghi Hinh project wrap-up video"
+    }
+   ],
+   "desc_vi": "Xây dựng kế hoạch chiến lược marketing bài bản: (1) \"Trade Marketing Proposal\" cho BABÉ Laboratorios (Big Idea \"BABÉ – Điểm dừng cho da dầu mụn\"), vai trò Nhóm trưởng dẫn dắt nhóm 3 người; (2) \"IMC Plan\" cho bánh Karo Richy — kế hoạch truyền thông tích hợp thực hiện solo, từ market context đến content & KPI. Vai trò: Kết nối doanh nghiệp, đảm bảo quyền lợi nhà tài trợ. Quy trình: Project Proposal → Tìm nhà tài trợ → Gửi mail mời tài trợ → Đàm phán → Ký kết → Triển khai → Trả quyền lợi tài trợ (dự án \"Băng Ghi Hình\").",
+   "desc_en": "Built end-to-end strategic marketing plans: (1) A Trade Marketing Proposal for BABÉ Laboratorios (Big Idea: \"BABÉ – The Stop for Oily, Acne-Prone Skin\"), as Team Leader of a 3-person team; (2) A full Integrated Marketing Communications (IMC) Plan for Karo Richy crackers, completed solo end-to-end — from market context through content and KPIs. Role: Connecting sponsors and businesses, safeguarding sponsor benefits. Process: Project Proposal → Sponsor sourcing → Outreach emails → Negotiation → Contract signing → Execution → Sponsor benefit delivery (the \"Bang Ghi Hinh\" project).",
+   "brief_vi": "▸ Planning\nĐề bài: 2 bài toán chiến lược khác nhau — BABÉ Laboratorios cần Trade Marketing Proposal cho dòng sản phẩm da dầu mụn; Bánh Karo Richy cần một kế hoạch truyền thông tích hợp (IMC) hoàn chỉnh. Cách làm: (1) Làm Nhóm trưởng dẫn dắt nhóm 3 người xây Big Idea \"BABÉ – Điểm dừng cho da dầu mụn\"; (2) Tự thực hiện solo từ market context đến content & KPI. Sản phẩm: 2 bản kế hoạch hoàn chỉnh, sẵn sàng trình bày.\n▸ Account\nĐề bài: Dự án \"Băng Ghi Hình\" cần tài trợ và một người quản lý quan hệ nhà tài trợ chuyên nghiệp, xuyên suốt. \nCách làm: Project Proposal → Tìm nhà tài trợ → Gửi mail mời tài trợ → Đàm phán → Ký kết → Triển khai → Trả quyền lợi tài trợ. \nKết quả: Tối ưu quy trình vận hành, nâng hiệu suất lên 15%, hoàn thành toàn bộ hạng mục trước thời hạn.",
+   "brief_en": "▸ Planning\nBrief: Two distinct strategy challenges — a Trade Marketing Proposal for BABÉ Laboratorios' oily/acne-prone skin line, and a full Integrated Marketing Communications (IMC) plan for Karo Richy cakes. Approach: (1) Led a 3-person team as team lead to build the Big Idea \"BABÉ – A Stop for Oily, Acne-Prone Skin\"; (2) Built the IMC plan solo, from market context through content and KPIs. Output: Two complete, presentation-ready plans.\n▸ Account\nBrief: The \"Bang Ghi Hinh\" project needed sponsorship funding and one person to professionally own the sponsor relationship end to end. \nApproach: Project proposal → Sourcing sponsors → Outreach emails → Negotiation → Contract sign-off → Execution → Delivering sponsor benefits. \nResult: Streamlined the workflow, lifting operating efficiency by 15%, with every item delivered ahead of schedule.",
+   "slideCaptions_vi": [
+    "Trade Marketing Proposal - BABÉ Laboratorios",
+    "IMC Plan - Karo Richy",
+    "Hồ sơ dự án \"Băng Ghi Hình\" - Tài liệu giới thiệu dự án gửi nhà tài trợ",
+    "Email thư mời tài trợ gửi đến doanh nghiệp",
+    "Hợp đồng tài trợ đã ký kết với Công ty NET CORP (thương hiệu NET ENGLISH)",
+    "Xem video tổng kết dự án Băng Ghi Hình"
+   ],
+   "slideCaptions_en": [
+    "Trade Marketing Proposal - BABÉ Laboratorios",
+    "IMC Plan - Karo Richy",
+    "The \"Bang Ghi Hinh\" project proposal - The pitch deck sent to prospective sponsors",
+    "Sponsor-outreach email sent to businesses",
+    "Signed sponsorship contract with NET CORP (the NET ENGLISH brand)",
+    "Watch the Bang Ghi Hinh project wrap-up video"
+   ],
+   "canvaUrls": [
+    "https://canva.link/laboratorios-babe-tm-proposal",
+    "https://canva.link/karo-imc-plan",
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
    "key": "design",
-   "title_vi": "Design",
-   "title_en": "Design",
+   "title_vi": "Design & Edit",
+   "title_en": "Design & Edit",
+   "tag_vi": "SÁNG TẠO · THIẾT KẾ & VIDEO",
+   "tag_en": "CREATIVE · DESIGN & VIDEO",
+   "line_vi": "Ấn phẩm trên Canva và video ngắn TikTok, từ ý tưởng tới bản dựng hoàn chỉnh",
+   "line_en": "Canva visuals and short TikTok videos, from idea to final cut",
+   "facts": [],
    "image": "assets/img/proj-design-1.jpg",
    "images": [
     "assets/img/proj-design-1.jpg",
@@ -676,33 +828,6 @@
     "assets/img/proj-design-4.jpg",
     "assets/img/proj-design-5.jpg"
    ],
-   "videos": [],
-   "desc_vi": "Thiết kế ấn phẩm truyền thông trên Canva: poster sự kiện thể thao (Red Bull \"Dance Your Style\" - Vietnam vs Japan) và bộ ảnh collage chủ đề du lịch \"Việt Nam - Những chuyến đi...\" giới thiệu Hà Nội, Đà Nẵng, Sài Gòn.",
-   "desc_en": "Communication design work in Canva: a sports-event poster (Red Bull \"Dance Your Style\" - Vietnam vs Japan) and a travel-themed photo collage \"Vietnam - The Journeys...\" featuring Hà Nội, Đà Nẵng and Sài Gòn.",
-   "brief_vi": "Đề bài: Cần ấn phẩm truyền thông bắt mắt cho 2 chủ đề khác nhau - sự kiện thể thao và giới thiệu du lịch. \nCách làm: Lên bố cục, chọn tông màu và hình ảnh phù hợp từng chủ đề, thiết kế trên Canva. \nSản phẩm: Poster sự kiện Red Bull \"Dance Your Style\" (Vietnam vs Japan) và bộ ảnh collage du lịch giới thiệu Hà Nội, Đà Nẵng, Sài Gòn (TP. HCM).",
-   "brief_en": "Brief: Create eye-catching visuals for two very different themes - a sports event and a travel showcase. \nApproach: Shaped the layout, color palette and imagery to fit each theme, designed in Canva. \nOutput: A Red Bull \"Dance Your Style\" (Vietnam vs Japan) event poster and a travel photo-collage series introducing Ha Noi, Da Nang and Sai Gon (HCM City).",
-   "slideCaptions_vi": [
-    "Poster sự kiện thể thao Red Bull \"Dance Your Style\" (Vietnam vs Japan)",
-    "Ảnh bìa bộ collage du lịch \"Việt Nam – Những chuyến đi...\"",
-    "Banner Hà Nội",
-    "Banner Đà Nẵng",
-    "Banner Sài Gòn"
-   ],
-   "slideCaptions_en": [
-    "Sports-event poster for Red Bull \"Dance Your Style\" (Vietnam vs Japan)",
-    "Cover artwork for the travel collage series \"Vietnam – The Journeys...\"",
-    "Ha Noi banner",
-    "Da Nang banner",
-    "Sai Gon banner"
-   ],
-   "canvaUrls": []
-  },
-  {
-   "key": "edit",
-   "title_vi": "Edit",
-   "title_en": "Edit",
-   "image": "",
-   "images": [],
    "videos": [
     {
      "url": "https://www.tiktok.com/@hynone101/video/7630860174923697429?is_from_webapp=1&sender_device=pc",
@@ -717,139 +842,29 @@
      "label_en": "Watch \"Graduation Day\" on TikTok."
     }
    ],
-   "desc_vi": "Dựng và biên tập video ngắn cho kênh TikTok cá nhân, lên nội dung và chỉnh sửa video đều đặn cho kênh.",
-   "desc_en": "Shot and edited short-form videos for a personal TikTok channel, planning and cutting content on a regular cadence.",
-   "brief_vi": "Đề bài: Duy trì đều đặn nội dung video ngắn cho kênh TikTok cá nhân. Cách làm: Lên ý tưởng, quay và dựng theo lịch cố định. Sản phẩm: Các video \"Daily Vlog\", \"Graduation Day\".",
-   "brief_en": "Brief: Keep a personal TikTok channel posting short-form video on a steady cadence. Approach: Planned, shot and edited on a fixed schedule. Output: Videos like \"Daily Vlog\" and \"Graduation Day\".",
+   "desc_vi": "Thiết kế ấn phẩm truyền thông trên Canva: poster sự kiện thể thao (Red Bull \"Dance Your Style\" - Vietnam vs Japan) và bộ ảnh collage chủ đề du lịch \"Việt Nam - Những chuyến đi...\" giới thiệu Hà Nội, Đà Nẵng, Sài Gòn. Dựng và biên tập video ngắn cho kênh TikTok cá nhân, lên nội dung và chỉnh sửa video đều đặn cho kênh.",
+   "desc_en": "Communication design work in Canva: a sports-event poster (Red Bull \"Dance Your Style\" - Vietnam vs Japan) and a travel-themed photo collage \"Vietnam - The Journeys...\" featuring Hà Nội, Đà Nẵng and Sài Gòn. Shot and edited short-form videos for a personal TikTok channel, planning and cutting content on a regular cadence.",
+   "brief_vi": "▸ Design\nĐề bài: Cần ấn phẩm truyền thông bắt mắt cho 2 chủ đề khác nhau - sự kiện thể thao và giới thiệu du lịch. \nCách làm: Lên bố cục, chọn tông màu và hình ảnh phù hợp từng chủ đề, thiết kế trên Canva. \nSản phẩm: Poster sự kiện Red Bull \"Dance Your Style\" (Vietnam vs Japan) và bộ ảnh collage du lịch giới thiệu Hà Nội, Đà Nẵng, Sài Gòn (TP. HCM).\n▸ Edit\nĐề bài: Duy trì đều đặn nội dung video ngắn cho kênh TikTok cá nhân. Cách làm: Lên ý tưởng, quay và dựng theo lịch cố định. Sản phẩm: Các video \"Daily Vlog\", \"Graduation Day\".",
+   "brief_en": "▸ Design\nBrief: Create eye-catching visuals for two very different themes - a sports event and a travel showcase. \nApproach: Shaped the layout, color palette and imagery to fit each theme, designed in Canva. \nOutput: A Red Bull \"Dance Your Style\" (Vietnam vs Japan) event poster and a travel photo-collage series introducing Ha Noi, Da Nang and Sai Gon (HCM City).\n▸ Edit\nBrief: Keep a personal TikTok channel posting short-form video on a steady cadence. Approach: Planned, shot and edited on a fixed schedule. Output: Videos like \"Daily Vlog\" and \"Graduation Day\".",
    "slideCaptions_vi": [
+    "Poster sự kiện thể thao Red Bull \"Dance Your Style\" (Vietnam vs Japan)",
+    "Ảnh bìa bộ collage du lịch \"Việt Nam – Những chuyến đi...\"",
+    "Banner Hà Nội",
+    "Banner Đà Nẵng",
+    "Banner Sài Gòn",
     "Xem \"Daily Vlog\" trên TikTok.",
     "Xem \"Graduation Day\" trên TikTok."
    ],
    "slideCaptions_en": [
+    "Sports-event poster for Red Bull \"Dance Your Style\" (Vietnam vs Japan)",
+    "Cover artwork for the travel collage series \"Vietnam – The Journeys...\"",
+    "Ha Noi banner",
+    "Da Nang banner",
+    "Sai Gon banner",
     "Watch \"Daily Vlog\" on TikTok.",
     "Watch \"Graduation Day\" on TikTok."
    ],
    "canvaUrls": []
-  },
-  {
-   "key": "performance",
-   "title_vi": "Performance",
-   "title_en": "Performance",
-   "image": "assets/img/proj-performance-1.jpg",
-   "images": [
-    "assets/img/proj-performance-1.jpg",
-    "assets/img/proj-performance-5.jpg",
-    "assets/img/proj-performance-2.jpg",
-    "assets/img/proj-performance-3.jpg",
-    "assets/img/proj-performance-4.jpg"
-   ],
-   "videos": [],
-   "desc_vi": "Gồm 2 phần: (1) Quản trị Fanpage và tài nguyên quảng cáo (Facebook Ads, TikTok Ads) cho kênh Upper Moodyz; (2) Case study chạy Google Ads (Search, Performance Max) thực hiện trong khóa đào tạo Google Ads tại SEONGON Academy.",
-   "desc_en": "Two parts: (1) Managing the Fanpage and ad resources (Facebook Ads, TikTok Ads) for the Upper Moodyz channel; (2) A Google Ads case study (Search, Performance Max) completed as part of the Google Ads training course at SEONGON Academy.",
-   "brief_vi": "Đề bài: Kênh Upper Moodyz cần vận hành Fanpage và tài nguyên quảng cáo bài bản + Thực hành chạy Google Ads qua một khóa đào tạo chuyên sâu. Cách làm: (1) Quản trị Fanpage, thiết lập Facebook Ads & TikTok Ads cho Upper Moodyz; (2) Thực hiện case study Google Ads (Search, Performance Max) trong khóa đào tạo tại SEONGON Academy. Kết quả: Fanpage và quảng cáo của Upper Moodyz vận hành liên tục; hoàn thành case study Google Ads đạt kết quả tốt.",
-   "brief_en": "Brief: Upper Moodyz channel needs to operate its Fanpage and advertising assets systematically + Gain hands-on experience running Google Ads through an intensive training course. Approach: (1) Managed the Fanpage, set up Facebook Ads & TikTok Ads for Upper Moodyz; (2) Executed a Google Ads case study (Search, Performance Max) during a training course at SEONGON Academy. Output: Upper Moodyz's Fanpage and ad campaigns operated continuously; completed the Google Ads case study with good results.",
-   "slideCaptions_vi": [
-    "Quản trị Fanpage & Facebook Ads – Upper Moodyz",
-    "Quản lý TikTok Ads cho Upper Moodyz Store",
-    "Case study Google Ads (SEONGON) – Performance Max, tủ lạnh Smart Inverter",
-    "Case study Google Ads (SEONGON) – Search Ads, tủ lạnh LG Inverter",
-    "Case study Google Ads (SEONGON) – Search Ads, điều hoà Daikin"
-   ],
-   "slideCaptions_en": [
-    "Managing the Fanpage & Facebook Ads – Upper Moodyz",
-    "Managing TikTok Ads for Upper Moodyz Store",
-    "SEONGON Google Ads case study – Performance Max, Smart Inverter fridges",
-    "SEONGON Google Ads case study – Search Ads, LG Inverter fridge",
-    "SEONGON Google Ads case study – Search Ads, Daikin AC"
-   ],
-   "canvaUrls": []
-  },
-  {
-   "key": "account",
-   "title_vi": "Account",
-   "title_en": "Account",
-   "image": "assets/img/proj-account-1.jpg",
-   "images": [
-    "assets/img/proj-account-1.jpg",
-    "assets/img/proj-account-2.jpg",
-    "assets/img/proj-account-3.jpg"
-   ],
-   "videos": [
-    {
-     "url": "https://youtu.be/_8Hc-VjkDUk",
-     "thumb": "https://i.ytimg.com/vi/_8Hc-VjkDUk/hqdefault.jpg",
-     "label_vi": "Xem video tổng kết dự án Băng Ghi Hình",
-     "label_en": "Watch the Bang Ghi Hinh project wrap-up video"
-    }
-   ],
-   "desc_vi": "Vai trò: Kết nối doanh nghiệp, đảm bảo quyền lợi nhà tài trợ. Quy trình: Project Proposal → Tìm nhà tài trợ → Gửi mail mời tài trợ → Đàm phán → Ký kết → Triển khai → Trả quyền lợi tài trợ (dự án \"Băng Ghi Hình\").",
-   "desc_en": "Role: Connecting sponsors and businesses, safeguarding sponsor benefits. Process: Project Proposal → Sponsor sourcing → Outreach emails → Negotiation → Contract signing → Execution → Sponsor benefit delivery (the \"Bang Ghi Hinh\" project).",
-   "brief_vi": "Đề bài: Dự án \"Băng Ghi Hình\" cần tài trợ và một người quản lý quan hệ nhà tài trợ chuyên nghiệp, xuyên suốt. \nCách làm: Project Proposal → Tìm nhà tài trợ → Gửi mail mời tài trợ → Đàm phán → Ký kết → Triển khai → Trả quyền lợi tài trợ. \nKết quả: Tối ưu quy trình vận hành, nâng hiệu suất lên 15%, hoàn thành toàn bộ hạng mục trước thời hạn.",
-   "brief_en": "Brief: The \"Bang Ghi Hinh\" project needed sponsorship funding and one person to professionally own the sponsor relationship end to end. \nApproach: Project proposal → Sourcing sponsors → Outreach emails → Negotiation → Contract sign-off → Execution → Delivering sponsor benefits. \nResult: Streamlined the workflow, lifting operating efficiency by 15%, with every item delivered ahead of schedule.",
-   "slideCaptions_vi": [
-    "Hồ sơ dự án \"Băng Ghi Hình\" - Tài liệu giới thiệu dự án gửi nhà tài trợ",
-    "Email thư mời tài trợ gửi đến doanh nghiệp",
-    "Hợp đồng tài trợ đã ký kết với Công ty NET CORP (thương hiệu NET ENGLISH)",
-    "Xem video tổng kết dự án Băng Ghi Hình"
-   ],
-   "slideCaptions_en": [
-    "The \"Bang Ghi Hinh\" project proposal - The pitch deck sent to prospective sponsors",
-    "Sponsor-outreach email sent to businesses",
-    "Signed sponsorship contract with NET CORP (the NET ENGLISH brand)",
-    "Watch the Bang Ghi Hinh project wrap-up video"
-   ],
-   "canvaUrls": []
-  },
-  {
-   "key": "ecommerce",
-   "title_vi": "E-Commerce",
-   "title_en": "E-Commerce",
-   "image": "assets/img/proj-ecommerce-1.jpg",
-   "images": [
-    "assets/img/proj-ecommerce-1.jpg",
-    "assets/img/proj-ecommerce-2.jpg"
-   ],
-   "videos": [],
-   "desc_vi": "Vận hành gian hàng TikTok Shop và Shopee cho Upper Moodyz Shop: tối ưu sản phẩm, quản lý danh mục và mã giảm giá, thiết lập quảng cáo trên sàn và theo dõi chỉ số đơn hàng.",
-   "desc_en": "Ran the Upper Moodyz Shop storefront on TikTok Shop and Shopee: product optimization, category and discount-code management, on-platform ad setup, and order-metric tracking.",
-   "brief_vi": "Đề bài: Gian hàng Upper Moodyz Shop cần vận hành ổn định trên 2 sàn TikTok Shop và Shopee. \nCách làm: Tối ưu sản phẩm, quản lý danh mục và mã giảm giá, thiết lập quảng cáo trên sàn, theo dõi chỉ số đơn hàng. \nSản phẩm: Gian hàng vận hành ổn định, liên tục trên cả 2 nền tảng.",
-   "brief_en": "Brief: The Upper Moodyz Shop storefront needed stable operations across two marketplaces, TikTok Shop and Shopee. \nApproach: Optimized product listings, managed categories and discount codes, set up on-platform ads, and tracked order metrics. \nOutput: A storefront running steadily on both platforms.",
-   "slideCaptions_vi": [
-    "Gian hàng TikTok Shop - Upper Moodyz Store, quản lý sản phẩm và ưu đãi vận chuyển",
-    "Gian hàng Shopee - Upper Moodyz Shop"
-   ],
-   "slideCaptions_en": [
-    "Upper Moodyz Store's TikTok Shop storefront - product listings and shipping promotions",
-    "Upper Moodyz Shop's Shopee storefront"
-   ],
-   "canvaUrls": []
-  },
-  {
-   "key": "planning",
-   "title_vi": "Planning",
-   "title_en": "Planning",
-   "image": "assets/img/proj-planning-1.jpg",
-   "images": [
-    "assets/img/proj-planning-1.jpg",
-    "assets/img/proj-planning-2.jpg"
-   ],
-   "videos": [],
-   "desc_vi": "Xây dựng kế hoạch chiến lược marketing bài bản: (1) \"Trade Marketing Proposal\" cho BABÉ Laboratorios (Big Idea \"BABÉ – Điểm dừng cho da dầu mụn\"), vai trò Nhóm trưởng dẫn dắt nhóm 3 người; (2) \"IMC Plan\" cho bánh Karo Richy — kế hoạch truyền thông tích hợp thực hiện solo, từ market context đến content & KPI.",
-   "desc_en": "Built end-to-end strategic marketing plans: (1) A Trade Marketing Proposal for BABÉ Laboratorios (Big Idea: \"BABÉ – The Stop for Oily, Acne-Prone Skin\"), as Team Leader of a 3-person team; (2) A full Integrated Marketing Communications (IMC) Plan for Karo Richy crackers, completed solo end-to-end — from market context through content and KPIs.",
-   "brief_vi": "Đề bài: 2 bài toán chiến lược khác nhau — BABÉ Laboratorios cần Trade Marketing Proposal cho dòng sản phẩm da dầu mụn; Bánh Karo Richy cần một kế hoạch truyền thông tích hợp (IMC) hoàn chỉnh. Cách làm: (1) Làm Nhóm trưởng dẫn dắt nhóm 3 người xây Big Idea \"BABÉ – Điểm dừng cho da dầu mụn\"; (2) Tự thực hiện solo từ market context đến content & KPI. Sản phẩm: 2 bản kế hoạch hoàn chỉnh, sẵn sàng trình bày.",
-   "brief_en": "Brief: Two distinct strategy challenges — a Trade Marketing Proposal for BABÉ Laboratorios' oily/acne-prone skin line, and a full Integrated Marketing Communications (IMC) plan for Karo Richy cakes. Approach: (1) Led a 3-person team as team lead to build the Big Idea \"BABÉ – A Stop for Oily, Acne-Prone Skin\"; (2) Built the IMC plan solo, from market context through content and KPIs. Output: Two complete, presentation-ready plans.",
-   "slideCaptions_vi": [
-    "Trade Marketing Proposal - BABÉ Laboratorios",
-    "IMC Plan - Karo Richy"
-   ],
-   "slideCaptions_en": [
-    "Trade Marketing Proposal - BABÉ Laboratorios",
-    "IMC Plan - Karo Richy"
-   ],
-   "canvaUrls": [
-    "https://canva.link/laboratorios-babe-tm-proposal",
-    "https://canva.link/karo-imc-plan"
-   ]
   }
  ]
 }
