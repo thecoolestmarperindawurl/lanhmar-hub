@@ -84,5 +84,7 @@
   window.LMTour = { start };
   let seen = false; try { seen = localStorage.getItem("lm_tour") === "done"; } catch {}
   // chờ màn mở đầu (cosmos.js) chạy xong rồi mới hiện
-  if (!seen || /[?&]tour\b/.test(location.search)) setTimeout(start, 2800);
+  // có màn Big Bang (bigbang.js) thì đợi nó xong; không thì chờ màn mở đầu của cosmos.js
+  const go1 = () => document.documentElement.classList.contains("bb-hold") ? document.addEventListener("lm-intro-done", () => setTimeout(start, 900), { once: true }) : setTimeout(start, 2800);
+  if (!seen || /[?&]tour\b/.test(location.search)) go1();
 })();
