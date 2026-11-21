@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Source-hub — LANHMAR</title>
+<meta name="robots" content="noindex,nofollow,noarchive">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<meta name="theme-color" content="#0B0826">
+<link rel="stylesheet" href="kho.css?v=20261116b">
+<link rel="stylesheet" href="sky.css?v=20261118p">
+<link rel="stylesheet" href="storage-lms.css?v=20261121a">
+<style>
+  .sh-list{margin:0 26px 10px;padding-left:20px}.sh-list li{margin:0 0 6px}
+  .sh-md{margin:0 26px;white-space:pre-wrap;font:13px/1.55 ui-monospace,Consolas,monospace;background:#f4f3ff;border-radius:14px;padding:14px;max-height:50vh;overflow:auto}
+  .res-body>details{margin:18px 26px 0}.res-body>details>summary{cursor:pointer;font-weight:700}
+  .badge.partial{background:#FF7A45;color:#fff}.badge.failed{background:#b3261e;color:#fff}
+  .sh-quote{margin:0 26px 10px;padding:8px 14px;border-left:4px solid #FF7A45;font-style:italic}
+</style>
+</head>
+<body>
+<div class="marquee"><span>★ SOURCE-HUB ★ LANHMAR ★ SOURCE-HUB ★ LANHMAR ★ SOURCE-HUB ★ LANHMAR ★ SOURCE-HUB ★ LANHMAR</span></div>
+
+<section id="gate" class="lockbox">
+  <div class="lockcard wide">
+    <div class="st-lang" data-lm-lang></div>
+    <div class="kicker">★ Source-hub</div>
+    <h1 data-ih="h1">Kho <em>bài hay</em></h1>
+    <p data-i="gate_msg">Bài viết, video Lan Anh thấy hay: đã bóc tách, phân tích cách áp dụng và quy trình. Vào bằng email + mã truy cập Data Storage đã được duyệt.</p>
+    <form id="loginForm" autocomplete="off">
+      <label for="lEmail" data-i="f_lemail">Email đã đăng ký</label><input id="lEmail" type="email" maxlength="120" required>
+      <label for="lCode" data-i="f_code">Mã truy cập</label><input id="lCode" maxlength="20" required>
+      <p class="err" id="loginErr"></p>
+      <button class="btn primary" type="submit" id="loginBtn" data-i="login_btn">Vào xem</button>
+    </form>
+    <p style="margin-top:14px"><a class="btn" href="storage.html" data-i="get_code">Chưa có mã? Đăng ký ở Data Storage</a> <a class="btn" href="index.html">Portfolio</a></p>
+  </div>
+</section>
+
+<div id="app" class="lms" hidden>
+  <aside class="lms-side" id="lmsSide" aria-label="Source-hub">
+    <a class="lms-brand" href="index.html"><img src="assets/img/logo-lanhmar.webp" alt="LANHMAR"><span>Source-hub</span></a>
+    <div class="lms-user"><span class="lms-av" aria-hidden="true">★</span><p id="hello"></p></div>
+    <p class="lms-label" data-i="side_label">Nguồn</p>
+    <nav class="tabs" id="tabs"></nav>
+    <div class="lms-side-foot">
+      <div data-lm-lang></div>
+      <a class="btn back" href="storage.html">Data Storage</a>
+      <button class="btn" id="logout" data-i="logout">Thoát</button>
+    </div>
+  </aside>
+  <div class="lms-scrim" id="lmsScrim" hidden></div>
+  <div class="lms-main">
+    <header class="lms-top">
+      <button class="lms-burger" id="lmsBurger" type="button" aria-controls="lmsSide" aria-expanded="false">☰</button>
+      <nav class="lms-crumb" aria-label="breadcrumb"><span>Source-hub</span></nav>
+      <div class="bar"><input id="q" type="search" placeholder="Tìm bài…" data-ph="search"></div>
+    </header>
+    <section class="lms-head">
+      <div class="kicker">★ Source-hub</div>
+      <h1 data-ih="h1">Kho <em>bài hay</em></h1>
+      <div class="lms-stats" id="stats"></div>
+      <details class="lms-tagbox" id="tagBox"><summary data-i="tag_filter">Lọc theo thẻ</summary><div class="tags" id="tags"></div></details>
+    </section>
+    <main class="lms-content"><section class="grid" id="grid"></section></main>
+  </div>
+</div>
+
+<dialog id="resDlg" class="res-dlg"></dialog>
+<script src="lang.js?v=20261115a"></script>
+<script src="storage-config.js?v=20261121b"></script>
+<script src="backend.js?v=20261121b"></script>
+<script src="source-hub.js?v=20261121b"></script>
+<script src="sky-data.js?v=20261117a"></script>
+<script src="sky-astro.js?v=20261117a"></script>
+<script src="sky-holidays.js?v=20261118a"></script>
+<script src="galaxy.js?v=20261118s"></script>
+</body>
+</html>

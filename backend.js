@@ -22,7 +22,10 @@
     admin_user: (b) => ["admin_user", { p_email: b.email }],
     vault_get: () => ["vault_get", {}],
     vault_put: (b) => ["vault_put", { p_base_rev: Number(b.baseRev) || 0, p_vault: b.vault }],
-    sync: (b) => ["sync_items", { p_items: b.items || [] }]
+    sync: (b) => ["sync_items", { p_items: b.items || [] }],
+    // Source-hub (source-hub.html): chỉ có trên Supabase, không có nhánh Apps Script
+    sources_list: (b) => ["sources_list", { p_email: b.email, p_code: b.code }],
+    sources_get: (b) => ["sources_get", { p_email: b.email, p_code: b.code, p_id: b.id }]
   };
   const ownerOk = () => !!sess && sess.exp - 60000 > Date.now();
 
