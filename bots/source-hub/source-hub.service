@@ -1,0 +1,16 @@
+[Unit]
+Description=Source-hub Telegram bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=__USER__
+WorkingDirectory=__DIR__
+Environment=PATH=__PATH__
+ExecStart=/usr/bin/python3 __DIR__/bot.py
+Restart=always
+RestartSec=10
+MemoryMax=3G
+
+[Install]
+WantedBy=multi-user.target

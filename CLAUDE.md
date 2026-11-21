@@ -66,3 +66,7 @@ Giao diện Galaxy đồng bộ website, bố cục kiểu LMS: `storage-lms.css
 - Máy chủ: `backend.js` (`LMBackend.call`) chọn Supabase (`storage-backend/supabase.sql`, cấu hình `SUPABASE_URL`/`SUPABASE_ANON_KEY` trong `storage-config.js`) hoặc Apps Script (`Code.gs`) nếu chưa cấu hình. Thêm action mới thì thêm cả hàm SQL lẫn nhánh trong `Code.gs`. Quản trị chủ kho: `kho-admin.js` (thống kê, duyệt người xem, donate). Hướng dẫn: `storage-backend/SUPABASE.md`.
 - `sky.css` là phần CSS dùng chung của nền bầu trời (tách từ `galaxy.css`), nạp ở trang chủ, Cộng đồng, Storage, Kho.
 
+
+## Source-hub (`source-hub.html`, `bots/source-hub/`)
+
+Kho bài hay do bot Telegram Source-hub bóc tách (skill kes-extract-content) và phân tích; bảng Supabase `public.sources` + bảng giao việc giữa các bot `public.agent_tasks` (`storage-backend/source-hub.sql`). Người xem = người đã duyệt ở Data Storage (cùng email + mã, cùng khoá localStorage `lm-storage-login`), đọc qua `sources_list` / `sources_get` (chỉ có trên Supabase, không có nhánh Apps Script). Chữ giao diện song ngữ trong `STR` của `source-hub.js`. Bot chạy trên VPS, hướng dẫn trong `bots/source-hub/README.md`; Nomad (Zalo) giao việc bằng `/luubai <link>`.
