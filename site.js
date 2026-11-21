@@ -5,6 +5,8 @@ const safe = (u) => { const v = String(u ?? "").replace(/[\x00-\x1f]/g, "").trim
 const I18N = {
   vi: {
     don_h: "Ủng hộ Lan Anh để mở Storage", don_p: "Data Storage lưu các tài nguyên mình đã dùng, xây dựng và phát triển. Để mở truy cập, mình rất mong nhận một khoản ủng hộ nhỏ. Bạn đăng ký trước, hệ thống tạo mã QR VietQR có nội dung chuyển khoản riêng cho bạn, rồi mình duyệt.", don_btn: "Đăng ký và nhận mã QR →", don_owner: "Mình là chủ kho:", don_owner_a: "vào Kho cá nhân", close: "Đóng",
+    ha_k: "Kho tài liệu chia sẻ", ha_open: "Open Storage", ha_open_s: "Vào kho tool & tài liệu", ha_reg: "Đăng ký", ha_reg_s: "Xin quyền xem kho",
+    ha_login: "Đăng nhập", ha_login_s: "Đã có mã truy cập", ha_don: "Donate", ha_don_s: "Ủng hộ Lan Anh",
     nav_services: "Dịch vụ", svc_k: "DỊCH VỤ", svc_h: "Mình có thể đồng hành cùng bạn ở những việc này.", svc_p: "Chọn mảng bạn cần, mình bắt đầu từ bối cảnh của bạn. Mỗi mảng đều có dự án thật để xem.",
     svc_not: "Chưa thấy đúng nhu cầu?", svc_ask: "Nhắn mình →", svc_view: "Xem dự án →",
     title: "LANHMAR — Dương Thị Lan Anh | Digital Marketer", foot: "© 2026 Dương Thị Lan Anh — LANHMAR", photo_alt: "Dương Thị Lan Anh",
@@ -17,6 +19,8 @@ const I18N = {
     edu: "Học vấn", phone: "Điện thoại / Zalo", reveal: "Bấm để hiện số", copy: "COPY", copied: "ĐÃ COPY", s1: "Khoá luận tốt nghiệp", s2: "Tăng lưu lượng truy cập", s3: "Mảng thực hành", s4: "Chứng chỉ & khoá học", plan: "Xem kế hoạch đầy đủ trên Canva" },
   en: {
     don_h: "Support Lan Anh to open the Storage", don_p: "Data Storage holds the resources I've used, built and developed. To get access, I'd really appreciate a small contribution. Sign up first, the system creates a VietQR code with a transfer note unique to you, then I approve.", don_btn: "Sign up and get the QR code →", don_owner: "I own this library:", don_owner_a: "open my personal library", close: "Close",
+    ha_k: "Shared library", ha_open: "Open Storage", ha_open_s: "Tools & resources", ha_reg: "Sign up", ha_reg_s: "Request access",
+    ha_login: "Log in", ha_login_s: "I have an access code", ha_don: "Donate", ha_don_s: "Support Lan Anh",
     nav_services: "Services", svc_k: "SERVICES", svc_h: "Where I can work alongside you.", svc_p: "Pick the area you need and I'll start from your context. Every area has real projects to look at.",
     svc_not: "Don't see your need?", svc_ask: "Message me →", svc_view: "See projects →",
     title: "LANHMAR — Lana Duong | Digital Marketer", foot: "© 2026 Lana Duong — LANHMAR", photo_alt: "Lana Duong",
@@ -272,5 +276,13 @@ document.addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(fa
 document.addEventListener("click", (e) => { if (!e.target.closest(".pill-nav")) setMenu(false); });
 renderStatic();
 
-/* Open Storage: hành tinh bay tới rồi vào trang khoá Kho cá nhân (kho.html) — xem planet-warp.js.
-   Hộp #donDlg trong index.html hiện không còn nút nào mở. */
+/* Khối Data Storage trong banner (#heroAccess): Open Storage → hành tinh bay tới kho.html (planet-warp.js, data-warp);
+   Đăng ký / Đăng nhập → storage.html#register / #login; Donate → hộp #donDlg (các bước ủng hộ + nút đăng ký nhận mã QR). */
+{
+  const dd = document.getElementById("donDlg"), db = document.getElementById("haDonate");
+  if (dd && db) {
+    db.addEventListener("click", () => { document.getElementById("donBox").innerHTML = window.donateHtml ? window.donateHtml({}) : ""; dd.showModal(); });
+    document.getElementById("donX")?.addEventListener("click", () => dd.close());
+    dd.addEventListener("click", (e) => { if (e.target === dd) dd.close(); }); // bấm ra ngoài hộp để đóng
+  }
+}

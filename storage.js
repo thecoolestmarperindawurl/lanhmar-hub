@@ -82,7 +82,7 @@ function setMode(m) {
 document.querySelector(".seg").addEventListener("click", (e) => { const b = e.target.closest("[data-mode]"); if (b) { $("#regDone").hidden = true; setMode(b.dataset.mode); } });
 
 applyLang();
-setMode("register");
+setMode(location.hash === "#login" ? "login" : "register"); // trang chủ: ô Đăng ký / Đăng nhập trong banner
 if (!API) {
   $("#gateMsg").textContent = S("gate_off");
   $("#regForm").hidden = true; $("#donHere").hidden = true; document.querySelector(".seg").hidden = true;
