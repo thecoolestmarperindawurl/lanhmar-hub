@@ -107,7 +107,7 @@ function open(id) {
 }
 $("#resDlg").addEventListener("click", (e) => { if (e.target.id === "resDlg") e.target.close(); });
 $("#resDlg").addEventListener("close", () => history.replaceState(null, "", location.pathname + location.search));
-function openFromHash() { const id = location.hash.slice(1); if (id) open(id); }
+function openFromHash() { const id = location.hash.slice(1); if (/^[0-9a-f-]{36}$/i.test(id)) open(id); } // chỉ nhận mã bài (uuid) từ link
 
 document.addEventListener("click", (e) => {
   const t = e.target;
