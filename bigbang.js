@@ -56,6 +56,43 @@
   logo.onerror = () => finish();
   logo.src = "assets/img/logo-lanhmar.webp";
 
+  // Ranh bật ra từ giữa logo, vọt lên rồi rơi xuống chỗ đậu #ranhDock (tour.js, chỉ có ở trang chủ).
+  // Đường bay mượt nhờ tách 3 lớp, mỗi lớp chỉ 2–3 khung hình với easing riêng (chạy trên compositor, không phụ thuộc canvas):
+  //   lớp ngoài = đi ngang đều · lớp giữa = lên chậm dần rồi rơi nhanh dần (trọng lực) · ảnh = bật ra, nghiêng nhẹ, nhỏ dần về cỡ nút.
+  let flyer = null;
+  function launchRanh() {
+    const dock = window.RanhDock && window.RanhDock.el; if (!dock || flyer) return;
+    // Chỗ đậu tính theo kích thước thật của nút (lúc này nút còn thu nhỏ để ẩn nên không dùng getBoundingClientRect),
+    // trừ sẵn bề ngang thanh cuộn: màn tan xong trang mới có thanh cuộn, nút dời sang trái đúng bằng chừng đó.
+    const probe = document.createElement("div");
+    probe.style.cssText = "position:absolute;top:-99px;width:60px;height:60px;overflow:scroll;visibility:hidden";
+    document.body.appendChild(probe); const sb = probe.offsetWidth - probe.clientWidth; probe.remove();
+    const cs = getComputedStyle(dock), dw = dock.offsetWidth || 76, dh = dock.offsetHeight || 76;
+    const d = { left: innerWidth - sb - parseFloat(cs.right) - dw, top: innerHeight - parseFloat(cs.bottom) - dh };
+    const s = 88, x0 = W / 2 - s / 2, y0 = H / 2 - s / 2 - 6;
+    const tx = d.left + dw / 2 - s / 2, ty = d.top + dh / 2 - s / 2, sc = dw / s;
+    const peak = Math.min(150, y0 - 40), POP = 420, FLY = 1050; // đỉnh cú nhảy (px phía trên điểm xuất phát), thời gian (ms)
+    flyer = document.createElement("div"); flyer.className = "bb-ranh";
+    flyer.innerHTML = `<div class="bb-ranh-y"><img src="assets/img/mascot/ranh-wave.webp" alt="" width="${s}" height="${s}"></div>`;
+    flyer.style.transform = `translateX(${x0}px)`;
+    const yEl = flyer.firstChild, img = yEl.firstChild;
+    yEl.style.transform = `translateY(${y0}px)`;
+    document.body.appendChild(flyer);
+    // 1. bật ra khỏi logo
+    img.animate([{ transform: "scale(0)" }, { transform: "scale(1.15)", offset: 0.65 }, { transform: "scale(1)" }],
+      { duration: POP, easing: "cubic-bezier(.2,.8,.3,1)", fill: "forwards" });
+    // 2. bay: ngang đều, dọc theo trọng lực (lên: ease-out, xuống: ease-in), ảnh nghiêng nhẹ rồi thẳng lại và nhỏ dần
+    const o = { delay: POP, duration: FLY, fill: "forwards" };
+    flyer.animate([{ transform: `translateX(${x0}px)` }, { transform: `translateX(${tx}px)` }], { ...o, easing: "cubic-bezier(.35,.1,.55,1)" });
+    yEl.animate([
+      { transform: `translateY(${y0}px)`, easing: "cubic-bezier(.33,.66,.66,1)" },   // lên, chậm dần
+      { transform: `translateY(${y0 - peak}px)`, offset: 0.3, easing: "cubic-bezier(.33,0,.66,.33)" }, // rơi, nhanh dần
+      { transform: `translateY(${ty}px)` }], o);
+    const fly = img.animate([
+      { transform: "scale(1) rotate(0deg)" }, { transform: `scale(${(1 + sc) / 2}) rotate(-12deg)`, offset: 0.3 },
+      { transform: `scale(${sc}) rotate(8deg)`, offset: 0.85 }, { transform: `scale(${sc}) rotate(0deg)` }], { ...o, easing: "ease-in-out" });
+    fly.finished.then(() => { window.RanhDock.land(); flyer.remove(); }, () => {}); // nút hiện đúng chỗ, đúng cỡ trong cùng khung hình
+  }
   function reveal() {
     if (revealed) return; revealed = true;
     root.classList.remove("bb-hold");
@@ -129,6 +166,7 @@
         ctx.fillRect(x, y, sz, sz);
       }
     }
+    if (t > HOLD + 120 && ready) launchRanh();
     if (t > OUT) reveal();
     if (t > END) return finish();
     requestAnimationFrame(frame);

@@ -70,7 +70,7 @@
 
   // bấm Open Storage: bay tới rồi vào kho.html
   document.addEventListener("click", (e) => {
-    const a = e.target.closest("a.top-storage"); if (!a) return;
+    const a = e.target.closest("a.top-storage, a[data-warp]"); if (!a) return;
     if (e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || reduce) return;
     e.preventDefault();
     window.planetWarp(a).then(() => { try { sessionStorage.setItem("pw-arrive", "1"); } catch {} location.href = a.href; });

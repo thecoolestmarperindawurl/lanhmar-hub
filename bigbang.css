@@ -2,9 +2,9 @@
 html.bb-hold{background:#05030F;overflow:hidden}
 html.bb-hold body{visibility:hidden}
 html.bb-hold *,html.bb-hold *::before,html.bb-hold *::after{animation-play-state:paused!important}
-.bb{position:fixed;inset:0;z-index:2147483000;visibility:visible;cursor:pointer;background:radial-gradient(70% 60% at 50% 50%,#170F45 0%,#08061C 60%,#05030F 100%);transition:opacity .8s ease,filter .8s ease}
+.bb{position:fixed;inset:0;z-index:2147483000;visibility:visible;cursor:pointer;background:radial-gradient(70% 60% at 50% 50%,#170F45 0%,#08061C 60%,#05030F 100%);transition:opacity .8s ease}
 .bb canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-.bb.out{opacity:0;filter:blur(6px);pointer-events:none}
+.bb.out{opacity:0;pointer-events:none} /* chỉ mờ dần: nhoè cả màn hình rất nặng, làm Ranh bay bị giật */
 .bb-skip{position:absolute;right:20px;bottom:20px;font:700 12.5px Montserrat,system-ui,sans-serif;color:#B2A4EF;background:rgba(255,255,255,.06);border:1px solid rgba(178,164,239,.3);border-radius:999px;padding:8px 16px;cursor:pointer}
 .bb-skip:hover{color:#fff;background:rgba(255,255,255,.12)}
 .bb-skip:focus-visible{outline:3px solid #FF7A45;outline-offset:2px}
